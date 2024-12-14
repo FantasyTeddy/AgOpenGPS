@@ -53,10 +53,6 @@
     <ApplicationIcon>AgIO_ico.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Keypad, Version=5.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\References\Keypad.dll</HintPath>
-    </Reference>
     <Reference Include="RepeatButtonControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\References\RepeatButtonControl.dll</HintPath>
@@ -388,6 +384,10 @@
     <ProjectReference Include="..\..\AgLibrary\AgLibrary.csproj">
       <Project>{692b4970-37f1-4f02-8f7f-a514283fc399}</Project>
       <Name>AgLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Keypad\Keypad.csproj">
+      <Project>{f1053bac-22c7-4e6f-a3ea-cc1e1fba9cb0}</Project>
+      <Name>Keypad</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
