@@ -57,16 +57,16 @@ namespace AgOpenGPS
                     {
                         minDist = temp;
                         place = i;
-                    }                    
+                    }
 
                     //load up the listview
-                    string[] fieldNames = { temp.ToString("#######").PadLeft(10),data[0].Trim(), data[1].Trim(), 
+                    string[] fieldNames = { temp.ToString("#######").PadLeft(10),data[0].Trim(), data[1].Trim(),
                                                     data[2].Trim(), data[3].Trim(), data[4].Trim() };
                     itm = new ListViewItem(fieldNames);
                     lvLines.Items.Add(itm);
                 }
 
-                string [] dataM = dataList[place].Split(',');
+                string[] dataM = dataList[place].Split(',');
                 tboxMount.Text = dataM[0];
             }
             this.chName.Width = 250;
@@ -74,7 +74,7 @@ namespace AgOpenGPS
 
         private void btnSite_Click(object sender, EventArgs e)
         {
-             Process.Start(site);
+            Process.Start(site);
         }
 
         private void button1_Click(object sender, EventArgs e)
