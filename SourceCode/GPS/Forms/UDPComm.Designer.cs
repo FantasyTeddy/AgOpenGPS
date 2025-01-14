@@ -9,6 +9,8 @@ using System.Xml.Linq;
 using AgOpenGPS.Culture;
 using System.Text;
 using AgLibrary.Logging;
+using AgLibrary.Communication;
+using System.Runtime.Serialization;
 
 namespace AgOpenGPS
 {
@@ -32,6 +34,15 @@ namespace AgOpenGPS
 
         private void ReceiveFromAgIO(byte[] data)
         {
+            try
+            {
+                var message = AgLibrary.Communication.Message.Deserialize(data);
+            }
+            catch (SerializationException ex)
+            {
+                Log.EventWriter($"Failed to deserialize message ({ex.Message})");
+            }
+
             if (data.Length > 4 && data[0] == 0x80 && data[1] == 0x81)
             {
                 int Length = Math.Max((data[4]) + 5, 5);
@@ -395,7 +406,7 @@ namespace AgOpenGPS
         }
 
         //for moving and sizing borderless window
-        protected override void WndProc(ref Message m)
+        protected override void WndProc(ref System.Windows.Forms.Message m)
         {
             const int RESIZE_HANDLE_SIZE = 7;
 
@@ -455,7 +466,7 @@ namespace AgOpenGPS
 
         #region keystrokes
         //keystrokes for easy and quick startup
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, Keys keyData)
         {
             if ((char)keyData == hotkeys[0]) //autosteer button on off
             {
