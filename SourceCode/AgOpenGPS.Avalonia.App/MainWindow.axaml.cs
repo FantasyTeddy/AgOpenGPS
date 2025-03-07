@@ -1,6 +1,6 @@
-﻿using System.Windows;
+using Avalonia.Controls;
 
-namespace AgOpenGPS.WpfApp
+namespace AgOpenGPS.Avalonia.App
 {
     public partial class MainWindow : Window
     {
