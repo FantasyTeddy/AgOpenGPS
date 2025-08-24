@@ -564,4 +564,10 @@
   <data name="gsAOGMenu" xml:space="preserve">
     <value>Меню AOG</value>
   </data>
+  <data name="gsAPlus" xml:space="preserve">
+    <value>A+</value>
+  </data>
+  <data name="gsAckermann" xml:space="preserve">
+    <value>Акерманн</value>
+  </data>
 </root>
