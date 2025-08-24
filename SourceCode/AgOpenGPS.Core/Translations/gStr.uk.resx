@@ -585,4 +585,57 @@
   <data name="gsAlpha" xml:space="preserve">
     <value>Альфа</value>
   </data>
+  <data name="gsAntennaHeight" xml:space="preserve">
+    <value>Висота антени</value>
+  </data>
+  <data name="gsAntennaOffset" xml:space="preserve">
+    <value>Зсув антени</value>
+  </data>
+  <data name="gsApplied" xml:space="preserve">
+    <value>Застосовано</value>
+  </data>
+  <data name="gsAquire" xml:space="preserve">
+    <value>Отримати</value>
+  </data>
+  <data name="gsAquireDescription" xml:space="preserve">
+    <value>Отримання = Фактор * Утримання</value>
+  </data>
+  <data name="gsAquireFactor" xml:space="preserve">
+    <value>Фактор придбання</value>
+  </data>
+  <data name="gsArrangeText" xml:space="preserve">
+    <value>Торкніться кнопок ліворуч, які ви хочете відобразити в меню (права сторона).
+
+Порядок їх натискання буде таким, у якому вони відображатимуться в меню знизу вгору.</value>
+  </data>
+  <data name="gsAttachmentStyle" xml:space="preserve">
+    <value>Стиль вкладення</value>
+  </data>
+  <data name="gsAuto" xml:space="preserve">
+    <value>Авто</value>
+  </data>
+  <data name="gsAutoOffAgIO" xml:space="preserve">
+    <value>Автоматичне вимкнення AgIO</value>
+  </data>
+  <data name="gsAutoStartAgIO" xml:space="preserve">
+    <value>Автоматичний запуск AgIO</value>
+  </data>
+  <data name="gsAutoSwitchDualFix" xml:space="preserve">
+    <value>Автоматичне подвійне виправлення &lt;&gt;</value>
+  </data>
+  <data name="gsAutoSwitchDualFixSpeed" xml:space="preserve">
+    <value>Швидкість перемикання (км/год)</value>
+  </data>
+  <data name="gsBackground" xml:space="preserve">
+    <value>Передісторія</value>
+  </data>
+  <data name="gsBottomMenu" xml:space="preserve">
+    <value>Нижнє меню</value>
+  </data>
+  <data name="gsBrightness" xml:space="preserve">
+    <value>Яскравість</value>
+  </data>
+  <data name="gsBuild" xml:space="preserve">
+    <value>Збірка</value>
+  </data>
 </root>
