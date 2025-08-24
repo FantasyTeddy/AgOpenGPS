@@ -555,4 +555,13 @@
   <data name="v_AboutIntro" xml:space="preserve">
     <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
   </data>
+  <data name="gsABDraw" xml:space="preserve">
+    <value>Намалюйте AB - Клацніть 2 точки на межі, щоб почати</value>
+  </data>
+  <data name="gsADConverter" xml:space="preserve">
+    <value>Конвертер реклами</value>
+  </data>
+  <data name="gsAOGMenu" xml:space="preserve">
+    <value>Меню AOG</value>
+  </data>
 </root>
