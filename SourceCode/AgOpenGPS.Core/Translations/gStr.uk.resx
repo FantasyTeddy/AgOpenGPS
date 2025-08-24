@@ -570,4 +570,19 @@
   <data name="gsAckermann" xml:space="preserve">
     <value>Акерманн</value>
   </data>
+  <data name="gsActive" xml:space="preserve">
+    <value>Активувати</value>
+  </data>
+  <data name="gsAdvancedTramLines" xml:space="preserve">
+    <value>Створення розширених технологічних колій</value>
+  </data>
+  <data name="gsAgree" xml:space="preserve">
+    <value>Я погоджуюся з Умовами та положеннями</value>
+  </data>
+  <data name="gsAllSettings" xml:space="preserve">
+    <value>Переглянути всі налаштування</value>
+  </data>
+  <data name="gsAlpha" xml:space="preserve">
+    <value>Альфа</value>
+  </data>
 </root>
