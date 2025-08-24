@@ -127,7 +127,7 @@
     <value>AD konverter</value>
   </data>
   <data name="gsAOGMenu" xml:space="preserve">
-    <value>AOG Menu</value>
+    <value>AOG Menü</value>
   </data>
   <data name="gsAPlus" xml:space="preserve">
     <value>A+</value>
@@ -466,7 +466,7 @@ A választott sorrend alapján fognak megjelenni alulról felfelé.</value>
     <value>Gyors</value>
   </data>
   <data name="gsField" xml:space="preserve">
-    <value>Terület</value>
+    <value>Tábla</value>
   </data>
   <data name="gsFieldFileIsCorrupt" xml:space="preserve">
     <value>A terület fájl sérült</value>
@@ -582,7 +582,7 @@ A választott sorrend alapján fognak megjelenni alulról felfelé.</value>
     <value>Fúzió</value>
   </data>
   <data name="gsInches" xml:space="preserve">
-    <value>Inch</value>
+    <value>Hüvelyk</value>
     <comment>*</comment>
   </data>
   <data name="gsInner" xml:space="preserve">
@@ -1027,7 +1027,7 @@ A választott sorrend alapján fognak megjelenni alulról felfelé.</value>
     <value>Dél</value>
   </data>
   <data name="gsSpacing" xml:space="preserve">
-    <value>Spacing (cm)</value>
+    <value>Távolság (cm)</value>
   </data>
   <data name="gsSpeedFactor" xml:space="preserve">
     <value>Sebesség arányos szorzó</value>
@@ -1157,7 +1157,7 @@ HASZNÁLAT SAJÁT FELELŐSSÉGRE.</value>
     <value>Metrikus/Imperiál</value>
   </data>
   <data name="gsUseSelected" xml:space="preserve">
-    <value>Megnyit</value>
+    <value>Kiválasztott használata</value>
   </data>
   <data name="gsUser1" xml:space="preserve">
     <value>Felhasználó 1</value>
@@ -1236,5 +1236,17 @@ HASZNÁLAT SAJÁT FELELŐSSÉGRE.</value>
   </data>
   <data name="v_AboutIntro" xml:space="preserve">
     <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
+  </data>
+  <data name="gsAllSettings" xml:space="preserve">
+    <value>Összes beállítás megtekintése</value>
+  </data>
+  <data name="gsAutoSwitchDualFix" xml:space="preserve">
+    <value>Auto Duál &lt;&gt; Fix</value>
+  </data>
+  <data name="gsAutoSwitchDualFixSpeed" xml:space="preserve">
+    <value>Váltási sebesség (km/h)</value>
+  </data>
+  <data name="gsOnDelay" xml:space="preserve">
+    <value>Be késleltetés</value>
   </data>
 </root>
