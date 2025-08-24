@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
 		Microsoft ResX Schema
@@ -58,7 +58,7 @@
 			: using a System.ComponentModel.TypeConverter
 			: and then encoded with base64 encoding.
 	-->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -146,8 +146,7 @@
     <value>Antenni kõrgus</value>
   </data>
   <data name="gsAntennaOffset" xml:space="preserve">
-    <value>Antenni nihe
-</value>
+    <value>Antenni nihe</value>
   </data>
   <data name="gsApplied" xml:space="preserve">
     <value>Töödeldud</value>
@@ -191,7 +190,7 @@ Nende vajutamise järjekord on menüüs kuvamise järjekord alt ülespoole.</val
     <value>Taust</value>
   </data>
   <data name="gsBasedOnField" xml:space="preserve">
-    <value>Põllu põhjal</value>
+    <value>Põllu põhjal:</value>
   </data>
   <data name="gsBottomMenu" xml:space="preserve">
     <value>Alumine menüü</value>
