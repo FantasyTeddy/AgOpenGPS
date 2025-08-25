@@ -1,12 +1,14 @@
 ﻿using AgLibrary.Logging;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Forms;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
+using AgOpenGPS.Helpers;
 
 namespace AgOpenGPS
 {
@@ -105,7 +107,7 @@ namespace AgOpenGPS
                                     ahrs.imuRoll = temp - ahrs.rollZero;
                                 }
                                 if (temp == float.MinValue)
-                                    ahrs.imuRoll = 0;                               
+                                    ahrs.imuRoll = 0;
 
                                 //altitude in meters
                                 temp = BitConverter.ToSingle(data, 37);
@@ -172,13 +174,13 @@ namespace AgOpenGPS
                             //Heading
                             ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
                             ahrs.imuHeading *= 0.1;
-                            
+
                             //Roll
                             double rollK = (Int16)((data[8] << 8) + data[7]);
 
                             if (ahrs.isRollInvert) rollK *= -0.1;
                             else rollK *= 0.1;
-                            rollK -= ahrs.rollZero;                           
+                            rollK -= ahrs.rollZero;
                             ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
 
                             //Angular velocity
@@ -247,7 +249,7 @@ namespace AgOpenGPS
                         }
 
                     case 221: // DD
-                        {                    
+                        {
                             //{ 0x80, 0x81, 0x7f, 221, number bytes, seconds to display, mystery byte, 98,99,100,101, CRC };
                             if (data.Length < 9) break;
 
@@ -282,10 +284,10 @@ namespace AgOpenGPS
                             }
                             if (((data[5] & 2) == 2)) //mask bit #1 set and command bit #0 cycle line to the 0 = left 1 = right
                             {
-                                if ((data[6] & 1) != 1) {  btnCycleLines.PerformClick(); }
+                                if ((data[6] & 1) != 1) { btnCycleLines.PerformClick(); }
                                 if ((data[6] & 1) == 1) { btnCycleLinesBk.PerformClick(); }
                             }
-                           
+
                             break;
                         }
 
@@ -303,7 +305,7 @@ namespace AgOpenGPS
 
                             break;
                         }
-                     #endregion
+                        #endregion
                 }
             }
         }
@@ -323,7 +325,10 @@ namespace AgOpenGPS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Load Error: " + ex.Message, "UDP Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormDialog.Show(
+                    "UDP Server",
+                    "Load Error: " + ex.Message,
+                    MessageBoxButtons.OK);
                 Log.EventWriter("Catch -> Load UDP Loopback Error: " + ex.ToString());
             }
         }
@@ -460,6 +465,41 @@ namespace AgOpenGPS
         }
 
         #region keystrokes
+
+        private HotkeyMessageFilter _hotkeyFilter;
+
+        // Will be used to handle app-wide hotkeys
+        public bool HandleAppWideKey(Keys key, Keys mods)
+        {
+            // build same data as in ProcessCmdKey
+            var keyData = key | mods;
+            // Create a dummy key
+            var msg = Message.Create(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero);
+            return ProcessCmdKey(ref msg, keyData);
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            // register once
+            if (_hotkeyFilter == null)
+            {
+                _hotkeyFilter = new HotkeyMessageFilter(this);
+                Application.AddMessageFilter(_hotkeyFilter);
+            }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            if (_hotkeyFilter != null)
+            {
+                Application.RemoveMessageFilter(_hotkeyFilter);
+                _hotkeyFilter.Dispose();
+                _hotkeyFilter = null;
+            }
+            base.OnFormClosed(e);
+        }
+
         //keystrokes for easy and quick startup
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -478,7 +518,7 @@ namespace AgOpenGPS
 
             if ((char)keyData == hotkeys[2])
             {
-                FileSaveEverythingBeforeClosingField();
+                _ = FileSaveEverythingBeforeClosingField();
                 return true;    // indicate that you handled this keystroke
             }
 
@@ -655,8 +695,7 @@ namespace AgOpenGPS
             if (keyData == Keys.Up)
             {
                 if (sim.stepDistance < 0.4 && sim.stepDistance > -0.36) sim.stepDistance += 0.01;
-                else 
-                    sim.stepDistance += 0.04;
+                else sim.stepDistance += 0.04;
                 if (sim.stepDistance > 4) sim.stepDistance = 4;
                 return true;
             }

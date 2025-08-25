@@ -2,21 +2,21 @@
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Streamers;
 using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Forms.Field;
 using AgOpenGPS.Helpers;
 using System;
-using System.Drawing;
-using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
 {
-    public partial class FormJob : Form
+    public partial class FormJob : System.Windows.Forms.Form
     {
         //class variables
         private readonly FormGPS mf = null;
 
-        public FormJob(Form callingForm)
+        public FormJob(System.Windows.Forms.Form callingForm)
         {
             //get ref of the calling main form
             mf = callingForm as FormGPS;
@@ -30,6 +30,7 @@ namespace AgOpenGPS
             btnFromKML.Text = gStr.gsFromKml;
             btnFromExisting.Text = gStr.gsFromExisting;
             btnJobClose.Text = gStr.gsClose;
+            btnJobAgShare.Enabled = Properties.Settings.Default.AgShareEnabled;
 
             this.Text = gStr.gsStartNewField;
         }
@@ -42,6 +43,10 @@ namespace AgOpenGPS
 
             string fileAndDirectory = Path.Combine(directoryName, "Field.txt");
 
+            //Trigger a snapshot to create a temp data file for the AgShare Upload
+            if (mf.isJobStarted && Properties.Settings.Default.AgShareEnabled) mf.AgShareSnapshot();
+
+
             if (!File.Exists(fileAndDirectory))
             {
                 lblResumeField.Text = "";
@@ -53,18 +58,17 @@ namespace AgOpenGPS
             else
             {
                 lblResumeField.Text = gStr.gsResume + ": " + mf.currentFieldDirectory;
-            
 
-            if (mf.isJobStarted)
-            {
+                if (mf.isJobStarted)
+                {
 
-                btnJobResume.Enabled = false;
-                lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
-            }
-            else
-            {
-                btnJobClose.Enabled = false;
-            }
+                    btnJobResume.Enabled = false;
+                    lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
+                }
+                else
+                {
+                    btnJobClose.Enabled = false;
+                }
             }
 
             Location = Properties.Settings.Default.setJobMenu_location;
@@ -81,6 +85,10 @@ namespace AgOpenGPS
 
         private void btnJobNew_Click(object sender, EventArgs e)
         {
+            if (mf.isJobStarted)
+            {
+                _ = mf.FileSaveEverythingBeforeClosingField();
+            }
             //back to FormGPS
             DialogResult = DialogResult.Yes;
             Close();
@@ -100,26 +108,32 @@ namespace AgOpenGPS
 
         private void btnJobOpen_Click(object sender, EventArgs e)
         {
+            if (mf.isJobStarted)
+            {
+                _ = mf.FileSaveEverythingBeforeClosingField();
+            }
+
             mf.filePickerFileAndDirectory = "";
 
             using (FormFilePicker form = new FormFilePicker(mf))
             {
-                //returns full field.txt file dir name
                 if (form.ShowDialog(this) == DialogResult.Yes)
                 {
                     mf.FileOpenField(mf.filePickerFileAndDirectory);
-
                     Close();
-                }
-                else
-                {
-                    return;
                 }
             }
         }
 
+
+
         private void btnInField_Click(object sender, EventArgs e)
         {
+            if (mf.isJobStarted)
+            {
+                _ = Task.Run(() => mf.FileSaveEverythingBeforeClosingField());
+            }
+
             string infieldList = "";
             int numFields = 0;
 
@@ -202,7 +216,6 @@ namespace AgOpenGPS
 
         private void btnFromKML_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
             //back to FormGPS
             DialogResult = DialogResult.No;
             Close();
@@ -217,7 +230,10 @@ namespace AgOpenGPS
 
         private void btnJobClose_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isJobStarted)
+            {
+                _ = Task.Run(() => mf.FileSaveEverythingBeforeClosingField());
+            }
             //back to FormGPS
             DialogResult = DialogResult.OK;
             Close();
@@ -232,7 +248,10 @@ namespace AgOpenGPS
 
         private void btnFromISOXML_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted) mf.FileSaveEverythingBeforeClosingField();
+            if (mf.isJobStarted)
+            {
+                _ = mf.FileSaveEverythingBeforeClosingField();
+            }
             //back to FormGPS
             DialogResult = DialogResult.Abort;
             Close();
@@ -241,6 +260,17 @@ namespace AgOpenGPS
         private void btnDeleteAB_Click(object sender, EventArgs e)
         {
             mf.isCancelJobMenu = true;
+        }
+
+        private void btnJobAgShare_Click(object sender, EventArgs e)
+        {
+            using (var form = new FormAgShareDownloader(mf))
+            {
+                form.ShowDialog(this);
+            }
+
+            DialogResult = DialogResult.Ignore;
+            Close();
         }
     }
 }

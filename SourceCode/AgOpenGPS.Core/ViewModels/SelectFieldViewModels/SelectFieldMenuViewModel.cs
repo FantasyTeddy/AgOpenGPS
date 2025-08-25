@@ -1,9 +1,5 @@
-﻿using AgLibrary.ViewModels;
-using AgOpenGPS.Core.Interfaces;
-using AgOpenGPS.Core.Models;
+﻿using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.Streamers;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows.Input;
 
 namespace AgOpenGPS.Core.ViewModels
@@ -88,7 +84,7 @@ namespace AgOpenGPS.Core.ViewModels
             }
         }
 
-        public ICommand StartSelectNearFieldCommand { get;}
+        public ICommand StartSelectNearFieldCommand { get; }
         public ICommand StartCreateFieldFromExistingCommand { get; }
         public ICommand StartSelectFieldCommand { get; }
         public ICommand CancelCommand { get; }

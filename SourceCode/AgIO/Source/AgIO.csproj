@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <OutputPath>..\..\..\AgOpenGPS\</OutputPath>
+    <PublishDir>..\..\..\AgOpenGPS\</PublishDir>
     <ApplicationIcon>AgIO_ico.ico</ApplicationIcon>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -18,10 +16,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="RepeatButtonControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\References\RepeatButtonControl.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -32,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.6.0" />
     <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
   </ItemGroup>
 

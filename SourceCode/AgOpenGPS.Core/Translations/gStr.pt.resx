@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -187,7 +187,7 @@
     <value>Excluir completamente o limite</value>
   </data>
   <data name="gsConfiguration" xml:space="preserve">
-    <value>Configuração </value>
+    <value>Configuração</value>
   </data>
   <data name="gsContourFileIsCorrupt" xml:space="preserve">
     <value>Arquivo de contorno corrompido</value>
@@ -424,7 +424,7 @@
     <value>O programa será encerrado, reinicie</value>
   </data>
   <data name="gsReallyResetEverything" xml:space="preserve">
-    <value>Realmente redefinir tudo</value>
+    <value>Realmente redefinir tudo?</value>
   </data>
   <data name="gsRecord" xml:space="preserve">
     <value>Registro</value>
@@ -450,8 +450,44 @@
   <data name="gsS_West" xml:space="preserve">
     <value>SO</value>
   </data>
+  <data name="gsSaveAllDone" xml:space="preserve">
+    <value>Tudo pronto. Encerrando...</value>
+  </data>
   <data name="gsSaveAndReturn" xml:space="preserve">
     <value>Salvar e retornar</value>
+  </data>
+  <data name="gsSaveBeerTime" xml:space="preserve">
+    <value>Hora de uma cerveja! Tchau!</value>
+  </data>
+  <data name="gsSaveField" xml:space="preserve">
+    <value>Salvando campo..</value>
+  </data>
+  <data name="gsSaveFieldParam" xml:space="preserve">
+    <value>Salvando parâmetros do campo...</value>
+  </data>
+  <data name="gsSaveFieldParamSaved" xml:space="preserve">
+    <value>Parâmetros do campo salvos.</value>
+  </data>
+  <data name="gsSaveFieldSavedLocal" xml:space="preserve">
+    <value>Campo salvo localmente.</value>
+  </data>
+  <data name="gsSaveFinalizeShutdown" xml:space="preserve">
+    <value>Finalizando desligamento..</value>
+  </data>
+  <data name="gsSaveSettings" xml:space="preserve">
+    <value>Salvando configurações...</value>
+  </data>
+  <data name="gsSaveSettingsSaved" xml:space="preserve">
+    <value>Configurações salvas.</value>
+  </data>
+  <data name="gsSaveUploadCompleted" xml:space="preserve">
+    <value>Upload concluído.</value>
+  </data>
+  <data name="gsSaveUploadFailed" xml:space="preserve">
+    <value>Falha no upload.</value>
+  </data>
+  <data name="gsSaveUploadToAgshare" xml:space="preserve">
+    <value>Enviando para AgShare...</value>
   </data>
   <data name="gsSentToMachineModule" xml:space="preserve">
     <value>Enviado para o módulo da máquina</value>
@@ -527,5 +563,8 @@
   </data>
   <data name="gsXTEChart" xml:space="preserve">
     <value>Gráfico XTE</value>
+  </data>
+  <data name="gsAPlus" xml:space="preserve">
+    <value>A+</value>
   </data>
 </root>

@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -174,7 +174,7 @@
   <data name="gsArrangeText" xml:space="preserve">
     <value>Kosketa vasemmalla puolella olevia kuvakkeita, joiden haluat näkyvän valikossa (oikea puoli).
 
- Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat valittu.</value>
+Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat valittu.</value>
   </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Laitteen tyyppi</value>
@@ -189,7 +189,7 @@
     <value>Käynnistä AgIO Automaattisesti</value>
   </data>
   <data name="gsAutoSteer" xml:space="preserve">
-    <value>Automaattiohjauksen </value>
+    <value>Automaattiohjauksen</value>
   </data>
   <data name="gsAutoSteerConfiguration" xml:space="preserve">
     <value>Automaattiohjauksen asetukset</value>
@@ -351,8 +351,7 @@
     <value>Poista käsitelty alue</value>
   </data>
   <data name="gsDeleteBoundaryMapping" xml:space="preserve">
-    <value>Tämä toiminto poistaa kaikki rajat. 
-Haluatko jatkaa?</value>
+    <value>Tämä toiminto poistaa kaikki rajat. Haluatko jatkaa?</value>
   </data>
   <data name="gsDeleteContourPaths" xml:space="preserve">
     <value>Poista ääriviivat</value>
@@ -742,7 +741,7 @@ Haluatko jatkaa?</value>
     <value>Mitään ei poistettu</value>
   </data>
   <data name="gsNudge" xml:space="preserve">
-    <value>Linjan Korjaus</value>
+    <value>Linjan Korjaus:</value>
   </data>
   <data name="gsNudgeDistance" xml:space="preserve">
     <value>Linjan korjauksen etäisyys</value>
@@ -856,7 +855,7 @@ Haluatko jatkaa?</value>
     <value>Määrä</value>
   </data>
   <data name="gsReallyResetEverything" xml:space="preserve">
-    <value>Haluatko todella nollata kaikki</value>
+    <value>Haluatko todella nollata kaikki?</value>
   </data>
   <data name="gsRecord" xml:space="preserve">
     <value>Tallenna</value>
@@ -912,8 +911,44 @@ Haluatko jatkaa?</value>
   <data name="gsS_West" xml:space="preserve">
     <value>Lounas</value>
   </data>
+  <data name="gsSaveAllDone" xml:space="preserve">
+    <value>Kaikki valmista. Suljetaan nyt...</value>
+  </data>
   <data name="gsSaveAndReturn" xml:space="preserve">
     <value>Tallenna ja palaa</value>
+  </data>
+  <data name="gsSaveBeerTime" xml:space="preserve">
+    <value>Olut aika! Näkemiin!</value>
+  </data>
+  <data name="gsSaveField" xml:space="preserve">
+    <value>Tallennetaan peltoa..</value>
+  </data>
+  <data name="gsSaveFieldParam" xml:space="preserve">
+    <value>Tallennetaan peltoasetuksia...</value>
+  </data>
+  <data name="gsSaveFieldParamSaved" xml:space="preserve">
+    <value>Peltoasetukset tallennettu.</value>
+  </data>
+  <data name="gsSaveFieldSavedLocal" xml:space="preserve">
+    <value>Pelto tallennettu paikallisesti.</value>
+  </data>
+  <data name="gsSaveFinalizeShutdown" xml:space="preserve">
+    <value>Sammutus viimeistellään..</value>
+  </data>
+  <data name="gsSaveSettings" xml:space="preserve">
+    <value>Tallennetaan asetuksia...</value>
+  </data>
+  <data name="gsSaveSettingsSaved" xml:space="preserve">
+    <value>Asetukset tallennettu.</value>
+  </data>
+  <data name="gsSaveUploadCompleted" xml:space="preserve">
+    <value>Lataus valmis.</value>
+  </data>
+  <data name="gsSaveUploadFailed" xml:space="preserve">
+    <value>Lataus epäonnistui.</value>
+  </data>
+  <data name="gsSaveUploadToAgshare" xml:space="preserve">
+    <value>Ladataan AgShareen...</value>
   </data>
   <data name="gsScreenButtons" xml:space="preserve">
     <value>Näytön Napit</value>
@@ -1043,19 +1078,17 @@ Kytkin = Lukkiutuva</value>
     <value>Svenn nuoli</value>
   </data>
   <data name="gsTermsConditions" xml:space="preserve">
-    <value>Version ehdot:</value>
+    <value>Version ehdot: </value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
     <value>Jos jaat tämän ILMAISEN ohjelman kopioita, joko ilmaiseksi tai maksua vastaan, parannettuna, muutettuna, sinun on siirrettävä vastaanottajille samat vapaudet, jotka olet saanut GPLv3-lisenssissä kuvatulla tavalla.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS on tiukasti koulutusohjelmisto, jonka avulla voi oppia ohjausjärjestelmistä, 
-GPS-lauseista ja koneenhallinnan teoreettisesta soveltamisesta. 
+    <value>AgOpenGPS on tiukasti koulutusohjelmisto, jonka avulla voi oppia ohjausjärjestelmistä, GPS-lauseista ja koneenhallinnan teoreettisesta soveltamisesta.
 
-Sitä ei saa missään tapauksessa käyttää todellisissa laitteissa.
-Mukana on simulaattori, jonka avulla opiskelija voi kokea koneen ohjauksen turvallisesti. 
+Sitä ei saa missään tapauksessa käyttää todellisissa laitteissa. Mukana on simulaattori, jonka avulla opiskelija voi kokea koneen ohjauksen turvallisesti.
 
-Ohjelmistossa ei ole turvajärjestelmiä. 
+Ohjelmistossa ei ole turvajärjestelmiä.
 
 KÄYTTÖ OMALLA VASTUULLA.</value>
   </data>

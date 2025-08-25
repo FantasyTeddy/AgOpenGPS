@@ -145,7 +145,7 @@
     <value>Erweitertes Fahrgassenmenü</value>
   </data>
   <data name="gsAgree" xml:space="preserve">
-    <value>Ich stimme den Geschäftsbedingungen zu.</value>
+    <value>Ich stimme den Geschäftsbedingungen zu</value>
   </data>
   <data name="gsAgressiveness" xml:space="preserve">
     <value>Aggressivität</value>
@@ -163,7 +163,9 @@
     <value>Fläche</value>
   </data>
   <data name="gsArrangeText" xml:space="preserve">
-    <value>Berühren Sie die Schaltflächen auf der linken Seite, die im Menü angezeigt werden sollen (die rechte Seite).  Die Reihenfolge, in der Sie sie drücken, entspricht der Reihenfolge, in der sie von unten nach oben im Menü erscheinen.</value>
+    <value>Berühren Sie die Schaltflächen auf der linken Seite, die im Menü angezeigt werden sollen (die rechte Seite).
+
+Die Reihenfolge, in der Sie sie drücken, entspricht der Reihenfolge, in der sie von unten nach oben im Menü erscheinen.</value>
   </data>
   <data name="gsAttachmentStyle" xml:space="preserve">
     <value>Maschinentyp</value>
@@ -409,7 +411,7 @@
     <value>Namen eingeben</value>
   </data>
   <data name="gsEnterRecordName" xml:space="preserve">
-    <value>Aufnahme Name:</value>
+    <value>Aufnahme Name</value>
   </data>
   <data name="gsEnterSimCoords" xml:space="preserve">
     <value>Sim Koordinaten eingeben</value>
@@ -508,7 +510,7 @@
     <value>Anhängelänge</value>
   </data>
   <data name="gsHydraulicLift" xml:space="preserve">
-    <value>Hubwerkssteuerung </value>
+    <value>Hubwerkssteuerung</value>
   </data>
   <data name="gsHydraulicLiftConfig" xml:space="preserve">
     <value>Hubwerkseinstellungen</value>
@@ -529,7 +531,7 @@
     <value>Innere</value>
   </data>
   <data name="gsIntegralInfo" xml:space="preserve">
-    <value>Der Lenkwinkel wird langsam erhöht, um den Spurversatz zu verringern.</value>
+    <value>Der Lenkwinkel wird langsam erhöht, um den Spurversatz zu verringern</value>
   </data>
   <data name="gsInvertHydraulicRelays" xml:space="preserve">
     <value>Relais umkehren</value>
@@ -619,10 +621,10 @@
     <value>Mehr</value>
   </data>
   <data name="gsMotorDriver" xml:space="preserve">
-    <value>Motortreibertyp </value>
+    <value>Motortreibertyp</value>
   </data>
   <data name="gsMultiColorSections" xml:space="preserve">
-    <value>Mehrfarbig </value>
+    <value>Mehrfarbig</value>
   </data>
   <data name="gsN_East" xml:space="preserve">
     <value>Nordost</value>
@@ -688,7 +690,7 @@
     <value>Äußere</value>
   </data>
   <data name="gsOverlap" xml:space="preserve">
-    <value>Überlappung</value>
+    <value>Überlappung:</value>
   </data>
   <data name="gsOverlapGap" xml:space="preserve">
     <value>Überlappung / Lücke</value>
@@ -703,7 +705,7 @@
     <value>Spuranzahl</value>
   </data>
   <data name="gsPastEndOfCurve" xml:space="preserve">
-    <value>Ende der Kurve erreicht!</value>
+    <value>Ende der Kurve erreicht</value>
   </data>
   <data name="gsPause" xml:space="preserve">
     <value>Pause</value>
@@ -816,8 +818,44 @@
   <data name="gsS_West" xml:space="preserve">
     <value>Südwesten</value>
   </data>
+  <data name="gsSaveAllDone" xml:space="preserve">
+    <value>Alles erledigt. Jetzt wird geschlossen...</value>
+  </data>
   <data name="gsSaveAndReturn" xml:space="preserve">
-    <value>Speichern und zurück</value>
+    <value>Speichern und zurückkehren</value>
+  </data>
+  <data name="gsSaveBeerTime" xml:space="preserve">
+    <value>Zeit für ein Bier! Auf Wiedersehen!</value>
+  </data>
+  <data name="gsSaveField" xml:space="preserve">
+    <value>Feld wird gespeichert..</value>
+  </data>
+  <data name="gsSaveFieldParam" xml:space="preserve">
+    <value>Feldparameter werden gespeichert...</value>
+  </data>
+  <data name="gsSaveFieldParamSaved" xml:space="preserve">
+    <value>Feldparameter gespeichert.</value>
+  </data>
+  <data name="gsSaveFieldSavedLocal" xml:space="preserve">
+    <value>Feld lokal gespeichert.</value>
+  </data>
+  <data name="gsSaveFinalizeShutdown" xml:space="preserve">
+    <value>Herunterfahren wird abgeschlossen..</value>
+  </data>
+  <data name="gsSaveSettings" xml:space="preserve">
+    <value>Einstellungen werden gespeichert...</value>
+  </data>
+  <data name="gsSaveSettingsSaved" xml:space="preserve">
+    <value>Einstellungen gespeichert.</value>
+  </data>
+  <data name="gsSaveUploadCompleted" xml:space="preserve">
+    <value>Hochladen abgeschlossen.</value>
+  </data>
+  <data name="gsSaveUploadFailed" xml:space="preserve">
+    <value>Hochladen fehlgeschlagen.</value>
+  </data>
+  <data name="gsSaveUploadToAgshare" xml:space="preserve">
+    <value>Hochladen zu AgShare...</value>
   </data>
   <data name="gsScreenButtons" xml:space="preserve">
     <value>Bildschirmtasten</value>
@@ -937,13 +975,19 @@
     <value>Grenze aufzeichnen, pausieren, stoppen</value>
   </data>
   <data name="gsTermsConditions" xml:space="preserve">
-    <value>Nutzungsbedingungen für die Version:</value>
+    <value>Nutzungsbedingungen für die Version: </value>
   </data>
   <data name="gsTermsOne" xml:space="preserve">
     <value>Wenn Sie Kopien dieses KOSTENLOSEN Programms verteilen, sei es gratis oder gegen Gebühr, verbessert oder geändert, müssen Sie den Empfängern dieselben Freiheiten weitergeben, die Sie gemäß der GPLv3-Lizenz erhalten haben.</value>
   </data>
   <data name="gsTermsThree" xml:space="preserve">
-    <value>AgOpenGPS ist eine reine Lernsoftware zum Erlernen von Leitsystemen, GPS-Sätzen und der theoretischen Anwendung der Maschinensteuerung. Es besteht unter keinen Umständen die Möglichkeit, es auf realen Geräten zu verwenden. Damit die Schüler die Maschinenführung auf sichere Weise erleben können, steht ihnen ein Simulator zur Verfügung. Es sind keine Sicherheitssysteme in der Software vorhanden und auch keine impliziert. VERWENDUNG AUF EIGENES RISIKO.</value>
+    <value>AgOpenGPS ist eine reine Lernsoftware zum Erlernen von Leitsystemen, GPS-Sätzen und der theoretischen Anwendung der Maschinensteuerung.
+
+Es besteht unter keinen Umständen die Möglichkeit, es auf realen Geräten zu verwenden. Damit die Schüler die Maschinenführung auf sichere Weise erleben können, steht ihnen ein Simulator zur Verfügung.
+
+Es sind keine Sicherheitssysteme in der Software vorhanden und auch keine impliziert.
+
+VERWENDUNG AUF EIGENES RISIKO.</value>
   </data>
   <data name="gsTermsTwo" xml:space="preserve">
     <value>Sie müssen sicherstellen, dass sie den Quellcode erhalten oder bekommen können. Und Sie müssen ihnen diese Bedingungen zeigen, damit sie ihre Rechte kennen. Stehlen Sie nicht die Arbeit anderer und geben Sie sie als Ihre eigene aus.</value>
@@ -976,7 +1020,7 @@
     <value>Fahrgassen</value>
   </data>
   <data name="gsTramWidth" xml:space="preserve">
-    <value>Fahrgassenbreite</value>
+    <value>Fahrgassenbreite:</value>
   </data>
   <data name="gsTurnABCurveOn" xml:space="preserve">
     <value>A-B Kurve einschalten</value>
@@ -1018,7 +1062,7 @@
     <value>Westen</value>
   </data>
   <data name="gsWheelbase" xml:space="preserve">
-    <value>Radstand</value>
+    <value>Radstand:</value>
   </data>
   <data name="gsWidth" xml:space="preserve">
     <value>Breite:</value>

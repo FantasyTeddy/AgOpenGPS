@@ -1,6 +1,4 @@
-﻿using AgLibrary.ViewModels;
-using AgOpenGPS.Core.Interfaces;
-using AgOpenGPS.Core.Models;
+﻿using AgOpenGPS.Core.Interfaces;
 using System.Globalization;
 using System;
 using System.Windows.Input;
@@ -45,8 +43,9 @@ namespace AgOpenGPS.Core.ViewModels
         public string NewFieldName
         {
             get { return _newFieldName; }
-            set {
-                if (value != _newFieldName )
+            set
+            {
+                if (value != _newFieldName)
                 {
                     _newFieldName = value;
                     NotifyPropertyChanged();

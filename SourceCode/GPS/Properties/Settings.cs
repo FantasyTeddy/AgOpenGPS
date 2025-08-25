@@ -247,6 +247,12 @@ namespace AgOpenGPS.Properties
         public Size setWindow_tramLineSize = new Size(921, 676);
         public bool setAutoSwitchDualFixOn = false;
         public double setAutoSwitchDualFixSpeed = 2.0;
+        public string AgShareServer = "https://agshare.agopengps.com";
+        public string AgShareApiKey = "";
+        public bool PublicField = false;
+        public bool AgShareEnabled = false;
+        public bool AgShareUploadActive = false;
+        public bool isHeadlandDistanceOn = false;
 
         public LoadResult Load()
         {

@@ -36,6 +36,7 @@ namespace AgOpenGPS
             mf.isDirectionMarkers = chkDirectionMarkers.Checked;
             mf.isSectionlinesOn = chkSectionLines.Checked;
             mf.isLineSmooth = chkLineSmooth.Checked;
+            mf.isHeadlandDistanceOn = chkboxHeadlandDist.Checked;
 
             //mf.timeToShowMenus = (int)nudMenusOnTime.Value;
 
@@ -51,6 +52,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setMenu_isPureOn = mf.isPureDisplayOn;
             Properties.Settings.Default.setMenu_isLightbarOn = mf.isLightbarOn;
             Properties.Settings.Default.setDisplay_isKeyboardOn = mf.isKeyboardOn;
+            Properties.Settings.Default.isHeadlandDistanceOn = mf.isHeadlandDistanceOn;
             Properties.Settings.Default.setDisplay_isLogElevation = mf.isLogElevation;
 
             Properties.Settings.Default.setMenu_isMetric = rbtnDisplayMetric.Checked;
@@ -61,6 +63,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setAS_numGuideLines = mf.ABLine.numGuideLines;
             Properties.Settings.Default.setDisplay_isSectionLinesOn = mf.isSectionlinesOn;
             Properties.Settings.Default.setDisplay_isLineSmooth = mf.isLineSmooth;
+            Properties.Settings.Default.isHeadlandDistanceOn = mf.isHeadlandDistanceOn;
 
             Properties.Settings.Default.Save();
         }
@@ -195,7 +198,7 @@ namespace AgOpenGPS
             nudTractorHitchLength.Visible = rbtnTBT.Checked || rbtnTrailing.Checked;
             label94.Visible = rbtnTBT.Checked || rbtnTrailing.Checked;
             labelHitchLength.Visible = rbtnTBT.Checked || rbtnTrailing.Checked;
-            HitchLengthBlindBox.Visible = rbtnFixedRear.Checked || rbtnFront.Checked; 
+            HitchLengthBlindBox.Visible = rbtnFixedRear.Checked || rbtnFront.Checked;
 
             label94.Text = mf.unitsInCm;
             label95.Text = mf.unitsInCm;
@@ -253,324 +256,38 @@ namespace AgOpenGPS
 
         private void tabVConfig_Enter(object sender, EventArgs e)
         {
-            if (mf.vehicle.VehicleConfig.Type == VehicleType.Tractor) rbtnTractor.Checked = true;
-            else if (mf.vehicle.VehicleConfig.Type == VehicleType.Harvester) rbtnHarvester.Checked = true;
-            else if (mf.vehicle.VehicleConfig.Type == VehicleType.Articulated) rbtnArticulated.Checked = true;
-
-            original = null;
-            TabImageSetup();
+            configVehicleControl.Initialize(mf.vehicle.VehicleConfig);
         }
 
         private void tabVConfig_Leave(object sender, EventArgs e)
         {
-            if (rbtnTractor.Checked)
-            {
-                mf.vehicle.VehicleConfig.Type = VehicleType.Tractor;
-                Properties.Settings.Default.setVehicle_vehicleType = 0;
-            }
-            if (rbtnHarvester.Checked)
-            {
-                mf.vehicle.VehicleConfig.Type = VehicleType.Harvester;
-                Properties.Settings.Default.setVehicle_vehicleType = 1;
+            configVehicleControl.UpdateSettings();
 
-                if ( mf.tool.hitchLength < 0) mf.tool.hitchLength *= -1;
-
-                Properties.Settings.Default.setTool_isToolFront = true;
-                Properties.Settings.Default.setTool_isToolTBT = false;
-                Properties.Settings.Default.setTool_isToolTrailing = false;
-                Properties.Settings.Default.setTool_isToolRearFixed = false;
-            }
-            if (rbtnArticulated.Checked)
+            if (mf.vehicle.VehicleConfig.Type == VehicleType.Harvester)
             {
-                mf.vehicle.VehicleConfig.Type = VehicleType.Articulated;
-                Properties.Settings.Default.setVehicle_vehicleType = 2;
+                if (mf.tool.hitchLength < 0) mf.tool.hitchLength *= -1;
+
+                Settings.Default.setTool_isToolFront = true;
+                Settings.Default.setTool_isToolTBT = false;
+                Settings.Default.setTool_isToolTrailing = false;
+                Settings.Default.setTool_isToolRearFixed = false;
             }
 
-            //the old brand code
-            Properties.Settings.Default.setDisplay_isVehicleImage = !cboxIsImage.Checked;
-
-            Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicle.VehicleConfig.Opacity * 100);
-
-            Properties.Settings.Default.setDisplay_colorVehicle = (Color)mf.vehicle.VehicleConfig.Color;
-
-            if (rbtnTractor.Checked)
+            switch (mf.vehicle.VehicleConfig.Type)
             {
-                Settings.Default.setBrand_TBrand = tractorBrand;
-                mf.VehicleTextures.Tractor.SetBitmap(TractorBitmaps.GetBitmap(tractorBrand));
-            }
-            if (rbtnHarvester.Checked)
-            {
-                Settings.Default.setBrand_HBrand = harvesterBrand;
-                mf.VehicleTextures.Harvester.SetBitmap(HarvesterBitmaps.GetBitmap(harvesterBrand));
-            }
-            if (rbtnArticulated.Checked)
-            {
-                Settings.Default.setBrand_WDBrand = articulatedBrand;
-                mf.VehicleTextures.ArticulatedFront.SetBitmap(ArticulatedBitmaps.GetFrontBitmap(articulatedBrand));
-                mf.VehicleTextures.ArticulatedRear.SetBitmap(ArticulatedBitmaps.GetRearBitmap(articulatedBrand));
-            }
-            Properties.Settings.Default.Save();
-        }
-
-        //brand variables
-        TractorBrand tractorBrand;
-        HarvesterBrand harvesterBrand;
-        ArticulatedBrand articulatedBrand;
-
-        //Opacity Bar
-
-        Image original = null;
-
-        private void rbtnVehicleType_Click(object sender, EventArgs e)
-        {
-            if (rbtnTractor.Checked)
-            {
-                mf.vehicle.VehicleConfig.Type = VehicleType.Tractor;
-                Properties.Settings.Default.setVehicle_vehicleType = 0;
-            }
-            if (rbtnHarvester.Checked)
-            {
-                mf.vehicle.VehicleConfig.Type = VehicleType.Harvester;
-                Properties.Settings.Default.setVehicle_vehicleType = 1;
-            }
-            if (rbtnArticulated.Checked)
-            {
-                mf.vehicle.VehicleConfig.Type = VehicleType.Articulated;
-                Properties.Settings.Default.setVehicle_vehicleType = 2;
+                case VehicleType.Tractor:
+                    mf.VehicleTextures.Tractor.SetBitmap(TractorBitmaps.GetBitmap(configVehicleControl.TractorBrand));
+                    break;
+                case VehicleType.Harvester:
+                    mf.VehicleTextures.Harvester.SetBitmap(HarvesterBitmaps.GetBitmap(configVehicleControl.HarvesterBrand));
+                    break;
+                case VehicleType.Articulated:
+                    mf.VehicleTextures.ArticulatedFront.SetBitmap(ArticulatedBitmaps.GetFrontBitmap(configVehicleControl.ArticulatedBrand));
+                    mf.VehicleTextures.ArticulatedRear.SetBitmap(ArticulatedBitmaps.GetRearBitmap(configVehicleControl.ArticulatedBrand));
+                    break;
             }
 
-            original = null;
-            TabImageSetup();
-        }
-
-        private void SetOpacity()
-        {
-            if (original == null) original = (Bitmap)pboxAlpha.BackgroundImage.Clone();
-            pboxAlpha.BackColor = Color.Transparent;
-            pboxAlpha.BackgroundImage = SetAlpha((Bitmap)original, (byte)(255 * mf.vehicle.VehicleConfig.Opacity));
-        }
-
-        private void btnOpacityUp_Click(object sender, EventArgs e)
-        {
-            mf.vehicle.VehicleConfig.Opacity = Math.Min(mf.vehicle.VehicleConfig.Opacity + 0.2, 1);
-            OpacityChanged();
-        }
-
-        private void btnOpacityDn_Click(object sender, EventArgs e)
-        {
-            mf.vehicle.VehicleConfig.Opacity = Math.Max(mf.vehicle.VehicleConfig.Opacity - 0.2, 0.2);
-            OpacityChanged();
-        }
-
-        private void OpacityChanged()
-        {
-            lblOpacityPercent.Text = ((int)(mf.vehicle.VehicleConfig.Opacity * 100)).ToString() + "%";
-            Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicle.VehicleConfig.Opacity * 100);
-            Properties.Settings.Default.Save();
-            SetOpacity();
-        }
-
-        private void hsbarOpacity_ValueChanged(object sender, EventArgs e)
-        {
-            //lblOpacityPercent.Text = hsbarOpacity.Value.ToString() + "%";
-            //mf.vehicleOpacityByte = (byte)(255 * (hsbarOpacity.Value * 0.01));
-            //Properties.Settings.Default.setDisplay_colorVehicle = mf.vehicleColor;
-
-            //if (original == null) original = (Bitmap)pboxAlpha.BackgroundImage.Clone();
-            //pboxAlpha.BackColor = Color.Transparent;
-            //pboxAlpha.BackgroundImage = SetAlpha((Bitmap)original, (byte)(255 * (hsbarOpacity.Value * 0.01)));
-        }
-
-        private void cboxIsImage_Click(object sender, EventArgs e)
-        {
-            //mf.vehicleOpacity = (hsbarOpacity.Value * 0.01);
-            Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicle.VehicleConfig.Opacity * 100);
-
-            mf.isVehicleImage = (!cboxIsImage.Checked);
-            Properties.Settings.Default.setDisplay_isVehicleImage = mf.isVehicleImage;
-            Properties.Settings.Default.Save();
-            //original = null;
-            TabImageSetup();
-        }
-
-        private void TabImageSetup()
-        {
-            panelArticulatedBrands.Visible = false;
-            panelTractorBrands.Visible = false;
-            panelHarvesterBrands.Visible = false;
-
-            if (mf.isVehicleImage)
-            {
-                if (mf.vehicle.VehicleConfig.Type == VehicleType.Tractor)
-                {
-                    panelTractorBrands.Visible = true;
-
-                    tractorBrand = Settings.Default.setBrand_TBrand;
-
-                    if (tractorBrand == TractorBrand.AGOpenGPS)
-                        rbtnBrandTAgOpenGPS.Checked = true;
-                    else if (tractorBrand == TractorBrand.Case)
-                        rbtnBrandTCase.Checked = true;
-                    else if (tractorBrand == TractorBrand.Claas)
-                        rbtnBrandTClaas.Checked = true;
-                    else if (tractorBrand == TractorBrand.Deutz)
-                        rbtnBrandTDeutz.Checked = true;
-                    else if (tractorBrand == TractorBrand.Fendt)
-                        rbtnBrandTFendt.Checked = true;
-                    else if (tractorBrand == TractorBrand.JohnDeere)
-                        rbtnBrandTJDeere.Checked = true;
-                    else if (tractorBrand == TractorBrand.Kubota)
-                        rbtnBrandTKubota.Checked = true;
-                    else if (tractorBrand == TractorBrand.Massey)
-                        rbtnBrandTMassey.Checked = true;
-                    else if (tractorBrand == TractorBrand.NewHolland)
-                        rbtnBrandTNH.Checked = true;
-                    else if (tractorBrand == TractorBrand.Same)
-                        rbtnBrandTSame.Checked = true;
-                    else if (tractorBrand == TractorBrand.Steyr)
-                        rbtnBrandTSteyr.Checked = true;
-                    else if (tractorBrand == TractorBrand.Ursus)
-                        rbtnBrandTUrsus.Checked = true;
-                    else if (tractorBrand == TractorBrand.Valtra)
-                        rbtnBrandTValtra.Checked = true;
-                    else if (tractorBrand == TractorBrand.JCB)
-                        rbtnBrandTJCB.Checked = true;
-
-                    pboxAlpha.BackgroundImage = TractorBitmaps.GetBitmap(Settings.Default.setBrand_TBrand);
-                }
-                else if (mf.vehicle.VehicleConfig.Type == VehicleType.Harvester)
-                {
-                    panelHarvesterBrands.Visible = true;
-
-                    harvesterBrand = Settings.Default.setBrand_HBrand;
-
-                    if (harvesterBrand == HarvesterBrand.AgOpenGPS)
-                        rbtnBrandHAgOpenGPS.Checked = true;
-                    else if (harvesterBrand == HarvesterBrand.Case)
-                        rbtnBrandHCase.Checked = true;
-                    else if (harvesterBrand == HarvesterBrand.Claas)
-                        rbtnBrandHClaas.Checked = true;
-                    else if (harvesterBrand == HarvesterBrand.JohnDeere)
-                        rbtnBrandHJDeere.Checked = true;
-                    else if (harvesterBrand == HarvesterBrand.NewHolland)
-                        rbtnBrandHNH.Checked = true;
-
-                    pboxAlpha.BackgroundImage = HarvesterBitmaps.GetBitmap(Settings.Default.setBrand_HBrand);
-                }
-                else if (mf.vehicle.VehicleConfig.Type == VehicleType.Articulated)
-                {
-                    panelArticulatedBrands.Visible = true;
-
-                    articulatedBrand = Settings.Default.setBrand_WDBrand;
-
-                    if (articulatedBrand == ArticulatedBrand.AgOpenGPS)
-                        rbtnBrandAAgOpenGPS.Checked = true;
-                    else if (articulatedBrand == ArticulatedBrand.Case)
-                        rbtnBrandACase.Checked = true;
-                    else if (articulatedBrand == ArticulatedBrand.Challenger)
-                        rbtnBrandAChallenger.Checked = true;
-                    else if (articulatedBrand == ArticulatedBrand.JohnDeere)
-                        rbtnBrandAJDeere.Checked = true;
-                    else if (articulatedBrand == ArticulatedBrand.NewHolland)
-                        rbtnBrandANH.Checked = true;
-                    else if (articulatedBrand == ArticulatedBrand.Holder)
-                        rbtnBrandAHolder.Checked = true;
-
-                    pboxAlpha.BackgroundImage = ArticulatedBitmaps.GetFrontBitmap(Settings.Default.setBrand_WDBrand);
-                }
-
-                Properties.Settings.Default.setDisplay_vehicleOpacity = (int)(mf.vehicle.VehicleConfig.Opacity * 100);
-                lblOpacityPercent.Text = ((int)(mf.vehicle.VehicleConfig.Opacity * 100)).ToString() + "%";
-                mf.vehicle.VehicleConfig.Color = new ColorRgb(254, 254, 254);
-            }
-            else
-            {
-                pboxAlpha.BackgroundImage = BrandImages.BrandTriangleVehicle;
-                lblOpacityPercent.Text = ((int)(mf.vehicle.VehicleConfig.Opacity * 100)).ToString() + "%";
-                mf.vehicle.VehicleConfig.Color = new ColorRgb(254, 254, 254);
-            }
-
-            cboxIsImage.Checked = !mf.isVehicleImage;
-
-            original = null;
-            SetOpacity();
-        }
-
-        static Bitmap SetAlpha(Bitmap bmpIn, int alpha)
-        {
-            Bitmap bmpOut = new Bitmap(bmpIn.Width, bmpIn.Height);
-            float a = alpha / 255f;
-            Rectangle r = new Rectangle(0, 0, bmpIn.Width, bmpIn.Height);
-
-            float[][] matrixItems = {
-                            new float[] {1, 0, 0, 0, 0},
-                            new float[] {0, 1, 0, 0, 0},
-                            new float[] {0, 0, 1, 0, 0},
-                            new float[] {0, 0, 0, a, 0},
-                            new float[] {0, 0, 0, 0, 1}};
-
-            ColorMatrix colorMatrix = new ColorMatrix(matrixItems);
-
-            ImageAttributes imageAtt = new ImageAttributes();
-            imageAtt.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-
-            using (Graphics g = Graphics.FromImage(bmpOut))
-                g.DrawImage(bmpIn, r, r.X, r.Y, r.Width, r.Height, GraphicsUnit.Pixel, imageAtt);
-
-            return bmpOut;
-        }
-
-        private void LoadBrandImage()
-        {
-            if (rbtnTractor.Checked)
-            {
-                mf.VehicleTextures.Tractor.SetBitmap(TractorBitmaps.GetBitmap(Settings.Default.setBrand_TBrand));
-            }
-            if (rbtnHarvester.Checked)
-            {
-                mf.VehicleTextures.Harvester.SetBitmap(HarvesterBitmaps.GetBitmap(Settings.Default.setBrand_HBrand));
-            }
-            if (rbtnArticulated.Checked)
-            {
-                mf.VehicleTextures.ArticulatedFront.SetBitmap(ArticulatedBitmaps.GetFrontBitmap(Settings.Default.setBrand_WDBrand));
-                mf.VehicleTextures.ArticulatedRear.SetBitmap(ArticulatedBitmaps.GetRearBitmap(Settings.Default.setBrand_WDBrand));
-            }
-        }
-
-        private void HarvesterBrandCheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton radioButton = sender as RadioButton;
-            if (radioButton.Checked)
-            {
-                harvesterBrand = (HarvesterBrand)radioButton.Tag;
-                pboxAlpha.BackgroundImage = HarvesterBitmaps.GetBitmap(harvesterBrand);
-                original = null;
-                SetOpacity();
-            }
-        }
-
-        private void TractorBrandCheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton radioButton = sender as RadioButton;
-            if (radioButton.Checked)
-            {
-                tractorBrand = (TractorBrand)radioButton.Tag;
-                pboxAlpha.BackgroundImage = TractorBitmaps.GetBitmap(tractorBrand);
-                original = null;
-                SetOpacity();
-            }
-        }
-
-        private void ArticulatedBrandCheckedChanged(object sender, EventArgs e)
-        {
-            RadioButton radioButton = sender as RadioButton;
-            if (radioButton.Checked)
-            {
-                articulatedBrand = (ArticulatedBrand)radioButton.Tag;
-                pboxAlpha.BackgroundImage = ArticulatedBitmaps.GetFrontBitmap(articulatedBrand);
-                original = null;
-                SetOpacity();
-            }
+            Settings.Default.Save();
         }
 
         #endregion

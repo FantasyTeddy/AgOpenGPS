@@ -114,21 +114,9 @@ namespace AgOpenGPS
             tab1.SelectedTab = tabSummary;
             //Label translations
             //configload-save
-            labelUnits.Text = gStr.gsUnit;
-            labelWidth.Text = gStr.gsWidth;
-            labelSections.Text = gStr.gsSections;
-            labelOffset.Text = gStr.gsOffset;
-            labelOverlap.Text = gStr.gsOverlap;
-            labelLookAhead.Text = gStr.gsLookAhead;
-            labelNudge.Text = gStr.gsNudge;
-            labelTramW.Text = gStr.gsTramWidth;
             labelUnitsBottom.Text = gStr.gsUnit;
             labelToolWidthBottom.Text = gStr.gsWidth;
             //tractorconfig
-            labelWheelBase.Text = gStr.gsWheelbase;
-            labelVehicleGroupBox.Text = gStr.gsVehiclegroupbox;
-            labelImage.Text = gStr.gsImage;
-            labelOpacity.Text = gStr.gsOpacity;
             labelBoxAttachmentStyle.Text = gStr.gsAttachmentStyle;
             labelTractorUnits.Text = gStr.gsUnit;
             labelHitchLength.Text = gStr.gsHitchLength;
@@ -144,8 +132,8 @@ namespace AgOpenGPS
             labelDualPositionOnRight.Text = gStr.gsDualpositionAntennaRight;
             //toolconfig
             labelToolOffset.Text = gStr.gsToolOffset;
-            labelOverlapGap.Text = gStr.gsOverlapGap;   
-            labelToolLeft.Text = gStr.gsToolLeft;   
+            labelOverlapGap.Text = gStr.gsOverlapGap;
+            labelToolLeft.Text = gStr.gsToolLeft;
             labelToolRight.Text = gStr.gsToolRight;
             labelOverlap2.Text = gStr.gsOverlap;
             labelGap.Text = gStr.gsGap;
@@ -372,7 +360,6 @@ namespace AgOpenGPS
         private void tabSummary_Enter(object sender, EventArgs e)
         {
             SectionFeetInchesTotalWidthLabelUpdate();
-            lblSummaryVehicleName.Text = RegistrySettings.vehicleFileName;
             UpdateSummary();
         }
 
@@ -395,6 +382,7 @@ namespace AgOpenGPS
             chkDirectionMarkers.Checked = Properties.Settings.Default.setTool_isDirectionMarkers;
             chkSectionLines.Checked = Properties.Settings.Default.setDisplay_isSectionLinesOn;
             chkLineSmooth.Checked = Properties.Settings.Default.setDisplay_isLineSmooth;
+            chkboxHeadlandDist.Checked = Properties.Settings.Default.isHeadlandDistanceOn;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
