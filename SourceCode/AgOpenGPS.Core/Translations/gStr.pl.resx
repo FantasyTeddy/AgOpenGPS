@@ -426,7 +426,7 @@ Kolejność, w jakiej je naciśniesz, będzie kolejnością, w jakiej pojawią s
     <value>Wprowadz nazwe</value>
   </data>
   <data name="gsEnterRecordName" xml:space="preserve">
-    <value>Wprowadź nazwę rec.</value>
+    <value>Wprowadź nazwę nagrania</value>
   </data>
   <data name="gsEnterSimCoords" xml:space="preserve">
     <value>Wprowadź współrzędne symulatora</value>
@@ -708,7 +708,7 @@ Kolejność, w jakiej je naciśniesz, będzie kolejnością, w jakiej pojawią s
     <value>Off</value>
   </data>
   <data name="gsOffset" xml:space="preserve">
-    <value>Przesunięcie anteny</value>
+    <value>Przesunięcie</value>
   </data>
   <data name="gsOffsetFix" xml:space="preserve">
     <value>Poprawka przesunięcia</value>
@@ -1096,5 +1096,41 @@ UŻYWAJ NA WŁASNE RYZYKO.</value>
   </data>
   <data name="v_AboutIntro" xml:space="preserve">
     <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
+  </data>
+  <data name="gsCurve" xml:space="preserve">
+    <value>Krzywa</value>
+  </data>
+  <data name="gsAllSettings" xml:space="preserve">
+    <value>Pokaż wszystkie ustawienia</value>
+  </data>
+  <data name="gsFast" xml:space="preserve">
+    <value>Szybko</value>
+  </data>
+  <data name="gsAckermann" xml:space="preserve">
+    <value>Ackermann</value>
+  </data>
+  <data name="gsFieldMenu" xml:space="preserve">
+    <value>Manu pola</value>
+  </data>
+  <data name="gsGap" xml:space="preserve">
+    <value>Przerwa</value>
+  </data>
+  <data name="gsHold" xml:space="preserve">
+    <value>Trzymaj</value>
+  </data>
+  <data name="gsInvertRoll" xml:space="preserve">
+    <value>Odwróć obrót</value>
+  </data>
+  <data name="gsNextGuidanceLine" xml:space="preserve">
+    <value>Następna linia nawigacyjna</value>
+  </data>
+  <data name="gsOpacity" xml:space="preserve">
+    <value>Przeźroczystość:</value>
+  </data>
+  <data name="gsStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="gsTooFast" xml:space="preserve">
+    <value>Za szybko</value>
   </data>
 </root>
