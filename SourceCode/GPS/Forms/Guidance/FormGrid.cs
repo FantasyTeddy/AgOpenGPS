@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Core.Models;
+using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Visuals;
 using AgOpenGPS.Helpers;
 using AgOpenGPS.Visuals;

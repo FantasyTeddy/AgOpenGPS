@@ -1,6 +1,6 @@
 ﻿using AgOpenGPS.Core.Drawing;
 using AgOpenGPS.Core.Models;
-using OpenTK;
+using OpenTK.GLControl;
 using System.Drawing;
 
 namespace AgOpenGPS.WinForms

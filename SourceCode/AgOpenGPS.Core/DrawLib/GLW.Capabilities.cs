@@ -28,7 +28,7 @@ namespace AgOpenGPS.Core.DrawLib
 
         public static void SetCullFaceModeBack()
         {
-            GL.CullFace(CullFaceMode.Back);
+            GL.CullFace(TriangleFace.Back);
         }
 
 

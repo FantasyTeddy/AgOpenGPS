@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,8 +9,8 @@ using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Core.Visuals;
 using AgOpenGPS.Forms;
 using AgOpenGPS.Helpers;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 
 namespace AgOpenGPS
 {
@@ -546,7 +546,7 @@ namespace AgOpenGPS
         {
             oglSelf.MakeCurrent();
             GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
+            GL.CullFace(TriangleFace.Back);
             GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         }

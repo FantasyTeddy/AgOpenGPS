@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
