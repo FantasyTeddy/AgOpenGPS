@@ -38,7 +38,7 @@ namespace AgOpenGPS
             label16.Text = Properties.Settings.Default.setAS_minSteerPWM.ToString();
             label18.Text = Properties.Settings.Default.setAS_Kp.ToString();
             label20.Text = Properties.Settings.Default.setVehicle_panicStopSpeed.ToString();
-           
+
             label22.Text = Properties.Settings.Default.setVehicle_goalPointAcquireFactor.ToString("N2");
             label24.Text = Properties.Settings.Default.setVehicle_goalPointLookAheadHold.ToString();
             label168.Text = Properties.Settings.Default.setVehicle_goalPointLookAheadMult.ToString();
@@ -60,15 +60,15 @@ namespace AgOpenGPS
 
             label60.Text = RegistrySettings.culture;
             label64.Text = Properties.Settings.Default.setF_isRemoteWorkSystemOn.ToString();
-            label66.Text = Properties.Settings.Default.setF_isSteerWorkSwitchEnabled.ToString(); 
+            label66.Text = Properties.Settings.Default.setF_isSteerWorkSwitchEnabled.ToString();
             label68.Text = Properties.Settings.Default.setF_isSteerWorkSwitchManualSections.ToString();
             label70.Text = Properties.Settings.Default.setF_isWorkSwitchActiveLow.ToString();
             label72.Text = Properties.Settings.Default.setF_isWorkSwitchEnabled.ToString();
             label74.Text = Properties.Settings.Default.setF_isWorkSwitchManualSections.ToString();
             label76.Text = Properties.Settings.Default.setF_minHeadingStepDistance.ToString();
-            label78.Text = RegistrySettings.vehiclesDirectory + " -> " 
+            label78.Text = RegistrySettings.vehiclesDirectory + " -> "
                     + RegistrySettings.vehicleFileName + ".xml";
-            
+
             label80.Text = Properties.Settings.Default.setGPS_ageAlarm.ToString();
             label82.Text = Properties.Settings.Default.setGPS_dualHeadingOffset.ToString();
             label84.Text = Properties.Settings.Default.setGPS_dualReverseDetectionDistance.ToString();
@@ -94,9 +94,9 @@ namespace AgOpenGPS
             label126.Text = Properties.Settings.Default.setTool_trailingToolToPivotLength.ToString();
             label128.Text = Properties.Settings.Default.setVehicle_hitchLength.ToString();
             label130.Text = Properties.Settings.Default.setVehicle_hydraulicLiftLookAhead.ToString();
-            label132.Text = "*****";
+            label132.Text = "N/A";
             label134.Text = Properties.Settings.Default.setVehicle_isStanleyUsed.ToString();
-            label136.Text = "*****";
+            label136.Text = "N/A";
             label138.Text = Properties.Settings.Default.setVehicle_maxAngularVelocity.ToString();
             label140.Text = Properties.Settings.Default.set_youTurnRadius.ToString();
             label142.Text = Properties.Settings.Default.setVehicle_numSections.ToString();
@@ -120,6 +120,7 @@ namespace AgOpenGPS
 
             lblEastingField.Text = Math.Round(mf.pn.fix.easting, 2).ToString();
             lblNorthingField.Text = Math.Round(mf.pn.fix.northing, 2).ToString();
+            lblSemVer.Text = Program.SemVer;
 
             //lblLatitude.Text = mf.Latitude;
             //lblLongitude.Text = mf.Longitude;

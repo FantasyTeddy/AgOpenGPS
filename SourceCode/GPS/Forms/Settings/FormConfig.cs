@@ -1,8 +1,9 @@
 ﻿//Please, if you use this, share the improvements
 
+using Accord.Math.Distances;
 using AgLibrary.Logging;
 using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
 using Microsoft.Win32;
 using System;
@@ -107,36 +108,16 @@ namespace AgOpenGPS
             //metric or imp on spinners min/maxes
             if (!mf.isMetric) FixMinMaxSpinners();
 
-            //the pick a saved vehicle box
-            UpdateVehicleListView();
-
             //tabTSections_Enter(this, e);
             lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * 100 * mf.cm2CmOrIn));
-            SectionFeetInchesTotalWidthLabelUpdate();
+            SectionFeetInchesTotalWidthLabelUpdate(mf.isMetric, mf.tool.width);
 
             tab1.SelectedTab = tabSummary;
-            tboxVehicleNameSave.Focus();
             //Label translations
             //configload-save
-            labelSaveAs.Text = gStr.gsSaveAs;
-            labelNew.Text = gStr.gsNew;
-            labelUnits.Text = gStr.gsUnit;
-            labelWidth.Text = gStr.gsWidth;
-            labelSections.Text = gStr.gsSections;
-            labelOffset.Text = gStr.gsOffset;
-            labelOverlap.Text = gStr.gsOverlap;
-            labelLookAhead.Text = gStr.gsLookAhead;
-            labelNudge.Text = gStr.gsNudge;
-            labelTramW.Text = gStr.gsTramWidth;
             labelUnitsBottom.Text = gStr.gsUnit;
             labelToolWidthBottom.Text = gStr.gsWidth;
-            labelOpen.Text = gStr.gsOpen;
-            labelDelete.Text = gStr.gsDelete;
             //tractorconfig
-            labelWheelBase.Text = gStr.gsWheelbase;
-            labelVehicleGroupBox.Text = gStr.gsVehiclegroupbox;
-            labelImage.Text = gStr.gsImage;
-            labelOpacity.Text = gStr.gsOpacity;
             labelBoxAttachmentStyle.Text = gStr.gsAttachmentStyle;
             labelTractorUnits.Text = gStr.gsUnit;
             labelHitchLength.Text = gStr.gsHitchLength;
@@ -152,8 +133,8 @@ namespace AgOpenGPS
             labelDualPositionOnRight.Text = gStr.gsDualpositionAntennaRight;
             //toolconfig
             labelToolOffset.Text = gStr.gsToolOffset;
-            labelOverlapGap.Text = gStr.gsOverlapGap;   
-            labelToolLeft.Text = gStr.gsToolLeft;   
+            labelOverlapGap.Text = gStr.gsOverlapGap;
+            labelToolLeft.Text = gStr.gsToolLeft;
             labelToolRight.Text = gStr.gsToolRight;
             labelOverlap2.Text = gStr.gsOverlap;
             labelGap.Text = gStr.gsGap;
@@ -264,6 +245,7 @@ namespace AgOpenGPS
             labelFullscreenOnOff.Text = gStr.gsStartFullscreen;
             labelGuideLinesOnOff.Text = gStr.gsExtraGuideLines;
             labelSectionLinesOnOff.Text = gStr.gsSectionLines;
+            labelElevationOnOff.Text = gStr.gsElevationlog;
             labelElevationOnOff.Text = gStr.gsElevationlog;
             unitsGroupBox.Text = gStr.gsUnits;
             cboxIsAutoSwitchDualFixOn.Text = gStr.gsAutoSwitchDualFix;
@@ -379,29 +361,12 @@ namespace AgOpenGPS
 
         private void tabSummary_Enter(object sender, EventArgs e)
         {
-            SectionFeetInchesTotalWidthLabelUpdate();
-            lblSummaryVehicleName.Text = RegistrySettings.vehicleFileName;
+            SectionFeetInchesTotalWidthLabelUpdate(mf.isMetric, mf.tool.width);
             UpdateSummary();
         }
 
         private void tabSummary_Leave(object sender, EventArgs e)
         {
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (lvVehicles.SelectedItems.Count > 0)
-            {
-                //btnVehicleSaveAs.Enabled = true;
-                btnVehicleLoad.Enabled = true;
-                btnVehicleDelete.Enabled = true;
-            }
-            else
-            {
-                //btnVehicleSaveAs.Enabled = false;
-                btnVehicleLoad.Enabled = false;
-                btnVehicleDelete.Enabled = false;
-            }
         }
 
         private void tabDisplay_Enter(object sender, EventArgs e)
@@ -419,6 +384,7 @@ namespace AgOpenGPS
             chkDirectionMarkers.Checked = Properties.Settings.Default.setTool_isDirectionMarkers;
             chkSectionLines.Checked = Properties.Settings.Default.setDisplay_isSectionLinesOn;
             chkLineSmooth.Checked = Properties.Settings.Default.setDisplay_isLineSmooth;
+            chkboxHeadlandDist.Checked = Properties.Settings.Default.isHeadlandDistanceOn;
 
             if (mf.isMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
@@ -462,6 +428,5 @@ namespace AgOpenGPS
             }
 
         }
-
     }
 }

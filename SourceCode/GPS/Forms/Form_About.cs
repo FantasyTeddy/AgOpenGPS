@@ -1,4 +1,4 @@
-﻿using AgOpenGPS.Culture;
+﻿using AgOpenGPS.Core.Translations;
 using System;
 using System.Globalization;
 using System.Windows.Forms;
@@ -36,12 +36,6 @@ namespace AgOpenGPS
                 LinkData = "https://discourse.agopengps.com/"
             };
             linkLabelCombineForum.Links.Add(linkCf);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.setDisplay_isTermsAccepted = false;
-            Properties.Settings.Default.Save();
         }
 
         private void btnVideo_Click(object sender, EventArgs e)

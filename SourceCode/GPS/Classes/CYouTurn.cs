@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 namespace AgOpenGPS
 {
+    public enum SkipMode { Normal, Alternative, IgnoreWorkedTracks };
+
     public class CYouTurn
     {
         #region Fields
@@ -24,7 +26,8 @@ namespace AgOpenGPS
 
         public int rowSkipsWidth = 1, uTurnSmoothing;
 
-        public bool alternateSkips = false, previousBigSkip = true;
+        public bool previousBigSkip = true;
+        public SkipMode skipMode = SkipMode.Normal;
         public int rowSkipsWidth2 = 3, turnSkips = 2;
 
         /// <summary>  /// distance from headland as offset where to start turn shape /// </summary>
@@ -32,9 +35,6 @@ namespace AgOpenGPS
 
         //guidance values
         public double distanceFromCurrentLine, uturnDistanceFromBoundary;
-
-        public double distanceFromCurrentLineSteer, distanceFromCurrentLinePivot;
-        public double steerAngleGu, rEastSteer, rNorthSteer, rEastPivot, rNorthPivot;
 
         private int A, B;
         private bool isHeadingSameWay = true;
@@ -102,9 +102,67 @@ namespace AgOpenGPS
             uTurnSmoothing = Properties.Settings.Default.setAS_uTurnSmoothing;
         }
 
+        //find next not worked lane after the defined lanes to skip
+        private int GetNextNotWorkedTrack(bool isTurnLeft, int rowSkipsWidth, bool isAB)
+        {
+            int goalLane;
+
+            if (isAB)
+            {
+
+                if ((isTurnLeft && !mf.ABLine.isHeadingSameWay) || (!isTurnLeft && mf.ABLine.isHeadingSameWay))
+                    goalLane = mf.ABLine.howManyPathsAway + rowSkipsWidth;
+                else
+                    goalLane = mf.ABLine.howManyPathsAway - rowSkipsWidth;
+
+                while (mf.trk.gArr[mf.trk.idx].workedTracks.Contains(goalLane))
+                {
+                    rowSkipsWidth++;
+                    if ((isTurnLeft && !mf.ABLine.isHeadingSameWay) || (!isTurnLeft && mf.ABLine.isHeadingSameWay))
+                        goalLane++;
+                    else
+                        goalLane--;
+                }
+            }
+            else
+            {
+                if ((isTurnLeft && !mf.curve.isHeadingSameWay) || (!isTurnLeft && mf.curve.isHeadingSameWay))
+                    goalLane = mf.curve.howManyPathsAway + rowSkipsWidth;
+                else
+                    goalLane = mf.curve.howManyPathsAway - rowSkipsWidth;
+
+                while (mf.trk.gArr[mf.trk.idx].workedTracks.Contains(goalLane))
+                {
+                    rowSkipsWidth++;
+                    if ((isTurnLeft && !mf.curve.isHeadingSameWay) || (!isTurnLeft && mf.curve.isHeadingSameWay))
+                        goalLane++;
+                    else
+                        goalLane--;
+                }
+            }
+
+
+            return rowSkipsWidth;
+        }
+
         //Finds the point where an AB Curve crosses the turn line
         public bool BuildCurveDubinsYouTurn()
         {
+            //if mode is skip workedTracks -> mark current track as worked if sections were on, then find next
+            if (skipMode == SkipMode.IgnoreWorkedTracks)
+            {
+                // Mark the current track as worked only if sections were actually on
+                if (mf.trk.idx >= 0 && mf.trk.idx < mf.trk.gArr.Count)
+                {
+                    if (mf.autoBtnState == btnStates.Auto || mf.manualBtnState == btnStates.On)
+                    {
+                        mf.trk.gArr[mf.trk.idx].workedTracks.Add(mf.curve.howManyPathsAway);
+                    }
+                }
+
+                rowSkipsWidth = GetNextNotWorkedTrack(isTurnLeft, Properties.Settings.Default.set_youSkipWidth, false);
+            }
+
             //TODO: is calculated many taimes after the priveous turn is complete
             //grab the vehicle widths and offsets
             double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
@@ -135,6 +193,21 @@ namespace AgOpenGPS
 
         public bool BuildABLineDubinsYouTurn()
         {
+            //if mode is skip workedTracks -> mark current track as worked if sections were on, then find next
+            if (skipMode == SkipMode.IgnoreWorkedTracks)
+            {
+                // Mark the current track as worked only if sections were actually on
+                if (mf.trk.idx >= 0 && mf.trk.idx < mf.trk.gArr.Count)
+                {
+                    if (mf.autoBtnState == btnStates.Auto || mf.manualBtnState == btnStates.On)
+                    {
+                        mf.trk.gArr[mf.trk.idx].workedTracks.Add(mf.ABLine.howManyPathsAway);
+                    }
+                }
+
+                rowSkipsWidth = GetNextNotWorkedTrack(isTurnLeft, Properties.Settings.Default.set_youSkipWidth, true);
+            }
+
             double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth
                 + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
 
@@ -612,6 +685,13 @@ namespace AgOpenGPS
                     int cnt1 = ytList.Count;
                     int cnt2 = ytList2.Count;
 
+                    //Validate that both lists have elements to prevent crashes
+                    if (cnt1 == 0 || cnt2 == 0)
+                    {
+                        FailCreate();
+                        return false;
+                    }
+
                     //Find if the turn goes same way as turnline heading
                     bool isFirstTurnLineSameWay = true;
                     double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[ytList.Count - 1].heading);
@@ -635,9 +715,9 @@ namespace AgOpenGPS
                     //is in and out on same segment? so only 1 segment
                     if (startClosestTurnPt.turnLineIndex == goalClosestTurnPt.turnLineIndex)
                     {
-                        for (int a = 0; a < cnt2; cnt2--)
+                        for (int a = 0; a < cnt2; a++)
                         {
-                            ytList.Add(new vec3(ytList2[cnt2 - 1]));
+                            ytList.Add(new vec3(ytList2[cnt2 - 1 - a]));
                         }
                     }
                     else
@@ -689,9 +769,9 @@ namespace AgOpenGPS
                         }
 
                         //add the out from ytList2
-                        for (int a = 0; a < cnt2; cnt2--)
+                        for (int a = 0; a < cnt2; a++)
                         {
-                            ytList.Add(new vec3(ytList2[cnt2 - 1]));
+                            ytList.Add(new vec3(ytList2[cnt2 - 1 - a]));
                         }
                     }
 
@@ -1018,6 +1098,13 @@ namespace AgOpenGPS
                     int cnt1 = ytList.Count;
                     int cnt2 = ytList2.Count;
 
+                    //Validate that both lists have elements to prevent crashes
+                    if (cnt1 == 0 || cnt2 == 0)
+                    {
+                        FailCreate();
+                        return false;
+                    }
+
                     //Find if the turn goes same way as turnline heading
                     bool isFirstTurnLineSameWay = true;
                     double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[ytList.Count - 1].heading);
@@ -1042,9 +1129,9 @@ namespace AgOpenGPS
                     //is in and out on same segment? so only 1 segment
                     if (startClosestTurnPt.turnLineIndex == goalClosestTurnPt.turnLineIndex)
                     {
-                        for (int a = 0; a < cnt2; cnt2--)
+                        for (int a = 0; a < cnt2; a++)
                         {
-                            ytList.Add(new vec3(ytList2[cnt2 - 1]));
+                            ytList.Add(new vec3(ytList2[cnt2 - 1 - a]));
                         }
 
                     }
@@ -1098,9 +1185,9 @@ namespace AgOpenGPS
                         }
 
                         //add the out from ytList2
-                        for (int a = 0; a < cnt2; cnt2--)
+                        for (int a = 0; a < cnt2; a++)
                         {
-                            ytList.Add(new vec3(ytList2[cnt2 - 1]));
+                            ytList.Add(new vec3(ytList2[cnt2 - 1 - a]));
                         }
                     }
 
@@ -2334,7 +2421,7 @@ namespace AgOpenGPS
                 mf.ABLine.howManyPathsAway += (isTurnLeft ^ mf.ABLine.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth;
                 mf.ABLine.isHeadingSameWay = !mf.ABLine.isHeadingSameWay;
 
-                if (alternateSkips && rowSkipsWidth2 > 1)
+                if (skipMode == SkipMode.Alternative && rowSkipsWidth2 > 1)
                 {
                     if (--turnSkips == 0)
                     {
@@ -2387,6 +2474,7 @@ namespace AgOpenGPS
             mf.p_239.pgn[mf.p_239.uturn] = 0;
             isOutSameCurve = false;
             isGoingStraightThrough = false;
+            maxProgressIndexReached = 0;
         }
 
         public void FailCreate()
@@ -2497,6 +2585,7 @@ namespace AgOpenGPS
         }
 
         public int onA;
+        private int maxProgressIndexReached = 0;
 
         //determine distance from youTurn guidance line
         public bool DistanceFromYouTurnLine()
@@ -2512,7 +2601,10 @@ namespace AgOpenGPS
                     vec3 pivot = mf.steerAxlePos;
 
                     //find the closest 2 points to current fix
-                    for (int t = 0; t < ptCount; t++)
+                    //Start search from max progress minus small lookback to prevent jumping back to start
+                    //when start and end positions overlap
+                    int searchStartIndex = Math.Max(0, maxProgressIndexReached - 5);
+                    for (int t = searchStartIndex; t < ptCount; t++)
                     {
                         double dist = ((pivot.easting - ytList[t].easting) * (pivot.easting - ytList[t].easting))
                                         + ((pivot.northing - ytList[t].northing) * (pivot.northing - ytList[t].northing));
@@ -2560,8 +2652,16 @@ namespace AgOpenGPS
                     }
                     B = A + 1;
 
+                    // Track maximum progress through the path
+                    if (A > maxProgressIndexReached)
+                        maxProgressIndexReached = A;
+
+                    // Only complete if we've progressed through at least 50% of the path
+                    // This prevents premature completion when start and end positions are the same
+                    bool hasProgressedEnough = maxProgressIndexReached > (ptCount / 2);
+
                     //return and reset if too far away or end of the line
-                    if (B >= ptCount - 1)
+                    if (B >= ptCount - 1 && hasProgressedEnough)
                     {
                         CompleteYouTurn();
                         return false;
@@ -2626,7 +2726,10 @@ namespace AgOpenGPS
                     vec3 pivot = mf.pivotAxlePos;
 
                     //find the closest 2 points to current fix
-                    for (int t = 0; t < ptCount; t++)
+                    //Start search from max progress minus small lookback to prevent jumping back to start
+                    //when start and end positions overlap
+                    int searchStartIndex = Math.Max(0, maxProgressIndexReached - 5);
+                    for (int t = searchStartIndex; t < ptCount; t++)
                     {
                         double dist = ((pivot.easting - ytList[t].easting) * (pivot.easting - ytList[t].easting))
                                         + ((pivot.northing - ytList[t].northing) * (pivot.northing - ytList[t].northing));
@@ -2651,9 +2754,18 @@ namespace AgOpenGPS
                     }
 
                     onA = A;
+
+                    // Track maximum progress through the path
+                    if (A > maxProgressIndexReached)
+                        maxProgressIndexReached = A;
+
                     double distancePiv = glm.Distance(ytList[A], pivot);
 
-                    if ((A > 0 && distancePiv > 2) || (B >= ptCount - 1))
+                    // Only complete if we've progressed through at least 50% of the path
+                    // This prevents premature completion when start and end positions are the same
+                    bool hasProgressedEnough = maxProgressIndexReached > (ptCount / 2);
+
+                    if (((A > 0 && distancePiv > 2) || (B >= ptCount - 1)) && hasProgressedEnough)
                     {
                         CompleteYouTurn();
                         return false;

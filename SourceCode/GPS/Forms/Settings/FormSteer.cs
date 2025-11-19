@@ -1,6 +1,8 @@
 ﻿using AgLibrary.Logging;
 using AgOpenGPS.Controls;
-using AgOpenGPS.Culture;
+using AgOpenGPS.Core.Models;
+using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Forms;
 using AgOpenGPS.Helpers;
 using AgOpenGPS.Properties;
 using System;
@@ -57,11 +59,11 @@ namespace AgOpenGPS
             labelMaxLimit.Text = gStr.gsMaxLimit;
             labelMinToMove.Text = gStr.gsMinToMove;
             labelWasZero.Text = gStr.gsWasZero;
-            labelCountsPerDegree.Text = gStr.gsCountsPerDegree; 
+            labelCountsPerDegree.Text = gStr.gsCountsPerDegree;
             labelAckermann.Text = gStr.gsAckermann;
-            labelMaxSteerAngle.Text = gStr.gsMaxSteerAngle; 
+            labelMaxSteerAngle.Text = gStr.gsMaxSteerAngle;
             labelDeadzone.Text = gStr.gsDeadzone;
-            labelHeadingDegree.Text = gStr.gsHeading;   
+            labelHeadingDegree.Text = gStr.gsHeading;
             labelOnDelay.Text = gStr.gsOnDelay;
             labelSpeedFactor.Text = gStr.gsSpeedFactor;
             labelAquireFactor.Text = gStr.gsAquireFactor;
@@ -72,14 +74,14 @@ namespace AgOpenGPS
 
             //translate pop-out
             labelEncoder.Text = gStr.gsTurnSensor;
-            labelTurnSensor.Text = gStr.gsTurnSensor;   
+            labelTurnSensor.Text = gStr.gsTurnSensor;
             labelPressureTurnSensor.Text = gStr.gsPressureTurnSensor;
             labelCurrentTurnSensor.Text = gStr.gsCurrentTurnSensor;
-            labelInvertWas.Text = gStr.gsInvertWas; 
+            labelInvertWas.Text = gStr.gsInvertWas;
             labelInvertMotor.Text = gStr.gsInvertMotor;
             labelInvertRelays.Text = gStr.gsInvertRelays;
             labelMotorDriver.Text = gStr.gsMotorDriver;
-            labelADConverter.Text = gStr.gsADConverter; 
+            labelADConverter.Text = gStr.gsADConverter;
             labelIMUAxis.Text = gStr.gsIMUAxis;
             labelSteerEnable.Text = gStr.gsSteerEnable;
             labelSteerDescription.Text = gStr.gsSteerDescription;
@@ -98,7 +100,7 @@ namespace AgOpenGPS
             labelSteerBar.Text = gStr.gsSteerBar;
             labelWizard.Text = gStr.gsWizard;
             labelReset.Text = gStr.gsReset;
-            labelSendAndSave.Text = gStr.gsSendAndSave; 
+            labelSendAndSave.Text = gStr.gsSendAndSave;
 
             this.Width = 388;
             this.Height = 490;
@@ -221,7 +223,7 @@ namespace AgOpenGPS
             mf.vehicle.driveFreeSteerAngle = 0;
 
             //nudDeadZoneDistance.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneDistance)/10);
-            nudDeadZoneHeading.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneHeading)/100);
+            nudDeadZoneHeading.Value = (decimal)((double)(Properties.Settings.Default.setAS_deadZoneHeading) / 100);
             nudDeadZoneDelay.Value = (decimal)(mf.vehicle.deadZoneDelay);
 
             toSend = false;
@@ -424,7 +426,7 @@ namespace AgOpenGPS
             lblAV_Set.Text = mf.setAngVel.ToString("N1");
 
             lblPWMDisplay.Text = mf.mc.pwmDisplay.ToString();
-            
+
             counter++;
 
             if (toSend && counter > 4)
@@ -483,6 +485,7 @@ namespace AgOpenGPS
         private void EnableAlert_Click(object sender, EventArgs e)
         {
             pboxSendSteer.Visible = true;
+            btnClose.Enabled = false;
 
             if (sender is CheckBox checkbox)
             {
@@ -548,12 +551,15 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 pboxSendSteer.Visible = true;
+                btnClose.Enabled = false;
+
             }
         }
 
         private void hsbarSensor_Scroll(object sender, ScrollEventArgs e)
         {
             pboxSendSteer.Visible = true;
+            btnClose.Enabled = false;
             lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
         }
 
@@ -662,9 +668,9 @@ namespace AgOpenGPS
             }
             else
             {
-                nudMaxSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_maxSteerSpeed * 0.62137);
-                nudMinSteerSpeed.Value = (decimal)(Properties.Settings.Default.setAS_minSteerSpeed * 0.62137);
-                nudGuidanceSpeedLimit.Value = (decimal)(Properties.Settings.Default.setAS_functionSpeedLimit * 0.62137);
+                nudMaxSteerSpeed.Value = (decimal)Speed.KmhToMph(Properties.Settings.Default.setAS_maxSteerSpeed);
+                nudMinSteerSpeed.Value = (decimal)Speed.KmhToMph(Properties.Settings.Default.setAS_minSteerSpeed);
+                nudGuidanceSpeedLimit.Value = (decimal)Speed.KmhToMph(Properties.Settings.Default.setAS_functionSpeedLimit);
                 label160.Text = label163.Text = label166.Text = "mph";
             }
 
@@ -682,7 +688,7 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.Settings.Default.setAS_minSteerSpeed = ((double)nudMinSteerSpeed.Value);
-                if (!mf.isMetric) Properties.Settings.Default.setAS_minSteerSpeed *= 1.609344;
+                if (!mf.isMetric) Properties.Settings.Default.setAS_minSteerSpeed = Speed.MphToKmh(Properties.Settings.Default.setAS_minSteerSpeed);
                 mf.vehicle.minSteerSpeed = Properties.Settings.Default.setAS_minSteerSpeed;
             }
         }
@@ -692,7 +698,7 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.Settings.Default.setAS_maxSteerSpeed = ((double)nudMaxSteerSpeed.Value);
-                if (!mf.isMetric) Properties.Settings.Default.setAS_maxSteerSpeed *= 1.609344;
+                if (!mf.isMetric) Properties.Settings.Default.setAS_maxSteerSpeed = Speed.MphToKmh(Properties.Settings.Default.setAS_maxSteerSpeed);
                 mf.vehicle.maxSteerSpeed = Properties.Settings.Default.setAS_maxSteerSpeed;
             }
         }
@@ -702,7 +708,7 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.Settings.Default.setAS_functionSpeedLimit = ((double)nudGuidanceSpeedLimit.Value);
-                if (!mf.isMetric) Properties.Settings.Default.setAS_functionSpeedLimit *= 1.609344;
+                if (!mf.isMetric) Properties.Settings.Default.setAS_functionSpeedLimit = Speed.MphToKmh(Properties.Settings.Default.setAS_functionSpeedLimit);
                 mf.vehicle.functionSpeedLimit = Properties.Settings.Default.setAS_functionSpeedLimit;
             }
         }
@@ -887,11 +893,6 @@ namespace AgOpenGPS
             }
         }
 
-        private void btnWASZeroReset_Click(object sender, EventArgs e)
-        {
-            hsbarWasOffset.Value = 0;
-        }
-
         private void btnStartSA_Click(object sender, EventArgs e)
         {
             if (!isSA)
@@ -1039,11 +1040,6 @@ namespace AgOpenGPS
             if (mf.vehicle.driveFreeSteerAngle > 40) mf.vehicle.driveFreeSteerAngle = 40;
         }
 
-        private void label34_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnSteerAngleDown_MouseDown(object sender, MouseEventArgs e)
         {
             mf.vehicle.driveFreeSteerAngle--;
@@ -1058,10 +1054,14 @@ namespace AgOpenGPS
             SaveSettings();
             mf.SendPgnToLoop(mf.p_251.pgn);
             pboxSendSteer.Visible = false;
+            btnClose.Enabled = true;
             Log.EventWriter("Steer Form, Send and Save Pressed");
 
             mf.TimedMessageBox(2000, gStr.gsAutoSteerPort, "Settings Sent To Steer Module");
-            
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
             Close();
         }
 
@@ -1169,7 +1169,7 @@ namespace AgOpenGPS
             mf.p_251.pgn[mf.p_251.set0] = Properties.Settings.Default.setArdSteer_setting0;
             mf.p_251.pgn[mf.p_251.set1] = Properties.Settings.Default.setArdSteer_setting1;
             mf.p_251.pgn[mf.p_251.maxPulse] = Properties.Settings.Default.setArdSteer_maxPulseCounts;
-            mf.p_251.pgn[mf.p_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10)); 
+            mf.p_251.pgn[mf.p_251.minSpeed] = unchecked((byte)(Properties.Settings.Default.setAS_minSteerSpeed * 10));
 
             if (Properties.Settings.Default.setAS_isConstantContourOn)
                 mf.p_251.pgn[mf.p_251.angVel] = 1;
@@ -1188,12 +1188,12 @@ namespace AgOpenGPS
 
         private void btnVehicleReset_Click(object sender, EventArgs e)
         {
-            DialogResult result3 = MessageBox.Show("Reset This Page to Defaults",
+            DialogResult result3 = FormDialog.Show(
+                "Reset This Page to Defaults",
                 "Are you Sure",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2);
-            if (result3 == DialogResult.Yes)
+                MessageBoxButtons.YesNo);
+
+            if (result3 == DialogResult.OK)
             {
                 Log.EventWriter("Steer Form - Steer Settings Set to Default");
 
@@ -1226,7 +1226,7 @@ namespace AgOpenGPS
                 Properties.Settings.Default.stanleyIntegralGainAB = 0;
 
                 Properties.Settings.Default.purePursuitIntegralGainAB = 0;
-                
+
                 Properties.Settings.Default.setAS_sideHillComp = 0;
 
                 Properties.Settings.Default.setAS_uTurnCompensation = 1;
