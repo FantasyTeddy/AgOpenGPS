@@ -207,7 +207,7 @@ namespace AgIO
                     if (isGPSSentencesOn) avrSentence = nextNMEASentence;
                 }
 
-                else if (words[0] == "$GNTRA")
+                else if (words[0] == "$GNTRA" || words[0] == "$GPTRA")
                 {
                     ParseTRA();
                 }
