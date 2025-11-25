@@ -253,6 +253,8 @@ namespace AgOpenGPS.Properties
         public bool AgShareEnabled = false;
         public bool AgShareUploadActive = false;
         public bool isHeadlandDistanceOn = false;
+        public int bndToolSpacing = 2;
+        public int bndToolSmooth = 4;
 
         public LoadResult Load()
         {
