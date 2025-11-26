@@ -709,7 +709,7 @@ namespace AgOpenGPS
                     continue;
                 }
                 delta += (smList[i - 1].heading - smList[i].heading);
-                if (Math.Abs(delta) > 0.05)
+                if (Math.Abs(delta) > 0.02)
                 {
                     smooList.Add(new vec3(smList[i]));
                     delta = 0;
