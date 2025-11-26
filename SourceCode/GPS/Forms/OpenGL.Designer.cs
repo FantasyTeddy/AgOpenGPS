@@ -16,15 +16,12 @@ namespace AgOpenGPS
         //extracted Near, Far, Right, Left clipping planes of frustum
         public double[] frustum = new double[24];
 
-        //
         private bool isInit = false;
         private double fovy = 0.7;
         private double camDistanceFactor = -4;
 
         int mouseX = 0, mouseY = 0;
         public int steerModuleConnectedCounter = 0;
-
-        //data buffer for pixels read from off screen buffer
 
         //data buffer for pixels read from off screen buffer
         byte[] rateRed = new byte[1];
@@ -35,15 +32,18 @@ namespace AgOpenGPS
 
         private bool isHeadlandClose = false;
 
-        private void SetVehicleTextures()
-        {
-            VehicleTextures.Tractor.SetBitmap(TractorBitmaps.GetBitmap(Settings.Default.setBrand_TBrand));
-            VehicleTextures.Harvester.SetBitmap(HarvesterBitmaps.GetBitmap(Settings.Default.setBrand_HBrand));
-            VehicleTextures.ArticulatedFront.SetBitmap(ArticulatedBitmaps.GetFrontBitmap(Settings.Default.setBrand_WDBrand));
-            VehicleTextures.ArticulatedRear.SetBitmap(ArticulatedBitmaps.GetRearBitmap(Settings.Default.setBrand_WDBrand));
-        }
+        int deadCam = 0;
 
-        // When oglMain is created
+        StringBuilder sb = new StringBuilder();
+
+        private ulong number = 0, lastNumber = 0;
+
+        public double avgPivDistance, lightbarDistance, longAvgPivDistance;
+
+        vec2 left = new vec2();
+        vec2 right = new vec2();
+        vec2 ptTip = new vec2();
+
         private void oglMain_Load(object sender, EventArgs e)
         {
             oglMain.MakeCurrent();
@@ -55,7 +55,6 @@ namespace AgOpenGPS
             tmrWatchdog.Enabled = true;
         }
 
-        //oglMain needs a resize
         private void oglMain_Resize(object sender, EventArgs e)
         {
             oglMain.MakeCurrent();
@@ -69,16 +68,6 @@ namespace AgOpenGPS
             if (isLineSmooth) GL.Enable(EnableCap.LineSmooth);
             else GL.Disable(EnableCap.LineSmooth);
         }
-
-        //oglMain rendering, Draw
-
-        int deadCam = 0;
-
-        StringBuilder sb = new StringBuilder();
-
-        vec2 left = new vec2();
-        vec2 right = new vec2();
-        vec2 ptTip = new vec2();
 
         private void oglMain_Paint(object sender, PaintEventArgs e)
         {
@@ -102,6 +91,7 @@ namespace AgOpenGPS
 
                     GL.LoadIdentity();
 
+                    #region Camera
                     //position the camera
                     camera.SetLookAt(pivotAxlePos.easting, pivotAxlePos.northing, camHeading);
 
@@ -109,13 +99,19 @@ namespace AgOpenGPS
                     CalcFrustum();
                     GL.Disable(EnableCap.Blend);
 
+                    #endregion
+
+                    #region World and Grid
+
                     worldGrid.DrawFieldSurface(fieldColor, camera.ZoomValue, isTextureOn);
-
-
 
                     if (isGridOn) worldGrid.DrawWorldGrid(worldGridColor);
 
                     if (isDrawPolygons) GL.PolygonMode(MaterialFace.Front, PolygonMode.Line);
+
+                    #endregion
+
+                    #region Triangle section patches
 
                     GL.Enable(EnableCap.Blend);
                     //draw patches of sections
@@ -140,7 +136,6 @@ namespace AgOpenGPS
                             if (camera.camSetDistance < -1500) mipmap = 4;
                             if (camera.camSetDistance < -2400) mipmap = 8;
                             if (camera.camSetDistance < -5000) mipmap = 16;
-
 
                             //for every new chunk of patch
                             foreach (var triList in triStrip[j].patchList)
@@ -228,7 +223,6 @@ namespace AgOpenGPS
                                         else { for (int i = 2; i < count2; i += 2) GL.Vertex3(triList[i].easting, triList[i].northing, 0); }
                                         GL.End();
                                     }
-
 
                                     if (isDirectionMarkers)
                                     {
@@ -325,23 +319,10 @@ namespace AgOpenGPS
                     if (tram.displayMode != 0) tram.DrawTram();
 
                     GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
-                    //GL.Color3(1, 1, 1);
 
-                    //if (bnd.shpList.Count > 0)
-                    //{
-                    //    for (int h = 0; h < bnd.shpList.Count; h++)
-                    //    {
-                    //        GL.Color3(bnd.shpList[h].color.R, bnd.shpList[h].color.G, bnd.shpList[h].color.B);
-                    //        GL.Begin(PrimitiveType.LineLoop);
-                    //        for (int i = 0; i < bnd.shpList[h].points.Count; i++)
-                    //        {
-                    //            {
-                    //                GL.Vertex3(bnd.shpList[h].points[i].easting, bnd.shpList[h].points[i].northing, 0);
-                    //            }
-                    //        }
-                    //        GL.End();
-                    //    }
-                    //}
+                    #endregion
+
+                    #region Boundaries
 
                     if (bnd.bndList.Count > 0 || bnd.isBndBeingMade == true)
                     {
@@ -383,6 +364,10 @@ namespace AgOpenGPS
                         }
                     }
 
+                    #endregion
+
+                    #region Guidance Lines
+
                     //draw contour line if button on 
                     if (ct.isContourBtnOn)
                     {
@@ -408,6 +393,10 @@ namespace AgOpenGPS
                     recPath.DrawRecordedLine();
                     recPath.DrawDubins();
 
+                    #endregion
+
+                    #region Flags
+
                     if (flagPts.Count > 0) DrawFlags();
 
                     //Direct line to flag if flag selected
@@ -428,6 +417,10 @@ namespace AgOpenGPS
                     }
                     catch { }
 
+                    #endregion
+
+                    #region Vehicle and Implement
+
                     //draw the vehicle/implement
                     GL.PushMatrix();
                     {
@@ -447,6 +440,10 @@ namespace AgOpenGPS
                             GLW.DrawPointLayered(pointStyles, goalPoint.easting, goalPoint.northing, 0.0);
                         }
                     }
+
+                    #endregion
+
+                    #region 2D Ortho
 
                     // 2D Ortho ---------------------------------------////////-------------------------------------------------
                     GL.MatrixMode(MatrixMode.Projection);
@@ -472,7 +469,6 @@ namespace AgOpenGPS
                     }
 
                     if (trk.idx > -1 && !ct.isContourBtnOn) DrawTrackInfo();
-
 
                     if (bnd.bndList.Count > 0 && yt.isYouTurnBtnOn) DrawUTurnBtn();
 
@@ -564,12 +560,10 @@ namespace AgOpenGPS
                         DrawHeadlandDistance();
                     }
 
-
                     if (pn.age > pn.ageAlarm) DrawAge();
 
                     //at least one track
                     if (guideLineCounter > 0) DrawGuidanceLineText();
-
 
                     //if hardware messages
                     if (isHardwareMessages) DrawHardwareMessageText();
@@ -580,6 +574,10 @@ namespace AgOpenGPS
                     GL.PopMatrix();//  Pop the modelview.
 
                     ////-------------------------------------------------ORTHO END---------------------------------------
+
+                    #endregion
+
+                    #region Screen Border
 
                     //  back to the projection and pop it, then back to the model view.
                     GL.MatrixMode(MatrixMode.Projection);
@@ -607,6 +605,11 @@ namespace AgOpenGPS
                         GL.Color3(1.0, 0.66, 0.33);
                         GL.LineWidth(8);
                     }
+
+                    #endregion
+
+                    #region RTK Alarms
+
                     if ((isRTK_AlarmOn && sounds.isRTKAlarming) || (yt.isYouTurnBtnOn && yt.turnTooCloseTrigger))
                     {
                         if (isFlashOnOff)
@@ -633,22 +636,12 @@ namespace AgOpenGPS
                     GL.PopMatrix();
                     GL.MatrixMode(MatrixMode.Modelview);
 
+                    #endregion
+
                     GL.Flush();
                     oglMain.SwapBuffers();
 
                     if (leftMouseDownOnOpenGL) MakeFlagMark();
-
-                    //draw the section control window off screen buffer
-
-                    //draw the zoom window
-                    //if (isJobStarted && oglZoom.Width != 400)
-                    //{
-                    //    if (threeSeconds != zoomUpdateCounter)
-                    //    {
-                    //        zoomUpdateCounter = threeSeconds;
-                    //        oglZoom.Refresh();
-                    //    }
-                    //}
                 }
             }
             else
@@ -685,7 +678,6 @@ namespace AgOpenGPS
 
                 //negative and positive on width, 0 at top to bottom ortho view
                 GL.Ortho(-(double)oglMain.Width / 2, (double)oglMain.Width / 2, (double)oglMain.Height, 0, -1, 1);
-
 
                 //  Create the appropriate modelview matrix.
                 GL.MatrixMode(MatrixMode.Modelview);
@@ -894,7 +886,6 @@ namespace AgOpenGPS
                     bnd.bndList[0].fenceLine.DrawPolygon();
                 }
 
-
                 //draw 250 green for the headland
                 if (bnd.isHeadlandOn)
                 {
@@ -908,6 +899,8 @@ namespace AgOpenGPS
             GL.Flush();
 
             #endregion
+
+            #region Lookahead
 
             //determine where the tool is wrt to headland
             if (bnd.isHeadlandOn) bnd.WhereAreToolCorners();
@@ -970,6 +963,10 @@ namespace AgOpenGPS
             else rpOnHeight = tool.lookAheadDistanceOnPixelsRight;
 
             isHeadlandClose = false;
+
+            #endregion
+
+            #region Back buffer scan
 
             //clamp the height after looking way ahead, this is for switching off super section only
             rpOnHeight = Math.Abs(rpOnHeight);
@@ -1045,6 +1042,10 @@ namespace AgOpenGPS
 
                 bnd.SetHydPosition();
             }
+
+            #endregion
+
+            #region Section Control
 
             ///////////////////////////////////////////   Section control        ssssssssssssssssssssss
 
@@ -1177,7 +1178,6 @@ namespace AgOpenGPS
                         }
                     }
                 }
-
 
                 //global request to turn on section
                 section[j].sectionOnRequest = section[j].isSectionRequiredOn;
@@ -1413,9 +1413,10 @@ namespace AgOpenGPS
                     }
                 }
 
-
                 lastNumber = number;
             }
+
+            #endregion
 
             //send the byte out to section machines
             BuildMachineByte();
@@ -1426,20 +1427,6 @@ namespace AgOpenGPS
 
             //this is the end of the "frame". Now we wait for next NMEA sentence with a valid fix. 
         }
-
-        private void DistanceToFieldOriginCheck()
-        {
-            if (Math.Abs(pivotAxlePos.easting) > 20000 || Math.Abs(pivotAxlePos.northing) > 20000)
-            {
-                YesMessageBox("Serious Field Origin Error" + "\r\n\r\n" +
-                    "Field Origin is More Then 20 km from your current GPS Position" +
-                    " Delete this field and create a new one as Accuracy will be poor" + "\r\n\r\n" +
-                    "Or you may have a field open and drove far away");
-            }
-        }
-
-        //mapping change occured
-        private ulong number = 0, lastNumber = 0;
 
         private void oglZoom_Load(object sender, EventArgs e)
         {
@@ -1530,7 +1517,6 @@ namespace AgOpenGPS
                 GL.Flush();
 
                 //oglZoom.SwapBuffers();
-
 
                 int grnHeight = oglZoom.Height;
                 int grnWidth = oglZoom.Width;
@@ -1717,6 +1703,32 @@ namespace AgOpenGPS
             }
         }
 
+        private void DistanceToFieldOriginCheck()
+        {
+            if (Math.Abs(pivotAxlePos.easting) > 20000 || Math.Abs(pivotAxlePos.northing) > 20000)
+            {
+                YesMessageBox("Serious Field Origin Error" + "\r\n\r\n" +
+                    "Field Origin is More Then 20 km from your current GPS Position" +
+                    " Delete this field and create a new one as Accuracy will be poor" + "\r\n\r\n" +
+                    "Or you may have a field open and drove far away");
+            }
+        }
+
+        private ColorRgba TramDotColor(bool isManual, bool isFlashOn, bool controlBitOn)
+        {
+            return isManual
+                ? (isFlashOn ? Colors.TramDotManualFlashOnColor : Colors.TramDotManualFlashOffColor)
+                : (controlBitOn ? Colors.TramDotAutomaticControlBitOnColor : Colors.TramDotAutomaticControlBitOffColor);
+        }
+
+        private void SetVehicleTextures()
+        {
+            VehicleTextures.Tractor.SetBitmap(TractorBitmaps.GetBitmap(Settings.Default.setBrand_TBrand));
+            VehicleTextures.Harvester.SetBitmap(HarvesterBitmaps.GetBitmap(Settings.Default.setBrand_HBrand));
+            VehicleTextures.ArticulatedFront.SetBitmap(ArticulatedBitmaps.GetFrontBitmap(Settings.Default.setBrand_WDBrand));
+            VehicleTextures.ArticulatedRear.SetBitmap(ArticulatedBitmaps.GetRearBitmap(Settings.Default.setBrand_WDBrand));
+        }
+
         private void DrawManUTurnBtn()
         {
             int bottomSide = 90;
@@ -1865,13 +1877,6 @@ namespace AgOpenGPS
             GL.PopMatrix();
         }
 
-        private ColorRgba TramDotColor(bool isManual, bool isFlashOn, bool controlBitOn)
-        {
-            return isManual
-                ? (isFlashOn ? Colors.TramDotManualFlashOnColor : Colors.TramDotManualFlashOffColor)
-                : (controlBitOn ? Colors.TramDotAutomaticControlBitOnColor : Colors.TramDotAutomaticControlBitOffColor);
-        }
-
         private void DrawTramMarkers()
         {
             //int sizer = 60;
@@ -1982,9 +1987,6 @@ namespace AgOpenGPS
             catch { }
         }
 
-        // Helper: draw a single arrow as a triangle, with optional halo ---
-
-        public double avgPivDistance, lightbarDistance, longAvgPivDistance;
         private void DrawArrowTriangle(double cx, double cy, double size, bool isRight)
         {
             double s = size;
@@ -2091,7 +2093,6 @@ namespace AgOpenGPS
 
             GL.PopMatrix();
         }
-
 
         private void DrawLightBarText()
         {
@@ -2239,7 +2240,6 @@ namespace AgOpenGPS
                     GL.Vertex2(0, down);
                     GL.Vertex2(errLine, down);
                     GL.End();
-
 
                     if ((err) > 0.0)
                     {
@@ -2586,6 +2586,7 @@ namespace AgOpenGPS
                 }
             }
         }
+
         private void DrawHeadlandDistance()
         {
             // --- Query GL viewport (pixels) ---
@@ -2674,7 +2675,6 @@ namespace AgOpenGPS
                 GL.Color4(1.00f, 0.95f, 0.25f, 0.55f);
             else
                 GL.Color4(1.00f, 0.0f, 0.0f, 0.75f);
-
 
             // Center rectangle (between rounded corners)
             GL.Begin(PrimitiveType.Quads);
@@ -2786,7 +2786,6 @@ namespace AgOpenGPS
             GL.End();
             GL.LineWidth(1f);
 
-
             // --- Icon placement inside the box ---
             double iconX = boxX + padH;
             double iconY = boxY + (boxHeight - iconHeight);
@@ -2821,9 +2820,6 @@ namespace AgOpenGPS
             GL.MatrixMode(MatrixMode.Projection);
             GL.PopMatrix();
         }
-
-
-
 
         /// <summary>
         /// Decide whether to use a light icon by sampling a small pixel area under the icon.
@@ -2911,7 +2907,6 @@ namespace AgOpenGPS
             clip[14] = modl[12] * proj[2] + modl[13] * proj[6] + modl[14] * proj[10] + modl[15] * proj[14];
             clip[15] = modl[12] * proj[3] + modl[13] * proj[7] + modl[14] * proj[11] + modl[15] * proj[15];
 
-
             // Extract the RIGHT clipping plane
             frustum[0] = clip[3] - clip[0];
             frustum[1] = clip[7] - clip[4];
@@ -2929,7 +2924,6 @@ namespace AgOpenGPS
             frustum[9] = clip[7] - clip[6];
             frustum[10] = clip[11] - clip[10];
             frustum[11] = clip[15] - clip[14];
-
 
             // Extract the NEAR clipping plane.  This is last on purpose (see pointinfrustum() for reason)
             frustum[12] = clip[3] + clip[2];
@@ -2958,7 +2952,6 @@ namespace AgOpenGPS
 
             minFieldX = 9999999; minFieldY = 9999999;
             maxFieldX = -9999999; maxFieldY = -9999999;
-
 
             //min max of the boundary
             //min max of the boundary
@@ -3008,7 +3001,6 @@ namespace AgOpenGPS
                 }
             }
 
-
             if (maxFieldX == -9999999 | minFieldX == 9999999 | maxFieldY == -9999999 | minFieldY == 9999999)
             {
                 maxFieldX = 0; minFieldX = 0; maxFieldY = 0; minFieldY = 0; maxFieldDistance = 1500;
@@ -3031,8 +3023,6 @@ namespace AgOpenGPS
                 fieldCenterX = (maxFieldX + minFieldX) / 2.0;
                 fieldCenterY = (maxFieldY + minFieldY) / 2.0;
             }
-
-
 
             //minFieldX -= 8;
             //minFieldY -= 8;
