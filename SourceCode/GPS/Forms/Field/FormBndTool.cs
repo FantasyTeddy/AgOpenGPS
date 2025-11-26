@@ -4,13 +4,9 @@ using AgOpenGPS.Helpers;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AgOpenGPS
 {
@@ -822,7 +818,7 @@ namespace AgOpenGPS
                     continue;
                 }
                 delta += (smList[i - 1].heading - smList[i].heading);
-                if (Math.Abs(delta) > 0.05)
+                if (Math.Abs(delta) > 0.02)
                 {
                     smooList.Add(new vec3(smList[i]));
                     delta = 0;
