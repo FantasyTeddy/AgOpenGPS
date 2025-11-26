@@ -1189,19 +1189,28 @@ namespace AgOpenGPS
 
             #endregion
 
+            if (isJobStarted)
+            {
+                oglBack.Refresh();
 
+                p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
 
-            //update main window
-            oglMain.MakeCurrent();
-            oglMain.Refresh();
+                SendPgnToLoop(p_239.pgn);
 
-            //end of UppdateFixPosition
+                SendPgnToLoop(p_229.pgn);
+            }
 
             //stop the timer and calc how long it took to do calcs and draw
             frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
 
             if (frameTimeRough > 80) frameTimeRough = 80;
             frameTime = frameTime * 0.90 + frameTimeRough * 0.1;
+
+            //update main window
+            oglMain.MakeCurrent();
+            oglMain.Refresh();
+
+            //end of UppdateFixPosition
         }
 
         private void TheRest()

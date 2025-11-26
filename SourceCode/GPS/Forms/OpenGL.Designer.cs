@@ -6,8 +6,6 @@ using AgOpenGPS.Properties;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
-using System.Drawing;
-using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 
@@ -641,16 +639,6 @@ namespace AgOpenGPS
                     if (leftMouseDownOnOpenGL) MakeFlagMark();
 
                     //draw the section control window off screen buffer
-                    if (isJobStarted)
-                    {
-                        oglBack.Refresh();
-
-                        p_239.pgn[p_239.geoStop] = mc.isOutOfBounds ? (byte)1 : (byte)0;
-
-                        SendPgnToLoop(p_239.pgn);
-
-                        SendPgnToLoop(p_229.pgn);
-                    }
 
                     //draw the zoom window
                     //if (isJobStarted && oglZoom.Width != 400)
@@ -729,6 +717,47 @@ namespace AgOpenGPS
                 lblSpeed.Text = "???";
                 lblHz.Text = " ???? \r\n Not Connected";
 
+            }
+
+            //file writer that runs all the time
+            if (fileSaveAlwaysCounter > 60)
+            {
+                fileSaveAlwaysCounter = 0;
+                if (Log.sbEvents.Length > 0)
+                {
+                    Log.FileSaveSystemEvents();
+                }
+            }
+
+            //if a minute has elapsed save the field in case of crash and to be able to resume            
+            if (fileSaveCounter > 30 && sentenceCounter < 20)
+            {
+                tmrWatchdog.Enabled = false;
+                fileSaveCounter = 0;
+
+                DistanceToFieldOriginCheck();
+
+                //don't save if no gps
+                if (isJobStarted)
+                {
+                    //auto save the field patches, contours accumulated so far
+                    FileSaveSections();
+                    FileSaveContour();
+
+                    //NMEA elevation file
+                    if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
+
+                    //ExportFieldAs_KML();
+                }
+
+                //set saving flag off
+                isSavingFile = false;
+
+                //go see if data ready for draw and position updates
+                tmrWatchdog.Enabled = true;
+
+                //calc overlap
+                oglZoom.Refresh();
             }
         }
 
@@ -1391,55 +1420,9 @@ namespace AgOpenGPS
             //send the byte out to section machines
             BuildMachineByte();
 
-            //stop the timer and calc how long it took to do calcs and draw
-            frameTimeRough = (double)(swFrame.ElapsedTicks * 1000) / (double)System.Diagnostics.Stopwatch.Frequency;
-
             ////Paint to context for troubleshooting
             //oglBack.MakeCurrent();
             //oglBack.SwapBuffers();
-
-            //file writer that runs all the time
-            if (fileSaveAlwaysCounter > 60)
-            {
-                fileSaveAlwaysCounter = 0;
-                if (Log.sbEvents.Length > 0)
-                {
-                    Log.FileSaveSystemEvents();
-                }
-            }
-
-            //if a minute has elapsed save the field in case of crash and to be able to resume            
-            if (fileSaveCounter > 30 && sentenceCounter < 20)
-            {
-                tmrWatchdog.Enabled = false;
-                fileSaveCounter = 0;
-
-                DistanceToFieldOriginCheck();
-
-                //don't save if no gps
-                if (isJobStarted)
-                {
-                    //auto save the field patches, contours accumulated so far
-                    FileSaveSections();
-                    FileSaveContour();
-
-                    //NMEA elevation file
-                    if (isLogElevation && sbGrid.Length > 0) FileSaveElevation();
-
-                    //ExportFieldAs_KML();
-                }
-
-                //set saving flag off
-                isSavingFile = false;
-
-                //go see if data ready for draw and position updates
-                tmrWatchdog.Enabled = true;
-
-                //calc overlap
-                oglZoom.Refresh();
-
-            }
-
 
             //this is the end of the "frame". Now we wait for next NMEA sentence with a valid fix. 
         }
