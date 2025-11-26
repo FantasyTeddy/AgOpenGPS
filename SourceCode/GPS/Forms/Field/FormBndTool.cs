@@ -71,12 +71,13 @@ namespace AgOpenGPS
             panel1.Visible = false;
 
             cboxPointDistance.SelectedIndexChanged -= cboxPointDistance_SelectedIndexChanged;
-            cboxPointDistance.Text = "?";
+            cboxPointDistance.SelectedIndex = Properties.Settings.Default.bndToolSpacing;
             cboxPointDistance.SelectedIndexChanged += cboxPointDistance_SelectedIndexChanged;
 
             cboxSmooth.SelectedIndexChanged -= cboxSmooth_SelectedIndexChanged;
-            cboxSmooth.Text = "?";
+            cboxSmooth.SelectedIndex = Properties.Settings.Default.bndToolSmooth;
             cboxSmooth.SelectedIndexChanged += cboxSmooth_SelectedIndexChanged;
+
             cboxIsZoom.Checked = false;
 
             Size = Properties.Settings.Default.setWindow_MapBndSize;
@@ -103,53 +104,11 @@ namespace AgOpenGPS
             labelPoints.Text = gStr.gsPoints;
             labelPointsToProcess.Text = gStr.gsPointsToProcess;
 
-
-            if (mf.bnd.bndList.Count > 0)
+            //load sections if bnd exists, load bnd if exists
+            if (mf.bnd.bndList.Count == 0)
             {
-                DialogResult result3 = MessageBox.Show(gStr.gsDeleteBoundaryMapping,
-                    gStr.gsDeleteForSure,
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2);
-                if (result3 == DialogResult.Yes)
-                {
-                    Reset();
-                }
-                else
-                {
-
-                }
+                Reset();
             }
-
-            ////already have a boundary
-            //if (mf.bnd.bndList.Count == 0)
-            //{
-            //    //draw patches j= # of sections
-            //    for (int j = 0; j < mf.triStrip.Count; j++)
-            //    {
-            //        //every time the section turns off and on is a new patch
-            //        int patchCount = mf.triStrip[j].patchList.Count;
-
-            //        if (patchCount > 0)
-            //        {
-            //            //for every new chunk of patch
-            //            foreach (var triList in mf.triStrip[j].patchList)
-            //            {
-            //                for (int i = 1; i < triList.Count; i++)
-            //                {
-            //                    vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
-
-            //                    secList.Add(bob);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-
-            //}
-
         }
 
         private void FormBndTool_FormClosing(object sender, FormClosingEventArgs e)
@@ -377,6 +336,8 @@ namespace AgOpenGPS
 
         private void btnAddPoints_Click(object sender, EventArgs e)
         {
+            if (timer1.Interval == 50) return;
+
             double abHead = Math.Atan2(
                 ptB.easting - ptA.easting,
                 ptB.northing - ptA.northing);
@@ -412,90 +373,6 @@ namespace AgOpenGPS
         private void btnResetReduce_Click(object sender, EventArgs e)
         {
             Reset();
-
-            //cboxIsZoom.Visible = false;
-            //btnSlice.Visible = false;
-            //btnCenterOGL.Visible = false;
-            ////btnCancelTouch.Visible = false;
-            //btnZoomIn.Visible = false;
-            //btnZoomOut.Visible = false;
-            //btnMoveDn.Visible = false;
-            //btnMoveUp.Visible = false;
-            //btnMoveLeft.Visible = false;
-            //btnMoveRight.Visible = false;
-
-            ////start all over
-            //start = end = 99999;
-            //zoom = 1;
-            //sX = 0;
-            //sY = 0;
-
-            //btnStartStop.Enabled = false;
-            //cboxPointDistance.Enabled = false;
-            //cboxSmooth.Enabled = false;
-            //btnMakeBoundary.Enabled = false;
-
-            //if (mf.bnd.bndList.Count > 0)
-            //{
-            //    // Show custom confirmation dialog for boundary deletion
-            //    DialogResult result3 = FormDialog.Show(
-            //        gStr.gsDeleteForSure,
-            //        gStr.gsDeleteBoundaryMapping,
-            //        MessageBoxButtons.YesNo);
-
-            //    if (result3 != DialogResult.OK)
-            //    {
-            //        return;
-            //    }
-            //}
-
-            //DeleteBoundary();
-
-
-            //isStep = false;
-            //timer1.Interval = 500;
-            //prevHeading = Math.PI + glm.PIBy2;
-
-            //secList?.Clear();
-            //bndList?.Clear();
-            //smooList?.Clear();
-
-            //for (int j = 0; j < mf.triStrip.Count; j++)
-            //{
-            //    //every time the section turns off and on is a new patch
-            //    int patchCount = mf.triStrip[j].patchList.Count;
-
-            //    if (patchCount > 0)
-            //    {
-            //        //for every new chunk of patch
-            //        foreach (var triList in mf.triStrip[j].patchList)
-            //        {
-            //            for (int i = 1; i < triList.Count; i++)
-            //            {
-            //                vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
-
-            //                secList.Add(bob);
-            //            }
-            //        }
-            //    }
-            //}
-
-            //labelReducedPoints.Text = secList.Count.ToString();
-
-            //rA = rB = rC = rD = rE = rF = rG = firstPoint = currentPoint = 0;
-            //bndList?.Clear();
-
-            //btnStartStop.BackColor = Color.OrangeRed;
-
-            //cboxPointDistance.Enabled = true;
-
-            //cboxPointDistance.SelectedIndexChanged -= cboxPointDistance_SelectedIndexChanged;
-            //cboxPointDistance.Text = "?";
-            //cboxPointDistance.SelectedIndexChanged += cboxPointDistance_SelectedIndexChanged;
-
-            //cboxSmooth.SelectedIndexChanged -= cboxSmooth_SelectedIndexChanged;
-            //cboxSmooth.Text = "?";
-            //cboxSmooth.SelectedIndexChanged += cboxSmooth_SelectedIndexChanged;
         }
 
         private void Reset()
@@ -562,8 +439,6 @@ namespace AgOpenGPS
             cboxSmooth.SelectedIndexChanged -= cboxSmooth_SelectedIndexChanged;
             cboxSmooth.SelectedIndex = Properties.Settings.Default.bndToolSmooth;
             cboxSmooth.SelectedIndexChanged += cboxSmooth_SelectedIndexChanged;
-
-            btnMakeBoundary.Enabled = false;
         }
 
         private void Spacing()
@@ -683,6 +558,7 @@ namespace AgOpenGPS
             if (isStep) timer1.Interval = 50;
             else timer1.Interval = 500;
             btnStartStop.BackColor = Color.WhiteSmoke;
+
             //btnStartStop.Enabled = false;
         }
 
@@ -740,7 +616,6 @@ namespace AgOpenGPS
             }
 
             btnStartStop.Enabled = false;
-            btnMakeBoundary.Enabled = false;
 
             cboxIsZoom.Visible = true;
             btnSlice.Visible = true;
@@ -863,8 +738,6 @@ namespace AgOpenGPS
             }
 
             mf.curve.CalculateHeadings(ref smooList);
-
-            btnMakeBoundary.Enabled = true;
         }
 
         private void DeleteBoundary()
@@ -875,31 +748,34 @@ namespace AgOpenGPS
             mf.FileSaveHeadland();
         }
 
+
         private void btnStartStop_Click(object sender, EventArgs e)
         {
             Spacing();
 
             PacMan();
-
-            btnMakeBoundary.Enabled = true;
         }
 
-        private void btnMakeBoundary_Click(object sender, EventArgs e)
+        private void btnAddBoundary_Click(object sender, EventArgs e)
         {
+            if (timer1.Interval == 50) return;
+            if (bndList.Count < 10) return;
+
             Smooth();
 
             BuildBnd();
-
         }
 
         private void cboxSmooth_SelectedIndexChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.bndToolSmooth = cboxSmooth.SelectedIndex;
+            Properties.Settings.Default.Save();
         }
 
         private void cboxPointDistance_SelectedIndexChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.bndToolSpacing = cboxPointDistance.SelectedIndex;
+            Properties.Settings.Default.Save();
         }
 
         private void btnZoomOut_Click(object sender, EventArgs e)

@@ -38,7 +38,7 @@
             this.cboxIsZoom = new System.Windows.Forms.CheckBox();
             this.btnCenterOGL = new System.Windows.Forms.Button();
             this.btnSlice = new System.Windows.Forms.Button();
-            this.btnMakeBoundary = new System.Windows.Forms.Button();
+            this.btnAddBoundary = new System.Windows.Forms.Button();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.btnCancelTouch = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -224,25 +224,24 @@
             this.btnSlice.UseVisualStyleBackColor = false;
             this.btnSlice.Click += new System.EventHandler(this.btnSlice_Click);
             // 
-            // btnMakeBoundary
+            // btnAddBoundary
             // 
-            this.btnMakeBoundary.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnMakeBoundary.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnMakeBoundary.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tlp1.SetColumnSpan(this.btnMakeBoundary, 3);
-            this.btnMakeBoundary.Enabled = false;
-            this.btnMakeBoundary.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnMakeBoundary.FlatAppearance.BorderSize = 0;
-            this.btnMakeBoundary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMakeBoundary.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnMakeBoundary.Image = global::AgOpenGPS.Properties.Resources.BoundaryOuter;
-            this.btnMakeBoundary.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnMakeBoundary.Location = new System.Drawing.Point(171, 235);
-            this.btnMakeBoundary.Name = "btnMakeBoundary";
-            this.btnMakeBoundary.Size = new System.Drawing.Size(110, 68);
-            this.btnMakeBoundary.TabIndex = 545;
-            this.btnMakeBoundary.UseVisualStyleBackColor = false;
-            this.btnMakeBoundary.Click += new System.EventHandler(this.btnMakeBoundary_Click);
+            this.btnAddBoundary.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnAddBoundary.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnAddBoundary.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tlp1.SetColumnSpan(this.btnAddBoundary, 3);
+            this.btnAddBoundary.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnAddBoundary.FlatAppearance.BorderSize = 0;
+            this.btnAddBoundary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBoundary.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            this.btnAddBoundary.Image = global::AgOpenGPS.Properties.Resources.BoundaryOuter;
+            this.btnAddBoundary.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnAddBoundary.Location = new System.Drawing.Point(171, 235);
+            this.btnAddBoundary.Name = "btnAddBoundary";
+            this.btnAddBoundary.Size = new System.Drawing.Size(110, 68);
+            this.btnAddBoundary.TabIndex = 545;
+            this.btnAddBoundary.UseVisualStyleBackColor = false;
+            this.btnAddBoundary.Click += new System.EventHandler(this.btnAddBoundary_Click);
             // 
             // btnStartStop
             // 
@@ -363,7 +362,7 @@
             this.tlp1.Controls.Add(this.btnSlice, 3, 6);
             this.tlp1.Controls.Add(this.btnCenterOGL, 0, 7);
             this.tlp1.Controls.Add(this.labelSpacing, 0, 1);
-            this.tlp1.Controls.Add(this.btnMakeBoundary, 3, 4);
+            this.tlp1.Controls.Add(this.btnAddBoundary, 3, 4);
             this.tlp1.Controls.Add(this.labelCreate, 3, 3);
             this.tlp1.Controls.Add(this.btnZoomOut, 0, 9);
             this.tlp1.Controls.Add(this.btnZoomIn, 2, 9);
@@ -664,7 +663,7 @@
         private System.Windows.Forms.Button btnCancelTouch;
         private System.Windows.Forms.ComboBox cboxPointDistance;
         private System.Windows.Forms.Button btnStartStop;
-        private System.Windows.Forms.Button btnMakeBoundary;
+        private System.Windows.Forms.Button btnAddBoundary;
         private System.Windows.Forms.ComboBox cboxSmooth;
         private System.Windows.Forms.Button btnSlice;
         private System.Windows.Forms.Button btnCenterOGL;
