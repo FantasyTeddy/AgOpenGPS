@@ -186,10 +186,7 @@ namespace AgOpenGPS
 
                 distAway += (0.5 * widthMinusOverlap);
 
-                if (cts != null)
-                {
-                    cts.Cancel();
-                }
+                cts?.Cancel();
                 cts = new CancellationTokenSource();
 
                 if (build != null) await build;
@@ -583,14 +580,18 @@ namespace AgOpenGPS
                             }
                         }
                     }
-                    vec3 endA = new vec3();
-                    endA.easting = newGuideList[0].easting - (Math.Sin(newGuideList[0].heading) * 2000.0);
-                    endA.northing = newGuideList[0].northing - (Math.Cos(newGuideList[0].heading) * 2000.0);
+                    vec3 endA = new vec3
+                    {
+                        easting = newGuideList[0].easting - (Math.Sin(newGuideList[0].heading) * 2000.0),
+                        northing = newGuideList[0].northing - (Math.Cos(newGuideList[0].heading) * 2000.0)
+                    };
                     newGuideList.Insert(0, endA);
 
-                    endA = new vec3();
-                    endA.easting = newGuideList[newGuideList.Count - 1].easting + (Math.Sin(newGuideList[newGuideList.Count - 1].heading) * 2000.0);
-                    endA.northing = newGuideList[newGuideList.Count - 1].northing + (Math.Cos(newGuideList[newGuideList.Count - 1].heading) * 2000.0);
+                    endA = new vec3
+                    {
+                        easting = newGuideList[newGuideList.Count - 1].easting + (Math.Sin(newGuideList[newGuideList.Count - 1].heading) * 2000.0),
+                        northing = newGuideList[newGuideList.Count - 1].northing + (Math.Cos(newGuideList[newGuideList.Count - 1].heading) * 2000.0)
+                    };
                     newGuideList.Add(endA);
                 }
 
@@ -688,14 +689,18 @@ namespace AgOpenGPS
                         }
                     }
 
-                    vec3 endA = new vec3();
-                    endA.easting = newGuideList[0].easting - (Math.Sin(newGuideList[0].heading) * 2000.0);
-                    endA.northing = newGuideList[0].northing - (Math.Cos(newGuideList[0].heading) * 2000.0);
+                    vec3 endA = new vec3
+                    {
+                        easting = newGuideList[0].easting - (Math.Sin(newGuideList[0].heading) * 2000.0),
+                        northing = newGuideList[0].northing - (Math.Cos(newGuideList[0].heading) * 2000.0)
+                    };
                     newGuideList.Insert(0, endA);
 
-                    endA = new vec3();
-                    endA.easting = newGuideList[newGuideList.Count - 1].easting + (Math.Sin(newGuideList[newGuideList.Count - 1].heading) * 2000.0);
-                    endA.northing = newGuideList[newGuideList.Count - 1].northing + (Math.Cos(newGuideList[newGuideList.Count - 1].heading) * 2000.0);
+                    endA = new vec3
+                    {
+                        easting = newGuideList[newGuideList.Count - 1].easting + (Math.Sin(newGuideList[newGuideList.Count - 1].heading) * 2000.0),
+                        northing = newGuideList[newGuideList.Count - 1].northing + (Math.Cos(newGuideList[newGuideList.Count - 1].heading) * 2000.0)
+                    };
                     newGuideList.Add(endA);
                 }
             }
@@ -1424,7 +1429,7 @@ namespace AgOpenGPS
         }
 
         // Resample curve points to uniform spacing to prevent lookahead jumping
-        private List<vec3> ResampleCurveToUniformSpacing(List<vec3> originalList, double targetSpacing)
+        private static List<vec3> ResampleCurveToUniformSpacing(List<vec3> originalList, double targetSpacing)
         {
             if (originalList == null || originalList.Count < 2)
                 return originalList;
