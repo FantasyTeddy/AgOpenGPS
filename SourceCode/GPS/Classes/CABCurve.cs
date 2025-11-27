@@ -580,6 +580,10 @@ namespace AgOpenGPS
                             }
                         }
                     }
+
+                    if (newGuideList == null || newGuideList.Count == 0)
+                        continue;
+
                     vec3 endA = new vec3
                     {
                         easting = newGuideList[0].easting - (Math.Sin(newGuideList[0].heading) * 2000.0),
@@ -688,6 +692,9 @@ namespace AgOpenGPS
                             }
                         }
                     }
+
+                    if (newGuideList == null || newGuideList.Count == 0)
+                        continue;
 
                     vec3 endA = new vec3
                     {
