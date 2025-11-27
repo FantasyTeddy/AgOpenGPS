@@ -186,10 +186,7 @@ namespace AgOpenGPS
 
                 distAway += (0.5 * widthMinusOverlap);
 
-                if (cts != null)
-                {
-                    cts.Cancel();
-                }
+                cts?.Cancel();
                 cts = new CancellationTokenSource();
 
                 if (build != null) await build;
@@ -581,9 +578,13 @@ namespace AgOpenGPS
                                     newGuideList.Add(point);
                                 }
                             }
-
                         }
                     }
+
+                    if (newGuideList == null || newGuideList.Count == 0)
+                        continue;
+
+                    AddGuidelineExtensions(ref newGuideList);
                 }
 
                 //right side
@@ -679,6 +680,11 @@ namespace AgOpenGPS
                             }
                         }
                     }
+
+                    if (newGuideList == null || newGuideList.Count == 0)
+                        continue;
+
+                    AddGuidelineExtensions(ref newGuideList);
                 }
             }
             catch (Exception e)
@@ -1348,7 +1354,7 @@ namespace AgOpenGPS
             }
         }
 
-        public void CalculateHeadings(ref List<vec3> xList)
+        public static void CalculateHeadings(ref List<vec3> xList)
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = xList.Count;
@@ -1381,7 +1387,7 @@ namespace AgOpenGPS
             }
         }
 
-        public void MakePointMinimumSpacing(ref List<vec3> xList, double minDistance)
+        public static void MakePointMinimumSpacing(ref List<vec3> xList, double minDistance)
         {
             int cnt = xList.Count;
             if (cnt > 3)
@@ -1405,16 +1411,35 @@ namespace AgOpenGPS
             }
         }
 
+        private List<vec3> AddGuidelineExtensions(ref List<vec3> guideLine)
+        {
+            vec3 startExtension = new vec3
+            {
+                easting = guideLine[0].easting - (Math.Sin(guideLine[0].heading) * 2000.0),
+                northing = guideLine[0].northing - (Math.Cos(guideLine[0].heading) * 2000.0)
+            };
+            guideLine.Insert(0, startExtension);
+
+            vec3 endExtension = new vec3
+            {
+                easting = guideLine[guideLine.Count - 1].easting + (Math.Sin(guideLine[guideLine.Count - 1].heading) * 2000.0),
+                northing = guideLine[guideLine.Count - 1].northing + (Math.Cos(guideLine[guideLine.Count - 1].heading) * 2000.0)
+            };
+            guideLine.Add(endExtension);
+            return guideLine;
+        }
+
         // Resample curve points to uniform spacing to prevent lookahead jumping
-        private List<vec3> ResampleCurveToUniformSpacing(List<vec3> originalList, double targetSpacing)
+        private static List<vec3> ResampleCurveToUniformSpacing(List<vec3> originalList, double targetSpacing)
         {
             if (originalList == null || originalList.Count < 2)
                 return originalList;
 
-            List<vec3> resampledList = new List<vec3>();
-
-            // Always add the first point
-            resampledList.Add(originalList[0]);
+            List<vec3> resampledList = new List<vec3>
+            {
+                // Always add the first point
+                originalList[0]
+            };
 
             double accumulatedDistance = 0;
             int sourceIndex = 1;

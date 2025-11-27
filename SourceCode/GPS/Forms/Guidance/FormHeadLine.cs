@@ -73,8 +73,8 @@ namespace AgOpenGPS
             else
             {
                 //make sure point distance isn't too big 
-                mf.curve.MakePointMinimumSpacing(ref mf.bnd.bndList[0].hdLine, 1.2);
-                mf.curve.CalculateHeadings(ref mf.bnd.bndList[0].hdLine);
+                CABCurve.MakePointMinimumSpacing(ref mf.bnd.bndList[0].hdLine, 1.2);
+                CABCurve.CalculateHeadings(ref mf.bnd.bndList[0].hdLine);
             }
 
             cboxIsSectionControlled.Checked = Properties.Settings.Default.setHeadland_isSectionControlled;
@@ -311,7 +311,7 @@ namespace AgOpenGPS
                     if (ptCnt > 0)
                     {
                         //who knows which way it actually goes
-                        mf.curve.CalculateHeadings(ref sliceArr);
+                        CABCurve.CalculateHeadings(ref sliceArr);
 
                         for (int i = 1; i < 30; i++)
                         {
@@ -785,8 +785,8 @@ namespace AgOpenGPS
                     mf.hdl.desList.Add(pt3);
 
                     //make sure point distance isn't too big 
-                    mf.curve.MakePointMinimumSpacing(ref mf.hdl.desList, 1.2);
-                    mf.curve.CalculateHeadings(ref mf.hdl.desList);
+                    CABCurve.MakePointMinimumSpacing(ref mf.hdl.desList, 1.2);
+                    CABCurve.CalculateHeadings(ref mf.hdl.desList);
 
                     mf.bnd.bndList[0].hdLine.Clear();
 
