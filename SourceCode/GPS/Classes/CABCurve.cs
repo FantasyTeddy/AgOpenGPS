@@ -1434,10 +1434,11 @@ namespace AgOpenGPS
             if (originalList == null || originalList.Count < 2)
                 return originalList;
 
-            List<vec3> resampledList = new List<vec3>();
-
-            // Always add the first point
-            resampledList.Add(originalList[0]);
+            List<vec3> resampledList = new List<vec3>
+            {
+                // Always add the first point
+                originalList[0]
+            };
 
             double accumulatedDistance = 0;
             int sourceIndex = 1;
