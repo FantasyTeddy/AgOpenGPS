@@ -1366,7 +1366,7 @@ namespace AgOpenGPS
             }
         }
 
-        public void CalculateHeadings(ref List<vec3> xList)
+        public static void CalculateHeadings(ref List<vec3> xList)
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = xList.Count;
@@ -1399,7 +1399,7 @@ namespace AgOpenGPS
             }
         }
 
-        public void MakePointMinimumSpacing(ref List<vec3> xList, double minDistance)
+        public static void MakePointMinimumSpacing(ref List<vec3> xList, double minDistance)
         {
             int cnt = xList.Count;
             if (cnt > 3)
