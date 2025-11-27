@@ -433,8 +433,12 @@ namespace AgOpenGPS
                     {
                         if (trk.idx > -1 && !isStanleyUsed)
                         {
-                            PointStyle backgroundPointStyle = new PointStyle(12.0f, Colors.Black);
-                            PointStyle foregroundPointStyle = new PointStyle(6.0f, Colors.GoalPointColor);
+                            PointStyle backgroundPointStyle = new PointStyle(16.0f, Colors.Black);
+                            PointStyle foregroundPointStyle = new PointStyle(8.0f, Colors.GoalPointColor);
+
+                            if (Math.Abs(vehicle.modeActualXTE) > 0.15) foregroundPointStyle.Color = Colors.GoalPointColor;
+                            else foregroundPointStyle.Color = Colors.Green;
+
                             PointStyle[] pointStyles = { backgroundPointStyle, foregroundPointStyle };
                             vec2 goalPoint = trk.gArr[trk.idx].mode == TrackMode.AB ? ABLine.goalPointAB : curve.goalPointCu;
                             GLW.DrawPointLayered(pointStyles, goalPoint.easting, goalPoint.northing, 0.0);
