@@ -581,9 +581,17 @@ namespace AgOpenGPS
                                     newGuideList.Add(point);
                                 }
                             }
-
                         }
                     }
+                    vec3 endA = new vec3();
+                    endA.easting = newGuideList[0].easting - (Math.Sin(newGuideList[0].heading) * 2000.0);
+                    endA.northing = newGuideList[0].northing - (Math.Cos(newGuideList[0].heading) * 2000.0);
+                    newGuideList.Insert(0, endA);
+
+                    endA = new vec3();
+                    endA.easting = newGuideList[newGuideList.Count - 1].easting + (Math.Sin(newGuideList[newGuideList.Count - 1].heading) * 2000.0);
+                    endA.northing = newGuideList[newGuideList.Count - 1].northing + (Math.Cos(newGuideList[newGuideList.Count - 1].heading) * 2000.0);
+                    newGuideList.Add(endA);
                 }
 
                 //right side
@@ -679,6 +687,16 @@ namespace AgOpenGPS
                             }
                         }
                     }
+
+                    vec3 endA = new vec3();
+                    endA.easting = newGuideList[0].easting - (Math.Sin(newGuideList[0].heading) * 2000.0);
+                    endA.northing = newGuideList[0].northing - (Math.Cos(newGuideList[0].heading) * 2000.0);
+                    newGuideList.Insert(0, endA);
+
+                    endA = new vec3();
+                    endA.easting = newGuideList[newGuideList.Count - 1].easting + (Math.Sin(newGuideList[newGuideList.Count - 1].heading) * 2000.0);
+                    endA.northing = newGuideList[newGuideList.Count - 1].northing + (Math.Cos(newGuideList[newGuideList.Count - 1].heading) * 2000.0);
+                    newGuideList.Add(endA);
                 }
             }
             catch (Exception e)
