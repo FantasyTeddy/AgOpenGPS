@@ -15,7 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GPS\AgOpenGPS.csproj" />
+    <ProjectReference Include="..\..\src\AgLibrary\AgLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Settings\TestSettings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

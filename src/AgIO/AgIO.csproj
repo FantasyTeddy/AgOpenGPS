@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <PublishDir>..\..\..\AgOpenGPS\</PublishDir>
+    <PublishDir>..\..\AgOpenGPS\</PublishDir>
     <ApplicationIcon>AgIO_ico.ico</ApplicationIcon>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
@@ -17,8 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AgLibrary\AgLibrary.csproj" />
-    <ProjectReference Include="..\..\Keypad\Keypad.csproj" />
+    <ProjectReference Include="..\AgLibrary\AgLibrary.csproj" />
+    <ProjectReference Include="..\Keypad\Keypad.csproj" />
   </ItemGroup>
 
   <ItemGroup>
