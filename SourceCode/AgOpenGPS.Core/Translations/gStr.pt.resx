@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -155,6 +155,9 @@
   </data>
   <data name="gsAgShareDownloader" xml:space="preserve">
     <value>Baixar campos do AgShare</value>
+  </data>
+  <data name="gsAgree" xml:space="preserve">
+    <value>Aceitar</value>
   </data>
   <data name="gsAgressiveness" xml:space="preserve">
     <value>Agressividade</value>
@@ -308,6 +311,9 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   <data name="gsContourOn" xml:space="preserve">
     <value>Contorno ativado</value>
   </data>
+  <data name="gsCopyFrom" xml:space="preserve">
+    <value>Copiar de</value>
+  </data>
   <data name="gsCouldntGenerateValidPath" xml:space="preserve">
     <value>Nenhum caminho válido</value>
   </data>
@@ -328,6 +334,9 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   </data>
   <data name="gsCreateNewFromIsoXML" xml:space="preserve">
     <value>Criar novo campo a partir do ISO-XML</value>
+  </data>
+  <data name="gsCreateNewProfile" xml:space="preserve">
+    <value>Criar novo perfil</value>
   </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>Atual</value>
@@ -392,6 +401,9 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   <data name="gsDisagree" xml:space="preserve">
     <value>Discordo</value>
   </data>
+  <data name="gsDiscourseForum" xml:space="preserve">
+    <value>Fórum de Discussão</value>
+  </data>
   <data name="gsDisplay" xml:space="preserve">
     <value>Mostrar</value>
   </data>
@@ -436,6 +448,9 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   </data>
   <data name="gsElevationlog" xml:space="preserve">
     <value>Registro de elevação</value>
+  </data>
+  <data name="gsEmptyProfile" xml:space="preserve">
+    <value>Perfil vazio</value>
   </data>
   <data name="gsEnable" xml:space="preserve">
     <value>Habilitar</value>
@@ -626,11 +641,11 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   <data name="gsInvertWas" xml:space="preserve">
     <value>Inverter Sensor de Ângulo de Roda 'WAS'</value>
   </data>
-  <data name="gsKeyboard" xml:space="preserve">
-    <value>Teclado</value>
-  </data>
   <data name="gsKmH" xml:space="preserve">
     <value>km/h</value>
+  </data>
+  <data name="gsKeyboard" xml:space="preserve">
+    <value>Teclado</value>
   </data>
   <data name="gsLanguage" xml:space="preserve">
     <value>Linguagem</value>
@@ -658,6 +673,12 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   </data>
   <data name="gsLineWidth" xml:space="preserve">
     <value>Largura da linha</value>
+  </data>
+  <data name="gsLoad" xml:space="preserve">
+    <value>Carregar</value>
+  </data>
+  <data name="gsLoadProfile" xml:space="preserve">
+    <value>Carregar perfil</value>
   </data>
   <data name="gsLongtitude" xml:space="preserve">
     <value>Longtitude</value>
@@ -736,6 +757,12 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   </data>
   <data name="gsN_West" xml:space="preserve">
     <value>Noroeste</value>
+  </data>
+  <data name="gsName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="gsNew" xml:space="preserve">
+    <value>Novo</value>
   </data>
   <data name="gsNewFromDefault" xml:space="preserve">
     <value>Novo a partir do padrão</value>
@@ -863,6 +890,13 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   <data name="gsProblemMakingPath" xml:space="preserve">
     <value>Caminho para criar problemas</value>
   </data>
+  <data name="gsProfile" xml:space="preserve">
+    <value>Ambiente</value>
+  </data>
+  <data name="gsProfileMenuHint" xml:space="preserve">
+    <value>As configurações de veículo, ferramenta e ambiente agora são armazenadas como perfis separados.
+Carregar a partir do painel de configurações e do menu superior esquerdo.</value>
+  </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
     <value>O programa será encerrado, reinicie</value>
   </data>
@@ -953,8 +987,26 @@ A ordem em que você os tocar será a ordem em que aparecerão no menu, de baixo
   <data name="gsSaveSettings" xml:space="preserve">
     <value>Salvando configurações</value>
   </data>
+  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
+    <value>Configurações de ambiente</value>
+  </data>
+  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
+    <value>Configurações de ambiente salvas.</value>
+  </data>
   <data name="gsSaveSettingsSaved" xml:space="preserve">
     <value>Configurações salvas.</value>
+  </data>
+  <data name="gsSaveVehicleSettings" xml:space="preserve">
+    <value>Configurações do veículo</value>
+  </data>
+  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
+    <value>Configurações do veículo salvas.</value>
+  </data>
+  <data name="gsSaveToolSettings" xml:space="preserve">
+    <value>Configurações da ferramenta</value>
+  </data>
+  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
+    <value>Configurações da ferramenta salvas.</value>
   </data>
   <data name="gsSaveUploadCompleted" xml:space="preserve">
     <value>Upload concluído.</value>
@@ -1184,8 +1236,11 @@ USE POR SUA CONTA E RISCO.</value>
   <data name="gsWasZero" xml:space="preserve">
     <value>Was Zero</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>Webcam</value>
+  <data name="gsSmartWAS" xml:space="preserve">
+    <value>WAS Inteligente</value>
+  </data>
+  <data name="gsSmartWASHelp" xml:space="preserve">
+    <value>Calibra automaticamente o zero do WAS analisando os ângulos de esterçamento enquanto dirige. Ative o piloto automático e dirija suavemente ao longo da linha.</value>
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>Oeste</value>
@@ -1217,6 +1272,9 @@ USE POR SUA CONTA E RISCO.</value>
   <data name="gsXTEChart" xml:space="preserve">
     <value>Gráfico XTE</value>
   </data>
+  <data name="gsYouTubeTutorials" xml:space="preserve">
+    <value>Tutoriais do YouTube</value>
+  </data>
   <data name="gsZeroRoll" xml:space="preserve">
     <value>Rolagem Zero (Roll)</value>
   </data>
@@ -1228,67 +1286,6 @@ USE POR SUA CONTA E RISCO.</value>
   </data>
   <data name="gsZoomIn" xml:space="preserve">
     <value>Ampliar</value>
-  </data>
-  <data name="v_AboutIntro" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
-  </data>
-  <data name="gsCopyFrom" xml:space="preserve">
-    <value>Copiar de</value>
-  </data>
-  <data name="gsCreateNewProfile" xml:space="preserve">
-    <value>Criar novo perfil</value>
-  </data>
-  <data name="gsDiscourseForum" xml:space="preserve">
-    <value>Fórum de Discussão</value>
-  </data>
-  <data name="gsEmptyProfile" xml:space="preserve">
-    <value>Perfil vazio</value>
-  </data>
-  <data name="gsLoad" xml:space="preserve">
-    <value>Carregar</value>
-  </data>
-  <data name="gsLoadProfile" xml:space="preserve">
-    <value>Carregar perfil</value>
-  </data>
-  <data name="gsName" xml:space="preserve">
-    <value>Nome</value>
-  </data>
-  <data name="gsNew" xml:space="preserve">
-    <value>Novo</value>
-  </data>
-  <data name="gsProfile" xml:space="preserve">
-    <value>Ambiente</value>
-  </data>
-  <data name="gsProfileMenuHint" xml:space="preserve">
-    <value>As configurações de veículo, ferramenta e ambiente agora são armazenadas como perfis separados.
-Carregar a partir do painel de configurações e do menu superior esquerdo.</value>
-  </data>
-  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
-    <value>Configurações de ambiente</value>
-  </data>
-  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
-    <value>Configurações de ambiente salvas.</value>
-  </data>
-  <data name="gsSaveVehicleSettings" xml:space="preserve">
-    <value>Configurações do veículo</value>
-  </data>
-  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
-    <value>Configurações do veículo salvas.</value>
-  </data>
-  <data name="gsSaveToolSettings" xml:space="preserve">
-    <value>Configurações da ferramenta</value>
-  </data>
-  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
-    <value>Configurações da ferramenta salvas.</value>
-  </data>
-  <data name="gsSmartWAS" xml:space="preserve">
-    <value>WAS Inteligente</value>
-  </data>
-  <data name="gsSmartWASHelp" xml:space="preserve">
-    <value>Calibra automaticamente o zero do WAS analisando os ângulos de esterçamento enquanto dirige. Ative o piloto automático e dirija suavemente ao longo da linha.</value>
-  </data>
-  <data name="gsYouTubeTutorials" xml:space="preserve">
-    <value>Tutoriais do YouTube</value>
   </data>
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>Veículo atual</value>
@@ -1518,7 +1515,7 @@ Carregar a partir do painel de configurações e do menu superior esquerdo.</val
   <data name="gsToolAlreadyExists" xml:space="preserve">
     <value>A ferramenta já existe</value>
   </data>
-  <data name="gsAgree" xml:space="preserve">
-    <value>Aceitar</value>
+  <data name="v_AboutIntro" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
   </data>
 </root>

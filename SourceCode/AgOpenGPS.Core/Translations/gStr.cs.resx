@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -611,11 +611,11 @@ Objednávku, kterou je tlačíte, bude objednávka, která se objeví v menu od 
   <data name="gsInvertWas" xml:space="preserve">
     <value>Invertuj WAS</value>
   </data>
-  <data name="gsKeyboard" xml:space="preserve">
-    <value>Klávesnice</value>
-  </data>
   <data name="gsKmH" xml:space="preserve">
     <value>km/h</value>
+  </data>
+  <data name="gsKeyboard" xml:space="preserve">
+    <value>Klávesnice</value>
   </data>
   <data name="gsLanguage" xml:space="preserve">
     <value>Jazyk</value>
@@ -1168,9 +1168,6 @@ POUŽÍVÁNÍ NA VLASTNÍCH RISK.</value>
   </data>
   <data name="gsWasZero" xml:space="preserve">
     <value>Byla Nula</value>
-  </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>WebCam</value>
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>Západ</value>

@@ -13,7 +13,6 @@
         public bool isRecPathOn { get; set; } = false;
         public bool isABSmoothOn { get; set; } = false;
         public bool isHideContourOn { get; set; } = false;
-        public bool isWebCamOn { get; set; } = false;
         public bool isOffsetFixOn { get; set; } = false;
         public bool isAgIOOn { get; set; } = true;
         public bool isContourOn { get; set; } = true;
@@ -38,7 +37,6 @@
 
             isABSmoothOn = _feature.isABSmoothOn;
             isHideContourOn = _feature.isHideContourOn;
-            isWebCamOn = _feature.isWebCamOn;
             isOffsetFixOn = _feature.isOffsetFixOn;
             isAgIOOn = _feature.isAgIOOn;
 

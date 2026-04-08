@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -1242,9 +1242,6 @@ USE AT OWN RISK.</value>
   <data name="gsSmartWASHelp" xml:space="preserve">
     <value>Auto-calibrates WAS zero by analyzing guidance steering angles while driving. Enable autosteer and drive smoothly along the line.</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>WebCam</value>
-  </data>
   <data name="gsWest" xml:space="preserve">
     <value>West</value>
   </data>
@@ -1290,7 +1287,6 @@ USE AT OWN RISK.</value>
   <data name="gsZoomIn" xml:space="preserve">
     <value>Zoom In</value>
   </data>
-  <!-- FormLoadVehicleTool Resources -->
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>Current Vehicle</value>
   </data>
@@ -1432,7 +1428,6 @@ USE AT OWN RISK.</value>
   <data name="gsVehicleTool" xml:space="preserve">
     <value>Vehicle / Tool</value>
   </data>
-  <!-- FormConvertProfiles Resources -->
   <data name="gsConvertOldProfilesTitle" xml:space="preserve">
     <value>Convert Old Profile Files to New Format</value>
   </data>

@@ -2034,12 +2034,6 @@ namespace AgOpenGPS
             form.Show(this);
             this.Activate();
         }
-        private void webcamToolStrip_Click(object sender, EventArgs e)
-        {
-            Form form = new FormWebCam();
-            form.Show(this);
-            this.Activate();
-        }
         private void offsetFixToolStrip_Click(object sender, EventArgs e)
         {
             using (var form = new FormShiftPos(this))

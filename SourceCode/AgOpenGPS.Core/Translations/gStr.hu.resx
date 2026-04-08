@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -645,11 +645,11 @@ A választott sorrend alapján fognak megjelenni alulról felfelé.</value>
   <data name="gsInvertWas" xml:space="preserve">
     <value>Szögszenzor invertálása</value>
   </data>
-  <data name="gsKeyboard" xml:space="preserve">
-    <value>Billentyűzet</value>
-  </data>
   <data name="gsKmH" xml:space="preserve">
     <value>Km/h</value>
+  </data>
+  <data name="gsKeyboard" xml:space="preserve">
+    <value>Billentyűzet</value>
   </data>
   <data name="gsLanguage" xml:space="preserve">
     <value>Nyelv</value>
@@ -991,8 +991,26 @@ Load from Config panel &amp; Top Left Menu.</value>
   <data name="gsSaveSettings" xml:space="preserve">
     <value>Beállítások mentése</value>
   </data>
+  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
+    <value>Környezeti beállítások</value>
+  </data>
+  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
+    <value>Beállítások mentve</value>
+  </data>
   <data name="gsSaveSettingsSaved" xml:space="preserve">
     <value>Beállítások elmentve.</value>
+  </data>
+  <data name="gsSaveVehicleSettings" xml:space="preserve">
+    <value>Jármű beállítások</value>
+  </data>
+  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
+    <value>Jármű beállítások mentve.</value>
+  </data>
+  <data name="gsSaveToolSettings" xml:space="preserve">
+    <value>Munkaeszköz beállítások</value>
+  </data>
+  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
+    <value>Munkaeszköz beállítások mentve.</value>
   </data>
   <data name="gsSaveUploadCompleted" xml:space="preserve">
     <value>Feltöltés befejezve.</value>
@@ -1222,8 +1240,11 @@ HASZNÁLAT SAJÁT FELELŐSSÉGRE.</value>
   <data name="gsWasZero" xml:space="preserve">
     <value>Szögszenzor Nulla</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>WebKamera</value>
+  <data name="gsSmartWAS" xml:space="preserve">
+    <value>Okos szögszenzor</value>
+  </data>
+  <data name="gsSmartWASHelp" xml:space="preserve">
+    <value>Automatikusan meghatározza a szögszenzor nulla értékét az AB egyenesen haladva gyűjtött adatok segítségével.</value>
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>Nyugat</value>
@@ -1270,33 +1291,6 @@ HASZNÁLAT SAJÁT FELELŐSSÉGRE.</value>
   <data name="gsZoomIn" xml:space="preserve">
     <value>Nagyítás</value>
   </data>
-  <data name="v_AboutIntro" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
-  </data>
-  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
-    <value>Környezeti beállítások</value>
-  </data>
-  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
-    <value>Beállítások mentve</value>
-  </data>
-  <data name="gsSaveVehicleSettings" xml:space="preserve">
-    <value>Jármű beállítások</value>
-  </data>
-  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
-    <value>Jármű beállítások mentve.</value>
-  </data>
-  <data name="gsSaveToolSettings" xml:space="preserve">
-    <value>Munkaeszköz beállítások</value>
-  </data>
-  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
-    <value>Munkaeszköz beállítások mentve.</value>
-  </data>
-  <data name="gsSmartWAS" xml:space="preserve">
-    <value>Okos szögszenzor</value>
-  </data>
-  <data name="gsSmartWASHelp" xml:space="preserve">
-    <value>Automatikusan meghatározza a szögszenzor nulla értékét az AB egyenesen haladva gyűjtött adatok segítségével.</value>
-  </data>
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>Jelenlegi jármű</value>
   </data>
@@ -1341,6 +1335,9 @@ HASZNÁLAT SAJÁT FELELŐSSÉGRE.</value>
   </data>
   <data name="gsFront" xml:space="preserve">
     <value>Front</value>
+  </data>
+  <data name="gsTBT" xml:space="preserve">
+    <value>Duplakapcsolt</value>
   </data>
   <data name="gsRearFixed" xml:space="preserve">
     <value>Függesztett</value>
@@ -1528,7 +1525,7 @@ HASZNÁLAT SAJÁT FELELŐSSÉGRE.</value>
   <data name="gsToolAlreadyExists" xml:space="preserve">
     <value>Munkaeszköz már létezik</value>
   </data>
-  <data name="gsTBT" xml:space="preserve">
-    <value>Duplakapcsolt</value>
+  <data name="v_AboutIntro" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
   </data>
 </root>

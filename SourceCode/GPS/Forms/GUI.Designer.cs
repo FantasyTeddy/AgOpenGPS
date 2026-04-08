@@ -418,7 +418,6 @@ namespace AgOpenGPS
             flagByLatLonToolStripMenuItem.Text = gStr.gsFlagByLatLon;
             boundaryToolToolStripMenu.Text = gStr.gsBoundary + " Tool";
 
-            webcamToolStrip.Text = gStr.gsWebCam;
             offsetFixToolStrip.Text = gStr.gsOffsetFix;
             wizardsMenu.Text = gStr.gsWizards;
             steerWizardMenuItem.Text = gStr.gsSteerWizard;
@@ -452,7 +451,6 @@ namespace AgOpenGPS
             //tools menu
             SmoothABtoolStripMenu.Visible = Properties.Settings.Default.setFeatures.isABSmoothOn;
             deleteContourPathsToolStripMenuItem.Visible = Properties.Settings.Default.setFeatures.isHideContourOn;
-            webcamToolStrip.Visible = Properties.Settings.Default.setFeatures.isWebCamOn;
             offsetFixToolStrip.Visible = Properties.Settings.Default.setFeatures.isOffsetFixOn;
 
             //left side

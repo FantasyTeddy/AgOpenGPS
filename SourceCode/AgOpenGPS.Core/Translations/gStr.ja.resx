@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -156,6 +156,9 @@
   <data name="gsAgShareDownloader" xml:space="preserve">
     <value>AgShareからフィールドをダウンロード</value>
   </data>
+  <data name="gsAgree" xml:space="preserve">
+    <value>お問い合わせ</value>
+  </data>
   <data name="gsAgressiveness" xml:space="preserve">
     <value>攻撃性</value>
   </data>
@@ -233,6 +236,12 @@
   <data name="gsButFieldIsLoaded" xml:space="preserve">
     <value>しかし、フィールドはロードされます</value>
   </data>
+  <data name="gsButton" xml:space="preserve">
+    <value>ボタン</value>
+  </data>
+  <data name="gsButtonDescription" xml:space="preserve">
+    <value>プッシュON・プッシュOFF</value>
+  </data>
   <data name="gsButtonPicker" xml:space="preserve">
     <value>ボタンピッカー</value>
   </data>
@@ -299,6 +308,9 @@
   <data name="gsContourOn" xml:space="preserve">
     <value>輪郭を強調</value>
   </data>
+  <data name="gsCopyFrom" xml:space="preserve">
+    <value>コピー元</value>
+  </data>
   <data name="gsCouldntGenerateValidPath" xml:space="preserve">
     <value>有効なパスがありません</value>
   </data>
@@ -319,6 +331,9 @@
   </data>
   <data name="gsCreateNewFromIsoXML" xml:space="preserve">
     <value>ISO-XMLから新しいフィールドを作成する</value>
+  </data>
+  <data name="gsCreateNewProfile" xml:space="preserve">
+    <value>新規プロファイル作成</value>
   </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>現在の位置:</value>
@@ -383,6 +398,9 @@
   <data name="gsDisagree" xml:space="preserve">
     <value>反対</value>
   </data>
+  <data name="gsDiscourseForum" xml:space="preserve">
+    <value>ディスカッション・フォーラム</value>
+  </data>
   <data name="gsDisplay" xml:space="preserve">
     <value>表示</value>
   </data>
@@ -427,6 +445,9 @@
   </data>
   <data name="gsElevationlog" xml:space="preserve">
     <value>関連するログ</value>
+  </data>
+  <data name="gsEmptyProfile" xml:space="preserve">
+    <value>プロファイルがありません</value>
   </data>
   <data name="gsEnable" xml:space="preserve">
     <value>有効</value>
@@ -650,6 +671,12 @@
   <data name="gsLineWidth" xml:space="preserve">
     <value>ライン幅</value>
   </data>
+  <data name="gsLoad" xml:space="preserve">
+    <value>読込</value>
+  </data>
+  <data name="gsLoadProfile" xml:space="preserve">
+    <value>プロファイルの読込</value>
+  </data>
   <data name="gsLongtitude" xml:space="preserve">
     <value>経度</value>
   </data>
@@ -728,6 +755,12 @@
   <data name="gsN_West" xml:space="preserve">
     <value>北西</value>
   </data>
+  <data name="gsName" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="gsNew" xml:space="preserve">
+    <value>新規</value>
+  </data>
   <data name="gsNewFromDefault" xml:space="preserve">
     <value>デフォルトから新規</value>
   </data>
@@ -803,41 +836,8 @@
   <data name="gsPasses" xml:space="preserve">
     <value>パス</value>
   </data>
-  <data name="gsPixel" xml:space="preserve">
-    <value>ピクセル</value>
-  </data>
-  <data name="gsAgree" xml:space="preserve">
-    <value>お問い合わせ</value>
-  </data>
-  <data name="gsButton" xml:space="preserve">
-    <value>ボタン</value>
-  </data>
-  <data name="gsButtonDescription" xml:space="preserve">
-    <value>プッシュON・プッシュOFF</value>
-  </data>
-  <data name="gsCopyFrom" xml:space="preserve">
-    <value>コピー元</value>
-  </data>
-  <data name="gsCreateNewProfile" xml:space="preserve">
-    <value>新規プロファイル作成</value>
-  </data>
-  <data name="gsDiscourseForum" xml:space="preserve">
-    <value>ディスカッション・フォーラム</value>
-  </data>
-  <data name="gsEmptyProfile" xml:space="preserve">
-    <value>プロファイルがありません</value>
-  </data>
-  <data name="gsLoad" xml:space="preserve">
-    <value>読込</value>
-  </data>
-  <data name="gsLoadProfile" xml:space="preserve">
-    <value>プロファイルの読込</value>
-  </data>
-  <data name="gsName" xml:space="preserve">
-    <value>名前</value>
-  </data>
-  <data name="gsNew" xml:space="preserve">
-    <value>新規</value>
+  <data name="gsPastEndOfCurve" xml:space="preserve">
+    <value>カーブの終わりを過ぎた</value>
   </data>
   <data name="gsPause" xml:space="preserve">
     <value>一時停止</value>
@@ -847,6 +847,12 @@
   </data>
   <data name="gsPivotDistance" xml:space="preserve">
     <value>ピボット距離</value>
+  </data>
+  <data name="gsPixel" xml:space="preserve">
+    <value>ピクセル</value>
+  </data>
+  <data name="gsPlantPop" xml:space="preserve">
+    <value>プラントポップ</value>
   </data>
   <data name="gsPleaseEnterABLine" xml:space="preserve">
     <value>ABLineを入力してください</value>
@@ -1164,12 +1170,6 @@ Load from Config panel &amp; Top Left Menu.</value>
   <data name="gsTramWidth" xml:space="preserve">
     <value>トラム幅</value>
   </data>
-  <data name="gsPastEndOfCurve" xml:space="preserve">
-    <value>カーブの終わりを過ぎた</value>
-  </data>
-  <data name="gsPlantPop" xml:space="preserve">
-    <value>プラントポップ</value>
-  </data>
   <data name="gsTurnABCurveOn" xml:space="preserve">
     <value>ABカーブをオンにする</value>
   </data>
@@ -1178,6 +1178,9 @@ Load from Config panel &amp; Top Left Menu.</value>
   </data>
   <data name="gsTurnOffRecordedPath" xml:space="preserve">
     <value>パス記録の停止</value>
+  </data>
+  <data name="gsTurnOnContourOrMakeABLine" xml:space="preserve">
+    <value>ABラインの輪郭をオンにする</value>
   </data>
   <data name="gsTurnSensor" xml:space="preserve">
     <value>角度センサー</value>
@@ -1212,9 +1215,6 @@ Load from Config panel &amp; Top Left Menu.</value>
   <data name="gsWasZero" xml:space="preserve">
     <value>角度センサー　ゼロ</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>ウェブカム</value>
-  </data>
   <data name="gsWest" xml:space="preserve">
     <value>西</value>
   </data>
@@ -1223,6 +1223,9 @@ Load from Config panel &amp; Top Left Menu.</value>
   </data>
   <data name="gsWidth" xml:space="preserve">
     <value>幅</value>
+  </data>
+  <data name="gsWindowsStillOpen" xml:space="preserve">
+    <value>Windowsスタートアップ登録</value>
   </data>
   <data name="gsWizard" xml:space="preserve">
     <value>ウィザード</value>
@@ -1235,6 +1238,9 @@ Load from Config panel &amp; Top Left Menu.</value>
   </data>
   <data name="gsWorkWidth" xml:space="preserve">
     <value>幅</value>
+  </data>
+  <data name="gsWorked" xml:space="preserve">
+    <value>作業記録</value>
   </data>
   <data name="gsXTEChart" xml:space="preserve">
     <value>横方向誤差チャート</value>
@@ -1256,14 +1262,5 @@ Load from Config panel &amp; Top Left Menu.</value>
   </data>
   <data name="v_AboutIntro" xml:space="preserve">
     <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
-  </data>
-  <data name="gsTurnOnContourOrMakeABLine" xml:space="preserve">
-    <value>ABラインの輪郭をオンにする</value>
-  </data>
-  <data name="gsWindowsStillOpen" xml:space="preserve">
-    <value>Windowsスタートアップ登録</value>
-  </data>
-  <data name="gsWorked" xml:space="preserve">
-    <value>作業記録</value>
   </data>
 </root>

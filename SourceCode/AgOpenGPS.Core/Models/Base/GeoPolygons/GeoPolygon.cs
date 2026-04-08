@@ -1,5 +1,4 @@
-﻿using Accord.Imaging.Filters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace AgOpenGPS.Core.Models

@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -311,6 +311,9 @@ Ordinea în care le apăsați va fi ordinea în care apar în meniu de jos în s
   <data name="gsContourOn" xml:space="preserve">
     <value>Contur activat</value>
   </data>
+  <data name="gsCopyFrom" xml:space="preserve">
+    <value>Copiați din</value>
+  </data>
   <data name="gsCouldntGenerateValidPath" xml:space="preserve">
     <value>Nicio cale validă</value>
   </data>
@@ -331,6 +334,9 @@ Ordinea în care le apăsați va fi ordinea în care apar în meniu de jos în s
   </data>
   <data name="gsCreateNewFromIsoXML" xml:space="preserve">
     <value>Creați un câmp nou din ISO-XML</value>
+  </data>
+  <data name="gsCreateNewProfile" xml:space="preserve">
+    <value>Creați un profil nou</value>
   </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>Actual</value>
@@ -442,6 +448,9 @@ Ordinea în care le apăsați va fi ordinea în care apar în meniu de jos în s
   </data>
   <data name="gsElevationlog" xml:space="preserve">
     <value>Jurnal Altitudine</value>
+  </data>
+  <data name="gsEmptyProfile" xml:space="preserve">
+    <value>Profil gol</value>
   </data>
   <data name="gsEnable" xml:space="preserve">
     <value>Permite</value>
@@ -665,6 +674,12 @@ Ordinea în care le apăsați va fi ordinea în care apar în meniu de jos în s
   <data name="gsLineWidth" xml:space="preserve">
     <value>Lățimea liniei</value>
   </data>
+  <data name="gsLoad" xml:space="preserve">
+    <value>Încărcare</value>
+  </data>
+  <data name="gsLoadProfile" xml:space="preserve">
+    <value>Profil încărcat</value>
+  </data>
   <data name="gsLongtitude" xml:space="preserve">
     <value>Longitudine</value>
   </data>
@@ -742,6 +757,12 @@ Ordinea în care le apăsați va fi ordinea în care apar în meniu de jos în s
   </data>
   <data name="gsN_West" xml:space="preserve">
     <value>Nord-Vest</value>
+  </data>
+  <data name="gsName" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="gsNew" xml:space="preserve">
+    <value>Nou</value>
   </data>
   <data name="gsNewFromDefault" xml:space="preserve">
     <value>Nou din implicit</value>
@@ -869,6 +890,13 @@ Ordinea în care le apăsați va fi ordinea în care apar în meniu de jos în s
   <data name="gsProblemMakingPath" xml:space="preserve">
     <value>Problemă în crearea drumului</value>
   </data>
+  <data name="gsProfile" xml:space="preserve">
+    <value>Mediu</value>
+  </data>
+  <data name="gsProfileMenuHint" xml:space="preserve">
+    <value>Vehicle, Tool and Environment settings are now stored as separate profiles.
+Load from Config panel &amp; Top Left Menu.</value>
+  </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
     <value>Programul se va închide Vă rugăm să reporniți</value>
   </data>
@@ -959,8 +987,26 @@ Ordinea în care le apăsați va fi ordinea în care apar în meniu de jos în s
   <data name="gsSaveSettings" xml:space="preserve">
     <value>Salvarea setărilor</value>
   </data>
+  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
+    <value>Setări mediu</value>
+  </data>
+  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
+    <value>Setări mediu salvate.</value>
+  </data>
   <data name="gsSaveSettingsSaved" xml:space="preserve">
     <value>Setări salvate.</value>
+  </data>
+  <data name="gsSaveVehicleSettings" xml:space="preserve">
+    <value>Setări vehicul</value>
+  </data>
+  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
+    <value>Setări vehicul salvate.</value>
+  </data>
+  <data name="gsSaveToolSettings" xml:space="preserve">
+    <value>Setări utilaj</value>
+  </data>
+  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
+    <value>Setări utilaj salvate.</value>
   </data>
   <data name="gsSaveUploadCompleted" xml:space="preserve">
     <value>Încărcarea finalizată.</value>
@@ -1190,8 +1236,11 @@ UTILIZAȚI PE PROPRIUL RISC.</value>
   <data name="gsWasZero" xml:space="preserve">
     <value>WAS Zero</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>Cameră web</value>
+  <data name="gsSmartWAS" xml:space="preserve">
+    <value>Smart WAS</value>
+  </data>
+  <data name="gsSmartWASHelp" xml:space="preserve">
+    <value>Auto-calibrează WAS la zero prin analizarea unghiurilor de direcție în timpul mersului. Activează direcția automată și conduce lin pe traseu.</value>
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>Vest</value>
@@ -1237,58 +1286,6 @@ UTILIZAȚI PE PROPRIUL RISC.</value>
   </data>
   <data name="gsZoomIn" xml:space="preserve">
     <value>Mărire</value>
-  </data>
-  <data name="v_AboutIntro" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
-  </data>
-  <data name="gsCopyFrom" xml:space="preserve">
-    <value>Copiați din</value>
-  </data>
-  <data name="gsCreateNewProfile" xml:space="preserve">
-    <value>Creați un profil nou</value>
-  </data>
-  <data name="gsEmptyProfile" xml:space="preserve">
-    <value>Profil gol</value>
-  </data>
-  <data name="gsLoad" xml:space="preserve">
-    <value>Încărcare</value>
-  </data>
-  <data name="gsLoadProfile" xml:space="preserve">
-    <value>Profil încărcat</value>
-  </data>
-  <data name="gsName" xml:space="preserve">
-    <value>Nume</value>
-  </data>
-  <data name="gsNew" xml:space="preserve">
-    <value>Nou</value>
-  </data>
-  <data name="gsProfile" xml:space="preserve">
-    <value>Mediu</value>
-  </data>
-  <data name="gsProfileMenuHint" xml:space="preserve">
-    <value>Vehicle, Tool and Environment settings are now stored as separate profiles.
-Load from Config panel &amp; Top Left Menu.</value>
-  </data>
-  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
-    <value>Setări mediu salvate.</value>
-  </data>
-  <data name="gsSaveVehicleSettings" xml:space="preserve">
-    <value>Setări vehicul</value>
-  </data>
-  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
-    <value>Setări vehicul salvate.</value>
-  </data>
-  <data name="gsSaveToolSettings" xml:space="preserve">
-    <value>Setări utilaj</value>
-  </data>
-  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
-    <value>Setări utilaj salvate.</value>
-  </data>
-  <data name="gsSmartWAS" xml:space="preserve">
-    <value>Smart WAS</value>
-  </data>
-  <data name="gsSmartWASHelp" xml:space="preserve">
-    <value>Auto-calibrează WAS la zero prin analizarea unghiurilor de direcție în timpul mersului. Activează direcția automată și conduce lin pe traseu.</value>
   </data>
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>Vehicul curent</value>
@@ -1524,7 +1521,7 @@ Load from Config panel &amp; Top Left Menu.</value>
   <data name="gsToolAlreadyExists" xml:space="preserve">
     <value>Utilajul există deja</value>
   </data>
-  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
-    <value>Setări mediu</value>
+  <data name="v_AboutIntro" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
   </data>
 </root>

@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -152,6 +152,12 @@
   </data>
   <data name="gsAdvancedTramLines" xml:space="preserve">
     <value>创建高级作业轨道线</value>
+  </data>
+  <data name="gsAgShareDownloader" xml:space="preserve">
+    <value>从AgShare下载田块信息</value>
+  </data>
+  <data name="gsAgree" xml:space="preserve">
+    <value>同意</value>
   </data>
   <data name="gsAgressiveness" xml:space="preserve">
     <value>强烈</value>
@@ -305,6 +311,9 @@
   <data name="gsContourOn" xml:space="preserve">
     <value>边界开</value>
   </data>
+  <data name="gsCopyFrom" xml:space="preserve">
+    <value>从...拷贝</value>
+  </data>
   <data name="gsCouldntGenerateValidPath" xml:space="preserve">
     <value>无有效路径</value>
   </data>
@@ -325,6 +334,9 @@
   </data>
   <data name="gsCreateNewFromIsoXML" xml:space="preserve">
     <value>创建基于ISO 11783标准新田块</value>
+  </data>
+  <data name="gsCreateNewProfile" xml:space="preserve">
+    <value>创建新的配置文件</value>
   </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>当前(A)</value>
@@ -389,6 +401,9 @@
   <data name="gsDisagree" xml:space="preserve">
     <value>不同意</value>
   </data>
+  <data name="gsDiscourseForum" xml:space="preserve">
+    <value>论坛</value>
+  </data>
   <data name="gsDisplay" xml:space="preserve">
     <value>显示</value>
   </data>
@@ -397,6 +412,12 @@
   </data>
   <data name="gsDistanceToFlag" xml:space="preserve">
     <value>到目标物的距离</value>
+  </data>
+  <data name="gsDownloadAll" xml:space="preserve">
+    <value>取得所有</value>
+  </data>
+  <data name="gsDownloading" xml:space="preserve">
+    <value>下载中</value>
   </data>
   <data name="gsDriveIn" xml:space="preserve">
     <value>驶入</value>
@@ -427,6 +448,9 @@
   </data>
   <data name="gsElevationlog" xml:space="preserve">
     <value>高程日志</value>
+  </data>
+  <data name="gsEmptyProfile" xml:space="preserve">
+    <value>新配置文件</value>
   </data>
   <data name="gsEnable" xml:space="preserve">
     <value>确保</value>
@@ -515,6 +539,9 @@
   <data name="gsForNow" xml:space="preserve">
     <value>当前</value>
   </data>
+  <data name="gsForceOverwrite" xml:space="preserve">
+    <value>强制覆盖</value>
+  </data>
   <data name="gsFormFlag" xml:space="preserve">
     <value>定位点</value>
   </data>
@@ -526,6 +553,9 @@
   </data>
   <data name="gsGap" xml:space="preserve">
     <value>缺口</value>
+  </data>
+  <data name="gsGetSelected" xml:space="preserve">
+    <value>下载所选</value>
   </data>
   <data name="gsGpsStep" xml:space="preserve">
     <value>最少GPS 步骤</value>
@@ -644,6 +674,12 @@
   <data name="gsLineWidth" xml:space="preserve">
     <value>线宽</value>
   </data>
+  <data name="gsLoad" xml:space="preserve">
+    <value>加载</value>
+  </data>
+  <data name="gsLoadProfile" xml:space="preserve">
+    <value>加载配置</value>
+  </data>
   <data name="gsLongtitude" xml:space="preserve">
     <value>经度</value>
   </data>
@@ -721,6 +757,12 @@
   </data>
   <data name="gsN_West" xml:space="preserve">
     <value>N西</value>
+  </data>
+  <data name="gsName" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="gsNew" xml:space="preserve">
+    <value>新</value>
   </data>
   <data name="gsNewFromDefault" xml:space="preserve">
     <value>新建</value>
@@ -848,6 +890,13 @@
   <data name="gsProblemMakingPath" xml:space="preserve">
     <value>路径创建问题</value>
   </data>
+  <data name="gsProfile" xml:space="preserve">
+    <value>环境</value>
+  </data>
+  <data name="gsProfileMenuHint" xml:space="preserve">
+    <value>车辆、工具及环境设置现已保存为独立配置文件。
+可通过配置面板及左上角菜单进行加载。</value>
+  </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
     <value>请重启以解决问题</value>
   </data>
@@ -938,8 +987,26 @@
   <data name="gsSaveSettings" xml:space="preserve">
     <value>保存设置</value>
   </data>
+  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
+    <value>环境设置</value>
+  </data>
+  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
+    <value>环境设置已保存.</value>
+  </data>
   <data name="gsSaveSettingsSaved" xml:space="preserve">
     <value>设置已保存。</value>
+  </data>
+  <data name="gsSaveVehicleSettings" xml:space="preserve">
+    <value>车辆设置</value>
+  </data>
+  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
+    <value>车辆设置已保存.</value>
+  </data>
+  <data name="gsSaveToolSettings" xml:space="preserve">
+    <value>机具设置</value>
+  </data>
+  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
+    <value>机具设置已保存.</value>
   </data>
   <data name="gsSaveUploadCompleted" xml:space="preserve">
     <value>上传完成。</value>
@@ -1163,11 +1230,17 @@
   <data name="gsVehiclegroupbox" xml:space="preserve">
     <value>车辆类型</value>
   </data>
+  <data name="gsVersion" xml:space="preserve">
+    <value>版本</value>
+  </data>
   <data name="gsWasZero" xml:space="preserve">
     <value>为零</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>摄像头</value>
+  <data name="gsSmartWAS" xml:space="preserve">
+    <value>智能WAS</value>
+  </data>
+  <data name="gsSmartWASHelp" xml:space="preserve">
+    <value>通过行驶过程中分析导向转向角度，自动校准前视辅助系统零点。启用自动转向功能，并沿车道平稳行驶。</value>
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>西</value>
@@ -1199,6 +1272,9 @@
   <data name="gsXTEChart" xml:space="preserve">
     <value>横向轨迹误差监测图</value>
   </data>
+  <data name="gsYouTubeTutorials" xml:space="preserve">
+    <value>油管教程</value>
+  </data>
   <data name="gsZeroRoll" xml:space="preserve">
     <value>零滚动</value>
   </data>
@@ -1210,88 +1286,6 @@
   </data>
   <data name="gsZoomIn" xml:space="preserve">
     <value>放大</value>
-  </data>
-  <data name="v_AboutIntro" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
-  </data>
-  <data name="gsAgShareDownloader" xml:space="preserve">
-    <value>从AgShare下载田块信息</value>
-  </data>
-  <data name="gsAgree" xml:space="preserve">
-    <value>同意</value>
-  </data>
-  <data name="gsCopyFrom" xml:space="preserve">
-    <value>从...拷贝</value>
-  </data>
-  <data name="gsCreateNewProfile" xml:space="preserve">
-    <value>创建新的配置文件</value>
-  </data>
-  <data name="gsDiscourseForum" xml:space="preserve">
-    <value>论坛</value>
-  </data>
-  <data name="gsDownloadAll" xml:space="preserve">
-    <value>取得所有</value>
-  </data>
-  <data name="gsDownloading" xml:space="preserve">
-    <value>下载中</value>
-  </data>
-  <data name="gsEmptyProfile" xml:space="preserve">
-    <value>新配置文件</value>
-  </data>
-  <data name="gsForceOverwrite" xml:space="preserve">
-    <value>强制覆盖</value>
-  </data>
-  <data name="gsGetSelected" xml:space="preserve">
-    <value>下载所选</value>
-  </data>
-  <data name="gsLoad" xml:space="preserve">
-    <value>加载</value>
-  </data>
-  <data name="gsLoadProfile" xml:space="preserve">
-    <value>加载配置</value>
-  </data>
-  <data name="gsName" xml:space="preserve">
-    <value>名字</value>
-  </data>
-  <data name="gsNew" xml:space="preserve">
-    <value>新</value>
-  </data>
-  <data name="gsProfile" xml:space="preserve">
-    <value>环境</value>
-  </data>
-  <data name="gsProfileMenuHint" xml:space="preserve">
-    <value>车辆、工具及环境设置现已保存为独立配置文件。
-可通过配置面板及左上角菜单进行加载。</value>
-  </data>
-  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
-    <value>环境设置</value>
-  </data>
-  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
-    <value>环境设置已保存.</value>
-  </data>
-  <data name="gsSaveVehicleSettings" xml:space="preserve">
-    <value>车辆设置</value>
-  </data>
-  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
-    <value>车辆设置已保存.</value>
-  </data>
-  <data name="gsSaveToolSettings" xml:space="preserve">
-    <value>机具设置</value>
-  </data>
-  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
-    <value>机具设置已保存.</value>
-  </data>
-  <data name="gsVersion" xml:space="preserve">
-    <value>版本</value>
-  </data>
-  <data name="gsSmartWAS" xml:space="preserve">
-    <value>智能WAS</value>
-  </data>
-  <data name="gsSmartWASHelp" xml:space="preserve">
-    <value>通过行驶过程中分析导向转向角度，自动校准前视辅助系统零点。启用自动转向功能，并沿车道平稳行驶。</value>
-  </data>
-  <data name="gsYouTubeTutorials" xml:space="preserve">
-    <value>油管教程</value>
   </data>
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>当前车辆</value>
@@ -1526,5 +1520,8 @@
   </data>
   <data name="gsToolAlreadyExists" xml:space="preserve">
     <value>农具已存在</value>
+  </data>
+  <data name="v_AboutIntro" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
   </data>
 </root>

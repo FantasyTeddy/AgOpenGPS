@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -152,6 +152,12 @@
   </data>
   <data name="gsAdvancedTramLines" xml:space="preserve">
     <value>Ajourat (edistynyt)</value>
+  </data>
+  <data name="gsAgShareDownloader" xml:space="preserve">
+    <value>Lataa pellot AgSharesta</value>
+  </data>
+  <data name="gsAgree" xml:space="preserve">
+    <value>Hyväksy</value>
   </data>
   <data name="gsAgressiveness" xml:space="preserve">
     <value>Aggressiivisuus</value>
@@ -305,6 +311,9 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   <data name="gsContourOn" xml:space="preserve">
     <value>Rajakäyrä päälle</value>
   </data>
+  <data name="gsCopyFrom" xml:space="preserve">
+    <value>Kopioi kohteesta</value>
+  </data>
   <data name="gsCouldntGenerateValidPath" xml:space="preserve">
     <value>Ei kelvollista polkua</value>
   </data>
@@ -325,6 +334,9 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   </data>
   <data name="gsCreateNewFromIsoXML" xml:space="preserve">
     <value>Luo uusi pelto ISO-XML:stä</value>
+  </data>
+  <data name="gsCreateNewProfile" xml:space="preserve">
+    <value>Luo uusi profiili</value>
   </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>Nykyinen</value>
@@ -389,6 +401,9 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   <data name="gsDisagree" xml:space="preserve">
     <value>En Hyväksy</value>
   </data>
+  <data name="gsDiscourseForum" xml:space="preserve">
+    <value>Discourse foorumi</value>
+  </data>
   <data name="gsDisplay" xml:space="preserve">
     <value>Näytä</value>
   </data>
@@ -397,6 +412,12 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   </data>
   <data name="gsDistanceToFlag" xml:space="preserve">
     <value>Etäisyys Lippuun</value>
+  </data>
+  <data name="gsDownloadAll" xml:space="preserve">
+    <value>Hae kaikki</value>
+  </data>
+  <data name="gsDownloading" xml:space="preserve">
+    <value>Ladataan</value>
   </data>
   <data name="gsDriveIn" xml:space="preserve">
     <value>Aja pellolle</value>
@@ -427,6 +448,9 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   </data>
   <data name="gsElevationlog" xml:space="preserve">
     <value>Korkeusloki</value>
+  </data>
+  <data name="gsEmptyProfile" xml:space="preserve">
+    <value>Tyhjä profiili</value>
   </data>
   <data name="gsEnable" xml:space="preserve">
     <value>Aktivoi</value>
@@ -515,6 +539,9 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   <data name="gsForNow" xml:space="preserve">
     <value>Toistaiseksi</value>
   </data>
+  <data name="gsForceOverwrite" xml:space="preserve">
+    <value>Pakota ylikirjoitus</value>
+  </data>
   <data name="gsFormFlag" xml:space="preserve">
     <value>Liput</value>
   </data>
@@ -526,6 +553,9 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   </data>
   <data name="gsGap" xml:space="preserve">
     <value>Väli</value>
+  </data>
+  <data name="gsGetSelected" xml:space="preserve">
+    <value>Hae valitut</value>
   </data>
   <data name="gsGpsStep" xml:space="preserve">
     <value>Pienin GPS-askel</value>
@@ -644,6 +674,12 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   <data name="gsLineWidth" xml:space="preserve">
     <value>Viivan leveys</value>
   </data>
+  <data name="gsLoad" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="gsLoadProfile" xml:space="preserve">
+    <value>Lataa profiili</value>
+  </data>
   <data name="gsLongtitude" xml:space="preserve">
     <value>Pituusaste</value>
   </data>
@@ -721,6 +757,12 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   </data>
   <data name="gsN_West" xml:space="preserve">
     <value>Luode</value>
+  </data>
+  <data name="gsName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="gsNew" xml:space="preserve">
+    <value>Uusi</value>
   </data>
   <data name="gsNewFromDefault" xml:space="preserve">
     <value>Uusi oletusarvosta</value>
@@ -848,6 +890,13 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   <data name="gsProblemMakingPath" xml:space="preserve">
     <value>Ongelman polun luonnissa</value>
   </data>
+  <data name="gsProfile" xml:space="preserve">
+    <value>Ympäristö</value>
+  </data>
+  <data name="gsProfileMenuHint" xml:space="preserve">
+    <value>Vehicle, Tool and Environment settings are now stored as separate profiles.
+Load from Config panel &amp; Top Left Menu.</value>
+  </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
     <value>Ohjelma sulkeutuu, ole hyvä ja käynnistä uudelleen</value>
   </data>
@@ -938,8 +987,26 @@ Kuvakkeet näkyvät alhaalta ylöspäin siinä järjestyksessä jossa ne ovat va
   <data name="gsSaveSettings" xml:space="preserve">
     <value>Tallennetaan asetuksia</value>
   </data>
+  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
+    <value>Ympäristöasetukset</value>
+  </data>
+  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
+    <value>Ympäristöasetukset tallennettu</value>
+  </data>
   <data name="gsSaveSettingsSaved" xml:space="preserve">
     <value>Asetukset tallennettu.</value>
+  </data>
+  <data name="gsSaveVehicleSettings" xml:space="preserve">
+    <value>Ajoneuvoasetukset</value>
+  </data>
+  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
+    <value>Ajoneuvoasetukset tallennettu</value>
+  </data>
+  <data name="gsSaveToolSettings" xml:space="preserve">
+    <value>Työkoneen asetukset</value>
+  </data>
+  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
+    <value>Työkoneen asetukset tallennettu.</value>
   </data>
   <data name="gsSaveUploadCompleted" xml:space="preserve">
     <value>Lataus valmis.</value>
@@ -1169,8 +1236,11 @@ KÄYTTÖ OMALLA VASTUULLA.</value>
   <data name="gsWasZero" xml:space="preserve">
     <value>WAS nollaus</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>Kamera</value>
+  <data name="gsSmartWAS" xml:space="preserve">
+    <value>Älykäs WAS</value>
+  </data>
+  <data name="gsSmartWASHelp" xml:space="preserve">
+    <value>Autokalibroi WAS-nollakohdan analysoimalla ohjauskulmia ajon aikana. Kytke automaattiohjaus päälle ja aja tasaisesti linjaa pitkin.</value>
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>Länsi</value>
@@ -1202,6 +1272,9 @@ KÄYTTÖ OMALLA VASTUULLA.</value>
   <data name="gsXTEChart" xml:space="preserve">
     <value>XTE kaavio</value>
   </data>
+  <data name="gsYouTubeTutorials" xml:space="preserve">
+    <value>Youtube tutoriaalit</value>
+  </data>
   <data name="gsZeroRoll" xml:space="preserve">
     <value>Gyroskoopin Nollaus</value>
   </data>
@@ -1214,92 +1287,16 @@ KÄYTTÖ OMALLA VASTUULLA.</value>
   <data name="gsZoomIn" xml:space="preserve">
     <value>Lähennä</value>
   </data>
-  <data name="v_AboutIntro" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
-  </data>
-  <data name="gsAgShareDownloader" xml:space="preserve">
-    <value>Lataa pellot AgSharesta</value>
-  </data>
-  <data name="gsDownloadAll" xml:space="preserve">
-    <value>Hae kaikki</value>
-  </data>
-  <data name="gsGetSelected" xml:space="preserve">
-    <value>Hae valitut</value>
-  </data>
-  <data name="gsForceOverwrite" xml:space="preserve">
-    <value>Pakota ylikirjoitus</value>
-  </data>
-  <data name="gsAgree" xml:space="preserve">
-    <value>Hyväksy</value>
-  </data>
-  <data name="gsCopyFrom" xml:space="preserve">
-    <value>Kopioi kohteesta</value>
-  </data>
-  <data name="gsCreateNewProfile" xml:space="preserve">
-    <value>Luo uusi profiili</value>
-  </data>
-  <data name="gsDiscourseForum" xml:space="preserve">
-    <value>Discourse foorumi</value>
-  </data>
-  <data name="gsDownloading" xml:space="preserve">
-    <value>Ladataan</value>
-  </data>
-  <data name="gsEmptyProfile" xml:space="preserve">
-    <value>Tyhjä profiili</value>
-  </data>
-  <data name="gsLoad" xml:space="preserve">
-    <value>Lataa</value>
-  </data>
-  <data name="gsLoadProfile" xml:space="preserve">
-    <value>Lataa profiili</value>
-  </data>
-  <data name="gsName" xml:space="preserve">
-    <value>Nimi</value>
-  </data>
-  <data name="gsNew" xml:space="preserve">
-    <value>Uusi</value>
-  </data>
-  <data name="gsProfile" xml:space="preserve">
-    <value>Ympäristö</value>
-  </data>
-  <data name="gsProfileMenuHint" xml:space="preserve">
-    <value>Vehicle, Tool and Environment settings are now stored as separate profiles.
-Load from Config panel &amp; Top Left Menu.</value>
-  </data>
-  <data name="gsYouTubeTutorials" xml:space="preserve">
-    <value>Youtube tutoriaalit</value>
-  </data>
-  <data name="gsSaveEnvironmentSettings" xml:space="preserve">
-    <value>Ympäristöasetukset</value>
-  </data>
-  <data name="gsSaveEnvironmentSettingsSaved" xml:space="preserve">
-    <value>Ympäristöasetukset tallennettu</value>
-  </data>
-  <data name="gsSaveVehicleSettings" xml:space="preserve">
-    <value>Ajoneuvoasetukset</value>
-  </data>
-  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
-    <value>Ajoneuvoasetukset tallennettu</value>
-  </data>
-  <data name="gsSaveToolSettings" xml:space="preserve">
-    <value>Työkoneen asetukset</value>
-  </data>
-  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
-    <value>Työkoneen asetukset tallennettu.</value>
-  </data>
-  <data name="gsSmartWAS" xml:space="preserve">
-    <value>Älykäs WAS</value>
-  </data>
-  <data name="gsSmartWASHelp" xml:space="preserve">
-    <value>Autokalibroi WAS-nollakohdan analysoimalla ohjauskulmia ajon aikana. Kytke automaattiohjaus päälle ja aja tasaisesti linjaa pitkin.</value>
-  </data>
-  <data name="gsSelected" xml:space="preserve">
-    <value>Valittu</value>
-  </data>
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>Nykyinen Kone</value>
   </data>
   <data name="gsCurrentTool" xml:space="preserve">
     <value>Nykyinen Työkalu</value>
+  </data>
+  <data name="gsSelected" xml:space="preserve">
+    <value>Valittu</value>
+  </data>
+  <data name="v_AboutIntro" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
   </data>
 </root>

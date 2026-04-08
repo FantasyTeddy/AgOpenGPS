@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -311,6 +311,9 @@ Ordningen de trycks på är den ordningen de kommer visar i menyn uppifrån och 
   <data name="gsContourOn" xml:space="preserve">
     <value>Kontur på</value>
   </data>
+  <data name="gsCopyFrom" xml:space="preserve">
+    <value>Kopiera från</value>
+  </data>
   <data name="gsCouldntGenerateValidPath" xml:space="preserve">
     <value>Ingen giltig väg</value>
   </data>
@@ -331,6 +334,9 @@ Ordningen de trycks på är den ordningen de kommer visar i menyn uppifrån och 
   </data>
   <data name="gsCreateNewFromIsoXML" xml:space="preserve">
     <value>Skapa nytt fält från ISO-XML</value>
+  </data>
+  <data name="gsCreateNewProfile" xml:space="preserve">
+    <value>Skapa ny profil</value>
   </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>Ström</value>
@@ -442,6 +448,9 @@ Ordningen de trycks på är den ordningen de kommer visar i menyn uppifrån och 
   </data>
   <data name="gsElevationlog" xml:space="preserve">
     <value>Höjd logg</value>
+  </data>
+  <data name="gsEmptyProfile" xml:space="preserve">
+    <value>Tom profil</value>
   </data>
   <data name="gsEnable" xml:space="preserve">
     <value>Aktivera</value>
@@ -665,6 +674,12 @@ Ordningen de trycks på är den ordningen de kommer visar i menyn uppifrån och 
   <data name="gsLineWidth" xml:space="preserve">
     <value>Linjebredd</value>
   </data>
+  <data name="gsLoad" xml:space="preserve">
+    <value>Ladda</value>
+  </data>
+  <data name="gsLoadProfile" xml:space="preserve">
+    <value>Ladda profil</value>
+  </data>
   <data name="gsLongtitude" xml:space="preserve">
     <value>Longtitude</value>
   </data>
@@ -742,6 +757,12 @@ Ordningen de trycks på är den ordningen de kommer visar i menyn uppifrån och 
   </data>
   <data name="gsN_West" xml:space="preserve">
     <value>NVest</value>
+  </data>
+  <data name="gsName" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="gsNew" xml:space="preserve">
+    <value>Ny</value>
   </data>
   <data name="gsNewFromDefault" xml:space="preserve">
     <value>Ny från standard</value>
@@ -866,6 +887,13 @@ Ordningen de trycks på är den ordningen de kommer visar i menyn uppifrån och 
   <data name="gsProblemMakingPath" xml:space="preserve">
     <value>Kan ej skapa spår</value>
   </data>
+  <data name="gsProfile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="gsProfileMenuHint" xml:space="preserve">
+    <value>Inställningar för Fordon, Verktyg och Miljö lagras nu som separata profiler.
+Ladda via Config-panelen &amp; menyn längst upp till vänster.</value>
+  </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
     <value>Programmet kommer stänga, vänligen starta igen</value>
   </data>
@@ -958,6 +986,18 @@ Ordningen de trycks på är den ordningen de kommer visar i menyn uppifrån och 
   </data>
   <data name="gsSaveSettingsSaved" xml:space="preserve">
     <value>Inställningar sparade.</value>
+  </data>
+  <data name="gsSaveVehicleSettings" xml:space="preserve">
+    <value>Fordonsinställningar</value>
+  </data>
+  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
+    <value>Fordonsinställningar sparade.</value>
+  </data>
+  <data name="gsSaveToolSettings" xml:space="preserve">
+    <value>Redskapsinställningar</value>
+  </data>
+  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
+    <value>Redskapsinställningar sparade.</value>
   </data>
   <data name="gsSaveUploadCompleted" xml:space="preserve">
     <value>Uppladning slutförd.</value>
@@ -1187,9 +1227,6 @@ ANVÄNDS PÅ EGEN RISK.</value>
   <data name="gsWasZero" xml:space="preserve">
     <value>Nollställ styrvinkelgivare</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>webkamera</value>
-  </data>
   <data name="gsWest" xml:space="preserve">
     <value>Vest</value>
   </data>
@@ -1234,49 +1271,6 @@ ANVÄNDS PÅ EGEN RISK.</value>
   </data>
   <data name="gsZoomIn" xml:space="preserve">
     <value>Zooma in</value>
-  </data>
-  <data name="v_AboutIntro" xml:space="preserve">
-    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
-  </data>
-  <data name="gsCopyFrom" xml:space="preserve">
-    <value>Kopiera från</value>
-  </data>
-  <data name="gsCreateNewProfile" xml:space="preserve">
-    <value>Skapa ny profil</value>
-  </data>
-  <data name="gsEmptyProfile" xml:space="preserve">
-    <value>Tom profil</value>
-  </data>
-  <data name="gsLoad" xml:space="preserve">
-    <value>Ladda</value>
-  </data>
-  <data name="gsLoadProfile" xml:space="preserve">
-    <value>Ladda profil</value>
-  </data>
-  <data name="gsName" xml:space="preserve">
-    <value>Namn</value>
-  </data>
-  <data name="gsNew" xml:space="preserve">
-    <value>Ny</value>
-  </data>
-  <data name="gsProfile" xml:space="preserve">
-    <value>Profil</value>
-  </data>
-  <data name="gsProfileMenuHint" xml:space="preserve">
-    <value>Inställningar för Fordon, Verktyg och Miljö lagras nu som separata profiler.
-Ladda via Config-panelen &amp; menyn längst upp till vänster.</value>
-  </data>
-  <data name="gsSaveVehicleSettings" xml:space="preserve">
-    <value>Fordonsinställningar</value>
-  </data>
-  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
-    <value>Fordonsinställningar sparade.</value>
-  </data>
-  <data name="gsSaveToolSettings" xml:space="preserve">
-    <value>Redskapsinställningar</value>
-  </data>
-  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
-    <value>Redskapsinställningar sparade.</value>
   </data>
   <data name="gsCurrentVehicle" xml:space="preserve">
     <value>Nuvarande fordon</value>
@@ -1379,5 +1373,8 @@ Ladda via Config-panelen &amp; menyn längst upp till vänster.</value>
   </data>
   <data name="gsConvertStep2" xml:space="preserve">
     <value>Steg 2</value>
+  </data>
+  <data name="v_AboutIntro" xml:space="preserve">
+    <value>https://www.youtube.com/watch?v=iN2cZ8avHag</value>
   </data>
 </root>

@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -153,8 +153,17 @@
   <data name="gsAdvancedTramLines" xml:space="preserve">
     <value>Lag avanserte sprøytespor</value>
   </data>
+  <data name="gsAgShareDownloader" xml:space="preserve">
+    <value>Last ned skifter fra AgShare</value>
+  </data>
+  <data name="gsAgree" xml:space="preserve">
+    <value>Enig</value>
+  </data>
   <data name="gsAgressiveness" xml:space="preserve">
     <value>Aggressivitet</value>
+  </data>
+  <data name="gsAllSettings" xml:space="preserve">
+    <value>Vis innstillinger</value>
   </data>
   <data name="gsAlpha" xml:space="preserve">
     <value>Alfa</value>
@@ -205,6 +214,9 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   </data>
   <data name="gsBackground" xml:space="preserve">
     <value>Bakgrunn</value>
+  </data>
+  <data name="gsBasedOnField" xml:space="preserve">
+    <value>Basert på skifte</value>
   </data>
   <data name="gsBottomMenu" xml:space="preserve">
     <value>Bunnmeny</value>
@@ -299,6 +311,9 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   <data name="gsContourOn" xml:space="preserve">
     <value>Kontur På</value>
   </data>
+  <data name="gsCopyFrom" xml:space="preserve">
+    <value>Kopier fra</value>
+  </data>
   <data name="gsCouldntGenerateValidPath" xml:space="preserve">
     <value>Kunne ikke generere gyldig vei</value>
   </data>
@@ -319,6 +334,9 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   </data>
   <data name="gsCreateNewFromIsoXML" xml:space="preserve">
     <value>Lag nytt skifte fra ISO-XML</value>
+  </data>
+  <data name="gsCreateNewProfile" xml:space="preserve">
+    <value>Opprett ny profil</value>
   </data>
   <data name="gsCurrent" xml:space="preserve">
     <value>Nåværende</value>
@@ -383,6 +401,9 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   <data name="gsDisagree" xml:space="preserve">
     <value>Uenig</value>
   </data>
+  <data name="gsDiscourseForum" xml:space="preserve">
+    <value>Forum</value>
+  </data>
   <data name="gsDisplay" xml:space="preserve">
     <value>Vis</value>
   </data>
@@ -391,6 +412,12 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   </data>
   <data name="gsDistanceToFlag" xml:space="preserve">
     <value>Avstand til flagg</value>
+  </data>
+  <data name="gsDownloadAll" xml:space="preserve">
+    <value>Hent alle</value>
+  </data>
+  <data name="gsDownloading" xml:space="preserve">
+    <value>Laster ned</value>
   </data>
   <data name="gsDriveIn" xml:space="preserve">
     <value>Kjør inn</value>
@@ -421,6 +448,9 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   </data>
   <data name="gsElevationlog" xml:space="preserve">
     <value>Høyde logg</value>
+  </data>
+  <data name="gsEmptyProfile" xml:space="preserve">
+    <value>Tom profil</value>
   </data>
   <data name="gsEnable" xml:space="preserve">
     <value>Aktiver</value>
@@ -506,6 +536,9 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   <data name="gsForNow" xml:space="preserve">
     <value>For nå</value>
   </data>
+  <data name="gsForceOverwrite" xml:space="preserve">
+    <value>Tving overskriving</value>
+  </data>
   <data name="gsFormFlag" xml:space="preserve">
     <value>Flagg</value>
   </data>
@@ -517,6 +550,9 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   </data>
   <data name="gsGap" xml:space="preserve">
     <value>Urørt areal</value>
+  </data>
+  <data name="gsGetSelected" xml:space="preserve">
+    <value>Hent valgt</value>
   </data>
   <data name="gsGpsStep" xml:space="preserve">
     <value>Minimum GPS steg</value>
@@ -626,11 +662,20 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   <data name="gsLess" xml:space="preserve">
     <value>Mindre</value>
   </data>
+  <data name="gsLightbar" xml:space="preserve">
+    <value>Lyskolonne</value>
+  </data>
   <data name="gsLineSmooth" xml:space="preserve">
     <value>Linjeutjevning</value>
   </data>
   <data name="gsLineWidth" xml:space="preserve">
     <value>Linjebredde</value>
+  </data>
+  <data name="gsLoad" xml:space="preserve">
+    <value>Last</value>
+  </data>
+  <data name="gsLoadProfile" xml:space="preserve">
+    <value>Last profil</value>
   </data>
   <data name="gsLongtitude" xml:space="preserve">
     <value>Lengdegrad</value>
@@ -709,6 +754,12 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   </data>
   <data name="gsN_West" xml:space="preserve">
     <value>NVest</value>
+  </data>
+  <data name="gsName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="gsNew" xml:space="preserve">
+    <value>Ny</value>
   </data>
   <data name="gsNewFromDefault" xml:space="preserve">
     <value>Ny fra standard</value>
@@ -833,6 +884,10 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   <data name="gsProblemMakingPath" xml:space="preserve">
     <value>Klarer ikke å lage vei</value>
   </data>
+  <data name="gsProfileMenuHint" xml:space="preserve">
+    <value>Kjøretøy, redskap og innstillinger er nå lagret som separate profiler
+Last fra konfig-panel &amp; top venstre meny.</value>
+  </data>
   <data name="gsProgramWillExitPleaseRestart" xml:space="preserve">
     <value>Programmet vil avslutte, vennligst start på nytt</value>
   </data>
@@ -926,6 +981,18 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   <data name="gsSaveSettingsSaved" xml:space="preserve">
     <value>Innstillinger lagret.</value>
   </data>
+  <data name="gsSaveVehicleSettings" xml:space="preserve">
+    <value>Kjøretøy-innstillinger</value>
+  </data>
+  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
+    <value>Kjøretøy-innstillinger lagret.</value>
+  </data>
+  <data name="gsSaveToolSettings" xml:space="preserve">
+    <value>Redskaps-innstilling</value>
+  </data>
+  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
+    <value>Redskaps-innstilling lagret.</value>
+  </data>
   <data name="gsSaveUploadCompleted" xml:space="preserve">
     <value>Opplasting fullført.</value>
   </data>
@@ -967,6 +1034,9 @@ Rekkefølgen du trykker på dem, vil være rekkefølgen de vises i menyen fra bu
   </data>
   <data name="gsShutdown" xml:space="preserve">
     <value>Nedstengning</value>
+  </data>
+  <data name="gsShutdownIn" xml:space="preserve">
+    <value>Avslutter om</value>
   </data>
   <data name="gsSideHillComp" xml:space="preserve">
     <value>Sidehelling kompensasjon per grad</value>
@@ -1142,11 +1212,14 @@ BRUK PÅ EGEN RISIKO.</value>
   <data name="gsVehiclegroupbox" xml:space="preserve">
     <value>Kjøretøy type</value>
   </data>
+  <data name="gsVersion" xml:space="preserve">
+    <value>Versjon</value>
+  </data>
   <data name="gsWasZero" xml:space="preserve">
     <value>Nullstill vinkelsensor</value>
   </data>
-  <data name="gsWebCam" xml:space="preserve">
-    <value>Webkamera</value>
+  <data name="gsSmartWASHelp" xml:space="preserve">
+    <value>Autokalibrerer WAS nullpunkt ved å analysere styrevinkler mens du kjører. Aktiver autostyring og kjør rolig langs linjen.</value>
   </data>
   <data name="gsWest" xml:space="preserve">
     <value>Vest</value>
@@ -1190,72 +1263,20 @@ BRUK PÅ EGEN RISIKO.</value>
   <data name="gsZoomIn" xml:space="preserve">
     <value>Zoom inn</value>
   </data>
-  <data name="gsAgShareDownloader" xml:space="preserve">
-    <value>Last ned skifter fra AgShare</value>
+  <data name="gsCurrentVehicle" xml:space="preserve">
+    <value>Aktivt kjøretøy</value>
   </data>
-  <data name="gsAllSettings" xml:space="preserve">
-    <value>Vis innstillinger</value>
-  </data>
-  <data name="gsCopyFrom" xml:space="preserve">
-    <value>Kopier fra</value>
-  </data>
-  <data name="gsCreateNewProfile" xml:space="preserve">
-    <value>Opprett ny profil</value>
-  </data>
-  <data name="gsAgree" xml:space="preserve">
-    <value>Enig</value>
-  </data>
-  <data name="gsBasedOnField" xml:space="preserve">
-    <value>Basert på skifte</value>
-  </data>
-  <data name="gsDownloadAll" xml:space="preserve">
-    <value>Hent alle</value>
-  </data>
-  <data name="gsDownloading" xml:space="preserve">
-    <value>Laster ned</value>
-  </data>
-  <data name="gsEmptyProfile" xml:space="preserve">
-    <value>Tom profil</value>
-  </data>
-  <data name="gsForceOverwrite" xml:space="preserve">
-    <value>Tving overskriving</value>
-  </data>
-  <data name="gsGetSelected" xml:space="preserve">
-    <value>Hent valgt</value>
-  </data>
-  <data name="gsLoad" xml:space="preserve">
-    <value>Last</value>
-  </data>
-  <data name="gsLoadProfile" xml:space="preserve">
-    <value>Last profil</value>
-  </data>
-  <data name="gsName" xml:space="preserve">
-    <value>Navn</value>
-  </data>
-  <data name="gsNew" xml:space="preserve">
-    <value>Ny</value>
-  </data>
-  <data name="gsProfileMenuHint" xml:space="preserve">
-    <value>Kjøretøy, redskap og innstillinger er nå lagret som separate profiler
-Last fra konfig-panel &amp; top venstre meny.</value>
-  </data>
-  <data name="gsSaveVehicleSettings" xml:space="preserve">
-    <value>Kjøretøy-innstillinger</value>
-  </data>
-  <data name="gsSaveVehicleSettingsSaved" xml:space="preserve">
-    <value>Kjøretøy-innstillinger lagret.</value>
-  </data>
-  <data name="gsSaveToolSettings" xml:space="preserve">
-    <value>Redskaps-innstilling</value>
-  </data>
-  <data name="gsSaveToolSettingsSaved" xml:space="preserve">
-    <value>Redskaps-innstilling lagret.</value>
+  <data name="gsCurrentTool" xml:space="preserve">
+    <value>Aktiv redskap</value>
   </data>
   <data name="gsSelected" xml:space="preserve">
     <value>Valgt</value>
   </data>
   <data name="gsTrackWidth" xml:space="preserve">
     <value>Sporbredde</value>
+  </data>
+  <data name="gsTrailingHitch" xml:space="preserve">
+    <value>Trekkrok</value>
   </data>
   <data name="gsVehicle" xml:space="preserve">
     <value>Kjøretøy</value>
@@ -1268,33 +1289,6 @@ Last fra konfig-panel &amp; top venstre meny.</value>
   </data>
   <data name="gsHarvester" xml:space="preserve">
     <value>Tresker</value>
-  </data>
-  <data name="gsRename" xml:space="preserve">
-    <value>Gi nytt navn</value>
-  </data>
-  <data name="gsDiscourseForum" xml:space="preserve">
-    <value>Forum</value>
-  </data>
-  <data name="gsLightbar" xml:space="preserve">
-    <value>Lyskolonne</value>
-  </data>
-  <data name="gsShutdownIn" xml:space="preserve">
-    <value>Avslutter om</value>
-  </data>
-  <data name="gsVersion" xml:space="preserve">
-    <value>Versjon</value>
-  </data>
-  <data name="gsSmartWASHelp" xml:space="preserve">
-    <value>Autokalibrerer WAS nullpunkt ved å analysere styrevinkler mens du kjører. Aktiver autostyring og kjør rolig langs linjen.</value>
-  </data>
-  <data name="gsCurrentVehicle" xml:space="preserve">
-    <value>Aktivt kjøretøy</value>
-  </data>
-  <data name="gsCurrentTool" xml:space="preserve">
-    <value>Aktiv redskap</value>
-  </data>
-  <data name="gsTrailingHitch" xml:space="preserve">
-    <value>Trekkrok</value>
   </data>
   <data name="gsFront" xml:space="preserve">
     <value>Front</value>
@@ -1352,5 +1346,8 @@ Last fra konfig-panel &amp; top venstre meny.</value>
   </data>
   <data name="gsEnterToolName" xml:space="preserve">
     <value>Navn på redskap</value>
+  </data>
+  <data name="gsRename" xml:space="preserve">
+    <value>Gi nytt navn</value>
   </data>
 </root>

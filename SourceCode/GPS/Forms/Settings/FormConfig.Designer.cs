@@ -411,7 +411,6 @@ namespace AgOpenGPS
             this.labelUturnOnOff = new System.Windows.Forms.Label();
             this.labelLateralOnOff = new System.Windows.Forms.Label();
             this.labelOffsetFixOnOff = new System.Windows.Forms.Label();
-            this.labelCamOnOff = new System.Windows.Forms.Label();
             this.labelContourOnOff = new System.Windows.Forms.Label();
             this.labelABSmoothOnOff = new System.Windows.Forms.Label();
             this.labelRecPathOnOff = new System.Windows.Forms.Label();
@@ -435,7 +434,6 @@ namespace AgOpenGPS
             this.cboxFeatureLateral = new System.Windows.Forms.CheckBox();
             this.cboxFeatureUTurn = new System.Windows.Forms.CheckBox();
             this.cboxFeatureOffsetFix = new System.Windows.Forms.CheckBox();
-            this.cboxFeatureWebcam = new System.Windows.Forms.CheckBox();
             this.cboxFeatureHideContour = new System.Windows.Forms.CheckBox();
             this.cboxFeatureABSmooth = new System.Windows.Forms.CheckBox();
             this.cboxFeatureRecPath = new System.Windows.Forms.CheckBox();
@@ -7104,7 +7102,6 @@ namespace AgOpenGPS
             this.tabBtns.Controls.Add(this.labelUturnOnOff);
             this.tabBtns.Controls.Add(this.labelLateralOnOff);
             this.tabBtns.Controls.Add(this.labelOffsetFixOnOff);
-            this.tabBtns.Controls.Add(this.labelCamOnOff);
             this.tabBtns.Controls.Add(this.labelContourOnOff);
             this.tabBtns.Controls.Add(this.labelABSmoothOnOff);
             this.tabBtns.Controls.Add(this.labelRecPathOnOff);
@@ -7128,7 +7125,6 @@ namespace AgOpenGPS
             this.tabBtns.Controls.Add(this.cboxFeatureLateral);
             this.tabBtns.Controls.Add(this.cboxFeatureUTurn);
             this.tabBtns.Controls.Add(this.cboxFeatureOffsetFix);
-            this.tabBtns.Controls.Add(this.cboxFeatureWebcam);
             this.tabBtns.Controls.Add(this.cboxFeatureHideContour);
             this.tabBtns.Controls.Add(this.cboxFeatureABSmooth);
             this.tabBtns.Controls.Add(this.cboxFeatureRecPath);
@@ -7326,18 +7322,6 @@ namespace AgOpenGPS
             this.labelOffsetFixOnOff.TabIndex = 488;
             this.labelOffsetFixOnOff.Text = "Offset Fix";
             this.labelOffsetFixOnOff.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelCamOnOff
-            // 
-            this.labelCamOnOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelCamOnOff.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCamOnOff.ForeColor = System.Drawing.Color.Black;
-            this.labelCamOnOff.Location = new System.Drawing.Point(143, 249);
-            this.labelCamOnOff.Name = "labelCamOnOff";
-            this.labelCamOnOff.Size = new System.Drawing.Size(144, 16);
-            this.labelCamOnOff.TabIndex = 487;
-            this.labelCamOnOff.Text = "WebCam";
-            this.labelCamOnOff.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelContourOnOff
             // 
@@ -7746,28 +7730,6 @@ namespace AgOpenGPS
             this.cboxFeatureOffsetFix.TabIndex = 472;
             this.cboxFeatureOffsetFix.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cboxFeatureOffsetFix.UseVisualStyleBackColor = false;
-            // 
-            // cboxFeatureWebcam
-            // 
-            this.cboxFeatureWebcam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cboxFeatureWebcam.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxFeatureWebcam.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.cboxFeatureWebcam.Checked = true;
-            this.cboxFeatureWebcam.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxFeatureWebcam.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.cboxFeatureWebcam.FlatAppearance.BorderSize = 2;
-            this.cboxFeatureWebcam.FlatAppearance.CheckedBackColor = System.Drawing.Color.LightGreen;
-            this.cboxFeatureWebcam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxFeatureWebcam.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxFeatureWebcam.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cboxFeatureWebcam.Image = global::AgOpenGPS.Properties.Resources.Webcam;
-            this.cboxFeatureWebcam.Location = new System.Drawing.Point(174, 267);
-            this.cboxFeatureWebcam.Name = "cboxFeatureWebcam";
-            this.cboxFeatureWebcam.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cboxFeatureWebcam.Size = new System.Drawing.Size(77, 77);
-            this.cboxFeatureWebcam.TabIndex = 471;
-            this.cboxFeatureWebcam.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxFeatureWebcam.UseVisualStyleBackColor = false;
             // 
             // cboxFeatureHideContour
             // 
@@ -8502,9 +8464,9 @@ namespace AgOpenGPS
             this.labelCurrentVehicle.TabIndex = 450;
             this.labelCurrentVehicle.Text = "Current Vehicle";
             this.labelCurrentVehicle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
             // labelCurrentTool
-            //
+            // 
             this.labelCurrentTool.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCurrentTool.AutoSize = true;
             this.labelCurrentTool.BackColor = System.Drawing.Color.Transparent;
@@ -8513,11 +8475,11 @@ namespace AgOpenGPS
             this.labelCurrentTool.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelCurrentTool.Location = new System.Drawing.Point(21, 32);
             this.labelCurrentTool.Name = "labelCurrentTool";
-            this.labelCurrentTool.Size = new System.Drawing.Size(138, 23);
+            this.labelCurrentTool.Size = new System.Drawing.Size(114, 23);
             this.labelCurrentTool.TabIndex = 451;
             this.labelCurrentTool.Text = "Current Tool";
             this.labelCurrentTool.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
             // lblInchesCm
             // 
             this.lblInchesCm.AutoSize = true;
@@ -8530,14 +8492,14 @@ namespace AgOpenGPS
             this.lblInchesCm.TabIndex = 303;
             this.lblInchesCm.Text = "Inches";
             // 
-            // lblSecTotalWidthMeters
+            // lblSecTotalWidth
             // 
             this.lblSecTotalWidth.AutoSize = true;
             this.lblSecTotalWidth.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSecTotalWidth.ForeColor = System.Drawing.Color.Black;
             this.lblSecTotalWidth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblSecTotalWidth.Location = new System.Drawing.Point(632, 32);
-            this.lblSecTotalWidth.Name = "lblSecTotalWidthMeters";
+            this.lblSecTotalWidth.Name = "lblSecTotalWidth";
             this.lblSecTotalWidth.Size = new System.Drawing.Size(32, 25);
             this.lblSecTotalWidth.TabIndex = 302;
             this.lblSecTotalWidth.Text = "II";
@@ -8944,11 +8906,9 @@ namespace AgOpenGPS
         private System.Windows.Forms.Label labelFieldMenu;
         private System.Windows.Forms.CheckBox cboxFeatureRecPath;
         private System.Windows.Forms.CheckBox cboxFeatureOffsetFix;
-        private System.Windows.Forms.CheckBox cboxFeatureWebcam;
         private System.Windows.Forms.CheckBox cboxFeatureHideContour;
         private System.Windows.Forms.Label labelScreenButtons;
         private System.Windows.Forms.Label labelOffsetFixOnOff;
-        private System.Windows.Forms.Label labelCamOnOff;
         private System.Windows.Forms.Label labelContourOnOff;
         private System.Windows.Forms.Label labelRecPathOnOff;
         private System.Windows.Forms.Label labelBoundOnOff;

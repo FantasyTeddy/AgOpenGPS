@@ -1,14 +1,11 @@
 ﻿//Please, if you use this, share the improvements
 
-using Accord.Math.Distances;
 using AgLibrary.Logging;
 using AgOpenGPS.Controls;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
-using Microsoft.Win32;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -218,7 +215,6 @@ namespace AgOpenGPS
             labelRecPathOnOff.Text = gStr.gsRecordedPathMenu;
             labelABSmoothOnOff.Text = gStr.gsSmoothABCurve;
             labelContourOnOff.Text = gStr.gsContourOn;
-            labelCamOnOff.Text = gStr.gsWebCam;
             labelOffsetFixOnOff.Text = gStr.gsOffsetFix;
             labelUturnOnOff.Text = gStr.gsUturn;
             labelLateralOnOff.Text = gStr.gsLateral;
