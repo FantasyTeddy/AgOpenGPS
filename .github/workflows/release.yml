@@ -2,14 +2,13 @@ name: Build and release
 
 on:
   push:
-    branches:
-      - master
-      - release/*
+    tags:
+      - '*.*.*'
   workflow_dispatch:
 
 env:
   # Path to the solution file relative to the root of the project.
-  SOLUTION_FILE_PATH: ./SourceCode/AgOpenGPS.sln
+  SOLUTION_FILE_PATH: ./AgOpenGPS.slnx
 
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
@@ -25,20 +24,20 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
 
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
 
     - name: Setup GitVersion
-      uses: gittools/actions/gitversion/setup@v3.2.0
+      uses: gittools/actions/gitversion/setup@v4.5.0
       with:
-        versionSpec: '5.12.x'
+        versionSpec: '6.7.x'
 
     - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v3.2.0
+      uses: gittools/actions/gitversion/execute@v4.5.0
       with:
         updateProjectFiles: true
 
@@ -62,10 +61,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         name: Release ${{ env.GitVersion_SemVer }}
-        tag_name: ${{ env.GitVersion_SemVer }}
-        target_commitish: ${{ github.sha }}
         body: |
           Automated Release by GitHub Action CI
-        draft: ${{ github.ref_name == 'master' }}
-        prerelease: ${{ contains(github.ref_name, 'release/') }}
+        draft: true
         files: AgOpenGPS_${{ env.GitVersion_SemVer }}.zip
