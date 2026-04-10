@@ -35,7 +35,7 @@ namespace AgOpenGPS.Core.Tests.Models
             bool isClockwise = _cwPolygon.IsClockwise;
 
             // Assert
-            Assert.That(isClockwise, Is.EqualTo(true));
+            Assert.That(isClockwise, Is.True);
         }
 
         [Test]
@@ -70,24 +70,24 @@ namespace AgOpenGPS.Core.Tests.Models
 
             // Act
             // Assert
-            Assert.That(cwPolygon.IsClockwise, Is.EqualTo(true));
+            Assert.That(cwPolygon.IsClockwise, Is.True);
             cwPolygon.ForceCounterClockwiseWinding();
-            Assert.That(cwPolygon.IsClockwise, Is.EqualTo(false));
+            Assert.That(cwPolygon.IsClockwise, Is.False);
             Assert.That(cwPolygon.Area, Is.EqualTo(cwArea));
 
             // Test no changes after ForceCounterClockwiseWinding when already CCW
             cwPolygon.ForceCounterClockwiseWinding();
-            Assert.That(cwPolygon.IsClockwise, Is.EqualTo(false));
+            Assert.That(cwPolygon.IsClockwise, Is.False);
             Assert.That(cwPolygon.Area, Is.EqualTo(cwArea));
 
             // Test changes after ForceClockwiseWinding when CCW
             cwPolygon.ForceClockwiseWinding();
-            Assert.That(cwPolygon.IsClockwise, Is.EqualTo(true));
+            Assert.That(cwPolygon.IsClockwise, Is.True);
             Assert.That(cwPolygon.Area, Is.EqualTo(cwArea));
 
             // Test no changes after ForceClockwiseWinding when already CW
             cwPolygon.ForceClockwiseWinding();
-            Assert.That(cwPolygon.IsClockwise, Is.EqualTo(true));
+            Assert.That(cwPolygon.IsClockwise, Is.True);
             Assert.That(cwPolygon.Area, Is.EqualTo(cwArea));
         }
 

@@ -21,7 +21,7 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord? interSectionPoint = lineSegment.IntersectionPoint(otherLineSegment);
 
             // Assert
-            Assert.That(interSectionPoint.HasValue, Is.EqualTo(true));
+            Assert.That(interSectionPoint.HasValue, Is.True);
             // Intersection point must lie on first segment
             Assert.That(
                 coordA.Distance(interSectionPoint.Value) + interSectionPoint.Value.Distance(coordB),
@@ -49,7 +49,7 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord? interSectionPoint = northHeadingSegment.IntersectionPoint(eastHeadingSegment);
 
             // Assert
-            Assert.That(interSectionPoint.HasValue, Is.EqualTo(false));
+            Assert.That(interSectionPoint.HasValue, Is.False);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord? interSectionPoint = nwseLineSegment.IntersectionPoint(swneLineSegment);
 
             // Assert
-            Assert.That(interSectionPoint.HasValue, Is.EqualTo(true));
+            Assert.That(interSectionPoint.HasValue, Is.True);
             Assert.That(interSectionPoint.Value.Distance(nwCoord), Is.EqualTo(interSectionPoint.Value.Distance(seCoord)));
         }
 
@@ -93,7 +93,7 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord? intersectionPoint = nwseLineSegment.IntersectionPoint(shiftedSegment);
 
             // Assert
-            Assert.That(intersectionPoint, Is.EqualTo(null));
+            Assert.That(intersectionPoint, Is.Null);
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord? intersectionPoint = nwseLineSegment.IntersectionPoint(otherSegment);
 
             // Assert
-            Assert.That(intersectionPoint.HasValue, Is.EqualTo(true));
+            Assert.That(intersectionPoint.HasValue, Is.True);
             Assert.That(intersectionPoint.Value.Northing, Is.EqualTo(almostEnd.Northing));
             Assert.That(intersectionPoint.Value.Easting, Is.EqualTo(almostEnd.Easting));
         }
@@ -142,16 +142,16 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord? ipReversedReversed = reversedSegment.IntersectionPoint(reversedOtherSegment);
 
             // Assert
-            Assert.That(intersectionPoint.HasValue, Is.EqualTo(true));
+            Assert.That(intersectionPoint.HasValue, Is.True);
             Assert.That(intersectionPoint.Value, Is.EqualTo(sharedEndPoint));
 
-            Assert.That(ipNormalReversed.HasValue, Is.EqualTo(true));
+            Assert.That(ipNormalReversed.HasValue, Is.True);
             Assert.That(ipNormalReversed.Value, Is.EqualTo(sharedEndPoint));
 
-            Assert.That(ipReversedNormal.HasValue, Is.EqualTo(true));
+            Assert.That(ipReversedNormal.HasValue, Is.True);
             Assert.That(ipReversedNormal.Value, Is.EqualTo(sharedEndPoint));
 
-            Assert.That(ipReversedReversed.HasValue, Is.EqualTo(true));
+            Assert.That(ipReversedReversed.HasValue, Is.True);
             Assert.That(ipReversedReversed.Value, Is.EqualTo(sharedEndPoint));
         }
     }
