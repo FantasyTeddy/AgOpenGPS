@@ -80,8 +80,7 @@ namespace AgOpenGPS.Forms.Field
         {
             if (lbFields.SelectedItems.Count == 0) return;
 
-            GetOwnFieldDto dto = lbFields.SelectedItems[0].Tag as GetOwnFieldDto;
-            if (dto == null) return;
+            if (lbFields.SelectedItems[0].Tag is not GetOwnFieldDto dto) return;
 
             lblSelectedField.Text = "Selected Field: " + dto.Name;
             lblSelectedField.ForeColor = Color.Red;
@@ -110,8 +109,7 @@ namespace AgOpenGPS.Forms.Field
                 return;
             }
 
-            GetOwnFieldDto selected = lbFields.SelectedItems[0].Tag as GetOwnFieldDto;
-            if (selected == null)
+            if (lbFields.SelectedItems[0].Tag is not GetOwnFieldDto selected)
             {
                 FormDialog.Show("AgShare", "Invalid selection.", DialogSeverity.Error);
                 return;

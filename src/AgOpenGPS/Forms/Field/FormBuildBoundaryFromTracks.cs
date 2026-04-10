@@ -169,8 +169,7 @@ namespace AgOpenGPS.Forms.Field
             if ((DateTime.Now - _lastDragEndTime).TotalMilliseconds < 200)
             {
                 // Revert the checkbox state to what it was before
-                CTrk trk = checkbox?.Tag as CTrk;
-                if (trk != null)
+                if (checkbox?.Tag is CTrk trk)
                 {
                     checkbox.Checked = _selectedTracks.Contains(trk);
                 }
