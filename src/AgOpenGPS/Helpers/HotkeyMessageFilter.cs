@@ -10,7 +10,11 @@ namespace AgOpenGPS.Helpers
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_SYSKEYDOWN = 0x0104;
 
-        public HotkeyMessageFilter(FormGPS mf) => _mf = mf ?? throw new ArgumentNullException(nameof(mf));
+        public HotkeyMessageFilter(FormGPS mf)
+        {
+            _mf = mf ?? throw new ArgumentNullException(nameof(mf));
+        }
+
         public bool Enabled { get; set; } = true;
 
         public bool PreFilterMessage(ref Message m)
