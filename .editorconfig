@@ -8,6 +8,7 @@ csharp_prefer_braces = when_multiline
 
 dotnet_style_prefer_collection_expression = false
 dotnet_style_prefer_conditional_expression_over_assignment = false
+dotnet_style_prefer_conditional_expression_over_return = false
 
 #### Naming styles ####
 
