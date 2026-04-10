@@ -1025,7 +1025,10 @@ namespace AgOpenGPS
                     if (grnPixels[tool.rpWidth / 2 - (int)(tram.halfWheelTrack * 10)] == 245 || tram.isLeftManualOn) tram.controlByte += 2;
                 }
             }
-            else tram.controlByte = 0;
+            else
+            {
+                tram.controlByte = 0;
+            }
 
             //determine if in or out of headland, do hydraulics if on
             if (bnd.isHeadlandOn)
@@ -1256,7 +1259,9 @@ namespace AgOpenGPS
                 {
                     section[j].mappingOffTimer = 0;
                     if (section[j].mappingOnTimer > 1)
+                    {
                         section[j].mappingOnTimer--;
+                    }
                     else
                     {
                         section[j].isMappingOn = true;
@@ -1267,7 +1272,9 @@ namespace AgOpenGPS
                 {
                     section[j].mappingOnTimer = 0;
                     if (section[j].mappingOffTimer > 1)
+                    {
                         section[j].mappingOffTimer--;
+                    }
                     else
                     {
                         section[j].isMappingOn = false;
@@ -1356,7 +1363,9 @@ namespace AgOpenGPS
                         {
                             if (triStrip[j].newStartSectionNum > triStrip[j].currentEndSectionNum
                                 || triStrip[j].newEndSectionNum < triStrip[j].currentStartSectionNum)
+                            {
                                 isOk = false;
+                            }
                         }
                     }
 

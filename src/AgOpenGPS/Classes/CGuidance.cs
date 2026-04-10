@@ -90,7 +90,10 @@ namespace AgOpenGPS
                 //integral slider is set to 0
                 if (mf.vehicle.stanleyIntegralGainAB == 0) inty = 0;
             }
-            else inty *= 0.7;
+            else
+            {
+                inty *= 0.7;
+            }
 
             if (mf.isReverse) inty = 0;
 

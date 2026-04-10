@@ -109,7 +109,10 @@ namespace AgOpenGPS
                         }
                     }
                 }
-                else continue;
+                else
+                {
+                    continue;
+                }
 
 
                 //grab the boundary area
@@ -194,7 +197,10 @@ namespace AgOpenGPS
                         fileList.Add("No Bndry");
                         Log.EventWriter("Boundary is Broken, no Area");
                     }
-                    else fileList.Add(Math.Round(area, 1).ToString("N1").PadLeft(10));
+                    else
+                    {
+                        fileList.Add(Math.Round(area, 1).ToString("N1").PadLeft(10));
+                    }
                 }
                 else
                 {
@@ -426,12 +432,16 @@ namespace AgOpenGPS
                 fileToCopy = Path.Combine(templateDirectoryName, "Headlines.txt");
                 destinationDirectory = Path.Combine(directoryName, "Headlines.txt");
                 if (File.Exists(fileToCopy))
+                {
                     File.Copy(fileToCopy, destinationDirectory);
+                }
                 else
+                {
                     using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Headlines.txt")))
                     {
                         writer.WriteLine("$Headlines");
                     }
+                }
 
                 if (chkFlags.Checked)
                 {

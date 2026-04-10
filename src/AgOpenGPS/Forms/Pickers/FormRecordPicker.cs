@@ -139,10 +139,15 @@ namespace AgOpenGPS.Forms.Pickers
                 {
                     System.IO.File.Delete(dir2Delete);
                 }
-                else return;
-
+                else
+                {
+                    return;
+                }
             }
-            else return;
+            else
+            {
+                return;
+            }
 
             LoadList();
         }

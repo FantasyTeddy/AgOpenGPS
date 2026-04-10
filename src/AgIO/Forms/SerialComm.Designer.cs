@@ -213,7 +213,10 @@ namespace AgIO
 
                             case 1:  //find 0x81   
                                 {
-                                    if (a == 129) ByteList[ByteList[21]++] = a;
+                                    if (a == 129)
+                                    {
+                                        ByteList[ByteList[21]++] = a;
+                                    }
                                     else
                                     {
                                         if (a == 181)
@@ -221,7 +224,10 @@ namespace AgIO
                                             ByteList[21] = 0;
                                             ByteList[ByteList[21]++] = a;
                                         }
-                                        else ByteList[21] = 0;
+                                        else
+                                        {
+                                            ByteList[21] = 0;
+                                        }
                                     }
                                     break;
                                 }
@@ -418,7 +424,10 @@ namespace AgIO
 
                             case 1:  //find 0x81   
                                 {
-                                    if (a == 129) ByteList[ByteList[21]++] = a;
+                                    if (a == 129)
+                                    {
+                                        ByteList[ByteList[21]++] = a;
+                                    }
                                     else
                                     {
                                         if (a == 181)
@@ -426,7 +435,10 @@ namespace AgIO
                                             ByteList[21] = 0;
                                             ByteList[ByteList[21]++] = a;
                                         }
-                                        else ByteList[21] = 0;
+                                        else
+                                        {
+                                            ByteList[21] = 0;
+                                        }
                                     }
                                     break;
                                 }
@@ -630,7 +642,10 @@ namespace AgIO
 
                             case 1:  //find 0x81   
                                 {
-                                    if (a == 129) ByteList[ByteList[21]++] = a;
+                                    if (a == 129)
+                                    {
+                                        ByteList[ByteList[21]++] = a;
+                                    }
                                     else
                                     {
                                         if (a == 181)
@@ -638,7 +653,10 @@ namespace AgIO
                                             ByteList[21] = 0;
                                             ByteList[ByteList[21]++] = a;
                                         }
-                                        else ByteList[21] = 0;
+                                        else
+                                        {
+                                            ByteList[21] = 0;
+                                        }
                                     }
                                     break;
                                 }

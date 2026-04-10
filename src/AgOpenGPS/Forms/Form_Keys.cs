@@ -160,9 +160,10 @@ namespace AgOpenGPS
                 FormDialog.Show("HoyKey Incomplete", "Finish Setting All, or Reset to Default", DialogSeverity.Error);
             }
 
-            else Close();
-
-
+            else
+            {
+                Close();
+            }
         }
     }
 }

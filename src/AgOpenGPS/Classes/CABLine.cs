@@ -184,7 +184,9 @@ namespace AgOpenGPS
 
             //Stanley
             else if (mf.isStanleyUsed)
+            {
                 mf.gyd.StanleyGuidanceABLine(currentLinePtA, currentLinePtB, pivot, steer);
+            }
 
             //Pure Pursuit
             else
@@ -242,9 +244,15 @@ namespace AgOpenGPS
                             }
                         }
                     }
-                    else inty *= 0.95;
+                    else
+                    {
+                        inty *= 0.95;
+                    }
                 }
-                else inty = 0;
+                else
+                {
+                    inty = 0;
+                }
 
                 // ** Pure pursuit ** - calc point on ABLine closest to current position
                 double U = (((pivot.easting - currentLinePtA.easting) * dx)

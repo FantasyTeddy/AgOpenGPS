@@ -15,7 +15,9 @@ public class CWindowsSettingsBrightnessController
             else isWmiMonitor = true;
         }
         else
+        {
             isWmiMonitor = false;
+        }
     }
 
     private int Get()

@@ -101,9 +101,13 @@ namespace AgOpenGPS
         private void rbtnAntennaLeft_Click(object sender, EventArgs e)
         {
             if (rbtnAntennaRight.Checked)
+            {
                 mf.vehicle.VehicleConfig.AntennaOffset = (double)nudAntennaOffset.Value * -mf.inchOrCm2m;
+            }
             else if (rbtnAntennaLeft.Checked)
+            {
                 mf.vehicle.VehicleConfig.AntennaOffset = (double)nudAntennaOffset.Value * mf.inchOrCm2m;
+            }
             else
             {
                 mf.vehicle.VehicleConfig.AntennaOffset = 0;

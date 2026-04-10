@@ -144,7 +144,10 @@ namespace AgOpenGPS
             {
                 mf.hdl.idx = 0;
             }
-            else mf.hdl.idx = -1;
+            else
+            {
+                mf.hdl.idx = -1;
+            }
 
             Properties.Settings.Default.setWindow_HeadlineSize = Size;
             Properties.Settings.Default.Save();
@@ -679,7 +682,10 @@ namespace AgOpenGPS
                         if (dist > 1)
                             mf.hdl.desList.Add(point);
                     }
-                    else mf.hdl.desList.Add(point);
+                    else
+                    {
+                        mf.hdl.desList.Add(point);
+                    }
                 }
             }
 
@@ -761,7 +767,10 @@ namespace AgOpenGPS
                             if (dist > 1)
                                 mf.hdl.desList.Add(pt3);
                         }
-                        else mf.hdl.desList.Add(pt3);
+                        else
+                        {
+                            mf.hdl.desList.Add(pt3);
+                        }
                     }
                 }
 

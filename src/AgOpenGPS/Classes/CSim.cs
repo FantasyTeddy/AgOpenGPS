@@ -38,7 +38,10 @@ namespace AgOpenGPS
                 {
                     steerangleAve -= 6;
                 }
-                else steerangleAve += 6;
+                else
+                {
+                    steerangleAve += 6;
+                }
             }
             else if (diff > 5)
             {
@@ -46,7 +49,10 @@ namespace AgOpenGPS
                 {
                     steerangleAve -= 2;
                 }
-                else steerangleAve += 2;
+                else
+                {
+                    steerangleAve += 2;
+                }
             }
             else if (diff > 1)
             {
@@ -54,7 +60,10 @@ namespace AgOpenGPS
                 {
                     steerangleAve -= 0.5;
                 }
-                else steerangleAve += 0.5;
+                else
+                {
+                    steerangleAve += 0.5;
+                }
             }
             else
             {

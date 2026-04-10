@@ -395,9 +395,15 @@ namespace AgOpenGPS
                         }
                     }
                 }
-                else inty *= 0.95;
+                else
+                {
+                    inty *= 0.95;
+                }
             }
-            else inty = 0;
+            else
+            {
+                inty = 0;
+            }
 
             if (mf.isReverse) inty = 0;
 
@@ -433,7 +439,11 @@ namespace AgOpenGPS
                     goalPointRP.northing = (((1 - j) * start.northing) + (j * recList[i].northing));
                     break;
                 }
-                else distSoFar += tempDist;
+                else
+                {
+                    distSoFar += tempDist;
+                }
+
                 start = recList[i];
             }
 
@@ -542,9 +552,15 @@ namespace AgOpenGPS
                         }
                     }
                 }
-                else inty *= 0.95;
+                else
+                {
+                    inty *= 0.95;
+                }
             }
-            else inty = 0;
+            else
+            {
+                inty = 0;
+            }
 
             if (mf.isReverse) inty = 0;
 
@@ -580,7 +596,11 @@ namespace AgOpenGPS
                     goalPointRP.northing = (((1 - j) * start.northing) + (j * shuttleDubinsList[i].northing));
                     break;
                 }
-                else distSoFar += tempDist;
+                else
+                {
+                    distSoFar += tempDist;
+                }
+
                 start = shuttleDubinsList[i];
             }
 

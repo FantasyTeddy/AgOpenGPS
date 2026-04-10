@@ -807,7 +807,9 @@ namespace AgOpenGPS
                 btnContourLock.Visible = ct.isContourBtnOn;
 
                 if (trk.idx > -1 || ct.isContourBtnOn)
+                {
                     btnAutoSteer.Enabled = true;
+                }
                 else
                 {
                     if (isBtnAutoSteerOn)
@@ -1454,7 +1456,9 @@ namespace AgOpenGPS
                 yt.ResetCreatedYouTurn();
             }
             else if (yt.isYouTurnBtnOn)
+            {
                 btnAutoYouTurn.PerformClick();
+            }
         }
 
         //Function to delete flag

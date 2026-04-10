@@ -42,9 +42,18 @@ namespace AgOpenGPS
                 {
                     tab1.SelectedTab = tabAMachine;
                 }
-                else if (btn.Name == "btnUTurn") tab1.SelectedTab = tabUTurn;
-                else if (btn.Name == "btnFeatureHides") tab1.SelectedTab = tabBtns;
-                else if (btn.Name == "btnDisplay") tab1.SelectedTab = tabDisplay;
+                else if (btn.Name == "btnUTurn")
+                {
+                    tab1.SelectedTab = tabUTurn;
+                }
+                else if (btn.Name == "btnFeatureHides")
+                {
+                    tab1.SelectedTab = tabBtns;
+                }
+                else if (btn.Name == "btnDisplay")
+                {
+                    tab1.SelectedTab = tabDisplay;
+                }
             }
             else
             {

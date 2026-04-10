@@ -263,7 +263,10 @@ namespace AgOpenGPS
                             youTurnPhase = 11;//ignore
                         }
                         else
+                        {
                             FailCreate();
+                        }
+
                         return false;
                     }
 
@@ -487,7 +490,10 @@ namespace AgOpenGPS
                             youTurnPhase = 11;//ignore
                         }
                         else
+                        {
                             FailCreate();
+                        }
+
                         return false;
                     }
                     inClosestTurnPt = new CClose(closestTurnPt);
@@ -2441,11 +2447,18 @@ namespace AgOpenGPS
                         turnSkips = rowSkipsWidth2 * 2 - 1;
                     }
                     else if (previousBigSkip = !previousBigSkip)
+                    {
                         rowSkipsWidth = rowSkipsWidth2 - 1;
+                    }
                     else
+                    {
                         rowSkipsWidth = rowSkipsWidth2;
+                    }
                 }
-                else isTurnLeft = !isTurnLeft;
+                else
+                {
+                    isTurnLeft = !isTurnLeft;
+                }
             }
         }
 
@@ -2523,7 +2536,10 @@ namespace AgOpenGPS
                 }
                 return;
             }
-            else return;
+            else
+            {
+                return;
+            }
         }
 
         //build the points and path of youturn to be scaled and transformed
@@ -2549,7 +2565,10 @@ namespace AgOpenGPS
                     head = mf.curve.manualUturnHeading;
                 }
             }
-            else return;
+            else
+            {
+                return;
+            }
 
             //grab the vehicle widths and offsets
             double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnRight ? mf.tool.offset * 2.0 : -mf.tool.offset * 2.0);
@@ -2829,7 +2848,10 @@ namespace AgOpenGPS
                             goalPointYT.northing = (((1 - j) * start.northing) + (j * ytList[i].northing));
                             break;
                         }
-                        else distSoFar += tempDist;
+                        else
+                        {
+                            distSoFar += tempDist;
+                        }
 
                         start = ytList[i];
 

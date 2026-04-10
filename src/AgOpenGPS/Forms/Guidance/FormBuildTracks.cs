@@ -1226,8 +1226,11 @@ namespace AgOpenGPS
                             trackName = namelist[i + 1].InnerText;
                             mf.ABLine.desName = trackName;
                         }
-                        else mf.ABLine.desName = "AB " +
+                        else
+                        {
+                            mf.ABLine.desName = "AB " +
                             (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                        }
 
                         mf.trk.gArr.Add(new CTrk());
 
@@ -1292,8 +1295,11 @@ namespace AgOpenGPS
                             trackName = namelist[i + 1].InnerText;
                             mf.curve.desName = trackName;
                         }
-                        else mf.curve.desName = "Cu " +
+                        else
+                        {
+                            mf.curve.desName = "Cu " +
                                  (Math.Round(glm.toDegrees(aveLineHeading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                        }
 
                         mf.trk.gArr[idx].name = mf.curve.desName;
 
@@ -1505,11 +1511,16 @@ namespace AgOpenGPS
             double cd = (d2 - p3.northing * p3.northing - p3.easting * p3.easting) / 2;
             double det = (p1.northing - p2.northing) * (p2.easting - p3.easting) - (p2.northing - p3.northing) * (p1.easting - p2.easting);
             if (Math.Abs(det) > 1e-10)
+            {
                 return new vec2(
               ((p1.northing - p2.northing) * cd - (p2.northing - p3.northing) * bc) / det,
               (bc * (p2.easting - p3.easting) - cd * (p1.easting - p2.easting)) / det
             );
-            else return new vec2();
+            }
+            else
+            {
+                return new vec2();
+            }
         }
 
         private void btnFillLAtLonPivot_Click(object sender, EventArgs e)

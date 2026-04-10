@@ -122,9 +122,13 @@ namespace AgLibrary.Settings
                 Type itemType;
 
                 if (fieldType.IsGenericType) // For generic collections like List<T>
+                {
                     itemType = fieldType.GetGenericArguments()[0];
+                }
                 else if (fieldType.IsArray) // For arrays like T[]
+                {
                     itemType = fieldType.GetElementType();
+                }
                 else
                 {
                     throw new NotSupportedException($"Unsupported collection type: {fieldType}");

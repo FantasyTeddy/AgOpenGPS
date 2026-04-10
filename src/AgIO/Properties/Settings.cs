@@ -103,7 +103,9 @@ namespace AgIO.Properties
             string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");
 
             if (RegistrySettings.profileName != "")
+            {
                 XmlSettingsHandler.SaveXMLFile(path, this);
+            }
             else
             {
                 Log.EventWriter("Default Profile Not saved to Profiles");

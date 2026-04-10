@@ -194,7 +194,10 @@ namespace AgOpenGPS
                         if (dist > 2)
                             newTrack.Add(pt3);
                     }
-                    else newTrack.Add(pt3);
+                    else
+                    {
+                        newTrack.Add(pt3);
+                    }
                 }
             }
             return newTrack;

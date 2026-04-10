@@ -82,7 +82,9 @@ namespace AgOpenGPS
                     indx = mf.trk.idx;
                 }
                 else
+                {
                     indx = 0;
+                }
             }
 
             FixLabelsCurve();

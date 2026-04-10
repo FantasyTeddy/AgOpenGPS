@@ -212,7 +212,10 @@ namespace AgOpenGPS
                                         * stripList[stripNum][pt - 1].northing) - (refZ * stripList[stripNum][pt - 1].easting))
                                         / Math.Sqrt((dz * dz) + (dx * dx));
             }
-            else return;
+            else
+            {
+                return;
+            }
 
             //are we going same direction as stripList was created?
             bool isSameWay = Math.PI - Math.Abs(Math.Abs(mf.fixHeading - stripList[stripNum][pt].heading) - Math.PI) < 1.57;
@@ -288,7 +291,10 @@ namespace AgOpenGPS
                             if (dist > 0.2)
                                 ctList.Add(point);
                         }
-                        else ctList.Add(point);
+                        else
+                        {
+                            ctList.Add(point);
+                        }
                     }
                 }
 
@@ -479,9 +485,15 @@ namespace AgOpenGPS
                                 }
                             }
                         }
-                        else inty *= 0.95;
+                        else
+                        {
+                            inty *= 0.95;
+                        }
                     }
-                    else inty = 0;
+                    else
+                    {
+                        inty = 0;
+                    }
 
                     if (mf.isReverse) inty = 0;
 
@@ -520,7 +532,11 @@ namespace AgOpenGPS
                             goalPointCT.northing = (((1 - j) * start.northing) + (j * ctList[i].northing));
                             break;
                         }
-                        else distSoFar += tempDist;
+                        else
+                        {
+                            distSoFar += tempDist;
+                        }
+
                         start = ctList[i];
                     }
 

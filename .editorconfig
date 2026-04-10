@@ -1,5 +1,11 @@
 ﻿[*.cs]
 
+#### Code style rules ####
+
+# Language rules
+
+csharp_prefer_braces = when_multiline
+
 #### Naming styles ####
 
 # Symbol specifications

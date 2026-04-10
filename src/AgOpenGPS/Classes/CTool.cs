@@ -315,7 +315,10 @@ namespace AgOpenGPS
                         if (mf.section[j].isMappingOn) GL.Color3(0.0f, 0.95f, 0.0f);
                         else GL.Color3(0.970f, 0.30f, 0.970f);
                     }
-                    else GL.Color3(0.97, 0.97, 0);
+                    else
+                    {
+                        GL.Color3(0.97, 0.97, 0);
+                    }
                 }
                 else
                 {

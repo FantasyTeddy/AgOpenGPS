@@ -105,10 +105,15 @@ namespace AgOpenGPS
                 if (mf.flagNumberPicked > mf.flagPts.Count) mf.flagNumberPicked = mf.flagPts.Count;
 
                 if (mf.isMetric)
+                {
                     lblDistanceToFlag.Text = glm.Distance(mf.pn.fix,
                         mf.flagPts[mf.flagNumberPicked - 1].easting, mf.flagPts[mf.flagNumberPicked - 1].northing).ToString("N2") + " m";
-                else lblDistanceToFlag.Text = (glm.Distance(mf.pn.fix,
+                }
+                else
+                {
+                    lblDistanceToFlag.Text = (glm.Distance(mf.pn.fix,
                     mf.flagPts[mf.flagNumberPicked - 1].easting, mf.flagPts[mf.flagNumberPicked - 1].northing) * glm.m2ft).ToString("N2") + " m";
+                }
 
                 UpdateLabels();
             }

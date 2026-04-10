@@ -53,7 +53,10 @@ namespace AgOpenGPS
             bool[] isAlignedArr = new bool[gArr.Count];
             for (int i = 0; i < gArr.Count; i++)
             {
-                if (gArr[i].mode == TrackMode.Curve) isAlignedArr[i] = true;
+                if (gArr[i].mode == TrackMode.Curve)
+                {
+                    isAlignedArr[i] = true;
+                }
                 else
                 {
                     double diff = Math.PI - Math.Abs(Math.Abs(pivot.heading - gArr[i].heading) - Math.PI);
@@ -237,7 +240,10 @@ namespace AgOpenGPS
                         if (dist > 1.0)
                             curList.Add(point);
                     }
-                    else curList.Add(point);
+                    else
+                    {
+                        curList.Add(point);
+                    }
                 }
             }
 

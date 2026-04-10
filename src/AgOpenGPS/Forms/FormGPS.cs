@@ -429,7 +429,10 @@ namespace AgOpenGPS
                     }
                 }
             }
-            else Log.EventWriter("Terms Already Accepted");
+            else
+            {
+                Log.EventWriter("Terms Already Accepted");
+            }
 
             this.MouseWheel += ZoomByMouseWheel;
 

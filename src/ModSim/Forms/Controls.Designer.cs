@@ -135,7 +135,9 @@ namespace ModSim
             stepDistance = tbarSpeed.Value * 0.027777777777 * (0.1);
 
             if (guidanceStatus == 0)
+            {
                 steerAngle = tbarSteerAngleWAS.Value * 0.01;
+            }
             else
             {
                 steerAngle = steerAngleSetPoint;

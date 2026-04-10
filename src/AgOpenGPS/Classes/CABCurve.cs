@@ -371,7 +371,10 @@ namespace AgOpenGPS
                                 if (dist > step)
                                     newCurList.Add(point);
                             }
-                            else newCurList.Add(point);
+                            else
+                            {
+                                newCurList.Add(point);
+                            }
                         }
                     }
 
@@ -845,7 +848,9 @@ namespace AgOpenGPS
 
                         if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
                              curList[B].easting, curList[B].northing, pivot.easting, pivot.northing))
+                        {
                             goto SegmentFound;
+                        }
 
                         //step back one
                         if (A == 0)
@@ -861,7 +866,9 @@ namespace AgOpenGPS
 
                         if (glm.InRangeBetweenAB(curList[A].easting, curList[A].northing,
                             curList[B].easting, curList[B].northing, pivot.easting, pivot.northing))
+                        {
                             goto SegmentFound;
+                        }
 
                         //realy really lost
                         return;
@@ -920,9 +927,15 @@ namespace AgOpenGPS
                                 }
                             }
                         }
-                        else inty *= 0.95;
+                        else
+                        {
+                            inty *= 0.95;
+                        }
                     }
-                    else inty = 0;
+                    else
+                    {
+                        inty = 0;
+                    }
 
                     // ** Pure pursuit ** - calc point on ABLine closest to current position
                     double U = (((pivot.easting - curList[A].easting) * dx)
@@ -951,7 +964,11 @@ namespace AgOpenGPS
                             goalPointCu.northing = (((1 - j) * start.northing) + (j * curList[i].northing));
                             break;
                         }
-                        else distSoFar += tempDist;
+                        else
+                        {
+                            distSoFar += tempDist;
+                        }
+
                         start = curList[i];
                         i += count;
                         if (i < 0) i = curList.Count - 1;
@@ -1074,10 +1091,13 @@ namespace AgOpenGPS
                 GL.Color3(0.96, 0.2f, 0.2f);
                 GL.Begin(PrimitiveType.Lines);
 
-                for (int h = 0; h < ptCount; h++) GL.Vertex3(
+                for (int h = 0; h < ptCount; h++)
+                {
+                    GL.Vertex3(
                     mf.trk.gArr[mf.trk.idx].curvePts[h].easting,
                     mf.trk.gArr[mf.trk.idx].curvePts[h].northing,
                     0);
+                }
 
                 GL.End();
 

@@ -510,7 +510,10 @@ namespace AgOpenGPS
         private void sideBarTimer_Tick(object sender, EventArgs e)
         {
             //roll zero
-            if (tabWiz.SelectedTab.Name == "tabWAS_Zero") lblCurrentHeading.Text = mf.Heading;
+            if (tabWiz.SelectedTab.Name == "tabWAS_Zero")
+            {
+                lblCurrentHeading.Text = mf.Heading;
+            }
 
             //ackermann
             else if (tabWiz.SelectedTab.Name == "tabAckCPD")
