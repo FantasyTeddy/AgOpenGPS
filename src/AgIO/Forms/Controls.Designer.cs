@@ -146,14 +146,12 @@ namespace AgIO
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            using (FormYes dlg = new FormYes("Warning: Closing AgIO will stop communication with hardware.\r\nAre you sure you want to close?", true))
-            {
-                DialogResult result = dlg.ShowDialog(this);
+            using FormYes dlg = new FormYes("Warning: Closing AgIO will stop communication with hardware.\r\nAre you sure you want to close?", true);
+            DialogResult result = dlg.ShowDialog(this);
 
-                if (result == DialogResult.OK)
-                {
-                    Close();
-                }
+            if (result == DialogResult.OK)
+            {
+                Close();
             }
         }
 
@@ -299,23 +297,19 @@ namespace AgIO
                 return;
             }
 
-            using (FormSerialPass form = new FormSerialPass(this))
+            using FormSerialPass form = new FormSerialPass(this);
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    ////Clicked Save
-                    //Application.Restart();
-                    //Environment.Exit(0);
-                    Settings.Default.Save();
-                }
+                ////Clicked Save
+                //Application.Restart();
+                //Environment.Exit(0);
+                Settings.Default.Save();
             }
         }
         private void toolStripSettings_Click(object sender, EventArgs e)
         {
-            using (FormAdvancedSettings form = new FormAdvancedSettings())
-            {
-                form.ShowDialog(this);
-            }
+            using FormAdvancedSettings form = new FormAdvancedSettings();
+            form.ShowDialog(this);
         }
         private void toolStripMenuProfiles_Click(object sender, EventArgs e)
         {
@@ -407,10 +401,8 @@ namespace AgIO
 
         private void SettingsEthernet()
         {
-            using (FormEthernet form = new FormEthernet(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormEthernet form = new FormEthernet(this);
+            form.ShowDialog(this);
         }
 
         private void SettingsNTRIP()
@@ -428,16 +420,14 @@ namespace AgIO
             }
 
 
-            using (FormNtrip form = new FormNtrip(this))
+            using FormNtrip form = new FormNtrip(this);
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (form.ShowDialog(this) == DialogResult.OK)
+                if (isNTRIP_Connected)
                 {
-                    if (isNTRIP_Connected)
-                    {
-                        SettingsShutDownNTRIP();
-                    }
-                    Settings.Default.Save();
+                    SettingsShutDownNTRIP();
                 }
+                Settings.Default.Save();
             }
         }
 
@@ -463,12 +453,10 @@ namespace AgIO
                 isRadio_RequiredOn = false;
             }
 
-            using (FormRadio form = new FormRadio(this))
+            using FormRadio form = new FormRadio(this);
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    Settings.Default.Save();
-                }
+                Settings.Default.Save();
             }
         }
 

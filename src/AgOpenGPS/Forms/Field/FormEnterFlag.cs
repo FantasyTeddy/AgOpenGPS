@@ -172,28 +172,26 @@ namespace AgOpenGPS
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                using (StreamWriter writer = new StreamWriter(fileDialog.FileName))
+                using StreamWriter writer = new StreamWriter(fileDialog.FileName);
+                try
                 {
-                    try
-                    {
-                        writer.WriteLine("Latitude,Longitude,Color,Notes");
+                    writer.WriteLine("Latitude,Longitude,Color,Notes");
 
-                        foreach (CFlag flag in mf.flagPts)
-                        {
-                            writer.WriteLine(
-                                flag.latitude.ToString(CultureInfo.InvariantCulture) + "," +
-                                flag.longitude.ToString(CultureInfo.InvariantCulture) + "," +
-                                flag.color.ToString(CultureInfo.InvariantCulture) + "," +
-                                flag.notes);
-                        }
-                        FormDialog.Show("Success", "Flags successfully saved!", DialogSeverity.Info);
-                    }
-                    catch (Exception ex)
+                    foreach (CFlag flag in mf.flagPts)
                     {
-                        FormDialog.Show("Error", ex.Message + "\nCannot write to file.", DialogSeverity.Error);
-                        Log.EventWriter("Saving Flags by lat lon" + ex.ToString());
-                        return;
+                        writer.WriteLine(
+                            flag.latitude.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.longitude.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.color.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.notes);
                     }
+                    FormDialog.Show("Success", "Flags successfully saved!", DialogSeverity.Info);
+                }
+                catch (Exception ex)
+                {
+                    FormDialog.Show("Error", ex.Message + "\nCannot write to file.", DialogSeverity.Error);
+                    Log.EventWriter("Saving Flags by lat lon" + ex.ToString());
+                    return;
                 }
             }
         }

@@ -156,12 +156,10 @@ namespace AgOpenGPS.Updater.Forms
             try
             {
                 // Check if GithubReleaseService has a hardcoded token
-                using (GithubReleaseService service = new GithubReleaseService())
-                {
-                    // The service uses hardcoded token if no token is passed and one exists
-                    // We can check this by seeing if it adds an Authorization header
-                    return service.HasAuthToken();
-                }
+                using GithubReleaseService service = new GithubReleaseService();
+                // The service uses hardcoded token if no token is passed and one exists
+                // We can check this by seeing if it adds an Authorization header
+                return service.HasAuthToken();
             }
             catch
             {
@@ -654,22 +652,20 @@ namespace AgOpenGPS.Updater.Forms
         {
             const int bufferSize = 1024 * 1024; // 1MB buffer
 
-            using (FileStream sourceStream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan))
-            using (FileStream destStream = new FileStream(destPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, FileOptions.WriteThrough))
+            using FileStream sourceStream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan);
+            using FileStream destStream = new FileStream(destPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, FileOptions.WriteThrough);
+            long totalBytes = sourceStream.Length;
+            long copiedBytes = 0;
+            byte[] buffer = new byte[bufferSize];
+
+            int bytesRead;
+            while ((bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length, token)) > 0)
             {
-                long totalBytes = sourceStream.Length;
-                long copiedBytes = 0;
-                byte[] buffer = new byte[bufferSize];
+                await destStream.WriteAsync(buffer, 0, bytesRead, token);
+                copiedBytes += bytesRead;
 
-                int bytesRead;
-                while ((bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length, token)) > 0)
-                {
-                    await destStream.WriteAsync(buffer, 0, bytesRead, token);
-                    copiedBytes += bytesRead;
-
-                    double percent = (double)copiedBytes / totalBytes * 100.0;
-                    progress.Report(percent);
-                }
+                double percent = (double)copiedBytes / totalBytes * 100.0;
+                progress.Report(percent);
             }
         }
 

@@ -79,17 +79,15 @@ namespace AgOpenGPS.Core.Streamers
         public void Write(Boundary boundary, DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory)))
+            using GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory));
+            writer.WriteLine("$Boundary");
+            if (boundary.OuterBoundary != null)
             {
-                writer.WriteLine("$Boundary");
-                if (boundary.OuterBoundary != null)
-                {
-                    WriteBoundaryPolygon(writer, boundary.OuterBoundary);
-                }
-                foreach (BoundaryPolygon polygon in boundary.InnerBoundaries)
-                {
-                    WriteBoundaryPolygon(writer, polygon);
-                }
+                WriteBoundaryPolygon(writer, boundary.OuterBoundary);
+            }
+            foreach (BoundaryPolygon polygon in boundary.InnerBoundaries)
+            {
+                WriteBoundaryPolygon(writer, polygon);
             }
         }
 

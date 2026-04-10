@@ -58,13 +58,11 @@ namespace AgOpenGPS
             }
             else if (openType == "Open")
             {
-                using (OpenFileDialog ofd = new OpenFileDialog())
-                {
-                    ofd.InitialDirectory = RegistrySettings.fieldsDirectory;
-                    ofd.RestoreDirectory = true;
-                    ofd.Filter = "Field files (Field.txt)|Field.txt";
-                    fileAndDirectory = (ofd.ShowDialog(this) == DialogResult.Cancel) ? "Cancel" : ofd.FileName;
-                }
+                using OpenFileDialog ofd = new OpenFileDialog();
+                ofd.InitialDirectory = RegistrySettings.fieldsDirectory;
+                ofd.RestoreDirectory = true;
+                ofd.Filter = "Field files (Field.txt)|Field.txt";
+                fileAndDirectory = (ofd.ShowDialog(this) == DialogResult.Cancel) ? "Cancel" : ofd.FileName;
             }
 
             if (fileAndDirectory == "Cancel") return;
@@ -386,35 +384,33 @@ namespace AgOpenGPS
             }
 
             string myFileName = "Flag.kml";
-            using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
+            using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName));
+            writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+            writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
+            writer.WriteLine(@"<Document>");
+            writer.WriteLine(@"  <Placemark>");
+            writer.WriteLine(@"<Style> <IconStyle>");
+            if (flagPts[flagNumber - 1].color == 0)
             {
-                writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
-                writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
-                writer.WriteLine(@"<Document>");
-                writer.WriteLine(@"  <Placemark>");
-                writer.WriteLine(@"<Style> <IconStyle>");
-                if (flagPts[flagNumber - 1].color == 0)
-                {
-                    writer.WriteLine(@"<color>ff4400ff</color>");
-                }
-                if (flagPts[flagNumber - 1].color == 1)
-                {
-                    writer.WriteLine(@"<color>ff44ff00</color>");
-                }
-                if (flagPts[flagNumber - 1].color == 2)
-                {
-                    writer.WriteLine(@"<color>ff44ffff</color>");
-                }
-                writer.WriteLine(@"</IconStyle> </Style>");
-                writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
-                writer.WriteLine(@"<Point><coordinates> "
-                    + latLon.Longitude.ToString(CultureInfo.InvariantCulture) + ","
-                    + latLon.Latitude.ToString(CultureInfo.InvariantCulture) + ",0"
-                    + @"</coordinates> </Point> ");
-                writer.WriteLine(@"  </Placemark>");
-                writer.WriteLine(@"</Document>");
-                writer.WriteLine(@"</kml>");
+                writer.WriteLine(@"<color>ff4400ff</color>");
             }
+            if (flagPts[flagNumber - 1].color == 1)
+            {
+                writer.WriteLine(@"<color>ff44ff00</color>");
+            }
+            if (flagPts[flagNumber - 1].color == 2)
+            {
+                writer.WriteLine(@"<color>ff44ffff</color>");
+            }
+            writer.WriteLine(@"</IconStyle> </Style>");
+            writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
+            writer.WriteLine(@"<Point><coordinates> "
+                + latLon.Longitude.ToString(CultureInfo.InvariantCulture) + ","
+                + latLon.Latitude.ToString(CultureInfo.InvariantCulture) + ",0"
+                + @"</coordinates> </Point> ");
+            writer.WriteLine(@"  </Placemark>");
+            writer.WriteLine(@"</Document>");
+            writer.WriteLine(@"</kml>");
         }
 
         // Export one flag to KML using stored WGS84.
@@ -427,34 +423,32 @@ namespace AgOpenGPS
             }
 
             string myFileName = "Flag.kml";
-            using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
+            using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName));
+            writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+            writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
+            writer.WriteLine(@"<Document>");
+            writer.WriteLine(@"  <Placemark>");
+            writer.WriteLine(@"<Style> <IconStyle>");
+            if (flagPts[flagNumber - 1].color == 0)
             {
-                writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
-                writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
-                writer.WriteLine(@"<Document>");
-                writer.WriteLine(@"  <Placemark>");
-                writer.WriteLine(@"<Style> <IconStyle>");
-                if (flagPts[flagNumber - 1].color == 0)
-                {
-                    writer.WriteLine(@"<color>ff4400ff</color>");
-                }
-                if (flagPts[flagNumber - 1].color == 1)
-                {
-                    writer.WriteLine(@"<color>ff44ff00</color>");
-                }
-                if (flagPts[flagNumber - 1].color == 2)
-                {
-                    writer.WriteLine(@"<color>ff44ffff</color>");
-                }
-                writer.WriteLine(@"</IconStyle> </Style>");
-                writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
-                writer.WriteLine(@"<Point><coordinates> " +
-                                flagPts[flagNumber - 1].longitude.ToString(CultureInfo.InvariantCulture) + "," + flagPts[flagNumber - 1].latitude.ToString(CultureInfo.InvariantCulture) + ",0" +
-                                @"</coordinates> </Point> ");
-                writer.WriteLine(@"  </Placemark>");
-                writer.WriteLine(@"</Document>");
-                writer.WriteLine(@"</kml>");
+                writer.WriteLine(@"<color>ff4400ff</color>");
             }
+            if (flagPts[flagNumber - 1].color == 1)
+            {
+                writer.WriteLine(@"<color>ff44ff00</color>");
+            }
+            if (flagPts[flagNumber - 1].color == 2)
+            {
+                writer.WriteLine(@"<color>ff44ffff</color>");
+            }
+            writer.WriteLine(@"</IconStyle> </Style>");
+            writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
+            writer.WriteLine(@"<Point><coordinates> " +
+                            flagPts[flagNumber - 1].longitude.ToString(CultureInfo.InvariantCulture) + "," + flagPts[flagNumber - 1].latitude.ToString(CultureInfo.InvariantCulture) + ",0" +
+                            @"</coordinates> </Point> ");
+            writer.WriteLine(@"  </Placemark>");
+            writer.WriteLine(@"</Document>");
+            writer.WriteLine(@"</kml>");
         }
 
         // Export current position to KML.
@@ -466,24 +460,22 @@ namespace AgOpenGPS
                 Directory.CreateDirectory(directoryName);
             }
 
-            using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "CurrentPosition.kml")))
-            {
-                writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
-                writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
-                writer.WriteLine(@"<Document>");
-                writer.WriteLine(@"  <Placemark>");
-                writer.WriteLine(@"<Style> <IconStyle>");
-                writer.WriteLine(@"<color>ff4400ff</color>");
-                writer.WriteLine(@"</IconStyle> </Style>");
-                writer.WriteLine(@" <name> Your Current Position </name>");
-                writer.WriteLine(@"<Point><coordinates> "
-                    + currentLatLon.Longitude.ToString(CultureInfo.InvariantCulture) + ","
-                    + currentLatLon.Latitude.ToString(CultureInfo.InvariantCulture) + ",0"
-                    + @"</coordinates> </Point> ");
-                writer.WriteLine(@"  </Placemark>");
-                writer.WriteLine(@"</Document>");
-                writer.WriteLine(@"</kml>");
-            }
+            using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "CurrentPosition.kml"));
+            writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+            writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
+            writer.WriteLine(@"<Document>");
+            writer.WriteLine(@"  <Placemark>");
+            writer.WriteLine(@"<Style> <IconStyle>");
+            writer.WriteLine(@"<color>ff4400ff</color>");
+            writer.WriteLine(@"</IconStyle> </Style>");
+            writer.WriteLine(@" <name> Your Current Position </name>");
+            writer.WriteLine(@"<Point><coordinates> "
+                + currentLatLon.Longitude.ToString(CultureInfo.InvariantCulture) + ","
+                + currentLatLon.Latitude.ToString(CultureInfo.InvariantCulture) + ",0"
+                + @"</coordinates> </Point> ");
+            writer.WriteLine(@"  </Placemark>");
+            writer.WriteLine(@"</Document>");
+            writer.WriteLine(@"</kml>");
         }
 
         // Export full field to KML.

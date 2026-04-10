@@ -58,20 +58,18 @@ namespace AgOpenGPS.IO
         public static void Save(string fieldDirectory, DateTime timestamp, Wgs84 startFix)
         {
             string path = Path.Combine(fieldDirectory, "Field.txt");
-            using (StreamWriter writer = new StreamWriter(path, false))
-            {
-                writer.WriteLine(timestamp.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
-                writer.WriteLine("$FieldDir");
-                writer.WriteLine("FieldNew");
-                writer.WriteLine("$Offsets");
-                writer.WriteLine("0,0");
-                writer.WriteLine("Convergence");
-                writer.WriteLine("0");
-                writer.WriteLine("StartFix");
-                writer.WriteLine(
-                    startFix.Latitude.ToString(CultureInfo.InvariantCulture) + "," +
-                    startFix.Longitude.ToString(CultureInfo.InvariantCulture));
-            }
+            using StreamWriter writer = new StreamWriter(path, false);
+            writer.WriteLine(timestamp.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
+            writer.WriteLine("$FieldDir");
+            writer.WriteLine("FieldNew");
+            writer.WriteLine("$Offsets");
+            writer.WriteLine("0,0");
+            writer.WriteLine("Convergence");
+            writer.WriteLine("0");
+            writer.WriteLine("StartFix");
+            writer.WriteLine(
+                startFix.Latitude.ToString(CultureInfo.InvariantCulture) + "," +
+                startFix.Longitude.ToString(CultureInfo.InvariantCulture));
         }
     }
 }

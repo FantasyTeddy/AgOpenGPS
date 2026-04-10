@@ -113,22 +113,20 @@ namespace AgOpenGPS.Core.Streamers
         private void Write(List<Flag> flags, DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory)))
+            using GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory));
+            writer.WriteLine("$Flags");
+
+            int nFlags = flags.Count;
+            writer.WriteLine(nFlags);
+
+            foreach (Flag flag in flags)
             {
-                writer.WriteLine("$Flags");
-
-                int nFlags = flags.Count;
-                writer.WriteLine(nFlags);
-
-                foreach (Flag flag in flags)
-                {
-                    writer.WriteLine(
-                        writer.Wgs84String(flag.Wgs84)
-                        + "," + writer.GeoCoordDirStringENH(flag.GeoCoord, flag.Heading)
-                        + "," + writer.IntString(FlagColorToInt(flag.FlagColor))
-                        + "," + writer.IntString(flag.UniqueNumber)
-                        + "," + flag.Notes);
-                }
+                writer.WriteLine(
+                    writer.Wgs84String(flag.Wgs84)
+                    + "," + writer.GeoCoordDirStringENH(flag.GeoCoord, flag.Heading)
+                    + "," + writer.IntString(FlagColorToInt(flag.FlagColor))
+                    + "," + writer.IntString(flag.UniqueNumber)
+                    + "," + flag.Notes);
             }
         }
 

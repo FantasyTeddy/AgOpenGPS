@@ -186,52 +186,48 @@ namespace AgOpenGPS.Updater.Services
             try
             {
                 // Use a new client for download to handle large files better
-                using (HttpClient downloadClient = new HttpClient())
+                using HttpClient downloadClient = new HttpClient();
+                downloadClient.Timeout = TimeSpan.FromMinutes(10);
+
+                // Add User-Agent (required by GitHub)
+                downloadClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AgOpenGPS-Updater", "1.0"));
+
+                // NOTE: Don't add Authorization header for asset downloads!
+                // BrowserDownloadUrl points to a CDN (AWS/GitHub), not the GitHub API
+                // CDNs reject the Authorization header with 401 Unauthorized
+                // The asset URLs are public and don't need authentication
+
+                // Get the file size first
+                HttpResponseMessage headResponse = await downloadClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, downloadUrl));
+                headResponse.EnsureSuccessStatusCode();
+
+                long totalBytes = headResponse.Content.Headers.ContentLength ?? 0;
+
+                // Download the file
+                HttpResponseMessage response = await downloadClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                response.EnsureSuccessStatusCode();
+
+                long totalBytesRead = 0;
+                byte[] buffer = new byte[8192];
+
+                // Ensure directory exists
+                string directory = Path.GetDirectoryName(destinationPath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                 {
-                    downloadClient.Timeout = TimeSpan.FromMinutes(10);
+                    Directory.CreateDirectory(directory);
+                }
 
-                    // Add User-Agent (required by GitHub)
-                    downloadClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AgOpenGPS-Updater", "1.0"));
+                using Stream contentStream = await response.Content.ReadAsStreamAsync();
+                using FileStream fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true);
+                int bytesRead;
+                while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
+                    await fileStream.WriteAsync(buffer, 0, bytesRead);
+                    totalBytesRead += bytesRead;
 
-                    // NOTE: Don't add Authorization header for asset downloads!
-                    // BrowserDownloadUrl points to a CDN (AWS/GitHub), not the GitHub API
-                    // CDNs reject the Authorization header with 401 Unauthorized
-                    // The asset URLs are public and don't need authentication
-
-                    // Get the file size first
-                    HttpResponseMessage headResponse = await downloadClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, downloadUrl));
-                    headResponse.EnsureSuccessStatusCode();
-
-                    long totalBytes = headResponse.Content.Headers.ContentLength ?? 0;
-
-                    // Download the file
-                    HttpResponseMessage response = await downloadClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
-                    response.EnsureSuccessStatusCode();
-
-                    long totalBytesRead = 0;
-                    byte[] buffer = new byte[8192];
-
-                    // Ensure directory exists
-                    string directory = Path.GetDirectoryName(destinationPath);
-                    if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                    if (progress != null && totalBytes > 0)
                     {
-                        Directory.CreateDirectory(directory);
-                    }
-
-                    using (Stream contentStream = await response.Content.ReadAsStreamAsync())
-                    using (FileStream fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true))
-                    {
-                        int bytesRead;
-                        while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                        {
-                            await fileStream.WriteAsync(buffer, 0, bytesRead);
-                            totalBytesRead += bytesRead;
-
-                            if (progress != null && totalBytes > 0)
-                            {
-                                progress.Report(totalBytesRead * 100.0 / totalBytes);
-                            }
-                        }
+                        progress.Report(totalBytesRead * 100.0 / totalBytes);
                     }
                 }
             }
@@ -252,41 +248,37 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                using (HttpClient downloadClient = new HttpClient())
+                using HttpClient downloadClient = new HttpClient();
+                downloadClient.Timeout = TimeSpan.FromMinutes(10);
+
+                // Add User-Agent (required by GitHub)
+                downloadClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AgOpenGPS-Updater", "1.0"));
+
+                // NOTE: Don't add Authorization header for asset downloads (see DownloadAsset)
+
+                HttpResponseMessage response = await downloadClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                response.EnsureSuccessStatusCode();
+
+                long totalBytes = response.Content.Headers.ContentLength ?? 0;
+                long totalBytesRead = 0;
+
+                using Stream contentStream = await response.Content.ReadAsStreamAsync();
+                using MemoryStream memoryStream = new MemoryStream();
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+
+                while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
-                    downloadClient.Timeout = TimeSpan.FromMinutes(10);
+                    await memoryStream.WriteAsync(buffer, 0, bytesRead);
+                    totalBytesRead += bytesRead;
 
-                    // Add User-Agent (required by GitHub)
-                    downloadClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("AgOpenGPS-Updater", "1.0"));
-
-                    // NOTE: Don't add Authorization header for asset downloads (see DownloadAsset)
-
-                    HttpResponseMessage response = await downloadClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
-                    response.EnsureSuccessStatusCode();
-
-                    long totalBytes = response.Content.Headers.ContentLength ?? 0;
-                    long totalBytesRead = 0;
-
-                    using (Stream contentStream = await response.Content.ReadAsStreamAsync())
-                    using (MemoryStream memoryStream = new MemoryStream())
+                    if (progress != null && totalBytes > 0)
                     {
-                        byte[] buffer = new byte[8192];
-                        int bytesRead;
-
-                        while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                        {
-                            await memoryStream.WriteAsync(buffer, 0, bytesRead);
-                            totalBytesRead += bytesRead;
-
-                            if (progress != null && totalBytes > 0)
-                            {
-                                progress.Report(totalBytesRead * 100.0 / totalBytes);
-                            }
-                        }
-
-                        return memoryStream.ToArray();
+                        progress.Report(totalBytesRead * 100.0 / totalBytes);
                     }
                 }
+
+                return memoryStream.ToArray();
             }
             catch (HttpRequestException ex)
             {

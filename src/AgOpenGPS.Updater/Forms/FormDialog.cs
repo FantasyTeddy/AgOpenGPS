@@ -21,37 +21,35 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowConfirm(Form parent, string title, string message, string okText = "Yes", string cancelText = "No")
         {
-            using (FormDialog dialog = new FormDialog())
+            using FormDialog dialog = new FormDialog();
+            dialog.Text = title;
+            dialog.lblMessage.Text = message;
+            dialog.btnOK.Text = okText;
+            dialog.btnCancel.Text = cancelText;
+            dialog.lblIcon.Text = "?";
+            dialog.panelIcon.BackColor = Color.FromArgb(27, 151, 160);
+            dialog.StartPosition = FormStartPosition.CenterParent;
+
+            // Auto-size based on message
+            dialog.PerformLayout();
+
+            // Adjust width if message is long
+            using (Graphics g = Graphics.FromHwnd(dialog.Handle))
             {
-                dialog.Text = title;
-                dialog.lblMessage.Text = message;
-                dialog.btnOK.Text = okText;
-                dialog.btnCancel.Text = cancelText;
-                dialog.lblIcon.Text = "?";
-                dialog.panelIcon.BackColor = Color.FromArgb(27, 151, 160);
-                dialog.StartPosition = FormStartPosition.CenterParent;
-
-                // Auto-size based on message
-                dialog.PerformLayout();
-
-                // Adjust width if message is long
-                using (Graphics g = Graphics.FromHwnd(dialog.Handle))
+                SizeF size = g.MeasureString(message, dialog.lblMessage.Font);
+                int neededWidth = (int)Math.Ceiling(size.Width) + 120; // icon + padding
+                if (neededWidth > 550)
                 {
-                    SizeF size = g.MeasureString(message, dialog.lblMessage.Font);
-                    int neededWidth = (int)Math.Ceiling(size.Width) + 120; // icon + padding
-                    if (neededWidth > 550)
-                    {
-                        dialog.Width = Math.Min(neededWidth + 40, 800);
-                    }
+                    dialog.Width = Math.Min(neededWidth + 40, 800);
                 }
-
-                if (parent != null && !parent.IsDisposed)
-                    dialog.ShowDialog(parent);
-                else
-                    dialog.ShowDialog();
-
-                return dialog._result;
             }
+
+            if (parent != null && !parent.IsDisposed)
+                dialog.ShowDialog(parent);
+            else
+                dialog.ShowDialog();
+
+            return dialog._result;
         }
 
         /// <summary>
@@ -59,25 +57,23 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowInfo(Form parent, string title, string message)
         {
-            using (FormDialog dialog = new FormDialog())
-            {
-                dialog.Text = title;
-                dialog.lblMessage.Text = message;
-                dialog.btnOK.Text = "OK";
-                dialog.btnCancel.Visible = false;
-                dialog.lblIcon.Text = "i";
-                dialog.panelIcon.BackColor = Color.FromArgb(27, 151, 160);
-                dialog.btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-                dialog.btnOK.Location = new Point(280, 15);
-                dialog.StartPosition = FormStartPosition.CenterParent;
+            using FormDialog dialog = new FormDialog();
+            dialog.Text = title;
+            dialog.lblMessage.Text = message;
+            dialog.btnOK.Text = "OK";
+            dialog.btnCancel.Visible = false;
+            dialog.lblIcon.Text = "i";
+            dialog.panelIcon.BackColor = Color.FromArgb(27, 151, 160);
+            dialog.btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            dialog.btnOK.Location = new Point(280, 15);
+            dialog.StartPosition = FormStartPosition.CenterParent;
 
-                if (parent != null && !parent.IsDisposed)
-                    dialog.ShowDialog(parent);
-                else
-                    dialog.ShowDialog();
+            if (parent != null && !parent.IsDisposed)
+                dialog.ShowDialog(parent);
+            else
+                dialog.ShowDialog();
 
-                return dialog._result;
-            }
+            return dialog._result;
         }
 
         /// <summary>
@@ -85,26 +81,24 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowError(Form parent, string title, string message)
         {
-            using (FormDialog dialog = new FormDialog())
-            {
-                dialog.Text = title;
-                dialog.lblMessage.Text = message;
-                dialog.btnOK.Text = "OK";
-                dialog.btnCancel.Visible = false;
-                dialog.lblIcon.Text = "!";
-                dialog.panelIcon.BackColor = Color.FromArgb(220, 60, 60);
-                dialog.btnOK.BackColor = Color.FromArgb(220, 60, 60);
-                dialog.btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-                dialog.btnOK.Location = new Point(280, 15);
-                dialog.StartPosition = FormStartPosition.CenterParent;
+            using FormDialog dialog = new FormDialog();
+            dialog.Text = title;
+            dialog.lblMessage.Text = message;
+            dialog.btnOK.Text = "OK";
+            dialog.btnCancel.Visible = false;
+            dialog.lblIcon.Text = "!";
+            dialog.panelIcon.BackColor = Color.FromArgb(220, 60, 60);
+            dialog.btnOK.BackColor = Color.FromArgb(220, 60, 60);
+            dialog.btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            dialog.btnOK.Location = new Point(280, 15);
+            dialog.StartPosition = FormStartPosition.CenterParent;
 
-                if (parent != null && !parent.IsDisposed)
-                    dialog.ShowDialog(parent);
-                else
-                    dialog.ShowDialog();
+            if (parent != null && !parent.IsDisposed)
+                dialog.ShowDialog(parent);
+            else
+                dialog.ShowDialog();
 
-                return dialog._result;
-            }
+            return dialog._result;
         }
 
         /// <summary>
@@ -112,26 +106,24 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowSuccess(Form parent, string title, string message)
         {
-            using (FormDialog dialog = new FormDialog())
-            {
-                dialog.Text = title;
-                dialog.lblMessage.Text = message;
-                dialog.btnOK.Text = "OK";
-                dialog.btnCancel.Visible = false;
-                dialog.lblIcon.Text = "✓";
-                dialog.panelIcon.BackColor = Color.FromArgb(40, 167, 69);
-                dialog.btnOK.BackColor = Color.FromArgb(40, 167, 69);
-                dialog.btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-                dialog.btnOK.Location = new Point(280, 15);
-                dialog.StartPosition = FormStartPosition.CenterParent;
+            using FormDialog dialog = new FormDialog();
+            dialog.Text = title;
+            dialog.lblMessage.Text = message;
+            dialog.btnOK.Text = "OK";
+            dialog.btnCancel.Visible = false;
+            dialog.lblIcon.Text = "✓";
+            dialog.panelIcon.BackColor = Color.FromArgb(40, 167, 69);
+            dialog.btnOK.BackColor = Color.FromArgb(40, 167, 69);
+            dialog.btnOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            dialog.btnOK.Location = new Point(280, 15);
+            dialog.StartPosition = FormStartPosition.CenterParent;
 
-                if (parent != null && !parent.IsDisposed)
-                    dialog.ShowDialog(parent);
-                else
-                    dialog.ShowDialog();
+            if (parent != null && !parent.IsDisposed)
+                dialog.ShowDialog(parent);
+            else
+                dialog.ShowDialog();
 
-                return dialog._result;
-            }
+            return dialog._result;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)

@@ -351,10 +351,8 @@ namespace AgIO
             if (dataList.Count > 0)
             {
                 string syte = "http://monitor.use-snip.com/?hostUrl=" + tboxCasterIP.Text + "&port=" + nudCasterPort.Value.ToString();
-                using (FormSource form = new FormSource(this, dataList, mf.latitude, mf.longitude, syte))
-                {
-                    form.ShowDialog(this);
-                }
+                using FormSource form = new FormSource(this, dataList, mf.latitude, mf.longitude, syte);
+                form.ShowDialog(this);
             }
             else
             {

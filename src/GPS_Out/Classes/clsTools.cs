@@ -249,10 +249,8 @@ namespace GPS_Out
             if (SentenceCount < 20)
             {
                 SentenceCount++;
-                using (FileStream stream = new FileStream(FileName, FileMode.Append))
-                {
-                    stream.Write(Data, 0, Data.Length);
-                }
+                using FileStream stream = new FileStream(FileName, FileMode.Append);
+                stream.Write(Data, 0, Data.Length);
             }
         }
 

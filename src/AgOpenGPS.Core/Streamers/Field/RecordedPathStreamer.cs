@@ -63,29 +63,25 @@ namespace AgOpenGPS.Core.Streamers
         public void Write(RecordedPath path, DirectoryInfo fieldDirectory, string fileName)
         {
             fieldDirectory.Create();
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory, fileName)))
+            using GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory, fileName));
+            writer.WriteLine("$RecPath");
+            writer.WriteInt(path.Count);
+            foreach (RecordedPoint point in path.PointList)
             {
-                writer.WriteLine("$RecPath");
-                writer.WriteInt(path.Count);
-                foreach (RecordedPoint point in path.PointList)
-                {
-                    writer.WriteLine(
-                        writer.GeoCoordDirStringENH(point.GeoCoordDir.Coord, point.GeoCoordDir.Direction)
-                        + "," + writer.DoubleString(point.Speed, "N1")
-                        + "," + writer.BoolString(point.AutoButtonState));
-                }
+                writer.WriteLine(
+                    writer.GeoCoordDirStringENH(point.GeoCoordDir.Coord, point.GeoCoordDir.Direction)
+                    + "," + writer.DoubleString(point.Speed, "N1")
+                    + "," + writer.BoolString(point.AutoButtonState));
             }
         }
 
         public void CreateFile(DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (StreamWriter writer = new StreamWriter(GetFileInfo(fieldDirectory).FullName))
-            {
-                //write paths # of sections
-                writer.WriteLine("$RecPath");
-                writer.WriteLine("0");
-            }
+            using StreamWriter writer = new StreamWriter(GetFileInfo(fieldDirectory).FullName);
+            //write paths # of sections
+            writer.WriteLine("$RecPath");
+            writer.WriteLine("0");
         }
     }
 }

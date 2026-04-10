@@ -89,9 +89,7 @@ namespace AgOpenGPS.Core.Streamers
         public void CreateFile(DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (StreamWriter writer = new StreamWriter(GetFileInfo(fieldDirectory).Name))
-            {
-            }
+            using StreamWriter writer = new StreamWriter(GetFileInfo(fieldDirectory).Name);
         }
 
         private class BingMapBitmapStreamer : FieldAspectStreamer

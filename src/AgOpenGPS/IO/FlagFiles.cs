@@ -89,24 +89,22 @@ namespace AgOpenGPS.IO
                     }
                 }
             }
-            using (StreamWriter writer = new StreamWriter(filename, false))
-            {
-                writer.WriteLine("$Flags");
-                writer.WriteLine(distinctFlags.Count.ToString(CultureInfo.InvariantCulture));
+            using StreamWriter writer = new StreamWriter(filename, false);
+            writer.WriteLine("$Flags");
+            writer.WriteLine(distinctFlags.Count.ToString(CultureInfo.InvariantCulture));
 
-                for (int i = 0; i < distinctFlags.Count; i++)
-                {
-                    CFlag f = distinctFlags[i];
-                    writer.WriteLine(
-                        f.latitude.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.longitude.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.easting.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.northing.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.heading.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.color.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.ID.ToString(CultureInfo.InvariantCulture) + "," +
-                        (f.notes ?? string.Empty));
-                }
+            for (int i = 0; i < distinctFlags.Count; i++)
+            {
+                CFlag f = distinctFlags[i];
+                writer.WriteLine(
+                    f.latitude.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.longitude.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.easting.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.northing.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.heading.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.color.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.ID.ToString(CultureInfo.InvariantCulture) + "," +
+                    (f.notes ?? string.Empty));
             }
         }
     }

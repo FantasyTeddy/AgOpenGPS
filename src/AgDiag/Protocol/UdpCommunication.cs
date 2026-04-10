@@ -36,14 +36,12 @@ namespace AgDiag.Protocol
         {
             try
             {
-                using (UdpClient udpClient = new UdpClient(17777))
+                using UdpClient udpClient = new UdpClient(17777);
+                while (!cancellationToken.IsCancellationRequested)
                 {
-                    while (!cancellationToken.IsCancellationRequested)
-                    {
-                        UdpReceiveResult result = await udpClient.ReceiveAsync().ConfigureAwait(false);
+                    UdpReceiveResult result = await udpClient.ReceiveAsync().ConfigureAwait(false);
 
-                        HandleMessage(result.Buffer);
-                    }
+                    HandleMessage(result.Buffer);
                 }
             }
             catch (Exception ex)

@@ -51,27 +51,25 @@ namespace AgOpenGPS.Core.AgShare
         {
             try
             {
-                using (HttpClient tempClient = new HttpClient())
+                using HttpClient tempClient = new HttpClient();
+                tempClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                tempClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
+                tempClient.BaseAddress = new Uri(baseUrl);
+
+                HttpResponseMessage response = await tempClient.GetAsync("/api/fields");
+
+                if (response.IsSuccessStatusCode)
                 {
-                    tempClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    tempClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
-                    tempClient.BaseAddress = new Uri(baseUrl);
-
-                    HttpResponseMessage response = await tempClient.GetAsync("/api/fields");
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return AgShareResult.Success();
-                    }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                    {
-                        return AgShareResult.Failure(AgShareError.InvalidApiKey());
-                    }
-                    else
-                    {
-                        string responseBody = await response.Content.ReadAsStringAsync();
-                        return AgShareResult.Failure(AgShareError.WrongStatusCode(response.StatusCode, responseBody));
-                    }
+                    return AgShareResult.Success();
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return AgShareResult.Failure(AgShareError.InvalidApiKey());
+                }
+                else
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return AgShareResult.Failure(AgShareError.WrongStatusCode(response.StatusCode, responseBody));
                 }
             }
             catch (HttpRequestException ex)

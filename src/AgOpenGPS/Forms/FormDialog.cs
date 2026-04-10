@@ -80,18 +80,14 @@ namespace AgOpenGPS.Forms
                 Log.EventWriter($"Dialog: {title} | {message}");
             }
 
-            using (FormDialog form = new FormDialog(title, message, showCancel: false, severity))
-            {
-                form.ShowDialog();
-            }
+            using FormDialog form = new FormDialog(title, message, showCancel: false, severity);
+            form.ShowDialog();
         }
 
         public static DialogResult ShowQuestion(string title, string message, DialogSeverity? severity = null)
         {
-            using (FormDialog form = new FormDialog(title, message, showCancel: true, severity))
-            {
-                return form.ShowDialog();
-            }
+            using FormDialog form = new FormDialog(title, message, showCancel: true, severity);
+            return form.ShowDialog();
         }
     }
 }

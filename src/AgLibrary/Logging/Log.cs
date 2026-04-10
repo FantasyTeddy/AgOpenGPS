@@ -38,11 +38,9 @@ namespace AgLibrary.Logging
         {
             if (logsDirectory != "")
             {
-                using (StreamWriter writer = new StreamWriter(logsDirectory, true))
-                {
-                    writer.Write(sbEvents);
-                    sbEvents.Clear();
-                }
+                using StreamWriter writer = new StreamWriter(logsDirectory, true);
+                writer.Write(sbEvents);
+                sbEvents.Clear();
             }
         }
 
@@ -84,10 +82,8 @@ namespace AgLibrary.Logging
                         catch { }
                     }
 
-                    using (StreamWriter writer = new StreamWriter(logFile))
-                    {
-                        writer.WriteLine(sbF);
-                    }
+                    using StreamWriter writer = new StreamWriter(logFile);
+                    writer.WriteLine(sbF);
                 }
             }
         }

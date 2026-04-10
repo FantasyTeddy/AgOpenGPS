@@ -409,18 +409,16 @@ namespace AgOpenGPS
 
             if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
             {
-                using (FormTermsAndConditions form = new FormTermsAndConditions())
+                using FormTermsAndConditions form = new FormTermsAndConditions();
+                if (form.ShowDialog(this) != DialogResult.OK)
                 {
-                    if (form.ShowDialog(this) != DialogResult.OK)
-                    {
-                        Log.EventWriter("Terms Not Accepted");
-                        Log.FileSaveSystemEvents();
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        Log.EventWriter("Terms Accepted");
-                    }
+                    Log.EventWriter("Terms Not Accepted");
+                    Log.FileSaveSystemEvents();
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Log.EventWriter("Terms Accepted");
                 }
             }
             else
@@ -906,11 +904,9 @@ namespace AgOpenGPS
                 bool updaterIsActive = false;
                 try
                 {
-                    using (Mutex updaterMutex = System.Threading.Mutex.OpenExisting("Global\\AgOpenGPS_Updater_Active"))
-                    {
-                        updaterIsActive = true;
-                        Log.EventWriter("Updater is active - skipping Windows shutdown");
-                    }
+                    using Mutex updaterMutex = System.Threading.Mutex.OpenExisting("Global\\AgOpenGPS_Updater_Active");
+                    updaterIsActive = true;
+                    Log.EventWriter("Updater is active - skipping Windows shutdown");
                 }
                 catch (System.Threading.WaitHandleCannotBeOpenedException)
                 {
@@ -976,16 +972,14 @@ namespace AgOpenGPS
         {
             CloseTopMosts();
 
-            using (FormSaveOrNot form = new FormSaveOrNot(this))
-            {
-                DialogResult result = form.ShowDialog(this);
+            using FormSaveOrNot form = new FormSaveOrNot(this);
+            DialogResult result = form.ShowDialog(this);
 
-                if (result == DialogResult.OK) return 0;      //Exit to windows
-                if (result == DialogResult.Ignore) return 1;   //Ignore & return
-                if (result == DialogResult.Yes) return 2;   //Shutdown computer
+            if (result == DialogResult.OK) return 0;      //Exit to windows
+            if (result == DialogResult.Ignore) return 1;   //Ignore & return
+            if (result == DialogResult.Yes) return 2;   //Shutdown computer
 
-                return 1;  // oops something is really busted
-            }
+            return 1;  // oops something is really busted
         }
 
         private void FormGPS_ResizeEnd(object sender, EventArgs e)

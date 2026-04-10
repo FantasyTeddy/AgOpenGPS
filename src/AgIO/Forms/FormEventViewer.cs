@@ -21,13 +21,11 @@ namespace AgIO
         {
             try
             {
-                using (StreamReader sr = File.OpenText(filename))
+                using StreamReader sr = File.OpenText(filename);
+                //rtbLogViewer.Text = String.Empty;
+                while (!sr.EndOfStream)
                 {
-                    //rtbLogViewer.Text = String.Empty;
-                    while (!sr.EndOfStream)
-                    {
-                        rtbLogViewer.AppendText(sr.ReadLine() + "\r");
-                    }
+                    rtbLogViewer.AppendText(sr.ReadLine() + "\r");
                 }
             }
             catch (Exception ex)
@@ -52,13 +50,11 @@ namespace AgIO
 
             try
             {
-                using (StreamReader sr = File.OpenText(filename))
+                using StreamReader sr = File.OpenText(filename);
+                //rtbLogViewer.Text = String.Empty;
+                while (!sr.EndOfStream)
                 {
-                    //rtbLogViewer.Text = String.Empty;
-                    while (!sr.EndOfStream)
-                    {
-                        rtbLogViewer.AppendText(sr.ReadLine() + "\r");
-                    }
+                    rtbLogViewer.AppendText(sr.ReadLine() + "\r");
                 }
             }
             catch (Exception ex)

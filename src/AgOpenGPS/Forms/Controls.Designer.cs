@@ -563,19 +563,23 @@ namespace AgOpenGPS
 
                 if (result == DialogResult.Yes)
                 {
-                    using (FormFieldDir form2 = new FormFieldDir(this)) { form2.ShowDialog(this); }
+                    using FormFieldDir form2 = new FormFieldDir(this);
+                    form2.ShowDialog(this);
                 }
                 else if (result == DialogResult.No)
                 {
-                    using (FormFieldKML form2 = new FormFieldKML(this)) { form2.ShowDialog(this); }
+                    using FormFieldKML form2 = new FormFieldKML(this);
+                    form2.ShowDialog(this);
                 }
                 else if (result == DialogResult.Retry)
                 {
-                    using (FormFieldExisting form2 = new FormFieldExisting(this)) { form2.ShowDialog(this); }
+                    using FormFieldExisting form2 = new FormFieldExisting(this);
+                    form2.ShowDialog(this);
                 }
                 else if (result == DialogResult.Abort)
                 {
-                    using (FormFieldIsoXml form2 = new FormFieldIsoXml(this)) { form2.ShowDialog(this); }
+                    using FormFieldIsoXml form2 = new FormFieldIsoXml(this);
+                    form2.ShowDialog(this);
                 }
 
                 // ---- Only log "Opened" if a field was newly opened or changed ----
@@ -903,19 +907,17 @@ namespace AgOpenGPS
                 btnPickPath.Enabled = true;
                 btnResumePath.Enabled = true;
 
-                using (FormRecordName form = new FormRecordName(this))
+                using FormRecordName form = new FormRecordName(this);
+                form.ShowDialog(this);
+                if (form.DialogResult == DialogResult.OK)
                 {
-                    form.ShowDialog(this);
-                    if (form.DialogResult == DialogResult.OK)
-                    {
-                        String filename = form.filename + ".rec";
-                        FileSaveRecPath();
-                        FileSaveRecPath(filename);
-                    }
-                    else
-                    {
-                        recPath.recList.Clear();
-                    }
+                    String filename = form.filename + ".rec";
+                    FileSaveRecPath();
+                    FileSaveRecPath(filename);
+                }
+                else
+                {
+                    recPath.recList.Clear();
                 }
             }
             else if (isJobStarted)
@@ -974,12 +976,10 @@ namespace AgOpenGPS
             btnResumePath.Image = Properties.Resources.pathResumeStart;
             recPath.currentPositonIndex = 0;
 
-            using (FormRecordPicker form = new FormRecordPicker(this))
+            using FormRecordPicker form = new FormRecordPicker(this);
+            //returns full field.txt file dir name
+            if (form.ShowDialog(this) == DialogResult.Yes)
             {
-                //returns full field.txt file dir name
-                if (form.ShowDialog(this) == DialogResult.Yes)
-                {
-                }
             }
         }
         private void recordedPathStripMenu_Click(object sender, EventArgs e)
@@ -1012,10 +1012,8 @@ namespace AgOpenGPS
         {
             if (isJobStarted)
             {
-                using (Forms.Field.FormCopyTracks form = new Forms.Field.FormCopyTracks(this))
-                {
-                    form.ShowDialog(this);
-                }
+                using Forms.Field.FormCopyTracks form = new Forms.Field.FormCopyTracks(this);
+                form.ShowDialog(this);
             }
             else
             {
@@ -1151,10 +1149,8 @@ namespace AgOpenGPS
         }
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            using (FormConfig form = new FormConfig(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormConfig form = new FormConfig(this);
+            form.ShowDialog(this);
         }
 
         #endregion
@@ -1377,11 +1373,9 @@ namespace AgOpenGPS
 
         private void flagByLatLonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (FormEnterFlag form = new FormEnterFlag(this))
-            {
-                form.ShowDialog(this);
-                this.Activate();
-            }
+            using FormEnterFlag form = new FormEnterFlag(this);
+            form.ShowDialog(this);
+            this.Activate();
         }
         private void setWorkingDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1420,10 +1414,8 @@ namespace AgOpenGPS
 
         private void enterSimCoordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (FormSimCoords form = new FormSimCoords(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormSimCoords form = new FormSimCoords(this);
+            form.ShowDialog(this);
         }
 
         private void AgShareApiMenuItem_Click(object sender, EventArgs e)
@@ -1477,10 +1469,8 @@ namespace AgOpenGPS
 
         private void hotKeysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (Form_Keys form = new Form_Keys(this))
-            {
-                form.ShowDialog(this);
-            }
+            using Form_Keys form = new Form_Keys(this);
+            form.ShowDialog(this);
         }
 
         private void kioskModeToolStrip_Click(object sender, EventArgs e)
@@ -1532,10 +1522,8 @@ namespace AgOpenGPS
 
         private void helpMenuItem_Click(object sender, EventArgs e)
         {
-            using (FormHelp form = new FormHelp())
-            {
-                form.ShowDialog(this);
-            }
+            using FormHelp form = new FormHelp();
+            form.ShowDialog(this);
         }
         private void simulatorOnToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1590,10 +1578,8 @@ namespace AgOpenGPS
         //Profiles
         private void loadVehicleToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (FormLoadVehicleTool form = new FormLoadVehicleTool(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormLoadVehicleTool form = new FormLoadVehicleTool(this);
+            form.ShowDialog(this);
         }
 
 
@@ -1877,20 +1863,16 @@ namespace AgOpenGPS
         {
             if (isJobStarted)
             {
-                using (FormBndTool form = new FormBndTool(this))
-                {
-                    form.ShowDialog(this);
-                }
+                using FormBndTool form = new FormBndTool(this);
+                form.ShowDialog(this);
             }
         }
         private void SmoothABtoolStripMenu_Click(object sender, EventArgs e)
         {
             if (isJobStarted && trk.idx > -1)
             {
-                using (FormSmoothAB form = new FormSmoothAB(this))
-                {
-                    form.ShowDialog(this);
-                }
+                using FormSmoothAB form = new FormSmoothAB(this);
+                form.ShowDialog(this);
             }
             else
             {
@@ -2034,10 +2016,8 @@ namespace AgOpenGPS
         }
         private void offsetFixToolStrip_Click(object sender, EventArgs e)
         {
-            using (FormShiftPos form = new FormShiftPos(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormShiftPos form = new FormShiftPos(this);
+            form.ShowDialog(this);
         }
         private void correctionToolStrip_Click(object sender, EventArgs e)
         {

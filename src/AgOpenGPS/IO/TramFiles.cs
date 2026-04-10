@@ -98,31 +98,29 @@ namespace AgOpenGPS.IO
         {
             string filename = Path.Combine(fieldDirectory, "Tram.txt");
 
-            using (StreamWriter writer = new StreamWriter(filename, false))
+            using StreamWriter writer = new StreamWriter(filename, false);
+            writer.WriteLine("$Tram");
+
+            IReadOnlyList<vec2> outer = tramOuter ?? new List<vec2>();
+            IReadOnlyList<vec2> inner = tramInner ?? new List<vec2>();
+
+            writer.WriteLine(outer.Count.ToString(CultureInfo.InvariantCulture));
+            for (int i = 0; i < outer.Count; i++)
+                writer.WriteLine($"{FileIoUtils.FormatDouble(outer[i].easting, 3)},{FileIoUtils.FormatDouble(outer[i].northing, 3)}");
+
+            writer.WriteLine(inner.Count.ToString(CultureInfo.InvariantCulture));
+            for (int i = 0; i < inner.Count; i++)
+                writer.WriteLine($"{FileIoUtils.FormatDouble(inner[i].easting, 3)},{FileIoUtils.FormatDouble(inner[i].northing, 3)}");
+
+            if (tramLines != null && tramLines.Count > 0)
             {
-                writer.WriteLine("$Tram");
-
-                IReadOnlyList<vec2> outer = tramOuter ?? new List<vec2>();
-                IReadOnlyList<vec2> inner = tramInner ?? new List<vec2>();
-
-                writer.WriteLine(outer.Count.ToString(CultureInfo.InvariantCulture));
-                for (int i = 0; i < outer.Count; i++)
-                    writer.WriteLine($"{FileIoUtils.FormatDouble(outer[i].easting, 3)},{FileIoUtils.FormatDouble(outer[i].northing, 3)}");
-
-                writer.WriteLine(inner.Count.ToString(CultureInfo.InvariantCulture));
-                for (int i = 0; i < inner.Count; i++)
-                    writer.WriteLine($"{FileIoUtils.FormatDouble(inner[i].easting, 3)},{FileIoUtils.FormatDouble(inner[i].northing, 3)}");
-
-                if (tramLines != null && tramLines.Count > 0)
+                writer.WriteLine(tramLines.Count.ToString(CultureInfo.InvariantCulture));
+                for (int k = 0; k < tramLines.Count; k++)
                 {
-                    writer.WriteLine(tramLines.Count.ToString(CultureInfo.InvariantCulture));
-                    for (int k = 0; k < tramLines.Count; k++)
-                    {
-                        IReadOnlyList<vec2> line = tramLines[k] ?? new List<vec2>();
-                        writer.WriteLine(line.Count.ToString(CultureInfo.InvariantCulture));
-                        for (int i = 0; i < line.Count; i++)
-                            writer.WriteLine($"{FileIoUtils.FormatDouble(line[i].easting, 3)},{FileIoUtils.FormatDouble(line[i].northing, 3)}");
-                    }
+                    IReadOnlyList<vec2> line = tramLines[k] ?? new List<vec2>();
+                    writer.WriteLine(line.Count.ToString(CultureInfo.InvariantCulture));
+                    for (int i = 0; i < line.Count; i++)
+                        writer.WriteLine($"{FileIoUtils.FormatDouble(line[i].easting, 3)},{FileIoUtils.FormatDouble(line[i].northing, 3)}");
                 }
             }
         }

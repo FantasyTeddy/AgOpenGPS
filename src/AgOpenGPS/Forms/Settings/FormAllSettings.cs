@@ -363,13 +363,11 @@ namespace AgOpenGPS
         private void ExportToCSV(string path)
         {
             // Tab-gescheiden zodat het in alle Excel-taalinstellingen correct opent
-            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8))
-            {
-                WriteSettingsTabToCSV(sw, "VEHICLE", dgvVehicleL, dgvVehicleM, dgvVehicleR);
-                WriteSettingsTabToCSV(sw, "TOOL", dgvToolL, dgvToolM, dgvToolR);
-                WriteSettingsTabToCSV(sw, "ENVIRONMENT", dgvEnvironmentL, dgvEnvironmentM, dgvEnvironmentR);
-                WriteSettingsTabToCSV(sw, "SYSTEM / GPS", dgvSystem);
-            }
+            using StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8);
+            WriteSettingsTabToCSV(sw, "VEHICLE", dgvVehicleL, dgvVehicleM, dgvVehicleR);
+            WriteSettingsTabToCSV(sw, "TOOL", dgvToolL, dgvToolM, dgvToolR);
+            WriteSettingsTabToCSV(sw, "ENVIRONMENT", dgvEnvironmentL, dgvEnvironmentM, dgvEnvironmentR);
+            WriteSettingsTabToCSV(sw, "SYSTEM / GPS", dgvSystem);
         }
 
         private static void WriteSettingsTabToCSV(StreamWriter sw, string tabName, params DataGridView[] grids)
@@ -451,19 +449,17 @@ namespace AgOpenGPS
 
                 int y = headerH;
                 string[] labels = { "Vehicle", "Tool", "Environment" };
-                using (Font headerFont = new Font("Tahoma", 12F, FontStyle.Bold))
-                using (SolidBrush headerBrush = new SolidBrush(Color.SteelBlue))
-                using (SolidBrush textBrush = new SolidBrush(Color.White))
+                using Font headerFont = new Font("Tahoma", 12F, FontStyle.Bold);
+                using SolidBrush headerBrush = new SolidBrush(Color.SteelBlue);
+                using SolidBrush textBrush = new SolidBrush(Color.White);
+                for (int t = 0; t < 3; t++)
                 {
-                    for (int t = 0; t < 3; t++)
-                    {
-                        g.FillRectangle(headerBrush, 0, y, totalW, tabStripH);
-                        g.DrawString(labels[t], headerFont, textBrush, 10, y + 8);
-                        y += tabStripH;
-                        g.DrawImage(pages[t], 0, y);
-                        y += pages[t].Height;
-                        pages[t].Dispose();
-                    }
+                    g.FillRectangle(headerBrush, 0, y, totalW, tabStripH);
+                    g.DrawString(labels[t], headerFont, textBrush, 10, y + 8);
+                    y += tabStripH;
+                    g.DrawImage(pages[t], 0, y);
+                    y += pages[t].Height;
+                    pages[t].Dispose();
                 }
             }
             return combined;

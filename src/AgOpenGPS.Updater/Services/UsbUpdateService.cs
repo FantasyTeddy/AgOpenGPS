@@ -103,28 +103,26 @@ namespace AgOpenGPS.Updater.Services
                 }
 
                 // Verify the zip contains AgOpenGPS.exe
-                using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+                using ZipArchive archive = ZipFile.OpenRead(zipPath);
+                bool hasExe = archive.Entries.Any(e =>
+                    e.Name.Equals("AgOpenGPS.exe", StringComparison.OrdinalIgnoreCase));
+
+                if (!hasExe)
+                    return false;
+
+                // If version not in filename, try to get it from the exe
+                if (string.IsNullOrEmpty(version))
                 {
-                    bool hasExe = archive.Entries.Any(e =>
+                    ZipArchiveEntry exeEntry = archive.Entries.FirstOrDefault(e =>
                         e.Name.Equals("AgOpenGPS.exe", StringComparison.OrdinalIgnoreCase));
 
-                    if (!hasExe)
-                        return false;
-
-                    // If version not in filename, try to get it from the exe
-                    if (string.IsNullOrEmpty(version))
+                    if (exeEntry != null)
                     {
-                        ZipArchiveEntry exeEntry = archive.Entries.FirstOrDefault(e =>
-                            e.Name.Equals("AgOpenGPS.exe", StringComparison.OrdinalIgnoreCase));
-
-                        if (exeEntry != null)
-                        {
-                            version = ExtractVersionFromExe(exeEntry);
-                        }
+                        version = ExtractVersionFromExe(exeEntry);
                     }
-
-                    return true;
                 }
+
+                return true;
             }
             catch
             {

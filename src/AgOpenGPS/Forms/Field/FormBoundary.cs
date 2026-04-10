@@ -309,92 +309,90 @@ namespace AgOpenGPS
                 string coordinates = null;
                 int startIndex;
 
-                using (StreamReader reader = new StreamReader(fileAndDirectory))
+                using StreamReader reader = new StreamReader(fileAndDirectory);
+                if (button.Name == "btnLoadMultiBoundaryFromGE") ResetAllBoundary();
+
+                try
                 {
-                    if (button.Name == "btnLoadMultiBoundaryFromGE") ResetAllBoundary();
-
-                    try
+                    while (!reader.EndOfStream)
                     {
-                        while (!reader.EndOfStream)
+                        //start to read the file
+                        string line = reader.ReadLine();
+
+                        startIndex = line.IndexOf("<coordinates>");
+
+                        if (startIndex != -1)
                         {
-                            //start to read the file
-                            string line = reader.ReadLine();
-
-                            startIndex = line.IndexOf("<coordinates>");
-
-                            if (startIndex != -1)
+                            while (true)
                             {
-                                while (true)
+                                int endIndex = line.IndexOf("</coordinates>");
+
+                                if (endIndex == -1)
                                 {
-                                    int endIndex = line.IndexOf("</coordinates>");
-
-                                    if (endIndex == -1)
-                                    {
-                                        //just add the line
-                                        if (startIndex == -1) coordinates += line[..];
-                                        else coordinates += line[(startIndex + 13)..];
-                                    }
-                                    else
-                                    {
-                                        if (startIndex == -1) coordinates += line[..endIndex];
-                                        else coordinates += line[(startIndex + 13)..endIndex];
-                                        break;
-                                    }
-                                    line = reader.ReadLine();
-                                    line = line.Trim();
-                                    startIndex = -1;
-                                }
-
-                                line = coordinates;
-                                char[] delimiterChars = { ' ', '\t', '\r', '\n' };
-                                string[] numberSets = line.Split(delimiterChars);
-
-                                //at least 3 points
-                                if (numberSets.Length > 2)
-                                {
-                                    CBoundaryList New = new CBoundaryList();
-
-                                    foreach (string item in numberSets)
-                                    {
-                                        string[] fix = item.Split(',');
-                                        double.TryParse(fix[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
-                                        double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
-
-                                        GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latK, lonK));
-                                        New.fenceLine.Add(new vec3(geoCoord));
-                                    }
-
-                                    New.CalculateFenceArea(mf.bnd.bndList.Count);
-                                    New.FixFenceLine(mf.bnd.bndList.Count);
-
-                                    mf.bnd.bndList.Add(New);
-
-                                    mf.btnABDraw.Visible = true;
-
-                                    coordinates = "";
+                                    //just add the line
+                                    if (startIndex == -1) coordinates += line[..];
+                                    else coordinates += line[(startIndex + 13)..];
                                 }
                                 else
                                 {
-                                    FormDialog.Show(gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone, DialogSeverity.Error);
-                                    Log.EventWriter("KML Read Error to make new field");
-                                }
-
-                                if (button.Name == "btnLoadBoundaryFromGE")
-                                {
+                                    if (startIndex == -1) coordinates += line[..endIndex];
+                                    else coordinates += line[(startIndex + 13)..endIndex];
                                     break;
                                 }
+                                line = reader.ReadLine();
+                                line = line.Trim();
+                                startIndex = -1;
+                            }
+
+                            line = coordinates;
+                            char[] delimiterChars = { ' ', '\t', '\r', '\n' };
+                            string[] numberSets = line.Split(delimiterChars);
+
+                            //at least 3 points
+                            if (numberSets.Length > 2)
+                            {
+                                CBoundaryList New = new CBoundaryList();
+
+                                foreach (string item in numberSets)
+                                {
+                                    string[] fix = item.Split(',');
+                                    double.TryParse(fix[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
+                                    double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
+
+                                    GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latK, lonK));
+                                    New.fenceLine.Add(new vec3(geoCoord));
+                                }
+
+                                New.CalculateFenceArea(mf.bnd.bndList.Count);
+                                New.FixFenceLine(mf.bnd.bndList.Count);
+
+                                mf.bnd.bndList.Add(New);
+
+                                mf.btnABDraw.Visible = true;
+
+                                coordinates = "";
+                            }
+                            else
+                            {
+                                FormDialog.Show(gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone, DialogSeverity.Error);
+                                Log.EventWriter("KML Read Error to make new field");
+                            }
+
+                            if (button.Name == "btnLoadBoundaryFromGE")
+                            {
+                                break;
                             }
                         }
-                        mf.FileSaveBoundary();
-                        mf.bnd.BuildTurnLines();
-                        mf.btnABDraw.Visible = true;
-                        UpdateChart();
                     }
-                    catch (Exception ed)
-                    {
-                        Log.EventWriter("Load Boundary from GE " + ed.ToString());
-                        return;
-                    }
+                    mf.FileSaveBoundary();
+                    mf.bnd.BuildTurnLines();
+                    mf.btnABDraw.Visible = true;
+                    UpdateChart();
+                }
+                catch (Exception ed)
+                {
+                    Log.EventWriter("Load Boundary from GE " + ed.ToString());
+                    return;
                 }
             }
             mf.bnd.isOkToAddPoints = false;

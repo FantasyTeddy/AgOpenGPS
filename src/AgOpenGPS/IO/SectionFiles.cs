@@ -44,27 +44,23 @@ namespace AgOpenGPS.IO
             string filename = Path.Combine(fieldDirectory, "Sections.txt");
             if (patches == null) return;
 
-            using (StreamWriter writer = new StreamWriter(filename, true))
+            using StreamWriter writer = new StreamWriter(filename, true);
+            foreach (IReadOnlyList<vec3> triList in patches)
             {
-                foreach (IReadOnlyList<vec3> triList in patches)
+                if (triList == null) continue;
+                writer.WriteLine(triList.Count.ToString(CultureInfo.InvariantCulture));
+                for (int i = 0; i < triList.Count; i++)
                 {
-                    if (triList == null) continue;
-                    writer.WriteLine(triList.Count.ToString(CultureInfo.InvariantCulture));
-                    for (int i = 0; i < triList.Count; i++)
-                    {
-                        vec3 p = triList[i];
-                        writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
-                    }
+                    vec3 p = triList[i];
+                    writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
                 }
             }
         }
 
         public static void CreateEmpty(string fieldDirectory)
         {
-            using (StreamWriter writer = new StreamWriter(Path.Combine(fieldDirectory, "Sections.txt"), false))
-            {
-                // Intentionally empty
-            }
+            using StreamWriter writer = new StreamWriter(Path.Combine(fieldDirectory, "Sections.txt"), false);
+            // Intentionally empty
         }
     }
 }

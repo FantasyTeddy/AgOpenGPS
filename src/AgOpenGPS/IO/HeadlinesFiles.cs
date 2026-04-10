@@ -58,27 +58,25 @@ namespace AgOpenGPS.IO
         {
             string filename = Path.Combine(fieldDirectory, "Headlines.txt");
 
-            using (StreamWriter writer = new StreamWriter(filename, false))
+            using StreamWriter writer = new StreamWriter(filename, false);
+            writer.WriteLine("$HeadLines");
+            if (headPaths == null || headPaths.Count == 0) return;
+
+            for (int i = 0; i < headPaths.Count; i++)
             {
-                writer.WriteLine("$HeadLines");
-                if (headPaths == null || headPaths.Count == 0) return;
+                CHeadPath hp = headPaths[i];
+                writer.WriteLine(hp.name);
+                writer.WriteLine(hp.moveDistance.ToString(CultureInfo.InvariantCulture));
+                writer.WriteLine(hp.mode.ToString(CultureInfo.InvariantCulture));
+                writer.WriteLine(hp.a_point.ToString(CultureInfo.InvariantCulture));
 
-                for (int i = 0; i < headPaths.Count; i++)
+                List<vec3> pts = hp.trackPts ?? new List<vec3>();
+                writer.WriteLine(pts.Count.ToString(CultureInfo.InvariantCulture));
+
+                for (int j = 0; j < pts.Count; j++)
                 {
-                    CHeadPath hp = headPaths[i];
-                    writer.WriteLine(hp.name);
-                    writer.WriteLine(hp.moveDistance.ToString(CultureInfo.InvariantCulture));
-                    writer.WriteLine(hp.mode.ToString(CultureInfo.InvariantCulture));
-                    writer.WriteLine(hp.a_point.ToString(CultureInfo.InvariantCulture));
-
-                    List<vec3> pts = hp.trackPts ?? new List<vec3>();
-                    writer.WriteLine(pts.Count.ToString(CultureInfo.InvariantCulture));
-
-                    for (int j = 0; j < pts.Count; j++)
-                    {
-                        vec3 p = pts[j];
-                        writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)} , {FileIoUtils.FormatDouble(p.northing, 3)} , {FileIoUtils.FormatDouble(p.heading, 5)}");
-                    }
+                    vec3 p = pts[j];
+                    writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)} , {FileIoUtils.FormatDouble(p.northing, 3)} , {FileIoUtils.FormatDouble(p.heading, 5)}");
                 }
             }
         }

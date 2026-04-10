@@ -63,50 +63,48 @@ namespace AgOpenGPS
                 // Make sure directory has a field.txt in it
                 if (File.Exists(filename))
                 {
-                    using (GeoStreamReader reader = new GeoStreamReader(filename))
+                    using GeoStreamReader reader = new GeoStreamReader(filename);
+                    try
                     {
-                        try
+                        // Skip first 8 lines of the file
+                        for (int i = 0; i < 8; i++)
                         {
-                            // Skip first 8 lines of the file
-                            for (int i = 0; i < 8; i++)
-                            {
-                                reader.ReadLine();
-                            }
-
-                            // Try reading a WGS84 start position
-                            if (!reader.EndOfStream)
-                            {
-                                Wgs84 startLatLon = reader.ReadWgs84();
-                                double distance = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
-
-                                // Add field path and calculated distance to the list
-                                fileList.Add(fieldDirectory);
-                                fileList.Add(Math.Round(distance, 2).ToString("N2").PadLeft(10));
-                            }
-                            else
-                            {
-                                // Show error for incomplete file
-                                FormDialog.Show(gStr.gsFileError,
-                                    fieldDirectory + " is Damaged, Please Delete This Field",
-                                    DialogSeverity.Error);
-
-                                fileList.Add(fieldDirectory);
-                                fileList.Add("Error");
-                            }
+                            reader.ReadLine();
                         }
-                        catch (Exception ex)
-                        {
-                            // Show error for invalid file content
-                            FormDialog.Show(gStr.gsFileError,
-                                fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken",
-                                DialogSeverity.Error);
 
-                            // Log the exception for diagnostics
-                            Log.EventWriter(fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken\n" + ex.ToString());
+                        // Try reading a WGS84 start position
+                        if (!reader.EndOfStream)
+                        {
+                            Wgs84 startLatLon = reader.ReadWgs84();
+                            double distance = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
+
+                            // Add field path and calculated distance to the list
+                            fileList.Add(fieldDirectory);
+                            fileList.Add(Math.Round(distance, 2).ToString("N2").PadLeft(10));
+                        }
+                        else
+                        {
+                            // Show error for incomplete file
+                            FormDialog.Show(gStr.gsFileError,
+                                fieldDirectory + " is Damaged, Please Delete This Field",
+                                DialogSeverity.Error);
 
                             fileList.Add(fieldDirectory);
                             fileList.Add("Error");
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Show error for invalid file content
+                        FormDialog.Show(gStr.gsFileError,
+                            fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken",
+                            DialogSeverity.Error);
+
+                        // Log the exception for diagnostics
+                        Log.EventWriter(fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken\n" + ex.ToString());
+
+                        fileList.Add(fieldDirectory);
+                        fileList.Add("Error");
                     }
                 }
                 else
@@ -437,10 +435,8 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Headlines.txt")))
-                    {
-                        writer.WriteLine("$Headlines");
-                    }
+                    using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Headlines.txt"));
+                    writer.WriteLine("$Headlines");
                 }
 
                 if (chkFlags.Checked)
@@ -452,11 +448,9 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Flags.txt")))
-                    {
-                        writer.WriteLine("$Flags");
-                        writer.WriteLine("0");
-                    }
+                    using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Flags.txt"));
+                    writer.WriteLine("$Flags");
+                    writer.WriteLine("0");
                 }
 
                 if (chkGuidanceLines.Checked)
@@ -488,11 +482,9 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "RecPath.txt")))
-                    {
-                        writer.WriteLine("$RecPath");
-                        writer.WriteLine("0");
-                    }
+                    using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "RecPath.txt"));
+                    writer.WriteLine("$RecPath");
+                    writer.WriteLine("0");
                 }
 
                 if (chkHeadland.Checked)

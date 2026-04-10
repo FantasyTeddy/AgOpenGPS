@@ -28,41 +28,39 @@ namespace AgLibrary.Settings
                     return LoadResult.MissingFile;
                 }
 
-                using (XmlTextReader reader = new XmlTextReader(filePath))
+                using XmlTextReader reader = new XmlTextReader(filePath);
+                string name = "";
+                while (reader.Read())
                 {
-                    string name = "";
-                    while (reader.Read())
+                    if (reader.NodeType == XmlNodeType.Element)
                     {
-                        if (reader.NodeType == XmlNodeType.Element)
+                        if (reader.Name == "setting")
                         {
-                            if (reader.Name == "setting")
+                            name = reader.GetAttribute("name");
+                        }
+                        else if (reader.Name == "value")
+                        {
+                            if (!string.IsNullOrEmpty(name))
                             {
-                                name = reader.GetAttribute("name");
-                            }
-                            else if (reader.Name == "value")
-                            {
-                                if (!string.IsNullOrEmpty(name))
+                                FieldInfo pinfo = obj.GetType().GetField(name);
+                                if (pinfo != null)
                                 {
-                                    FieldInfo pinfo = obj.GetType().GetField(name);
-                                    if (pinfo != null)
+                                    try
                                     {
-                                        try
-                                        {
-                                            SetFieldValue(pinfo, reader, obj);
-                                        }
-                                        catch (Exception)
-                                        {
-                                            if (Debugger.IsAttached)
-                                                throw;// Re-throws the original exception
-                                            Errors = true;
-                                        }
+                                        SetFieldValue(pinfo, reader, obj);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        if (Debugger.IsAttached)
+                                            throw;// Re-throws the original exception
+                                        Errors = true;
                                     }
                                 }
                             }
                         }
                     }
-                    reader.Close();
                 }
+                reader.Close();
             }
             catch (Exception)
             {
@@ -160,12 +158,10 @@ namespace AgLibrary.Settings
 
                         if (!string.IsNullOrEmpty(innerXml))
                         {
-                            using (StringReader stringReader = new StringReader(innerXml))
-                            {
-                                XmlSerializer serializer = new XmlSerializer(fieldType);
-                                object nestedObj = serializer.Deserialize(stringReader);
-                                pinfo.SetValue(obj, nestedObj);
-                            }
+                            using StringReader stringReader = new StringReader(innerXml);
+                            XmlSerializer serializer = new XmlSerializer(fieldType);
+                            object nestedObj = serializer.Deserialize(stringReader);
+                            pinfo.SetValue(obj, nestedObj);
                         }
                     }
                 }

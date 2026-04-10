@@ -27,21 +27,19 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                using (GithubReleaseService githubService = new GithubReleaseService(authToken: gitHubToken))
+                using GithubReleaseService githubService = new GithubReleaseService(authToken: gitHubToken);
+                ReleaseInfo updateInfo = await githubService.CheckForUpdate(currentVersion, includePrerelease);
+
+                if (updateInfo != null)
                 {
-                    ReleaseInfo updateInfo = await githubService.CheckForUpdate(currentVersion, includePrerelease);
-
-                    if (updateInfo != null)
-                    {
-                        return (
-                            true,
-                            updateInfo,
-                            $"Update available: {updateInfo.Version} ({updateInfo.ReleaseType})"
-                        );
-                    }
-
-                    return (false, null, "You're using the latest version. No update needed.");
+                    return (
+                        true,
+                        updateInfo,
+                        $"Update available: {updateInfo.Version} ({updateInfo.ReleaseType})"
+                    );
                 }
+
+                return (false, null, "You're using the latest version. No update needed.");
             }
             catch (Exception ex)
             {

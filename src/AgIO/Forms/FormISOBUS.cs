@@ -178,13 +178,11 @@ namespace AgIO
 
             foreach (RegistryView view in new[] { RegistryView.Registry64, RegistryView.Registry32 })
             {
-                using (RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, view))
-                using (RegistryKey key = baseKey.OpenSubKey(path))
+                using RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, view);
+                using RegistryKey key = baseKey.OpenSubKey(path);
+                if (key != null)
                 {
-                    if (key != null)
-                    {
-                        return key.GetValue("").ToString();
-                    }
+                    return key.GetValue("").ToString();
                 }
             }
 

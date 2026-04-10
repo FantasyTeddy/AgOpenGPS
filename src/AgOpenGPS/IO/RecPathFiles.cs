@@ -51,17 +51,15 @@ namespace AgOpenGPS.IO
         {
             string filename = Path.Combine(fieldDirectory, fileName ?? "RecPath.txt");
 
-            using (StreamWriter writer = new StreamWriter(filename, false))
-            {
-                writer.WriteLine("$RecPath");
-                IReadOnlyList<CRecPathPt> list = recList ?? new List<CRecPathPt>();
+            using StreamWriter writer = new StreamWriter(filename, false);
+            writer.WriteLine("$RecPath");
+            IReadOnlyList<CRecPathPt> list = recList ?? new List<CRecPathPt>();
 
-                writer.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
-                for (int i = 0; i < list.Count; i++)
-                {
-                    CRecPathPt p = list[i];
-                    writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 3)},{FileIoUtils.FormatDouble(p.speed, 1)},{p.autoBtnState}");
-                }
+            writer.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
+            for (int i = 0; i < list.Count; i++)
+            {
+                CRecPathPt p = list[i];
+                writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 3)},{FileIoUtils.FormatDouble(p.speed, 1)},{p.autoBtnState}");
             }
         }
 
@@ -81,11 +79,9 @@ namespace AgOpenGPS.IO
             }
 
             string path = Path.Combine(fieldDirectory, "RecPath.txt");
-            using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
-            {
-                writer.WriteLine("$RecPath");
-                writer.WriteLine("0");
-            }
+            using StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8);
+            writer.WriteLine("$RecPath");
+            writer.WriteLine("0");
         }
     }
 }

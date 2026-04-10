@@ -36,38 +36,34 @@ namespace AgOpenGPS.Forms
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            using (Pen pen = new Pen(BorderColor, 20))
-                e.Graphics.DrawRectangle(pen, 0, 0, Width, Height);
+            using Pen pen = new Pen(BorderColor, 20);
+            e.Graphics.DrawRectangle(pen, 0, 0, Width, Height);
         }
 
         // Geeft de ingevoerde naam terug, of null bij Cancel / lege invoer
         public static string ShowInput(string title, string prompt, FormGPS formGPS)
         {
-            using (FormInputDialog form = new FormInputDialog(title, prompt, formGPS))
+            using FormInputDialog form = new FormInputDialog(title, prompt, formGPS);
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    string name = form.textBoxInput.Text.Trim();
-                    if (!string.IsNullOrEmpty(name))
-                        return name;
-                }
-                return null;
+                string name = form.textBoxInput.Text.Trim();
+                if (!string.IsNullOrEmpty(name))
+                    return name;
             }
+            return null;
         }
 
         public static string ShowInput(string title, string prompt, FormGPS formGPS, string defaultValue)
         {
-            using (FormInputDialog form = new FormInputDialog(title, prompt, formGPS))
+            using FormInputDialog form = new FormInputDialog(title, prompt, formGPS);
+            form.textBoxInput.Text = defaultValue ?? "";
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                form.textBoxInput.Text = defaultValue ?? "";
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    string name = form.textBoxInput.Text.Trim();
-                    if (!string.IsNullOrEmpty(name))
-                        return name;
-                }
-                return null;
+                string name = form.textBoxInput.Text.Trim();
+                if (!string.IsNullOrEmpty(name))
+                    return name;
             }
+            return null;
         }
     }
 }

@@ -20,13 +20,11 @@ namespace AgOpenGPS
         {
             try
             {
-                using (XmlTextReader reader = new XmlTextReader(filePath))
+                using XmlTextReader reader = new XmlTextReader(filePath);
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        if (reader.NodeType == XmlNodeType.Element && reader.Depth == 2)
-                            return reader.Name;
-                    }
+                    if (reader.NodeType == XmlNodeType.Element && reader.Depth == 2)
+                        return reader.Name;
                 }
             }
             catch { }

@@ -115,13 +115,11 @@ namespace AgOpenGPS
 
             mf.filePickerFileAndDirectory = "";
 
-            using (FormFilePicker form = new FormFilePicker(mf))
+            using FormFilePicker form = new FormFilePicker(mf);
+            if (form.ShowDialog(this) == DialogResult.Yes)
             {
-                if (form.ShowDialog(this) == DialogResult.Yes)
-                {
-                    mf.FileOpenField(mf.filePickerFileAndDirectory);
-                    Close();
-                }
+                mf.FileOpenField(mf.filePickerFileAndDirectory);
+                Close();
             }
         }
 
@@ -148,42 +146,40 @@ namespace AgOpenGPS
                 //make sure directory has a field.txt in it
                 if (File.Exists(filename))
                 {
-                    using (GeoStreamReader reader = new GeoStreamReader(filename))
+                    using GeoStreamReader reader = new GeoStreamReader(filename);
+                    try
                     {
-                        try
+                        // Skip 8 lines
+                        for (int i = 0; i < 8; i++)
                         {
-                            // Skip 8 lines
-                            for (int i = 0; i < 8; i++)
-                            {
-                                reader.ReadLine();
-                            }
-                            //start positions
-                            if (!reader.EndOfStream)
-                            {
-                                Wgs84 startLatLon = reader.ReadWgs84();
-                                double distance = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
+                            reader.ReadLine();
+                        }
+                        //start positions
+                        if (!reader.EndOfStream)
+                        {
+                            Wgs84 startLatLon = reader.ReadWgs84();
+                            double distance = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
 
-                                if (distance < 0.5)
+                            if (distance < 0.5)
+                            {
+                                numFields++;
+                                if (!string.IsNullOrEmpty(infieldList))
                                 {
-                                    numFields++;
-                                    if (!string.IsNullOrEmpty(infieldList))
-                                    {
-                                        infieldList += ",";
-                                        distanceList += ",";
-                                    }
-                                    infieldList += Path.GetFileName(dir);
-
-                                    // Convert to miles if not metric
-                                    Distance distanceObj = new Distance(distance * 1000); // Distance expects meters
-                                    double displayDistance = mf.isMetric ? distanceObj.InKilometers : distanceObj.InMiles;
-                                    distanceList += displayDistance.ToString("F3");
+                                    infieldList += ",";
+                                    distanceList += ",";
                                 }
+                                infieldList += Path.GetFileName(dir);
+
+                                // Convert to miles if not metric
+                                Distance distanceObj = new Distance(distance * 1000); // Distance expects meters
+                                double displayDistance = mf.isMetric ? distanceObj.InKilometers : distanceObj.InMiles;
+                                distanceList += displayDistance.ToString("F3");
                             }
                         }
-                        catch (Exception)
-                        {
-                            FormDialog.Show(gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField, DialogSeverity.Error);
-                        }
+                    }
+                    catch (Exception)
+                    {
+                        FormDialog.Show(gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField, DialogSeverity.Error);
                     }
                 }
             }
@@ -194,18 +190,16 @@ namespace AgOpenGPS
 
                 if (numFields > 1)
                 {
-                    using (FormDrivePicker form = new FormDrivePicker(mf, infieldList, distanceList))
+                    using FormDrivePicker form = new FormDrivePicker(mf, infieldList, distanceList);
+                    //returns full field.txt file dir name
+                    if (form.ShowDialog(this) == DialogResult.Yes)
                     {
-                        //returns full field.txt file dir name
-                        if (form.ShowDialog(this) == DialogResult.Yes)
-                        {
-                            mf.FileOpenField(mf.filePickerFileAndDirectory);
-                            Close();
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        mf.FileOpenField(mf.filePickerFileAndDirectory);
+                        Close();
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
                 else // 1 field found

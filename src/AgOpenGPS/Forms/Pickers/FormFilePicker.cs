@@ -97,27 +97,25 @@ namespace AgOpenGPS
         {
             try
             {
-                using (GeoStreamReader reader = new GeoStreamReader(filename))
+                using GeoStreamReader reader = new GeoStreamReader(filename);
+                // Legacy format: skip 8 lines, then expect a WGS84 position.
+                for (int i = 0; i < 8; i++) reader.ReadLine();
+
+                string distanceStr;
+                if (!reader.EndOfStream)
                 {
-                    // Legacy format: skip 8 lines, then expect a WGS84 position.
-                    for (int i = 0; i < 8; i++) reader.ReadLine();
-
-                    string distanceStr;
-                    if (!reader.EndOfStream)
-                    {
-                        Wgs84 startLatLon = reader.ReadWgs84();
-                        double km = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
-                        distanceStr = Math.Round(km, 2).ToString("N2").PadLeft(10);
-                    }
-                    else
-                    {
-                        // Incomplete file → neutral placeholder
-                        distanceStr = "---".PadLeft(10);
-                    }
-
-                    fileList.Add(fieldDirectory);
-                    fileList.Add(distanceStr);
+                    Wgs84 startLatLon = reader.ReadWgs84();
+                    double km = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
+                    distanceStr = Math.Round(km, 2).ToString("N2").PadLeft(10);
                 }
+                else
+                {
+                    // Incomplete file → neutral placeholder
+                    distanceStr = "---".PadLeft(10);
+                }
+
+                fileList.Add(fieldDirectory);
+                fileList.Add(distanceStr);
             }
             catch (Exception ex)
             {

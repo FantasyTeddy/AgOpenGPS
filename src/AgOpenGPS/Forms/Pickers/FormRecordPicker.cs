@@ -83,39 +83,37 @@ namespace AgOpenGPS.Forms.Pickers
                 string line;
                 if (File.Exists(selectedRecordPath))
                 {
-                    using (StreamReader reader = new StreamReader(selectedRecordPath))
+                    using StreamReader reader = new StreamReader(selectedRecordPath);
+                    try
                     {
-                        try
+                        //read header
+                        line = reader.ReadLine();
+                        line = reader.ReadLine();
+                        int numPoints = int.Parse(line);
+                        mf.recPath.recList.Clear();
+
+                        while (!reader.EndOfStream)
                         {
-                            //read header
-                            line = reader.ReadLine();
-                            line = reader.ReadLine();
-                            int numPoints = int.Parse(line);
-                            mf.recPath.recList.Clear();
-
-                            while (!reader.EndOfStream)
+                            for (int v = 0; v < numPoints; v++)
                             {
-                                for (int v = 0; v < numPoints; v++)
-                                {
-                                    line = reader.ReadLine();
-                                    string[] words = line.Split(',');
-                                    CRecPathPt point = new CRecPathPt(
-                                        double.Parse(words[0], CultureInfo.InvariantCulture),
-                                        double.Parse(words[1], CultureInfo.InvariantCulture),
-                                        double.Parse(words[2], CultureInfo.InvariantCulture),
-                                        double.Parse(words[3], CultureInfo.InvariantCulture),
-                                        bool.Parse(words[4]));
+                                line = reader.ReadLine();
+                                string[] words = line.Split(',');
+                                CRecPathPt point = new CRecPathPt(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    double.Parse(words[3], CultureInfo.InvariantCulture),
+                                    bool.Parse(words[4]));
 
-                                    //add the point
-                                    mf.recPath.recList.Add(point);
-                                }
+                                //add the point
+                                mf.recPath.recList.Add(point);
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            FormDialog.Show(gStr.gsRecordedPathFileIsCorrupt, gStr.gsButFieldIsLoaded, DialogSeverity.Error);
-                            Log.EventWriter("Load Recorded Path" + ex.ToString());
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        FormDialog.Show(gStr.gsRecordedPathFileIsCorrupt, gStr.gsButFieldIsLoaded, DialogSeverity.Error);
+                        Log.EventWriter("Load Recorded Path" + ex.ToString());
                     }
                 }
             }

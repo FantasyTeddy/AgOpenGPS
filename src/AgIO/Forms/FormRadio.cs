@@ -213,27 +213,25 @@ namespace AgIO
 
         private void btnAddChannel_Click(object sender, EventArgs e)
         {
-            using (FormRadioChannel form = new FormRadioChannel(mf))
+            using FormRadioChannel form = new FormRadioChannel(mf);
+            // Get max id
+            int maxChannelId = 0;
+
+            if (_channels.Count > 0)
             {
-                // Get max id
-                int maxChannelId = 0;
+                maxChannelId = _channels.Max(c => c.Id);
+            }
 
-                if (_channels.Count > 0)
-                {
-                    maxChannelId = _channels.Max(c => c.Id);
-                }
+            form.Channel.Id = maxChannelId + 1;
 
-                form.Channel.Id = maxChannelId + 1;
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                _channels.Add(form.Channel);
+                AddChannelToListView(form.Channel);
 
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    _channels.Add(form.Channel);
-                    AddChannelToListView(form.Channel);
-
-                    // Resize
-                    lvChannels.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                    lvChannels.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
-                }
+                // Resize
+                lvChannels.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                lvChannels.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
             }
         }
 
@@ -241,33 +239,31 @@ namespace AgIO
         {
             if (lvChannels.SelectedItems.Count == 1)
             {
-                using (FormRadioChannel form = new FormRadioChannel(mf))
+                using FormRadioChannel form = new FormRadioChannel(mf);
+                CRadioChannel selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
+
+                form.Channel.Id = selectedChannel.Id;
+                form.Channel.Name = selectedChannel.Name;
+                form.Channel.Frequency = selectedChannel.Frequency;
+                form.Channel.Location = selectedChannel.Location;
+
+                if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    CRadioChannel selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
+                    // Set in channel
+                    selectedChannel.Id = form.Channel.Id;
+                    selectedChannel.Name = form.Channel.Name;
+                    selectedChannel.Frequency = form.Channel.Frequency;
+                    selectedChannel.Location = form.Channel.Location;
 
-                    form.Channel.Id = selectedChannel.Id;
-                    form.Channel.Name = selectedChannel.Name;
-                    form.Channel.Frequency = selectedChannel.Frequency;
-                    form.Channel.Location = selectedChannel.Location;
+                    // Set in listview
+                    // TODO: Use keys
+                    lvChannels.SelectedItems[0].SubItems[0].Text = selectedChannel.Id.ToString();
+                    lvChannels.SelectedItems[0].SubItems[1].Text = selectedChannel.Name;
+                    lvChannels.SelectedItems[0].SubItems[2].Text = selectedChannel.Frequency;
 
-                    if (form.ShowDialog(this) == DialogResult.OK)
-                    {
-                        // Set in channel
-                        selectedChannel.Id = form.Channel.Id;
-                        selectedChannel.Name = form.Channel.Name;
-                        selectedChannel.Frequency = form.Channel.Frequency;
-                        selectedChannel.Location = form.Channel.Location;
-
-                        // Set in listview
-                        // TODO: Use keys
-                        lvChannels.SelectedItems[0].SubItems[0].Text = selectedChannel.Id.ToString();
-                        lvChannels.SelectedItems[0].SubItems[1].Text = selectedChannel.Name;
-                        lvChannels.SelectedItems[0].SubItems[2].Text = selectedChannel.Frequency;
-
-                        // Resize
-                        lvChannels.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                        lvChannels.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
-                    }
+                    // Resize
+                    lvChannels.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    lvChannels.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
                 }
             }
         }
