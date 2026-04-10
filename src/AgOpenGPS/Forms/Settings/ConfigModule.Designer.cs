@@ -281,7 +281,7 @@ namespace AgOpenGPS
 
         private void SaveSettingsRelay()
         {
-            StringBuilder bob = new StringBuilder();
+            StringBuilder bob = new();
 
             bob.Append(cboxPin0.SelectedIndex.ToString() + ",")
                .Append(cboxPin1.SelectedIndex.ToString() + ",")

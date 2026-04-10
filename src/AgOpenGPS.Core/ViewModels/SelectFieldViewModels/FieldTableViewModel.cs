@@ -76,11 +76,11 @@ namespace AgOpenGPS.Core.ViewModels
 
         public virtual void UpdateFields()
         {
-            Collection<FieldDescriptionViewModel> viewModels = new Collection<FieldDescriptionViewModel>();
+            Collection<FieldDescriptionViewModel> viewModels = new();
             ReadOnlyCollection<FieldDescription> descriptions = _fieldDescriptionStreamer.GetFieldDescriptions();
             foreach (FieldDescription description in descriptions)
             {
-                FieldDescriptionViewModel viewModel = new FieldDescriptionViewModel(
+                FieldDescriptionViewModel viewModel = new(
                     description,
                     _appModel.CurrentLatLon);
                 viewModels.Add(viewModel);
@@ -96,7 +96,7 @@ namespace AgOpenGPS.Core.ViewModels
             if (null != selectedField)
             {
                 LocalSelectedField = null;
-                Field field = new Field(selectedField.DirectoryInfo);
+                Field field = new(selectedField.DirectoryInfo);
                 _fieldStreamer.ReadFlagList(field);
                 _appModel.Fields.ActiveField = field;
                 //_appModel.Fields.OpenField(selectedField.DirectoryInfo);

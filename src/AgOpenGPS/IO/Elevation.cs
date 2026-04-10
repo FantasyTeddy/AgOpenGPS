@@ -28,7 +28,7 @@ namespace AgOpenGPS.IO
             }
 
             string path = Path.Combine(fieldDirectory, "Elevation.txt");
-            using StreamWriter writer = new StreamWriter(path, false);
+            using StreamWriter writer = new(path, false);
             writer.WriteLine(timestamp.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
             writer.WriteLine("$FieldDir");
             writer.WriteLine("Elevation");
@@ -59,7 +59,7 @@ namespace AgOpenGPS.IO
             }
 
             string path = Path.Combine(fieldDirectory, "Elevation.txt");
-            using StreamWriter writer = new StreamWriter(path, true);
+            using StreamWriter writer = new(path, true);
             writer.Write(gridText);
         }
         public sealed class ElevationData
@@ -74,8 +74,8 @@ namespace AgOpenGPS.IO
             string path = Path.Combine(fieldDirectory, "Elevation.txt");
             if (!File.Exists(path)) return new ElevationData();
 
-            ElevationData data = new ElevationData();
-            using (StreamReader reader = new StreamReader(path))
+            ElevationData data = new();
+            using (StreamReader reader = new(path))
             {
                 while (!reader.EndOfStream)
                 {

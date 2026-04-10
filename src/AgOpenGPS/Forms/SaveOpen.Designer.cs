@@ -19,10 +19,10 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         // Holds pending section patches to persist.
-        public List<List<vec3>> patchSaveList = new List<List<vec3>>();
+        public List<List<vec3>> patchSaveList = new();
 
         // Holds pending contour patches to persist.
-        public List<List<vec3>> contourSaveList = new List<List<vec3>>();
+        public List<List<vec3>> contourSaveList = new();
 
         // Returns field directory; creates it when ensureExists is true.
         private string GetFieldDir(bool ensureExists = false)
@@ -58,7 +58,7 @@ namespace AgOpenGPS
             }
             else if (openType == "Open")
             {
-                using OpenFileDialog ofd = new OpenFileDialog();
+                using OpenFileDialog ofd = new();
                 ofd.InitialDirectory = RegistrySettings.fieldsDirectory;
                 ofd.RestoreDirectory = true;
                 ofd.Filter = "Field files (Field.txt)|Field.txt";
@@ -161,8 +161,8 @@ namespace AgOpenGPS
             }
 
             // ---BingMap ---
-            DirectoryInfo fieldDirectoryInfo = new DirectoryInfo(dir);
-            BingMapStreamer bingMapStreamer = new BingMapStreamer();
+            DirectoryInfo fieldDirectoryInfo = new(dir);
+            BingMapStreamer bingMapStreamer = new();
             worldGrid.BingMap = bingMapStreamer.TryRead(fieldDirectoryInfo);
 
             // optional
@@ -226,14 +226,14 @@ namespace AgOpenGPS
             }
 
             string dir = GetFieldDir(true);
-            Wgs84 startFix = new Wgs84(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
+            Wgs84 startFix = new(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
             FieldPlaneFiles.Save(dir, DateTime.Now, startFix);
         }
 
         public void FileCreateElevation()
         {
             string dir = GetFieldDir(true);
-            Wgs84 startFix = new Wgs84(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
+            Wgs84 startFix = new(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
             ElevationFiles.CreateHeader(dir, DateTime.Now, startFix);
         }
 
@@ -384,7 +384,7 @@ namespace AgOpenGPS
             }
 
             string myFileName = "Flag.kml";
-            using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName));
+            using StreamWriter writer = new(Path.Combine(directoryName, myFileName));
             writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
             writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
             writer.WriteLine(@"<Document>");
@@ -423,7 +423,7 @@ namespace AgOpenGPS
             }
 
             string myFileName = "Flag.kml";
-            using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName));
+            using StreamWriter writer = new(Path.Combine(directoryName, myFileName));
             writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
             writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
             writer.WriteLine(@"<Document>");
@@ -460,7 +460,7 @@ namespace AgOpenGPS
                 Directory.CreateDirectory(directoryName);
             }
 
-            using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "CurrentPosition.kml"));
+            using StreamWriter writer = new(Path.Combine(directoryName, "CurrentPosition.kml"));
             writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
             writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
             writer.WriteLine(@"<Document>");
@@ -488,7 +488,7 @@ namespace AgOpenGPS
             }
 
             string myFileName = "Field.kml";
-            XmlTextWriter kml = new XmlTextWriter(Path.Combine(directoryName, myFileName), Encoding.UTF8)
+            XmlTextWriter kml = new(Path.Combine(directoryName, myFileName), Encoding.UTF8)
             {
                 Formatting = Formatting.Indented,
                 Indentation = 3
@@ -586,7 +586,7 @@ namespace AgOpenGPS
                 kml.WriteStartElement("coordinates");
 
                 GeoCoord pointA = track.ptA.ToGeoCoord();
-                GeoDir heading = new GeoDir(track.heading);
+                GeoDir heading = new(track.heading);
                 linePts = GetGeoCoordToWgs84_KML(pointA - (ABLine.abLength * heading));
                 linePts += GetGeoCoordToWgs84_KML(pointA + (ABLine.abLength * heading));
                 kml.WriteRaw(linePts);
@@ -776,7 +776,7 @@ namespace AgOpenGPS
         // Helper to build lat/lon list for one boundary.
         public string GetBoundaryPointsLatLon(int bndNum)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             foreach (vec3 v3 in bnd.bndList[bndNum].fenceLine)
             {

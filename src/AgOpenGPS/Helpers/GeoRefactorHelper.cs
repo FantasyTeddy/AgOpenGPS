@@ -14,7 +14,7 @@ namespace AgOpenGPS.Helpers
 
         public static GeoPolygon ToGeoPolygon(List<vec3> list)
         {
-            GeoPolygon p = new GeoPolygon(list.Count);
+            GeoPolygon p = new(list.Count);
             foreach (vec3 v in list)
             {
                 p.Add(v.ToGeoCoord());
@@ -24,7 +24,7 @@ namespace AgOpenGPS.Helpers
 
         public static List<vec3> ToVec3List(GeoPolygon p)
         {
-            List<vec3> list = new List<vec3>(p.Count);
+            List<vec3> list = new(p.Count);
             for (int v = 0; v < p.Count; v++)
             {
                 list.Add(new vec3());

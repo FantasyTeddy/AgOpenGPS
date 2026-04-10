@@ -23,7 +23,7 @@ namespace AgOpenGPS
 
         private bool isClosing;
         private readonly GMapPolygon polygon;
-        private readonly GMapOverlay overlay = new GMapOverlay();
+        private readonly GMapOverlay overlay = new();
         private Point lastMouseLocation;
         private readonly bool isColorMap = true;
 
@@ -121,12 +121,12 @@ namespace AgOpenGPS
                 overlay.Markers.Clear();
 
                 // Create marker's location point
-                PointLatLng point = new PointLatLng(
+                PointLatLng point = new(
                     mf.AppModel.CurrentLatLon.Latitude,
                     mf.AppModel.CurrentLatLon.Longitude);
 
                 // Create marker instance: specify location on the map and radius
-                GMapMarkerCircle marker = new GMapMarkerCircle(point, 5f);
+                GMapMarkerCircle marker = new(point, 5f);
 
                 // Add marker to the map
                 overlay.Markers.Add(marker);
@@ -146,7 +146,7 @@ namespace AgOpenGPS
             gMapControl.UpdatePolygonLocalPosition(polygon);
 
             // Create marker instance: specify location on the map, radius and label
-            GMapMarkerCircle marker = new GMapMarkerCircle(pointClick, 4f, polygon.Points.Count.ToString());
+            GMapMarkerCircle marker = new(pointClick, 4f, polygon.Points.Count.ToString());
 
             // Add marker to the map
             overlay.Markers.Add(marker);
@@ -176,7 +176,7 @@ namespace AgOpenGPS
         {
             if (polygon.Points.Count > 2)
             {
-                CBoundaryList New = new CBoundaryList();
+                CBoundaryList New = new();
                 foreach (PointLatLng point in polygon.Points)
                 {
                     GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(point.Lat, point.Lng));
@@ -286,7 +286,7 @@ namespace AgOpenGPS
                 4000 < Math.Abs(geoBoundingBox.MaxEasting);
             if (!tooBig)
             {
-                Bitmap bitmap = new Bitmap(gMapControl.Width, gMapControl.Height);
+                Bitmap bitmap = new(gMapControl.Width, gMapControl.Height);
                 gMapControl.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
 
                 if (!isColorMap)
@@ -302,7 +302,7 @@ namespace AgOpenGPS
         {
             mf.worldGrid.BingMap = bingMap;
 
-            BingMapStreamer streamer = new BingMapStreamer();
+            BingMapStreamer streamer = new();
             streamer.TryWrite(bingMap, mf.AppCore.ActiveField.FieldDirectory);
         }
 

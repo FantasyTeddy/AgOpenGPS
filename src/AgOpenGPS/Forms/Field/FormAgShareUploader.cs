@@ -59,7 +59,7 @@ namespace AgOpenGPS.Forms
                     string fieldFile = Path.Combine(fieldDir, "Field.txt");
                     if (File.Exists(fieldFile))
                     {
-                        FieldInfo fieldInfo = new FieldInfo
+                        FieldInfo fieldInfo = new()
                         {
                             Name = fieldName,
                             DirectoryPath = fieldDir,
@@ -86,7 +86,7 @@ namespace AgOpenGPS.Forms
 
         private CheckBox CreateFieldCheckbox(FieldInfo fieldInfo)
         {
-            CheckBox checkbox = new CheckBox
+            CheckBox checkbox = new()
             {
                 Text = fieldInfo.Name,  // Cloud check will add ☁ later if needed
                 Checked = false,
@@ -236,7 +236,7 @@ namespace AgOpenGPS.Forms
             }
 
             // Get selected fields
-            List<FieldInfo> selectedFields = new List<FieldInfo>();
+            List<FieldInfo> selectedFields = new();
             foreach (CheckBox checkbox in flpFieldList.Controls)
             {
                 if (checkbox.Checked && checkbox.Tag is FieldInfo fieldInfo)
@@ -493,7 +493,7 @@ namespace AgOpenGPS.Forms
 
                     // Load boundaries from Boundary.txt
                     List<CBoundaryList> boundaryList = BoundaryFiles.Load(fieldInfo.DirectoryPath);
-                    List<List<vec3>> boundaries = new List<List<vec3>>();
+                    List<List<vec3>> boundaries = new();
                     foreach (CBoundaryList bnd in boundaryList)
                     {
                         if (bnd.fenceLine != null && bnd.fenceLine.Count > 0)
@@ -521,7 +521,7 @@ namespace AgOpenGPS.Forms
                     }
 
                     // Create LocalPlane with the field's own origin
-                    LocalPlane plane = new LocalPlane(origin, new SharedFieldProperties());
+                    LocalPlane plane = new(origin, new SharedFieldProperties());
 
                     return new FieldSnapshot
                     {

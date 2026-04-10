@@ -74,7 +74,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             foreach (string name in files.OrderBy(n => n))
             {
-                ListViewItem item = new ListViewItem(name) { Name = name };
+                ListViewItem item = new(name) { Name = name };
                 // Color converted files green
                 if (CSettingsMigration.IsConverted(name))
                 {
@@ -253,12 +253,12 @@ namespace AgOpenGPS.Forms.Profiles
             DialogResult confirm = FormDialog.ShowQuestion(gStr.gsConvertConfirm, confirmMsg);
             if (confirm != DialogResult.OK) return;
 
-            List<string> errors = new List<string>();
+            List<string> errors = new();
 
             // Convert Vehicle (optional)
             if (exportVehicle)
             {
-                VehicleSettings vSettings = new VehicleSettings();
+                VehicleSettings vSettings = new();
                 LoadResult vResult = CSettingsMigration.MigrateVehicle(sourceFile, vehicleName, vSettings);
                 if (vResult != LoadResult.Ok)
                 {
@@ -270,7 +270,7 @@ namespace AgOpenGPS.Forms.Profiles
             // Convert Tool (optional)
             if (exportTool)
             {
-                ToolSettings tSettings = new ToolSettings();
+                ToolSettings tSettings = new();
                 LoadResult tResult = CSettingsMigration.MigrateTool(sourceFile, toolName, tSettings);
                 if (tResult != LoadResult.Ok)
                 {

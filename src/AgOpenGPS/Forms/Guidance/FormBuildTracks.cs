@@ -23,12 +23,12 @@ namespace AgOpenGPS
         private int originalLine = 0;
         private bool isClosing;
         private int selectedItem = -1;
-        public List<CTrk> gTemp = new List<CTrk>();
+        public List<CTrk> gTemp = new();
 
         private bool isRefRightSide = true; //left side 0 middle 1 right 2
         private TrackMode mode = TrackMode.None;
-        private vec2 ptAa = new vec2();
-        private vec2 ptBb = new vec2();
+        private vec2 ptAa = new();
+        private vec2 ptBb = new();
 
         private bool isOn = true;
 
@@ -267,14 +267,14 @@ namespace AgOpenGPS
         {
             int scrollPixels = flp.VerticalScroll.Value;
 
-            System.Drawing.Font backupfont = new System.Drawing.Font(base.Font.FontFamily, 18F, FontStyle.Regular);
+            System.Drawing.Font backupfont = new(base.Font.FontFamily, 18F, FontStyle.Regular);
             flp.Controls.Clear();
 
 
             for (int i = 0; i < mf.trk.gArr.Count; i++)
             {
                 //outer inner
-                Button a = new Button
+                Button a = new()
                 {
                     Margin = new Padding(20, 10, 2, 10),
                     Size = new Size(40, 25),
@@ -291,7 +291,7 @@ namespace AgOpenGPS
                 else
                     a.BackColor = System.Drawing.Color.Red;
 
-                Button b = new Button
+                Button b = new()
                 {
                     Margin = new Padding(1, 10, 3, 10),
                     Size = new Size(35, 25),
@@ -313,7 +313,7 @@ namespace AgOpenGPS
                 b.MouseUp += Flp_MouseUp;
 
                 // Use Button instead of TextBox - no cursor, no editing possible
-                Button t = new Button
+                Button t = new()
                 {
                     Margin = new Padding(3),
                     Size = new Size(330, 40),
@@ -564,7 +564,7 @@ namespace AgOpenGPS
                             mf.trk.gArr[idx].curvePts.Add(new vec3(pt3));
                         }
 
-                        vec2 temp = new vec2(mf.trk.gArr[idx].ptA);
+                        vec2 temp = new(mf.trk.gArr[idx].ptA);
 
                         mf.trk.gArr[idx].ptA = new vec2(mf.trk.gArr[idx].ptB);
                         mf.trk.gArr[idx].ptB = new vec2(temp);
@@ -1149,7 +1149,7 @@ namespace AgOpenGPS
             string fileAndDirectory;
             {
                 //create the dialog instance
-                OpenFileDialog ofd = new OpenFileDialog
+                OpenFileDialog ofd = new()
                 {
                     //set the filter to text KML only
                     Filter = "KML files (*.KML)|*.KML",
@@ -1163,7 +1163,7 @@ namespace AgOpenGPS
                 else fileAndDirectory = ofd.FileName;
             }
 
-            XmlDocument doc = new XmlDocument
+            XmlDocument doc = new()
             {
                 PreserveWhitespace = false
             };

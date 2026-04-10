@@ -9,8 +9,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_DistanceSquared()
         {
             // Arrange
-            GeoCoord coord1 = new GeoCoord(0.0, 3.0);
-            GeoCoord coord2 = new GeoCoord(4.0, 0.0);
+            GeoCoord coord1 = new(0.0, 3.0);
+            GeoCoord coord2 = new(4.0, 0.0);
 
             // Act
             double result = coord1.DistanceSquared(coord2);
@@ -23,8 +23,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_Minimum()
         {
             // Arrange
-            GeoCoord coord1 = new GeoCoord(3.14, 1.596);
-            GeoCoord coord2 = new GeoCoord(-314, 1596);
+            GeoCoord coord1 = new(3.14, 1.596);
+            GeoCoord coord2 = new(-314, 1596);
 
             // Act
             GeoCoord minCoord = coord1.Min(coord2);
@@ -37,8 +37,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_Maximum()
         {
             // Arrange
-            GeoCoord coord1 = new GeoCoord(3.14, 1.596);
-            GeoCoord coord2 = new GeoCoord(-314, 1596);
+            GeoCoord coord1 = new(3.14, 1.596);
+            GeoCoord coord2 = new(-314, 1596);
 
             // Act
             GeoCoord maxCoord = coord1.Max(coord2);
@@ -51,8 +51,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_Average()
         {
             // Arrange
-            GeoCoord coord1 = new GeoCoord(3.14, 1.596);
-            GeoCoord coord2 = new GeoCoord(-314, 1596);
+            GeoCoord coord1 = new(3.14, 1.596);
+            GeoCoord coord2 = new(-314, 1596);
 
             // Act
             GeoCoord middleCoord = coord1.Average(coord2);
@@ -65,8 +65,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_Distance()
         {
             // Arrange
-            GeoCoord coord1 = new GeoCoord(0.0, 3.0);
-            GeoCoord coord2 = new GeoCoord(4.0, 0.0);
+            GeoCoord coord1 = new(0.0, 3.0);
+            GeoCoord coord2 = new(4.0, 0.0);
 
             // Act
             double result = coord1.Distance(coord2);
@@ -79,9 +79,9 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_PlusMinusDelta()
         {
             // Arrange
-            GeoCoord coord1 = new GeoCoord(19.0, 67.0);
-            GeoDelta deltaN = new GeoDelta(3.0, 0.0);
-            GeoDelta deltaE = new GeoDelta(0.0, 40.0);
+            GeoCoord coord1 = new(19.0, 67.0);
+            GeoDelta deltaN = new(3.0, 0.0);
+            GeoDelta deltaE = new(0.0, 40.0);
 
             // Act
             GeoCoord plusNE = coord1 + deltaN + deltaE;

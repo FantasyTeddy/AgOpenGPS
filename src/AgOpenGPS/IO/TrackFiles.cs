@@ -15,11 +15,11 @@ namespace AgOpenGPS.IO
             if (string.IsNullOrWhiteSpace(fieldDirectory))
                 throw new ArgumentNullException(nameof(fieldDirectory));
 
-            List<CTrk> result = new List<CTrk>();
+            List<CTrk> result = new();
             string path = Path.Combine(fieldDirectory, "TrackLines.txt");
             if (!File.Exists(path)) return result;
 
-            using StreamReader reader = new StreamReader(path);
+            using StreamReader reader = new(path);
             // Require header
             string header = reader.ReadLine();
             if (header == null || !header.TrimStart().StartsWith("$", StringComparison.Ordinal))
@@ -47,7 +47,7 @@ namespace AgOpenGPS.IO
                 string[] aParts = aLine.Split(',');
                 double aEasting = double.Parse(aParts[0], CultureInfo.InvariantCulture);
                 double aNorthing = double.Parse(aParts[1], CultureInfo.InvariantCulture);
-                vec2 ptA = new vec2(aEasting, aNorthing);
+                vec2 ptA = new(aEasting, aNorthing);
 
                 // --- B point (easting,northing) ---
                 string bLine = reader.ReadLine();
@@ -55,7 +55,7 @@ namespace AgOpenGPS.IO
                 string[] bParts = bLine.Split(',');
                 double bEasting = double.Parse(bParts[0], CultureInfo.InvariantCulture);
                 double bNorthing = double.Parse(bParts[1], CultureInfo.InvariantCulture);
-                vec2 ptB = new vec2(bEasting, bNorthing);
+                vec2 ptB = new(bEasting, bNorthing);
 
                 // --- Nudge ---
                 string nudgeLine = reader.ReadLine();
@@ -79,7 +79,7 @@ namespace AgOpenGPS.IO
                 int curveCount = int.Parse(countLine.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture);
 
                 // --- Curve points ---
-                List<vec3> curvePts = new List<vec3>();
+                List<vec3> curvePts = new();
                 for (int i = 0; i < curveCount; i++)
                 {
                     string line = reader.ReadLine();
@@ -99,7 +99,7 @@ namespace AgOpenGPS.IO
                 }
 
                 // Build CTrk
-                CTrk tr = new CTrk
+                CTrk tr = new()
                 {
                     name = name,
                     mode = modeEnum,
@@ -128,7 +128,7 @@ namespace AgOpenGPS.IO
 
             string filename = Path.Combine(fieldDirectory, "TrackLines.txt");
 
-            using StreamWriter writer = new StreamWriter(filename, false);
+            using StreamWriter writer = new(filename, false);
             writer.WriteLine("$TrackLines");
             if (tracks == null || tracks.Count == 0) return;
 

@@ -31,7 +31,7 @@ namespace AgOpenGPS
         //polygon mode for section drawing
         public bool isDrawPolygons = false, isPauseFieldTextCounter = false;
 
-        public CFeatureSettings featureSettings = new CFeatureSettings();
+        public CFeatureSettings featureSettings = new();
 
         public Color frameDayColor;
         public Color frameNightColor;
@@ -88,7 +88,7 @@ namespace AgOpenGPS
         private int oneSecondCounter = 0;
         private int oneHalfSecondCounter = 0;
 
-        public List<int> buttonOrder = new List<int>();
+        public List<int> buttonOrder = new();
 
         //Timer triggers at 125 msec
         private void tmrWatchdog_tick(object sender, EventArgs e)
@@ -196,7 +196,7 @@ namespace AgOpenGPS
                                 {
                                 }
 
-                                GeoDir headingDir = new GeoDir(trk.gArr[trk.idx].heading);
+                                GeoDir headingDir = new(trk.gArr[trk.idx].heading);
                                 lblCurrentField.Text = gStr.gsABline + ": " + trk.gArr[trk.idx].name + "  " + headingDir.HeadingString("N3") + ", " + headingDir.Inverted.HeadingString("N3");
                             }
                             else

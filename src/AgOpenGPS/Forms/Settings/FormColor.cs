@@ -60,7 +60,7 @@ namespace AgOpenGPS
         {
             if (!mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.frameDayColor))
+            using (FormColorPicker form = new(mf, mf.frameDayColor))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -79,7 +79,7 @@ namespace AgOpenGPS
         {
             if (mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.frameNightColor))
+            using (FormColorPicker form = new(mf, mf.frameNightColor))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -98,7 +98,7 @@ namespace AgOpenGPS
         {
             if (!mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.fieldColorDay))
+            using (FormColorPicker form = new(mf, mf.fieldColorDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -117,7 +117,7 @@ namespace AgOpenGPS
         {
             if (mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.fieldColorNight))
+            using (FormColorPicker form = new(mf, mf.fieldColorNight))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -141,7 +141,7 @@ namespace AgOpenGPS
         {
             if (mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.textColorNight))
+            using (FormColorPicker form = new(mf, mf.textColorNight))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -160,7 +160,7 @@ namespace AgOpenGPS
         {
             if (!mf.isDay) mf.SwapDayNightMode();
 
-            using (FormColorPicker form = new FormColorPicker(mf, mf.textColorDay))
+            using (FormColorPicker form = new(mf, mf.textColorDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {

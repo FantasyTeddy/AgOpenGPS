@@ -59,7 +59,7 @@ namespace AgOpenGPS.Forms.Field
 
                 foreach (GetOwnFieldDto field in fields)
                 {
-                    ListViewItem item = new ListViewItem(field.Name) { Tag = field };
+                    ListViewItem item = new(field.Name) { Tag = field };
                     lbFields.Items.Add(item);
                 }
 
@@ -161,7 +161,7 @@ namespace AgOpenGPS.Forms.Field
             progressBarDownloadAll.Maximum = fields.Count;
 
             // Prepare progress reporting
-            Progress<int> progress = new Progress<int>(v =>
+            Progress<int> progress = new(v =>
             {
                 progressBarDownloadAll.Value = v;
                 progressBarDownloadAll.Refresh();
@@ -221,10 +221,10 @@ namespace AgOpenGPS.Forms.Field
             GeoBoundingBox fieldBb = GetBoundingBox(field.Boundaries, field.Tracks);
 
             // Ensure non-zero margins even for vertical/horizontal lines or single points
-            GeoDelta bbMargin = new GeoDelta(
+            GeoDelta bbMargin = new(
                 Math.Max(0.05 * (fieldBb.MaxNorthing - fieldBb.MinNorthing), 50),
                 Math.Max(0.05 * (fieldBb.MaxEasting - fieldBb.MinEasting), 50));
-            GeoBoundingBox bbWithMargin = new GeoBoundingBox(fieldBb.MinCoord - bbMargin, fieldBb.MaxCoord + bbMargin);
+            GeoBoundingBox bbWithMargin = new(fieldBb.MinCoord - bbMargin, fieldBb.MaxCoord + bbMargin);
 
             // Configure orthographic projection
             GL.MatrixMode(MatrixMode.Projection);

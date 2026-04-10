@@ -46,13 +46,13 @@ namespace AgIO
 
         public bool isRadio_RequiredOn = false;
         public bool isSerialPass_RequiredOn = false;
-        internal SerialPort spRadio = new SerialPort("Radio", 9600, Parity.None, 8, StopBits.One);
+        internal SerialPort spRadio = new("Radio", 9600, Parity.None, 8, StopBits.One);
 
-        private readonly List<int> rList = new List<int>();
-        private readonly List<int> aList = new List<int>();
+        private readonly List<int> rList = new();
+        private readonly List<int> aList = new();
 
         //NTRIP metering
-        private readonly Queue<byte> rawTrip = new Queue<byte>();
+        private readonly Queue<byte> rawTrip = new();
 
         //set up connection to Caster
         private void DoNTRIPSecondRoutine()
@@ -727,7 +727,7 @@ namespace AgIO
             return String.Format("{0:X2}", sum);
         }
 
-        private readonly StringBuilder sbGGA = new StringBuilder();
+        private readonly StringBuilder sbGGA = new();
 
         private void BuildGGA()
         {

@@ -40,7 +40,7 @@ namespace AgOpenGPS.Core.Streamers
         public FieldOverview Read(DirectoryInfo fieldDirectory)
         {
             FieldOverview fieldOverview = null;
-            using (GeoStreamReader reader = new GeoStreamReader(GetFileInfo(fieldDirectory)))
+            using (GeoStreamReader reader = new(GetFileInfo(fieldDirectory)))
             {
                 reader.ReadLine(); // Skip Date time
                 reader.ReadLine(); // Skip "$FieldDir"
@@ -59,7 +59,7 @@ namespace AgOpenGPS.Core.Streamers
         public void Write(FieldOverview fieldOverview, DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory));
+            using GeoStreamWriter writer = new(GetFileInfo(fieldDirectory));
             writer.WriteDateTime();
             writer.WriteLine("$FieldDir");
             writer.WriteLine(fieldOverview.Creator);

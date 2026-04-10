@@ -12,11 +12,11 @@ namespace AgOpenGPS.IO
     {
         public static List<CBoundaryList> Load(string fieldDirectory)
         {
-            List<CBoundaryList> result = new List<CBoundaryList>();
+            List<CBoundaryList> result = new();
             string path = Path.Combine(fieldDirectory, "Boundary.txt");
             if (!File.Exists(path)) return result;
 
-            using StreamReader reader = new StreamReader(path);
+            using StreamReader reader = new(path);
             // Skip optional header
             string line = reader.ReadLine();
             if (line != null && !line.TrimStart().StartsWith("$", StringComparison.OrdinalIgnoreCase))
@@ -30,7 +30,7 @@ namespace AgOpenGPS.IO
             {
                 if (string.IsNullOrWhiteSpace(line)) continue;
 
-                CBoundaryList b = new CBoundaryList();
+                CBoundaryList b = new();
 
                 // Some legacy wrote "True/False" twice; accept and consume up to two flags.
                 for (int pass = 0; pass < 2; pass++)
@@ -97,7 +97,7 @@ namespace AgOpenGPS.IO
         {
             string filename = Path.Combine(fieldDirectory, "Boundary.txt");
 
-            using StreamWriter writer = new StreamWriter(filename, false);
+            using StreamWriter writer = new(filename, false);
             writer.WriteLine("$Boundary");
             if (boundaries == null || boundaries.Count == 0) return;
 

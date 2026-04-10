@@ -12,7 +12,7 @@ namespace AgOpenGPS.Controls
             nudlessNumericUpDown.BackColor = Color.Red;
             nudlessNumericUpDown.Value = Math.Round(nudlessNumericUpDown.Value, nudlessNumericUpDown.DecimalPlaces);
 
-            using FormNumeric form = new FormNumeric((double)nudlessNumericUpDown.Minimum, (double)nudlessNumericUpDown.Maximum, (double)nudlessNumericUpDown.Value);
+            using FormNumeric form = new((double)nudlessNumericUpDown.Minimum, (double)nudlessNumericUpDown.Maximum, (double)nudlessNumericUpDown.Value);
             DialogResult result = form.ShowDialog(owner);
             if (result == DialogResult.OK)
             {

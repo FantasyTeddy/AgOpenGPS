@@ -121,7 +121,7 @@ namespace AgOpenGPS
             mf.fd.UpdateFieldBoundaryGUIAreas();
 
             //to fill the list of line points
-            vec3 point = new vec3();
+            vec3 point = new();
 
             //determine how wide a headland space
             double totalHeadWidth = mf.yt.uturnDistanceFromBoundary;
@@ -145,7 +145,7 @@ namespace AgOpenGPS
                     //only add if outside actual field boundary
                     if (j == 0 == bndList[j].fenceLineEar.IsPointInPolygon(point))
                     {
-                        vec3 tPnt = new vec3(point.easting, point.northing, point.heading);
+                        vec3 tPnt = new(point.easting, point.northing, point.heading);
                         bndList[j].turnLine.Add(tPnt);
                     }
                 }
@@ -182,7 +182,7 @@ namespace AgOpenGPS
 
                 if (bndList[j].turnLine.Count > 0)
                 {
-                    vec3 end = new vec3(bndList[j].turnLine[0].easting,
+                    vec3 end = new(bndList[j].turnLine[0].easting,
                         bndList[j].turnLine[0].northing, bndList[j].turnLine[0].heading);
                     bndList[j].turnLine.Add(end);
                 }

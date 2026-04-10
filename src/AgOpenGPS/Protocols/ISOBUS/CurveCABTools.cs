@@ -23,7 +23,7 @@ namespace AgOpenGPS
         {
             if (points == null || points.Count < 2) return points;
 
-            List<vec3> spaced = new List<vec3>(points.Count);
+            List<vec3> spaced = new(points.Count);
             vec3 last = points[0];
             spaced.Add(last);
 
@@ -54,7 +54,7 @@ namespace AgOpenGPS
         {
             if (points == null || points.Count < 2) return points;
 
-            List<vec3> result = new List<vec3>(points.Count * 2);
+            List<vec3> result = new(points.Count * 2);
 
             for (int i = 0; i < points.Count - 1; i++)
             {

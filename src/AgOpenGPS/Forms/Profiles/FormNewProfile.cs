@@ -15,7 +15,7 @@ namespace AgOpenGPS.Forms.Profiles
     public partial class FormNewProfile : Form
     {
         private static readonly string EmptyProfile = $"<{gStr.gsEmptyProfile}>";
-        private static readonly Regex InvalidFileRegex = new Regex(string.Format("[{0}]", Regex.Escape(@"<>:""/\|?*")));
+        private static readonly Regex InvalidFileRegex = new(string.Format("[{0}]", Regex.Escape(@"<>:""/\|?*")));
         private readonly FormGPS _formGPS;
 
         public FormNewProfile(FormGPS formGPS)
@@ -56,7 +56,7 @@ namespace AgOpenGPS.Forms.Profiles
             if (!Directory.Exists(RegistrySettings.environmentDirectory))
                 return Enumerable.Empty<string>();
 
-            DirectoryInfo directory = new DirectoryInfo(RegistrySettings.environmentDirectory);
+            DirectoryInfo directory = new(RegistrySettings.environmentDirectory);
             FileInfo[] files = directory.GetFiles("*.xml");
             return files.Select(file => Path.GetFileNameWithoutExtension(file.Name));
         }
@@ -72,7 +72,7 @@ namespace AgOpenGPS.Forms.Profiles
             }
             else
             {
-                FormTimedMessage form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                FormTimedMessage form = new(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 form.Show(this);
                 textBoxName.Enabled = false;
             }

@@ -33,9 +33,9 @@ namespace AgOpenGPS
 
         public double avgPivDistance, lightbarDistance, longAvgPivDistance;
 
-        private vec2 left = new vec2();
-        private vec2 right = new vec2();
-        private vec2 ptTip = new vec2();
+        private vec2 left = new();
+        private vec2 right = new();
+        private vec2 ptTip = new();
 
         private void oglMain_Load(object sender, EventArgs e)
         {
@@ -284,7 +284,7 @@ namespace AgOpenGPS
                                         GL.Begin(PrimitiveType.TriangleStrip);
 
                                         //left side of triangle
-                                        vec2 pt = new vec2((cosSectionHeading * section[triStrip[j].currentStartSectionNum].positionLeft) + toolPos.easting,
+                                        vec2 pt = new((cosSectionHeading * section[triStrip[j].currentStartSectionNum].positionLeft) + toolPos.easting,
                                                 (sinSectionHeading * section[triStrip[j].currentStartSectionNum].positionLeft) + toolPos.northing);
 
                                         GL.Vertex3(pt.easting, pt.northing, 0);
@@ -1730,8 +1730,8 @@ namespace AgOpenGPS
             if (!isStanleyUsed && isUTurnOn)
             {
                 GL.Color3(0.90f, 0.90f, 0.293f);
-                XyCoord center = new XyCoord(two3, 120);
-                XyDelta delta = new XyDelta(82, 30);
+                XyCoord center = new(two3, 120);
+                XyDelta delta = new(82, 30);
                 ScreenTextures.TurnManual.DrawCentered(center, delta);
             }
 
@@ -1740,8 +1740,8 @@ namespace AgOpenGPS
             if (isLateralOn)
             {
                 GL.Color3(0.590f, 0.90f, 0.93f);
-                XyCoord center = new XyCoord(two3, 200);
-                XyDelta delta = new XyDelta(100, 30);
+                XyCoord center = new(two3, 200);
+                XyDelta delta = new(100, 30);
 
                 ScreenTextures.LateralManual.DrawCentered(center, delta);
             }
@@ -1768,7 +1768,7 @@ namespace AgOpenGPS
             Texture2D turnTexture = !yt.isYouTurnTriggered ? ScreenTextures.Turn : ScreenTextures.TurnCancel;
             //int bottom = 90;
             int two3 = oglMain.Width / 5;
-            XyCoord turnTextureCenter = new XyCoord(two3, 120);
+            XyCoord turnTextureCenter = new(two3, 120);
             turnTexture.DrawCentered(turnTextureCenter, !yt.isTurnLeft ? new XyDelta(62, 30) : new XyDelta(-62, 30));
 
             //draw K turn/ normal turn button
@@ -1777,7 +1777,7 @@ namespace AgOpenGPS
             GL.Color3(1.0f, 1.0f, 1.0f);
 
             Texture2D uTurnTexture = yt.uTurnStyle == 0 ? ScreenTextures.UTurnU : ScreenTextures.UTurnH;
-            XyCoord uTurnTextureCenter = new XyCoord(two3, 130);
+            XyCoord uTurnTextureCenter = new(two3, 130);
             uTurnTexture.DrawCentered(uTurnTextureCenter, new XyDelta(32, 30));
 
             two3 -= 140;
@@ -1812,7 +1812,7 @@ namespace AgOpenGPS
             int sizer = oglMain.Width / 15;
             int center = (oglMain.Width / 2) - sizer;
             int bottomSide = oglMain.Height - (sizer / 2);
-            XyDelta textureDelta = new XyDelta(sizer, sizer);
+            XyDelta textureDelta = new(sizer, sizer);
 
             //draw the clock
             GL.Color4(0.9752f, 0.80f, 0.3f, 0.98);
@@ -1873,9 +1873,9 @@ namespace AgOpenGPS
         {
             //int sizer = 60;
             int bottomSide = oglMain.Height / 5;
-            XyCoord leftDotCenter = new XyCoord(-50, bottomSide);
-            XyCoord rightDotCenter = new XyCoord(+50, bottomSide);
-            XyDelta dotDelta = new XyDelta(24, 24);
+            XyCoord leftDotCenter = new(-50, bottomSide);
+            XyCoord rightDotCenter = new(+50, bottomSide);
+            XyDelta dotDelta = new(24, 24);
 
             ColorRgba leftDotColor = TramDotColor(tram.isLeftManualOn, isFlashOnOff, (tram.controlByte & 2) != 0);
             GLW.SetColor(leftDotColor);
@@ -1935,9 +1935,9 @@ namespace AgOpenGPS
 
         private void DrawFlags()
         {
-            ColorRgba flagRedColor = new ColorRgba(255, 0, 0);
-            ColorRgba flagGreenColor = new ColorRgba(0, 255, 0);
-            ColorRgba flagYellowColor = new ColorRgba(255, 255, 0);
+            ColorRgba flagRedColor = new(255, 0, 0);
+            ColorRgba flagGreenColor = new(0, 255, 0);
+            ColorRgba flagYellowColor = new(255, 255, 0);
             try
             {
                 foreach (CFlag flag in flagPts)
@@ -1971,10 +1971,10 @@ namespace AgOpenGPS
                     GLW.SetColor(Colors.FlagSelectedBoxColor);
                     CFlag flag = flagPts[flagNumberPicked - 1];
                     XyCoord[] squareCorners = {
-                        new XyCoord(flag.easting         , flag.northing + offSet),
-                        new XyCoord(flag.easting - offSet, flag.northing),
-                        new XyCoord(flag.easting         , flag.northing - offSet),
-                        new XyCoord(flag.easting + offSet, flag.northing),
+                        new(flag.easting         , flag.northing + offSet),
+                        new(flag.easting - offSet, flag.northing),
+                        new(flag.easting         , flag.northing - offSet),
+                        new(flag.easting + offSet, flag.northing),
                     };
                     GLW.DrawLineLoopPrimitive(squareCorners);
                 }
@@ -2144,8 +2144,8 @@ namespace AgOpenGPS
                 GL.Color4(red, green, 0.3, 1.0);
 
                 // Background rectangle IDENTICAL to SteerBarText
-                XyCoord u0v0 = new XyCoord(-wide, 35 * (1 + textSize));
-                XyCoord u1v1 = new XyCoord(wide, 3);
+                XyCoord u0v0 = new(-wide, 35 * (1 + textSize));
+                XyCoord u1v1 = new(wide, 3);
                 ScreenTextures.CrossTrackBackground.Draw(u0v0, u1v1);
 
                 // Main text (distance + arrows)
@@ -2312,8 +2312,8 @@ namespace AgOpenGPS
 
                 GL.Color4(red, green, 0.3, 1.0);
 
-                XyCoord u0v0 = new XyCoord(-wide, 35 * (1 + textSize));
-                XyCoord u1v1 = new XyCoord(wide, 3);
+                XyCoord u0v0 = new(-wide, 35 * (1 + textSize));
+                XyCoord u1v1 = new(wide, 3);
                 ScreenTextures.CrossTrackBackground.Draw(u0v0, u1v1);
 
                 GL.Color4(0.12f, 0.12770f, 0.120f, 1);
@@ -2381,9 +2381,9 @@ namespace AgOpenGPS
 
             int center = (oglMain.Width / 2) - 60;
 
-            XyCoord zoomInCoord = new XyCoord(center, 50);
-            XyCoord zoomOutCoord = new XyCoord(center, 200);
-            XyDelta sizeDelta = new XyDelta(32, 32);
+            XyCoord zoomInCoord = new(center, 50);
+            XyCoord zoomOutCoord = new(center, 200);
+            XyDelta sizeDelta = new(32, 32);
 
             ScreenTextures.ZoomIn.Draw(zoomInCoord, zoomInCoord + sizeDelta);
             ScreenTextures.ZoomOut.Draw(zoomOutCoord, zoomOutCoord + sizeDelta);
@@ -2394,13 +2394,13 @@ namespace AgOpenGPS
                 center = (oglMain.Width / -2) + 30;
                 if (!isPanFormVisible)
                 {
-                    XyCoord panCoord = new XyCoord(center, 50);
+                    XyCoord panCoord = new(center, 50);
                     ScreenTextures.Pan.Draw(panCoord, panCoord + sizeDelta);
                 }
 
                 //hide show bottom menu
                 int hite = oglMain.Height - 30;
-                XyCoord menuShowHideCoord = new XyCoord(center, hite - 32);
+                XyCoord menuShowHideCoord = new(center, hite - 32);
                 ScreenTextures.MenuShowHide.Draw(menuShowHideCoord, menuShowHideCoord + sizeDelta);
 
                 center += 50;

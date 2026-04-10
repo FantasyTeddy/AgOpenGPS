@@ -9,7 +9,7 @@ namespace AgOpenGPS.Controls
         {
             Color color = textBox.BackColor;
             textBox.BackColor = Color.Red;
-            using (FormKeyboard form = new FormKeyboard(textBox.Text))
+            using (FormKeyboard form = new(textBox.Text))
             {
                 if (form.ShowDialog(owner) == DialogResult.OK)
                 {

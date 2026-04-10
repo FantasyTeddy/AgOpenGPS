@@ -90,7 +90,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             foreach (string name in GetFiles(RegistrySettings.vehiclesDirectory, "VehicleSettings"))
             {
-                ListViewItem item = new ListViewItem(name) { Name = name };
+                ListViewItem item = new(name) { Name = name };
                 if (name == RegistrySettings.vehicleProfileName)
                 {
                     item.BackColor = ColorCurrent;
@@ -202,7 +202,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             foreach (string name in GetFiles(RegistrySettings.toolsDirectory, "ToolSettings"))
             {
-                ListViewItem item = new ListViewItem(name) { Name = name };
+                ListViewItem item = new(name) { Name = name };
                 if (name == RegistrySettings.toolProfileName)
                 {
                     item.BackColor = ColorCurrent;
@@ -308,7 +308,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void LoadVehiclePreview(string name)
         {
-            VehicleSettings preview = new VehicleSettings();
+            VehicleSettings preview = new();
             string path = Path.Combine(RegistrySettings.vehiclesDirectory, name + ".xml");
             if (File.Exists(path))
                 XmlSettingsHandler.LoadXMLFile(path, preview);
@@ -335,7 +335,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void LoadToolPreview(string name)
         {
-            ToolSettings preview = new ToolSettings();
+            ToolSettings preview = new();
             string path = Path.Combine(RegistrySettings.toolsDirectory, name + ".xml");
             if (File.Exists(path))
                 XmlSettingsHandler.LoadXMLFile(path, preview);
@@ -494,7 +494,7 @@ namespace AgOpenGPS.Forms.Profiles
                 if (overwrite != DialogResult.OK) return;
             }
 
-            VehicleSettings fresh = new VehicleSettings();
+            VehicleSettings fresh = new();
             XmlSettingsHandler.SaveXMLFile(path, fresh);
             Log.EventWriter($"Default vehicle profile created: {defaultName}");
 
@@ -539,7 +539,7 @@ namespace AgOpenGPS.Forms.Profiles
                 if (overwrite != DialogResult.OK) return;
             }
 
-            ToolSettings fresh = new ToolSettings();
+            ToolSettings fresh = new();
             XmlSettingsHandler.SaveXMLFile(path, fresh);
             Log.EventWriter($"Default tool profile created: {defaultName}");
 
@@ -569,7 +569,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonConvertOld_Click(object sender, EventArgs e)
         {
-            using (FormConvertProfiles form = new FormConvertProfiles(_formGPS))
+            using (FormConvertProfiles form = new(_formGPS))
             {
                 form.ShowDialog(this);
             }

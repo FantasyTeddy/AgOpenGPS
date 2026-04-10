@@ -57,7 +57,7 @@ namespace AgIO
 
         private void btnFileSave_Click(object sender, EventArgs e)
         {
-            using (StreamWriter writer = new StreamWriter("zAgIO_UDP_log.txt", false))
+            using (StreamWriter writer = new("zAgIO_UDP_log.txt", false))
             {
                 writer.Write(textBoxRcv.Text);
             }
@@ -93,7 +93,7 @@ namespace AgIO
 
         private void lblPGNGuide_Click(object sender, EventArgs e)
         {
-            FormPGN form = new FormPGN();
+            FormPGN form = new();
             form.Show(this);
         }
     }

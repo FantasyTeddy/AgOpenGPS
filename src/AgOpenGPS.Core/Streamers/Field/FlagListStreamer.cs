@@ -65,8 +65,8 @@ namespace AgOpenGPS.Core.Streamers
 
         private List<Flag> Read(DirectoryInfo fieldDirectory)
         {
-            List<Flag> flagList = new List<Flag>();
-            using (GeoStreamReader reader = new GeoStreamReader(GetFileInfo(fieldDirectory)))
+            List<Flag> flagList = new();
+            using (GeoStreamReader reader = new(GetFileInfo(fieldDirectory)))
             {
                 string line = reader.ReadLine(); // skip header
 
@@ -85,7 +85,7 @@ namespace AgOpenGPS.Core.Streamers
                     int number = int.Parse(words[isComplete ? 6 : 5]);
                     string notes = isComplete ? words[7].Trim() : "";
 
-                    Flag flag = new Flag(wgs84, geoCoord, new GeoDir(head), FlagColorFromInt(intColor), number, notes);
+                    Flag flag = new(wgs84, geoCoord, new GeoDir(head), FlagColorFromInt(intColor), number, notes);
                     flagList.Add(flag);
                 }
             }
@@ -106,7 +106,7 @@ namespace AgOpenGPS.Core.Streamers
         private void Write(List<Flag> flags, DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory));
+            using GeoStreamWriter writer = new(GetFileInfo(fieldDirectory));
             writer.WriteLine("$Flags");
 
             int nFlags = flags.Count;

@@ -10,11 +10,11 @@ namespace AgOpenGPS.IO
     {
         public static List<CRecPathPt> Load(string fieldDirectory)
         {
-            List<CRecPathPt> list = new List<CRecPathPt>();
+            List<CRecPathPt> list = new();
             string path = Path.Combine(fieldDirectory, "RecPath.txt");
             if (!File.Exists(path)) return list;
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 string headerOrCount = reader.ReadLine();
                 string cntLine = reader.ReadLine();
@@ -34,7 +34,7 @@ namespace AgOpenGPS.IO
                     string[] words = (reader.ReadLine() ?? string.Empty).Split(',');
                     if (words.Length < 5) continue;
 
-                    CRecPathPt pt = new CRecPathPt(
+                    CRecPathPt pt = new(
                         double.Parse(words[0], CultureInfo.InvariantCulture), // easting
                         double.Parse(words[1], CultureInfo.InvariantCulture), // northing
                         double.Parse(words[2], CultureInfo.InvariantCulture), // heading
@@ -51,7 +51,7 @@ namespace AgOpenGPS.IO
         {
             string filename = Path.Combine(fieldDirectory, fileName ?? "RecPath.txt");
 
-            using StreamWriter writer = new StreamWriter(filename, false);
+            using StreamWriter writer = new(filename, false);
             writer.WriteLine("$RecPath");
             IReadOnlyList<CRecPathPt> list = recList ?? new List<CRecPathPt>();
 
@@ -79,7 +79,7 @@ namespace AgOpenGPS.IO
             }
 
             string path = Path.Combine(fieldDirectory, "RecPath.txt");
-            using StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8);
+            using StreamWriter writer = new(path, false, Encoding.UTF8);
             writer.WriteLine("$RecPath");
             writer.WriteLine("0");
         }

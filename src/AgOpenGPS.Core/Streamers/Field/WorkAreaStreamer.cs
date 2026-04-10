@@ -35,8 +35,8 @@ namespace AgOpenGPS.Core.Streamers
 
         public WorkedArea Read(DirectoryInfo fieldDirectory)
         {
-            WorkedArea workedArea = new WorkedArea();
-            using (GeoStreamReader reader = new GeoStreamReader(GetFileInfo(fieldDirectory)))
+            WorkedArea workedArea = new();
+            using (GeoStreamReader reader = new(GetFileInfo(fieldDirectory)))
             {
                 //read header
                 while (!reader.EndOfStream)
@@ -44,7 +44,7 @@ namespace AgOpenGPS.Core.Streamers
                     int n = reader.ReadInt();
                     int nPairs = (n - 1) / 2; // -1 beacuse first line holds ColorRGB
 
-                    QuadStrip strip = new QuadStrip(reader.ReadColorRgb());
+                    QuadStrip strip = new(reader.ReadColorRgb());
                     for (int i = 0; i < nPairs; i++)
                     {
                         GeoCoord leftCoord = reader.ReadGeoCoord();
@@ -59,7 +59,7 @@ namespace AgOpenGPS.Core.Streamers
 
         public void AppendUnsavedWork(WorkedArea workedArea, DirectoryInfo fieldDirectory)
         {
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory), true))
+            using (GeoStreamWriter writer = new(GetFileInfo(fieldDirectory), true))
             {
                 //for each patch, write out the list of triangles to the file
                 foreach (QuadStrip quadStrip in workedArea.UnsavedWork)

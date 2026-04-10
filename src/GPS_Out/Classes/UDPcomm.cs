@@ -64,7 +64,7 @@ namespace GPS_Out
                 sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
                 // Initialise the IPEndPoint for the server to send on port
-                IPEndPoint server = new IPEndPoint(IPAddress.Any, cSendFromPort);
+                IPEndPoint server = new(IPAddress.Any, cSendFromPort);
                 sendSocket.Bind(server);
 
                 // Initialise the IPEndPoint for the client - async listner client only!

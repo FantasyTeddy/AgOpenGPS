@@ -13,7 +13,7 @@ namespace AgOpenGPS.IO
             string path = Path.Combine(fieldDirectory, "Headland.txt");
             if (!File.Exists(path)) return;
 
-            using StreamReader reader = new StreamReader(path);
+            using StreamReader reader = new(path);
             // Skip optional header
             string line = reader.ReadLine();
             if (line != null && line.Trim().StartsWith("$"))
@@ -58,7 +58,7 @@ namespace AgOpenGPS.IO
         {
             string filename = Path.Combine(fieldDirectory, "Headland.txt");
 
-            using StreamWriter writer = new StreamWriter(filename, false);
+            using StreamWriter writer = new(filename, false);
             writer.WriteLine("$Headland");
 
             if (boundaries == null || boundaries.Count == 0) return;

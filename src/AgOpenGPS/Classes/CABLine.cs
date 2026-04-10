@@ -8,30 +8,30 @@ namespace AgOpenGPS
 {
     public class CABLine
     {
-        private readonly ColorRgba newAbLineColor = new ColorRgba(0.95f, 0.70f, 0.50f);
-        private readonly ColorRgba pointsTextGreen = new ColorRgba(0.2f, 0.950f, 0.20f);
-        private readonly ColorRgba pointARed = new ColorRgba(0.95f, 0.0f, 0.0f);
-        private readonly ColorRgba pointBCyan = new ColorRgba(0.0f, 0.90f, 0.95f);
-        private readonly ColorRgba referenceLineRed = new ColorRgba(0.930f, 0.2f, 0.2f);
-        private readonly ColorRgba shadowAreaGray = new ColorRgba(0.5f, 0.5f, 0.5f, 0.2f);
-        private readonly ColorRgba shadowLinesGray = new ColorRgba(0.55f, 0.55f, 0.55f, 0.2f);
-        private readonly ColorRgba currentAbLinePurple = new ColorRgba(0.95f, 0.20f, 0.950f);
-        private readonly ColorRgba extraGuidelinesBlack = new ColorRgba(0.0f, 0.0f, 0.0f, 0.5f);
-        private readonly ColorRgba extraGuidelinesGreen = new ColorRgba(0.19907f, 0.6f, 0.19750f, 0.6f);
+        private readonly ColorRgba newAbLineColor = new(0.95f, 0.70f, 0.50f);
+        private readonly ColorRgba pointsTextGreen = new(0.2f, 0.950f, 0.20f);
+        private readonly ColorRgba pointARed = new(0.95f, 0.0f, 0.0f);
+        private readonly ColorRgba pointBCyan = new(0.0f, 0.90f, 0.95f);
+        private readonly ColorRgba referenceLineRed = new(0.930f, 0.2f, 0.2f);
+        private readonly ColorRgba shadowAreaGray = new(0.5f, 0.5f, 0.5f, 0.2f);
+        private readonly ColorRgba shadowLinesGray = new(0.55f, 0.55f, 0.55f, 0.2f);
+        private readonly ColorRgba currentAbLinePurple = new(0.95f, 0.20f, 0.950f);
+        private readonly ColorRgba extraGuidelinesBlack = new(0.0f, 0.0f, 0.0f, 0.5f);
+        private readonly ColorRgba extraGuidelinesGreen = new(0.19907f, 0.6f, 0.19750f, 0.6f);
 
         public double abHeading, abLength;
 
         public bool isABValid;
 
         //the current AB guidance line
-        public vec3 currentLinePtA = new vec3(0.0, 0.0, 0.0);
-        public vec3 currentLinePtB = new vec3(0.0, 1.0, 0.0);
+        public vec3 currentLinePtA = new(0.0, 0.0, 0.0);
+        public vec3 currentLinePtB = new(0.0, 1.0, 0.0);
 
         public double distanceFromCurrentLinePivot;
         public double distanceFromRefLine;
 
         //pure pursuit values
-        public vec2 goalPointAB = new vec2(0, 0);
+        public vec2 goalPointAB = new(0, 0);
 
         public int howManyPathsAway, lastHowManyPathsAway;
         public bool isMakingABLine;
@@ -41,7 +41,7 @@ namespace AgOpenGPS
         //public int tramBasedOn;
         public double ppRadiusAB;
 
-        public vec2 radiusPointAB = new vec2(0, 0);
+        public vec2 radiusPointAB = new(0, 0);
         public double rEastAB, rNorthAB;
 
         public double snapDistance, lastSecond = 0;
@@ -49,11 +49,11 @@ namespace AgOpenGPS
         public int lineWidth, numGuideLines;
 
         //design
-        public vec2 desPtA = new vec2(0.2, 0.15);
-        public vec2 desPtB = new vec2(0.3, 0.3);
+        public vec2 desPtA = new(0.2, 0.15);
+        public vec2 desPtB = new(0.3, 0.3);
 
-        public vec2 desLineEndA = new vec2(0.0, 0.0);
-        public vec2 desLineEndB = new vec2(999997, 1.0);
+        public vec2 desLineEndA = new(0.0, 0.0);
+        public vec2 desLineEndB = new(999997, 1.0);
 
         public double desHeading = 0;
 
@@ -142,13 +142,13 @@ namespace AgOpenGPS
                 distAway += 0.5 * widthMinusOverlap;
 
                 //move the curline as well. 
-                vec2 nudgePtA = new vec2(track.ptA);
-                vec2 nudgePtB = new vec2(track.ptB);
+                vec2 nudgePtA = new(track.ptA);
+                vec2 nudgePtB = new(track.ptB);
 
                 //depending which way you are going, the offset can be either side
-                vec2 point1 = new vec2((Math.Cos(-abHeading) * distAway) + nudgePtA.easting, (Math.Sin(-abHeading) * distAway) + nudgePtA.northing);
+                vec2 point1 = new((Math.Cos(-abHeading) * distAway) + nudgePtA.easting, (Math.Sin(-abHeading) * distAway) + nudgePtA.northing);
 
-                vec2 point2 = new vec2((Math.Cos(-abHeading) * distAway) + nudgePtB.easting, (Math.Sin(-abHeading) * distAway) + nudgePtB.northing);
+                vec2 point2 = new((Math.Cos(-abHeading) * distAway) + nudgePtB.easting, (Math.Sin(-abHeading) * distAway) + nudgePtB.northing);
 
                 //create the new line extent points for current ABLine based on original heading of AB line
                 currentLinePtA.easting = point1.easting - (Math.Sin(abHeading) * abLength);
@@ -404,7 +404,7 @@ namespace AgOpenGPS
             double shadowOffset = isHeadingSameWay ? mf.tool.offset : -mf.tool.offset;
             GeoCoord ptA = currentLinePtA.ToGeoCoord();
             GeoCoord ptB = currentLinePtB.ToGeoCoord();
-            GeoDir abDir = new GeoDir(abHeading);
+            GeoDir abDir = new(abHeading);
             GeoDir perpendicalurRightDir = abDir.PerpendicularRight;
             GeoDelta rightOffset = (shadowOffset + (0.5 * mf.tool.width)) * perpendicalurRightDir;
             GeoDelta leftOffset = (shadowOffset - (0.5 * mf.tool.width)) * perpendicalurRightDir;
@@ -424,8 +424,8 @@ namespace AgOpenGPS
 
             //draw current AB Line
             GeoCoord[] currentAbLine = { currentLinePtA.ToGeoCoord(), currentLinePtB.ToGeoCoord() };
-            LineStyle blackBackgroundStyle = new LineStyle(lineWidth * 3, Colors.Black);
-            LineStyle purpleForgroundStyle = new LineStyle(lineWidth, currentAbLinePurple);
+            LineStyle blackBackgroundStyle = new(lineWidth * 3, Colors.Black);
+            LineStyle purpleForgroundStyle = new(lineWidth, currentAbLinePurple);
             GLW.DrawLinesPrimitiveLayered(
                 currentAbLine,
                 blackBackgroundStyle,
@@ -434,7 +434,7 @@ namespace AgOpenGPS
             if (mf.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
             {
                 double toolWidth = mf.tool.width - mf.tool.overlap;
-                GeoLineSegment currentLine = new GeoLineSegment(currentLinePtA.ToGeoCoord(), currentLinePtB.ToGeoCoord());
+                GeoLineSegment currentLine = new(currentLinePtA.ToGeoCoord(), currentLinePtB.ToGeoCoord());
                 GeoDir perpendicularRightDir = currentLine.Direction.PerpendicularRight;
                 GeoLineSegment[] lines = new GeoLineSegment[2 * numGuideLines];
                 int linesIndex = 0;
@@ -454,8 +454,8 @@ namespace AgOpenGPS
                     lines[linesIndex++] = rightEvenLine;
                     lines[linesIndex++] = leftEvenLine;
                 }
-                LineStyle extraGuidelinesBackgroundStyle = new LineStyle(lineWidth * 3, extraGuidelinesBlack);
-                LineStyle extraGuidelinesForegroundStyle = new LineStyle(lineWidth, extraGuidelinesGreen);
+                LineStyle extraGuidelinesBackgroundStyle = new(lineWidth * 3, extraGuidelinesBlack);
+                LineStyle extraGuidelinesForegroundStyle = new(lineWidth, extraGuidelinesGreen);
                 GLW.DrawLinesPrimitiveLayered(
                     lines,
                     extraGuidelinesBackgroundStyle,
@@ -484,7 +484,7 @@ namespace AgOpenGPS
 
             if (mf.tram.generateMode == 2) return;
 
-            List<vec2> tramRef = new List<vec2>();
+            List<vec2> tramRef = new();
 
             bool isBndExist = mf.bnd.bndList.Count != 0;
 
@@ -495,7 +495,7 @@ namespace AgOpenGPS
 
             double len = glm.Distance(mf.trk.gArr[mf.trk.idx].endPtA, mf.trk.gArr[mf.trk.idx].endPtB);
             //divide up the AB line into segments
-            vec2 P1 = new vec2();
+            vec2 P1 = new();
             for (int i = 0; i < (int)len; i += 4)
             {
                 P1.easting = (hsin * i) + mf.trk.gArr[mf.trk.idx].endPtA.easting;

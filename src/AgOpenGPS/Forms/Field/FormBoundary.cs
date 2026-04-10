@@ -76,12 +76,12 @@ namespace AgOpenGPS
 
             flp1.Controls.Clear();
 
-            System.Drawing.Font backupfont = new System.Drawing.Font(base.Font.FontFamily, 18F, FontStyle.Bold);
+            System.Drawing.Font backupfont = new(base.Font.FontFamily, 18F, FontStyle.Bold);
 
             for (int i = 0; i < mf.bnd.bndList.Count; i++)
             {
                 //outer inner
-                Button a = new Button
+                Button a = new()
                 {
                     Margin = new Padding(10),
                     Size = new Size(180, 35),
@@ -93,7 +93,7 @@ namespace AgOpenGPS
                 a.BackColor = System.Drawing.SystemColors.ButtonFace;
 
                 //area
-                Button b = new Button
+                Button b = new()
                 {
                     Margin = new Padding(10),
                     Size = new System.Drawing.Size(180, 35),
@@ -105,7 +105,7 @@ namespace AgOpenGPS
                 b.BackColor = System.Drawing.SystemColors.ButtonFace;
 
                 //drive thru
-                Button d = new Button
+                Button d = new()
                 {
                     Margin = new Padding(10),
                     Size = new System.Drawing.Size(110, 35),
@@ -292,7 +292,7 @@ namespace AgOpenGPS
                 string fileAndDirectory;
                 {
                     //create the dialog instance
-                    OpenFileDialog ofd = new OpenFileDialog
+                    OpenFileDialog ofd = new()
                     {
                         //set the filter to text KML only
                         Filter = "KML files (*.KML)|*.KML",
@@ -309,7 +309,7 @@ namespace AgOpenGPS
                 string coordinates = null;
                 int startIndex;
 
-                using StreamReader reader = new StreamReader(fileAndDirectory);
+                using StreamReader reader = new(fileAndDirectory);
                 if (button.Name == "btnLoadMultiBoundaryFromGE") ResetAllBoundary();
 
                 try
@@ -351,7 +351,7 @@ namespace AgOpenGPS
                             //at least 3 points
                             if (numberSets.Length > 2)
                             {
-                                CBoundaryList New = new CBoundaryList();
+                                CBoundaryList New = new();
 
                                 foreach (string item in numberSets)
                                 {
@@ -439,7 +439,7 @@ namespace AgOpenGPS
                 mf.bnd.bndList.Clear();
             }
 
-            FormBuildBoundaryFromTracks form = new FormBuildBoundaryFromTracks(mf);
+            FormBuildBoundaryFromTracks form = new(mf);
             form.ShowDialog();
             isClosing = true;
             Close();

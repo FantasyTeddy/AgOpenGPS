@@ -21,7 +21,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowConfirm(Form parent, string title, string message, string okText = "Yes", string cancelText = "No")
         {
-            using FormDialog dialog = new FormDialog();
+            using FormDialog dialog = new();
             dialog.Text = title;
             dialog.lblMessage.Text = message;
             dialog.btnOK.Text = okText;
@@ -57,7 +57,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowInfo(Form parent, string title, string message)
         {
-            using FormDialog dialog = new FormDialog();
+            using FormDialog dialog = new();
             dialog.Text = title;
             dialog.lblMessage.Text = message;
             dialog.btnOK.Text = "OK";
@@ -81,7 +81,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowError(Form parent, string title, string message)
         {
-            using FormDialog dialog = new FormDialog();
+            using FormDialog dialog = new();
             dialog.Text = title;
             dialog.lblMessage.Text = message;
             dialog.btnOK.Text = "OK";
@@ -106,7 +106,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowSuccess(Form parent, string title, string message)
         {
-            using FormDialog dialog = new FormDialog();
+            using FormDialog dialog = new();
             dialog.Text = title;
             dialog.lblMessage.Text = message;
             dialog.btnOK.Text = "OK";

@@ -23,8 +23,8 @@ namespace AgOpenGPS
         private const double MAX_DIST_OFF_MM = 500.0;
 
         // Collected data
-        private readonly List<double> steerAngleHistory = new List<double>();
-        private readonly object dataLock = new object();
+        private readonly List<double> steerAngleHistory = new();
+        private readonly object dataLock = new();
 
         // Analysis results
 

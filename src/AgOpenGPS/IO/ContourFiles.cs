@@ -12,11 +12,11 @@ namespace AgOpenGPS.IO
             if (string.IsNullOrWhiteSpace(fieldDirectory))
                 throw new ArgumentNullException(nameof(fieldDirectory));
 
-            List<List<vec3>> result = new List<List<vec3>>();
+            List<List<vec3>> result = new();
             string path = Path.Combine(fieldDirectory, "Contour.txt");
             if (!File.Exists(path)) return result;
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 string header = reader.ReadLine();
                 if (header == null || !header.TrimStart().StartsWith("$", StringComparison.Ordinal))
@@ -46,7 +46,7 @@ namespace AgOpenGPS.IO
             string filename = Path.Combine(fieldDirectory, "Contour.txt");
             if (contourPatches == null) return;
 
-            using StreamWriter writer = new StreamWriter(filename, true);
+            using StreamWriter writer = new(filename, true);
             foreach (IReadOnlyList<vec3> triList in contourPatches)
             {
                 if (triList == null) continue;
@@ -61,7 +61,7 @@ namespace AgOpenGPS.IO
 
         public static void CreateFile(string fieldDirectory)
         {
-            using StreamWriter writer = new StreamWriter(Path.Combine(fieldDirectory, "Contour.txt"), false);
+            using StreamWriter writer = new(Path.Combine(fieldDirectory, "Contour.txt"), false);
             writer.WriteLine("$Contour");
         }
     }

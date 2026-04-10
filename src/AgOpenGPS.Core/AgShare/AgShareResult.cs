@@ -4,7 +4,7 @@ namespace AgOpenGPS.Core.AgShare
 {
     public class AgShareResult
     {
-        private static readonly AgShareResult _success = new AgShareResult();
+        private static readonly AgShareResult _success = new();
 
         private AgShareResult()
         {

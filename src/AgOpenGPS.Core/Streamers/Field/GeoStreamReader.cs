@@ -102,14 +102,14 @@ namespace AgOpenGPS.Core.Streamers
             double minEasting = ReadDouble();
             double maxNorthing = ReadDouble();
             double minNorthing = ReadDouble();
-            GeoCoord minCoord = new GeoCoord(minNorthing, minEasting);
-            GeoCoord maxCoord = new GeoCoord(maxNorthing, maxEasting);
+            GeoCoord minCoord = new(minNorthing, minEasting);
+            GeoCoord maxCoord = new(maxNorthing, maxEasting);
             return new GeoBoundingBox(minCoord, maxCoord);
         }
 
         public GeoPath ReadGeoPath()
         {
-            GeoPath result = new GeoPath();
+            GeoPath result = new();
             int count = ReadInt();
             for (int i = 0; i < count; i++)
             {

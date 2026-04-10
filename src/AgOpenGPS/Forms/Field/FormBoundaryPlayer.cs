@@ -128,7 +128,7 @@ namespace AgOpenGPS
                 if (mf.bnd.bndBeingMadePts.Count > 2)
                 {
                     // Create new boundary from drawn points
-                    CBoundaryList New = new CBoundaryList();
+                    CBoundaryList New = new();
 
                     for (int i = 0; i < mf.bnd.bndBeingMadePts.Count; i++)
                     {

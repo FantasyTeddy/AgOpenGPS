@@ -4,8 +4,8 @@
     {
         public static GeoBoundingBox CreateEmpty()
         {
-            GeoCoord minCoord = new GeoCoord(double.MaxValue, double.MaxValue);
-            GeoCoord maxCoord = new GeoCoord(double.MinValue, double.MinValue);
+            GeoCoord minCoord = new(double.MaxValue, double.MaxValue);
+            GeoCoord maxCoord = new(double.MinValue, double.MinValue);
             return new GeoBoundingBox(minCoord, maxCoord);
         }
 

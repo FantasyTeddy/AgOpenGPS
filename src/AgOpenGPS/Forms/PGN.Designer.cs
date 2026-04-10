@@ -419,46 +419,46 @@
         /// <summary>
         /// autoSteerData - FE - 254 - 
         /// </summary>
-        public CPGN_FE p_254 = new CPGN_FE();
+        public CPGN_FE p_254 = new();
 
         /// <summary>
         /// autoSteerSettings PGN - 252 - FC
         /// </summary>
-        public CPGN_FC p_252 = new CPGN_FC();
+        public CPGN_FC p_252 = new();
 
         /// <summary>
         /// autoSteerConfig PGN - 251 - FB
         /// </summary>
-        public CPGN_FB p_251 = new CPGN_FB();
+        public CPGN_FB p_251 = new();
 
         /// <summary>
         /// machineData PGN - 239 - EF
         /// </summary>
-        public CPGN_EF p_239 = new CPGN_EF();
+        public CPGN_EF p_239 = new();
 
         /// <summary>
         /// machineConfig PGN - 238 - EE
         /// </summary>
-        public CPGN_EE p_238 = new CPGN_EE();
+        public CPGN_EE p_238 = new();
 
         /// <summary>
         /// relayConfig PGN - 236 - EC
         /// </summary>
-        public CPGN_EC p_236 = new CPGN_EC();
+        public CPGN_EC p_236 = new();
 
         /// <summary>
         /// Section dimensions PGN - 235 - EB
         /// </summary>
-        public CPGN_EB p_235 = new CPGN_EB();
+        public CPGN_EB p_235 = new();
 
         /// <summary>
         /// Section dimensions PGN - 228 - E4
         /// </summary>
-        public CPGN_E4 p_228 = new CPGN_E4();
+        public CPGN_E4 p_228 = new();
 
         /// <summary>
         /// Section Symmetric PGN - 229 - EB
         /// </summary>
-        public CPGN_E5 p_229 = new CPGN_E5();
+        public CPGN_E5 p_229 = new();
     }
 }

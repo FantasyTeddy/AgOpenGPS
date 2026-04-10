@@ -115,7 +115,7 @@ namespace AgOpenGPS
 
             mf.filePickerFileAndDirectory = "";
 
-            using FormFilePicker form = new FormFilePicker(mf);
+            using FormFilePicker form = new(mf);
             if (form.ShowDialog(this) == DialogResult.Yes)
             {
                 mf.FileOpenField(mf.filePickerFileAndDirectory);
@@ -146,7 +146,7 @@ namespace AgOpenGPS
                 //make sure directory has a field.txt in it
                 if (File.Exists(filename))
                 {
-                    using GeoStreamReader reader = new GeoStreamReader(filename);
+                    using GeoStreamReader reader = new(filename);
                     try
                     {
                         // Skip 8 lines
@@ -171,7 +171,7 @@ namespace AgOpenGPS
                                 infieldList += Path.GetFileName(dir);
 
                                 // Convert to miles if not metric
-                                Distance distanceObj = new Distance(distance * 1000); // Distance expects meters
+                                Distance distanceObj = new(distance * 1000); // Distance expects meters
                                 double displayDistance = mf.isMetric ? distanceObj.InKilometers : distanceObj.InMiles;
                                 distanceList += displayDistance.ToString("F3");
                             }
@@ -190,7 +190,7 @@ namespace AgOpenGPS
 
                 if (numFields > 1)
                 {
-                    using FormDrivePicker form = new FormDrivePicker(mf, infieldList, distanceList);
+                    using FormDrivePicker form = new(mf, infieldList, distanceList);
                     //returns full field.txt file dir name
                     if (form.ShowDialog(this) == DialogResult.Yes)
                     {
@@ -273,7 +273,7 @@ namespace AgOpenGPS
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
-            using (FormAgShareDownloader form = new FormAgShareDownloader(mf))
+            using (FormAgShareDownloader form = new(mf))
             {
                 form.ShowDialog(this);
             }
@@ -290,7 +290,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            using (FormAgShareUploader form = new FormAgShareUploader(mf.agShareClient))
+            using (FormAgShareUploader form = new(mf.agShareClient))
             {
                 form.ShowDialog(this);
             }

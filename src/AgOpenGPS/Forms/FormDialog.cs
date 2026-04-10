@@ -42,7 +42,7 @@ namespace AgOpenGPS.Forms
         {
             base.OnPaintBackground(e);
 
-            Pen borderPen = new Pen(_borderColor, 20);
+            Pen borderPen = new(_borderColor, 20);
             e.Graphics.DrawRectangle(borderPen, 0, 0, Width, Height);
         }
 
@@ -80,13 +80,13 @@ namespace AgOpenGPS.Forms
                 Log.EventWriter($"Dialog: {title} | {message}");
             }
 
-            using FormDialog form = new FormDialog(title, message, showCancel: false, severity);
+            using FormDialog form = new(title, message, showCancel: false, severity);
             form.ShowDialog();
         }
 
         public static DialogResult ShowQuestion(string title, string message, DialogSeverity? severity = null)
         {
-            using FormDialog form = new FormDialog(title, message, showCancel: true, severity);
+            using FormDialog form = new(title, message, showCancel: true, severity);
             return form.ShowDialog();
         }
     }

@@ -9,7 +9,7 @@ namespace AgIO
     public partial class FormSource : Form
     {
         private readonly FormNtrip nt;
-        private readonly List<string> dataList = new List<string>();
+        private readonly List<string> dataList = new();
         private readonly double lat, lon;
         private readonly string site;
 

@@ -186,7 +186,7 @@ namespace AgOpenGPS.Updater.Services
             try
             {
                 // Use a new client for download to handle large files better
-                using HttpClient downloadClient = new HttpClient();
+                using HttpClient downloadClient = new();
                 downloadClient.Timeout = TimeSpan.FromMinutes(10);
 
                 // Add User-Agent (required by GitHub)
@@ -218,7 +218,7 @@ namespace AgOpenGPS.Updater.Services
                 }
 
                 using Stream contentStream = await response.Content.ReadAsStreamAsync();
-                using FileStream fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true);
+                using FileStream fileStream = new(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true);
                 int bytesRead;
                 while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
@@ -248,7 +248,7 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                using HttpClient downloadClient = new HttpClient();
+                using HttpClient downloadClient = new();
                 downloadClient.Timeout = TimeSpan.FromMinutes(10);
 
                 // Add User-Agent (required by GitHub)
@@ -263,7 +263,7 @@ namespace AgOpenGPS.Updater.Services
                 long totalBytesRead = 0;
 
                 using Stream contentStream = await response.Content.ReadAsStreamAsync();
-                using MemoryStream memoryStream = new MemoryStream();
+                using MemoryStream memoryStream = new();
                 byte[] buffer = new byte[8192];
                 int bytesRead;
 

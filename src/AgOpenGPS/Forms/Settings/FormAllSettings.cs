@@ -17,9 +17,9 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
 
         // Defaults: fresh instances met velddefaults voor vergelijking
-        private static readonly VehicleSettings vsDefault = new VehicleSettings();
-        private static readonly ToolSettings tsDefault = new ToolSettings();
-        private static readonly Settings esDefault = new Settings();
+        private static readonly VehicleSettings vsDefault = new();
+        private static readonly ToolSettings tsDefault = new();
+        private static readonly Settings esDefault = new();
 
         private static readonly Color ColorChanged = Color.LightYellow;
         private static readonly Color ColorNormal = Color.WhiteSmoke;
@@ -363,7 +363,7 @@ namespace AgOpenGPS
         private void ExportToCSV(string path)
         {
             // Tab-gescheiden zodat het in alle Excel-taalinstellingen correct opent
-            using StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8);
+            using StreamWriter sw = new(path, false, Encoding.UTF8);
             WriteSettingsTabToCSV(sw, "VEHICLE", dgvVehicleL, dgvVehicleM, dgvVehicleR);
             WriteSettingsTabToCSV(sw, "TOOL", dgvToolL, dgvToolM, dgvToolR);
             WriteSettingsTabToCSV(sw, "ENVIRONMENT", dgvEnvironmentL, dgvEnvironmentM, dgvEnvironmentR);
@@ -427,7 +427,7 @@ namespace AgOpenGPS
                 tabControl.Update();
                 Application.DoEvents();
                 TabPage page = tabControl.SelectedTab;
-                Bitmap bm = new Bitmap(page.Width, page.Height);
+                Bitmap bm = new(page.Width, page.Height);
                 page.DrawToBitmap(bm, new Rectangle(0, 0, page.Width, page.Height));
                 pages[t] = bm;
             }
@@ -439,19 +439,19 @@ namespace AgOpenGPS
             int totalH = headerH + ((tabStripH + pages[0].Height) * 3);
             int totalW = pages[0].Width;
 
-            Bitmap combined = new Bitmap(totalW, totalH);
+            Bitmap combined = new(totalW, totalH);
             using (Graphics g = Graphics.FromImage(combined))
             {
-                Bitmap headerBm = new Bitmap(panelHeader.Width, panelHeader.Height);
+                Bitmap headerBm = new(panelHeader.Width, panelHeader.Height);
                 panelHeader.DrawToBitmap(headerBm, new Rectangle(0, 0, panelHeader.Width, panelHeader.Height));
                 g.DrawImage(headerBm, 0, 0);
                 headerBm.Dispose();
 
                 int y = headerH;
                 string[] labels = { "Vehicle", "Tool", "Environment" };
-                using Font headerFont = new Font("Tahoma", 12F, FontStyle.Bold);
-                using SolidBrush headerBrush = new SolidBrush(Color.SteelBlue);
-                using SolidBrush textBrush = new SolidBrush(Color.White);
+                using Font headerFont = new("Tahoma", 12F, FontStyle.Bold);
+                using SolidBrush headerBrush = new(Color.SteelBlue);
+                using SolidBrush textBrush = new(Color.White);
                 for (int t = 0; t < 3; t++)
                 {
                     g.FillRectangle(headerBrush, 0, y, totalW, tabStripH);

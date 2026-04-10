@@ -28,8 +28,8 @@ namespace AgOpenGPS.Core.Models
             TurnType turnType)
         {
             Debug.Assert(turnType != TurnType.Straight);
-            GeoDir startDir = new GeoDir(startPos - Center);
-            GeoDir goalDir = new GeoDir(goalPos - Center);
+            GeoDir startDir = new(startPos - Center);
+            GeoDir goalDir = new(goalPos - Center);
 
             double theta = goalDir.AngleInRadians - startDir.AngleInRadians;
 

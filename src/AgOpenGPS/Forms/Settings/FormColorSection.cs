@@ -237,7 +237,7 @@ namespace AgOpenGPS
             }
             else if (isChange)
             {
-                using (FormColorPicker form = new FormColorPicker(mf, butt.BackColor))
+                using (FormColorPicker form = new(mf, butt.BackColor))
                 {
                     int.TryParse(butt.Name.Substring(4, 2), out int buttNumber);
 

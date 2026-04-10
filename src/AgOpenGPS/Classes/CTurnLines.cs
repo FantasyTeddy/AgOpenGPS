@@ -78,7 +78,7 @@ namespace AgOpenGPS
                 distance = glm.DistanceSquared(turnLine[i], turnLine[j]);
                 if (distance > (spacing * 1.8))
                 {
-                    vec3 pointB = new vec3((turnLine[i].easting + turnLine[j].easting) / 2.0, (turnLine[i].northing + turnLine[j].northing) / 2.0, turnLine[i].heading);
+                    vec3 pointB = new((turnLine[i].easting + turnLine[j].easting) / 2.0, (turnLine[i].northing + turnLine[j].northing) / 2.0, turnLine[i].heading);
 
                     turnLine.Insert(j, pointB);
                     bndCount = turnLine.Count;

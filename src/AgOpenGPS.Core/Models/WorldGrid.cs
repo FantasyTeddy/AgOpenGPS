@@ -81,8 +81,8 @@ namespace AgOpenGPS.Core
 
             if (mustDrawFieldTexture)
             {
-                GeoCoord u0v0 = new GeoCoord(eastingMin, northingMax);
-                GeoCoord uCountvCount = new GeoCoord(eastingMax, northingMin);
+                GeoCoord u0v0 = new(eastingMin, northingMax);
+                GeoCoord uCountvCount = new(eastingMax, northingMin);
                 FloorTexture.DrawRepeatedZ(u0v0, uCountvCount, -0.10, Count);
             }
             _bingMapVisual?.Draw();
@@ -94,7 +94,7 @@ namespace AgOpenGPS.Core
 
             GLW.SetLineWidth(1.0f);
             GLW.SetColor(worldGridColor);
-            List<XyCoord> vertices = new List<XyCoord>();
+            List<XyCoord> vertices = new();
             for (double num = Math.Round(eastingMin / GridStep, MidpointRounding.AwayFromZero) * GridStep; num < eastingMax; num += GridStep)
             {
                 if (num < eastingMin) continue;

@@ -20,7 +20,7 @@ namespace AgOpenGPS
         {
             try
             {
-                using XmlTextReader reader = new XmlTextReader(filePath);
+                using XmlTextReader reader = new(filePath);
                 while (reader.Read())
                 {
                     if (reader.NodeType == XmlNodeType.Element && reader.Depth == 2)
@@ -71,7 +71,7 @@ namespace AgOpenGPS
                 return LoadResult.MissingFile;
 
             // Load old settings
-            SettingsLegacy oldSettings = new SettingsLegacy();
+            SettingsLegacy oldSettings = new();
             LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
             if (loadResult != LoadResult.Ok)
                 return loadResult;
@@ -121,7 +121,7 @@ namespace AgOpenGPS
                 return LoadResult.MissingFile;
 
             // Load old settings
-            SettingsLegacy oldSettings = new SettingsLegacy();
+            SettingsLegacy oldSettings = new();
             LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
             if (loadResult != LoadResult.Ok)
                 return loadResult;
@@ -379,13 +379,13 @@ namespace AgOpenGPS
                 return LoadResult.MissingFile;
 
             // Load old settings
-            SettingsLegacy oldSettings = new SettingsLegacy();
+            SettingsLegacy oldSettings = new();
             LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
             if (loadResult != LoadResult.Ok)
                 return loadResult;
 
             // Copy environment settings from old to new
-            Settings envSettings = new Settings();
+            Settings envSettings = new();
             Settings.MigrateFromOldToTarget(oldSettings, envSettings);
 
             // Save as environment file with error handling
@@ -427,7 +427,7 @@ namespace AgOpenGPS
             if (!Directory.Exists(oldVehiclesDir))
                 return new string[0];
 
-            List<string> files = new System.Collections.Generic.List<string>();
+            List<string> files = new();
             foreach (string file in Directory.GetFiles(oldVehiclesDir, "*.xml"))
             {
                 // Include all old format files (converted and not)
@@ -492,11 +492,11 @@ namespace AgOpenGPS
             foreach (string fileName in files)
             {
                 // Migrate vehicle settings
-                VehicleSettings vehicleSettings = new VehicleSettings();
+                VehicleSettings vehicleSettings = new();
                 MigrateVehicle(fileName, fileName, vehicleSettings);
 
                 // Migrate tool settings
-                ToolSettings toolSettings = new ToolSettings();
+                ToolSettings toolSettings = new();
                 MigrateTool(fileName, fileName, toolSettings);
 
                 // Mark old file as converted

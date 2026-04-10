@@ -5,7 +5,7 @@ namespace AgOpenGPS.Core.Models
 {
     public class WorkedArea
     {
-        private readonly List<QuadStrip> _unsavedWork = new List<QuadStrip>();
+        private readonly List<QuadStrip> _unsavedWork = new();
 
         public WorkedArea()
         {

@@ -5,7 +5,7 @@ namespace AgOpenGPS
     public class CNMEA
     {
         //our current fix
-        public vec2 fix = new vec2(0, 0);
+        public vec2 fix = new(0, 0);
 
         //other GIS Info
         public double altitude, speed, vtgSpeed = float.MaxValue;

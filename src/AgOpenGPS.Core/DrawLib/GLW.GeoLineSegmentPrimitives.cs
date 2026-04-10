@@ -25,7 +25,7 @@ namespace AgOpenGPS.Core.DrawLib
             const int nVerticesPerSegment = 2;
             if (nVerticesPerSegment * lineSegments.Length >= MinVerticesForArray)
             {
-                Vertex2Array vertex2Array = new Vertex2Array(lineSegments);
+                Vertex2Array vertex2Array = new(lineSegments);
                 GL.DrawArrays(primitiveType, 0, vertex2Array.Length);
                 vertex2Array.Dispose();
             }
@@ -51,7 +51,7 @@ namespace AgOpenGPS.Core.DrawLib
             const int nVerticesPerSegment = 2;
             if (nLayers * nVerticesPerSegment * lineSegments.Length >= MinVerticesForArray)
             {
-                Vertex2Array vertex2Array = new Vertex2Array(lineSegments);
+                Vertex2Array vertex2Array = new(lineSegments);
                 // background layer
                 SetLineWidth(backgroundStyle.Width);
                 SetColor(backgroundStyle.Color);

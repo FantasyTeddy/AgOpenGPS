@@ -11,10 +11,10 @@ namespace AgOpenGPS
         private readonly FormGPS mf;
 
         //list of patch data individual triangles
-        public List<vec3> triangleList = new List<vec3>();
+        public List<vec3> triangleList = new();
 
         //list of the list of patch data individual triangles for that entire section activity
-        public List<List<vec3>> patchList = new List<List<vec3>>();
+        public List<List<vec3>> patchList = new();
 
         //mapping
         public bool isDrawing = false;

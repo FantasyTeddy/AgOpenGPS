@@ -8,16 +8,16 @@ namespace AgOpenGPS.IO
     {
         public static List<CHeadPath> Load(string fieldDirectory)
         {
-            List<CHeadPath> result = new List<CHeadPath>();
+            List<CHeadPath> result = new();
             string path = Path.Combine(fieldDirectory, "Headlines.txt");
             if (!File.Exists(path)) return result;
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 reader.ReadLine(); // optional header
                 while (!reader.EndOfStream)
                 {
-                    CHeadPath hp = new CHeadPath
+                    CHeadPath hp = new()
                     {
                         name = reader.ReadLine() ?? string.Empty
                     };
@@ -58,7 +58,7 @@ namespace AgOpenGPS.IO
         {
             string filename = Path.Combine(fieldDirectory, "Headlines.txt");
 
-            using StreamWriter writer = new StreamWriter(filename, false);
+            using StreamWriter writer = new(filename, false);
             writer.WriteLine("$HeadLines");
             if (headPaths == null || headPaths.Count == 0) return;
 

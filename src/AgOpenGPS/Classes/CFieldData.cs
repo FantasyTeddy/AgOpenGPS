@@ -136,7 +136,7 @@ namespace AgOpenGPS
 
         public String GetDescription()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendFormat("Field: {0}", mf.displayFieldName);
             sb.AppendLine();
             sb.AppendFormat("Total Hectares: {0}", AreaBoundaryLessInnersHectares);

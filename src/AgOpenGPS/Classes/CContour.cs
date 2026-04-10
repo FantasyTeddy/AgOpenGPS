@@ -20,11 +20,11 @@ namespace AgOpenGPS
 
         public double abFixHeadingDelta, abHeading;
 
-        public vec2 boxA = new vec2(0, 0), boxB = new vec2(0, 2);
+        public vec2 boxA = new(0, 0), boxB = new(0, 2);
 
         public bool isHeadingSameWay = true;
 
-        public vec2 goalPointCT = new vec2(0, 0);
+        public vec2 goalPointCT = new(0, 0);
         public double steerAngleCT;
         public double rEastCT, rNorthCT;
         public double ppRadiusCT;
@@ -38,13 +38,13 @@ namespace AgOpenGPS
         public double pivotErrorTotal;
 
         //list of strip data individual points
-        public List<vec3> ptList = new List<vec3>();
+        public List<vec3> ptList = new();
 
         //list of the list of individual Lines for entire field
-        public List<List<vec3>> stripList = new List<List<vec3>>();
+        public List<List<vec3>> stripList = new();
 
         //list of points for the new contour line
-        public List<vec3> ctList = new List<vec3>();
+        public List<vec3> ctList = new();
 
         //constructor
         public CContour(FormGPS _f)
@@ -263,7 +263,7 @@ namespace AgOpenGPS
 
                 for (int i = start; i < stop; i++)
                 {
-                    vec3 point = new vec3(
+                    vec3 point = new(
                         stripList[stripNum][i].easting + (Math.Cos(stripList[stripNum][i].heading) * distAway),
                         stripList[stripNum][i].northing - (Math.Sin(stripList[stripNum][i].heading) * distAway),
                         stripList[stripNum][i].heading);
@@ -515,7 +515,7 @@ namespace AgOpenGPS
                     bool ReverseHeading = mf.isReverse ? !isHeadingSameWay : isHeadingSameWay;
 
                     int count = ReverseHeading ? 1 : -1;
-                    vec3 start = new vec3(rEastCT, rNorthCT, 0);
+                    vec3 start = new(rEastCT, rNorthCT, 0);
                     double distSoFar = 0;
 
                     for (int i = ReverseHeading ? B : A; i < ptCount && i >= 0; i += count)

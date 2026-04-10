@@ -13,7 +13,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
         public Guid FieldId;
         public string Name;
         public Wgs84 Origin;
-        public List<CBoundaryList> Boundaries = new List<CBoundaryList>();
-        public List<CTrk> Tracks = new List<CTrk>();
+        public List<CBoundaryList> Boundaries = new();
+        public List<CTrk> Tracks = new();
     }
 }

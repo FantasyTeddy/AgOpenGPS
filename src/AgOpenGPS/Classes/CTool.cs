@@ -184,24 +184,24 @@ namespace AgOpenGPS
         private static void DrawHitch(double trailingTank)
         {
             XyCoord[] vertices = {
-                new XyCoord(-0.57, trailingTank),
-                new XyCoord(0.0, 0.0),
-                new XyCoord(0.57, trailingTank)
+                new(-0.57, trailingTank),
+                new(0.0, 0.0),
+                new(0.57, trailingTank)
             };
-            LineStyle backgroundLineStyle = new LineStyle(6.0f, Colors.Black);
-            LineStyle foregroundLineStyle = new LineStyle(1.0f, Colors.HitchColor);
+            LineStyle backgroundLineStyle = new(6.0f, Colors.Black);
+            LineStyle foregroundLineStyle = new(1.0f, Colors.HitchColor);
             GLW.DrawLineLoopPrimitiveLayered(vertices, backgroundLineStyle, foregroundLineStyle);
         }
 
         private void DrawTrailingHitch(double trailingTool)
         {
             XyCoord[] vertices = {
-                new XyCoord(-0.65 + mf.tool.offset, trailingTool),
-                new XyCoord(0.0, 0.0),
-                new XyCoord(0.65 + mf.tool.offset, trailingTool)
+                new(-0.65 + mf.tool.offset, trailingTool),
+                new(0.0, 0.0),
+                new(0.65 + mf.tool.offset, trailingTool)
             };
-            LineStyle backgroundLineStyle = new LineStyle(6.0f, Colors.Black);
-            LineStyle foregroundLineStyle = new LineStyle(1.0f, Colors.HitchTrailingColor);
+            LineStyle backgroundLineStyle = new(6.0f, Colors.Black);
+            LineStyle foregroundLineStyle = new(1.0f, Colors.HitchTrailingColor);
             GLW.DrawLineLoopPrimitiveLayered(vertices, backgroundLineStyle, foregroundLineStyle);
         }
 
@@ -237,8 +237,8 @@ namespace AgOpenGPS
                 DrawHitch(trailingTank);
 
                 GL.Color4(1, 1, 1, 0.75);
-                XyCoord toolAxleCenter = new XyCoord(0.0, trailingTank);
-                XyDelta deltaToU1V1 = new XyDelta(1.5, 1.0);
+                XyCoord toolAxleCenter = new(0.0, trailingTank);
+                XyDelta deltaToU1V1 = new(1.5, 1.0);
                 mf.VehicleTextures.ToolAxle.DrawCentered(toolAxleCenter, deltaToU1V1);
 
                 //move down the tank hitch, unwind, rotate to section heading
@@ -255,10 +255,10 @@ namespace AgOpenGPS
                 if (Math.Abs(trailingToolToPivotLength) > 1 && mf.camera.camSetDistance > -100)
                 {
                     GL.Color4(1, 1, 1, 0.75);
-                    XyCoord rightTire00 = new XyCoord(0.75 + offset, trailingTool + 0.51);
-                    XyCoord rightTire11 = new XyCoord(1.4 + offset, trailingTool - 0.51);
-                    XyCoord leftTire00 = new XyCoord(-0.75 + offset, trailingTool + 0.51);
-                    XyCoord lefttTire11 = new XyCoord(-1.4 + offset, trailingTool - 0.51);
+                    XyCoord rightTire00 = new(0.75 + offset, trailingTool + 0.51);
+                    XyCoord rightTire11 = new(1.4 + offset, trailingTool - 0.51);
+                    XyCoord leftTire00 = new(-0.75 + offset, trailingTool + 0.51);
+                    XyCoord lefttTire11 = new(-1.4 + offset, trailingTool - 0.51);
                     mf.VehicleTextures.Tire.Draw(rightTire00, rightTire11);
                     mf.VehicleTextures.Tire.Draw(leftTire00, lefttTire11);
                 }
@@ -326,11 +326,11 @@ namespace AgOpenGPS
 
                 double mid = ((mf.section[j].positionRight - mf.section[j].positionLeft) / 2) + mf.section[j].positionLeft;
                 XyCoord[] vertices = {
-                    new XyCoord(mf.section[j].positionLeft, trailingTool),
-                    new XyCoord(mf.section[j].positionLeft, trailingTool - hite),
-                    new XyCoord(mid, trailingTool - (hite * 1.5)),
-                    new XyCoord(mf.section[j].positionRight, trailingTool - hite),
-                    new XyCoord(mf.section[j].positionRight, trailingTool),
+                    new(mf.section[j].positionLeft, trailingTool),
+                    new(mf.section[j].positionLeft, trailingTool - hite),
+                    new(mid, trailingTool - (hite * 1.5)),
+                    new(mf.section[j].positionRight, trailingTool - hite),
+                    new(mf.section[j].positionRight, trailingTool),
                 };
                 GLW.DrawTriangleFanPrimitive(vertices);
 

@@ -24,7 +24,7 @@ public class CWindowsSettingsBrightnessController
     {
         try // this will fail if not a device with controllable brightness (eg, a desktop)
         {
-            ManagementClass mclass = new ManagementClass("WmiMonitorBrightness")
+            ManagementClass mclass = new("WmiMonitorBrightness")
             {
                 Scope = new ManagementScope(@"\\.\root\wmi")
             };
@@ -45,7 +45,7 @@ public class CWindowsSettingsBrightnessController
     {
         try // and so will this
         {
-            ManagementClass mclass = new ManagementClass("WmiMonitorBrightnessMethods")
+            ManagementClass mclass = new("WmiMonitorBrightnessMethods")
             {
                 Scope = new ManagementScope(@"\\.\root\wmi")
             };

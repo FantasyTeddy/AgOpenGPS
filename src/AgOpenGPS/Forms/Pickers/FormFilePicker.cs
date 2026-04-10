@@ -20,7 +20,7 @@ namespace AgOpenGPS
         private int order;
 
         // Triplets: [name, distance, area]
-        private readonly List<string> fileList = new List<string>();
+        private readonly List<string> fileList = new();
 
         public FormFilePicker(Form callingForm)
         {
@@ -97,7 +97,7 @@ namespace AgOpenGPS
         {
             try
             {
-                using GeoStreamReader reader = new GeoStreamReader(filename);
+                using GeoStreamReader reader = new(filename);
                 // Legacy format: skip 8 lines, then expect a WGS84 position.
                 for (int i = 0; i < 8; i++) reader.ReadLine();
 
@@ -158,8 +158,8 @@ namespace AgOpenGPS
         /// </summary>
         private double CalculateBoundaryArea(string filename)
         {
-            List<vec3> pointList = new List<vec3>();
-            using (StreamReader reader = new StreamReader(filename))
+            List<vec3> pointList = new();
+            using (StreamReader reader = new(filename))
             {
                 string line;
 

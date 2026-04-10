@@ -149,7 +149,7 @@ namespace AgOpenGPS
             double tx = 0.5f * ((p0.easting * q1) + (p1.easting * q2) + (p2.easting * q3) + (p3.easting * q4));
             double ty = 0.5f * ((p0.northing * q1) + (p1.northing * q2) + (p2.northing * q3) + (p3.northing * q4));
 
-            vec3 ret = new vec3(tx, ty, 0);
+            vec3 ret = new(tx, ty, 0);
             return ret;
 
             //f(t) = a_3 * t^3 + a_2 * t^2 + a_1 * t + a_0  cubic polynomial
@@ -329,11 +329,11 @@ namespace AgOpenGPS
         public static Bitmap MakeGrayscale3(Bitmap original)
         {
             //create a blank bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            Bitmap newBitmap = new(original.Width, original.Height);
             //get a graphics object from the new image
             Graphics g = Graphics.FromImage(newBitmap);
             //create the grayscale ColorMatrix
-            ColorMatrix colorMatrix = new ColorMatrix(
+            ColorMatrix colorMatrix = new(
                new float[][]
               {
                  new float[] {.3f, .3f, .3f, 0, 0},
@@ -343,7 +343,7 @@ namespace AgOpenGPS
                  new float[] {0, 0, 0, 0, 1}
               });
             //create some image attributes
-            ImageAttributes attributes = new ImageAttributes();
+            ImageAttributes attributes = new();
             //set the color matrix attribute
             attributes.SetColorMatrix(colorMatrix);
             //draw the original image on the new image
@@ -370,7 +370,7 @@ namespace AgOpenGPS
         public static vec2? RaycastToPolygon(vec3 origin, List<vec3> polygon)
         {
             vec2 from = origin.ToVec2();
-            vec2 dir = new vec2(Math.Sin(origin.heading), Math.Cos(origin.heading));
+            vec2 dir = new(Math.Sin(origin.heading), Math.Cos(origin.heading));
 
             double minDist = double.MaxValue;
             vec2? closest = null;

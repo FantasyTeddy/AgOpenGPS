@@ -10,8 +10,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_DistanceInMeters_RegionalDistance()
         {
             // Arrange
-            Wgs84 amsterdam = new Wgs84(52.377956, 4.897070);
-            Wgs84 denDungen = new Wgs84(51.665, 5.37222);
+            Wgs84 amsterdam = new(52.377956, 4.897070);
+            Wgs84 denDungen = new(51.665, 5.37222);
 
             // Act
             double distance = amsterdam.DistanceInMeters(denDungen);
@@ -28,8 +28,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_DistanceInMeters_LongDistance()
         {
             // Arrange
-            Wgs84 amsterdam = new Wgs84(52.377956, 4.897070);
-            Wgs84 opposite = new Wgs84(-52.377956, 4.897070 - 180);
+            Wgs84 amsterdam = new(52.377956, 4.897070);
+            Wgs84 opposite = new(-52.377956, 4.897070 - 180);
 
             // Act
             double distance = amsterdam.DistanceInMeters(opposite);
@@ -46,11 +46,11 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_DistanceInMeters_LocalOffsets()
         {
             // Arrange
-            Wgs84 amsterdam = new Wgs84(52.377956, 4.897070);
-            Wgs84 amsterdamNorth = new Wgs84(amsterdam.Latitude + 0.01, amsterdam.Longitude);
-            Wgs84 amsterdamSouth = new Wgs84(amsterdam.Latitude - 0.01, amsterdam.Longitude);
-            Wgs84 amsterdamEast = new Wgs84(amsterdam.Latitude, amsterdam.Longitude + 0.01);
-            Wgs84 amsterdamWest = new Wgs84(amsterdam.Latitude, amsterdam.Longitude - 0.01);
+            Wgs84 amsterdam = new(52.377956, 4.897070);
+            Wgs84 amsterdamNorth = new(amsterdam.Latitude + 0.01, amsterdam.Longitude);
+            Wgs84 amsterdamSouth = new(amsterdam.Latitude - 0.01, amsterdam.Longitude);
+            Wgs84 amsterdamEast = new(amsterdam.Latitude, amsterdam.Longitude + 0.01);
+            Wgs84 amsterdamWest = new(amsterdam.Latitude, amsterdam.Longitude - 0.01);
 
             // Act
             double distanceNorth = amsterdam.DistanceInMeters(amsterdamNorth);

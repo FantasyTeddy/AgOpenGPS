@@ -210,7 +210,7 @@ namespace AgIO
 
         private void btnAddChannel_Click(object sender, EventArgs e)
         {
-            using FormRadioChannel form = new FormRadioChannel(mf);
+            using FormRadioChannel form = new(mf);
             // Get max id
             int maxChannelId = 0;
 
@@ -236,7 +236,7 @@ namespace AgIO
         {
             if (lvChannels.SelectedItems.Count == 1)
             {
-                using FormRadioChannel form = new FormRadioChannel(mf);
+                using FormRadioChannel form = new(mf);
                 CRadioChannel selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
 
                 form.Channel.Id = selectedChannel.Id;

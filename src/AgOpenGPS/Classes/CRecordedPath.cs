@@ -24,7 +24,7 @@ namespace AgOpenGPS
             autoBtnState = _autoBtnState;
         }
 
-        public GeoCoord AsGeoCoord => new GeoCoord(northing, easting);
+        public GeoCoord AsGeoCoord => new(northing, easting);
     }
 
     public class CRecordedPath
@@ -39,15 +39,15 @@ namespace AgOpenGPS
         private readonly FormGPS mf;
 
         //the recorded path from driving around
-        public List<CRecPathPt> recList = new List<CRecPathPt>();
+        public List<CRecPathPt> recList = new();
 
         //the dubins path to get there
-        public List<CRecPathPt> shuttleDubinsList = new List<CRecPathPt>();
+        public List<CRecPathPt> shuttleDubinsList = new();
 
         public int shuttleListCount;
 
         //list of vec3 points of Dubins shortest path between 2 points - To be converted to RecPt
-        public List<vec3> shortestDubinsList = new List<vec3>();
+        public List<vec3> shortestDubinsList = new();
 
         //generated reference line
         public double distanceFromCurrentLinePivot;
@@ -56,12 +56,12 @@ namespace AgOpenGPS
         public int currentPositonIndex;
 
         //pure pursuit values
-        public vec3 pivotAxlePosRP = new vec3(0, 0, 0);
+        public vec3 pivotAxlePosRP = new(0, 0, 0);
 
-        public vec3 homePos = new vec3();
-        public vec2 goalPointRP = new vec2(0, 0);
+        public vec3 homePos = new();
+        public vec2 goalPointRP = new(0, 0);
         public double steerAngleRP, rEastRP, rNorthRP, ppRadiusRP;
-        public vec2 radiusPointRP = new vec2(0, 0);
+        public vec2 radiusPointRP = new(0, 0);
 
         public bool isEndOfTheRecLine, isRecordOn;
         public bool isDrivingRecordedPath, isFollowingDubinsToPath, isFollowingRecPath, isFollowingDubinsHome;
@@ -135,7 +135,7 @@ namespace AgOpenGPS
             }
 
             //the goal is the first point of path, the start is the current position
-            vec3 goal = new vec3(recList[idx].easting, recList[idx].northing, recList[idx].heading);
+            vec3 goal = new(recList[idx].easting, recList[idx].northing, recList[idx].heading);
 
             //get the dubins for approach to recorded path
             GetDubinsPath(goal);
@@ -272,13 +272,13 @@ namespace AgOpenGPS
         private void GetDubinsPath(vec3 goal)
         {
             CDubins.turningRadius = mf.yt.youTurnRadius * 1.2;
-            CDubins dubPath = new CDubins();
+            CDubins dubPath = new();
 
             // current psition
             pivotAxlePosRP = mf.pivotAxlePos;
 
             //bump it forward
-            vec3 pt2 = new vec3
+            vec3 pt2 = new()
             {
                 easting = pivotAxlePosRP.easting + (Math.Sin(pivotAxlePosRP.heading) * 3),
                 northing = pivotAxlePosRP.northing + (Math.Cos(pivotAxlePosRP.heading) * 3),
@@ -299,7 +299,7 @@ namespace AgOpenGPS
                 //transfer point list to recPath class point style
                 for (int i = 0; i < shortestDubinsList.Count; i++)
                 {
-                    CRecPathPt pt = new CRecPathPt(shortestDubinsList[i].easting, shortestDubinsList[i].northing, shortestDubinsList[i].heading, 9.0, false);
+                    CRecPathPt pt = new(shortestDubinsList[i].easting, shortestDubinsList[i].northing, shortestDubinsList[i].heading, 9.0, false);
                     shuttleDubinsList.Add(pt);
                 }
                 return;
@@ -421,7 +421,7 @@ namespace AgOpenGPS
             bool ReverseHeading = !mf.isReverse;
 
             int count = ReverseHeading ? 1 : -1;
-            CRecPathPt start = new CRecPathPt(rEastRP, rNorthRP, 0, 0, false);
+            CRecPathPt start = new(rEastRP, rNorthRP, 0, 0, false);
             double distSoFar = 0;
 
             for (int i = ReverseHeading ? B : A; i < ptCount && i >= 0; i += count)
@@ -578,7 +578,7 @@ namespace AgOpenGPS
             bool ReverseHeading = !mf.isReverse;
 
             int count = ReverseHeading ? 1 : -1;
-            CRecPathPt start = new CRecPathPt(rEastRP, rNorthRP, 0, 0, false);
+            CRecPathPt start = new(rEastRP, rNorthRP, 0, 0, false);
             double distSoFar = 0;
 
             for (int i = ReverseHeading ? B : A; i < ptCount && i >= 0; i += count)

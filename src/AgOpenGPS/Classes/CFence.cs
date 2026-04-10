@@ -6,7 +6,7 @@ namespace AgOpenGPS
 {
     public partial class CBoundary
     {
-        public List<vec3> bndBeingMadePts = new List<vec3>(128);
+        public List<vec3> bndBeingMadePts = new(128);
 
         public double createBndOffset;
         public bool isBndBeingMade;

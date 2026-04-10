@@ -65,7 +65,7 @@ namespace AgOpenGPS
                 distance = glm.Distance(fenceLine[i], fenceLine[j]);
                 if (distance > spacing * 1.5)
                 {
-                    vec3 pointB = new vec3((fenceLine[i].easting + fenceLine[j].easting) / 2.0,
+                    vec3 pointB = new((fenceLine[i].easting + fenceLine[j].easting) / 2.0,
                         (fenceLine[i].northing + fenceLine[j].northing) / 2.0, fenceLine[i].heading);
 
                     fenceLine.Insert(j, pointB);
@@ -85,7 +85,7 @@ namespace AgOpenGPS
                 distance = glm.Distance(fenceLine[i], fenceLine[j]);
                 if (distance > spacing * 1.6)
                 {
-                    vec3 pointB = new vec3((fenceLine[i].easting + fenceLine[j].easting) / 2.0,
+                    vec3 pointB = new((fenceLine[i].easting + fenceLine[j].easting) / 2.0,
                         (fenceLine[i].northing + fenceLine[j].northing) / 2.0, fenceLine[i].heading);
 
                     fenceLine.Insert(j, pointB);
@@ -176,12 +176,12 @@ namespace AgOpenGPS
         }
         public bool RemoveSelfIntersections()
         {
-            List<vec3> original = new List<vec3>(fenceLine);
+            List<vec3> original = new(fenceLine);
             int originalCount = fenceLine.Count;
             if (originalCount < 4) return false;
 
             // Work on a closed copy (last point == first point) to simplify segment math.
-            List<vec3> working = new List<vec3>(originalCount + 1);
+            List<vec3> working = new(originalCount + 1);
             working.AddRange(fenceLine);
             working.Add(fenceLine[0]);
 

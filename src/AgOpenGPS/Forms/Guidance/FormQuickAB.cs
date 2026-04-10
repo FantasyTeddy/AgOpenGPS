@@ -15,8 +15,8 @@ namespace AgOpenGPS
 
         private double aveLineHeading;
 
-        private vec2 ptAa = new vec2();
-        private vec2 ptBb = new vec2();
+        private vec2 ptAa = new();
+        private vec2 ptBb = new();
 
         private bool isRefRightSide = true; //left side 0 middle 1 right 2
 

@@ -184,7 +184,7 @@ namespace AgOpenGPS
                     if ((int)m.Result == HTCLIENT)
                     {
                         // Convert cursor position to client coordinates
-                        Point screen = new Point(m.LParam.ToInt32());
+                        Point screen = new(m.LParam.ToInt32());
                         Point client = PointToClient(screen);
 
                         // Check if there is a child control under the cursor

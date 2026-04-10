@@ -78,7 +78,7 @@ namespace AgOpenGPS
         private void oglSelf_MouseDown(object sender, MouseEventArgs e)
         {
             Point pt = oglSelf.PointToClient(Cursor.Position);
-            XyCoord xyClient = new XyCoord(pt.X, pt.Y);
+            XyCoord xyClient = new(pt.X, pt.Y);
             GeoCoord mouseDownCoord = _viewport.GetGeoCoord(xyClient);
 
             if (!_coordA.HasValue)
@@ -88,7 +88,7 @@ namespace AgOpenGPS
             else
             {
                 _coordB = mouseDownCoord;
-                GeoDir abDir = new GeoDir(_coordA.Value, _coordB.Value);
+                GeoDir abDir = new(_coordA.Value, _coordB.Value);
                 mf.worldGrid.gridRotation = abDir.AngleInDegrees;
             }
             oglSelf.Refresh();

@@ -181,31 +181,31 @@ namespace AgDiag.Protocol
         /// <summary>
         /// autoSteerData - FE - 254 - 
         /// </summary>
-        public CPGN_FE asData = new CPGN_FE();
+        public CPGN_FE asData = new();
 
         /// <summary>
         /// autoSteerReturn - FD - 253 - 
         /// </summary>
-        public CPGN_FD asModule = new CPGN_FD();
+        public CPGN_FD asModule = new();
 
         /// <summary>
         /// autoSteerSettings PGN - 252 - FC
         /// </summary>
-        public CPGN_FC asSet = new CPGN_FC();
+        public CPGN_FC asSet = new();
 
         /// <summary>
         /// autoSteerConfig PGN - 251 - FB
         /// </summary>
-        public CPGN_FB asConfig = new CPGN_FB();
+        public CPGN_FB asConfig = new();
 
         /// <summary>
         /// machineData PGN - 239 - EF
         /// </summary>
-        public CPGN_EF maData = new CPGN_EF();
+        public CPGN_EF maData = new();
 
         /// <summary>
         /// machineConfig PGN - 238 - EE
         /// </summary>
-        public CPGN_EE maConfig = new CPGN_EE();
+        public CPGN_EE maConfig = new();
     }
 }

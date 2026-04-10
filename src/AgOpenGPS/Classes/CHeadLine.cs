@@ -5,11 +5,11 @@ namespace AgOpenGPS
 {
     public class CHeadLine
     {
-        public List<CHeadPath> tracksArr = new List<CHeadPath>();
+        public List<CHeadPath> tracksArr = new();
 
         public int idx;
 
-        public List<vec3> desList = new List<vec3>();
+        public List<vec3> desList = new();
 
         public CHeadLine()
         {
@@ -19,7 +19,7 @@ namespace AgOpenGPS
 
     public class CHeadPath
     {
-        public List<vec3> trackPts = new List<vec3>();
+        public List<vec3> trackPts = new();
         public string name = "";
         public double moveDistance = 0;
         public int mode = 0;

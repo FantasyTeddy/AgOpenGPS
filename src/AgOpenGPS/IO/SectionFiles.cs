@@ -14,11 +14,11 @@ namespace AgOpenGPS.IO
 
         public static List<List<vec3>> Load(string fieldDirectory)
         {
-            List<List<vec3>> result = new List<List<vec3>>();
+            List<List<vec3>> result = new();
             string path = Path.Combine(fieldDirectory, "Sections.txt");
             if (!File.Exists(path)) return result;
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 while (!reader.EndOfStream)
                 {
@@ -44,7 +44,7 @@ namespace AgOpenGPS.IO
             string filename = Path.Combine(fieldDirectory, "Sections.txt");
             if (patches == null) return;
 
-            using StreamWriter writer = new StreamWriter(filename, true);
+            using StreamWriter writer = new(filename, true);
             foreach (IReadOnlyList<vec3> triList in patches)
             {
                 if (triList == null) continue;
@@ -59,7 +59,7 @@ namespace AgOpenGPS.IO
 
         public static void CreateEmpty(string fieldDirectory)
         {
-            using StreamWriter writer = new StreamWriter(Path.Combine(fieldDirectory, "Sections.txt"), false);
+            using StreamWriter writer = new(Path.Combine(fieldDirectory, "Sections.txt"), false);
             // Intentionally empty
         }
     }

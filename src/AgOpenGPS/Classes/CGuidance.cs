@@ -146,8 +146,8 @@ namespace AgOpenGPS
             mf.ABLine.rNorthAB = rNorthPivot;
 
             //get the distance from currently active AB segment of steer axle //////// steer /////////////
-            vec3 steerA = new vec3(curPtA);
-            vec3 steerB = new vec3(curPtB);
+            vec3 steerA = new(curPtA);
+            vec3 steerB = new(curPtB);
 
             //create the AB segment to offset
             steerA.easting += Math.Sin(steerA.heading + glm.PIBy2) * inty;
@@ -300,8 +300,8 @@ namespace AgOpenGPS
                     pB = ptCount - 1;
                 }
 
-                vec3 pivA = new vec3(curList[pA]);
-                vec3 pivB = new vec3(curList[pB]);
+                vec3 pivA = new(curList[pA]);
+                vec3 pivB = new(curList[pB]);
 
                 if (!mf.curve.isHeadingSameWay)
                 {
@@ -339,8 +339,8 @@ namespace AgOpenGPS
                 mf.curve.currentLocationIndex = pA;
 
                 //get the distance from currently active AB segment of steer axle //////// steer /////////////
-                vec3 steerA = new vec3(curList[sA]);
-                vec3 steerB = new vec3(curList[sB]);
+                vec3 steerA = new(curList[sA]);
+                vec3 steerB = new(curList[sB]);
 
                 if (!mf.curve.isHeadingSameWay)
                 {

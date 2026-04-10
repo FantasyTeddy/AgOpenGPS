@@ -26,9 +26,9 @@ namespace AgOpenGPS
 
         private double startHeading, goalHeading;
 
-        private List<OneDubinsPath> pathDataList = new List<OneDubinsPath>();
+        private List<OneDubinsPath> pathDataList = new();
 
-        private readonly List<vec3> dubinsShortestPathList = new List<vec3>();
+        private readonly List<vec3> dubinsShortestPathList = new();
 
         //takes 2 points and headings to create a path - returns list of vec3 points and headings
         public List<vec3> GenerateDubins(vec3 _start, vec3 _goal)
@@ -57,7 +57,7 @@ namespace AgOpenGPS
                     //calculate the heading for each point
                     for (int i = 0; i < cnt - 1; i += 5)
                     {
-                        vec3 pt = new vec3(pathDataList[0].pathCoordinates[i].easting, pathDataList[0].pathCoordinates[i].northing, 0)
+                        vec3 pt = new(pathDataList[0].pathCoordinates[i].easting, pathDataList[0].pathCoordinates[i].northing, 0)
                         {
                             heading = Math.Atan2(pathDataList[0].pathCoordinates[i + 1].easting - pathDataList[0].pathCoordinates[i].easting,
                             pathDataList[0].pathCoordinates[i + 1].northing - pathDataList[0].pathCoordinates[i].northing)
@@ -178,7 +178,7 @@ namespace AgOpenGPS
             double length3 = DubinsMath.GetArcLength(goalRightCircle, goalTangent, goalPos, false);
 
             //Save the data
-            OneDubinsPath pathData = new OneDubinsPath(length1, length2, length3, startTangent, goalTangent, PathType.RSR)
+            OneDubinsPath pathData = new(length1, length2, length3, startTangent, goalTangent, PathType.RSR)
             {
                 //We also need this data to simplify when generating the final path
                 segment2Turning = false
@@ -203,7 +203,7 @@ namespace AgOpenGPS
             double length3 = DubinsMath.GetArcLength(goalLeftCircle, goalTangent, goalPos, true);
 
             //Save the data
-            OneDubinsPath pathData = new OneDubinsPath(length1, length2, length3, startTangent, goalTangent, PathType.LSL)
+            OneDubinsPath pathData = new(length1, length2, length3, startTangent, goalTangent, PathType.LSL)
             {
                 //We also need this data to simplify when generating the final path
                 segment2Turning = false
@@ -228,7 +228,7 @@ namespace AgOpenGPS
             double length3 = DubinsMath.GetArcLength(goalLeftCircle, goalTangent, goalPos, true);
 
             //Save the data
-            OneDubinsPath pathData = new OneDubinsPath(length1, length2, length3, startTangent, goalTangent, PathType.RSL)
+            OneDubinsPath pathData = new(length1, length2, length3, startTangent, goalTangent, PathType.RSL)
             {
                 //We also need this data to simplify when generating the final path
                 segment2Turning = false
@@ -253,7 +253,7 @@ namespace AgOpenGPS
             double length3 = DubinsMath.GetArcLength(goalRightCircle, goalTangent, goalPos, false);
 
             //Save the data
-            OneDubinsPath pathData = new OneDubinsPath(length1, length2, length3, startTangent, goalTangent, PathType.LSR)
+            OneDubinsPath pathData = new(length1, length2, length3, startTangent, goalTangent, PathType.LSR)
             {
                 //We also need this data to simplify when generating the final path
                 segment2Turning = false
@@ -283,7 +283,7 @@ namespace AgOpenGPS
             double length3 = DubinsMath.GetArcLength(goalRightCircle, goalTangent, goalPos, false);
 
             //Save the data
-            OneDubinsPath pathData = new OneDubinsPath(length1, length2, length3, startTangent, goalTangent, PathType.RLR)
+            OneDubinsPath pathData = new(length1, length2, length3, startTangent, goalTangent, PathType.RLR)
             {
                 //We also need this data to simplify when generating the final path
                 segment2Turning = true
@@ -313,7 +313,7 @@ namespace AgOpenGPS
             double length3 = DubinsMath.GetArcLength(goalLeftCircle, goalTangent, goalPos, true);
 
             //Save the data
-            OneDubinsPath pathData = new OneDubinsPath(length1, length2, length3, startTangent, goalTangent, PathType.LRL)
+            OneDubinsPath pathData = new(length1, length2, length3, startTangent, goalTangent, PathType.LRL)
             {
                 //We also need this data to simplify when generating the final path
                 segment2Turning = true
@@ -344,7 +344,7 @@ namespace AgOpenGPS
         private void GetTotalPath(OneDubinsPath pathData)
         {
             //Store the waypoints of the final path here
-            List<vec2> finalPath = new List<vec2>();
+            List<vec2> finalPath = new();
 
             //Start position of the car
             vec2 currentPos = startPos;
@@ -403,7 +403,7 @@ namespace AgOpenGPS
         //Calculate center positions of the Right circle
         public static vec2 GetRightCircleCenterPos(vec2 circlePos, double heading)
         {
-            vec2 rightCirclePos = new vec2(0, 0)
+            vec2 rightCirclePos = new(0, 0)
             {
                 //The circle is 90 degrees (pi/2 radians) to the right of the car's heading
                 easting = circlePos.easting + (CDubins.turningRadius * Math.Sin(heading + glm.PIBy2)),
@@ -415,7 +415,7 @@ namespace AgOpenGPS
         //Calculate center positions of the Left circle
         public static vec2 GetLeftCircleCenterPos(vec2 circlePos, double heading)
         {
-            vec2 rightCirclePos = new vec2(0, 0)
+            vec2 rightCirclePos = new(0, 0)
             {
                 //The circle is 90 degrees (pi/2 radians) to the left of the car's heading
                 easting = circlePos.easting + (CDubins.turningRadius * Math.Sin(heading - glm.PIBy2)),

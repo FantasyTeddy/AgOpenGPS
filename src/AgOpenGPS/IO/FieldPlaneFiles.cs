@@ -21,7 +21,7 @@ namespace AgOpenGPS.IO
                 throw new FileNotFoundException("Field.txt not found", path);
             }
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 while (!reader.EndOfStream)
                 {
@@ -58,7 +58,7 @@ namespace AgOpenGPS.IO
         public static void Save(string fieldDirectory, DateTime timestamp, Wgs84 startFix)
         {
             string path = Path.Combine(fieldDirectory, "Field.txt");
-            using StreamWriter writer = new StreamWriter(path, false);
+            using StreamWriter writer = new(path, false);
             writer.WriteLine(timestamp.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
             writer.WriteLine("$FieldDir");
             writer.WriteLine("FieldNew");

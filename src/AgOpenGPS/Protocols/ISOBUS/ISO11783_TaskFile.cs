@@ -62,7 +62,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             CTrack trk,
             Version version)
         {
-            ISOPartfield partfield = new ISOPartfield();
+            ISOPartfield partfield = new();
             isoxml.IdTable.AddObjectAndAssignIdIfNone(partfield);
             partfield.PartfieldDesignator = designator;
             partfield.PartfieldArea = (ulong)area;
@@ -78,12 +78,12 @@ namespace AgOpenGPS.Protocols.ISOBUS
         {
             for (int i = 0; i < bndList.Count; i++)
             {
-                ISOPolygon polygon = new ISOPolygon
+                ISOPolygon polygon = new()
                 {
                     PolygonType = i == 0 ? ISOPolygonType.PartfieldBoundary : ISOPolygonType.Obstacle
                 };
 
-                ISOLineString lineString = new ISOLineString
+                ISOLineString lineString = new()
                 {
                     LineStringType = ISOLineStringType.PolygonExterior
                 };
@@ -111,12 +111,12 @@ namespace AgOpenGPS.Protocols.ISOBUS
             {
                 if (boundaryList.hdLine.Count < 1) continue;
 
-                ISOPolygon polygon = new ISOPolygon
+                ISOPolygon polygon = new()
                 {
                     PolygonType = ISOPolygonType.Headland
                 };
 
-                ISOLineString lineString = new ISOLineString
+                ISOLineString lineString = new()
                 {
                     LineStringType = ISOLineStringType.PolygonExterior
                 };
@@ -158,13 +158,13 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
                     case Version.V4:
                         {
-                            ISOGuidanceGroup guidanceGroup = new ISOGuidanceGroup
+                            ISOGuidanceGroup guidanceGroup = new()
                             {
                                 GuidanceGroupDesignator = track.name
                             };
                             isoxml.IdTable.AddObjectAndAssignIdIfNone(guidanceGroup);
 
-                            ISOGuidancePattern guidancePattern = new ISOGuidancePattern
+                            ISOGuidancePattern guidancePattern = new()
                             {
                                 GuidancePatternId = guidanceGroup.GuidanceGroupId,
                                 GuidancePatternPropagationDirection = ISOGuidancePatternPropagationDirection.Bothdirections,
@@ -220,13 +220,13 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
         private static ISOLineString CreateABLineString(CTrk track, LocalPlane localPlane, Version version)
         {
-            ISOLineString lineString = new ISOLineString
+            ISOLineString lineString = new()
             {
                 LineStringType = ISOLineStringType.GuidancePattern
             };
 
             GeoCoord pointA = track.ptA.ToGeoCoord();
-            GeoDir heading = new GeoDir(track.heading);
+            GeoDir heading = new(track.heading);
             Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(pointA - (1000.0 * heading));
 
             lineString.Point.Add(new ISOPoint
@@ -250,7 +250,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
         private static ISOLineString CreateCurveLineString(CTrk track, LocalPlane localPlane, Version version)
         {
-            ISOLineString lineString = new ISOLineString
+            ISOLineString lineString = new()
             {
                 LineStringType = ISOLineStringType.GuidancePattern
             };
@@ -259,7 +259,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             {
                 Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(track.curvePts[j].ToGeoCoord());
 
-                ISOPoint point = new ISOPoint
+                ISOPoint point = new()
                 {
                     PointNorth = (decimal)latLon.Latitude,
                     PointEast = (decimal)latLon.Longitude

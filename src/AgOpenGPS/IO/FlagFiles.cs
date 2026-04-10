@@ -10,7 +10,7 @@ namespace AgOpenGPS.IO
     {
         public static List<CFlag> DeduplicateFlags(IEnumerable<CFlag> flags)
         {
-            List<CFlag> distinctFlags = new List<CFlag>();
+            List<CFlag> distinctFlags = new();
             foreach (CFlag f in flags)
             {
                 bool duplicate = distinctFlags.Any(d =>
@@ -27,11 +27,11 @@ namespace AgOpenGPS.IO
 
         public static List<CFlag> Load(string fieldDirectory)
         {
-            List<CFlag> result = new List<CFlag>();
+            List<CFlag> result = new();
             string path = Path.Combine(fieldDirectory, "Flags.txt");
             if (!File.Exists(path)) return result;
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 reader.ReadLine(); // header
                 string line = reader.ReadLine();
@@ -74,7 +74,7 @@ namespace AgOpenGPS.IO
             string filename = Path.Combine(fieldDirectory, "Flags.txt");
 
             // Prevent saving duplicates based on latitude and longitude
-            List<CFlag> distinctFlags = new List<CFlag>();
+            List<CFlag> distinctFlags = new();
             if (flags != null)
             {
                 foreach (CFlag f in flags ?? new List<CFlag>())
@@ -89,7 +89,7 @@ namespace AgOpenGPS.IO
                     }
                 }
             }
-            using StreamWriter writer = new StreamWriter(filename, false);
+            using StreamWriter writer = new(filename, false);
             writer.WriteLine("$Flags");
             writer.WriteLine(distinctFlags.Count.ToString(CultureInfo.InvariantCulture));
 

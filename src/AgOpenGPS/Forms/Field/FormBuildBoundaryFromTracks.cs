@@ -74,7 +74,7 @@ namespace AgOpenGPS.Forms.Field
         private void LoadTracks()
         {
             _trackList.Clear();
-            List<CTrk> tempTrackList = new List<CTrk>();
+            List<CTrk> tempTrackList = new();
             List<CTrk> originalTrackList = _mf.trk.gArr;
 
             try
@@ -139,7 +139,7 @@ namespace AgOpenGPS.Forms.Field
 
         private CheckBox CreateTrackCheckbox(CTrk track)
         {
-            CheckBox chk = new CheckBox
+            CheckBox chk = new()
             {
                 Text = $"{track.name} ({track.mode})",
                 Checked = true,

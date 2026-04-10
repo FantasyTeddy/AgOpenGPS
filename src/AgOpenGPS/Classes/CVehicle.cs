@@ -175,8 +175,8 @@ namespace AgOpenGPS
                         TransformVertex( 0.35, hitchLengthFromPivot), TransformVertex( 0.35, 0)
                     };
                 }
-                LineStyle backgroundLineStyle = new LineStyle(4, Colors.Black);
-                LineStyle foregroundLineStyle = new LineStyle(1, Colors.HitchRigidColor);
+                LineStyle backgroundLineStyle = new(4, Colors.Black);
+                LineStyle foregroundLineStyle = new(1, Colors.HitchRigidColor);
                 GLW.DrawLinesPrimitiveLayered(vertices, backgroundLineStyle, foregroundLineStyle);
             }
 
@@ -188,7 +188,7 @@ namespace AgOpenGPS
             }
 
             //3 vehicle types  tractor=0 harvestor=1 Articulated=2
-            ColorRgba vehicleColor = new ColorRgba(
+            ColorRgba vehicleColor = new(
                 VehicleConfig.Color.Red,
                 VehicleConfig.Color.Green,
                 VehicleConfig.Color.Blue,
@@ -205,7 +205,7 @@ namespace AgOpenGPS
                         -(mf.timerSim.Enabled ? mf.sim.steerangleAve : mf.mc.actualSteerAngleDegrees),
                         out double leftAckermann,
                         out double rightAckermann);
-                    XyCoord tractorCenter = new XyCoord(0.0, 0.5 * VehicleConfig.Wheelbase);
+                    XyCoord tractorCenter = new(0.0, 0.5 * VehicleConfig.Wheelbase);
                     mf.VehicleTextures.Tractor.DrawCentered(
                         tractorCenter,
                         new XyDelta(VehicleConfig.TrackWidth, -1.0 * VehicleConfig.Wheelbase));
@@ -215,7 +215,7 @@ namespace AgOpenGPS
                     GL.Translate(0.5 * VehicleConfig.TrackWidth, VehicleConfig.Wheelbase, 0);
                     GL.Rotate(rightAckermann, 0, 0, 1);
 
-                    XyDelta frontWheelDelta = new XyDelta(0.5 * VehicleConfig.TrackWidth, -0.75 * VehicleConfig.Wheelbase);
+                    XyDelta frontWheelDelta = new(0.5 * VehicleConfig.TrackWidth, -0.75 * VehicleConfig.Wheelbase);
                     mf.VehicleTextures.FrontWheel.DrawCenteredAroundOrigin(frontWheelDelta);
 
                     GL.PopMatrix();
@@ -239,7 +239,7 @@ namespace AgOpenGPS
                         mf.timerSim.Enabled ? mf.sim.steerAngle : mf.mc.actualSteerAngleDegrees,
                         out double leftAckermannAngle,
                         out double rightAckermannAngle);
-                    ColorRgba harvesterWheelColor = new ColorRgba(
+                    ColorRgba harvesterWheelColor = new(
                         Colors.HarvesterWheelColor.Red,
                         Colors.HarvesterWheelColor.Green,
                         Colors.HarvesterWheelColor.Blue,
@@ -249,7 +249,7 @@ namespace AgOpenGPS
                     GL.PushMatrix();
                     GL.Translate(VehicleConfig.TrackWidth * 0.5, -VehicleConfig.Wheelbase, 0);
                     GL.Rotate(rightAckermannAngle, 0, 0, 1);
-                    XyDelta forntWheelDelta = new XyDelta(0.25 * VehicleConfig.TrackWidth, 0.5 * VehicleConfig.Wheelbase);
+                    XyDelta forntWheelDelta = new(0.25 * VehicleConfig.TrackWidth, 0.5 * VehicleConfig.Wheelbase);
                     mf.VehicleTextures.FrontWheel.DrawCenteredAroundOrigin(forntWheelDelta);
                     GL.PopMatrix();
 
@@ -270,7 +270,7 @@ namespace AgOpenGPS
                     double modelSteerAngle = 0.5 * (mf.timerSim.Enabled ? mf.sim.steerAngle : mf.mc.actualSteerAngleDegrees);
                     GLW.SetColor(vehicleColor);
 
-                    XyDelta articulated = new XyDelta(VehicleConfig.TrackWidth, -0.65 * VehicleConfig.Wheelbase);
+                    XyDelta articulated = new(VehicleConfig.TrackWidth, -0.65 * VehicleConfig.Wheelbase);
                     GL.PushMatrix();
                     GL.Translate(0, -VehicleConfig.Wheelbase * 0.5, 0);
                     GL.Rotate(modelSteerAngle, 0, 0, 1);
@@ -360,9 +360,9 @@ namespace AgOpenGPS
                 GLW.SetLineWidth(mf.ABLine.lineWidth);
                 GLW.SetColor(Colors.SvenArrowColor);
                 XyCoord[] vertices = {
-                    new XyCoord(svennWidth, VehicleConfig.Wheelbase + svennDist),
-                    new XyCoord(0, VehicleConfig.Wheelbase + svennWidth + 0.5 + svennDist),
-                    new XyCoord(-svennWidth, VehicleConfig.Wheelbase + svennDist)
+                    new(svennWidth, VehicleConfig.Wheelbase + svennDist),
+                    new(0, VehicleConfig.Wheelbase + svennWidth + 0.5 + svennDist),
+                    new(-svennWidth, VehicleConfig.Wheelbase + svennDist)
                 };
                 GLW.DrawLineStripPrimitive(vertices);
             }

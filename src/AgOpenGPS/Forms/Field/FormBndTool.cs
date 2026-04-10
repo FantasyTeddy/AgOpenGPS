@@ -18,26 +18,26 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
         private GeoViewport _viewport;
 
-        private static readonly ColorRgba boundaryColor = new ColorRgba(0.725f, 0.95f, 0.950f);
+        private static readonly ColorRgba boundaryColor = new(0.725f, 0.95f, 0.950f);
 
-        private static readonly ColorRgba newBoundaryStripColor = new ColorRgba(0.90f, 0.25f, 0.10f);
-        private static readonly ColorRgba newBoundaryPointsColor = new ColorRgba(0.90f, 0.25f, 0.910f);
-        private static readonly ColorRgba newBoundaryLoopColor = new ColorRgba(0.82f, 0.835f, 0.5f);
+        private static readonly ColorRgba newBoundaryStripColor = new(0.90f, 0.25f, 0.10f);
+        private static readonly ColorRgba newBoundaryPointsColor = new(0.90f, 0.25f, 0.910f);
+        private static readonly ColorRgba newBoundaryLoopColor = new(0.82f, 0.835f, 0.5f);
 
-        private static readonly ColorRgba stepSectionColor = new ColorRgba(0.64f, 0.64f, 0.6f);
+        private static readonly ColorRgba stepSectionColor = new(0.64f, 0.64f, 0.6f);
 
-        private vec3 ptA = new vec3();
-        private vec3 ptB = new vec3();
-        public vec3 pint = new vec3(0.0, 1.0, 0.0);
+        private vec3 ptA = new();
+        private vec3 ptB = new();
+        public vec3 pint = new(0.0, 1.0, 0.0);
 
         private bool isA = true;
         private bool isC = false;
         private int start = 99999, end = 99999;
         private int bndSelect = 0, smPtsChoose = 1, smPts = 4;
 
-        public List<vec3> secList = new List<vec3>();
-        public List<vec3> bndList = new List<vec3>();
-        public List<vec3> smooList = new List<vec3>();
+        public List<vec3> secList = new();
+        public List<vec3> bndList = new();
+        public List<vec3> smooList = new();
 
         private double minDistSq = 1, minDistDisp = 1;
 
@@ -311,7 +311,7 @@ namespace AgOpenGPS
                         double distance = glm.Distance(bndList[i], bndList[j]);
                         if (distance > 1.1)
                         {
-                            vec3 pointB = new vec3((bndList[i].easting + bndList[j].easting) / 2.0,
+                            vec3 pointB = new((bndList[i].easting + bndList[j].easting) / 2.0,
                                 (bndList[i].northing + bndList[j].northing) / 2.0, bndList[i].heading);
 
                             bndList.Insert(j, pointB);
@@ -345,7 +345,7 @@ namespace AgOpenGPS
             {
                 for (int i = 1; i < dist; i++)
                 {
-                    vec3 pt = new vec3(ptA);
+                    vec3 pt = new(ptA);
                     pt.easting += Math.Sin(abHead) * i;
                     pt.northing += Math.Cos(abHead) * i;
                     secList.Add(pt);
@@ -401,7 +401,7 @@ namespace AgOpenGPS
                     {
                         for (int i = 1; i < triList.Count; i++)
                         {
-                            vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
+                            vec3 bob = new(triList[i].easting, triList[i].northing, 0);
 
                             secList.Add(bob);
                         }
@@ -584,7 +584,7 @@ namespace AgOpenGPS
                 //just in case
                 DeleteBoundary();
 
-                CBoundaryList New = new CBoundaryList();
+                CBoundaryList New = new();
 
                 for (int i = 0; i < smooList.Count; i++)
                 {
@@ -677,7 +677,7 @@ namespace AgOpenGPS
 
             CABCurve.CalculateHeadings(ref smooList);
 
-            List<vec3> smList = new List<vec3>();
+            List<vec3> smList = new();
 
             for (int i = 0; i < smooList.Count; i++)
             {
@@ -711,7 +711,7 @@ namespace AgOpenGPS
                 double distance = glm.Distance(smooList[i], smooList[j]);
                 if (distance > 1.6)
                 {
-                    vec3 pointB = new vec3((smooList[i].easting + smooList[j].easting) / 2.0,
+                    vec3 pointB = new((smooList[i].easting + smooList[j].easting) / 2.0,
                         (smooList[i].northing + smooList[j].northing) / 2.0, smooList[i].heading);
 
                     smooList.Insert(j, pointB);
@@ -897,7 +897,7 @@ namespace AgOpenGPS
         private void oglSelf_MouseDown(object sender, MouseEventArgs e)
         {
             Point ptt = oglSelf.PointToClient(Cursor.Position);
-            XyCoord xyClient = new XyCoord(ptt.X, ptt.Y);
+            XyCoord xyClient = new(ptt.X, ptt.Y);
             GeoCoord mouseDownCoord = _viewport.GetGeoCoord(xyClient);
 
             if (cboxIsZoom.Checked)

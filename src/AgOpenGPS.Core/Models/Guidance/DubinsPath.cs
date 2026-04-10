@@ -132,7 +132,7 @@ namespace AgOpenGPS.Core.Models
         {
             Debug.Assert(TurnType.Straight != startTurnType);
             GeoDelta delta = goalCircle.Center - startCircle.Center;
-            GeoDir direction = new GeoDir(delta);
+            GeoDir direction = new(delta);
             GeoDir tangentDir = (TurnType.Right == startTurnType) ? direction.PerpendicularLeft : direction.PerpendicularRight;
 
             startTangent = startCircle.PointOnCircle(tangentDir);
@@ -167,7 +167,7 @@ namespace AgOpenGPS.Core.Models
         {
             Debug.Assert(TurnType.Straight != startTurnType);
             GeoDelta delta = goalCircle.Center - startCircle.Center;
-            GeoDir direction = new GeoDir(delta);
+            GeoDir direction = new(delta);
 
             //If the circles have the same radius we can use cosine and not the law of cosines
             //to calculate the angle to the first tangent coordinate
@@ -207,7 +207,7 @@ namespace AgOpenGPS.Core.Models
         {
             Debug.Assert(TurnType.Straight != startTurnType);
             GeoDelta delta = goalCircle.Center - startCircle.Center;
-            GeoDir direction = new GeoDir(delta);
+            GeoDir direction = new(delta);
             double D = delta.Length;
 
             //The angle between the goal and the new 3rd circle we create with the law of cosines

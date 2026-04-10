@@ -56,8 +56,8 @@ namespace AgOpenGPS.Forms.Field
                     if (mf.currentFieldDirectory != null && fieldName == mf.currentFieldDirectory)
                         continue;
 
-                    DirectoryInfo fieldDirInfo = new DirectoryInfo(fieldDir);
-                    ListViewItem item = new ListViewItem(fieldDirInfo.Name)
+                    DirectoryInfo fieldDirInfo = new(fieldDir);
+                    ListViewItem item = new(fieldDirInfo.Name)
                     {
                         Tag = fieldDirInfo
                     };
@@ -124,7 +124,7 @@ namespace AgOpenGPS.Forms.Field
 
         private CheckBox CreateTrackCheckbox(CTrk track, string displayText)
         {
-            CheckBox checkbox = new CheckBox
+            CheckBox checkbox = new()
             {
                 Text = displayText,
                 Checked = false,
@@ -189,7 +189,7 @@ namespace AgOpenGPS.Forms.Field
                 }
 
                 // Get selected tracks
-                List<CTrk> selectedTracks = new List<CTrk>();
+                List<CTrk> selectedTracks = new();
                 foreach (CheckBox checkbox in flpTrackList.Controls)
                 {
                     if (checkbox.Checked && checkbox.Tag is CTrk track)

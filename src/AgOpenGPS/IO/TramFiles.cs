@@ -21,11 +21,11 @@ namespace AgOpenGPS.IO
         /// </summary>
         public static TramData Load(string fieldDirectory)
         {
-            TramData data = new TramData();
+            TramData data = new();
             string path = Path.Combine(fieldDirectory, "Tram.txt");
             if (!File.Exists(path)) return data;
 
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 // Optional header line
                 string first = reader.ReadLine();
@@ -71,7 +71,7 @@ namespace AgOpenGPS.IO
                 for (int k = 0; k < lineCount && !reader.EndOfStream; k++)
                 {
                     int pts = FileIoUtils.ParseIntSafe(reader.ReadLine());
-                    List<vec2> ln = new List<vec2>();
+                    List<vec2> ln = new();
                     for (int i = 0; i < pts && !reader.EndOfStream; i++)
                     {
                         string[] parts = (reader.ReadLine() ?? string.Empty).Split(',');
@@ -98,7 +98,7 @@ namespace AgOpenGPS.IO
         {
             string filename = Path.Combine(fieldDirectory, "Tram.txt");
 
-            using StreamWriter writer = new StreamWriter(filename, false);
+            using StreamWriter writer = new(filename, false);
             writer.WriteLine("$Tram");
 
             IReadOnlyList<vec2> outer = tramOuter ?? new List<vec2>();

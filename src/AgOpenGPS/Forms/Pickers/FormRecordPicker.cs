@@ -12,7 +12,7 @@ namespace AgOpenGPS.Forms.Pickers
     {
         private readonly FormGPS mf = null;
 
-        private readonly List<string> fileList = new List<string>();
+        private readonly List<string> fileList = new();
 
         public FormRecordPicker(Form callingForm)
         {
@@ -83,7 +83,7 @@ namespace AgOpenGPS.Forms.Pickers
                 string line;
                 if (File.Exists(selectedRecordPath))
                 {
-                    using StreamReader reader = new StreamReader(selectedRecordPath);
+                    using StreamReader reader = new(selectedRecordPath);
                     try
                     {
                         //read header
@@ -98,7 +98,7 @@ namespace AgOpenGPS.Forms.Pickers
                             {
                                 line = reader.ReadLine();
                                 string[] words = line.Split(',');
-                                CRecPathPt point = new CRecPathPt(
+                                CRecPathPt point = new(
                                     double.Parse(words[0], CultureInfo.InvariantCulture),
                                     double.Parse(words[1], CultureInfo.InvariantCulture),
                                     double.Parse(words[2], CultureInfo.InvariantCulture),

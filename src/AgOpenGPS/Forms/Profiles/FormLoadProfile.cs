@@ -39,7 +39,7 @@ namespace AgOpenGPS.Forms.Profiles
             if (!Directory.Exists(RegistrySettings.environmentDirectory))
                 return Enumerable.Empty<string>();
 
-            DirectoryInfo directory = new DirectoryInfo(RegistrySettings.environmentDirectory);
+            DirectoryInfo directory = new(RegistrySettings.environmentDirectory);
             FileInfo[] files = directory.GetFiles("*.xml");
             return files.Select(file => Path.GetFileNameWithoutExtension(file.Name));
         }

@@ -51,22 +51,22 @@ namespace AgIO
         public bool wasRtcmConnectedLastRun = false;
 
         //serial port gps is connected to
-        public SerialPort spGPS = new SerialPort(portNameGPS, baudRateGPS, Parity.None, 8, StopBits.One);
+        public SerialPort spGPS = new(portNameGPS, baudRateGPS, Parity.None, 8, StopBits.One);
 
         //serial port gps2 is connected to
-        public SerialPort spGPS2 = new SerialPort(portNameGPS2, baudRateGPS2, Parity.None, 8, StopBits.One);
+        public SerialPort spGPS2 = new(portNameGPS2, baudRateGPS2, Parity.None, 8, StopBits.One);
 
         //serial port gps is connected to
-        public SerialPort spRtcm = new SerialPort(portNameRtcm, baudRateRtcm, Parity.None, 8, StopBits.One);
+        public SerialPort spRtcm = new(portNameRtcm, baudRateRtcm, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spIMU = new SerialPort(portNameIMU, baudRateIMU, Parity.None, 8, StopBits.One);
+        public SerialPort spIMU = new(portNameIMU, baudRateIMU, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spSteerModule = new SerialPort(portNameSteerModule, baudRateSteerModule, Parity.None, 8, StopBits.One);
+        public SerialPort spSteerModule = new(portNameSteerModule, baudRateSteerModule, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spMachineModule = new SerialPort(portNameMachineModule, baudRateMachineModule, Parity.None, 8, StopBits.One);
+        public SerialPort spMachineModule = new(portNameMachineModule, baudRateMachineModule, Parity.None, 8, StopBits.One);
 
         //lists for parsing incoming bytes
         private readonly byte[] pgnSteerModule = new byte[22];

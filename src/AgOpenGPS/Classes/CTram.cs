@@ -8,8 +8,8 @@ namespace AgOpenGPS
     {
         private readonly FormGPS mf;
 
-        public List<vec2> tramBndOuterArr = new List<vec2>();
-        public List<vec2> tramBndInnerArr = new List<vec2>();
+        public List<vec2> tramBndOuterArr = new();
+        public List<vec2> tramBndInnerArr = new();
 
         //tram settings
         //public double wheelTrack;
@@ -23,9 +23,9 @@ namespace AgOpenGPS
 
 
         //tramlines
-        public List<vec2> tramArr = new List<vec2>();
+        public List<vec2> tramArr = new();
 
-        public List<List<vec2>> tramList = new List<List<vec2>>();
+        public List<List<vec2>> tramList = new();
 
         // 0 off, 1 All, 2, Lines, 3 Outer
         public int displayMode, generateMode = 0;
@@ -153,13 +153,13 @@ namespace AgOpenGPS
 
         private List<vec2> CreateBoundaryTrack(double distance)
         {
-            List<vec2> newTrack = new List<vec2>();
+            List<vec2> newTrack = new();
 
             //countExit the points from the boundary
             int ptCount = mf.bnd.bndList[0].fenceLine.Count;
 
             //outside point
-            vec2 pt3 = new vec2();
+            vec2 pt3 = new();
 
             double distSq = distance * distance * 0.999;
 

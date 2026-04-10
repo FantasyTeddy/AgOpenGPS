@@ -156,7 +156,7 @@ namespace AgOpenGPS.Updater.Forms
             try
             {
                 // Check if GithubReleaseService has a hardcoded token
-                using GithubReleaseService service = new GithubReleaseService();
+                using GithubReleaseService service = new();
                 // The service uses hardcoded token if no token is passed and one exists
                 // We can check this by seeing if it adds an Authorization header
                 return service.HasAuthToken();
@@ -500,7 +500,7 @@ namespace AgOpenGPS.Updater.Forms
                     string tempDir = Path.Combine(Path.GetTempPath(), "AgOpenGPS_Update");
                     SetStatus("Downloading from GitHub...", true, 30);
 
-                    Progress<double> progress = new Progress<double>(percent =>
+                    Progress<double> progress = new(percent =>
                     {
                         int overallProgress = 30 + (int)(percent * 0.5); // 30-80% range
                         SetStatus($"Downloading... {(int)percent}%", true, overallProgress);
@@ -539,7 +539,7 @@ namespace AgOpenGPS.Updater.Forms
 
                     try
                     {
-                        Progress<double> fileProgress = new Progress<double>(percent =>
+                        Progress<double> fileProgress = new(percent =>
                         {
                             int overallProgress = 30 + (int)(percent * 0.5); // 30-80% range
                             SetStatus($"Copying... {(int)percent}%", true, overallProgress);
@@ -560,7 +560,7 @@ namespace AgOpenGPS.Updater.Forms
                 }
 
                 // Install update with progress
-                Progress<UpdateService.InstallProgress> installProgress = new Progress<UpdateService.InstallProgress>(progressInfo =>
+                Progress<UpdateService.InstallProgress> installProgress = new(progressInfo =>
                 {
                     SetStatus(progressInfo.Phase, true, progressInfo.OverallPercent);
                 });
@@ -652,8 +652,8 @@ namespace AgOpenGPS.Updater.Forms
         {
             const int bufferSize = 1024 * 1024; // 1MB buffer
 
-            using FileStream sourceStream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan);
-            using FileStream destStream = new FileStream(destPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, FileOptions.WriteThrough);
+            using FileStream sourceStream = new(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan);
+            using FileStream destStream = new(destPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, FileOptions.WriteThrough);
             long totalBytes = sourceStream.Length;
             long copiedBytes = 0;
             byte[] buffer = new byte[bufferSize];

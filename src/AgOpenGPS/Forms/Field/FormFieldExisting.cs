@@ -21,7 +21,7 @@ namespace AgOpenGPS
 
         private int order;
 
-        private readonly List<string> fileList = new List<string>();
+        private readonly List<string> fileList = new();
 
         public FormFieldExisting(Form _callingForm)
         {
@@ -63,7 +63,7 @@ namespace AgOpenGPS
                 // Make sure directory has a field.txt in it
                 if (File.Exists(filename))
                 {
-                    using GeoStreamReader reader = new GeoStreamReader(filename);
+                    using GeoStreamReader reader = new(filename);
                     try
                     {
                         // Skip first 8 lines of the file
@@ -118,10 +118,10 @@ namespace AgOpenGPS
                 if (File.Exists(filename))
                 {
                     string line;
-                    List<vec3> pointList = new List<vec3>();
+                    List<vec3> pointList = new();
                     double area = 0;
 
-                    using (StreamReader reader = new StreamReader(filename))
+                    using (StreamReader reader = new(filename))
                     {
                         try
                         {
@@ -154,7 +154,7 @@ namespace AgOpenGPS
                                     {
                                         line = reader.ReadLine();
                                         string[] words = line.Split(',');
-                                        vec3 vecPt = new vec3(
+                                        vec3 vecPt = new(
                                         double.Parse(words[0], CultureInfo.InvariantCulture),
                                         double.Parse(words[1], CultureInfo.InvariantCulture),
                                         double.Parse(words[2], CultureInfo.InvariantCulture));
@@ -327,7 +327,7 @@ namespace AgOpenGPS
             string line;
             string offsets, convergence, startFix;
 
-            using (StreamReader reader = new StreamReader(fileStr))
+            using (StreamReader reader = new(fileStr))
             {
                 try
                 {
@@ -356,7 +356,7 @@ namespace AgOpenGPS
 
                 const string myFileName = "Field.txt";
 
-                using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
+                using (StreamWriter writer = new(Path.Combine(directoryName, myFileName)))
                 {
                     //Write out the date
                     writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
@@ -395,12 +395,12 @@ namespace AgOpenGPS
                 else
                 {
                     //create blank Contour and Section files
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Sections.txt")))
+                    using (StreamWriter writer = new(Path.Combine(directoryName, "Sections.txt")))
                     {
                         //blank
                     }
 
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Contour.txt")))
+                    using (StreamWriter writer = new(Path.Combine(directoryName, "Contour.txt")))
                     {
                         writer.WriteLine("$Contour");
                     }
@@ -435,7 +435,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Headlines.txt"));
+                    using StreamWriter writer = new(Path.Combine(directoryName, "Headlines.txt"));
                     writer.WriteLine("$Headlines");
                 }
 
@@ -448,7 +448,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Flags.txt"));
+                    using StreamWriter writer = new(Path.Combine(directoryName, "Flags.txt"));
                     writer.WriteLine("$Flags");
                     writer.WriteLine("0");
                 }
@@ -482,7 +482,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    using StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "RecPath.txt"));
+                    using StreamWriter writer = new(Path.Combine(directoryName, "RecPath.txt"));
                     writer.WriteLine("$RecPath");
                     writer.WriteLine("0");
                 }

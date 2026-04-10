@@ -234,7 +234,7 @@ namespace AgOpenGPS
 
                 int buttonWidth = Math.Min(oglButtonWidth / tool.numOfSections, buttonMaxWidth);
 
-                Size size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                Size size = new(buttonWidth, buttonHeight);
                 for (int i = 1; i <= 16; i++)
                 {
                     Button btn = this.Controls.Find("btnSection" + i.ToString() + "Man", true).First() as Button;
@@ -320,7 +320,7 @@ namespace AgOpenGPS
             //if (tool.zones == 0) return;
             int oglButtonWidth = oglMain.Width * 3 / 4;
             int buttonWidth = Math.Min(oglButtonWidth / tool.zones, buttonMaxWidth);
-            Size size = new System.Drawing.Size(buttonWidth, buttonHeight);
+            Size size = new(buttonWidth, buttonHeight);
 
             for (int i = 1; i <= 8; i++)
             {

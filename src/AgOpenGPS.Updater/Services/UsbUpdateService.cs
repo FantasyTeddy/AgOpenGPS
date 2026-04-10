@@ -90,7 +90,7 @@ namespace AgOpenGPS.Updater.Services
             try
             {
                 // Check file size - must be reasonable
-                FileInfo fileInfo = new FileInfo(zipPath);
+                FileInfo fileInfo = new(zipPath);
                 if (fileInfo.Length < 1024 * 100) // Less than 100KB is invalid
                     return false;
 
@@ -182,7 +182,7 @@ namespace AgOpenGPS.Updater.Services
 
             try
             {
-                DriveInfo drive = new DriveInfo(Path.GetPathRoot(filePath));
+                DriveInfo drive = new(Path.GetPathRoot(filePath));
                 string fileName = Path.GetFileName(filePath);
                 string driveName = drive.VolumeLabel;
 
@@ -209,7 +209,7 @@ namespace AgOpenGPS.Updater.Services
                 if (filePath != null)
                 {
                     string location = GetUpdateLocation(filePath);
-                    FileInfo info = new FileInfo(filePath);
+                    FileInfo info = new(filePath);
 
                     string versionText = string.IsNullOrEmpty(version) ? "Unknown" : version;
                     string message = $"Found: {Path.GetFileName(filePath)}\n" +

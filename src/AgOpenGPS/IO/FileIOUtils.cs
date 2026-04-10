@@ -27,7 +27,7 @@ namespace AgOpenGPS.IO
 
         public static List<vec3> ReadVec3Block(StreamReader r, int count)
         {
-            List<vec3> list = new List<vec3>(count > 0 ? count : 0);
+            List<vec3> list = new(count > 0 ? count : 0);
             for (int i = 0; i < count && !r.EndOfStream; i++)
             {
                 string[] words = (r.ReadLine() ?? string.Empty).Split(',');

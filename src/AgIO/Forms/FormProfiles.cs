@@ -26,7 +26,7 @@ namespace AgIO
             btnSaveNewProfile.BackColor = Color.Transparent;
 
             lblLast.Text = "Using Profile: " + RegistrySettings.profileName;
-            DirectoryInfo dinfo = new DirectoryInfo(RegistrySettings.profileDirectory);
+            DirectoryInfo dinfo = new(RegistrySettings.profileDirectory);
             FileInfo[] Files = dinfo.GetFiles("*.xml");
 
             foreach (FileInfo file in Files)
@@ -42,7 +42,7 @@ namespace AgIO
 
             lblCurrentProfile.Text = RegistrySettings.profileName;
 
-            DirectoryInfo dinfo2 = new DirectoryInfo(RegistrySettings.profileDirectory);
+            DirectoryInfo dinfo2 = new(RegistrySettings.profileDirectory);
             FileInfo[] Files2 = dinfo2.GetFiles("*.xml");
             foreach (FileInfo file in Files2)
             {
@@ -187,7 +187,7 @@ namespace AgIO
             Close();
         }
 
-        private static readonly Regex InvalidFileRegex = new Regex(string.Format("[{0}]", Regex.Escape(@"<>:""/\|?*")));
+        private static readonly Regex InvalidFileRegex = new(string.Format("[{0}]", Regex.Escape(@"<>:""/\|?*")));
 
         public static string SanitizeFileName(string fileName)
         {

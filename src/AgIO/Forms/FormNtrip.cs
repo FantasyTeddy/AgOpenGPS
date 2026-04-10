@@ -279,7 +279,7 @@ namespace AgIO
             tboxCurrentLon.Text = mf.longitude.ToString();
         }
 
-        private readonly List<string> dataList = new List<string>();
+        private readonly List<string> dataList = new();
 
         private void btnGetSourceTable_Click(object sender, EventArgs e)
         {
@@ -351,7 +351,7 @@ namespace AgIO
             if (dataList.Count > 0)
             {
                 string syte = "http://monitor.use-snip.com/?hostUrl=" + tboxCasterIP.Text + "&port=" + nudCasterPort.Value.ToString();
-                using FormSource form = new FormSource(this, dataList, mf.latitude, mf.longitude, syte);
+                using FormSource form = new(this, dataList, mf.latitude, mf.longitude, syte);
                 form.ShowDialog(this);
             }
             else

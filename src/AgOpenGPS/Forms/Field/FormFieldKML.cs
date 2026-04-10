@@ -91,7 +91,7 @@ namespace AgOpenGPS
         private void btnLoadKML_Click(object sender, EventArgs e)
         {
             //create the dialog instance
-            OpenFileDialog ofd = new OpenFileDialog
+            OpenFileDialog ofd = new()
             {
                 //set the filter to text KML only
                 Filter = "KML files (*.KML)|*.KML",
@@ -131,7 +131,7 @@ namespace AgOpenGPS
             string coordinates = null;
             int startIndex;
 
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(filename))
+            using (System.IO.StreamReader reader = new(filename))
             {
                 try
                 {
@@ -172,7 +172,7 @@ namespace AgOpenGPS
                             //at least 3 points
                             if (numberSets.Length > 2)
                             {
-                                CBoundaryList New = new CBoundaryList();
+                                CBoundaryList New = new();
 
                                 foreach (string item in numberSets)
                                 {
@@ -235,7 +235,7 @@ namespace AgOpenGPS
             string coordinates = null;
             int startIndex;
 
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(filename))
+            using (System.IO.StreamReader reader = new(filename))
             {
                 try
                 {
@@ -370,7 +370,7 @@ namespace AgOpenGPS
 
                     myFileName = "Field.txt";
 
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
+                    using (StreamWriter writer = new(Path.Combine(directoryName, myFileName)))
                     {
                         //Write out the date
                         writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));

@@ -27,7 +27,7 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                using GithubReleaseService githubService = new GithubReleaseService(authToken: gitHubToken);
+                using GithubReleaseService githubService = new(authToken: gitHubToken);
                 ReleaseInfo updateInfo = await githubService.CheckForUpdate(currentVersion, includePrerelease);
 
                 if (updateInfo != null)
@@ -73,7 +73,7 @@ namespace AgOpenGPS.Updater.Services
 
                 string downloadPath = Path.Combine(targetDirectory, Path.GetFileName(asset.Name));
 
-                using (GithubReleaseService githubService = new GithubReleaseService(authToken: gitHubToken))
+                using (GithubReleaseService githubService = new(authToken: gitHubToken))
                 {
                     await githubService.DownloadAsset(asset.BrowserDownloadUrl, downloadPath, progress);
                 }
@@ -352,14 +352,14 @@ namespace AgOpenGPS.Updater.Services
                     int copiedFiles = 0;
                     int skippedFiles = 0;
                     int lockedFiles = 0;
-                    List<string> skippedLockedFiles = new List<string>();
+                    List<string> skippedLockedFiles = new();
 
                     // Copy files from the zip to the installation directory
                     foreach (string file in allFiles)
                     {
                         // Get relative path from source
-                        Uri sourceUri = new Uri(sourcePath + Path.DirectorySeparatorChar);
-                        Uri fileUri = new Uri(file);
+                        Uri sourceUri = new(sourcePath + Path.DirectorySeparatorChar);
+                        Uri fileUri = new(file);
                         string relativePath = Uri.UnescapeDataString(sourceUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar));
 
                         // Check if we should skip this file entirely (updater's own files)
@@ -689,7 +689,7 @@ namespace AgOpenGPS.Updater.Services
                     return (false, "AgOpenGPS.exe not found in installation directory.");
                 }
 
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                ProcessStartInfo startInfo = new()
                 {
                     FileName = exePath,
                     Arguments = arguments ?? string.Empty,

@@ -39,7 +39,7 @@ namespace AgOpenGPS
                 fieldId = Guid.NewGuid();
             }
 
-            List<List<vec3>> boundaries = new List<List<vec3>>();
+            List<List<vec3>> boundaries = new();
             foreach (CBoundaryList b in gps.bnd.bndList)
             {
                 boundaries.Add(b.fenceLine.ToList());
@@ -48,9 +48,9 @@ namespace AgOpenGPS
             List<CTrk> tracks = gps.trk.gArr.ToList();
 
             Wgs84 origin = gps.AppModel.LocalPlane.Origin;
-            LocalPlane plane = new LocalPlane(origin, new SharedFieldProperties());
+            LocalPlane plane = new(origin, new SharedFieldProperties());
 
-            FieldSnapshot snapshot = new FieldSnapshot
+            FieldSnapshot snapshot = new()
             {
                 FieldName = gps.displayFieldName,
                 FieldDirectory = dir,
@@ -71,8 +71,8 @@ namespace AgOpenGPS
             try
             {
                 // Allow upload even without boundary - boundary is optional
-                List<CoordinateDto> outer = new List<CoordinateDto>();
-                List<List<CoordinateDto>> holes = new List<List<CoordinateDto>>();
+                List<CoordinateDto> outer = new();
+                List<List<CoordinateDto>> holes = new();
 
                 if (snapshot.Boundaries != null && snapshot.Boundaries.Count > 0)
                 {
@@ -109,13 +109,13 @@ namespace AgOpenGPS
                     Log.EventWriter("Failed to check field visibility on AgShare, defaulting to private.");
                 }
 
-                PolygonDto boundary = new PolygonDto
+                PolygonDto boundary = new()
                 {
                     Outer = outer,
                     Holes = holes
                 };
 
-                UploadFieldDto payload = new UploadFieldDto
+                UploadFieldDto payload = new()
                 {
                     Name = snapshot.FieldName,
                     IsPublic = isPublic,
@@ -142,10 +142,10 @@ namespace AgOpenGPS
         // Convert local NE boundary to WGS84
         private static List<CoordinateDto> ConvertBoundary(List<vec3> localFence, LocalPlane converter)
         {
-            List<CoordinateDto> coords = new List<CoordinateDto>();
+            List<CoordinateDto> coords = new();
             for (int i = 0; i < localFence.Count; i++)
             {
-                GeoCoord geo = new GeoCoord(localFence[i].northing, localFence[i].easting);
+                GeoCoord geo = new(localFence[i].northing, localFence[i].easting);
                 Wgs84 wgs = converter.ConvertGeoCoordToWgs84(geo);
                 coords.Add(new CoordinateDto { Latitude = wgs.Latitude, Longitude = wgs.Longitude });
             }
@@ -166,14 +166,14 @@ namespace AgOpenGPS
         // Convert track lines from local NE to WGS84 format
         private static List<GuidanceTrackDto> ConvertGuidanceTracks(List<CTrk> tracks, LocalPlane converter)
         {
-            List<GuidanceTrackDto> result = new List<GuidanceTrackDto>();
+            List<GuidanceTrackDto> result = new();
 
             foreach (CTrk ab in tracks)
             {
                 if (ab.mode == TrackMode.AB)
                 {
-                    GeoCoord a = new GeoCoord(ab.ptA.northing, ab.ptA.easting);
-                    GeoCoord b = new GeoCoord(ab.ptB.northing, ab.ptB.easting);
+                    GeoCoord a = new(ab.ptA.northing, ab.ptA.easting);
+                    GeoCoord b = new(ab.ptB.northing, ab.ptB.easting);
                     Wgs84 wgsA = converter.ConvertGeoCoordToWgs84(a);
                     Wgs84 wgsB = converter.ConvertGeoCoordToWgs84(b);
 
@@ -183,17 +183,17 @@ namespace AgOpenGPS
                         Type = "AB",
                         Coords = new List<CoordinateDto>
                         {
-                            new CoordinateDto { Latitude = wgsA.Latitude, Longitude = wgsA.Longitude },
-                            new CoordinateDto { Latitude = wgsB.Latitude, Longitude = wgsB.Longitude }
+                            new() { Latitude = wgsA.Latitude, Longitude = wgsA.Longitude },
+                            new() { Latitude = wgsB.Latitude, Longitude = wgsB.Longitude }
                         }
                     });
                 }
                 else if (ab.mode == TrackMode.Curve && ab.curvePts.Count >= 2)
                 {
-                    List<CoordinateDto> coords = new List<CoordinateDto>();
+                    List<CoordinateDto> coords = new();
                     foreach (vec3 pt in ab.curvePts)
                     {
-                        GeoCoord geo = new GeoCoord(pt.northing, pt.easting);
+                        GeoCoord geo = new(pt.northing, pt.easting);
                         Wgs84 wgs = converter.ConvertGeoCoordToWgs84(geo);
                         coords.Add(new CoordinateDto { Latitude = wgs.Latitude, Longitude = wgs.Longitude });
                     }

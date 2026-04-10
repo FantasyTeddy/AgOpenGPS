@@ -44,7 +44,7 @@ namespace AgIO.Properties
         public string setPort_baudRateRadio = "9600";
         public string setPort_radioChannel = "439.000";
         public bool setRadio_isOn = false;
-        public List<CRadioChannel> setRadio_Channels = new List<CRadioChannel>();
+        public List<CRadioChannel> setRadio_Channels = new();
         public bool setUDP_isSendNMEAToUDP = false;
         public string setPort_portNameRtcm = "RTCM";
         public int setPort_baudRateRtcm = 9600;

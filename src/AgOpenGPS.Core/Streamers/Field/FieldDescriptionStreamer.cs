@@ -51,7 +51,7 @@ namespace AgOpenGPS.Core.Streamers
         public ReadOnlyCollection<FieldDescription> GetFieldDescriptions()
         {
             DirectoryInfo[] fieldDirectories = _fieldsDirectory.GetDirectories();
-            List<FieldDescription> list = new List<FieldDescription>();
+            List<FieldDescription> list = new();
 
             foreach (DirectoryInfo fieldDirectory in fieldDirectories)
             {

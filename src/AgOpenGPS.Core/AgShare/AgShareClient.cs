@@ -35,7 +35,7 @@ namespace AgOpenGPS.Core.AgShare
 
         private static HttpClient CreateHttpClient(string serverUrl, string apiKey)
         {
-            HttpClient client = new HttpClient();
+            HttpClient client = new();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
@@ -51,7 +51,7 @@ namespace AgOpenGPS.Core.AgShare
         {
             try
             {
-                using HttpClient tempClient = new HttpClient();
+                using HttpClient tempClient = new();
                 tempClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 tempClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
                 tempClient.BaseAddress = new Uri(baseUrl);
@@ -86,7 +86,7 @@ namespace AgOpenGPS.Core.AgShare
             try
             {
                 string json = JsonConvert.SerializeObject(fieldPayload);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                StringContent content = new(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await _client.PutAsync($"/api/fields/{fieldId}", content);
 
                 if (response.IsSuccessStatusCode)

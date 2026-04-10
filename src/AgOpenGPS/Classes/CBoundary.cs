@@ -9,7 +9,7 @@ namespace AgOpenGPS
 
 
 
-        public List<CBoundaryList> bndList = new List<CBoundaryList>();
+        public List<CBoundaryList> bndList = new();
 
         //constructor
         public CBoundary(FormGPS _f)

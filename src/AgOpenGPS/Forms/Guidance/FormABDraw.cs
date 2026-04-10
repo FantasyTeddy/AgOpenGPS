@@ -32,9 +32,9 @@ namespace AgOpenGPS
 
         private double zoom = 1, sX = 0, sY = 0;
 
-        public List<CTrk> gTemp = new List<CTrk>();
+        public List<CTrk> gTemp = new();
 
-        public vec3 pint = new vec3(0.0, 1.0, 0.0);
+        public vec3 pint = new(0.0, 1.0, 0.0);
 
         private bool isDrawSections = false;
 
@@ -380,7 +380,7 @@ namespace AgOpenGPS
             {
                 // Boundary already has proper headings and spacing from FixFenceLine()
                 // Just copy the points directly to create the boundary curve
-                List<vec3> bndPoints = new List<vec3>();
+                List<vec3> bndPoints = new();
                 foreach (vec3 pt in mf.bnd.bndList[q].fenceLine)
                 {
                     bndPoints.Add(new vec3(pt));
@@ -604,7 +604,7 @@ namespace AgOpenGPS
             //Convert to Origin in the center of window, 800 pixels
             fixPt.X = pt.X - halfWid;
             fixPt.Y = wid - pt.Y - halfWid;
-            vec3 plotPt = new vec3
+            vec3 plotPt = new()
             {
                 //convert screen coordinates to field coordinates
                 easting = fixPt.X * mf.maxFieldDistance / scale * zoom,
@@ -847,11 +847,11 @@ namespace AgOpenGPS
             if (indx > -1 && gTemp[indx].mode == TrackMode.Curve)
             {
                 //and the beginning
-                vec3 start = new vec3(gTemp[indx].curvePts[0]);
+                vec3 start = new(gTemp[indx].curvePts[0]);
 
                 for (int i = 1; i < 50; i++)
                 {
-                    vec3 pt = new vec3(start);
+                    vec3 pt = new(start);
                     pt.easting -= Math.Sin(pt.heading) * i;
                     pt.northing -= Math.Cos(pt.heading) * i;
                     gTemp[indx].curvePts.Insert(0, pt);
@@ -867,7 +867,7 @@ namespace AgOpenGPS
 
                 for (int i = 1; i < 50; i++)
                 {
-                    vec3 pt = new vec3(gTemp[indx].curvePts[ptCnt]);
+                    vec3 pt = new(gTemp[indx].curvePts[ptCnt]);
                     pt.easting += Math.Sin(pt.heading) * i;
                     pt.northing += Math.Cos(pt.heading) * i;
                     gTemp[indx].curvePts.Add(pt);

@@ -311,9 +311,9 @@ namespace AgOpenGPS.Forms.Config
 
         private static Bitmap SetAlpha(Bitmap bmpIn, int alpha)
         {
-            Bitmap bmpOut = new Bitmap(bmpIn.Width, bmpIn.Height);
+            Bitmap bmpOut = new(bmpIn.Width, bmpIn.Height);
             float a = alpha / 255f;
-            Rectangle r = new Rectangle(0, 0, bmpIn.Width, bmpIn.Height);
+            Rectangle r = new(0, 0, bmpIn.Width, bmpIn.Height);
 
             float[][] matrixItems = {
                             new float[] {1, 0, 0, 0, 0},
@@ -322,9 +322,9 @@ namespace AgOpenGPS.Forms.Config
                             new float[] {0, 0, 0, a, 0},
                             new float[] {0, 0, 0, 0, 1}};
 
-            ColorMatrix colorMatrix = new ColorMatrix(matrixItems);
+            ColorMatrix colorMatrix = new(matrixItems);
 
-            ImageAttributes imageAtt = new ImageAttributes();
+            ImageAttributes imageAtt = new();
             imageAtt.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
             using (Graphics g = Graphics.FromImage(bmpOut))

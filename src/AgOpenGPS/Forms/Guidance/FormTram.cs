@@ -222,7 +222,7 @@ namespace AgOpenGPS
                         mf.trk.gArr[mf.trk.idx].curvePts.Add(pt3);
                     }
 
-                    vec2 temp = new vec2(mf.trk.gArr[mf.trk.idx].ptA);
+                    vec2 temp = new(mf.trk.gArr[mf.trk.idx].ptA);
 
                     mf.trk.gArr[mf.trk.idx].ptA = new vec2(mf.trk.gArr[mf.trk.idx].ptB);
                     mf.trk.gArr[mf.trk.idx].ptB = new vec2(temp);

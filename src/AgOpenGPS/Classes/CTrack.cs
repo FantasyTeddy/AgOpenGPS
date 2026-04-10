@@ -10,7 +10,7 @@ namespace AgOpenGPS
         //pointers to mainform controls
         private readonly FormGPS mf;
 
-        public List<CTrk> gArr = new List<CTrk>();
+        public List<CTrk> gArr = new();
 
         public int idx, autoTrack3SecTimer;
 
@@ -207,7 +207,7 @@ namespace AgOpenGPS
         {
             mf.curve.isCurveValid = false;
 
-            List<vec3> curList = new List<vec3>();
+            List<vec3> curList = new();
 
             double distSqAway = (distAway * distAway) - 0.01;
             vec3 point;
@@ -284,7 +284,7 @@ namespace AgOpenGPS
                         int loopTimes = (int)((distance / spacing) + 1);
                         for (int j = 1; j < loopTimes; j++)
                         {
-                            vec3 pos = new vec3(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
+                            vec3 pos = new(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
                             curList.Add(pos);
                         }
                     }
@@ -314,7 +314,7 @@ namespace AgOpenGPS
 
     public class CTrk
     {
-        public List<vec3> curvePts = new List<vec3>();
+        public List<vec3> curvePts = new();
         public double heading;
         public string name;
         public bool isVisible;
@@ -324,7 +324,7 @@ namespace AgOpenGPS
         public vec2 endPtB;
         public TrackMode mode;
         public double nudgeDistance;
-        public HashSet<int> workedTracks = new HashSet<int>();
+        public HashSet<int> workedTracks = new();
 
         public CTrk()
         {

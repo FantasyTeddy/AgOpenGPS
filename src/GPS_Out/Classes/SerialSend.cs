@@ -8,7 +8,7 @@ namespace GPS_Out
         private readonly frmStart mf;
         private bool cWriteTimeOut = false;
         private readonly SerialPort Sport;
-        private readonly System.Windows.Forms.Timer Timer1 = new System.Windows.Forms.Timer();
+        private readonly System.Windows.Forms.Timer Timer1 = new();
         private int WriteErrorCount;
 
         public SerialSend(frmStart CalledFrom)

@@ -66,7 +66,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
         /// </summary>
         public static List<vec3> CalculateHeadings(List<vec3> inputPoints)
         {
-            List<vec3> output = new List<vec3>();
+            List<vec3> output = new();
 
             if (inputPoints == null || inputPoints.Count < 2)
                 return output;

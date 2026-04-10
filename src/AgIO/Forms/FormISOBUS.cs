@@ -254,7 +254,7 @@ namespace AgIO
                     // Check if current adapter allows channel selection
                     string adapter = cboxRadioAdapter.SelectedItem.ToString();
 
-                    Dictionary<string, int> adapterChannels = new Dictionary<string, int>
+                    Dictionary<string, int> adapterChannels = new()
                     {
                         { "PEAK-PCAN", 16 },
                         { "InnoMaker-USB2CAN", 2 },

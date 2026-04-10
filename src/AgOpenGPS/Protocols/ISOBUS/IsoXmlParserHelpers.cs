@@ -52,7 +52,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
         // Parse PLN boundaries into CBoundaryList objects
         public static List<CBoundaryList> ParseBoundaries(XmlNodeList fieldParts, ApplicationModel appModel)
         {
-            List<CBoundaryList> boundaries = new List<CBoundaryList>();
+            List<CBoundaryList> boundaries = new();
             bool outerBuilt = false;
 
             foreach (XmlNode node in fieldParts)
@@ -88,7 +88,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
                 {
                     if (node.SelectSingleNode("LSG[@A='1']") is XmlNode lsg)
                     {
-                        List<vec3> list = new List<vec3>();
+                        List<vec3> list = new();
                         foreach (XmlNode pnt in lsg.SelectNodes("PNT"))
                         {
                             if (double.TryParse(pnt.Attributes["C"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double lat) &&
@@ -112,7 +112,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
         // Parse all valid guidance lines
         public static List<CTrk> ParseAllGuidanceLines(XmlNodeList fieldParts, ApplicationModel appModel)
         {
-            List<CTrk> tracks = new List<CTrk>();
+            List<CTrk> tracks = new();
 
             foreach (XmlNode node in fieldParts)
             {
@@ -133,7 +133,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
         public static CBoundaryList ParseBoundaryFromLSG(XmlNode lsg, ApplicationModel appModel)
         {
-            CBoundaryList list = new CBoundaryList();
+            CBoundaryList list = new();
 
             foreach (XmlNode pnt in lsg.SelectNodes("PNT"))
             {
@@ -205,7 +205,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             if (points == null || points.Count <= 2) return null;
 
             // Build raw list from ISOXML
-            List<vec3> desList = new List<vec3>();
+            List<vec3> desList = new();
             foreach (XmlNode pnt in points)
             {
                 GeoCoord geo = ParseGeoCoord(pnt, appModel);
@@ -241,7 +241,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             }
 
             // Build track
-            CTrk track = new CTrk
+            CTrk track = new()
             {
                 heading = avgHeading,
                 mode = TrackMode.Curve,
@@ -292,7 +292,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             if (pts == null || pts.Count < 2 || extendMeters <= 0) return pts;
 
             // Work on a copy to keep this pure
-            List<vec3> list = new List<vec3>(pts);
+            List<vec3> list = new(pts);
 
             // Extend before the first point (backwards along first segment)
             vec3 first = list[0];

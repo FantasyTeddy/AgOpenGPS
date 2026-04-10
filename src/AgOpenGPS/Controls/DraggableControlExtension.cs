@@ -8,7 +8,7 @@ namespace AgOpenGPS.Controls
     public static class DraggableControlExtension
     {
         // TKey is control to drag, TValue is a flag used while dragging
-        private static readonly Dictionary<Control, bool> _draggables = new Dictionary<Control, bool>();
+        private static readonly Dictionary<Control, bool> _draggables = new();
         private static Size _mouseOffset;
 
         /// <summary>

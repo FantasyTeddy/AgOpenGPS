@@ -10,7 +10,7 @@ namespace AgDiag.Protocol
     {
         private readonly Pgns _pgns;
 
-        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         private int cntr;
 
@@ -36,7 +36,7 @@ namespace AgDiag.Protocol
         {
             try
             {
-                using UdpClient udpClient = new UdpClient(17777);
+                using UdpClient udpClient = new(17777);
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     UdpReceiveResult result = await udpClient.ReceiveAsync().ConfigureAwait(false);

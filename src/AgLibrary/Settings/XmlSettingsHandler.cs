@@ -28,7 +28,7 @@ namespace AgLibrary.Settings
                     return LoadResult.MissingFile;
                 }
 
-                using XmlTextReader reader = new XmlTextReader(filePath);
+                using XmlTextReader reader = new(filePath);
                 string name = "";
                 while (reader.Read())
                 {
@@ -133,7 +133,7 @@ namespace AgLibrary.Settings
                 }
 
                 // Deserialize XML into the custom object
-                XmlSerializer serializer = new XmlSerializer(typeof(List<>).MakeGenericType(itemType));
+                XmlSerializer serializer = new(typeof(List<>).MakeGenericType(itemType));
                 object list = serializer.Deserialize(reader);
 
                 if (fieldType.IsArray) // Convert List<T> to T[] for arrays
@@ -158,8 +158,8 @@ namespace AgLibrary.Settings
 
                         if (!string.IsNullOrEmpty(innerXml))
                         {
-                            using StringReader stringReader = new StringReader(innerXml);
-                            XmlSerializer serializer = new XmlSerializer(fieldType);
+                            using StringReader stringReader = new(innerXml);
+                            XmlSerializer serializer = new(fieldType);
                             object nestedObj = serializer.Deserialize(stringReader);
                             pinfo.SetValue(obj, nestedObj);
                         }
@@ -194,7 +194,7 @@ namespace AgLibrary.Settings
                     Directory.CreateDirectory(dirName);
                 }
 
-                using (XmlTextWriter xml = new XmlTextWriter(filePath + ".tmp", Encoding.UTF8)
+                using (XmlTextWriter xml = new(filePath + ".tmp", Encoding.UTF8)
                 {
                     Formatting = Formatting.Indented,
                     Indentation = 4
@@ -226,7 +226,7 @@ namespace AgLibrary.Settings
                             // Write the serialized object to a nested "value" element
                             xml.WriteStartElement("value");
 
-                            XmlSerializer serializer = new XmlSerializer(fieldType);
+                            XmlSerializer serializer = new(fieldType);
                             serializer.Serialize(xml, value);
 
                             xml.WriteEndElement(); // value

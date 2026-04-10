@@ -36,13 +36,13 @@ namespace AgIO
         private const int KEYUP = 0x2;
 
         //Stringbuilder
-        public StringBuilder logNMEASentence = new StringBuilder();
+        public StringBuilder logNMEASentence = new();
 
-        public StringBuilder logMonitorSentence = new StringBuilder();
-        public StringBuilder logUDPSentence = new StringBuilder();
+        public StringBuilder logMonitorSentence = new();
+        public StringBuilder logUDPSentence = new();
         public bool isLogNMEA, isLogMonitorOn, isUDPMonitorOn, isGPSLogOn, isNTRIPLogOn;
 
-        private readonly StringBuilder sbRTCM = new StringBuilder();
+        private readonly StringBuilder sbRTCM = new();
 
         public bool isKeyboardOn = true;
 
@@ -273,7 +273,7 @@ namespace AgIO
 
                 YesMessageBox("AgIO - No Profile Open \r\n\r\n Create or Open a Profile");
 
-                using (FormProfiles form = new FormProfiles(this))
+                using (FormProfiles form = new(this))
                 {
                     form.ShowDialog(this);
                     if (form.DialogResult == DialogResult.Yes)

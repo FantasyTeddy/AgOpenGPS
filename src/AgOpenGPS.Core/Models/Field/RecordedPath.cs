@@ -5,7 +5,7 @@ namespace AgOpenGPS.Core.Models
 
     public class RecordedPath : GeoPathBase
     {
-        public List<RecordedPoint> PointList = new List<RecordedPoint>();
+        public List<RecordedPoint> PointList = new();
 
         public override int Count => PointList.Count;
 

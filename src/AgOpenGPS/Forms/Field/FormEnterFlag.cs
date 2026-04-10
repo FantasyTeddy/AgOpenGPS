@@ -78,7 +78,7 @@ namespace AgOpenGPS
 
             GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitude.Value, (double)nudLongitude.Value));
             int nextflag = mf.flagPts.Count + 1;
-            CFlag flagPt = new CFlag(
+            CFlag flagPt = new(
                 (double)nudLatitude.Value, (double)nudLongitude.Value,
                 geoCoord.Easting, geoCoord.Northing,
                 0, flagColor, nextflag, nextflag.ToString());
@@ -106,7 +106,7 @@ namespace AgOpenGPS
         // load flags from a text file with latitude,longitude,color, notes
         private void btnImportFlags_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog
+            OpenFileDialog fileDialog = new()
             {
                 Filter = "Text Document | *.txt| CSV Document | *.csv",
                 Title = "Please select points file",
@@ -132,7 +132,7 @@ namespace AgOpenGPS
                             string flagName = (!string.IsNullOrWhiteSpace(parts[3])) ? parts[3].Trim() : $"{mf.flagPts.Count + 1}";
                             GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latitude, longitude));
                             int nextflag = mf.flagPts.Count + 1;
-                            CFlag flagPt = new CFlag(
+                            CFlag flagPt = new(
                                 latitude, longitude,
                                 geoCoord.Easting, geoCoord.Northing,
                                 0, flagColor, nextflag, flagName);
@@ -161,7 +161,7 @@ namespace AgOpenGPS
         // Export flags to a CSV file, with latitude, longitude, color, notes
         private void btnExportFlags_Click(object sender, EventArgs e)
         {
-            SaveFileDialog fileDialog = new SaveFileDialog
+            SaveFileDialog fileDialog = new()
             {
                 DefaultExt = "txt",
                 Filter = "Text Document | *.txt| CSV Document | *.csv| All files| *.*",
@@ -172,7 +172,7 @@ namespace AgOpenGPS
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                using StreamWriter writer = new StreamWriter(fileDialog.FileName);
+                using StreamWriter writer = new(fileDialog.FileName);
                 try
                 {
                     writer.WriteLine("Latitude,Longitude,Color,Notes");

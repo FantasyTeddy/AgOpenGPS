@@ -13,7 +13,7 @@ namespace AgLibrary.Tests.Settings
         {
             // Arrange
             string filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Settings", "TestSettings.xml");
-            TestSettings testSettings = new TestSettings();
+            TestSettings testSettings = new();
 
             // Act
             LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(filePath, testSettings);
@@ -51,7 +51,7 @@ namespace AgLibrary.Tests.Settings
         {
             // Arrange
             string filePath = Path.GetTempFileName();
-            TestSettings testSettings = new TestSettings
+            TestSettings testSettings = new()
             {
                 StringSetting = "Some text",
                 EnumSetting = TestEnum.Two,

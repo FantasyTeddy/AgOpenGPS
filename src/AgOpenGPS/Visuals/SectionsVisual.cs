@@ -6,7 +6,7 @@ namespace AgOpenGPS.Visuals
 {
     public class SectionsVisual
     {
-        private static ColorRgba sectionsColor = new ColorRgba(0.9f, 0.9f, 0.8f);
+        private static ColorRgba sectionsColor = new(0.9f, 0.9f, 0.8f);
         public static void DrawSections(List<CPatches> triStrip)
         {
             const int mipmap = 8;

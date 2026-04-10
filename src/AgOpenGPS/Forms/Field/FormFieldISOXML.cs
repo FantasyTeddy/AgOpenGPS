@@ -43,7 +43,7 @@ namespace AgOpenGPS
             labelField.Text = gStr.gsBasedOnField + ":";
             tree.Nodes?.Clear();
 
-            OpenFileDialog ofd = new OpenFileDialog
+            OpenFileDialog ofd = new()
             {
                 Filter = "XML files (*.XML)|*.XML",
                 InitialDirectory = RegistrySettings.fieldsDirectory
@@ -87,7 +87,7 @@ namespace AgOpenGPS
                     string fieldLabel = $"{fieldName} Area: {areaHa:0.00} Ha";
 
                     // 4) Add to tree
-                    TreeNode fieldNode = new TreeNode(fieldLabel) { Tag = index++ };
+                    TreeNode fieldNode = new(fieldLabel) { Tag = index++ };
                     tree.Nodes.Add(fieldNode);
 
                     XmlNodeList fieldParts = nodePFD.ChildNodes;
@@ -259,7 +259,7 @@ namespace AgOpenGPS
             }
 
             XmlNodeList fieldParts = pfd[idxFieldSelected].ChildNodes;
-            IsoXmlFieldImporter importer = new IsoXmlFieldImporter(fieldParts, mf.AppModel);
+            IsoXmlFieldImporter importer = new(fieldParts, mf.AppModel);
 
             if (!importer.TryGetOrigin(out _origin))
             {
@@ -343,7 +343,7 @@ namespace AgOpenGPS
 
             if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
-            using (StreamWriter writer = new StreamWriter(fieldFile))
+            using (StreamWriter writer = new(fieldFile))
             {
                 writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
                 writer.WriteLine("$FieldDir");

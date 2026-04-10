@@ -80,13 +80,13 @@ namespace ModSim
 
         public void TimedMessageBox(int timeout, string title, string message)
         {
-            FormTimedMessage form = new FormTimedMessage(timeout, title, message);
+            FormTimedMessage form = new(timeout, title, message);
             form.Show();
         }
 
         public void YesMessageBox(string s1)
         {
-            FormYes form = new FormYes(s1);
+            FormYes form = new(s1);
             form.ShowDialog(this);
         }
 
@@ -95,19 +95,19 @@ namespace ModSim
         private string TimeNow = "";
 
         //Our two new nmea strings
-        private readonly StringBuilder sbOGI = new StringBuilder();
-        private readonly StringBuilder sbNDA = new StringBuilder();
+        private readonly StringBuilder sbOGI = new();
+        private readonly StringBuilder sbNDA = new();
 
-        private readonly StringBuilder sbHDT = new StringBuilder();
-        private readonly StringBuilder sbRMC = new StringBuilder();
+        private readonly StringBuilder sbHDT = new();
+        private readonly StringBuilder sbRMC = new();
 
-        private readonly StringBuilder sbGGA = new StringBuilder();
-        private readonly StringBuilder sbVTG = new StringBuilder();
-        private readonly StringBuilder sbAVR = new StringBuilder();
-        private readonly StringBuilder sbKSXT = new StringBuilder();
+        private readonly StringBuilder sbGGA = new();
+        private readonly StringBuilder sbVTG = new();
+        private readonly StringBuilder sbAVR = new();
+        private readonly StringBuilder sbKSXT = new();
 
         //The entire string to send out
-        private readonly StringBuilder sbSendText = new StringBuilder();
+        private readonly StringBuilder sbSendText = new();
 
         //GPS related properties
         private readonly int fixQuality = 8, sats = 12;

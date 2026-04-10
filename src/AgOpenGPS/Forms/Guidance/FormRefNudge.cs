@@ -10,7 +10,7 @@ namespace AgOpenGPS
     public partial class FormRefNudge : Form
     {
         private readonly FormGPS mf = null;
-        public List<CTrk> gTemp = new List<CTrk>();
+        public List<CTrk> gTemp = new();
 
 
         private double snapAdj = 0, distanceMoved = 0;

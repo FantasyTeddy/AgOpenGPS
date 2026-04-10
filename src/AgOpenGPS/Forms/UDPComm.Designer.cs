@@ -28,7 +28,7 @@ namespace AgOpenGPS
         public int missedSentenceCount = 0;
         public int udpWatchLimit = 70;
 
-        private readonly Stopwatch udpWatch = new Stopwatch();
+        private readonly Stopwatch udpWatch = new();
 
         private void ReceiveFromAgIO(byte[] data)
         {
@@ -429,7 +429,7 @@ namespace AgOpenGPS
                 {
                     if ((int)m.Result == 0x01/*HTCLIENT*/)
                     {
-                        Point screenPoint = new Point(m.LParam.ToInt32());
+                        Point screenPoint = new(m.LParam.ToInt32());
                         Point clientPoint = this.PointToClient(screenPoint);
                         if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
                         {

@@ -36,15 +36,15 @@ namespace AgOpenGPS.Classes
 
         public void ExtendAllTracks(double extendMeters)
         {
-            List<CTrk> extendedTracks = new List<CTrk>();
+            List<CTrk> extendedTracks = new();
 
             foreach (CTrk trk in InputTracks)
             {
                 List<GeoCoord> pts = trk.mode == TrackMode.AB
                     ? new List<GeoCoord>
                       {
-                  new GeoCoord(trk.ptA.northing, trk.ptA.easting),
-                  new GeoCoord(trk.ptB.northing, trk.ptB.easting)
+                  new(trk.ptA.northing, trk.ptA.easting),
+                  new(trk.ptB.northing, trk.ptB.easting)
                       }
                     : trk.curvePts
                         .Select(p => new GeoCoord(p.northing, p.easting))
@@ -138,17 +138,17 @@ namespace AgOpenGPS.Classes
         {
             if (pts == null || pts.Count < 2) return pts;
 
-            List<GeoCoord> result = new List<GeoCoord>(pts.Count + 2);
+            List<GeoCoord> result = new(pts.Count + 2);
 
             // First segment direction
             GeoCoord a0 = pts[0];
             GeoCoord a1 = pts[1];
-            GeoDelta dirstart = new GeoDelta(a1, a0);
+            GeoDelta dirstart = new(a1, a0);
             double lengthStart = dirstart.Length;
             if (lengthStart > 1e-6)
             {
                 double extend = extendMeters / lengthStart;
-                GeoCoord extStart = new GeoCoord(
+                GeoCoord extStart = new(
                     a0.Northing + (dirstart.NorthingDelta * extend),
                     a0.Easting + (dirstart.EastingDelta * extend)
                 );
@@ -159,12 +159,12 @@ namespace AgOpenGPS.Classes
 
             GeoCoord b0 = pts[^2];
             GeoCoord b1 = pts[^1];
-            GeoDelta dirEnd = new GeoDelta(b0, b1);
+            GeoDelta dirEnd = new(b0, b1);
             double lengthEnd = dirEnd.Length;
             if (lengthEnd > 1e-6)
             {
                 double extend = extendMeters / lengthEnd;
-                GeoCoord extEnd = new GeoCoord(
+                GeoCoord extEnd = new(
                     b1.Northing + (dirEnd.NorthingDelta * extend),
                     b1.Easting + (dirEnd.EastingDelta * extend)
                 );
@@ -207,7 +207,7 @@ namespace AgOpenGPS.Classes
         {
             try
             {
-                HashSet<vec2> uniqueIntersections = new HashSet<vec2>(new Vec2EqualityComparer());
+                HashSet<vec2> uniqueIntersections = new(new Vec2EqualityComparer());
                 int totalChecks = 0;
                 int potentialIntersections = 0;
 
@@ -249,7 +249,7 @@ namespace AgOpenGPS.Classes
 
         public List<Segment> TrimSegmentsToIntersections()
         {
-            List<Segment> trimmed = new List<Segment>();
+            List<Segment> trimmed = new();
 
             try
             {
@@ -352,8 +352,8 @@ namespace AgOpenGPS.Classes
             if (segments.Count == 0)
                 return new List<vec3>();
 
-            List<vec3> polygon = new List<vec3>();
-            HashSet<Segment> visited = new HashSet<Segment>();
+            List<vec3> polygon = new();
+            HashSet<Segment> visited = new();
             Segment current = segments[0];
 
             polygon.Add(current.Start.ToVec3());
@@ -378,7 +378,7 @@ namespace AgOpenGPS.Classes
             if (polygon?.Count < MIN_POLYGON_POINTS)
                 return null;
 
-            CBoundaryList boundary = new CBoundaryList();
+            CBoundaryList boundary = new();
             boundary.fenceLine.AddRange(polygon);
 
             boundary.CalculateFenceArea(0);
@@ -400,7 +400,7 @@ namespace AgOpenGPS.Classes
 
         private List<vec2> EnforceMaxStep(List<vec2> points, double maxStep)
         {
-            List<vec2> result = new List<vec2>();
+            List<vec2> result = new();
             if (points.Count == 0) return result;
 
             result.Add(points[0]);
@@ -434,14 +434,14 @@ namespace AgOpenGPS.Classes
         private (double startDist, double endDist) GetTrimDistances(List<vec2> points, List<vec2> intersections)
         {
             // Calculate cumulative distances along track
-            List<double> distances = new List<double> { 0 };
+            List<double> distances = new() { 0 };
             for (int i = 1; i < points.Count; i++)
             {
                 distances.Add(distances[i - 1] + glm.Distance(points[i - 1], points[i]));
             }
 
             // Project intersections to get their distances along track
-            List<double> intersectionDistances = new List<double>();
+            List<double> intersectionDistances = new();
             foreach (vec2 pt in intersections)
             {
                 for (int i = 0; i < points.Count - 1; i++)
@@ -460,7 +460,7 @@ namespace AgOpenGPS.Classes
 
         private List<vec2> ExtractTrimmedPoints(List<vec2> points, double startDist, double endDist)
         {
-            List<vec2> trimmed = new List<vec2>();
+            List<vec2> trimmed = new();
             double accumulatedDist = 0;
 
             for (int i = 0; i < points.Count - 1; i++)
@@ -503,7 +503,7 @@ namespace AgOpenGPS.Classes
 
         private List<Segment> CreateUniformSegments(List<vec2> points, CTrk parentTrack, double segmentLength)
         {
-            List<Segment> segments = new List<Segment>();
+            List<Segment> segments = new();
 
             for (int i = 0; i < points.Count - 1; i++)
             {

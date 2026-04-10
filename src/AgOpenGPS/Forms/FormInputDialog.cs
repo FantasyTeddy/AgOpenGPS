@@ -36,14 +36,14 @@ namespace AgOpenGPS.Forms
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            using Pen pen = new Pen(BorderColor, 20);
+            using Pen pen = new(BorderColor, 20);
             e.Graphics.DrawRectangle(pen, 0, 0, Width, Height);
         }
 
         // Geeft de ingevoerde naam terug, of null bij Cancel / lege invoer
         public static string ShowInput(string title, string prompt, FormGPS formGPS)
         {
-            using FormInputDialog form = new FormInputDialog(title, prompt, formGPS);
+            using FormInputDialog form = new(title, prompt, formGPS);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 string name = form.textBoxInput.Text.Trim();
@@ -55,7 +55,7 @@ namespace AgOpenGPS.Forms
 
         public static string ShowInput(string title, string prompt, FormGPS formGPS, string defaultValue)
         {
-            using FormInputDialog form = new FormInputDialog(title, prompt, formGPS);
+            using FormInputDialog form = new(title, prompt, formGPS);
             form.textBoxInput.Text = defaultValue ?? "";
             if (form.ShowDialog() == DialogResult.OK)
             {

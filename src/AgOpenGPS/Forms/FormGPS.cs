@@ -95,11 +95,11 @@ namespace AgOpenGPS
         public bool isSavingFile = false;
 
         //texture holders
-        public ScreenTextures ScreenTextures = new ScreenTextures();
-        public VehicleTextures VehicleTextures = new VehicleTextures();
+        public ScreenTextures ScreenTextures = new();
+        public VehicleTextures VehicleTextures = new();
 
         //create instance of a stopwatch for timing of frames and NMEA hz determination
-        private readonly Stopwatch swFrame = new Stopwatch();
+        private readonly Stopwatch swFrame = new();
 
         public double secondsSinceStart;
         public double gridToolSpacing;
@@ -338,7 +338,7 @@ namespace AgOpenGPS
 
             triStrip = new List<CPatches>
             {
-                new CPatches(this)
+                new(this)
             };
 
             //our NMEA parser
@@ -409,7 +409,7 @@ namespace AgOpenGPS
 
             if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
             {
-                using FormTermsAndConditions form = new FormTermsAndConditions();
+                using FormTermsAndConditions form = new();
                 if (form.ShowDialog(this) != DialogResult.OK)
                 {
                     Log.EventWriter("Terms Not Accepted");
@@ -505,7 +505,7 @@ namespace AgOpenGPS
                     string strPath = Path.Combine(Application.StartupPath, "AgIO.exe");
                     try
                     {
-                        ProcessStartInfo processInfo = new ProcessStartInfo
+                        ProcessStartInfo processInfo = new()
                         {
                             FileName = strPath,
                             WorkingDirectory = Path.GetDirectoryName(strPath)
@@ -578,7 +578,7 @@ namespace AgOpenGPS
                 }
                 // Scenario: New profiles exist - no message needed, go directly to form
 
-                using (FormLoadVehicleTool form = new AgOpenGPS.Forms.Profiles.FormLoadVehicleTool(this))
+                using (FormLoadVehicleTool form = new(this))
                 {
                     form.ShowDialog(this);
                 }
@@ -928,7 +928,7 @@ namespace AgOpenGPS
 
                     try
                     {
-                        ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /t 0")
+                        ProcessStartInfo psi = new("shutdown", "/s /t 0")
                         {
                             CreateNoWindow = true, // Prevents a command prompt window from appearing
                             UseShellExecute = false // Required for CreateNoWindow to work in some contexts
@@ -972,7 +972,7 @@ namespace AgOpenGPS
         {
             CloseTopMosts();
 
-            using FormSaveOrNot form = new FormSaveOrNot(this);
+            using FormSaveOrNot form = new(this);
             DialogResult result = form.ShowDialog(this);
 
             if (result == DialogResult.OK) return 0;      //Exit to windows
@@ -1515,14 +1515,14 @@ namespace AgOpenGPS
         //message box pops up with info then goes away
         public void TimedMessageBox(int timeout, string s1, string s2)
         {
-            FormTimedMessage form = new FormTimedMessage(timeout, s1, s2);
+            FormTimedMessage form = new(timeout, s1, s2);
             form.Show(this);
             this.Activate();
         }
 
         public void YesMessageBox(string s1)
         {
-            FormYes form = new FormYes(s1);
+            FormYes form = new(s1);
             form.ShowDialog(this);
         }
     }//class FormGPS

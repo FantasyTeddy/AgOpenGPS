@@ -25,14 +25,14 @@ namespace AgOpenGPS
         private int start = 99999, end = 99999;
         private int bndSelect = 0;
         private TrackMode mode = TrackMode.None;
-        public List<vec3> sliceArr = new List<vec3>();
-        public List<vec3> backupList = new List<vec3>();
+        public List<vec3> sliceArr = new();
+        public List<vec3> backupList = new();
 
         private bool zoomToggle;
 
         private double zoom = 1, sX = 0, sY = 0;
 
-        public vec3 pint = new vec3(0.0, 1.0, 0.0);
+        public vec3 pint = new(0.0, 1.0, 0.0);
 
         public FormHeadLine(Form callingForm)
         {
@@ -183,7 +183,7 @@ namespace AgOpenGPS
             //Convert to Origin in the center of window, 800 pixels
             fixPt.X = ptt.X - halfWid;
             fixPt.Y = wid - ptt.Y - halfWid;
-            vec3 plotPt = new vec3
+            vec3 plotPt = new()
             {
                 //convert screen coordinates to field coordinates
                 easting = fixPt.X * mf.maxFieldDistance / scale * zoom,
@@ -320,17 +320,17 @@ namespace AgOpenGPS
 
                         for (int i = 1; i < 30; i++)
                         {
-                            vec3 pt = new vec3(sliceArr[ptCnt]);
+                            vec3 pt = new(sliceArr[ptCnt]);
                             pt.easting += Math.Sin(pt.heading) * i;
                             pt.northing += Math.Cos(pt.heading) * i;
                             sliceArr.Add(pt);
                         }
 
-                        vec3 stat = new vec3(sliceArr[0]);
+                        vec3 stat = new(sliceArr[0]);
 
                         for (int i = 1; i < 30; i++)
                         {
-                            vec3 pt = new vec3(stat);
+                            vec3 pt = new(stat);
                             pt.easting -= Math.Sin(pt.heading) * i;
                             pt.northing -= Math.Cos(pt.heading) * i;
                             sliceArr.Insert(0, pt);
@@ -366,8 +366,8 @@ namespace AgOpenGPS
                         }
                     }
 
-                    vec3 ptA = new vec3(mf.bnd.bndList[bndSelect].fenceLine[start]);
-                    vec3 ptB = new vec3(mf.bnd.bndList[bndSelect].fenceLine[end]);
+                    vec3 ptA = new(mf.bnd.bndList[bndSelect].fenceLine[start]);
+                    vec3 ptB = new(mf.bnd.bndList[bndSelect].fenceLine[end]);
 
                     //calculate the AB Heading
                     double abHead = Math.Atan2(
@@ -382,7 +382,7 @@ namespace AgOpenGPS
 
                     for (int i = 0; i <= (int)glm.Distance(ptA, ptB); i++)
                     {
-                        vec3 ptC = new vec3(ptA)
+                        vec3 ptC = new(ptA)
                         {
                             easting = (Math.Sin(abHead) * i) + ptA.easting,
                             northing = (Math.Cos(abHead) * i) + ptA.northing,
@@ -395,17 +395,17 @@ namespace AgOpenGPS
 
                     for (int i = 1; i < 30; i++)
                     {
-                        vec3 pt = new vec3(sliceArr[ptCnt]);
+                        vec3 pt = new(sliceArr[ptCnt]);
                         pt.easting += Math.Sin(pt.heading) * i;
                         pt.northing += Math.Cos(pt.heading) * i;
                         sliceArr.Add(pt);
                     }
 
-                    vec3 stat = new vec3(sliceArr[0]);
+                    vec3 stat = new(sliceArr[0]);
 
                     for (int i = 1; i < 30; i++)
                     {
-                        vec3 pt = new vec3(stat);
+                        vec3 pt = new(stat);
                         pt.easting -= Math.Sin(pt.heading) * i;
                         pt.northing -= Math.Cos(pt.heading) * i;
                         sliceArr.Insert(0, pt);
@@ -627,13 +627,13 @@ namespace AgOpenGPS
 
                     if (Math.Abs(delta) > 0.005)
                     {
-                        vec3 pt = new vec3(hdArr[i].easting, hdArr[i].northing, hdArr[i].heading);
+                        vec3 pt = new(hdArr[i].easting, hdArr[i].northing, hdArr[i].heading);
 
                         mf.bnd.bndList[0].hdLine.Add(pt);
                         delta = 0;
                     }
                 }
-                vec3 ptEnd = new vec3(hdArr[^1].easting, hdArr[^1].northing, hdArr[^1].heading);
+                vec3 ptEnd = new(hdArr[^1].easting, hdArr[^1].northing, hdArr[^1].heading);
 
                 mf.bnd.bndList[0].hdLine.Add(ptEnd);
             }
@@ -728,7 +728,7 @@ namespace AgOpenGPS
                 mf.hdl.desList?.Clear();
 
                 //outside point
-                vec3 pt3 = new vec3();
+                vec3 pt3 = new();
 
                 double moveDist = (double)nudSetDistance.Value * mf.ftOrMtoM;
                 double distSq = moveDist * moveDist * 0.999;
@@ -959,11 +959,11 @@ namespace AgOpenGPS
             if (sliceArr.Count > 0)
             {
                 //and the beginning
-                vec3 start = new vec3(sliceArr[0]);
+                vec3 start = new(sliceArr[0]);
 
                 for (int i = 1; i < 10; i++)
                 {
-                    vec3 pt = new vec3(start);
+                    vec3 pt = new(start);
                     pt.easting -= Math.Sin(pt.heading) * i;
                     pt.northing -= Math.Cos(pt.heading) * i;
                     sliceArr.Insert(0, pt);
@@ -979,7 +979,7 @@ namespace AgOpenGPS
 
                 for (int i = 1; i < 10; i++)
                 {
-                    vec3 pt = new vec3(sliceArr[ptCnt]);
+                    vec3 pt = new(sliceArr[ptCnt]);
                     pt.easting += Math.Sin(pt.heading) * i;
                     pt.northing += Math.Cos(pt.heading) * i;
                     sliceArr.Add(pt);

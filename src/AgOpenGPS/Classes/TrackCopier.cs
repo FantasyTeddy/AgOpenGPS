@@ -33,8 +33,8 @@ namespace AgOpenGPS
             Wgs84 targetOrigin = FieldPlaneFiles.LoadOrigin(targetFieldDirectory);
 
             // Create LocalPlane converters
-            LocalPlane sourcePlane = new LocalPlane(sourceOrigin, sharedFieldProperties);
-            LocalPlane targetPlane = new LocalPlane(targetOrigin, sharedFieldProperties);
+            LocalPlane sourcePlane = new(sourceOrigin, sharedFieldProperties);
+            LocalPlane targetPlane = new(targetOrigin, sharedFieldProperties);
 
             return ConvertTracksWithPlanes(tracks, sourcePlane, targetPlane);
         }
@@ -47,14 +47,14 @@ namespace AgOpenGPS
             LocalPlane sourcePlane,
             LocalPlane targetPlane)
         {
-            List<CTrk> convertedTracks = new List<CTrk>();
+            List<CTrk> convertedTracks = new();
 
             foreach (CTrk sourceTrack in tracks)
             {
                 // Normalize heading to 0-2π range
                 double normalizedHeading = NormalizeHeading(sourceTrack.heading);
 
-                CTrk newTrack = new CTrk
+                CTrk newTrack = new()
                 {
                     name = sourceTrack.name,
                     mode = sourceTrack.mode,
@@ -84,7 +84,7 @@ namespace AgOpenGPS
         private static vec2 ConvertVec2(vec2 source, LocalPlane sourcePlane, LocalPlane targetPlane)
         {
             // Convert vec2 (easting, northing) to GeoCoord
-            GeoCoord sourceGeoCoord = new GeoCoord(source.northing, source.easting);
+            GeoCoord sourceGeoCoord = new(source.northing, source.easting);
 
             // Convert to WGS84 using source plane
             Wgs84 wgs84 = sourcePlane.ConvertGeoCoordToWgs84(sourceGeoCoord);
@@ -107,10 +107,10 @@ namespace AgOpenGPS
             if (sourceCurvePts == null || sourceCurvePts.Count == 0)
                 return new List<vec3>();
 
-            List<vec3> convertedCurvePts = new List<vec3>();
+            List<vec3> convertedCurvePts = new();
 
             // First convert all positions
-            List<vec2> convertedPositions = new List<vec2>();
+            List<vec2> convertedPositions = new();
             foreach (vec3 pt in sourceCurvePts)
             {
                 convertedPositions.Add(ConvertVec2(new vec2(pt.easting, pt.northing), sourcePlane, targetPlane));
@@ -123,9 +123,9 @@ namespace AgOpenGPS
                 if (i < convertedPositions.Count - 1)
                 {
                     // Calculate heading to next point using GeoDir
-                    GeoCoord fromCoord = new GeoCoord(convertedPositions[i].northing, convertedPositions[i].easting);
-                    GeoCoord toCoord = new GeoCoord(convertedPositions[i + 1].northing, convertedPositions[i + 1].easting);
-                    GeoDir geoDir = new GeoDir(fromCoord, toCoord);
+                    GeoCoord fromCoord = new(convertedPositions[i].northing, convertedPositions[i].easting);
+                    GeoCoord toCoord = new(convertedPositions[i + 1].northing, convertedPositions[i + 1].easting);
+                    GeoDir geoDir = new(fromCoord, toCoord);
                     heading = geoDir.AngleInRadians;
 
                     // Normalize to 0-2π
