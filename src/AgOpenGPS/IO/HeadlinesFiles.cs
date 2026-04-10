@@ -17,8 +17,10 @@ namespace AgOpenGPS.IO
                 reader.ReadLine(); // optional header
                 while (!reader.EndOfStream)
                 {
-                    CHeadPath hp = new CHeadPath();
-                    hp.name = reader.ReadLine() ?? string.Empty;
+                    CHeadPath hp = new CHeadPath
+                    {
+                        name = reader.ReadLine() ?? string.Empty
+                    };
 
                     string line = reader.ReadLine(); if (line == null) break;
                     hp.moveDistance = double.Parse(line, CultureInfo.InvariantCulture);

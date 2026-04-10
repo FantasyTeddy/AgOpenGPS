@@ -14,11 +14,13 @@ namespace GPS_Out
         public SerialSend(frmStart CalledFrom)
         {
             this.mf = CalledFrom;
-            Sport = new SerialPort(Properties.Settings.Default.Port, Properties.Settings.Default.Baud);
-            Sport.WriteTimeout = 500;
-            Sport.Parity = Parity.None;
-            Sport.DataBits = 8;
-            Sport.StopBits = StopBits.One;
+            Sport = new SerialPort(Properties.Settings.Default.Port, Properties.Settings.Default.Baud)
+            {
+                WriteTimeout = 500,
+                Parity = Parity.None,
+                DataBits = 8,
+                StopBits = StopBits.One
+            };
             Timer1.Interval = 1000;
             Timer1.Tick += new EventHandler(CheckConnection);
 

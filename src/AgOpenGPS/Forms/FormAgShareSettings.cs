@@ -32,8 +32,10 @@ namespace AgOpenGPS
             UpdateAgShareUploadButton();
 
             btnPaste.Enabled = Clipboard.ContainsText();
-            clipboardCheckTimer = new Timer();
-            clipboardCheckTimer.Interval = 500;
+            clipboardCheckTimer = new Timer
+            {
+                Interval = 500
+            };
             clipboardCheckTimer.Tick += ClipboardCheckTimer_Tick;
             clipboardCheckTimer.Start();
 

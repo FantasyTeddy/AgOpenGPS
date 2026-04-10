@@ -247,9 +247,11 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new ProcessStartInfo
+                    {
+                        FileName = strPath,
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -346,9 +348,11 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new ProcessStartInfo
+                    {
+                        FileName = strPath,
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -486,9 +490,11 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new ProcessStartInfo
+                    {
+                        FileName = strPath,
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -515,9 +521,11 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new ProcessStartInfo
+                    {
+                        FileName = strPath,
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch

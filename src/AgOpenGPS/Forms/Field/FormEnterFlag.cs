@@ -161,13 +161,14 @@ namespace AgOpenGPS
         // Export flags to a CSV file, with latitude, longitude, color, notes
         private void btnExportFlags_Click(object sender, EventArgs e)
         {
-            SaveFileDialog fileDialog = new SaveFileDialog();
-
-            fileDialog.DefaultExt = "txt";
-            fileDialog.Filter = "Text Document | *.txt| CSV Document | *.csv| All files| *.*";
-            fileDialog.Title = "Export flags information";
-            fileDialog.CheckFileExists = false;
-            fileDialog.RestoreDirectory = true;
+            SaveFileDialog fileDialog = new SaveFileDialog
+            {
+                DefaultExt = "txt",
+                Filter = "Text Document | *.txt| CSV Document | *.csv| All files| *.*",
+                Title = "Export flags information",
+                CheckFileExists = false,
+                RestoreDirectory = true
+            };
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {

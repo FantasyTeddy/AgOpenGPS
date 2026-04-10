@@ -57,8 +57,10 @@ namespace AgOpenGPS.Forms.Field
                         continue;
 
                     DirectoryInfo fieldDirInfo = new DirectoryInfo(fieldDir);
-                    ListViewItem item = new ListViewItem(fieldDirInfo.Name);
-                    item.Tag = fieldDirInfo;
+                    ListViewItem item = new ListViewItem(fieldDirInfo.Name)
+                    {
+                        Tag = fieldDirInfo
+                    };
                     lbFields.Items.Add(item);
                 }
 

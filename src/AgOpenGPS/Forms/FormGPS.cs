@@ -938,9 +938,11 @@ namespace AgOpenGPS
 
                     try
                     {
-                        ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /t 0");
-                        psi.CreateNoWindow = true; // Prevents a command prompt window from appearing
-                        psi.UseShellExecute = false; // Required for CreateNoWindow to work in some contexts
+                        ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /t 0")
+                        {
+                            CreateNoWindow = true, // Prevents a command prompt window from appearing
+                            UseShellExecute = false // Required for CreateNoWindow to work in some contexts
+                        };
 
                         Process.Start(psi);
                     }

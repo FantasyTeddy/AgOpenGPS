@@ -1105,11 +1105,13 @@ namespace AgOpenGPS
                 try
                 {
                     //TimedMessageBox(2000, "Please Wait", "Starting AgIO");
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    //processInfo.ErrorDialog = true;
-                    //processInfo.UseShellExecute = false;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new ProcessStartInfo
+                    {
+                        FileName = strPath,
+                        //processInfo.ErrorDialog = true;
+                        //processInfo.UseShellExecute = false;
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch

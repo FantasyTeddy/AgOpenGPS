@@ -218,8 +218,10 @@ namespace AgIO
                 //create new timer at fast rate to start
                 if (sendGGAInterval > 0)
                 {
-                    this.tmr = new System.Windows.Forms.Timer();
-                    this.tmr.Interval = 5000;
+                    this.tmr = new System.Windows.Forms.Timer
+                    {
+                        Interval = 5000
+                    };
                     this.tmr.Tick += new EventHandler(NTRIPtick);
                 }
 
@@ -240,10 +242,12 @@ namespace AgIO
                         Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), toUDP_Port);
 
                     // Create the socket object
-                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    clientSocket.NoDelay = true;
-                    // Connect to server non-Blocking method
-                    clientSocket.Blocking = false;
+                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                    {
+                        NoDelay = true,
+                        // Connect to server non-Blocking method
+                        Blocking = false
+                    };
                     clientSocket.BeginConnect(new IPEndPoint(IPAddress.Parse(broadCasterIP), broadCasterPort), new AsyncCallback(OnConnect), null);
 
                     Log.EventWriter("NTRIP - IP: " + broadCasterIP.ToString() + ":" + broadCasterPort.ToString()
@@ -273,8 +277,10 @@ namespace AgIO
                     }
 
                     // Setup and open serial port
-                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio);
-                    spRadio.BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio);
+                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio)
+                    {
+                        BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio)
+                    };
                     spRadio.DataReceived += NtripPort_DataReceived;
                     isNTRIP_Connecting = false;
                     isNTRIP_Connected = true;
@@ -312,8 +318,10 @@ namespace AgIO
                     }
 
                     // Setup and open serial port
-                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio);
-                    spRadio.BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio);
+                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio)
+                    {
+                        BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio)
+                    };
                     spRadio.DataReceived += NtripPort_DataReceived;
                     isNTRIP_Connecting = false;
                     isNTRIP_Connected = true;

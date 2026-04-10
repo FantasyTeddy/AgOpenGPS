@@ -438,9 +438,11 @@ namespace AgOpenGPS
 
                     for (int i = 2; i < cnt4; i++)
                     {
-                        vec3 pt3 = new vec3(arr[i]);
-                        pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting,
-                            arr[i + 1].northing - arr[i - 1].northing);
+                        vec3 pt3 = new vec3(arr[i])
+                        {
+                            heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting,
+                                arr[i + 1].northing - arr[i - 1].northing)
+                        };
                         if (pt3.heading < 0) pt3.heading += glm.twoPI;
                         ytList.Add(pt3);
                     }
@@ -815,9 +817,11 @@ namespace AgOpenGPS
 
                     for (int i = 2; i < cnt; i++)
                     {
-                        vec3 pt3 = new vec3(arr[i]);
-                        pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting,
-                            arr[i + 1].northing - arr[i - 1].northing);
+                        vec3 pt3 = new vec3(arr[i])
+                        {
+                            heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting,
+                                arr[i + 1].northing - arr[i - 1].northing)
+                        };
                         if (pt3.heading < 0) pt3.heading += glm.twoPI;
                         ytList.Add(pt3);
                     }
@@ -886,8 +890,10 @@ namespace AgOpenGPS
                     //grab the vehicle widths and offsets
                     double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
 
-                    vec3 start = new vec3(inClosestTurnPt.closePt);
-                    start.heading = head;
+                    vec3 start = new vec3(inClosestTurnPt.closePt)
+                    {
+                        heading = head
+                    };
 
                     vec3 goal = new vec3(start);
 
@@ -1235,9 +1241,11 @@ namespace AgOpenGPS
 
                     for (int i = 2; i < cnt; i++)
                     {
-                        vec3 pt3 = new vec3(arr[i]);
-                        pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting,
-                            arr[i + 1].northing - arr[i - 1].northing);
+                        vec3 pt3 = new vec3(arr[i])
+                        {
+                            heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting,
+                                arr[i + 1].northing - arr[i - 1].northing)
+                        };
                         if (pt3.heading < 0) pt3.heading += glm.twoPI;
                         ytList.Add(pt3);
                     }

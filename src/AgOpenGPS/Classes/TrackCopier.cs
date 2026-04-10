@@ -61,17 +61,16 @@ namespace AgOpenGPS
                     heading = normalizedHeading,
                     isVisible = true, // Always make copied tracks visible
                     nudgeDistance = sourceTrack.nudgeDistance,
-                    workedTracks = new HashSet<int>() // Reset worked tracks for new field
+                    workedTracks = new HashSet<int>(), // Reset worked tracks for new field
+                                                       // Convert points
+                    ptA = ConvertVec2(sourceTrack.ptA, sourcePlane, targetPlane),
+                    ptB = ConvertVec2(sourceTrack.ptB, sourcePlane, targetPlane),
+                    endPtA = ConvertVec2(sourceTrack.endPtA, sourcePlane, targetPlane),
+                    endPtB = ConvertVec2(sourceTrack.endPtB, sourcePlane, targetPlane),
+
+                    // Convert curve points
+                    curvePts = ConvertCurvePoints(sourceTrack.curvePts, sourcePlane, targetPlane)
                 };
-
-                // Convert points
-                newTrack.ptA = ConvertVec2(sourceTrack.ptA, sourcePlane, targetPlane);
-                newTrack.ptB = ConvertVec2(sourceTrack.ptB, sourcePlane, targetPlane);
-                newTrack.endPtA = ConvertVec2(sourceTrack.endPtA, sourcePlane, targetPlane);
-                newTrack.endPtB = ConvertVec2(sourceTrack.endPtB, sourcePlane, targetPlane);
-
-                // Convert curve points
-                newTrack.curvePts = ConvertCurvePoints(sourceTrack.curvePts, sourcePlane, targetPlane);
 
                 convertedTracks.Add(newTrack);
             }

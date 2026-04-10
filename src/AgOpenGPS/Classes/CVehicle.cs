@@ -48,13 +48,14 @@ namespace AgOpenGPS
             //constructor
             mf = _f;
 
-            VehicleConfig = new VehicleConfig();
+            VehicleConfig = new VehicleConfig
+            {
+                AntennaHeight = Properties.VehicleSettings.Default.setVehicle_antennaHeight,
+                AntennaPivot = Properties.VehicleSettings.Default.setVehicle_antennaPivot,
+                AntennaOffset = Properties.VehicleSettings.Default.setVehicle_antennaOffset,
 
-            VehicleConfig.AntennaHeight = Properties.VehicleSettings.Default.setVehicle_antennaHeight;
-            VehicleConfig.AntennaPivot = Properties.VehicleSettings.Default.setVehicle_antennaPivot;
-            VehicleConfig.AntennaOffset = Properties.VehicleSettings.Default.setVehicle_antennaOffset;
-
-            VehicleConfig.Wheelbase = Properties.VehicleSettings.Default.setVehicle_wheelbase;
+                Wheelbase = Properties.VehicleSettings.Default.setVehicle_wheelbase
+            };
 
             slowSpeedCutoff = Properties.ToolSettings.Default.setVehicle_slowSpeedCutoff;
 
