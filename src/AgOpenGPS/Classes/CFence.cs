@@ -118,7 +118,7 @@ namespace AgOpenGPS
 
                         GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * -createBndOffset),
                                 pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * -createBndOffset), 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(bndBeingMadePts[^1].easting, bndBeingMadePts[^1].northing, 0);
                     }
                     else
                     {
@@ -126,7 +126,7 @@ namespace AgOpenGPS
 
                         GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * createBndOffset),
                                 pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * createBndOffset), 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(bndBeingMadePts[^1].easting, bndBeingMadePts[^1].northing, 0);
                     }
                 }
                 else //draw from tool
@@ -135,13 +135,13 @@ namespace AgOpenGPS
                     {
                         GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
                         GL.Vertex3(mf.section[mf.tool.numOfSections - 1].rightPoint.easting, mf.section[mf.tool.numOfSections - 1].rightPoint.northing, 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(bndBeingMadePts[^1].easting, bndBeingMadePts[^1].northing, 0);
                     }
                     else
                     {
                         GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
                         GL.Vertex3(mf.section[0].leftPoint.easting, mf.section[0].leftPoint.northing, 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(bndBeingMadePts[^1].easting, bndBeingMadePts[^1].northing, 0);
                     }
                 }
                 GL.End();

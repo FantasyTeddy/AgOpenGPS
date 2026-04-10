@@ -511,8 +511,8 @@ namespace AgOpenGPS
                     {
                         if (mf.hdl.desList.Count > 0)
                         {
-                            double dist = ((point.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting) * (point.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting))
-                                + ((point.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing) * (point.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing));
+                            double dist = ((point.easting - mf.hdl.desList[^1].easting) * (point.easting - mf.hdl.desList[^1].easting))
+                                + ((point.northing - mf.hdl.desList[^1].northing) * (point.northing - mf.hdl.desList[^1].northing));
                             if (dist > 1)
                                 mf.hdl.desList.Add(point);
                         }

@@ -41,8 +41,8 @@ namespace AgOpenGPS
             }
 
             // Always add the original last point
-            vec3 final = points[points.Count - 1];
-            vec3 compare = spaced[spaced.Count - 1];
+            vec3 final = points[^1];
+            vec3 compare = spaced[^1];
             if (glm.DistanceSquared(final, compare) > 1e-10)
                 spaced.Add(final);
 
@@ -76,7 +76,7 @@ namespace AgOpenGPS
                 }
             }
 
-            result.Add(points[points.Count - 1]);
+            result.Add(points[^1]);
             return result;
         }
 
@@ -96,9 +96,9 @@ namespace AgOpenGPS
             }
 
             // Copy last heading from the second last
-            vec3 last = points[points.Count - 1];
-            last.heading = points[points.Count - 2].heading;
-            points[points.Count - 1] = last;
+            vec3 last = points[^1];
+            last.heading = points[^2].heading;
+            points[^1] = last;
 
             return points;
         }

@@ -137,9 +137,9 @@ namespace AgOpenGPS
                     //default side assuming built in AB Draw - isVisible is used for side to draw
                     gTemp.Add(new CTrk(item));
                     if (item.mode == TrackMode.AB)
-                        gTemp[gTemp.Count - 1].isVisible = false;
+                        gTemp[^1].isVisible = false;
                     else
-                        gTemp[gTemp.Count - 1].isVisible = true;
+                        gTemp[^1].isVisible = true;
                 }
             }
 
@@ -293,8 +293,8 @@ namespace AgOpenGPS
                     if (Add)
                     {
                         //a new point only every 2 meters
-                        double dist = tramArr.Count > 0 ? ((point.easting - tramArr[tramArr.Count - 1].easting) * (point.easting - tramArr[tramArr.Count - 1].easting))
-                            + ((point.northing - tramArr[tramArr.Count - 1].northing) * (point.northing - tramArr[tramArr.Count - 1].northing)) : 3.0;
+                        double dist = tramArr.Count > 0 ? ((point.easting - tramArr[^1].easting) * (point.easting - tramArr[^1].easting))
+                            + ((point.northing - tramArr[^1].northing) * (point.northing - tramArr[^1].northing)) : 3.0;
                         if (dist > 1.2)
                         {
                             //if inside the boundary, add
@@ -344,8 +344,8 @@ namespace AgOpenGPS
                     if (Add)
                     {
                         //a new point only every 2 meters
-                        double dist = tramArr.Count > 0 ? ((point.easting - tramArr[tramArr.Count - 1].easting) * (point.easting - tramArr[tramArr.Count - 1].easting))
-                            + ((point.northing - tramArr[tramArr.Count - 1].northing) * (point.northing - tramArr[tramArr.Count - 1].northing)) : 3.0;
+                        double dist = tramArr.Count > 0 ? ((point.easting - tramArr[^1].easting) * (point.easting - tramArr[^1].easting))
+                            + ((point.northing - tramArr[^1].northing) * (point.northing - tramArr[^1].northing)) : 3.0;
                         if (dist > 1.2)
                         {
                             //if inside the boundary, add
@@ -724,8 +724,8 @@ namespace AgOpenGPS
 
 
                     GL.Color3(0.5f, 0.5f, 1.0f);
-                    GL.Vertex3(gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].easting,
-                                gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].northing,
+                    GL.Vertex3(gTemp[i].curvePts[^1].easting,
+                                gTemp[i].curvePts[^1].northing,
                                 0);
                     GL.End();
                 }

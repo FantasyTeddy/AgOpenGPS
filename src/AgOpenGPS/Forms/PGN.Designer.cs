@@ -201,7 +201,7 @@
                 {
                     crc += pgn[i];
                 }
-                pgn[pgn.Length - 1] = (byte)crc;
+                pgn[^1] = (byte)crc;
             }
 
             public void Reset()
@@ -294,7 +294,7 @@
                 {
                     crc += pgn[i];
                 }
-                pgn[pgn.Length - 1] = (byte)crc;
+                pgn[^1] = (byte)crc;
             }
 
             public void Reset()

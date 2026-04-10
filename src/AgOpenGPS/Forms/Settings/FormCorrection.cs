@@ -56,9 +56,9 @@ namespace AgOpenGPS
                 double nextx7 = 1;
                 double nextx8 = 1;
 
-                if (r.Points.Count > 0) nextx6 = r.Points[r.Points.Count - 1].XValue + 1;
-                if (t.Points.Count > 0) nextx7 = t.Points[t.Points.Count - 1].XValue + 1;
-                if (u.Points.Count > 0) nextx8 = u.Points[u.Points.Count - 1].XValue + 1;
+                if (r.Points.Count > 0) nextx6 = r.Points[^1].XValue + 1;
+                if (t.Points.Count > 0) nextx7 = t.Points[^1].XValue + 1;
+                if (u.Points.Count > 0) nextx8 = u.Points[^1].XValue + 1;
 
                 rollChart.Series["Ro"].Points.AddXY(nextx6, roll);
                 rollChart.Series["Ze"].Points.AddXY(nextx7, east);

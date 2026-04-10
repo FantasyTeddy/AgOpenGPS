@@ -83,8 +83,8 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
 
                 output.Add(new vec3(p1.easting, p1.northing, heading));
             }
-            vec3 last = inputPoints[inputPoints.Count - 1];
-            double lastHeading = output[output.Count - 1].heading;
+            vec3 last = inputPoints[^1];
+            double lastHeading = output[^1].heading;
             output.Add(new vec3(last.easting, last.northing, lastHeading));
 
             return output;

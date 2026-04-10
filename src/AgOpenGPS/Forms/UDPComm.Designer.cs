@@ -392,7 +392,7 @@ namespace AgOpenGPS
                     {
                         crc += byteData[i];
                     }
-                    byteData[byteData.Length - 1] = (byte)crc;
+                    byteData[^1] = (byte)crc;
 
                     loopBackSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None,
                         epAgIO, new AsyncCallback(SendAsyncLoopData), null);

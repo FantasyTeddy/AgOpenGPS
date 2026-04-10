@@ -233,7 +233,7 @@ namespace AgOpenGPS
             if (!isLoop)
             {
                 vec3 last = points[n - 1];
-                if (result.Count == 0 || glm.Distance(result[result.Count - 1], last) > 1e-6)
+                if (result.Count == 0 || glm.Distance(result[^1], last) > 1e-6)
                     result.Add(new vec3(last));
             }
 
@@ -569,7 +569,7 @@ namespace AgOpenGPS
                 // Optionally preserve the end point for non-closed polylines
                 if (preserveEndPoints && currentPoints.Count > 1)
                 {
-                    nextPoints.Add(currentPoints[currentPoints.Count - 1]);
+                    nextPoints.Add(currentPoints[^1]);
                 }
 
                 currentPoints = nextPoints;
@@ -606,7 +606,7 @@ namespace AgOpenGPS
                 // Optionally preserve the end point for non-closed polylines
                 if (preserveEndPoints && currentPoints.Count > 1)
                 {
-                    nextPoints.Add(currentPoints[currentPoints.Count - 1]);
+                    nextPoints.Add(currentPoints[^1]);
                 }
 
                 currentPoints = nextPoints;

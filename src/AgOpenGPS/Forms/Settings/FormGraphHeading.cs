@@ -59,11 +59,11 @@ namespace AgOpenGPS
                 double nextx6 = 1;
                 double nextx7 = 1;
 
-                if (s.Points.Count > 0) nextX = s.Points[s.Points.Count - 1].XValue + 1;
-                if (w.Points.Count > 0) nextX5 = w.Points[w.Points.Count - 1].XValue + 1;
+                if (s.Points.Count > 0) nextX = s.Points[^1].XValue + 1;
+                if (w.Points.Count > 0) nextX5 = w.Points[^1].XValue + 1;
 
-                if (r.Points.Count > 0) nextx6 = r.Points[r.Points.Count - 1].XValue + 1;
-                if (t.Points.Count > 0) nextx7 = t.Points[t.Points.Count - 1].XValue + 1;
+                if (r.Points.Count > 0) nextx6 = r.Points[^1].XValue + 1;
+                if (t.Points.Count > 0) nextx7 = t.Points[^1].XValue + 1;
 
                 unoChart.Series["S"].Points.AddXY(nextX, dataSteerAngle);
                 unoChart.Series["PWM"].Points.AddXY(nextX5, dataPWM);

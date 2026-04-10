@@ -164,7 +164,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                         if (trk.curvePts.Count >= 2)
                         {
                             trk.ptA = trk.curvePts[0].ToVec2();
-                            trk.ptB = trk.curvePts[trk.curvePts.Count - 1].ToVec2();
+                            trk.ptB = trk.curvePts[^1].ToVec2();
                         }
                     }
 

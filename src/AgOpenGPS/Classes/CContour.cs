@@ -286,8 +286,8 @@ namespace AgOpenGPS
                         if (ctList.Count > 0)
                         {
                             double dist =
-                                ((point.easting - ctList[ctList.Count - 1].easting) * (point.easting - ctList[ctList.Count - 1].easting))
-                                + ((point.northing - ctList[ctList.Count - 1].northing) * (point.northing - ctList[ctList.Count - 1].northing));
+                                ((point.easting - ctList[^1].easting) * (point.easting - ctList[^1].easting))
+                                + ((point.northing - ctList[^1].northing) * (point.northing - ctList[^1].northing));
                             if (dist > 0.2)
                                 ctList.Add(point);
                         }

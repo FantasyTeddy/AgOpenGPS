@@ -214,7 +214,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
             // Keep originals if you want ptA/ptB to reflect the original span
             vec3 originalFirst = desList[0];
-            vec3 originalLast = desList[desList.Count - 1];
+            vec3 originalLast = desList[^1];
 
             // Extend ends before preprocessing (pure, no ref)
             double extendMeters = 100.0;     // tweak as needed
@@ -237,7 +237,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             else
             {
                 ptA = new vec2(desList[0].easting, desList[0].northing);
-                ptB = new vec2(desList[desList.Count - 1].easting, desList[desList.Count - 1].northing);
+                ptB = new vec2(desList[^1].easting, desList[^1].northing);
             }
 
             // Build track
@@ -311,8 +311,8 @@ namespace AgOpenGPS.Protocols.ISOBUS
             }
 
             // Extend after the last point (forwards along last segment)
-            vec3 last = list[list.Count - 1];
-            vec3 beforeLast = list[list.Count - 2];
+            vec3 last = list[^1];
+            vec3 beforeLast = list[^2];
             double dxL = last.easting - beforeLast.easting;
             double dyL = last.northing - beforeLast.northing;
             double lenL = Math.Sqrt((dxL * dxL) + (dyL * dyL));

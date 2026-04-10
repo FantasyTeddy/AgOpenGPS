@@ -213,7 +213,7 @@ namespace AgOpenGPS
                         // Remove the loop between the two segments and insert the intersection point once.
                         working.RemoveRange(i + 1, j - i);
                         working.Insert(i + 1, new vec3(intersection.easting, intersection.northing, 0));
-                        working[working.Count - 1] = new vec3(working[0]);
+                        working[^1] = new vec3(working[0]);
 
                         removedAny = true;
                         changed = true;
@@ -232,7 +232,7 @@ namespace AgOpenGPS
 
                 if (fenceLine.Count > 0)
                 {
-                    vec3 previous = fenceLine[fenceLine.Count - 1];
+                    vec3 previous = fenceLine[^1];
                     if (Math.Abs(previous.easting - candidate.easting) < 0.001 &&
                         Math.Abs(previous.northing - candidate.northing) < 0.001)
                     {
@@ -246,7 +246,7 @@ namespace AgOpenGPS
             if (fenceLine.Count > 1)
             {
                 vec3 first = fenceLine[0];
-                vec3 last = fenceLine[fenceLine.Count - 1];
+                vec3 last = fenceLine[^1];
                 if (Math.Abs(first.easting - last.easting) < 0.001 &&
                     Math.Abs(first.northing - last.northing) < 0.001)
                 {

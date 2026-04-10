@@ -189,8 +189,8 @@ namespace AgOpenGPS
                 {
                     if (newTrack.Count > 0)
                     {
-                        double dist = ((pt3.easting - newTrack[newTrack.Count - 1].easting) * (pt3.easting - newTrack[newTrack.Count - 1].easting))
-                            + ((pt3.northing - newTrack[newTrack.Count - 1].northing) * (pt3.northing - newTrack[newTrack.Count - 1].northing));
+                        double dist = ((pt3.easting - newTrack[^1].easting) * (pt3.easting - newTrack[^1].easting))
+                            + ((pt3.northing - newTrack[^1].northing) * (pt3.northing - newTrack[^1].northing));
                         if (dist > 2)
                             newTrack.Add(pt3);
                     }

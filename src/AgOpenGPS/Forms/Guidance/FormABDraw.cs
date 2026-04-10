@@ -395,7 +395,7 @@ namespace AgOpenGPS
                 // Set A and B points to first and second-to-last points
                 // (last point is duplicate of first for closing the loop)
                 gTemp[indx].ptA = new vec2(bndPoints[0].easting, bndPoints[0].northing);
-                gTemp[indx].ptB = new vec2(bndPoints[bndPoints.Count - 2].easting, bndPoints[bndPoints.Count - 2].northing);
+                gTemp[indx].ptB = new vec2(bndPoints[^2].easting, bndPoints[^2].northing);
 
                 //create a name
                 gTemp[indx].name = "Boundary Curve";
@@ -470,8 +470,8 @@ namespace AgOpenGPS
             gTemp[indx].ptA =
                 new vec2(mf.curve.desList[0].easting, mf.curve.desList[0].northing);
             gTemp[indx].ptB =
-                new vec2(mf.curve.desList[mf.curve.desList.Count - 1].easting,
-                mf.curve.desList[mf.curve.desList.Count - 1].northing);
+                new vec2(mf.curve.desList[^1].easting,
+                mf.curve.desList[^1].northing);
 
             int cnt = mf.curve.desList.Count;
             if (cnt > 3)
@@ -786,8 +786,8 @@ namespace AgOpenGPS
 
 
                     GL.Color3(0.5f, 0.5f, 1.0f);
-                    GL.Vertex3(gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].easting,
-                                gTemp[i].curvePts[gTemp[i].curvePts.Count - 1].northing,
+                    GL.Vertex3(gTemp[i].curvePts[^1].easting,
+                                gTemp[i].curvePts[^1].northing,
                                 0);
                     GL.End();
                 }

@@ -391,7 +391,7 @@ namespace AgOpenGPS
                     {
                         for (int i = 1; i < nextCurve.Count; i++)
                         {
-                            double newdis = glm.Distance(nextCurve[i], ytList[ytList.Count - 1]);
+                            double newdis = glm.Distance(nextCurve[i], ytList[^1]);
                             if (newdis < dis)
                             {
                                 dis = newdis;
@@ -602,7 +602,7 @@ namespace AgOpenGPS
 
                     //going with or against boundary?
                     bool isTurnLineSameWay = true;
-                    double headingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[ytList.Count - 1].heading);
+                    double headingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[^1].heading);
                     if (headingDifference > glm.PIBy2 && headingDifference < 3 * glm.PIBy2) isTurnLineSameWay = false;
 
                     if (!FindCurveOutTurnPoint(mf.curve, ref nextCurve, startOfTurnPt, isTurnLineSameWay))
@@ -705,7 +705,7 @@ namespace AgOpenGPS
 
                     //Find if the turn goes same way as turnline heading
                     bool isFirstTurnLineSameWay = true;
-                    double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[ytList.Count - 1].heading);
+                    double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[^1].heading);
                     if (firstHeadingDifference > glm.PIBy2 && firstHeadingDifference < 3 * glm.PIBy2) isFirstTurnLineSameWay = false;
 
                     //finds out start and goal point along the tunline
@@ -834,7 +834,7 @@ namespace AgOpenGPS
                     }
 
                     //are we continuing the same way?
-                    isGoingStraightThrough = Math.PI - Math.Abs(Math.Abs(ytList[ytList.Count - 2].heading - ytList[1].heading) - Math.PI) < glm.PIBy2;
+                    isGoingStraightThrough = Math.PI - Math.Abs(Math.Abs(ytList[^2].heading - ytList[1].heading) - Math.PI) < glm.PIBy2;
                     ytList2?.Clear();
                     isOutOfBounds = false;
                     youTurnPhase = 10;
@@ -1057,7 +1057,7 @@ namespace AgOpenGPS
 
                     //going with or against boundary?
                     bool isTurnLineSameWay = true;
-                    double headingDifference = Math.Abs(startOfTurnPt.closePt.heading - ytList[ytList.Count - 1].heading);
+                    double headingDifference = Math.Abs(startOfTurnPt.closePt.heading - ytList[^1].heading);
                     if (headingDifference > glm.PIBy2 && headingDifference < 3 * glm.PIBy2) isTurnLineSameWay = false;
 
                     if (!FindABOutTurnPoint(mf.ABLine, ref nextCurve, inClosestTurnPt, isTurnLineSameWay))
@@ -1128,7 +1128,7 @@ namespace AgOpenGPS
 
                     //Find if the turn goes same way as turnline heading
                     bool isFirstTurnLineSameWay = true;
-                    double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[ytList.Count - 1].heading);
+                    double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[^1].heading);
 
                     if (firstHeadingDifference > glm.PIBy2 && firstHeadingDifference < 3 * glm.PIBy2) isFirstTurnLineSameWay = false;
 
@@ -1259,7 +1259,7 @@ namespace AgOpenGPS
                     }
 
                     //are we continuing the same way?
-                    isGoingStraightThrough = Math.PI - Math.Abs(Math.Abs(ytList[ytList.Count - 2].heading - ytList[1].heading) - Math.PI) < glm.PIBy2;
+                    isGoingStraightThrough = Math.PI - Math.Abs(Math.Abs(ytList[^2].heading - ytList[1].heading) - Math.PI) < glm.PIBy2;
 
                     isOutOfBounds = false;
                     youTurnPhase = 10;
@@ -1424,13 +1424,13 @@ namespace AgOpenGPS
             else if (head < 0) head += glm.twoPI;
 
             //add the tail to first turn
-            head = ytList[ytList.Count - 1].heading;
+            head = ytList[^1].heading;
 
             vec3 pt;
             for (int i = 1; i <= (int)(3 * turnOffset); i++)
             {
-                pt.easting = ytList[ytList.Count - 1].easting + (Math.Sin(head) * 0.5);
-                pt.northing = ytList[ytList.Count - 1].northing + (Math.Cos(head) * 0.5);
+                pt.easting = ytList[^1].easting + (Math.Sin(head) * 0.5);
+                pt.northing = ytList[^1].northing + (Math.Cos(head) * 0.5);
                 pt.heading = 0;
                 ytList.Add(pt);
             }

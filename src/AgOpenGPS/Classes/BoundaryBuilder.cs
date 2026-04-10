@@ -55,8 +55,8 @@ namespace AgOpenGPS.Classes
                 if (trk.mode == TrackMode.AB && extended.Count >= 2)
                 {
                     trk.ptA = new vec2(extended[0].Easting, extended[0].Northing);
-                    trk.ptB = new vec2(extended[extended.Count - 1].Easting,
-                                       extended[extended.Count - 1].Northing);
+                    trk.ptB = new vec2(extended[^1].Easting,
+                                       extended[^1].Northing);
                 }
                 else if (trk.mode == TrackMode.Curve)
                 {
@@ -157,8 +157,8 @@ namespace AgOpenGPS.Classes
 
             for (int i = 0; i < pts.Count; i++) result.Add(pts[i]);
 
-            GeoCoord b0 = pts[pts.Count - 2];
-            GeoCoord b1 = pts[pts.Count - 1];
+            GeoCoord b0 = pts[^2];
+            GeoCoord b1 = pts[^1];
             GeoDelta dirEnd = new GeoDelta(b0, b1);
             double lengthEnd = dirEnd.Length;
             if (lengthEnd > 1e-6)

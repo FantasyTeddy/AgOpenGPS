@@ -35,9 +35,9 @@ namespace AgOpenGPS
             turnLine.Insert(0, new vec3(pt2));
 
             //last point
-            pt2 = arr[arr.Length - 1];
-            pt2.heading = Math.Atan2(arr[arr.Length - 1].easting - arr[arr.Length - 2].easting,
-                arr[arr.Length - 1].northing - arr[arr.Length - 2].northing);
+            pt2 = arr[^1];
+            pt2.heading = Math.Atan2(arr[^1].easting - arr[^2].easting,
+                arr[^1].northing - arr[^2].northing);
             if (pt2.heading < 0) pt2.heading += glm.twoPI;
             turnLine.Add(new vec3(pt2));
         }

@@ -323,7 +323,7 @@ namespace AgOpenGPS
                             if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
                         }
 
-                        arr[arr.Length - 1].heading = Math.Atan2(arr[0].easting - arr[arr.Length - 1].easting, arr[0].northing - arr[arr.Length - 1].northing);
+                        arr[^1].heading = Math.Atan2(arr[0].easting - arr[^1].easting, arr[0].northing - arr[^1].northing);
 
                         newCurList.AddRange(arr);
                     }
@@ -366,8 +366,8 @@ namespace AgOpenGPS
                         {
                             if (newCurList.Count > 0)
                             {
-                                double dist = ((point.easting - newCurList[newCurList.Count - 1].easting) * (point.easting - newCurList[newCurList.Count - 1].easting))
-                                    + ((point.northing - newCurList[newCurList.Count - 1].northing) * (point.northing - newCurList[newCurList.Count - 1].northing));
+                                double dist = ((point.easting - newCurList[^1].easting) * (point.easting - newCurList[^1].easting))
+                                    + ((point.northing - newCurList[^1].northing) * (point.northing - newCurList[^1].northing));
                                 if (dist > step)
                                     newCurList.Add(point);
                             }
@@ -395,7 +395,7 @@ namespace AgOpenGPS
                             if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
                         }
 
-                        arr[arr.Length - 1].heading = arr[arr.Length - 2].heading;
+                        arr[^1].heading = arr[^2].heading;
 
                         cnt = arr.Length;
                         double distance;
@@ -460,7 +460,7 @@ namespace AgOpenGPS
 
                             bool isAdding = false;
                             //end
-                            while (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(newCurList[newCurList.Count - 1]))
+                            while (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(newCurList[^1]))
                             {
                                 if (ct.IsCancellationRequested)
                                     break;
@@ -477,7 +477,7 @@ namespace AgOpenGPS
 
                             if (isAdding)
                             {
-                                vec3 pt = new vec3(newCurList[newCurList.Count - 1]);
+                                vec3 pt = new vec3(newCurList[^1]);
                                 for (int i = 1; i < 5; i++)
                                 {
                                     pt.easting += Math.Sin(pt.heading) * 2;
@@ -608,8 +608,8 @@ namespace AgOpenGPS
                         {
                             if (newGuideList.Count > 0)
                             {
-                                double dist = ((point.easting - newGuideList[newGuideList.Count - 1].easting) * (point.easting - newGuideList[newGuideList.Count - 1].easting))
-                                    + ((point.northing - newGuideList[newGuideList.Count - 1].northing) * (point.northing - newGuideList[newGuideList.Count - 1].northing));
+                                double dist = ((point.easting - newGuideList[^1].easting) * (point.easting - newGuideList[^1].easting))
+                                    + ((point.northing - newGuideList[^1].northing) * (point.northing - newGuideList[^1].northing));
                                 if (dist > step)
                                 {
                                     // Boundary check temporarily disabled
@@ -693,8 +693,8 @@ namespace AgOpenGPS
                         {
                             if (newGuideList.Count > 0)
                             {
-                                double dist = ((point.easting - newGuideList[newGuideList.Count - 1].easting) * (point.easting - newGuideList[newGuideList.Count - 1].easting))
-                                    + ((point.northing - newGuideList[newGuideList.Count - 1].northing) * (point.northing - newGuideList[newGuideList.Count - 1].northing));
+                                double dist = ((point.easting - newGuideList[^1].easting) * (point.easting - newGuideList[^1].easting))
+                                    + ((point.northing - newGuideList[^1].northing) * (point.northing - newGuideList[^1].northing));
                                 if (dist > step)
                                 {
                                     // Boundary check temporarily disabled
@@ -981,7 +981,7 @@ namespace AgOpenGPS
                         {
                             if (isHeadingSameWay)
                             {
-                                if (glm.Distance(goalPointCu, curList[curList.Count - 1]) < 0.5)
+                                if (glm.Distance(goalPointCu, curList[^1]) < 0.5)
                                 {
                                     mf.btnAutoSteer.PerformClick();
                                     mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, gStr.gsPastEndOfCurve);
@@ -1069,7 +1069,7 @@ namespace AgOpenGPS
                 GL.LineStipple(1, 0x0F00);
                 GL.Begin(PrimitiveType.Lines);
                 GL.Color3(0.99f, 0.99f, 0.0);
-                GL.Vertex3(desList[desList.Count - 1].easting, desList[desList.Count - 1].northing, 0);
+                GL.Vertex3(desList[^1].easting, desList[^1].northing, 0);
                 GL.Vertex3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, 0);
                 GL.End();
 
@@ -1281,8 +1281,8 @@ namespace AgOpenGPS
                     if (Add)
                     {
                         //a new point only every 2 meters
-                        double dist = mf.tram.tramArr.Count > 0 ? ((point.easting - mf.tram.tramArr[mf.tram.tramArr.Count - 1].easting) * (point.easting - mf.tram.tramArr[mf.tram.tramArr.Count - 1].easting))
-                            + ((point.northing - mf.tram.tramArr[mf.tram.tramArr.Count - 1].northing) * (point.northing - mf.tram.tramArr[mf.tram.tramArr.Count - 1].northing)) : 3.0;
+                        double dist = mf.tram.tramArr.Count > 0 ? ((point.easting - mf.tram.tramArr[^1].easting) * (point.easting - mf.tram.tramArr[^1].easting))
+                            + ((point.northing - mf.tram.tramArr[^1].northing) * (point.northing - mf.tram.tramArr[^1].northing)) : 3.0;
                         if (dist > 2)
                         {
                             //if inside the boundary, add
@@ -1332,8 +1332,8 @@ namespace AgOpenGPS
                     if (Add)
                     {
                         //a new point only every 2 meters
-                        double dist = mf.tram.tramArr.Count > 0 ? ((point.easting - mf.tram.tramArr[mf.tram.tramArr.Count - 1].easting) * (point.easting - mf.tram.tramArr[mf.tram.tramArr.Count - 1].easting))
-                            + ((point.northing - mf.tram.tramArr[mf.tram.tramArr.Count - 1].northing) * (point.northing - mf.tram.tramArr[mf.tram.tramArr.Count - 1].northing)) : 3.0;
+                        double dist = mf.tram.tramArr.Count > 0 ? ((point.easting - mf.tram.tramArr[^1].easting) * (point.easting - mf.tram.tramArr[^1].easting))
+                            + ((point.northing - mf.tram.tramArr[^1].northing) * (point.northing - mf.tram.tramArr[^1].northing)) : 3.0;
                         if (dist > 2)
                         {
                             //if inside the boundary, add
@@ -1424,9 +1424,9 @@ namespace AgOpenGPS
                     xList.Add(pt3);
                 }
 
-                pt3 = arr[arr.Length - 1];
-                pt3.heading = Math.Atan2(arr[arr.Length - 1].easting - arr[arr.Length - 2].easting,
-                    arr[arr.Length - 1].northing - arr[arr.Length - 2].northing);
+                pt3 = arr[^1];
+                pt3.heading = Math.Atan2(arr[^1].easting - arr[^2].easting,
+                    arr[^1].northing - arr[^2].northing);
                 if (pt3.heading < 0) pt3.heading += glm.twoPI;
                 xList.Add(pt3);
             }
@@ -1544,7 +1544,7 @@ namespace AgOpenGPS
             // This ensures short curves (< targetSpacing) remain valid with at least 2 points
             if (resampledList.Count == 1)
             {
-                resampledList.Add(originalList[originalList.Count - 1]);
+                resampledList.Add(originalList[^1]);
             }
 
             // Recalculate headings for the resampled points
@@ -1567,10 +1567,10 @@ namespace AgOpenGPS
             // Set last point heading same as previous
             if (resampledList.Count > 1)
             {
-                resampledList[resampledList.Count - 1] = new vec3(
-                    resampledList[resampledList.Count - 1].easting,
-                    resampledList[resampledList.Count - 1].northing,
-                    resampledList[resampledList.Count - 2].heading
+                resampledList[^1] = new vec3(
+                    resampledList[^1].easting,
+                    resampledList[^1].northing,
+                    resampledList[^2].heading
                 );
             }
 

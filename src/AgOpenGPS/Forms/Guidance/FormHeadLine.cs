@@ -633,7 +633,7 @@ namespace AgOpenGPS
                         delta = 0;
                     }
                 }
-                vec3 ptEnd = new vec3(hdArr[hdArr.Length - 1].easting, hdArr[hdArr.Length - 1].northing, hdArr[hdArr.Length - 1].heading);
+                vec3 ptEnd = new vec3(hdArr[^1].easting, hdArr[^1].northing, hdArr[^1].heading);
 
                 mf.bnd.bndList[0].hdLine.Add(ptEnd);
             }
@@ -677,8 +677,8 @@ namespace AgOpenGPS
                 {
                     if (mf.hdl.desList.Count > 0)
                     {
-                        double dist = ((point.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting) * (point.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting))
-                            + ((point.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing) * (point.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing));
+                        double dist = ((point.easting - mf.hdl.desList[^1].easting) * (point.easting - mf.hdl.desList[^1].easting))
+                            + ((point.northing - mf.hdl.desList[^1].northing) * (point.northing - mf.hdl.desList[^1].northing));
                         if (dist > 1)
                             mf.hdl.desList.Add(point);
                     }
@@ -762,8 +762,8 @@ namespace AgOpenGPS
                     {
                         if (mf.hdl.desList.Count > 0)
                         {
-                            double dist = ((pt3.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting) * (pt3.easting - mf.hdl.desList[mf.hdl.desList.Count - 1].easting))
-                                + ((pt3.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing) * (pt3.northing - mf.hdl.desList[mf.hdl.desList.Count - 1].northing));
+                            double dist = ((pt3.easting - mf.hdl.desList[^1].easting) * (pt3.easting - mf.hdl.desList[^1].easting))
+                                + ((pt3.northing - mf.hdl.desList[^1].northing) * (pt3.northing - mf.hdl.desList[^1].northing));
                             if (dist > 1)
                                 mf.hdl.desList.Add(pt3);
                         }

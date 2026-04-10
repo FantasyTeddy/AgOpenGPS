@@ -235,8 +235,8 @@ namespace AgOpenGPS
                 {
                     if (curList.Count > 0)
                     {
-                        double dist = ((point.easting - curList[curList.Count - 1].easting) * (point.easting - curList[curList.Count - 1].easting))
-                            + ((point.northing - curList[curList.Count - 1].northing) * (point.northing - curList[curList.Count - 1].northing));
+                        double dist = ((point.easting - curList[^1].easting) * (point.easting - curList[^1].easting))
+                            + ((point.northing - curList[^1].northing) * (point.northing - curList[^1].northing));
                         if (dist > 1.0)
                             curList.Add(point);
                     }
@@ -262,7 +262,7 @@ namespace AgOpenGPS
                     if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
                 }
 
-                arr[arr.Length - 1].heading = arr[arr.Length - 2].heading;
+                arr[^1].heading = arr[^2].heading;
 
                 //replace the array
                 cnt = arr.Length;

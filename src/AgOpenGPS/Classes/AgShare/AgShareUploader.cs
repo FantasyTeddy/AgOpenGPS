@@ -153,7 +153,7 @@ namespace AgOpenGPS
             if (coords.Count > 1)
             {
                 CoordinateDto first = coords[0];
-                CoordinateDto last = coords[coords.Count - 1];
+                CoordinateDto last = coords[^1];
                 if (first.Latitude != last.Latitude || first.Longitude != last.Longitude)
                 {
                     coords.Add(first);
