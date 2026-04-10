@@ -26,7 +26,7 @@ namespace AgOpenGPS.IO
                 if (header == null || !header.TrimStart().StartsWith("$", StringComparison.Ordinal))
                     throw new InvalidDataException("TrackLines.txt missing $ header.");
 
-                bool isTwolTrackFile = (header.Trim() == "$TwolTracks");
+                bool isTwolTrackFile = header.Trim() == "$TwolTracks";
 
                 while (!reader.EndOfStream)
                 {

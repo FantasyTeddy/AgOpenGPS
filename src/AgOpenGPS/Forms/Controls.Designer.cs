@@ -211,7 +211,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    TimedMessageBox(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
+                    TimedMessageBox(2000, gStr.gsNoGuidanceLines, gStr.gsTurnOnContourOrMakeABLine);
                 }
             }
         }
@@ -494,10 +494,10 @@ namespace AgOpenGPS
         #region Field Menu
         private void toolStripBtnFieldTools_Click(object sender, EventArgs e)
         {
-            headlandToolStripMenuItem.Enabled = (bnd.bndList.Count > 0);
-            headlandBuildToolStripMenuItem.Enabled = (bnd.bndList.Count > 0);
+            headlandToolStripMenuItem.Enabled = bnd.bndList.Count > 0;
+            headlandBuildToolStripMenuItem.Enabled = bnd.bndList.Count > 0;
 
-            tramLinesMenuField.Enabled = tramsMultiMenuField.Enabled = (trk.gArr.Count > 0 && trk.idx > -1);
+            tramLinesMenuField.Enabled = tramsMultiMenuField.Enabled = trk.gArr.Count > 0 && trk.idx > -1;
         }
 
         public bool isCancelJobMenu;
@@ -606,7 +606,7 @@ namespace AgOpenGPS
 
             FieldMenuButtonEnableDisable(isJobStarted);
             toolStripBtnFieldTools.Enabled = isJobStarted;
-            bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
+            bnd.isHeadlandOn = bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0;
             trk.idx = -1;
             PanelUpdateRightAndBottom();
         }
@@ -774,7 +774,7 @@ namespace AgOpenGPS
                 form.ShowDialog(this);
             }
 
-            bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
+            bnd.isHeadlandOn = bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0;
 
             PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
@@ -803,7 +803,7 @@ namespace AgOpenGPS
                 form.ShowDialog(this);
             }
 
-            bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
+            bnd.isHeadlandOn = bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0;
 
             PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
@@ -957,7 +957,7 @@ namespace AgOpenGPS
 
             for (int i = cnt - 1; i > -1; i--)
             {
-                recPath.recList[i].heading += (glm.PIBy2) + (glm.PIBy2);
+                recPath.recList[i].heading += glm.PIBy2 + glm.PIBy2;
                 if (recPath.recList[i].heading < -glm.twoPI) recPath.recList[i].heading += glm.twoPI;
 
                 _recList.Add(recPath.recList[i]);
@@ -1084,7 +1084,7 @@ namespace AgOpenGPS
             {
                 panelNavigation.Visible = true;
                 navPanelCounter = 2;
-                if (displayBrightness.isWmiMonitor) btnBrightnessDn.Text = (displayBrightness.GetBrightness().ToString()) + "%";
+                if (displayBrightness.isWmiMonitor) btnBrightnessDn.Text = displayBrightness.GetBrightness().ToString() + "%";
                 else btnBrightnessDn.Text = "??";
             }
 
@@ -1710,12 +1710,12 @@ namespace AgOpenGPS
         private void btnResetToolHeading_Click(object sender, EventArgs e)
         {
             tankPos.heading = fixHeading;
-            tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
-            tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
+            tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * tool.tankTrailingHitchLength);
+            tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * tool.tankTrailingHitchLength);
 
             toolPivotPos.heading = tankPos.heading;
-            toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength));
-            toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength));
+            toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * tool.trailingHitchLength);
+            toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * tool.trailingHitchLength);
         }
         private void btnTramDisplayMode_Click(object sender, EventArgs e)
         {
@@ -2066,7 +2066,7 @@ namespace AgOpenGPS
 
         private void btnTiltUp_Click(object sender, EventArgs e)
         {
-            camera.PitchInDegrees -= ((camera.PitchInDegrees * 0.012) - 1);
+            camera.PitchInDegrees -= (camera.PitchInDegrees * 0.012) - 1;
             if (camera.PitchInDegrees > -58) camera.PitchInDegrees = 0;
             navPanelCounter = 2;
         }
@@ -2074,7 +2074,7 @@ namespace AgOpenGPS
         private void btnTiltDn_Click(object sender, EventArgs e)
         {
             if (camera.PitchInDegrees > -59) camera.PitchInDegrees = -60;
-            camera.PitchInDegrees += ((camera.PitchInDegrees * 0.012) - 1);
+            camera.PitchInDegrees += (camera.PitchInDegrees * 0.012) - 1;
             if (camera.PitchInDegrees < -70) camera.PitchInDegrees = -70;
             navPanelCounter = 2;
         }

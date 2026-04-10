@@ -106,8 +106,8 @@ namespace AgOpenGPS
             for (int i = 1; i < 200; i++)
             {
                 vec3 pt = new vec3(track.curvePts[ptCnt]);
-                pt.easting += (Math.Sin(pt.heading) * i);
-                pt.northing += (Math.Cos(pt.heading) * i);
+                pt.easting += Math.Sin(pt.heading) * i;
+                pt.northing += Math.Cos(pt.heading) * i;
                 extended.Add(pt);
             }
 
@@ -116,8 +116,8 @@ namespace AgOpenGPS
             for (int i = 1; i < 200; i++)
             {
                 vec3 pt = new vec3(start);
-                pt.easting -= (Math.Sin(pt.heading) * i);
-                pt.northing -= (Math.Cos(pt.heading) * i);
+                pt.easting -= Math.Sin(pt.heading) * i;
+                pt.northing -= Math.Cos(pt.heading) * i;
                 extended.Insert(0, pt);
             }
 
@@ -221,7 +221,7 @@ namespace AgOpenGPS
                     distanceFromRefLine = -glm.Distance(mf.guidanceLookPos, track.ptA);
                 }
 
-                distanceFromRefLine -= (0.5 * widthMinusOverlap);
+                distanceFromRefLine -= 0.5 * widthMinusOverlap;
 
                 double RefDist = (distanceFromRefLine + (isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) - track.nudgeDistance) / widthMinusOverlap;
 
@@ -237,7 +237,7 @@ namespace AgOpenGPS
                 lastIsHeadingSameWay = isHeadingSameWay;
                 double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
 
-                distAway += (0.5 * widthMinusOverlap);
+                distAway += 0.5 * widthMinusOverlap;
 
                 cts?.Cancel();
                 cts = new CancellationTokenSource();
@@ -417,7 +417,7 @@ namespace AgOpenGPS
                                 int loopTimes = (int)(distance / step + 1);
                                 for (int j = 1; j < loopTimes; j++)
                                 {
-                                    vec3 pos = new vec3(glm.Catmull(j / (double)(loopTimes), arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
+                                    vec3 pos = new vec3(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
                                     newCurList.Add(pos);
                                 }
                             }
@@ -468,8 +468,8 @@ namespace AgOpenGPS
                                 for (int i = 1; i < 10; i++)
                                 {
                                     vec3 pt = new vec3(newCurList[ptCnt]);
-                                    pt.easting += (Math.Sin(pt.heading) * i * 2);
-                                    pt.northing += (Math.Cos(pt.heading) * i * 2);
+                                    pt.easting += Math.Sin(pt.heading) * i * 2;
+                                    pt.northing += Math.Cos(pt.heading) * i * 2;
                                     newCurList.Add(pt);
                                 }
                                 ptCnt = newCurList.Count - 1;
@@ -480,8 +480,8 @@ namespace AgOpenGPS
                                 vec3 pt = new vec3(newCurList[newCurList.Count - 1]);
                                 for (int i = 1; i < 5; i++)
                                 {
-                                    pt.easting += (Math.Sin(pt.heading) * 2);
-                                    pt.northing += (Math.Cos(pt.heading) * 2);
+                                    pt.easting += Math.Sin(pt.heading) * 2;
+                                    pt.northing += Math.Cos(pt.heading) * 2;
                                     newCurList.Add(pt);
                                 }
                             }
@@ -501,8 +501,8 @@ namespace AgOpenGPS
                                 for (int i = 1; i < 10; i++)
                                 {
                                     vec3 pt = new vec3(pt33);
-                                    pt.easting -= (Math.Sin(pt.heading) * i * 2);
-                                    pt.northing -= (Math.Cos(pt.heading) * i * 2);
+                                    pt.easting -= Math.Sin(pt.heading) * i * 2;
+                                    pt.northing -= Math.Cos(pt.heading) * i * 2;
                                     newCurList.Insert(0, pt);
                                 }
                             }
@@ -512,8 +512,8 @@ namespace AgOpenGPS
                                 vec3 pt = new vec3(newCurList[0]);
                                 for (int i = 1; i < 5; i++)
                                 {
-                                    pt.easting -= (Math.Sin(pt.heading) * 2);
-                                    pt.northing -= (Math.Cos(pt.heading) * 2);
+                                    pt.easting -= Math.Sin(pt.heading) * 2;
+                                    pt.northing -= Math.Cos(pt.heading) * 2;
                                     newCurList.Insert(0, pt);
                                 }
                             }
@@ -560,13 +560,13 @@ namespace AgOpenGPS
                     if (isHeadingSameWay)
                     {
                         nextGuideDist = (mf.tool.width - mf.tool.overlap) * numGuides;
-                        nextGuideDist += (isSwitch ? mf.tool.offset * 2 : 0);
+                        nextGuideDist += isSwitch ? mf.tool.offset * 2 : 0;
                         isSwitch = !isSwitch;
                     }
                     else
                     {
                         nextGuideDist = (mf.tool.width - mf.tool.overlap) * -numGuides;
-                        nextGuideDist += (isSwitch ? 0 : -mf.tool.offset * 2);
+                        nextGuideDist += isSwitch ? 0 : -mf.tool.offset * 2;
                         isSwitch = !isSwitch;
                     }
 
@@ -645,13 +645,13 @@ namespace AgOpenGPS
                     if (isHeadingSameWay)
                     {
                         nextGuideDist = (mf.tool.width - mf.tool.overlap) * numGuides;
-                        nextGuideDist += (isSwitch ? mf.tool.offset * 2 : 0);
+                        nextGuideDist += isSwitch ? mf.tool.offset * 2 : 0;
                         isSwitch = !isSwitch;
                     }
                     else
                     {
                         nextGuideDist = (mf.tool.width - mf.tool.overlap) * -numGuides;
-                        nextGuideDist += (isSwitch ? 0 : -mf.tool.offset * 2);
+                        nextGuideDist += isSwitch ? 0 : -mf.tool.offset * 2;
                         isSwitch = !isSwitch;
                     }
 
@@ -752,7 +752,7 @@ namespace AgOpenGPS
                     radiusPointCu.easting = mf.yt.radiusPointYT.easting;
                     radiusPointCu.northing = mf.yt.radiusPointYT.northing;
                     ppRadiusCu = mf.yt.ppRadiusYT;
-                    mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+                    mf.vehicle.modeActualXTE = distanceFromCurrentLinePivot;
                 }
                 else if (mf.isStanleyUsed)//Stanley
                 {
@@ -960,8 +960,8 @@ namespace AgOpenGPS
                         {
                             double j = (goalPointDistance - distSoFar) / tempDist; // the remainder to yet travel
 
-                            goalPointCu.easting = (((1 - j) * start.easting) + (j * curList[i].easting));
-                            goalPointCu.northing = (((1 - j) * start.northing) + (j * curList[i].northing));
+                            goalPointCu.easting = ((1 - j) * start.easting) + (j * curList[i].easting);
+                            goalPointCu.northing = ((1 - j) * start.northing) + (j * curList[i].northing);
                             break;
                         }
                         else
@@ -981,7 +981,7 @@ namespace AgOpenGPS
                         {
                             if (isHeadingSameWay)
                             {
-                                if (glm.Distance(goalPointCu, curList[(curList.Count - 1)]) < 0.5)
+                                if (glm.Distance(goalPointCu, curList[curList.Count - 1]) < 0.5)
                                 {
                                     mf.btnAutoSteer.PerformClick();
                                     mf.TimedMessageBox(2000, gStr.gsGuidanceStopped, gStr.gsPastEndOfCurve);
@@ -1026,9 +1026,9 @@ namespace AgOpenGPS
                         distanceFromCurrentLinePivot *= -1.0;
 
                     //used for acquire/hold mode
-                    mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+                    mf.vehicle.modeActualXTE = distanceFromCurrentLinePivot;
 
-                    double steerHeadingError = (pivot.heading - curList[A].heading);
+                    double steerHeadingError = pivot.heading - curList[A].heading;
                     //Fix the circular error
                     if (steerHeadingError > Math.PI)
                         steerHeadingError -= Math.PI;
@@ -1253,7 +1253,7 @@ namespace AgOpenGPS
                 mf.tram.tramList.Add(mf.tram.tramArr);
 
                 widd = (mf.tram.tramWidth * 0.5) - mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd += mf.tram.tramWidth * i;
 
                 double distSqAway = widd * widd * 0.999999;
 
@@ -1305,7 +1305,7 @@ namespace AgOpenGPS
                 mf.tram.tramList.Add(mf.tram.tramArr);
 
                 widd = (mf.tram.tramWidth * 0.5) + mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd += mf.tram.tramWidth * i;
                 double distSqAway = widd * widd * 0.999999;
 
                 for (int j = 0; j < refCount; j += 1)
@@ -1630,8 +1630,8 @@ namespace AgOpenGPS
                 for (int i = 1; i < 100; i++)
                 {
                     vec3 pt = new vec3(xList[ptCnt]);
-                    pt.easting += (Math.Sin(pt.heading) * i);
-                    pt.northing += (Math.Cos(pt.heading) * i);
+                    pt.easting += Math.Sin(pt.heading) * i;
+                    pt.northing += Math.Cos(pt.heading) * i;
                     xList.Add(pt);
                 }
 
@@ -1641,8 +1641,8 @@ namespace AgOpenGPS
                 for (int i = 1; i < 100; i++)
                 {
                     vec3 pt = new vec3(start);
-                    pt.easting -= (Math.Sin(pt.heading) * i);
-                    pt.northing -= (Math.Cos(pt.heading) * i);
+                    pt.easting -= Math.Sin(pt.heading) * i;
+                    pt.northing -= Math.Cos(pt.heading) * i;
                     xList.Insert(0, pt);
                 }
 
@@ -1652,8 +1652,8 @@ namespace AgOpenGPS
                 for (int i = 1; i < 300; i++)
                 {
                     vec3 pt = new vec3(xList[ptCnt]);
-                    pt.easting += (Math.Sin(pt.heading) * i);
-                    pt.northing += (Math.Cos(pt.heading) * i);
+                    pt.easting += Math.Sin(pt.heading) * i;
+                    pt.northing += Math.Cos(pt.heading) * i;
                     xList.Add(pt);
                 }
 
@@ -1663,8 +1663,8 @@ namespace AgOpenGPS
                 for (int i = 1; i < 300; i++)
                 {
                     vec3 pt = new vec3(start);
-                    pt.easting -= (Math.Sin(pt.heading) * i);
-                    pt.northing -= (Math.Cos(pt.heading) * i);
+                    pt.easting -= Math.Sin(pt.heading) * i;
+                    pt.northing -= Math.Cos(pt.heading) * i;
                     xList.Insert(0, pt);
                 }
             }

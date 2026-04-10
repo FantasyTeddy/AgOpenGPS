@@ -54,11 +54,11 @@ namespace AgLibrary.Logging
             FileInfo txtfile = new FileInfo(logFile);
             if (txtfile.Exists)
             {
-                if (txtfile.Length > (sizeLimit))       // ## NOTE: 0.5MB max file size
+                if (txtfile.Length > sizeLimit)       // ## NOTE: 0.5MB max file size
                 {
                     StringBuilder sbF = new StringBuilder();
                     long bytes = txtfile.Length - sizeLimit;
-                    bytes = (sizeLimit * 2) / 10 + bytes;
+                    bytes = sizeLimit * 2 / 10 + bytes;
                     sbEvents.Append("Log File Reduced by: " + bytes.ToString());
 
                     //create some extra space

@@ -362,7 +362,7 @@ namespace AgOpenGPS
                 : Properties.Resources.HeadlandOff;
 
             int sett = Properties.ToolSettings.Default.setArdMac_setting0;
-            btnHydLift.Visible = (((sett & 2) == 2) && hasHeadland);
+            btnHydLift.Visible = ((sett & 2) == 2) && hasHeadland;
             if (hasHeadland) btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
 
             // RecPath
@@ -701,7 +701,7 @@ namespace AgOpenGPS
                 kml.WriteEndElement();
                 kml.WriteEndElement();
 
-                kml.WriteElementString("name", ((i + 1).ToString() + " " + flagPts[i].notes));
+                kml.WriteElementString("name", (i + 1).ToString() + " " + flagPts[i].notes);
                 kml.WriteStartElement("Point");
                 kml.WriteElementString("coordinates", flagPts[i].longitude.ToString(CultureInfo.InvariantCulture) +
                     "," + flagPts[i].latitude.ToString(CultureInfo.InvariantCulture) + ",0");
@@ -731,8 +731,8 @@ namespace AgOpenGPS
                             kml.WriteElementString("name", "Sections_" + cntr.ToString());
                             cntr++;
 
-                            string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
-                                ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");
+                            string collor = "F0" + ((byte)triList[0].heading).ToString("X2") +
+                                ((byte)triList[0].northing).ToString("X2") + ((byte)triList[0].easting).ToString("X2");
 
                             kml.WriteStartElement("Style");
                             kml.WriteStartElement("LineStyle");
@@ -882,7 +882,7 @@ namespace AgOpenGPS
                 ISO11783_TaskFile.Export(
                     directoryName,
                     currentFieldDirectory,
-                    (int)(fd.areaOuterBoundary),
+                    (int)fd.areaOuterBoundary,
                     bnd.bndList,
                     AppModel.LocalPlane,
                     trk,
@@ -909,7 +909,7 @@ namespace AgOpenGPS
                 ISO11783_TaskFile.Export(
                     directoryName,
                     currentFieldDirectory,
-                    (int)(fd.areaOuterBoundary),
+                    (int)fd.areaOuterBoundary,
                     bnd.bndList,
                     AppModel.LocalPlane,
                     trk,

@@ -97,7 +97,7 @@ namespace AgIO
             else if (Order == SortOrder.Descending)
             {
                 // Descending sort is selected, return negative result of compare operation
-                return (-compareResult);
+                return -compareResult;
             }
             else
             {

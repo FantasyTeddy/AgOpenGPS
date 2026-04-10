@@ -257,7 +257,7 @@ namespace AgIO
                                     if (ByteList[21] > 4)
                                     {
                                         int length = ByteList[4] + totalHeaderByteCount;
-                                        if ((ByteList[21]) < length)
+                                        if (ByteList[21] < length)
                                         {
                                             ByteList[ByteList[21]++] = a;
                                             break;
@@ -272,7 +272,7 @@ namespace AgIO
                                             }
 
                                             //if checksum matches finish and update main thread
-                                            if (a == (byte)(CK_A))
+                                            if (a == (byte)CK_A)
                                             {
                                                 length++;
                                                 ByteList[ByteList[21]++] = (byte)CK_A;
@@ -468,7 +468,7 @@ namespace AgIO
                                     if (ByteList[21] > 4)
                                     {
                                         int length = ByteList[4] + totalHeaderByteCount;
-                                        if ((ByteList[21]) < length)
+                                        if (ByteList[21] < length)
                                         {
                                             ByteList[ByteList[21]++] = a;
                                             break;
@@ -483,7 +483,7 @@ namespace AgIO
                                             }
 
                                             //if checksum matches finish and update main thread
-                                            if (a == (byte)(CK_A))
+                                            if (a == (byte)CK_A)
                                             {
                                                 length++;
                                                 ByteList[ByteList[21]++] = (byte)CK_A;
@@ -686,7 +686,7 @@ namespace AgIO
                                     if (ByteList[21] > 4)
                                     {
                                         int length = ByteList[4] + totalHeaderByteCount;
-                                        if ((ByteList[21]) < length)
+                                        if (ByteList[21] < length)
                                         {
                                             ByteList[ByteList[21]++] = a;
                                             break;
@@ -701,7 +701,7 @@ namespace AgIO
                                             }
 
                                             //if checksum matches finish and update main thread
-                                            if (a == (byte)(CK_A))
+                                            if (a == (byte)CK_A)
                                             {
                                                 ByteList[ByteList[21]++] = (byte)CK_A;
                                                 length++;

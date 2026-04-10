@@ -121,7 +121,7 @@ namespace AgOpenGPS
 
         private void FormBndTool_ResizeEnd(object sender, EventArgs e)
         {
-            Width = (Height * 4 / 3);
+            Width = Height * 4 / 3;
 
             oglSelf.Height = oglSelf.Width = Height - 50;
 
@@ -339,15 +339,15 @@ namespace AgOpenGPS
             secList.Add(ptA);
             secList.Add(ptB);
 
-            int dist = (int)(glm.Distance(ptA, ptB));
+            int dist = (int)glm.Distance(ptA, ptB);
 
             if (dist > 2)
             {
                 for (int i = 1; i < dist; i++)
                 {
                     vec3 pt = new vec3(ptA);
-                    pt.easting += (Math.Sin(abHead) * i);
-                    pt.northing += (Math.Cos(abHead) * i);
+                    pt.easting += Math.Sin(abHead) * i;
+                    pt.northing += Math.Cos(abHead) * i;
                     secList.Add(pt);
                 }
             }
@@ -693,7 +693,7 @@ namespace AgOpenGPS
                     smooList.Add(new vec3(smList[i]));
                     continue;
                 }
-                delta += (smList[i - 1].heading - smList[i].heading);
+                delta += smList[i - 1].heading - smList[i].heading;
                 if (Math.Abs(delta) > 0.02)
                 {
                     smooList.Add(new vec3(smList[i]));
@@ -802,7 +802,7 @@ namespace AgOpenGPS
 
             if (bndSelect >= 0 && bndSelect < mf.bnd.bndList.Count && mf.bnd.bndList[bndSelect].fenceLine.Count > 0)
             {
-                if ((Math.Abs(start - end)) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+                if (Math.Abs(start - end) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
                 {
                     isLoop = true;
                     if (start < end)

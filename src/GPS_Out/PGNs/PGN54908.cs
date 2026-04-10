@@ -167,7 +167,7 @@ namespace GPS_Out
             get
             {
                 float Result = 0;
-                if (Math.Abs(cImuPitch / 10.0) < 30) Result = ((float)(cImuPitch / 10.0));
+                if (Math.Abs(cImuPitch / 10.0) < 30) Result = (float)(cImuPitch / 10.0);
                 return Result;
             }
         }
@@ -177,7 +177,7 @@ namespace GPS_Out
             get
             {
                 float Result = 0;
-                if (Math.Abs(cImuRoll / 10.0) < 30) Result = ((float)(cImuRoll / 10.0));
+                if (Math.Abs(cImuRoll / 10.0) < 30) Result = (float)(cImuRoll / 10.0);
                 return Result;
             }
         }

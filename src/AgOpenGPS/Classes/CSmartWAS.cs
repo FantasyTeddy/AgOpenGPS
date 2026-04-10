@@ -250,7 +250,7 @@ namespace AgOpenGPS
             double sizeFactor = Math.Min(1.0, (double)steerAngleHistory.Count / (MIN_SAMPLES * 3));
 
             // Combine scores
-            double confidence = ((score1 * 0.3 + score2 * 0.3 + magnitudeScore * 0.2 + sizeFactor * 0.2) * 100);
+            double confidence = (score1 * 0.3 + score2 * 0.3 + magnitudeScore * 0.2 + sizeFactor * 0.2) * 100;
             return Math.Max(0, Math.Min(100, confidence));
         }
 

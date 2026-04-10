@@ -20,7 +20,7 @@ namespace AgOpenGPS.Visuals
                     int cnt = triList.Count;
 
                     //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                    if (cnt >= (mipmap))
+                    if (cnt >= mipmap)
                     {
                         int step = mipmap;
                         for (int i = 1; i < cnt; i += step)

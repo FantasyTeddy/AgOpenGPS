@@ -51,7 +51,7 @@ namespace AgOpenGPS
         //User Distance strings
         public string DistanceUserMeters => Convert.ToString(Math.Round(distanceUser, 1));
 
-        public string DistanceUserFeet => Convert.ToString(Math.Round((distanceUser * glm.m2ft), 1));
+        public string DistanceUserFeet => Convert.ToString(Math.Round(distanceUser * glm.m2ft, 1));
 
         //remaining area to be worked
         public string WorkedAreaRemainHectares => ((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ha).ToString("N2");
@@ -64,7 +64,7 @@ namespace AgOpenGPS
             {
                 if (areaBoundaryOuterLessInner > 10)
                 {
-                    barPercent = ((areaBoundaryOuterLessInner - workedAreaTotal) * 100 / areaBoundaryOuterLessInner);
+                    barPercent = (areaBoundaryOuterLessInner - workedAreaTotal) * 100 / areaBoundaryOuterLessInner;
                     return barPercent.ToString("N1") + "%";
                 }
                 else
@@ -90,8 +90,8 @@ namespace AgOpenGPS
             {
                 if (mf.avgSpeed > 2)
                 {
-                    TimeSpan timeSpan = TimeSpan.FromHours(((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ha
-                        / (mf.tool.width * mf.avgSpeed * 0.1)));
+                    TimeSpan timeSpan = TimeSpan.FromHours((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ha
+                        / (mf.tool.width * mf.avgSpeed * 0.1));
                     return timeSpan.Hours.ToString("00:") + timeSpan.Minutes.ToString("00") + '"';
                 }
                 else

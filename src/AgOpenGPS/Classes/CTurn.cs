@@ -172,7 +172,7 @@ namespace AgOpenGPS
                         bndList[j].turnLine.Add(arr[i]);
                         continue;
                     }
-                    delta += (arr[i - 1].heading - arr[i].heading);
+                    delta += arr[i - 1].heading - arr[i].heading;
                     if (Math.Abs(delta) > 0.005)
                     {
                         bndList[j].turnLine.Add(arr[i]);

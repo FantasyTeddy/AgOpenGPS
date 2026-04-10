@@ -67,7 +67,7 @@ namespace AgOpenGPS
         {
             nudAntennaHeight.Value = (int)(Properties.VehicleSettings.Default.setVehicle_antennaHeight * mf.m2InchOrCm);
 
-            nudAntennaPivot.Value = (int)((Properties.VehicleSettings.Default.setVehicle_antennaPivot) * mf.m2InchOrCm);
+            nudAntennaPivot.Value = (int)(Properties.VehicleSettings.Default.setVehicle_antennaPivot * mf.m2InchOrCm);
 
             //negative is to the right
             nudAntennaOffset.Value = (int)(Math.Abs(Properties.VehicleSettings.Default.setVehicle_antennaOffset) * mf.m2InchOrCm);

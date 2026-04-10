@@ -48,7 +48,7 @@ namespace AgOpenGPS
                         int loopTimes = (int)(distance / step + 1);
                         for (int j = 1; j < loopTimes; j++)
                         {
-                            vec3 pos = new vec3(glm.Catmull(j / (double)(loopTimes), arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
+                            vec3 pos = new vec3(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
                             points.Add(pos);
                         }
                     }
@@ -264,7 +264,7 @@ namespace AgOpenGPS
                     points.Add(new vec3(smList[i]));
                     continue;
                 }
-                check = (smList[i - 1].heading - smList[i].heading);
+                check = smList[i - 1].heading - smList[i].heading;
                 if (check > Math.PI || check < -Math.PI)
                 {
                     if (check > 0) check -= glm.twoPI;
@@ -349,7 +349,7 @@ namespace AgOpenGPS
                     smList.Add(new vec2(points[i].easting, points[i].northing));
                     continue;
                 }
-                check = (points[i - 1].heading - points[i].heading);
+                check = points[i - 1].heading - points[i].heading;
                 if (check > Math.PI || check < -Math.PI)
                 {
                     if (check > 0) check -= glm.twoPI;
@@ -393,8 +393,8 @@ namespace AgOpenGPS
             for (int i = 1; i < ptsToAdd; i++)
             {
                 vec3 pt = new vec3(start);
-                pt.easting -= (Math.Sin(pt.heading) * i * distBetweenPoints);
-                pt.northing -= (Math.Cos(pt.heading) * i * distBetweenPoints);
+                pt.easting -= Math.Sin(pt.heading) * i * distBetweenPoints;
+                pt.northing -= Math.Cos(pt.heading) * i * distBetweenPoints;
                 xList.Insert(0, pt);
             }
 
@@ -402,8 +402,8 @@ namespace AgOpenGPS
             for (int i = 1; i < ptsToAdd; i++)
             {
                 vec3 pt = new vec3(xList[ptCnt]);
-                pt.easting += (Math.Sin(pt.heading) * i * distBetweenPoints);
-                pt.northing += (Math.Cos(pt.heading) * i * distBetweenPoints);
+                pt.easting += Math.Sin(pt.heading) * i * distBetweenPoints;
+                pt.northing += Math.Cos(pt.heading) * i * distBetweenPoints;
                 xList.Add(pt);
             }
         }
@@ -415,8 +415,8 @@ namespace AgOpenGPS
             for (int i = 1; i <= ptsToAdd; i++)
             {
                 vec3 pt = new vec3(start);
-                pt.easting -= (Math.Sin(pt.heading) * i * distBetweenPoints);
-                pt.northing -= (Math.Cos(pt.heading) * i * distBetweenPoints);
+                pt.easting -= Math.Sin(pt.heading) * i * distBetweenPoints;
+                pt.northing -= Math.Cos(pt.heading) * i * distBetweenPoints;
                 xList.Insert(0, pt);
             }
         }
@@ -427,8 +427,8 @@ namespace AgOpenGPS
             for (int i = 1; i <= ptsToAdd; i++)
             {
                 vec3 pt = new vec3(xList[ptCnt]);
-                pt.easting += (Math.Sin(pt.heading) * i * distBetweenPoints);
-                pt.northing += (Math.Cos(pt.heading) * i * distBetweenPoints);
+                pt.easting += Math.Sin(pt.heading) * i * distBetweenPoints;
+                pt.northing += Math.Cos(pt.heading) * i * distBetweenPoints;
                 xList.Add(pt);
             }
         }

@@ -341,7 +341,7 @@ namespace AgOpenGPS
                 mf.JobNew();
 
                 //create it for first save
-                if ((!string.IsNullOrEmpty(directoryName)) && (Directory.Exists(directoryName)))
+                if ((!string.IsNullOrEmpty(directoryName)) && Directory.Exists(directoryName))
                 {
                     FormDialog.Show(gStr.gsChooseADifferentName, gStr.gsDirectoryExists, DialogSeverity.Error);
                     return;

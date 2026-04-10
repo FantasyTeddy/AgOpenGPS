@@ -654,7 +654,7 @@ namespace AgOpenGPS
                 nudNumberOfSections.Value = numberOfSections;
 
                 defaultSectionWidth = Properties.ToolSettings.Default.setTool_sectionWidthMulti;
-                nudDefaultSectionWidth.Value = (decimal)(Math.Round((defaultSectionWidth * mf.m2InchOrCm), 1));
+                nudDefaultSectionWidth.Value = (decimal)Math.Round(defaultSectionWidth * mf.m2InchOrCm, 1);
 
                 SetNudZoneMinMax();
 

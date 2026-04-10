@@ -203,7 +203,7 @@ namespace AgIO
                 //Top1
                 g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + box.Padding.Left, rect.Y));
                 //Top2
-                g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
+                g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)strSize.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y));
             }
         }
 
@@ -370,7 +370,7 @@ namespace AgIO
             lblIMU.Text = mf.spIMU.PortName;
             lblMachine.Text = mf.spMachineModule.PortName;
 
-            lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : (mf.traffic.cntrGPSIn).ToString();
+            lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : mf.traffic.cntrGPSIn.ToString();
         }
 
         private void btnSerialOK_Click(object sender, EventArgs e)

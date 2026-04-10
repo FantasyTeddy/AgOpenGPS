@@ -176,11 +176,11 @@ namespace AgOpenGPS
                                         }
                                         if (mf.isMetric)
                                         {
-                                            area = (Math.Abs(area / 2)) * 0.0001;
+                                            area = Math.Abs(area / 2) * 0.0001;
                                         }
                                         else
                                         {
-                                            area = (Math.Abs(area / 2)) * 0.00024711;
+                                            area = Math.Abs(area / 2) * 0.00024711;
                                         }
                                     }
                                 }

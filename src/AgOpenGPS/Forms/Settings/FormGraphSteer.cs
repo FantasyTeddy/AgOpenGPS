@@ -73,7 +73,7 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
-            timer1.Interval = (int)((1 / mf.gpsHz) * 1000);
+            timer1.Interval = (int)(1 / mf.gpsHz * 1000);
 
             unoChart.ChartAreas[0].AxisY.Maximum = Double.NaN;
             unoChart.ChartAreas[0].AxisY.Minimum = Double.NaN;

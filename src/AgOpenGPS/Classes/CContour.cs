@@ -85,7 +85,7 @@ namespace AgOpenGPS
             minDistance = double.MaxValue;
             int start, stop;
 
-            double toolContourDistance = (mf.tool.width * 3 + Math.Abs(mf.tool.offset));
+            double toolContourDistance = mf.tool.width * 3 + Math.Abs(mf.tool.offset);
 
             //check if no strips yet, return
             int stripCount = stripList.Count;
@@ -259,7 +259,7 @@ namespace AgOpenGPS
 
                 double distAway = (mf.tool.width - mf.tool.overlap) * howManyPathsAway
                     + (isSameWay ? -mf.tool.offset : mf.tool.offset);
-                double distSqAway = (distAway * distAway) * 0.97;
+                double distSqAway = distAway * distAway * 0.97;
 
                 for (int i = start; i < stop; i++)
                 {
@@ -375,12 +375,12 @@ namespace AgOpenGPS
                     //distance is negative if on left, positive if on right
                     if (isHeadingSameWay)
                     {
-                        abFixHeadingDelta = (steer.heading - abHeading);
+                        abFixHeadingDelta = steer.heading - abHeading;
                     }
                     else
                     {
                         distanceFromCurrentLinePivot *= -1.0;
-                        abFixHeadingDelta = (steer.heading - abHeading + Math.PI);
+                        abFixHeadingDelta = steer.heading - abHeading + Math.PI;
                     }
 
                     //Fix the circular error
@@ -396,7 +396,7 @@ namespace AgOpenGPS
                     if (abFixHeadingDelta > 0.74) abFixHeadingDelta = 0.74;
                     if (abFixHeadingDelta < -0.74) abFixHeadingDelta = -0.74;
 
-                    steerAngleCT = Math.Atan((distanceFromCurrentLinePivot * mf.vehicle.stanleyDistanceErrorGain)
+                    steerAngleCT = Math.Atan(distanceFromCurrentLinePivot * mf.vehicle.stanleyDistanceErrorGain
                         / ((Math.Abs(mf.avgSpeed) * 0.277777) + 1));
 
                     if (steerAngleCT > 0.74) steerAngleCT = 0.74;
@@ -466,7 +466,7 @@ namespace AgOpenGPS
                         }
 
                         if (mf.isBtnAutoSteerOn
-                            && Math.Abs(pivotDerivative) < (0.1)
+                            && Math.Abs(pivotDerivative) < 0.1
                             && mf.avgSpeed > 2.5
                             && !mf.yt.isYouTurnTriggered)
                         {
@@ -528,8 +528,8 @@ namespace AgOpenGPS
                         {
                             double j = (goalPointDistance - distSoFar) / tempDist; // the remainder to yet travel
 
-                            goalPointCT.easting = (((1 - j) * start.easting) + (j * ctList[i].easting));
-                            goalPointCT.northing = (((1 - j) * start.northing) + (j * ctList[i].northing));
+                            goalPointCT.easting = ((1 - j) * start.easting) + (j * ctList[i].easting);
+                            goalPointCT.northing = ((1 - j) * start.northing) + (j * ctList[i].northing);
                             break;
                         }
                         else
@@ -560,7 +560,7 @@ namespace AgOpenGPS
                 }
 
                 //used for smooth mode
-                mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+                mf.vehicle.modeActualXTE = distanceFromCurrentLinePivot;
 
                 //fill in the autosteer variables
                 mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);

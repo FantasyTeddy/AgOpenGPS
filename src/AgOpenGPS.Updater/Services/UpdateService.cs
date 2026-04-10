@@ -456,7 +456,7 @@ namespace AgOpenGPS.Updater.Services
                         processedFiles++;
 
                         // Report progress
-                        int currentPercent = (processedFiles * 100) / totalFiles;
+                        int currentPercent = processedFiles * 100 / totalFiles;
                         int overallPercent = 50 + (currentPercent / 2); // 50-100% range
                         progress?.Report(new InstallProgress
                         {

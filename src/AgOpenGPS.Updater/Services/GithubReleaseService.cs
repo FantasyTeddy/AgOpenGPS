@@ -229,7 +229,7 @@ namespace AgOpenGPS.Updater.Services
 
                             if (progress != null && totalBytes > 0)
                             {
-                                progress.Report((totalBytesRead * 100.0) / totalBytes);
+                                progress.Report(totalBytesRead * 100.0 / totalBytes);
                             }
                         }
                     }
@@ -280,7 +280,7 @@ namespace AgOpenGPS.Updater.Services
 
                             if (progress != null && totalBytes > 0)
                             {
-                                progress.Report((totalBytesRead * 100.0) / totalBytes);
+                                progress.Report(totalBytesRead * 100.0 / totalBytes);
                             }
                         }
 

@@ -34,7 +34,7 @@ namespace AgOpenGPS
         {
             if (data.Length > 4 && data[0] == 0x80 && data[1] == 0x81)
             {
-                int Length = Math.Max((data[4]) + 5, 5);
+                int Length = Math.Max(data[4] + 5, 5);
                 if (data.Length > Length)
                 {
                     byte CK_A = 0;
@@ -285,13 +285,13 @@ namespace AgOpenGPS
                         {
                             //{ 0x80, 0x81, 0x7f, 222, number bytes, mask, command CRC };
                             if (data.Length < 6) break;
-                            if (((data[5] & 1) == 1)) //mask bit #0 set and command bit #0 nudge line to the 0 = left 1 = right
+                            if ((data[5] & 1) == 1) //mask bit #0 set and command bit #0 nudge line to the 0 = left 1 = right
                             {
                                 double dist = Properties.Settings.Default.setAS_snapDistance * 0.01;
                                 if ((data[6] & 1) != 1) { trk.NudgeTrack(-dist); }
                                 if ((data[6] & 1) == 1) { trk.NudgeTrack(dist); }
                             }
-                            if (((data[5] & 2) == 2)) //mask bit #1 set and command bit #0 cycle line to the 0 = left 1 = right
+                            if ((data[5] & 2) == 2) //mask bit #1 set and command bit #0 cycle line to the 0 = left 1 = right
                             {
                                 if ((data[6] & 1) != 1) { btnCycleLines.PerformClick(); }
                                 if ((data[6] & 1) == 1) { btnCycleLinesBk.PerformClick(); }
@@ -489,7 +489,7 @@ namespace AgOpenGPS
             if (!_uiReady) return false; // ignore while Terms&Conditions or before FormGPS is ready
 
             // Use only the key code (drop modifiers) so your mappings still match
-            Keys keyData = (key & Keys.KeyCode);
+            Keys keyData = key & Keys.KeyCode;
 
             // ProcessCmdKey reads only keyData; the Message payload is irrelevant here
             Message msg = Message.Create(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero);

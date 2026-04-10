@@ -303,37 +303,27 @@ namespace AgOpenGPS
 
         public static double DistanceSquared(vec3 first, vec2 second)
         {
-            return (
-            Math.Pow(first.easting - second.easting, 2)
-            + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
         public static double DistanceSquared(vec2 first, vec3 second)
         {
-            return (
-            Math.Pow(first.easting - second.easting, 2)
-            + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
         public static double DistanceSquared(vec3 first, vec3 second)
         {
-            return (
-            Math.Pow(first.easting - second.easting, 2)
-            + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
         public static double DistanceSquared(vec2 first, vec2 second)
         {
-            return (
-            Math.Pow(first.easting - second.easting, 2)
-            + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
         public static double DistanceSquared(vecFix2Fix first, vec2 second)
         {
-            return (
-                Math.Pow(first.easting - second.easting, 2)
-                + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
         public static Bitmap MakeGrayscale3(Bitmap original)
@@ -410,7 +400,7 @@ namespace AgOpenGPS
             double dx = segB.easting - segA.easting;
             double dy = segB.northing - segA.northing;
 
-            double det = (-rayDir.easting * dy + dx * rayDir.northing);
+            double det = -rayDir.easting * dy + dx * rayDir.northing;
             if (Math.Abs(det) < 1e-8) return false; // parallel
 
             double s = (-dy * (segA.easting - rayOrigin.easting) + dx * (segA.northing - rayOrigin.northing)) / det;

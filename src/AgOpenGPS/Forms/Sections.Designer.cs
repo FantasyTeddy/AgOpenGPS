@@ -243,7 +243,7 @@ namespace AgOpenGPS
                     btn.Top = top;
                     if (i == 1)
                     {
-                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection1Man.Left = oglCenter - tool.numOfSections * btnSection1Man.Size.Width / 2;
                     }
                     else
                     {
@@ -340,7 +340,7 @@ namespace AgOpenGPS
                 }
                 if (i == 1)
                 {
-                    btn.Left = (oglCenter) - (tool.zones * btn.Size.Width) / 2;
+                    btn.Left = oglCenter - tool.zones * btn.Size.Width / 2;
                 }
                 else
                 {
@@ -411,21 +411,21 @@ namespace AgOpenGPS
             {
                 for (int j = 0; j < MAXSECTIONS; j++)
                 {
-                    section[j].sectionWidth = (section[j].positionRight - section[j].positionLeft);
-                    section[j].rpSectionPosition = 250 + (int)(Math.Round(section[j].positionLeft * 10, 0, MidpointRounding.AwayFromZero));
-                    section[j].rpSectionWidth = (int)(Math.Round(section[j].sectionWidth * 10, 0, MidpointRounding.AwayFromZero));
+                    section[j].sectionWidth = section[j].positionRight - section[j].positionLeft;
+                    section[j].rpSectionPosition = 250 + (int)Math.Round(section[j].positionLeft * 10, 0, MidpointRounding.AwayFromZero);
+                    section[j].rpSectionWidth = (int)Math.Round(section[j].sectionWidth * 10, 0, MidpointRounding.AwayFromZero);
                 }
 
                 //calculate tool width based on extreme right and left values
-                tool.width = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
+                tool.width = section[tool.numOfSections - 1].positionRight - section[0].positionLeft;
 
                 //left and right tool position
                 tool.farLeftPosition = section[0].positionLeft;
                 tool.farRightPosition = section[tool.numOfSections - 1].positionRight;
 
                 //find the right side pixel position
-                tool.rpXPosition = 250 + (int)(Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero));
-                tool.rpWidth = (int)(Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero));
+                tool.rpXPosition = 250 + (int)Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero);
+                tool.rpWidth = (int)Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero);
             }
         }
 
@@ -443,26 +443,26 @@ namespace AgOpenGPS
                 section[i].positionRight = leftside + offset;
                 section[i + 1].positionLeft = leftside + offset;
                 section[i].sectionWidth = defaultSectionWidth;
-                section[i].rpSectionPosition = 250 + (int)(Math.Round(section[i].positionLeft * 10, 0, MidpointRounding.AwayFromZero));
-                section[i].rpSectionWidth = (int)(Math.Round(section[i].sectionWidth * 10, 0, MidpointRounding.AwayFromZero));
+                section[i].rpSectionPosition = 250 + (int)Math.Round(section[i].positionLeft * 10, 0, MidpointRounding.AwayFromZero);
+                section[i].rpSectionWidth = (int)Math.Round(section[i].sectionWidth * 10, 0, MidpointRounding.AwayFromZero);
             }
 
             leftside += defaultSectionWidth;
             section[tool.numOfSections - 1].positionRight = leftside + offset;
             section[tool.numOfSections - 1].sectionWidth = defaultSectionWidth;
-            section[tool.numOfSections - 1].rpSectionPosition = 250 + (int)(Math.Round(section[tool.numOfSections - 1].positionLeft * 10, 0, MidpointRounding.AwayFromZero));
-            section[tool.numOfSections - 1].rpSectionWidth = (int)(Math.Round(section[tool.numOfSections - 1].sectionWidth * 10, 0, MidpointRounding.AwayFromZero));
+            section[tool.numOfSections - 1].rpSectionPosition = 250 + (int)Math.Round(section[tool.numOfSections - 1].positionLeft * 10, 0, MidpointRounding.AwayFromZero);
+            section[tool.numOfSections - 1].rpSectionWidth = (int)Math.Round(section[tool.numOfSections - 1].sectionWidth * 10, 0, MidpointRounding.AwayFromZero);
 
             //calculate tool width based on extreme right and left values
-            tool.width = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
+            tool.width = section[tool.numOfSections - 1].positionRight - section[0].positionLeft;
 
             //left and right tool position
             tool.farLeftPosition = section[0].positionLeft;
             tool.farRightPosition = section[tool.numOfSections - 1].positionRight;
 
             //find the right side pixel position
-            tool.rpXPosition = 250 + (int)(Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero));
-            tool.rpWidth = (int)(Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero));
+            tool.rpXPosition = 250 + (int)Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero);
+            tool.rpWidth = (int)Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero);
         }
 
         private void BuildMachineByte()
@@ -792,7 +792,7 @@ namespace AgOpenGPS
                     // ON Signal from Arduino Gr0
                     for (int i = 0; i < 8; i++)
                     {
-                        if (((section[i].sectionBtnState != btnStates.On) && (mc.ss[mc.swOnGr0] & (1 << i)) == (1 << i)) && (tool.numOfSections > i) && (mc.ss[mc.swNumSections] > i))
+                        if ((section[i].sectionBtnState != btnStates.On) && (mc.ss[mc.swOnGr0] & (1 << i)) == (1 << i) && (tool.numOfSections > i) && (mc.ss[mc.swNumSections] > i))
                         {
                             section[i].sectionBtnState = btnStates.Auto;
                             PerformSectionClick(i);

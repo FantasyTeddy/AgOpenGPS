@@ -275,7 +275,7 @@ namespace AgOpenGPS
 
         private void FixMinMaxSpinners()
         {
-            nudTankHitch.Maximum = (Math.Round(nudTankHitch.Maximum / 2.54M));
+            nudTankHitch.Maximum = Math.Round(nudTankHitch.Maximum / 2.54M);
             nudTankHitch.Minimum = Math.Round(nudTankHitch.Minimum / 2.54M);
 
             nudDrawbarLength.Maximum = Math.Round(nudDrawbarLength.Maximum / 2.54M);

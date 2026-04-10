@@ -207,7 +207,7 @@ namespace AgOpenGPS
                     pathCount = recList.Count - C;
 
                     //section control - only if different click the button
-                    bool autoBtn = (mf.autoBtnState == btnStates.Auto);
+                    bool autoBtn = mf.autoBtnState == btnStates.Auto;
                     trig = autoBtn;
                     if (autoBtn != recList[C].autoBtnState) mf.btnSectionMasterAuto.PerformClick();
                 }
@@ -375,7 +375,7 @@ namespace AgOpenGPS
                 //pivotErrorTotal = pivotDistanceError + pivotDerivative;
 
                 if (isFollowingRecPath
-                    && Math.Abs(pivotDerivative) < (0.1)
+                    && Math.Abs(pivotDerivative) < 0.1
                     && mf.avgSpeed > 2.5)
                 //&& Math.Abs(pivotDistanceError) < 0.2)
 
@@ -435,8 +435,8 @@ namespace AgOpenGPS
                 {
                     double j = (goalPointDistance - distSoFar) / tempDist; // the remainder to yet travel
 
-                    goalPointRP.easting = (((1 - j) * start.easting) + (j * recList[i].easting));
-                    goalPointRP.northing = (((1 - j) * start.northing) + (j * recList[i].northing));
+                    goalPointRP.easting = ((1 - j) * start.easting) + (j * recList[i].easting);
+                    goalPointRP.northing = ((1 - j) * start.northing) + (j * recList[i].northing);
                     break;
                 }
                 else
@@ -462,7 +462,7 @@ namespace AgOpenGPS
             if (steerAngleRP > mf.vehicle.maxSteerAngle) steerAngleRP = mf.vehicle.maxSteerAngle;
 
             //used for smooth mode
-            mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+            mf.vehicle.modeActualXTE = distanceFromCurrentLinePivot;
 
             //Convert to centimeters
             mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
@@ -532,7 +532,7 @@ namespace AgOpenGPS
                 //pivotErrorTotal = pivotDistanceError + pivotDerivative;
 
                 if (mf.isBtnAutoSteerOn
-                    && Math.Abs(pivotDerivative) < (0.1)
+                    && Math.Abs(pivotDerivative) < 0.1
                     && mf.avgSpeed > 2.5
                     && !mf.yt.isYouTurnTriggered)
 
@@ -592,8 +592,8 @@ namespace AgOpenGPS
                 {
                     double j = (goalPointDistance - distSoFar) / tempDist; // the remainder to yet travel
 
-                    goalPointRP.easting = (((1 - j) * start.easting) + (j * shuttleDubinsList[i].easting));
-                    goalPointRP.northing = (((1 - j) * start.northing) + (j * shuttleDubinsList[i].northing));
+                    goalPointRP.easting = ((1 - j) * start.easting) + (j * shuttleDubinsList[i].easting);
+                    goalPointRP.northing = ((1 - j) * start.northing) + (j * shuttleDubinsList[i].northing);
                     break;
                 }
                 else

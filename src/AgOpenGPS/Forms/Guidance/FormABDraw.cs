@@ -426,7 +426,7 @@ namespace AgOpenGPS
             bool isLoop = false;
             int limit = end;
 
-            if ((Math.Abs(start - end)) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+            if (Math.Abs(start - end) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
             {
                 isLoop = true;
                 if (start < end)
@@ -503,7 +503,7 @@ namespace AgOpenGPS
 
                 //create a name
                 gTemp[indx].name = "Cu " +
-                    (Math.Round(glm.toDegrees(gTemp[indx].heading), 1)).ToString(CultureInfo.InvariantCulture)
+                    Math.Round(glm.toDegrees(gTemp[indx].heading), 1).ToString(CultureInfo.InvariantCulture)
                     + "\u00B0";
 
                 gTemp[indx].mode = TrackMode.Curve;
@@ -531,7 +531,7 @@ namespace AgOpenGPS
         private void BtnMakeABLine_Click(object sender, EventArgs e)
         {
             //if more then half way around, it crosses start finish
-            if ((Math.Abs(start - end)) <= (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+            if (Math.Abs(start - end) <= (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
             {
                 if (start < end)
                 {
@@ -568,7 +568,7 @@ namespace AgOpenGPS
 
             //create a name
             gTemp[indx].name = "AB " +
-                (Math.Round(glm.toDegrees(gTemp[indx].heading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0";
+                Math.Round(glm.toDegrees(gTemp[indx].heading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0";
 
             //clean up gui
             btnMakeABLine.Enabled = false;
@@ -589,8 +589,8 @@ namespace AgOpenGPS
 
             if (cboxIsZoom.Checked && !zoomToggle)
             {
-                sX = ((halfWid - (double)pt.X) / wid) * 1.1;
-                sY = ((halfWid - (double)pt.Y) / -wid) * 1.1;
+                sX = (halfWid - (double)pt.X) / wid * 1.1;
+                sY = (halfWid - (double)pt.Y) / -wid * 1.1;
                 zoom = 0.1;
                 zoomToggle = true;
                 return;
@@ -603,7 +603,7 @@ namespace AgOpenGPS
 
             //Convert to Origin in the center of window, 800 pixels
             fixPt.X = pt.X - halfWid;
-            fixPt.Y = (wid - pt.Y - halfWid);
+            fixPt.Y = wid - pt.Y - halfWid;
             vec3 plotPt = new vec3
             {
                 //convert screen coordinates to field coordinates
@@ -852,8 +852,8 @@ namespace AgOpenGPS
                 for (int i = 1; i < 50; i++)
                 {
                     vec3 pt = new vec3(start);
-                    pt.easting -= (Math.Sin(pt.heading) * i);
-                    pt.northing -= (Math.Cos(pt.heading) * i);
+                    pt.easting -= Math.Sin(pt.heading) * i;
+                    pt.northing -= Math.Cos(pt.heading) * i;
                     gTemp[indx].curvePts.Insert(0, pt);
                 }
             }
@@ -868,8 +868,8 @@ namespace AgOpenGPS
                 for (int i = 1; i < 50; i++)
                 {
                     vec3 pt = new vec3(gTemp[indx].curvePts[ptCnt]);
-                    pt.easting += (Math.Sin(pt.heading) * i);
-                    pt.northing += (Math.Cos(pt.heading) * i);
+                    pt.easting += Math.Sin(pt.heading) * i;
+                    pt.northing += Math.Cos(pt.heading) * i;
                     gTemp[indx].curvePts.Add(pt);
                 }
             }
@@ -877,7 +877,7 @@ namespace AgOpenGPS
 
         private void FormABDraw_ResizeEnd(object sender, EventArgs e)
         {
-            Width = (Height * 4 / 3);
+            Width = Height * 4 / 3;
 
             oglSelf.Height = oglSelf.Width = Height - 50;
 

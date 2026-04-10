@@ -81,7 +81,7 @@ namespace AgOpenGPS
             CFlag flagPt = new CFlag(
                 (double)nudLatitude.Value, (double)nudLongitude.Value,
                 geoCoord.Easting, geoCoord.Northing,
-                0, flagColor, nextflag, (nextflag).ToString());
+                0, flagColor, nextflag, nextflag.ToString());
             mf.flagPts.Add(flagPt);
             mf.flagPts = FlagsFiles.DeduplicateFlags(mf.flagPts);
             mf.FileSaveFlags();

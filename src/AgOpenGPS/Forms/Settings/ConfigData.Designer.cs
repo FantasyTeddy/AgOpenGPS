@@ -38,14 +38,14 @@ namespace AgOpenGPS
                 labelGboxDual.Enabled = false;
             }
 
-            cboxMinGPSStep.Checked = (Properties.Settings.Default.setF_minHeadingStepDistance == 1.0);
+            cboxMinGPSStep.Checked = Properties.Settings.Default.setF_minHeadingStepDistance == 1.0;
             UpdateStepDistanceUI();
 
             nudDualHeadingOffset.Value = (decimal)Properties.VehicleSettings.Default.setGPS_dualHeadingOffset;
             nudDualReverseDistance.Value = (decimal)Properties.VehicleSettings.Default.setGPS_dualReverseDetectionDistance;
 
             hsbarFusion.Value = (int)(Properties.VehicleSettings.Default.setIMU_fusionWeight2 * 500);
-            lblFusion.Text = (hsbarFusion.Value).ToString();
+            lblFusion.Text = hsbarFusion.Value.ToString();
             lblFusionIMU.Text = (100 - hsbarFusion.Value).ToString();
 
             cboxIsRTK.Checked = Properties.Settings.Default.setGPS_isRTK;
@@ -141,7 +141,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.Settings.Default.setGPS_jumpFixAlarmDistance = ((int)nudFixJumpDistance.Value);
+                Properties.Settings.Default.setGPS_jumpFixAlarmDistance = (int)nudFixJumpDistance.Value;
                 //mf.jumpDistanceAlarm = Properties.VehicleSettings.Default.setGPS_dualHeadingOffset;
             }
         }
@@ -150,7 +150,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.VehicleSettings.Default.setGPS_dualHeadingOffset = ((double)nudDualHeadingOffset.Value);
+                Properties.VehicleSettings.Default.setGPS_dualHeadingOffset = (double)nudDualHeadingOffset.Value;
                 mf.pn.headingTrueDualOffset = Properties.VehicleSettings.Default.setGPS_dualHeadingOffset;
             }
         }
@@ -159,7 +159,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.VehicleSettings.Default.setGPS_dualReverseDetectionDistance = ((double)nudDualReverseDistance.Value);
+                Properties.VehicleSettings.Default.setGPS_dualReverseDetectionDistance = (double)nudDualReverseDistance.Value;
                 mf.dualReverseDetectionDistance = Properties.VehicleSettings.Default.setGPS_dualReverseDetectionDistance;
             }
         }
@@ -174,7 +174,7 @@ namespace AgOpenGPS
 
         private void hsbarFusion_ValueChanged(object sender, EventArgs e)
         {
-            lblFusion.Text = (hsbarFusion.Value).ToString() + "%";
+            lblFusion.Text = hsbarFusion.Value.ToString() + "%";
             lblFusionIMU.Text = (100 - hsbarFusion.Value).ToString() + "%";
 
             mf.ahrs.fusionWeight = hsbarFusion.Value * 0.002;
@@ -316,7 +316,7 @@ namespace AgOpenGPS
             if (mf.ahrs.imuRoll != 88888)
             {
                 mf.ahrs.rollZero -= 0.1;
-                lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
+                lblRollZeroOffset.Text = mf.ahrs.rollZero.ToString("N2");
             }
             else
             {
@@ -329,7 +329,7 @@ namespace AgOpenGPS
             if (mf.ahrs.imuRoll != 88888)
             {
                 mf.ahrs.rollZero += 0.1;
-                lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
+                lblRollZeroOffset.Text = mf.ahrs.rollZero.ToString("N2");
             }
             else
             {
@@ -342,7 +342,7 @@ namespace AgOpenGPS
             {
                 mf.ahrs.imuRoll += mf.ahrs.rollZero;
                 mf.ahrs.rollZero = mf.ahrs.imuRoll;
-                lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
+                lblRollZeroOffset.Text = mf.ahrs.rollZero.ToString("N2");
                 Log.EventWriter("Roll Zeroed with " + mf.ahrs.rollZero.ToString());
             }
             else

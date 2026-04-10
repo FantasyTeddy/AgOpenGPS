@@ -184,7 +184,7 @@ namespace AgOpenGPS
             }
             else if (uTurnStyle == 1)
             {
-                return (KStyleTurnCurve());
+                return KStyleTurnCurve();
             }
 
             //prgramming error if you got here
@@ -380,7 +380,7 @@ namespace AgOpenGPS
 
                     double distAway = widthMinusOverlap * (mf.curve.howManyPathsAway + ((isTurnLeft ^ mf.curve.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.curve.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
 
-                    distAway += (0.5 * widthMinusOverlap);
+                    distAway += 0.5 * widthMinusOverlap;
 
                     //create the next line
                     nextCurve = mf.curve.BuildNewOffsetList(distAway, track);
@@ -531,7 +531,7 @@ namespace AgOpenGPS
                             double turnParameter = isTurnLeft ? -1.0 : 1.0;
 
                             //Update the heading
-                            currentPos.heading += (pointSpacing / youTurnRadius) * turnParameter;
+                            currentPos.heading += pointSpacing / youTurnRadius * turnParameter;
 
                             //Add the new coordinate to the path
                             ytList.Add(currentPos);
@@ -595,7 +595,7 @@ namespace AgOpenGPS
 
                     double distAway = widthMinusOverlap * (mf.curve.howManyPathsAway + ((isTurnLeft ^ mf.curve.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.curve.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
 
-                    distAway += (0.5 * widthMinusOverlap);
+                    distAway += 0.5 * widthMinusOverlap;
 
                     //create the next line
                     nextCurve = mf.curve.BuildNewOffsetList(distAway, track);
@@ -640,7 +640,7 @@ namespace AgOpenGPS
                             double turnParameter = isTurnLeft ? 1.0 : -1.0;
 
                             //Update the heading
-                            currentPos.heading += (pointSpacing / youTurnRadius) * turnParameter;
+                            currentPos.heading += pointSpacing / youTurnRadius * turnParameter;
 
                             //Add the new coordinate to the path
                             ytList2.Add(currentPos);
@@ -745,11 +745,11 @@ namespace AgOpenGPS
                         {
                             if (startClosestTurnPt.turnLineIndex < goalClosestTurnPt.turnLineIndex)
                             {
-                                loops = (turnCount - goalClosestTurnPt.turnLineIndex) + startClosestTurnPt.turnLineIndex;
+                                loops = turnCount - goalClosestTurnPt.turnLineIndex + startClosestTurnPt.turnLineIndex;
                             }
                             else
                             {
-                                loops = (turnCount - startClosestTurnPt.turnLineIndex) + goalClosestTurnPt.turnLineIndex;
+                                loops = turnCount - startClosestTurnPt.turnLineIndex + goalClosestTurnPt.turnLineIndex;
                             }
                         }
 
@@ -1021,7 +1021,7 @@ namespace AgOpenGPS
                         double turnParameter = isTurnLeft ? -1.0 : 1.0;
 
                         //Update the heading
-                        currentPos.heading += (pointSpacing / youTurnRadius) * turnParameter;
+                        currentPos.heading += pointSpacing / youTurnRadius * turnParameter;
 
                         //Add the new coordinate to the path
                         ytList.Add(currentPos);
@@ -1051,7 +1051,7 @@ namespace AgOpenGPS
 
                     double distAway = widthMinusOverlap * (mf.ABLine.howManyPathsAway + ((isTurnLeft ^ mf.ABLine.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.ABLine.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
 
-                    distAway += (0.5 * widthMinusOverlap);
+                    distAway += 0.5 * widthMinusOverlap;
 
                     nextCurve = mf.curve.BuildNewOffsetList(distAway, track);
 
@@ -1096,7 +1096,7 @@ namespace AgOpenGPS
                         double turnParameter = isTurnLeft ? 1.0 : -1.0;
 
                         //Update the heading
-                        pointPos.heading += (pointSpacing / youTurnRadius) * turnParameter;
+                        pointPos.heading += pointSpacing / youTurnRadius * turnParameter;
 
                         //Add the new coordinate to the path
                         ytList2.Add(pointPos);
@@ -1171,11 +1171,11 @@ namespace AgOpenGPS
                         {
                             if (startClosestTurnPt.turnLineIndex < goalClosestTurnPt.turnLineIndex)
                             {
-                                loops = (turnCount - goalClosestTurnPt.turnLineIndex) + startClosestTurnPt.turnLineIndex;
+                                loops = turnCount - goalClosestTurnPt.turnLineIndex + startClosestTurnPt.turnLineIndex;
                             }
                             else
                             {
-                                loops = (turnCount - startClosestTurnPt.turnLineIndex) + goalClosestTurnPt.turnLineIndex;
+                                loops = turnCount - startClosestTurnPt.turnLineIndex + goalClosestTurnPt.turnLineIndex;
                             }
                         }
 
@@ -1350,7 +1350,7 @@ namespace AgOpenGPS
                     double turnParameter = isTurnLeft ? -1.0 : 1.0;
 
                     //Update the heading
-                    currentPos.heading += (pointSpacing / youTurnRadius) * turnParameter;
+                    currentPos.heading += pointSpacing / youTurnRadius * turnParameter;
 
                     //Add the new coordinate to the path
                     ytList.Add(currentPos);
@@ -1386,8 +1386,8 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < arr2.Length; i++)
                 {
-                    arr2[i].easting += (sinHead);
-                    arr2[i].northing += (cosHead);
+                    arr2[i].easting += sinHead;
+                    arr2[i].northing += cosHead;
                 }
 
                 for (j = 0; j < arr2.Length; j++)
@@ -1531,8 +1531,8 @@ namespace AgOpenGPS
                 double turnDiagDistance = mf.distancePivotToTurnLine;
 
                 //moves the point to the crossing with the turnline
-                rEastYT += (Math.Sin(head) * turnDiagDistance);
-                rNorthYT += (Math.Cos(head) * turnDiagDistance);
+                rEastYT += Math.Sin(head) * turnDiagDistance;
+                rNorthYT += Math.Cos(head) * turnDiagDistance;
 
                 //creates half a circle starting at the crossing point
                 ytList.Clear();
@@ -1552,7 +1552,7 @@ namespace AgOpenGPS
                     if (isTurnLeft) turnParameter = -1.0;
 
                     //Update the heading
-                    currentPos.heading += (pointSpacing / youTurnRadius) * turnParameter;
+                    currentPos.heading += pointSpacing / youTurnRadius * turnParameter;
 
                     //Add the new coordinate to the path
                     ytList.Add(currentPos);
@@ -1645,8 +1645,8 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < cnt; i++)
                 {
-                    arr2[i].easting -= (sinHead);
-                    arr2[i].northing -= (cosHead);
+                    arr2[i].easting -= sinHead;
+                    arr2[i].northing -= cosHead;
                 }
 
                 for (; j < cnt; j += 1)
@@ -1672,8 +1672,8 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < cnt; i++)
                 {
-                    arr2[i].easting += (sinHead * 0.1);
-                    arr2[i].northing += (cosHead * 0.1);
+                    arr2[i].easting += sinHead * 0.1;
+                    arr2[i].northing += cosHead * 0.1;
                 }
 
                 for (int a = 0; a < cnt; a++)
@@ -1753,8 +1753,8 @@ namespace AgOpenGPS
             {
                 for (int i = 0; i < turnClosestList.Count; i++)
                 {
-                    double dist = (((fromPt.easting - turnClosestList[i].closePt.easting) * (fromPt.easting - turnClosestList[i].closePt.easting))
-                                    + ((fromPt.northing - turnClosestList[i].closePt.northing) * (fromPt.northing - turnClosestList[i].closePt.northing)));
+                    double dist = ((fromPt.easting - turnClosestList[i].closePt.easting) * (fromPt.easting - turnClosestList[i].closePt.easting))
+                                    + ((fromPt.northing - turnClosestList[i].closePt.northing) * (fromPt.northing - turnClosestList[i].closePt.northing));
 
                     if (minDistance >= dist)
                     {
@@ -2165,8 +2165,8 @@ namespace AgOpenGPS
             {
                 for (int i = 0; i < turnClosestList.Count; i++)
                 {
-                    double dist = (((fromPt.easting - turnClosestList[i].closePt.easting) * (fromPt.easting - turnClosestList[i].closePt.easting))
-                                    + ((fromPt.northing - turnClosestList[i].closePt.northing) * (fromPt.northing - turnClosestList[i].closePt.northing)));
+                    double dist = ((fromPt.easting - turnClosestList[i].closePt.easting) * (fromPt.easting - turnClosestList[i].closePt.easting))
+                                    + ((fromPt.northing - turnClosestList[i].closePt.northing) * (fromPt.northing - turnClosestList[i].closePt.northing));
 
                     if (minDistance >= dist)
                     {
@@ -2325,8 +2325,8 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < cnt; i++)
                 {
-                    arr2[i].easting -= (sinHead);
-                    arr2[i].northing -= (cosHead);
+                    arr2[i].easting -= sinHead;
+                    arr2[i].northing -= cosHead;
                 }
 
                 for (; j < cnt; j += 1)
@@ -2351,8 +2351,8 @@ namespace AgOpenGPS
             {
                 for (int i = 0; i < cnt; i++)
                 {
-                    arr2[i].easting += (sinHead * 0.1);
-                    arr2[i].northing += (cosHead * 0.1);
+                    arr2[i].easting += sinHead * 0.1;
+                    arr2[i].northing += cosHead * 0.1;
                 }
 
                 for (int a = 0; a < cnt; a++)
@@ -2589,8 +2589,8 @@ namespace AgOpenGPS
             else head -= 0.01;
 
             //move the start forward 2 meters, this point is critical to formation of uturn
-            rEastYT += (Math.Sin(head) * 4);
-            rNorthYT += (Math.Cos(head) * 4);
+            rEastYT += Math.Sin(head) * 4;
+            rNorthYT += Math.Cos(head) * 4;
 
             //now we have our start point
             vec3 start = new vec3(rEastYT, rNorthYT, head);
@@ -2734,7 +2734,7 @@ namespace AgOpenGPS
                     rNorthYT = ytList[A].northing + (U * dz);
 
                     //the first part of stanley is to extract heading error
-                    double abFixHeadingDelta = (pivot.heading - abHeading);
+                    double abFixHeadingDelta = pivot.heading - abHeading;
 
                     //Fix the circular error - get it from -Pi/2 to Pi/2
                     if (abFixHeadingDelta > Math.PI) abFixHeadingDelta -= Math.PI;
@@ -2749,7 +2749,7 @@ namespace AgOpenGPS
                     if (abFixHeadingDelta < -0.74) abFixHeadingDelta = -0.74;
 
                     //the non linear distance error part of stanley
-                    steerAngleYT = Math.Atan((distanceFromCurrentLine * mf.vehicle.stanleyDistanceErrorGain) / ((mf.avgSpeed * 0.277777) + 1));
+                    steerAngleYT = Math.Atan(distanceFromCurrentLine * mf.vehicle.stanleyDistanceErrorGain / ((mf.avgSpeed * 0.277777) + 1));
 
                     //clamp it to max 42 degrees
                     if (steerAngleYT > 0.74) steerAngleYT = 0.74;
@@ -2852,8 +2852,8 @@ namespace AgOpenGPS
                         {
                             double j = (goalPointDistance - distSoFar) / tempDist; // the remainder to yet travel
 
-                            goalPointYT.easting = (((1 - j) * start.easting) + (j * ytList[i].easting));
-                            goalPointYT.northing = (((1 - j) * start.northing) + (j * ytList[i].northing));
+                            goalPointYT.easting = ((1 - j) * start.easting) + (j * ytList[i].easting);
+                            goalPointYT.northing = ((1 - j) * start.northing) + (j * ytList[i].northing);
                             break;
                         }
                         else
@@ -2903,7 +2903,7 @@ namespace AgOpenGPS
                 }
 
                 //used for smooth mode
-                mf.vehicle.modeActualXTE = (distanceFromCurrentLine);
+                mf.vehicle.modeActualXTE = distanceFromCurrentLine;
 
                 //Convert to centimeters
                 mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLine * 1000.0, MidpointRounding.AwayFromZero);

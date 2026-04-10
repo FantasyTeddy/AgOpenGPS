@@ -204,7 +204,7 @@ namespace AgOpenGPS
                 }
 
                 mf.curve.desName = "Cu " +
-                    (Math.Round(glm.toDegrees(aveLineHeading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                    Math.Round(glm.toDegrees(aveLineHeading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
                 textBox1.Text = mf.curve.desName;
 
@@ -329,7 +329,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "AB " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
             textBox1.Text = mf.ABLine.desName;
             mf.trk.gArr[idx].name = mf.ABLine.desName;
@@ -399,7 +399,7 @@ namespace AgOpenGPS
             btnEnter_AB.Enabled = true;
             nudHeading.Enabled = true;
 
-            nudHeading.Value = (decimal)(glm.toDegrees(mf.ABLine.desHeading));
+            nudHeading.Value = (decimal)glm.toDegrees(mf.ABLine.desHeading);
             timer1.Enabled = true;
             mf.Activate();
         }
@@ -443,7 +443,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "A+" +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             double dist;

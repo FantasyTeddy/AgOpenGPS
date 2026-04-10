@@ -196,11 +196,11 @@ namespace AgOpenGPS
         {
             double head = gArr[idx].heading;
 
-            gArr[idx].ptA.easting += (Math.Sin(head + glm.PIBy2) * (dist));
-            gArr[idx].ptA.northing += (Math.Cos(head + glm.PIBy2) * (dist));
+            gArr[idx].ptA.easting += Math.Sin(head + glm.PIBy2) * dist;
+            gArr[idx].ptA.northing += Math.Cos(head + glm.PIBy2) * dist;
 
-            gArr[idx].ptB.easting += (Math.Sin(head + glm.PIBy2) * (dist));
-            gArr[idx].ptB.northing += (Math.Cos(head + glm.PIBy2) * (dist));
+            gArr[idx].ptB.easting += Math.Sin(head + glm.PIBy2) * dist;
+            gArr[idx].ptB.northing += Math.Cos(head + glm.PIBy2) * dist;
         }
 
         public void NudgeRefCurve(double distAway)
@@ -284,7 +284,7 @@ namespace AgOpenGPS
                         int loopTimes = (int)(distance / spacing + 1);
                         for (int j = 1; j < loopTimes; j++)
                         {
-                            vec3 pos = new vec3(glm.Catmull(j / (double)(loopTimes), arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
+                            vec3 pos = new vec3(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
                             curList.Add(pos);
                         }
                     }

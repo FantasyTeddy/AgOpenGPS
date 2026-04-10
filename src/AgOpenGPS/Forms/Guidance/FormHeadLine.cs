@@ -109,7 +109,7 @@ namespace AgOpenGPS
 
         private void FormHeadLine_ResizeEnd(object sender, EventArgs e)
         {
-            Width = (Height * 4 / 3);
+            Width = Height * 4 / 3;
 
             oglSelf.Height = oglSelf.Width = Height - 50;
 
@@ -173,8 +173,8 @@ namespace AgOpenGPS
 
             if (checkBoxZoomIn.Checked && !zoomToggle)
             {
-                sX = ((halfWid - (double)ptt.X) / wid) * 1.1;
-                sY = ((halfWid - (double)ptt.Y) / -wid) * 1.1;
+                sX = (halfWid - (double)ptt.X) / wid * 1.1;
+                sY = (halfWid - (double)ptt.Y) / -wid * 1.1;
                 zoom = 0.1;
                 zoomToggle = true;
                 return;
@@ -182,7 +182,7 @@ namespace AgOpenGPS
 
             //Convert to Origin in the center of window, 800 pixels
             fixPt.X = ptt.X - halfWid;
-            fixPt.Y = (wid - ptt.Y - halfWid);
+            fixPt.Y = wid - ptt.Y - halfWid;
             vec3 plotPt = new vec3
             {
                 //convert screen coordinates to field coordinates
@@ -248,7 +248,7 @@ namespace AgOpenGPS
                     bool isLoop = false;
                     int limit = end;
 
-                    if ((Math.Abs(start - end)) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+                    if (Math.Abs(start - end) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
                     {
                         if (start < end)
                         {
@@ -321,8 +321,8 @@ namespace AgOpenGPS
                         for (int i = 1; i < 30; i++)
                         {
                             vec3 pt = new vec3(sliceArr[ptCnt]);
-                            pt.easting += (Math.Sin(pt.heading) * i);
-                            pt.northing += (Math.Cos(pt.heading) * i);
+                            pt.easting += Math.Sin(pt.heading) * i;
+                            pt.northing += Math.Cos(pt.heading) * i;
                             sliceArr.Add(pt);
                         }
 
@@ -331,8 +331,8 @@ namespace AgOpenGPS
                         for (int i = 1; i < 30; i++)
                         {
                             vec3 pt = new vec3(stat);
-                            pt.easting -= (Math.Sin(pt.heading) * i);
-                            pt.northing -= (Math.Cos(pt.heading) * i);
+                            pt.easting -= Math.Sin(pt.heading) * i;
+                            pt.northing -= Math.Cos(pt.heading) * i;
                             sliceArr.Insert(0, pt);
                         }
 
@@ -351,7 +351,7 @@ namespace AgOpenGPS
                 }
                 else if (rbtnLine.Checked)
                 {
-                    if ((Math.Abs(start - end)) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+                    if (Math.Abs(start - end) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
                     {
                         if (start < end)
                         {
@@ -380,7 +380,7 @@ namespace AgOpenGPS
                     ptA.heading = abHead;
                     ptB.heading = abHead;
 
-                    for (int i = 0; i <= (int)(glm.Distance(ptA, ptB)); i++)
+                    for (int i = 0; i <= (int)glm.Distance(ptA, ptB); i++)
                     {
                         vec3 ptC = new vec3(ptA)
                         {
@@ -396,8 +396,8 @@ namespace AgOpenGPS
                     for (int i = 1; i < 30; i++)
                     {
                         vec3 pt = new vec3(sliceArr[ptCnt]);
-                        pt.easting += (Math.Sin(pt.heading) * i);
-                        pt.northing += (Math.Cos(pt.heading) * i);
+                        pt.easting += Math.Sin(pt.heading) * i;
+                        pt.northing += Math.Cos(pt.heading) * i;
                         sliceArr.Add(pt);
                     }
 
@@ -406,8 +406,8 @@ namespace AgOpenGPS
                     for (int i = 1; i < 30; i++)
                     {
                         vec3 pt = new vec3(stat);
-                        pt.easting -= (Math.Sin(pt.heading) * i);
-                        pt.northing -= (Math.Cos(pt.heading) * i);
+                        pt.easting -= Math.Sin(pt.heading) * i;
+                        pt.northing -= Math.Cos(pt.heading) * i;
                         sliceArr.Insert(0, pt);
                     }
 
@@ -623,7 +623,7 @@ namespace AgOpenGPS
                         mf.bnd.bndList[0].hdLine.Add(new vec3(hdArr[i].easting, hdArr[i].northing, hdArr[i].heading));
                         continue;
                     }
-                    delta += (hdArr[i - 1].heading - hdArr[i].heading);
+                    delta += hdArr[i - 1].heading - hdArr[i].heading;
 
                     if (Math.Abs(delta) > 0.005)
                     {
@@ -731,17 +731,17 @@ namespace AgOpenGPS
                 vec3 pt3 = new vec3();
 
                 double moveDist = (double)nudSetDistance.Value * mf.ftOrMtoM;
-                double distSq = (moveDist) * (moveDist) * 0.999;
+                double distSq = moveDist * moveDist * 0.999;
 
                 //make the boundary tram outer array
                 for (int i = 0; i < ptCount; i++)
                 {
                     //calculate the point inside the boundary
                     pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                        (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (moveDist));
+                        (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * moveDist);
 
                     pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                        (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * (moveDist));
+                        (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * moveDist);
 
                     pt3.heading = mf.bnd.bndList[0].fenceLine[i].heading;
 
@@ -853,7 +853,7 @@ namespace AgOpenGPS
             }
 
             //overlaps start finish
-            if ((Math.Abs(startBnd - endBnd)) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+            if (Math.Abs(startBnd - endBnd) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
             {
                 if (startBnd < endBnd)
                 {
@@ -951,7 +951,7 @@ namespace AgOpenGPS
 
         private void cboxToolWidths_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudSetDistance.Value = (decimal)((Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1)) * mf.m2FtOrM);
+            nudSetDistance.Value = (decimal)(Math.Round((mf.tool.width - mf.tool.overlap) * cboxToolWidths.SelectedIndex, 1) * mf.m2FtOrM);
         }
 
         private void btnALength_Click(object sender, EventArgs e)
@@ -964,8 +964,8 @@ namespace AgOpenGPS
                 for (int i = 1; i < 10; i++)
                 {
                     vec3 pt = new vec3(start);
-                    pt.easting -= (Math.Sin(pt.heading) * i);
-                    pt.northing -= (Math.Cos(pt.heading) * i);
+                    pt.easting -= Math.Sin(pt.heading) * i;
+                    pt.northing -= Math.Cos(pt.heading) * i;
                     sliceArr.Insert(0, pt);
                 }
             }
@@ -980,8 +980,8 @@ namespace AgOpenGPS
                 for (int i = 1; i < 10; i++)
                 {
                     vec3 pt = new vec3(sliceArr[ptCnt]);
-                    pt.easting += (Math.Sin(pt.heading) * i);
-                    pt.northing += (Math.Cos(pt.heading) * i);
+                    pt.easting += Math.Sin(pt.heading) * i;
+                    pt.northing += Math.Cos(pt.heading) * i;
                     sliceArr.Add(pt);
                 }
             }

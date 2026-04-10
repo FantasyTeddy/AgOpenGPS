@@ -230,7 +230,7 @@ namespace AgOpenGPS
                 idxFieldSelected = (int)tree.SelectedNode.Parent.Tag;
             }
 
-            bool enabled = (idxFieldSelected >= 0);
+            bool enabled = idxFieldSelected >= 0;
 
             if (enabled)
             {

@@ -455,7 +455,7 @@ namespace AgOpenGPS
             currentFieldDirectory = Settings.Default.setF_CurrentDir;
 
             Log.EventWriter("Program Directory: " + Application.StartupPath);
-            Log.EventWriter("Fields Directory: " + (RegistrySettings.fieldsDirectory));
+            Log.EventWriter("Fields Directory: " + RegistrySettings.fieldsDirectory);
 
             if (isBrightnessOn)
             {
@@ -884,7 +884,7 @@ namespace AgOpenGPS
         {
             SaveFormGPSWindowSettings();
 
-            double minutesSinceStart = ((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds) / 60;
+            double minutesSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds / 60;
             if (minutesSinceStart < 1) minutesSinceStart = 1;
 
             Log.EventWriter("Missed Sentence Counter Total: " + missedSentenceCount.ToString()
@@ -1412,7 +1412,7 @@ namespace AgOpenGPS
             p_252.pgn[p_252.ackerman] = unchecked(VehicleSettings.Default.setAS_ackerman);
 
             p_252.pgn[p_252.wasOffsetHi] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset >> 8));
-            p_252.pgn[p_252.wasOffsetLo] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset));
+            p_252.pgn[p_252.wasOffsetLo] = unchecked((byte)Properties.VehicleSettings.Default.setAS_wasOffset);
 
             p_252.pgn[p_252.highPWM] = unchecked(VehicleSettings.Default.setAS_highSteerPWM);
             p_252.pgn[p_252.lowPWM] = unchecked(VehicleSettings.Default.setAS_lowSteerPWM);
@@ -1481,37 +1481,37 @@ namespace AgOpenGPS
 
 
             p_235.pgn[p_235.sec0Lo] = unchecked((byte)(section[0].sectionWidth * 100));
-            p_235.pgn[p_235.sec0Hi] = unchecked((byte)((int)((section[0].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec0Hi] = unchecked((byte)((int)(section[0].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec1Lo] = unchecked((byte)(section[1].sectionWidth * 100));
-            p_235.pgn[p_235.sec1Hi] = unchecked((byte)((int)((section[1].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec1Hi] = unchecked((byte)((int)(section[1].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec2Lo] = unchecked((byte)(section[2].sectionWidth * 100));
-            p_235.pgn[p_235.sec2Hi] = unchecked((byte)((int)((section[2].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec2Hi] = unchecked((byte)((int)(section[2].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec3Lo] = unchecked((byte)(section[3].sectionWidth * 100));
-            p_235.pgn[p_235.sec3Hi] = unchecked((byte)((int)((section[3].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec3Hi] = unchecked((byte)((int)(section[3].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec4Lo] = unchecked((byte)(section[4].sectionWidth * 100));
-            p_235.pgn[p_235.sec4Hi] = unchecked((byte)((int)((section[4].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec4Hi] = unchecked((byte)((int)(section[4].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec5Lo] = unchecked((byte)(section[5].sectionWidth * 100));
-            p_235.pgn[p_235.sec5Hi] = unchecked((byte)((int)((section[5].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec5Hi] = unchecked((byte)((int)(section[5].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec6Lo] = unchecked((byte)(section[6].sectionWidth * 100));
-            p_235.pgn[p_235.sec6Hi] = unchecked((byte)((int)((section[6].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec6Hi] = unchecked((byte)((int)(section[6].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec7Lo] = unchecked((byte)(section[7].sectionWidth * 100));
-            p_235.pgn[p_235.sec7Hi] = unchecked((byte)((int)((section[7].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec7Hi] = unchecked((byte)((int)(section[7].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec8Lo] = unchecked((byte)(section[8].sectionWidth * 100));
-            p_235.pgn[p_235.sec8Hi] = unchecked((byte)((int)((section[8].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec8Hi] = unchecked((byte)((int)(section[8].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec9Lo] = unchecked((byte)(section[9].sectionWidth * 100));
-            p_235.pgn[p_235.sec9Hi] = unchecked((byte)((int)((section[9].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec9Hi] = unchecked((byte)((int)(section[9].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec10Lo] = unchecked((byte)(section[10].sectionWidth * 100));
-            p_235.pgn[p_235.sec10Hi] = unchecked((byte)((int)((section[10].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec10Hi] = unchecked((byte)((int)(section[10].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec11Lo] = unchecked((byte)(section[11].sectionWidth * 100));
-            p_235.pgn[p_235.sec11Hi] = unchecked((byte)((int)((section[11].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec11Hi] = unchecked((byte)((int)(section[11].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec12Lo] = unchecked((byte)(section[12].sectionWidth * 100));
-            p_235.pgn[p_235.sec12Hi] = unchecked((byte)((int)((section[12].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec12Hi] = unchecked((byte)((int)(section[12].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec13Lo] = unchecked((byte)(section[13].sectionWidth * 100));
-            p_235.pgn[p_235.sec13Hi] = unchecked((byte)((int)((section[13].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec13Hi] = unchecked((byte)((int)(section[13].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec14Lo] = unchecked((byte)(section[14].sectionWidth * 100));
-            p_235.pgn[p_235.sec14Hi] = unchecked((byte)((int)((section[14].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec14Hi] = unchecked((byte)((int)(section[14].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec15Lo] = unchecked((byte)(section[15].sectionWidth * 100));
-            p_235.pgn[p_235.sec15Hi] = unchecked((byte)((int)((section[15].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec15Hi] = unchecked((byte)((int)(section[15].sectionWidth * 100) >> 8));
 
             p_235.pgn[p_235.numSections] = (byte)tool.numOfSections;
 

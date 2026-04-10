@@ -97,7 +97,7 @@ namespace AgIO
             if (isNTRIP_RequiredOn || isRadio_RequiredOn)
             {
                 //pbarNtripMenu.Value = unchecked((byte)(tripBytes * 0.02));
-                lblNTRIPBytes.Text = ((tripBytes >> 10)).ToString("###,###,### kb");
+                lblNTRIPBytes.Text = (tripBytes >> 10).ToString("###,###,### kb");
 
                 //Bypass if sleeping
                 if (focusSkipCounter != 0)
@@ -105,7 +105,7 @@ namespace AgIO
                     //update byte counter and up counter
                     if (ntripCounter > 59) btnStartStopNtrip.Text = (ntripCounter >> 6) + " Min";
                     else if (ntripCounter < 60 && ntripCounter > 25) btnStartStopNtrip.Text = ntripCounter + " Secs";
-                    else btnStartStopNtrip.Text = "In " + (Math.Abs(ntripCounter - 25)) + " secs";
+                    else btnStartStopNtrip.Text = "In " + Math.Abs(ntripCounter - 25) + " secs";
 
                     //watchdog for Ntrip
                     if (isNTRIP_Connecting)
@@ -143,12 +143,12 @@ namespace AgIO
             else if (isSerialPass_RequiredOn)
             {
                 //pbarNtripMenu.Value = unchecked((byte)(tripBytes * 0.02));
-                lblNTRIPBytes.Text = ((tripBytes >> 10)).ToString("###,###,### kb");
+                lblNTRIPBytes.Text = (tripBytes >> 10).ToString("###,###,### kb");
 
                 //update byte counter and up counter
                 if (ntripCounter > 59) btnStartStopNtrip.Text = (ntripCounter >> 6) + " Min";
                 else if (ntripCounter < 60 && ntripCounter > 22) btnStartStopNtrip.Text = ntripCounter + " Secs";
-                else btnStartStopNtrip.Text = "In " + (Math.Abs(ntripCounter - 22)) + " secs";
+                else btnStartStopNtrip.Text = "In " + Math.Abs(ntripCounter - 22) + " secs";
             }
         }
 
@@ -432,18 +432,18 @@ namespace AgIO
 
                 try
                 {
-                    lblStationID.Text = (((data[4] & 15) << 8) + (data[5])).ToString();
+                    lblStationID.Text = (((data[4] & 15) << 8) + data[5]).ToString();
 
                     for (int i = 0; i < data.Length - 5; i++)
                     {
 
                         if (data[i] == 211 && (data[i + 1] >> 2) == 0)
                         {
-                            mess = ((data[i + 3] << 4) + (data[i + 4] >> 4));
+                            mess = (data[i + 3] << 4) + (data[i + 4] >> 4);
                             if (mess > 1000 && mess < 1231)
                             {
                                 rList.Add(mess);
-                                i += (data[i + 1] << 6) + (data[i + 2]) + 5;
+                                i += (data[i + 1] << 6) + data[i + 2] + 5;
                                 if (data[i + 1] != 211)
                                 {
                                     //rList.Clear();
@@ -519,7 +519,7 @@ namespace AgIO
 
                 if (focusSkipCounter != 0)
                 {
-                    lblToGPS.Text = traffic.cntrGPSInBytes == 0 ? "---" : (traffic.cntrGPSInBytes).ToString();
+                    lblToGPS.Text = traffic.cntrGPSInBytes == 0 ? "---" : traffic.cntrGPSInBytes.ToString();
                     traffic.cntrGPSInBytes = 0;
                 }
             }

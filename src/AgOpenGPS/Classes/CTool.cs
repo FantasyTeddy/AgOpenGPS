@@ -256,7 +256,7 @@ namespace AgOpenGPS
 
                 if (Math.Abs(trailingToolToPivotLength) > 1 && mf.camera.camSetDistance > -100)
                 {
-                    textRotate += (mf.sim.stepDistance);
+                    textRotate += mf.sim.stepDistance;
                     GL.Color4(1, 1, 1, 0.75);
                     XyCoord rightTire00 = new XyCoord(0.75 + offset, trailingTool + 0.51);
                     XyCoord rightTire11 = new XyCoord(1.4 + offset, trailingTool - 0.51);
@@ -276,13 +276,13 @@ namespace AgOpenGPS
 
                 //lookahead section on
                 GL.Color3(0.20f, 0.7f, 0.2f);
-                GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOnPixelsLeft) * 0.1 + trailingTool, 0);
-                GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOnPixelsRight) * 0.1 + trailingTool, 0);
+                GL.Vertex3(mf.tool.farLeftPosition, mf.tool.lookAheadDistanceOnPixelsLeft * 0.1 + trailingTool, 0);
+                GL.Vertex3(mf.tool.farRightPosition, mf.tool.lookAheadDistanceOnPixelsRight * 0.1 + trailingTool, 0);
 
                 //lookahead section off
                 GL.Color3(0.70f, 0.2f, 0.2f);
-                GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOffPixelsLeft) * 0.1 + trailingTool, 0);
-                GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOffPixelsRight) * 0.1 + trailingTool, 0);
+                GL.Vertex3(mf.tool.farLeftPosition, mf.tool.lookAheadDistanceOffPixelsLeft * 0.1 + trailingTool, 0);
+                GL.Vertex3(mf.tool.farRightPosition, mf.tool.lookAheadDistanceOffPixelsRight * 0.1 + trailingTool, 0);
 
                 if (mf.vehicle.isHydLiftOn)
                 {
@@ -369,8 +369,8 @@ namespace AgOpenGPS
                         GL.PointSize(12);
                     else GL.PointSize(8);
 
-                    ColorRgba rightMarkerColor = ((mf.tram.controlByte) & 1) != 0 ? Colors.TramMarkerOnColor : Colors.Black;
-                    ColorRgba leftMarkerColor = ((mf.tram.controlByte) & 2) != 0 ? Colors.TramMarkerOnColor : Colors.Black;
+                    ColorRgba rightMarkerColor = (mf.tram.controlByte & 1) != 0 ? Colors.TramMarkerOnColor : Colors.Black;
+                    ColorRgba leftMarkerColor = (mf.tram.controlByte & 2) != 0 ? Colors.TramMarkerOnColor : Colors.Black;
                     double rightX = mf.tram.isOuter ? farRightPosition - mf.tram.halfWheelTrack : mf.tram.halfWheelTrack;
                     double leftX = mf.tram.isOuter ? farLeftPosition + mf.tram.halfWheelTrack : -mf.tram.halfWheelTrack;
                     // section markers

@@ -470,7 +470,7 @@ namespace AgOpenGPS
 
             //If the circles have the same radius we can use cosine and not the law of cosines
             //to calculate the angle to the first tangent coordinate
-            double theta = Math.Acos((2 * CDubins.turningRadius) / D);
+            double theta = Math.Acos(2 * CDubins.turningRadius / D);
 
             //If the circles is LSR, then the first tangent pos is on the other side of the center line
             if (isBottom) theta *= -1.0;
@@ -578,7 +578,7 @@ namespace AgOpenGPS
                     if (!isTurningRight) turnParameter = -1.0;
 
                     //Update the heading
-                    theta += (CDubins.driveDistance / CDubins.turningRadius) * turnParameter;
+                    theta += CDubins.driveDistance / CDubins.turningRadius * turnParameter;
                 }
 
                 //Add the new coordinate to the path

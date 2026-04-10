@@ -140,7 +140,7 @@ namespace AgOpenGPS
             hsbarCountsPerDegree.Value = Properties.VehicleSettings.Default.setAS_countsPerDegree;
 
             lblCountsPerDegree.Text = hsbarCountsPerDegree.Value.ToString();
-            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)hsbarCountsPerDegree.Value).ToString("N2");
 
             hsbarWasOffset.ValueChanged += hsbarSteerAngleSensorZero_ValueChanged;
             hsbarCountsPerDegree.ValueChanged += hsbarCountsPerDegree_ValueChanged;
@@ -221,7 +221,7 @@ namespace AgOpenGPS
             mf.vehicle.driveFreeSteerAngle = 0;
 
             //nudDeadZoneDistance.Value = (decimal)((double)(Properties.ToolSettings.Default.setAS_deadZoneDistance)/10);
-            nudDeadZoneHeading.Value = (decimal)((double)(Properties.ToolSettings.Default.setAS_deadZoneHeading) / 100);
+            nudDeadZoneHeading.Value = (decimal)((double)Properties.ToolSettings.Default.setAS_deadZoneHeading / 100);
             nudDeadZoneDelay.Value = mf.vehicle.deadZoneDelay;
 
             toSend = false;
@@ -355,7 +355,7 @@ namespace AgOpenGPS
 
             Properties.VehicleSettings.Default.setAS_wasOffset = hsbarWasOffset.Value;
             mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
-            mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
+            mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)hsbarWasOffset.Value);
 
             Properties.VehicleSettings.Default.setAS_highSteerPWM = mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
             Properties.VehicleSettings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
@@ -424,7 +424,7 @@ namespace AgOpenGPS
             lblSteerAngle.Text = mf.SetSteerAngle;
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
             lblActualSteerAngleUpper.Text = lblSteerAngleActual.Text;
-            double err = (mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01);
+            double err = mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01;
             lblError.Text = Math.Abs(err).ToString("N1") + "\u00B0";
             if (err > 0) lblError.ForeColor = Color.Red;
             else lblError.ForeColor = Color.DarkGreen;
@@ -442,7 +442,7 @@ namespace AgOpenGPS
                 mf.p_252.pgn[mf.p_252.ackerman] = unchecked((byte)hsbarAckerman.Value);
 
                 mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
-                mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
+                mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)hsbarWasOffset.Value);
 
                 mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
                 mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)(hsbarHighSteerPWM.Value / 3));
@@ -614,7 +614,7 @@ namespace AgOpenGPS
         {
             double deg = hsbarSideHillComp.Value;
             deg *= 0.01;
-            lblSideHillComp.Text = (deg.ToString("N2") + "\u00B0");
+            lblSideHillComp.Text = deg.ToString("N2") + "\u00B0";
             Properties.VehicleSettings.Default.setAS_sideHillComp = deg;
             mf.gyd.sideHillCompFactor = deg;
         }
@@ -672,8 +672,8 @@ namespace AgOpenGPS
         {
             if (mf.isMetric)
             {
-                nudMaxSteerSpeed.Value = (decimal)(Properties.VehicleSettings.Default.setAS_maxSteerSpeed);
-                nudMinSteerSpeed.Value = (decimal)(Properties.VehicleSettings.Default.setAS_minSteerSpeed);
+                nudMaxSteerSpeed.Value = (decimal)Properties.VehicleSettings.Default.setAS_maxSteerSpeed;
+                nudMinSteerSpeed.Value = (decimal)Properties.VehicleSettings.Default.setAS_minSteerSpeed;
                 nudGuidanceSpeedLimit.Value = (decimal)Properties.VehicleSettings.Default.setAS_functionSpeedLimit;
                 label160.Text = label163.Text = label166.Text = "kmh";
             }
@@ -698,7 +698,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.VehicleSettings.Default.setAS_minSteerSpeed = ((double)nudMinSteerSpeed.Value);
+                Properties.VehicleSettings.Default.setAS_minSteerSpeed = (double)nudMinSteerSpeed.Value;
                 if (!mf.isMetric) Properties.VehicleSettings.Default.setAS_minSteerSpeed = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_minSteerSpeed);
                 mf.vehicle.minSteerSpeed = Properties.VehicleSettings.Default.setAS_minSteerSpeed;
             }
@@ -708,7 +708,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.VehicleSettings.Default.setAS_maxSteerSpeed = ((double)nudMaxSteerSpeed.Value);
+                Properties.VehicleSettings.Default.setAS_maxSteerSpeed = (double)nudMaxSteerSpeed.Value;
                 if (!mf.isMetric) Properties.VehicleSettings.Default.setAS_maxSteerSpeed = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_maxSteerSpeed);
                 mf.vehicle.maxSteerSpeed = Properties.VehicleSettings.Default.setAS_maxSteerSpeed;
             }
@@ -718,7 +718,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.VehicleSettings.Default.setAS_functionSpeedLimit = ((double)nudGuidanceSpeedLimit.Value);
+                Properties.VehicleSettings.Default.setAS_functionSpeedLimit = (double)nudGuidanceSpeedLimit.Value;
                 if (!mf.isMetric) Properties.VehicleSettings.Default.setAS_functionSpeedLimit = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_functionSpeedLimit);
                 mf.vehicle.functionSpeedLimit = Properties.VehicleSettings.Default.setAS_functionSpeedLimit;
             }
@@ -765,7 +765,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.Settings.Default.setDisplay_lightbarCmPerPixel = ((int)nudcmPerPixel.Value);
+                Properties.Settings.Default.setDisplay_lightbarCmPerPixel = (int)nudcmPerPixel.Value;
                 mf.lightbarCmPerPixel = Properties.Settings.Default.setDisplay_lightbarCmPerPixel;
             }
         }
@@ -783,7 +783,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.Settings.Default.setAS_snapDistance = ((double)nudSnapDistance.Value * mf.inOrCm2Cm);
+                Properties.Settings.Default.setAS_snapDistance = (double)nudSnapDistance.Value * mf.inOrCm2Cm;
                 mf.ABLine.snapDistance = Properties.Settings.Default.setAS_snapDistance;
             }
         }
@@ -792,7 +792,7 @@ namespace AgOpenGPS
         {
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
-                Properties.Settings.Default.setAS_guidanceLookAheadTime = ((double)nudGuidanceLookAhead.Value);
+                Properties.Settings.Default.setAS_guidanceLookAheadTime = (double)nudGuidanceLookAhead.Value;
                 mf.guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
             }
         }
@@ -878,14 +878,14 @@ namespace AgOpenGPS
         private void hsbarCountsPerDegree_ValueChanged(object sender, EventArgs e)
         {
             lblCountsPerDegree.Text = unchecked((byte)hsbarCountsPerDegree.Value).ToString();
-            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)hsbarCountsPerDegree.Value).ToString("N2");
             toSend = true;
             counter = 0;
         }
 
         private void hsbarSteerAngleSensorZero_ValueChanged(object sender, EventArgs e)
         {
-            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)hsbarCountsPerDegree.Value).ToString("N2");
             toSend = true;
             counter = 0;
         }
@@ -987,7 +987,7 @@ namespace AgOpenGPS
         private void nudDeadZoneDelay_Click(object sender, EventArgs e)
         {
             ((NudlessNumericUpDown)sender).ShowKeypad(this);
-            mf.vehicle.deadZoneDelay = (int)(nudDeadZoneDelay.Value);
+            mf.vehicle.deadZoneDelay = (int)nudDeadZoneDelay.Value;
         }
 
         private void expandWindow_Click(object sender, EventArgs e)

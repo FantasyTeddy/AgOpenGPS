@@ -51,7 +51,7 @@ namespace AgOpenGPS
             hsbarCountsPerDegree.Value = Properties.VehicleSettings.Default.setAS_countsPerDegree;
 
             lblCountsPerDegree.Text = hsbarCountsPerDegree.Value.ToString();
-            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)hsbarCountsPerDegree.Value).ToString("N2");
 
             hsbarAckerman.Value = Properties.VehicleSettings.Default.setAS_ackerman;
             lblAckerman.Text = hsbarAckerman.Value.ToString();
@@ -94,7 +94,7 @@ namespace AgOpenGPS
             hsbarLookAheadMult.Value = (Int16)(mf.vehicle.goalPointLookAheadMult * 10);
             lblLookAheadMult.Text = mf.vehicle.goalPointLookAheadMult.ToString();
 
-            nudAntennaPivot.Value = (int)((Properties.VehicleSettings.Default.setVehicle_antennaPivot) * mf.m2InchOrCm);
+            nudAntennaPivot.Value = (int)(Properties.VehicleSettings.Default.setVehicle_antennaPivot * mf.m2InchOrCm);
             nudAntennaHeight.Value = (int)(Properties.VehicleSettings.Default.setVehicle_antennaHeight * mf.m2InchOrCm);
             nudAntennaOffset.Value = (int)(Properties.VehicleSettings.Default.setVehicle_antennaOffset * mf.m2InchOrCm);
             nudWheelbase.Value = (int)(Math.Abs(Properties.VehicleSettings.Default.setVehicle_wheelbase) * mf.m2InchOrCm);
@@ -235,7 +235,7 @@ namespace AgOpenGPS
 
             Properties.VehicleSettings.Default.setAS_wasOffset = hsbarWasOffset.Value;
             mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
-            mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
+            mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)hsbarWasOffset.Value);
 
             Properties.VehicleSettings.Default.setAS_highSteerPWM = mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
             Properties.VehicleSettings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)hsbarLowSteerPWM.Value);
@@ -278,7 +278,7 @@ namespace AgOpenGPS
                     try
                     {
                         //force cpd a bit on the low side
-                        double cpd = (mf.mc.actualSteerAngleDegrees / steerAngleRight * hsbarCountsPerDegree.Value);
+                        double cpd = mf.mc.actualSteerAngleDegrees / steerAngleRight * hsbarCountsPerDegree.Value;
                         cpd *= 0.9;
                         hsbarCountsPerDegree.Value = (int)cpd;
                         lblCPDError.Text = "CPD set to: " + hsbarCountsPerDegree.Value.ToString();
@@ -315,7 +315,7 @@ namespace AgOpenGPS
 
                     try
                     {
-                        hsbarAckerman.Value = (int)((steerAngleLeft / Math.Abs(startAngleLeft)) * 100);
+                        hsbarAckerman.Value = (int)(steerAngleLeft / Math.Abs(startAngleLeft) * 100);
                         lblAckermannError.Text = "Ackermann Set to: " + hsbarAckerman.Value.ToString();
                     }
                     catch (Exception eh)
@@ -348,7 +348,7 @@ namespace AgOpenGPS
             lblSteerAngle.Text = mf.SetSteerAngle;
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
             //lblActualSteerAngleUpper.Text = lblSteerAngleActual.Text;
-            double err = (mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01);
+            double err = mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01;
             lblError.Text = Math.Abs(err).ToString("N1") + "\u00B0";
             if (err > 0) lblError.ForeColor = Color.Red;
             else lblError.ForeColor = Color.DarkGreen;
@@ -364,7 +364,7 @@ namespace AgOpenGPS
 
                 Properties.VehicleSettings.Default.setAS_wasOffset = hsbarWasOffset.Value;
                 mf.p_252.pgn[mf.p_252.wasOffsetHi] = unchecked((byte)(hsbarWasOffset.Value >> 8));
-                mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)(hsbarWasOffset.Value));
+                mf.p_252.pgn[mf.p_252.wasOffsetLo] = unchecked((byte)hsbarWasOffset.Value);
 
                 Properties.VehicleSettings.Default.setAS_highSteerPWM = mf.p_252.pgn[mf.p_252.highPWM] = unchecked((byte)hsbarHighSteerPWM.Value);
                 Properties.VehicleSettings.Default.setAS_lowSteerPWM = mf.p_252.pgn[mf.p_252.lowPWM] = unchecked((byte)hsbarLowSteerPWM.Value);
@@ -948,7 +948,7 @@ namespace AgOpenGPS
         private void hsbarCountsPerDegree_ValueChanged(object sender, EventArgs e)
         {
             lblCountsPerDegree.Text = unchecked((byte)hsbarCountsPerDegree.Value).ToString();
-            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)hsbarCountsPerDegree.Value).ToString("N2");
             if (isWizardStarted)
             {
                 toSend252 = true;
@@ -958,7 +958,7 @@ namespace AgOpenGPS
 
         private void hsbarSteerAngleSensorZero_ValueChanged(object sender, EventArgs e)
         {
-            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)(hsbarCountsPerDegree.Value)).ToString("N2");
+            lblSteerAngleSensorZero.Text = (hsbarWasOffset.Value / (double)hsbarCountsPerDegree.Value).ToString("N2");
             if (isWizardStarted)
             {
                 toSend252 = true;
@@ -1070,7 +1070,7 @@ namespace AgOpenGPS
         {
             double deg = hsbarSideHillComp.Value;
             deg *= 0.01;
-            lblSideHillComp.Text = (deg.ToString("N2") + "\u00B0");
+            lblSideHillComp.Text = deg.ToString("N2") + "\u00B0";
             Properties.VehicleSettings.Default.setAS_sideHillComp = deg;
             mf.gyd.sideHillCompFactor = deg;
         }
@@ -1090,7 +1090,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            hsbarMaxSteerAngle.Value = Math.Abs((int)(mf.mc.actualSteerAngleDegrees));
+            hsbarMaxSteerAngle.Value = Math.Abs((int)mf.mc.actualSteerAngleDegrees);
         }
 
         private void hsbarLookAheadMult_ValueChanged(object sender, EventArgs e)
@@ -1217,7 +1217,7 @@ namespace AgOpenGPS
             {
                 mf.ahrs.imuRoll += mf.ahrs.rollZero;
                 mf.ahrs.rollZero = mf.ahrs.imuRoll;
-                lblRollZeroOffset.Text = (mf.ahrs.rollZero).ToString("N2");
+                lblRollZeroOffset.Text = mf.ahrs.rollZero.ToString("N2");
             }
             else
             {
@@ -1256,7 +1256,7 @@ namespace AgOpenGPS
 
         private bool CheckSteerSwitch()
         {
-            return (btnSteerStatus.BackColor == Color.Yellow);
+            return btnSteerStatus.BackColor == Color.Yellow;
         }
 
         #endregion MinMovement

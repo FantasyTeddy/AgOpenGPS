@@ -119,12 +119,12 @@ namespace AgOpenGPS
         private double SimulateAltitude(Wgs84 latLon)
         {
             double temp = Math.Abs(latLon.Latitude * 100);
-            temp -= ((int)(temp));
+            temp -= (int)temp;
             temp *= 100;
             double altitude = temp + 200;
 
             temp = Math.Abs(latLon.Longitude * 100);
-            temp -= ((int)(temp));
+            temp -= (int)temp;
             temp *= 100;
             altitude += temp;
             return altitude;

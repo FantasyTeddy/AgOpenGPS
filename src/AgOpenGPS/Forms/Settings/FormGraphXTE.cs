@@ -41,7 +41,7 @@ namespace AgOpenGPS
 
                 dataPWM = ((int)(mf.vehicle.modeActualXTE * 100)).ToString(CultureInfo.InvariantCulture);
 
-                dataSteerAngle = (Math.Round(mf.vehicle.modeActualHeadingError, 1)).ToString(CultureInfo.InvariantCulture);
+                dataSteerAngle = Math.Round(mf.vehicle.modeActualHeadingError, 1).ToString(CultureInfo.InvariantCulture);
 
                 lblSteerAng.Text = dataSteerAngle + "\u00B0";
                 lblPWM.Text = dataPWM + " cm";
@@ -73,14 +73,14 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
-            timer1.Interval = (int)((1 / mf.gpsHz) * 1000);
+            timer1.Interval = (int)(1 / mf.gpsHz * 1000);
 
             unoChart.ChartAreas[0].AxisY.Minimum = -80;
             unoChart.ChartAreas[0].AxisY.Maximum = 80;
             unoChart.ResetAutoValues();
 
-            lblMax.Text = ((int)(unoChart.ChartAreas[0].AxisY.Maximum)).ToString() + " cm";
-            lblMin.Text = ((int)(unoChart.ChartAreas[0].AxisY.Minimum)).ToString() + " cm";
+            lblMax.Text = ((int)unoChart.ChartAreas[0].AxisY.Maximum).ToString() + " cm";
+            lblMin.Text = ((int)unoChart.ChartAreas[0].AxisY.Minimum).ToString() + " cm";
 
             isAuto = false;
             //lblMax.Text = "Auto";
@@ -100,8 +100,8 @@ namespace AgOpenGPS
                 unoChart.ChartAreas[0].AxisY.Minimum = -80;
                 unoChart.ChartAreas[0].AxisY.Maximum = 80;
                 unoChart.ResetAutoValues();
-                lblMax.Text = (unoChart.ChartAreas[0].AxisY.Maximum).ToString() + " cm";
-                lblMin.Text = (unoChart.ChartAreas[0].AxisY.Minimum).ToString() + " cm";
+                lblMax.Text = unoChart.ChartAreas[0].AxisY.Maximum.ToString() + " cm";
+                lblMin.Text = unoChart.ChartAreas[0].AxisY.Minimum.ToString() + " cm";
                 isAuto = false;
                 return;
             }
@@ -111,8 +111,8 @@ namespace AgOpenGPS
                 unoChart.ChartAreas[0].AxisY.Minimum = -5120;
                 unoChart.ChartAreas[0].AxisY.Maximum = 5120;
                 unoChart.ResetAutoValues();
-                lblMax.Text = (unoChart.ChartAreas[0].AxisY.Maximum).ToString() + " cm";
-                lblMin.Text = (unoChart.ChartAreas[0].AxisY.Minimum).ToString() + " cm";
+                lblMax.Text = unoChart.ChartAreas[0].AxisY.Maximum.ToString() + " cm";
+                lblMin.Text = unoChart.ChartAreas[0].AxisY.Minimum.ToString() + " cm";
                 return;
             }
 
@@ -121,8 +121,8 @@ namespace AgOpenGPS
             unoChart.ChartAreas[0].AxisY.Minimum = (int)unoChart.ChartAreas[0].AxisY.Minimum;
             unoChart.ChartAreas[0].AxisY.Maximum = (int)unoChart.ChartAreas[0].AxisY.Maximum;
             unoChart.ResetAutoValues();
-            lblMax.Text = (unoChart.ChartAreas[0].AxisY.Maximum).ToString() + " cm";
-            lblMin.Text = (unoChart.ChartAreas[0].AxisY.Minimum).ToString() + " cm";
+            lblMax.Text = unoChart.ChartAreas[0].AxisY.Maximum.ToString() + " cm";
+            lblMin.Text = unoChart.ChartAreas[0].AxisY.Minimum.ToString() + " cm";
         }
 
         private void btnGainAuto_Click(object sender, EventArgs e)
@@ -143,8 +143,8 @@ namespace AgOpenGPS
                 unoChart.ChartAreas[0].AxisY.Minimum = -80;
                 unoChart.ChartAreas[0].AxisY.Maximum = 80;
                 unoChart.ResetAutoValues();
-                lblMax.Text = (unoChart.ChartAreas[0].AxisY.Maximum).ToString() + " cm";
-                lblMin.Text = (unoChart.ChartAreas[0].AxisY.Minimum).ToString() + " cm";
+                lblMax.Text = unoChart.ChartAreas[0].AxisY.Maximum.ToString() + " cm";
+                lblMin.Text = unoChart.ChartAreas[0].AxisY.Minimum.ToString() + " cm";
                 isAuto = false;
                 return;
             }
@@ -154,8 +154,8 @@ namespace AgOpenGPS
                 unoChart.ChartAreas[0].AxisY.Minimum = -10;
                 unoChart.ChartAreas[0].AxisY.Maximum = 10;
                 unoChart.ResetAutoValues();
-                lblMax.Text = (unoChart.ChartAreas[0].AxisY.Maximum).ToString() + " cm";
-                lblMin.Text = (unoChart.ChartAreas[0].AxisY.Minimum).ToString() + " cm";
+                lblMax.Text = unoChart.ChartAreas[0].AxisY.Maximum.ToString() + " cm";
+                lblMin.Text = unoChart.ChartAreas[0].AxisY.Minimum.ToString() + " cm";
                 return;
             }
 
@@ -164,8 +164,8 @@ namespace AgOpenGPS
             unoChart.ChartAreas[0].AxisY.Minimum = (int)unoChart.ChartAreas[0].AxisY.Minimum;
             unoChart.ChartAreas[0].AxisY.Maximum = (int)unoChart.ChartAreas[0].AxisY.Maximum;
             unoChart.ResetAutoValues();
-            lblMax.Text = (unoChart.ChartAreas[0].AxisY.Maximum).ToString() + " cm";
-            lblMin.Text = (unoChart.ChartAreas[0].AxisY.Minimum).ToString() + " cm";
+            lblMax.Text = unoChart.ChartAreas[0].AxisY.Maximum.ToString() + " cm";
+            lblMin.Text = unoChart.ChartAreas[0].AxisY.Minimum.ToString() + " cm";
         }
     }
 }

@@ -99,7 +99,7 @@ namespace GPS_Out.PGNs
             {
                 if ((Data.Length > HeaderCount) && (Data.Length == Data[4] + HeaderCount + 1))
                 {
-                    ExtendedPGN = (Data[4] == 24);
+                    ExtendedPGN = Data[4] == 24;
                     if (mf.Tls.GoodCRC(Data, 2))
                     {
                         Longitude = BitConverter.ToDouble(Data, 5);

@@ -20,7 +20,7 @@ namespace RateController
             int len = Message.Length;
             this.Width = 450;
 
-            int ht = 20 + (len / 34) * 40;
+            int ht = 20 + len / 34 * 40;
             if (ht < 150)
             {
                 ht = 150;

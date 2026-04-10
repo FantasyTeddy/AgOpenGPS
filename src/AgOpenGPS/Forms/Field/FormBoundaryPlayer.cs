@@ -51,7 +51,7 @@ namespace AgOpenGPS
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;
             btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
 
-            mf.bnd.createBndOffset = (mf.tool.width * 0.5);
+            mf.bnd.createBndOffset = mf.tool.width * 0.5;
             mf.bnd.isBndBeingMade = true;
             mf.Focus();
 

@@ -32,9 +32,9 @@ namespace AgOpenGPS
 
             int sett = Properties.ToolSettings.Default.setArdMac_setting0;
 
-            cboxMachInvertRelays.Checked = ((sett & 1) == 1);
+            cboxMachInvertRelays.Checked = (sett & 1) == 1;
 
-            cboxIsHydOn.Checked = ((sett & 2) == 2);
+            cboxIsHydOn.Checked = (sett & 2) == 2;
 
             if (cboxIsHydOn.Checked)
             {
@@ -394,11 +394,11 @@ namespace AgOpenGPS
 
             double bob = Properties.Settings.Default.set_youTurnDistanceFromBoundary * mf.m2FtOrM;
             if (bob < 0.2) bob = 0.2;
-            nudTurnDistanceFromBoundary.Value = (decimal)(Math.Round(bob, 2));
+            nudTurnDistanceFromBoundary.Value = (decimal)Math.Round(bob, 2);
 
             bob = Properties.Settings.Default.set_youTurnRadius * mf.m2FtOrM;
             if (bob < 2) bob = 2;
-            nudYouTurnRadius.Value = (decimal)(Math.Round(bob, 2));
+            nudYouTurnRadius.Value = (decimal)Math.Round(bob, 2);
 
             lblFtMUTurn.Text = lblFtMTurnRadius.Text = mf.unitsFtM;
         }

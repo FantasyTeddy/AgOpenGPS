@@ -80,9 +80,9 @@ namespace AgIO
             if (count > 0)
             {
                 if (order == 0)
-                    nt.tboxMount.Text = (lvLines.SelectedItems[0].SubItems[1].Text);
+                    nt.tboxMount.Text = lvLines.SelectedItems[0].SubItems[1].Text;
                 else
-                    nt.tboxMount.Text = (lvLines.SelectedItems[0].SubItems[0].Text);
+                    nt.tboxMount.Text = lvLines.SelectedItems[0].SubItems[0].Text;
 
                 Close();
             }
@@ -95,13 +95,13 @@ namespace AgIO
             {
                 if (order == 0)
                 {
-                    nt.tboxMount.Text = (lvLines.SelectedItems[0].SubItems[1].Text);
-                    tboxMount.Text = (lvLines.SelectedItems[0].SubItems[1].Text);
+                    nt.tboxMount.Text = lvLines.SelectedItems[0].SubItems[1].Text;
+                    tboxMount.Text = lvLines.SelectedItems[0].SubItems[1].Text;
                 }
                 else
                 {
-                    nt.tboxMount.Text = (lvLines.SelectedItems[0].SubItems[0].Text);
-                    tboxMount.Text = (lvLines.SelectedItems[0].SubItems[0].Text);
+                    nt.tboxMount.Text = lvLines.SelectedItems[0].SubItems[0].Text;
+                    tboxMount.Text = lvLines.SelectedItems[0].SubItems[0].Text;
                 }
             }
         }

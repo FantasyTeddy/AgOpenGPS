@@ -748,7 +748,7 @@ namespace AgIO
 
             if (focusSkipCounter != 0)
             {
-                lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : ((traffic.cntrGPSOut >> 1)).ToString();
+                lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : (traffic.cntrGPSOut >> 1).ToString();
 
                 //reset all counters
                 traffic.cntrGPSOut = 0;

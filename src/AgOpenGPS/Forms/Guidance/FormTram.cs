@@ -224,8 +224,8 @@ namespace AgOpenGPS
 
                     vec2 temp = new vec2(mf.trk.gArr[mf.trk.idx].ptA);
 
-                    (mf.trk.gArr[mf.trk.idx].ptA) = new vec2(mf.trk.gArr[mf.trk.idx].ptB);
-                    (mf.trk.gArr[mf.trk.idx].ptB) = new vec2(temp);
+                    mf.trk.gArr[mf.trk.idx].ptA = new vec2(mf.trk.gArr[mf.trk.idx].ptB);
+                    mf.trk.gArr[mf.trk.idx].ptB = new vec2(temp);
                 }
             }
 

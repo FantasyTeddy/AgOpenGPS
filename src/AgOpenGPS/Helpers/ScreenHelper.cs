@@ -20,7 +20,7 @@ namespace AgOpenGPS.Helpers
                 // intersect rectangle with screen
                 if (intersection.Width != 0 & intersection.Height != 0)
                 {
-                    visiblePixels += (intersection.Width * intersection.Height);
+                    visiblePixels += intersection.Width * intersection.Height;
                     // tally visible pixels
                 }
             }

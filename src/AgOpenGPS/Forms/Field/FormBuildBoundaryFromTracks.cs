@@ -486,7 +486,7 @@ namespace AgOpenGPS.Forms.Field
             for (int i = 0; i < _selectedTracks.Count; i++)
             {
                 CTrk trk = _selectedTracks[i];
-                bool isSelected = (trk == _activeTrack);
+                bool isSelected = trk == _activeTrack;
                 Color color = isSelected ? Color.Yellow : Color.Gray;
                 float width = isSelected ? SELECTED_TRACK_WIDTH : NORMAL_TRACK_WIDTH;
 

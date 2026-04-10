@@ -69,7 +69,7 @@
                 pgn[minPWM] = Properties.VehicleSettings.Default.setAS_minSteerPWM;
                 pgn[countsPerDegree] = Properties.VehicleSettings.Default.setAS_countsPerDegree;
                 pgn[wasOffsetHi] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset >> 8));
-                pgn[wasOffsetLo] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset));
+                pgn[wasOffsetLo] = unchecked((byte)Properties.VehicleSettings.Default.setAS_wasOffset);
                 pgn[ackerman] = Properties.VehicleSettings.Default.setAS_ackerman;
             }
 

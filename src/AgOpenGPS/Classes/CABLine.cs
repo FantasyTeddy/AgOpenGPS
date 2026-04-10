@@ -115,7 +115,7 @@ namespace AgOpenGPS
                                         * track.endPtA.northing) - (track.endPtB.northing * track.endPtA.easting))
                                             / Math.Sqrt((dy * dy) + (dx * dx));
 
-                distanceFromRefLine -= (0.5 * widthMinusOverlap);
+                distanceFromRefLine -= 0.5 * widthMinusOverlap;
 
                 isHeadingSameWay = Math.PI - Math.Abs(Math.Abs(pivot.heading - abHeading) - Math.PI) < glm.PIBy2;
 
@@ -139,7 +139,7 @@ namespace AgOpenGPS
 
                 double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
 
-                distAway += (0.5 * widthMinusOverlap);
+                distAway += 0.5 * widthMinusOverlap;
 
                 //move the curline as well. 
                 vec2 nudgePtA = new vec2(track.ptA);
@@ -179,7 +179,7 @@ namespace AgOpenGPS
                 ppRadiusAB = mf.yt.ppRadiusYT;
 
                 mf.vehicle.modeTimeCounter = 0;
-                mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+                mf.vehicle.modeActualXTE = distanceFromCurrentLinePivot;
             }
 
             //Stanley
@@ -223,7 +223,7 @@ namespace AgOpenGPS
                     //pivotErrorTotal = pivotDistanceError + pivotDerivative;
 
                     if (mf.isBtnAutoSteerOn
-                        && Math.Abs(pivotDerivative) < (0.1)
+                        && Math.Abs(pivotDerivative) < 0.1
                         && mf.avgSpeed > 2.5
                         && !mf.yt.isYouTurnTriggered)
                     //&& Math.Abs(pivotDistanceError) < 0.2)
@@ -326,9 +326,9 @@ namespace AgOpenGPS
                     distanceFromCurrentLinePivot *= -1.0;
 
                 //used for acquire/hold mode
-                mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+                mf.vehicle.modeActualXTE = distanceFromCurrentLinePivot;
 
-                double steerHeadingError = (pivot.heading - abHeading);
+                double steerHeadingError = pivot.heading - abHeading;
                 //Fix the circular error
                 if (steerHeadingError > Math.PI)
                     steerHeadingError -= Math.PI;
@@ -449,8 +449,8 @@ namespace AgOpenGPS
                 }
                 for (int i = 2; i <= numGuideLines; i += 2)
                 {
-                    GeoLineSegment rightEvenLine = currentLine.Shifted((toolWidth * i) * perpendicularRightDir);
-                    GeoLineSegment leftEvenLine = currentLine.Shifted((toolWidth * -i) * perpendicularRightDir);
+                    GeoLineSegment rightEvenLine = currentLine.Shifted(toolWidth * i * perpendicularRightDir);
+                    GeoLineSegment leftEvenLine = currentLine.Shifted(toolWidth * -i * perpendicularRightDir);
                     lines[linesIndex++] = rightEvenLine;
                     lines[linesIndex++] = leftEvenLine;
                 }
@@ -533,7 +533,7 @@ namespace AgOpenGPS
                 mf.tram.tramList.Add(mf.tram.tramArr);
 
                 widd = (mf.tram.tramWidth * 0.5) - mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd += mf.tram.tramWidth * i;
 
                 for (int j = 0; j < tramRef.Count; j++)
                 {
@@ -557,7 +557,7 @@ namespace AgOpenGPS
                 mf.tram.tramList.Add(mf.tram.tramArr);
 
                 widd = (mf.tram.tramWidth * 0.5) + mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd += mf.tram.tramWidth * i;
 
                 for (int j = 0; j < tramRef.Count; j++)
                 {

@@ -843,7 +843,7 @@ namespace AgIO
             {
                 //baselineCourse: angle between baseline vector (from kinematic base to rover) and north direction, degrees
                 float.TryParse(words[10], NumberStyles.Float, CultureInfo.InvariantCulture, out float baselineCourse);
-                headingTrueDual = ((baselineCourse < 270.0f) ? (baselineCourse + 90.0f) : (baselineCourse - 270.0f)); //Rover Antenna on the left, kinematic base on the right!!!
+                headingTrueDual = (baselineCourse < 270.0f) ? (baselineCourse + 90.0f) : (baselineCourse - 270.0f); //Rover Antenna on the left, kinematic base on the right!!!
             }
 
             if (!string.IsNullOrEmpty(words[8]) && !string.IsNullOrEmpty(words[9]))

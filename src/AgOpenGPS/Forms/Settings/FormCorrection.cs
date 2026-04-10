@@ -38,10 +38,10 @@ namespace AgOpenGPS
 
                 if (!isPole) roll = ((mf.correctionDistanceGraph + mf.uncorrectedEastingGraph) * 20).ToString("N2", CultureInfo.InvariantCulture);
 
-                lblCorrectionDistance.Text = (mf.correctionDistanceGraph).ToString("N2", CultureInfo.InvariantCulture); ;
-                lblEast.Text = (mf.pn.fix.easting).ToString("N2", CultureInfo.InvariantCulture); ;
-                lblOst.Text = (mf.uncorrectedEastingGraph).ToString("N2", CultureInfo.InvariantCulture);
-                lblRollDegrees.Text = (mf.RollInDegrees);
+                lblCorrectionDistance.Text = mf.correctionDistanceGraph.ToString("N2", CultureInfo.InvariantCulture); ;
+                lblEast.Text = mf.pn.fix.easting.ToString("N2", CultureInfo.InvariantCulture); ;
+                lblOst.Text = mf.uncorrectedEastingGraph.ToString("N2", CultureInfo.InvariantCulture);
+                lblRollDegrees.Text = mf.RollInDegrees;
                 lblEastOnGraph.Text = ((int)(mf.pn.fix.easting * 100)).ToString(CultureInfo.InvariantCulture);
             }
 
@@ -83,7 +83,7 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
-            timer1.Interval = (int)((1 / mf.gpsHz) * 1000);
+            timer1.Interval = (int)(1 / mf.gpsHz * 1000);
         }
 
         //private void btnAuto_Click(object sender, EventArgs e)

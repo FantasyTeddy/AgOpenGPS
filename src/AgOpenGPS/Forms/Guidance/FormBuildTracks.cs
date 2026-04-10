@@ -363,13 +363,13 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < mf.trk.gArr.Count; i++)
                 {
-                    flp.Controls[(i) * 3 + 1].BackColor = Color.AliceBlue;
+                    flp.Controls[i * 3 + 1].BackColor = Color.AliceBlue;
                 }
                 selectedItem = -1;
 
                 b.BackColor = mf.trk.gArr[line].isVisible ? System.Drawing.Color.Green : System.Drawing.Color.Red;
 
-                flp.Controls[(line) * 3 + 1].ForeColor = mf.trk.gArr[line].isVisible ? System.Drawing.Color.Black : System.Drawing.Color.Gray;
+                flp.Controls[line * 3 + 1].ForeColor = mf.trk.gArr[line].isVisible ? System.Drawing.Color.Black : System.Drawing.Color.Gray;
             }
         }
 
@@ -389,7 +389,7 @@ namespace AgOpenGPS
                 //un highlight selected item
                 for (int i = 0; i < numLines; i++)
                 {
-                    flp.Controls[(i) * 3 + 1].BackColor = Color.AliceBlue;
+                    flp.Controls[i * 3 + 1].BackColor = Color.AliceBlue;
                 }
 
                 if (mf.trk.gArr[line].isVisible)
@@ -399,14 +399,14 @@ namespace AgOpenGPS
                     {
                         selectedItem = line;
                         selectedItem = Convert.ToInt32(t.Name);
-                        flp.Controls[(line) * 3 + 1].BackColor = Color.LightBlue;
+                        flp.Controls[line * 3 + 1].BackColor = Color.LightBlue;
                     }
 
                     //a different line was selcted and one already was
                     else if (selectedItem != line)
                     {
                         selectedItem = line;
-                        flp.Controls[(line) * 3 + 1].BackColor = Color.LightBlue;
+                        flp.Controls[line * 3 + 1].BackColor = Color.LightBlue;
                     }
                 }
                 else
@@ -566,8 +566,8 @@ namespace AgOpenGPS
 
                         vec2 temp = new vec2(mf.trk.gArr[idx].ptA);
 
-                        (mf.trk.gArr[idx].ptA) = new vec2(mf.trk.gArr[idx].ptB);
-                        (mf.trk.gArr[idx].ptB) = new vec2(temp);
+                        mf.trk.gArr[idx].ptA = new vec2(mf.trk.gArr[idx].ptB);
+                        mf.trk.gArr[idx].ptB = new vec2(temp);
                     }
                 }
 
@@ -860,7 +860,7 @@ namespace AgOpenGPS
                 }
 
                 mf.curve.desName = "Cu " +
-                    (Math.Round(glm.toDegrees(aveLineHeading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                    Math.Round(glm.toDegrees(aveLineHeading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
                 textBox1.Text = mf.curve.desName;
 
@@ -993,7 +993,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "AB " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             double dist;
@@ -1050,7 +1050,7 @@ namespace AgOpenGPS
             btnEnter_AB.Enabled = true;
             nudHeading.Enabled = true;
 
-            nudHeading.Value = (decimal)(glm.toDegrees(mf.ABLine.desHeading));
+            nudHeading.Value = (decimal)glm.toDegrees(mf.ABLine.desHeading);
 
             timer1.Enabled = true;
             mf.Activate();
@@ -1095,7 +1095,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "A+" +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             double dist;
@@ -1229,7 +1229,7 @@ namespace AgOpenGPS
                         else
                         {
                             mf.ABLine.desName = "AB " +
-                            (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                            Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
                         }
 
                         mf.trk.gArr.Add(new CTrk());
@@ -1298,7 +1298,7 @@ namespace AgOpenGPS
                         else
                         {
                             mf.curve.desName = "Cu " +
-                                 (Math.Round(glm.toDegrees(aveLineHeading), 1)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                                 Math.Round(glm.toDegrees(aveLineHeading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
                         }
 
                         mf.trk.gArr[idx].name = mf.curve.desName;
@@ -1370,7 +1370,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "AB " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             panelLatLonLatLon.Visible = false;
@@ -1446,7 +1446,7 @@ namespace AgOpenGPS
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "A+ " +
-                (Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5)).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             panelLatLonPlus.Visible = false;

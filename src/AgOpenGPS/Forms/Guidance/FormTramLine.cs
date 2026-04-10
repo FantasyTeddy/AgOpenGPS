@@ -79,7 +79,7 @@ namespace AgOpenGPS
 
         private void FormTramLine_ResizeEnd(object sender, EventArgs e)
         {
-            Width = (Height + 300);
+            Width = Height + 300;
 
             oglSelf.Height = oglSelf.Width = Height - 40;
 
@@ -255,7 +255,7 @@ namespace AgOpenGPS
             double sideHeading = 0;
             if (gTemp[indx].isVisible) sideHeading = Math.PI;
 
-            for (int i = cntr; i <= (passes + startPass) - 1; i++)
+            for (int i = cntr; i <= passes + startPass - 1; i++)
             {
                 tramArr = new List<vec2>
                 {
@@ -265,7 +265,7 @@ namespace AgOpenGPS
                 tramList.Add(tramArr);
 
                 widd = (mf.tram.tramWidth * 0.5) - mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd += mf.tram.tramWidth * i;
 
                 double distSqAway = widd * widd * 0.999999;
 
@@ -307,7 +307,7 @@ namespace AgOpenGPS
                 }
             }
 
-            for (int i = cntr; i <= (passes + startPass) - 1; i++)
+            for (int i = cntr; i <= passes + startPass - 1; i++)
             {
                 tramArr = new List<vec2>
                 {
@@ -317,7 +317,7 @@ namespace AgOpenGPS
                 tramList.Add(tramArr);
 
                 widd = (mf.tram.tramWidth * 0.5) + mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd += mf.tram.tramWidth * i;
                 double distSqAway = widd * widd * 0.999999;
 
                 for (int j = 0; j < refCount; j += 1)
@@ -413,7 +413,7 @@ namespace AgOpenGPS
                 tramList.Add(tramArr);
 
                 widd = (mf.tram.tramWidth * 0.5) - mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd += mf.tram.tramWidth * i;
 
                 for (int j = 0; j < tramRef.Count; j++)
                 {
@@ -437,7 +437,7 @@ namespace AgOpenGPS
                 tramList.Add(tramArr);
 
                 widd = (mf.tram.tramWidth * 0.5) + mf.tram.halfWheelTrack;
-                widd += (mf.tram.tramWidth * i);
+                widd += mf.tram.tramWidth * i;
 
                 for (int j = 0; j < tramRef.Count; j++)
                 {

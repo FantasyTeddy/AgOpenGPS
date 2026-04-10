@@ -48,13 +48,13 @@ namespace AgOpenGPS
             double sped = Math.Abs(mf.avgSpeed);
             if (sped > 1) sped = 1 + 0.277 * (sped - 1);
             else sped = 1;
-            double XTEc = Math.Atan((distanceFromCurrentLineSteer * mf.vehicle.stanleyDistanceErrorGain)
-                / (sped));
+            double XTEc = Math.Atan(distanceFromCurrentLineSteer * mf.vehicle.stanleyDistanceErrorGain
+                / sped);
 
-            xTrackSteerCorrection = (xTrackSteerCorrection * 0.5) + XTEc * (0.5);
+            xTrackSteerCorrection = (xTrackSteerCorrection * 0.5) + XTEc * 0.5;
 
             //derivative of steer distance error
-            distSteerError = (distSteerError * 0.95) + ((xTrackSteerCorrection * 60) * 0.05);
+            distSteerError = (distSteerError * 0.95) + (xTrackSteerCorrection * 60 * 0.05);
             if (counter++ > 5)
             {
                 derivativeDistError = distSteerError - lastDistSteerError;
@@ -65,7 +65,7 @@ namespace AgOpenGPS
             steerAngleGu = glm.toDegrees((xTrackSteerCorrection + steerHeadingError) * -1.0);
 
             if (Math.Abs(distanceFromCurrentLineSteer) > 0.5) steerAngleGu *= 0.5;
-            else steerAngleGu *= (1 - Math.Abs(distanceFromCurrentLineSteer));
+            else steerAngleGu *= 1 - Math.Abs(distanceFromCurrentLineSteer);
 
             //pivot PID
             pivotDistanceError = (pivotDistanceError * 0.6) + (distanceFromCurrentLinePivot * 0.4);
@@ -104,7 +104,7 @@ namespace AgOpenGPS
             else if (steerAngleGu > mf.vehicle.maxSteerAngle) steerAngleGu = mf.vehicle.maxSteerAngle;
 
             //used for smooth mode
-            mf.vehicle.modeActualXTE = (distanceFromCurrentLinePivot);
+            mf.vehicle.modeActualXTE = distanceFromCurrentLinePivot;
 
             //Convert to millimeters from meters
             mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
@@ -150,11 +150,11 @@ namespace AgOpenGPS
             vec3 steerB = new vec3(curPtB);
 
             //create the AB segment to offset
-            steerA.easting += (Math.Sin(steerA.heading + glm.PIBy2) * (inty));
-            steerA.northing += (Math.Cos(steerA.heading + glm.PIBy2) * (inty));
+            steerA.easting += Math.Sin(steerA.heading + glm.PIBy2) * inty;
+            steerA.northing += Math.Cos(steerA.heading + glm.PIBy2) * inty;
 
-            steerB.easting += (Math.Sin(steerB.heading + glm.PIBy2) * (inty));
-            steerB.northing += (Math.Cos(steerB.heading + glm.PIBy2) * (inty));
+            steerB.easting += Math.Sin(steerB.heading + glm.PIBy2) * inty;
+            steerB.northing += Math.Cos(steerB.heading + glm.PIBy2) * inty;
 
             dx = steerB.easting - steerA.easting;
             dy = steerB.northing - steerA.northing;
@@ -178,7 +178,7 @@ namespace AgOpenGPS
             rNorthSteer = steerA.northing + (U * dy);
 
             double steerErr = Math.Atan2(rEastSteer - rEastPivot, rNorthSteer - rNorthPivot);
-            steerHeadingError = (steer.heading - steerErr);
+            steerHeadingError = steer.heading - steerErr;
             //Fix the circular error
             if (steerHeadingError > Math.PI)
                 steerHeadingError -= Math.PI;
@@ -364,11 +364,11 @@ namespace AgOpenGPS
                 //pivotCurvatureOffset = 0;
 
                 //create the AB segment to offset
-                steerA.easting += (Math.Sin(steerA.heading + glm.PIBy2) * (inty));
-                steerA.northing += (Math.Cos(steerA.heading + glm.PIBy2) * (inty));
+                steerA.easting += Math.Sin(steerA.heading + glm.PIBy2) * inty;
+                steerA.northing += Math.Cos(steerA.heading + glm.PIBy2) * inty;
 
-                steerB.easting += (Math.Sin(steerB.heading + glm.PIBy2) * (inty));
-                steerB.northing += (Math.Cos(steerB.heading + glm.PIBy2) * (inty));
+                steerB.easting += Math.Sin(steerB.heading + glm.PIBy2) * inty;
+                steerB.northing += Math.Cos(steerB.heading + glm.PIBy2) * inty;
 
                 dx = steerB.easting - steerA.easting;
                 dz = steerB.northing - steerA.northing;

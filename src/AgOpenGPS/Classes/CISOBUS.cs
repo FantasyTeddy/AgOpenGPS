@@ -188,8 +188,8 @@ namespace AgOpenGPS
         {
             // Button visible = TC is running (heartbeat received within 1 second)
             // Button image indicates implement status (idle/on/off)
-            bool isAlive = (timestamp != default &&
-                           DateTimeOffset.Now - timestamp < TimeSpan.FromSeconds(1));
+            bool isAlive = timestamp != default &&
+                           DateTimeOffset.Now - timestamp < TimeSpan.FromSeconds(1);
 
             mf.btnIsobusSectionControl.Visible = isAlive;
 

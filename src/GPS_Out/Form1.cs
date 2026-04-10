@@ -446,7 +446,7 @@ namespace GPS_Out
             ckAutoHide.Checked = Properties.Settings.Default.AutoHide;
             ckAutoConnect.Checked = Properties.Settings.Default.AutoConnect;
             ckRoll.Checked = Properties.Settings.Default.UseRollCorrected;
-            rbGN.Checked = (Properties.Settings.Default.SentenceStart == "$GN");
+            rbGN.Checked = Properties.Settings.Default.SentenceStart == "$GN";
             ckGSA.Checked = Properties.Settings.Default.SendGSA;
 
             cboGGA.SelectedIndex = Properties.Settings.Default.GGA;
