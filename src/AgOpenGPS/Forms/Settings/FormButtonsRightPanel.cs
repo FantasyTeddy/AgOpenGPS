@@ -11,7 +11,6 @@ namespace AgOpenGPS
     {
         //class variables
         private readonly FormGPS mf = null;
-        private int btnCounter = 0;
         private string original;
         public FormButtonsRightPanel(Form callingForm)
         {
@@ -53,7 +52,6 @@ namespace AgOpenGPS
             flpRight.Controls.Add(autoSteer);
             btnAutoSteer.Enabled = false;
             mf.buttonOrder.Add(0);
-            btnCounter++;
         }
 
         private void btnAutoYouTurn_Click(object sender, EventArgs e)
@@ -61,14 +59,12 @@ namespace AgOpenGPS
             flpRight.Controls.Add(youTurn);
             btnAutoYouTurn.Enabled = false;
             mf.buttonOrder.Add(1);
-            btnCounter++;
         }
         private void btnSectionMasterAuto_Click(object sender, EventArgs e)
         {
             flpRight.Controls.Add(autoSection);
             btnSectionMasterAuto.Enabled = false;
             mf.buttonOrder.Add(2);
-            btnCounter++;
         }
 
         private void btnSectionMasterManual_Click(object sender, EventArgs e)
@@ -76,7 +72,6 @@ namespace AgOpenGPS
             flpRight.Controls.Add(manualSection);
             btnSectionMasterManual.Enabled = false;
             mf.buttonOrder.Add(3);
-            btnCounter++;
         }
 
         private void btnAll_Click(object sender, EventArgs e)
@@ -113,7 +108,6 @@ namespace AgOpenGPS
             flpRight.Controls.Add(track);
             btnTrack.Enabled = false;
             mf.buttonOrder.Add(4);
-            btnCounter++;
         }
 
         private void btnCycleLinesBk_Click(object sender, EventArgs e)
@@ -121,7 +115,6 @@ namespace AgOpenGPS
             flpRight.Controls.Add(skipPrev);
             btnCycleLinesBk.Enabled = false;
             mf.buttonOrder.Add(5);
-            btnCounter++;
         }
 
         private void btnCycleLines_Click(object sender, EventArgs e)
@@ -129,7 +122,6 @@ namespace AgOpenGPS
             flpRight.Controls.Add(skipNext);
             btnCycleLines.Enabled = false;
             mf.buttonOrder.Add(6);
-            btnCounter++;
         }
 
 
@@ -138,7 +130,6 @@ namespace AgOpenGPS
             flpRight.Controls.Add(contour);
             btnContour.Enabled = false;
             mf.buttonOrder.Add(7);
-            btnCounter++;
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -152,7 +143,6 @@ namespace AgOpenGPS
             btnTrack.Enabled = true;
             btnContour.Enabled = true;
 
-            btnCounter = 0;
             flpRight.Controls.Clear();
             mf.buttonOrder?.Clear();
         }

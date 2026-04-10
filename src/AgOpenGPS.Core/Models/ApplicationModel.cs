@@ -1,14 +1,10 @@
-﻿using AgOpenGPS.Core.Interfaces;
-using AgOpenGPS.Core.Models;
+﻿using AgOpenGPS.Core.Models;
 using System.IO;
 
 namespace AgOpenGPS.Core
 {
     public class ApplicationModel
     {
-
-        private IApplicationPresenter _applicationPresenter;
-
         public ApplicationModel(DirectoryInfo baseDirectory)
         {
             FieldsDirectory = baseDirectory.CreateSubdirectory("Fields");
@@ -16,11 +12,6 @@ namespace AgOpenGPS.Core
             SharedFieldProperties = new SharedFieldProperties();
 
             Fields = new Fields(FieldsDirectory);
-        }
-
-        public void SetPresenter(IApplicationPresenter applicationPresenter)
-        {
-            _applicationPresenter = applicationPresenter;
         }
 
         public DirectoryInfo FieldsDirectory { get; }

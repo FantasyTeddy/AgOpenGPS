@@ -28,7 +28,6 @@ namespace AgOpenGPS.Core
             _errorPresenter = errorPresenter;
             AppViewModel = new ApplicationViewModel(AppModel, fieldDescriptionStreamer, FieldStreamer);
             AppPresenter = new ApplicationPresenter(
-                AppViewModel,
                 _panelPresenter,
                 _errorPresenter);
             AppViewModel.SetPresenter(AppPresenter);

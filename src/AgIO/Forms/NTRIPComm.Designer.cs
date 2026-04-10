@@ -32,7 +32,6 @@ namespace AgIO
         private int broadCasterPort;
 
         private int sendGGAInterval = 0;
-        private string GGASentence;
 
         public uint tripBytes = 0;
         private int toUDP_Port = 0;
@@ -387,7 +386,6 @@ namespace AgIO
 
                     //grab location sentence
                     BuildGGA();
-                    GGASentence = sbGGA.ToString();
 
                     string htt;
                     if (Properties.Settings.Default.setNTRIP_isHTTP10) htt = "1.0";

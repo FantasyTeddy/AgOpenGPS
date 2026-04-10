@@ -42,7 +42,6 @@ namespace AgOpenGPS.Core.ViewModels
                 {
                     field =
                         new ConfigMenuViewModel(
-                            _applicationModel,
                             _applicationPresenter.PanelPresenter.ConfigMenuPanelPresenter);
                     AddChild(field);
                 }

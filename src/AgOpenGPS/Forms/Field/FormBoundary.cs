@@ -441,7 +441,7 @@ namespace AgOpenGPS
                 mf.bnd.bndList.Clear();
             }
 
-            FormBuildBoundaryFromTracks form = new FormBuildBoundaryFromTracks(mf, this);
+            FormBuildBoundaryFromTracks form = new FormBuildBoundaryFromTracks(mf);
             form.ShowDialog();
             isClosing = true;
             Close();

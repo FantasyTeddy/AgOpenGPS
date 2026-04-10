@@ -29,7 +29,6 @@ namespace AgOpenGPS.Forms.Field
         private CTrk _activeTrack;
         private double _viewLeft, _viewRight, _viewTop, _viewBottom;
         private bool _showTrimmedOnly;
-        private readonly Form _parentForm;
         private bool _redrawPending;
 
         // Touch drag scrolling
@@ -45,11 +44,10 @@ namespace AgOpenGPS.Forms.Field
         #endregion
 
         #region Constructor
-        public FormBuildBoundaryFromTracks(FormGPS mf, Form parentForm)
+        public FormBuildBoundaryFromTracks(FormGPS mf)
         {
             InitializeComponent();
             _mf = mf;
-            _parentForm = parentForm;
             _trackList = new List<CTrk>();
             _selectedTracks = new List<CTrk>();
             _showTrimmedOnly = false;

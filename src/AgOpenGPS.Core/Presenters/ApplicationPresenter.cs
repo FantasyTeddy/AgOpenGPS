@@ -1,18 +1,13 @@
 ﻿using AgOpenGPS.Core.Interfaces;
-using AgOpenGPS.Core.ViewModels;
 
 namespace AgOpenGPS.Core.Presenters
 {
     public class ApplicationPresenter : IApplicationPresenter
     {
-        private readonly ApplicationViewModel _applicationViewModel;
-
         public ApplicationPresenter(
-            ApplicationViewModel applicationViewModel,
             IPanelPresenter panelPresenter,
             IErrorPresenter errorrPresenter)
         {
-            _applicationViewModel = applicationViewModel;
             PanelPresenter = panelPresenter;
             ErrorPresenter = errorrPresenter;
         }

@@ -2,11 +2,8 @@
 {
     public class ConfigViewModel : DayNightAndUnitsViewModel
     {
-        private readonly ApplicationModel _appModel;
-
-        public ConfigViewModel(ApplicationModel appModel)
+        public ConfigViewModel()
         {
-            _appModel = appModel;
         }
 
         public void UpdateFromSettings()

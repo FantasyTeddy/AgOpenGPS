@@ -13,19 +13,16 @@ namespace GPS_Out
         private IPAddress cNetworkEP;
         private readonly int cReceivePort;   // local ports must be unique for each app on same pc and each class instance
         private readonly int cSendFromPort;
-        private readonly int cSendToPort;
         private IPAddress cSourceIP;
-        private string cSubNet;
         private HandleDataDelegateObj HandleDataDelegate = null;
         private Socket recvSocket;
         private Socket sendSocket;
 
-        public UDPComm(frmStart CallingForm, int ReceivePort, int SendToPort, int SendFromPort,
+        public UDPComm(frmStart CallingForm, int ReceivePort, int SendFromPort,
             string ConnectionName, string SourceIPaddress, string DestinationEndPoint = "")
         {
             mf = CallingForm;
             cReceivePort = ReceivePort;
-            cSendToPort = SendToPort;
             cSendFromPort = SendFromPort;
             cConnectionName = ConnectionName;
             SetEP(DestinationEndPoint);
@@ -48,7 +45,6 @@ namespace GPS_Out
                     data = value.Split('.');
                     cNetworkEP = IPAddress.Parse(data[0] + "." + data[1] + "." + data[2] + ".255");
                     Properties.Settings.Default["EndPoint" + cConnectionName] = cNetworkEP.ToString();
-                    cSubNet = data[0].ToString() + "." + data[1].ToString() + "." + data[2].ToString();
                 }
             }
         }

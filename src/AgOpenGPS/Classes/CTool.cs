@@ -47,8 +47,6 @@ namespace AgOpenGPS
 
         public int rpWidth;
 
-        private double textRotate;
-
         public Color[] secColors = new Color[16];
 
         public int zones;
@@ -256,7 +254,6 @@ namespace AgOpenGPS
 
                 if (Math.Abs(trailingToolToPivotLength) > 1 && mf.camera.camSetDistance > -100)
                 {
-                    textRotate += mf.sim.stepDistance;
                     GL.Color4(1, 1, 1, 0.75);
                     XyCoord rightTire00 = new XyCoord(0.75 + offset, trailingTool + 0.51);
                     XyCoord rightTire11 = new XyCoord(1.4 + offset, trailingTool - 0.51);

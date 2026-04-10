@@ -23,18 +23,11 @@ namespace AgOpenGPS
         private int mouseX = 0, mouseY = 0;
         public int steerModuleConnectedCounter = 0;
 
-        //data buffer for pixels read from off screen buffer
-        private readonly byte[] rateRed = new byte[1];
-        private readonly byte[] rateGrn = new byte[1];
-        private readonly byte[] rateBlu = new byte[1];
-
         private readonly byte[] grnPixels = new byte[150001];
 
         private bool isHeadlandClose = false;
 
         private int deadCam = 0;
-
-        private readonly StringBuilder sb = new StringBuilder();
 
         private ulong number = 0, lastNumber = 0;
 
