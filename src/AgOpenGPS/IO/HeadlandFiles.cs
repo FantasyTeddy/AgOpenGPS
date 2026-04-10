@@ -32,7 +32,7 @@ namespace AgOpenGPS.IO
                         break;
 
                     List<vec3> hd = boundaries[k].hdLine;
-                    if (hd != null) hd.Clear();
+                    hd?.Clear();
 
                     for (int i = 0; i < count; i++)
                     {

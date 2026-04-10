@@ -70,7 +70,7 @@ namespace AgOpenGPS.IO
 
                     // Compute area and ear
                     b.CalculateFenceArea(result.Count);
-                    if (b.fenceLineEar != null) b.fenceLineEar.Clear();
+                    b.fenceLineEar?.Clear();
 
                     double delta = 0;
                     for (int i = 0; i < b.fenceLine.Count; i++)

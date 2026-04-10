@@ -210,10 +210,7 @@ namespace AgIO
                 sendGGAInterval = Properties.Settings.Default.setNTRIP_sendGGAInterval; //how often to send fixes
 
                 //if we had a timer already, kill it
-                if (tmr != null)
-                {
-                    tmr.Dispose();
-                }
+                tmr?.Dispose();
 
                 //create new timer at fast rate to start
                 if (sendGGAInterval > 0)
@@ -354,10 +351,7 @@ namespace AgIO
             isNTRIP_Connecting = false;
 
             //if we had a timer already, kill it
-            if (tmr != null)
-            {
-                tmr.Dispose();
-            }
+            tmr?.Dispose();
         }
 
         private void IncrementNTRIPWatchDog()

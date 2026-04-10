@@ -522,7 +522,7 @@ namespace AgOpenGPS
         {
             base.OnShown(e);
             _uiReady = true;
-            if (_hotkeyFilter != null) _hotkeyFilter.Enabled = true;
+            _hotkeyFilter?.Enabled = true;
         }
 
         /// <summary>
