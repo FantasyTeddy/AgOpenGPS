@@ -47,6 +47,9 @@ namespace AgOpenGPS.Protocols.ISOBUS
                     isoxml.VersionMajor = ISO11783TaskDataFileVersionMajor.Version4;
                     isoxml.VersionMinor = ISO11783TaskDataFileVersionMinor.Item2;
                     break;
+
+                default:
+                    break;
             }
         }
 
@@ -171,18 +174,17 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
                             ISOLineString lineString = CreateLineString(track, localPlane, version);
 
-                            switch (track.mode)
+                            if (track.mode == TrackMode.AB)
                             {
-                                case TrackMode.AB:
-                                    guidancePattern.GuidancePatternType = ISOGuidancePatternType.AB;
-                                    break;
-
-                                case TrackMode.Curve:
-                                    guidancePattern.GuidancePatternType = ISOGuidancePatternType.Curve;
-                                    break;
-
-                                default:
-                                    throw new InvalidOperationException("Track mode is invalid");
+                                guidancePattern.GuidancePatternType = ISOGuidancePatternType.AB;
+                            }
+                            else if (track.mode == TrackMode.Curve)
+                            {
+                                guidancePattern.GuidancePatternType = ISOGuidancePatternType.Curve;
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException("Track mode is invalid");
                             }
 
                             guidancePattern.LineString.Add(lineString);
@@ -192,22 +194,26 @@ namespace AgOpenGPS.Protocols.ISOBUS
                             partfield.GuidanceGroup.Add(guidanceGroup);
                         }
                         break;
+
+                    default:
+                        break;
                 }
             }
         }
 
         private static ISOLineString CreateLineString(CTrk track, LocalPlane localPlane, Version version)
         {
-            switch (track.mode)
+            if (track.mode == TrackMode.AB)
             {
-                case TrackMode.AB:
-                    return CreateABLineString(track, localPlane, version);
-
-                case TrackMode.Curve:
-                    return CreateCurveLineString(track, localPlane, version);
-
-                default:
-                    throw new InvalidOperationException("Track mode is invalid");
+                return CreateABLineString(track, localPlane, version);
+            }
+            else if (track.mode == TrackMode.Curve)
+            {
+                return CreateCurveLineString(track, localPlane, version);
+            }
+            else
+            {
+                throw new InvalidOperationException("Track mode is invalid");
             }
         }
 

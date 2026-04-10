@@ -74,6 +74,8 @@ namespace AgOpenGPS.Forms.Config
                 case VehicleType.Articulated:
                     rbtnArticulated.Checked = true;
                     break;
+                default:
+                    throw new InvalidOperationException($"Invalid vehicle type {_vehicleConfig.Type}");
             }
 
             UpdateImage();
@@ -95,6 +97,8 @@ namespace AgOpenGPS.Forms.Config
                     Properties.VehicleSettings.Default.setVehicle_vehicleType = 2;
                     Properties.VehicleSettings.Default.setBrand_WDBrand = ArticulatedBrand;
                     break;
+                default:
+                    throw new InvalidOperationException($"Invalid vehicle type {_vehicleConfig.Type}");
             }
 
             Settings.Default.setDisplay_isVehicleImage = _vehicleConfig.IsImage;

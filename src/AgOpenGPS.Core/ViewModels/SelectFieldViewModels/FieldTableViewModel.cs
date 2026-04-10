@@ -118,6 +118,8 @@ namespace AgOpenGPS.Core.ViewModels
                 case FieldSortMode.ByArea:
                     SortMode = FieldSortMode.ByName;
                     break;
+                default:
+                    break;
             }
         }
     }

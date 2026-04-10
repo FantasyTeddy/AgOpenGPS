@@ -454,6 +454,9 @@ namespace AgOpenGPS
                     turnTooCloseTrigger = false;
                     isTurnCreationTooClose = false;
                     return true;
+
+                default:
+                    break;
             }
             return true;
         }
@@ -828,6 +831,9 @@ namespace AgOpenGPS
                     turnTooCloseTrigger = false;
                     isTurnCreationTooClose = false;
                     return true;
+
+                default:
+                    break;
             }
 
             // just in case
@@ -943,6 +949,9 @@ namespace AgOpenGPS
                     if (!AddABSequenceLines()) return false;
 
                     return true;
+
+                default:
+                    break;
             }
 
             return true;
@@ -1247,6 +1256,9 @@ namespace AgOpenGPS
                     if (!AddABSequenceLines()) return false;
 
                     return true;
+
+                default:
+                    break;
             }
 
             //just in case

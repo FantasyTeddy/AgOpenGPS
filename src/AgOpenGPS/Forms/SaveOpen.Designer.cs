@@ -51,22 +51,20 @@ namespace AgOpenGPS
                 openType = "Load";
             }
 
-            switch (openType)
+            if (openType == "Resume")
             {
-                case "Resume":
-                    fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Field.txt");
-                    if (!File.Exists(fileAndDirectory)) fileAndDirectory = "Cancel";
-                    break;
-
-                case "Open":
-                    using (OpenFileDialog ofd = new OpenFileDialog())
-                    {
-                        ofd.InitialDirectory = RegistrySettings.fieldsDirectory;
-                        ofd.RestoreDirectory = true;
-                        ofd.Filter = "Field files (Field.txt)|Field.txt";
-                        fileAndDirectory = (ofd.ShowDialog(this) == DialogResult.Cancel) ? "Cancel" : ofd.FileName;
-                    }
-                    break;
+                fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Field.txt");
+                if (!File.Exists(fileAndDirectory)) fileAndDirectory = "Cancel";
+            }
+            else if (openType == "Open")
+            {
+                using (OpenFileDialog ofd = new OpenFileDialog())
+                {
+                    ofd.InitialDirectory = RegistrySettings.fieldsDirectory;
+                    ofd.RestoreDirectory = true;
+                    ofd.Filter = "Field files (Field.txt)|Field.txt";
+                    fileAndDirectory = (ofd.ShowDialog(this) == DialogResult.Cancel) ? "Cancel" : ofd.FileName;
+                }
             }
 
             if (fileAndDirectory == "Cancel") return;

@@ -33,37 +33,32 @@ namespace AgLibrary.Settings
                     string name = "";
                     while (reader.Read())
                     {
-                        switch (reader.NodeType)
+                        if (reader.NodeType == XmlNodeType.Element)
                         {
-                            case XmlNodeType.Element:
-                                if (reader.Name == "setting")
+                            if (reader.Name == "setting")
+                            {
+                                name = reader.GetAttribute("name");
+                            }
+                            else if (reader.Name == "value")
+                            {
+                                if (!string.IsNullOrEmpty(name))
                                 {
-                                    name = reader.GetAttribute("name");
-                                }
-                                else if (reader.Name == "value")
-                                {
-                                    if (!string.IsNullOrEmpty(name))
+                                    FieldInfo pinfo = obj.GetType().GetField(name);
+                                    if (pinfo != null)
                                     {
-                                        FieldInfo pinfo = obj.GetType().GetField(name);
-                                        if (pinfo != null)
+                                        try
                                         {
-                                            try
-                                            {
-                                                SetFieldValue(pinfo, reader, obj);
-                                            }
-                                            catch (Exception)
-                                            {
-                                                if (Debugger.IsAttached)
-                                                    throw;// Re-throws the original exception
-                                                Errors = true;
-                                            }
+                                            SetFieldValue(pinfo, reader, obj);
+                                        }
+                                        catch (Exception)
+                                        {
+                                            if (Debugger.IsAttached)
+                                                throw;// Re-throws the original exception
+                                            Errors = true;
                                         }
                                     }
                                 }
-                                break;
-
-                            case XmlNodeType.EndElement:
-                                break;
+                            }
                         }
                     }
                     reader.Close();

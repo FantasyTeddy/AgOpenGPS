@@ -57,6 +57,10 @@ namespace AgOpenGPS
                     manualBtnState = btnStates.Off;
                     btnSectionMasterManual.Image = Properties.Resources.ManualOff;
                     break;
+
+                case btnStates.Auto:
+                default:
+                    break;
             }
 
             //go set the butons and section states
@@ -92,6 +96,10 @@ namespace AgOpenGPS
                     btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
                     if (sounds.isSectionsSoundOn && (!mc.isSteerWorkSwitchEnabled || !mc.isSteerWorkSwitchManualSections))
                         sounds.sndSectionOn.Play();
+                    break;
+
+                case btnStates.On:
+                default:
                     break;
             }
 
@@ -151,12 +159,16 @@ namespace AgOpenGPS
                 case btnStates.Off:
                     button.BackColor = isDay ? Color.Red : Color.Crimson;
                     break;
+
                 case btnStates.Auto:
                     button.BackColor = isDay ? Color.Lime : Color.ForestGreen;
                     break;
 
                 case btnStates.On:
                     button.BackColor = isDay ? Color.Yellow : Color.DarkGoldenrod;
+                    break;
+
+                default:
                     break;
             }
             button.ForeColor = isDay ? Color.Black : Color.White;

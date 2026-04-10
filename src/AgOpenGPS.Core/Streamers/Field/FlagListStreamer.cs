@@ -3,6 +3,7 @@ using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 
 namespace AgOpenGPS.Core.Streamers
@@ -60,8 +61,9 @@ namespace AgOpenGPS.Core.Streamers
                     return FlagColor.Green;
                 case 2:
                     return FlagColor.Yellow;
+                default:
+                    return FlagColor.Red;
             }
-            return FlagColor.Red;
         }
 
         private List<Flag> Read(DirectoryInfo fieldDirectory)
@@ -97,12 +99,15 @@ namespace AgOpenGPS.Core.Streamers
         {
             switch (flagColor)
             {
+                case FlagColor.Red:
+                    return 0;
                 case FlagColor.Green:
                     return 1;
                 case FlagColor.Yellow:
                     return 2;
+                default:
+                    throw new InvalidEnumArgumentException(nameof(flagColor), (int)flagColor, typeof(FlagColor));
             }
-            return 0;
         }
 
         private void Write(List<Flag> flags, DirectoryInfo fieldDirectory)

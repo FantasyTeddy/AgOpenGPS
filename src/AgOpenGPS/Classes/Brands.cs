@@ -36,6 +36,7 @@ namespace AgOpenGPS
                     return BrandImages.TractorValtra;
                 case TractorBrand.JCB:
                     return BrandImages.TractorJCB;
+                case TractorBrand.AGOpenGPS:
                 default:
                     return BrandImages.TractorAoG;
             }
@@ -56,6 +57,7 @@ namespace AgOpenGPS
                     return BrandImages.HarvesterJohnDeere;
                 case HarvesterBrand.NewHolland:
                     return BrandImages.HarvesterNewHolland;
+                case HarvesterBrand.AgOpenGPS:
                 default:
                     return BrandImages.HarvesterAoG;
             }
@@ -78,6 +80,7 @@ namespace AgOpenGPS
                     return BrandImages.ArticulatedFrontNewHolland;
                 case ArticulatedBrand.Holder:
                     return BrandImages.ArticulatedFrontHolder;
+                case ArticulatedBrand.AgOpenGPS:
                 default:
                     return BrandImages.ArticulatedFrontAoG;
             }
@@ -97,6 +100,7 @@ namespace AgOpenGPS
                     return BrandImages.ArticulatedRearNewHolland;
                 case ArticulatedBrand.Holder:
                     return BrandImages.ArticulatedRearHolder;
+                case ArticulatedBrand.AgOpenGPS:
                 default:
                     return BrandImages.ArticulatedRearAoG;
             }

@@ -201,6 +201,9 @@ namespace AgOpenGPS
                         }
                     }
                     return;
+
+                default:
+                    break;
             }
 
             base.WndProc(ref m);

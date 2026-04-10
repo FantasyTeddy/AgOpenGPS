@@ -314,7 +314,10 @@ namespace AgOpenGPS
 
                             break;
                         }
-                        #endregion
+                    #endregion
+
+                    default:
+                        break;
                 }
             }
         }
@@ -419,46 +422,45 @@ namespace AgOpenGPS
         {
             const int RESIZE_HANDLE_SIZE = 7;
 
-            switch (m.Msg)
+            if (m.Msg == 0x0084/*NCHITTEST*/)
             {
-                case 0x0084/*NCHITTEST*/ :
-                    base.WndProc(ref m);
-                    if (!isKioskMode)
+                base.WndProc(ref m);
+                if (!isKioskMode)
+                {
+                    if ((int)m.Result == 0x01/*HTCLIENT*/)
                     {
-                        if ((int)m.Result == 0x01/*HTCLIENT*/)
+                        Point screenPoint = new Point(m.LParam.ToInt32());
+                        Point clientPoint = this.PointToClient(screenPoint);
+                        if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
                         {
-                            Point screenPoint = new Point(m.LParam.ToInt32());
-                            Point clientPoint = this.PointToClient(screenPoint);
-                            if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
-                            {
-                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = 13/*HTTOPLEFT*/ ;
-                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = 12/*HTTOP*/ ;
-                                else
-                                    m.Result = 14/*HTTOPRIGHT*/ ;
-                            }
-                            else if (clientPoint.Y <= (Size.Height - RESIZE_HANDLE_SIZE))
-                            {
-                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = 10/*HTLEFT*/ ;
-                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = 2/*HTCAPTION*/ ;
-                                else
-                                    m.Result = 11/*HTRIGHT*/ ;
-                            }
+                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                m.Result = 13/*HTTOPLEFT*/ ;
+                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                m.Result = 12/*HTTOP*/ ;
                             else
-                            {
-                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = 16/*HTBOTTOMLEFT*/ ;
-                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = 15/*HTBOTTOM*/ ;
-                                else
-                                    m.Result = 17/*HTBOTTOMRIGHT*/ ;
-                            }
+                                m.Result = 14/*HTTOPRIGHT*/ ;
+                        }
+                        else if (clientPoint.Y <= (Size.Height - RESIZE_HANDLE_SIZE))
+                        {
+                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                m.Result = 10/*HTLEFT*/ ;
+                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                m.Result = 2/*HTCAPTION*/ ;
+                            else
+                                m.Result = 11/*HTRIGHT*/ ;
+                        }
+                        else
+                        {
+                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                m.Result = 16/*HTBOTTOMLEFT*/ ;
+                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                m.Result = 15/*HTBOTTOM*/ ;
+                            else
+                                m.Result = 17/*HTBOTTOMRIGHT*/ ;
                         }
                     }
-                    return;
+                }
+                return;
             }
             base.WndProc(ref m);
         }

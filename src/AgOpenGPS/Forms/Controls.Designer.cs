@@ -1797,6 +1797,8 @@ namespace AgOpenGPS
                     btnYouSkipEnable.Image = Resources.YouSkipOff;
                     yt.skipMode = SkipMode.Normal;
                     break;
+                default:
+                    throw new InvalidOperationException($"Invalid skip mode {yt.skipMode}");
             }
 
             yt.ResetCreatedYouTurn();

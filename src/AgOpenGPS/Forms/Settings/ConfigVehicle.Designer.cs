@@ -277,6 +277,8 @@ namespace AgOpenGPS
                     mf.VehicleTextures.ArticulatedFront.SetBitmap(ArticulatedBitmaps.GetFrontBitmap(configVehicleControl.ArticulatedBrand));
                     mf.VehicleTextures.ArticulatedRear.SetBitmap(ArticulatedBitmaps.GetRearBitmap(configVehicleControl.ArticulatedBrand));
                     break;
+                default:
+                    break;
             }
 
             Properties.VehicleSettings.Default.Save();

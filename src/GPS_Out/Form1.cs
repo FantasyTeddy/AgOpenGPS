@@ -150,6 +150,9 @@ namespace GPS_Out
                 case 8:
                     Result = "Sim";
                     break;
+
+                default:
+                    break;
             }
             return Result;
         }
