@@ -40,10 +40,7 @@ namespace AgOpenGPS.Core
         public double GridStep { private get; set; }
         public BingMap BingMap
         {
-            private get
-            {
-                return _bingMap;
-            }
+            private get => _bingMap;
             set
             {
                 _bingMap = value;

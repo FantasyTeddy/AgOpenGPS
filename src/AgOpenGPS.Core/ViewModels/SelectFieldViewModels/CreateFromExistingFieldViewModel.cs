@@ -28,7 +28,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public new FieldDescriptionViewModel LocalSelectedField
         {
-            get { return _localSelectedField; }
+            get => _localSelectedField;
             set
             {
                 if (value != _localSelectedField)
@@ -42,7 +42,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public string NewFieldName
         {
-            get { return _newFieldName; }
+            get => _newFieldName;
             set
             {
                 if (value != _newFieldName)

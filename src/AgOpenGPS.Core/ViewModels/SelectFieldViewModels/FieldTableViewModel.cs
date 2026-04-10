@@ -39,7 +39,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public FieldSortMode SortMode
         {
-            get { return _fieldSortMode; }
+            get => _fieldSortMode;
             set
             {
                 if (value != _fieldSortMode)
@@ -52,7 +52,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public Collection<FieldDescriptionViewModel> FieldDescriptionViewModels
         {
-            get { return _fieldDescriptions; }
+            get => _fieldDescriptions;
             set
             {
                 _fieldDescriptions = value;
@@ -65,7 +65,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public FieldDescriptionViewModel LocalSelectedField
         {
-            get { return _localSelectedField; }
+            get => _localSelectedField;
             set
             {
                 if (value != _localSelectedField)

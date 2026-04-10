@@ -18,10 +18,7 @@ namespace AgOpenGPS
 
         public new decimal Value
         {
-            get
-            {
-                return base.Value;
-            }
+            get => base.Value;
             set
             {
                 if (value != base.Value)

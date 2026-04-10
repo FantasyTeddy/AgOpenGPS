@@ -23,26 +23,26 @@ namespace AgOpenGPS.Core.Models
 
         public byte Red
         {
-            get { return ByteArray[0]; }
-            set { ByteArray[0] = value; }
+            get => ByteArray[0];
+            set => ByteArray[0] = value;
         }
 
         public byte Green
         {
-            get { return ByteArray[1]; }
-            set { ByteArray[1] = value; }
+            get => ByteArray[1];
+            set => ByteArray[1] = value;
         }
 
         public byte Blue
         {
-            get { return ByteArray[2]; }
-            set { ByteArray[2] = value; }
+            get => ByteArray[2];
+            set => ByteArray[2] = value;
         }
 
         public byte Alpha
         {
-            get { return ByteArray[3]; }
-            set { ByteArray[3] = value; }
+            get => ByteArray[3];
+            set => ByteArray[3] = value;
         }
 
         public static explicit operator System.Drawing.Color(ColorRgba color)

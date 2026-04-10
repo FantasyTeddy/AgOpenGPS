@@ -29,7 +29,7 @@ namespace GPS_Out
 
         public int Baud
         {
-            get { return Sport.BaudRate; }
+            get => Sport.BaudRate;
             set
             {
                 if (!Sport.IsOpen && value > 0 && value < 115201)
@@ -42,7 +42,7 @@ namespace GPS_Out
 
         public string PortNm
         {
-            get { return Sport.PortName; }
+            get => Sport.PortName;
             set
             {
                 if (!Sport.IsOpen && value != "")

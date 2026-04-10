@@ -40,7 +40,7 @@ namespace GPS_Out
 
         public string NetworkEP
         {
-            get { return cNetworkEP.ToString(); }
+            get => cNetworkEP.ToString();
             set
             {
                 string[] data;

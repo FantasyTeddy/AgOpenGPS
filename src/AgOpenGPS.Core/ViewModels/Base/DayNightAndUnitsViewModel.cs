@@ -17,7 +17,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public bool IsMetric
         {
-            get { return _isMetric; }
+            get => _isMetric;
             set
             {
                 if (value != _isMetric)
@@ -31,7 +31,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public bool IsDay
         {
-            get { return _isDay; }
+            get => _isDay;
             set
             {
                 if (value != _isDay)

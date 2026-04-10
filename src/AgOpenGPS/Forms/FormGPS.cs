@@ -38,38 +38,32 @@ namespace AgOpenGPS
         // Please use AppViewModel.IsMetric directly
         public bool isMetric
         {
-            get { return AppViewModel.IsMetric; }
-            set
-            {
-                AppViewModel.IsMetric = value;
-            }
+            get => AppViewModel.IsMetric;
+            set => AppViewModel.IsMetric = value;
         }
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppViewModel.IsDay directly
         public bool isDay
         {
-            get { return AppViewModel.IsDay; }
-            set
-            {
-                AppViewModel.IsDay = value;
-            }
+            get => AppViewModel.IsDay;
+            set => AppViewModel.IsDay = value;
         }
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppViewModel.Fields directly
         public string currentFieldDirectory
         {
-            get { return AppModel.Fields.CurrentFieldName; }
-            set { AppModel.Fields.SetCurrentFieldByName(value); }
+            get => AppModel.Fields.CurrentFieldName;
+            set => AppModel.Fields.SetCurrentFieldByName(value);
         }
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppModel.FixHeading directly
         public double fixHeading
         {
-            get { return AppModel.FixHeading.AngleInRadians; }
-            set { AppModel.FixHeading = new GeoDir(value); }
+            get => AppModel.FixHeading.AngleInRadians;
+            set => AppModel.FixHeading = new GeoDir(value);
         }
 
         public bool isJobStarted => AppModel.Fields.ActiveField != null;

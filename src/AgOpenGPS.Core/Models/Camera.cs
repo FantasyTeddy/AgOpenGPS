@@ -19,7 +19,7 @@ namespace AgOpenGPS.Core
         // Beware: bigger values mean more zoomed out!
         public double ZoomValue
         {
-            get { return _zoomValue; }
+            get => _zoomValue;
             private set
             {
                 _zoomValue = value;
