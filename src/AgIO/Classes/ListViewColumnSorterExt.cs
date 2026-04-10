@@ -9,9 +9,9 @@ namespace AgIO
         /// <summary>
         /// Case insensitive comparer object
         /// </summary>
-        private CaseInsensitiveComparer ObjectCompare;
+        private readonly CaseInsensitiveComparer ObjectCompare;
 
-        private ListView listView;
+        private readonly ListView listView;
 
         /// <summary>
         /// Class constructor.  Initializes various elements

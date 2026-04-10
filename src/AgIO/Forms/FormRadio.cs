@@ -12,9 +12,9 @@ namespace AgIO
     public partial class FormRadio : Form
     {
         private readonly FormLoop mf;
-        private List<CRadioChannel> _channels;
-        private double _currentLat = 0;
-        private double _currentLon = 0;
+        private readonly List<CRadioChannel> _channels;
+        private readonly double _currentLat = 0;
+        private readonly double _currentLon = 0;
 
         //private readonly ListViewColumnSorterExt _listViewColumnSorter;
 

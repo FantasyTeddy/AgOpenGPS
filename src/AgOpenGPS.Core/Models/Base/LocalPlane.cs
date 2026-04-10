@@ -6,7 +6,7 @@ namespace AgOpenGPS.Core.Models
     // system that uses Northing and Easting coordinates.
     public class LocalPlane
     {
-        private SharedFieldProperties _sharedFieldProperties;
+        private readonly SharedFieldProperties _sharedFieldProperties;
         private double _metersPerDegreeLat;
 
         public LocalPlane(Wgs84 origin, SharedFieldProperties sharedFieldProperties)

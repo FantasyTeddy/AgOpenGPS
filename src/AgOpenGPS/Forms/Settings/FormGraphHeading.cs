@@ -18,7 +18,7 @@ namespace AgOpenGPS
         private string roll = "1";
         private string zero = "0";
 
-        private bool isScroll = true;
+        private readonly bool isScroll = true;
 
         public FormGraphHeading(Form callingForm)
         {

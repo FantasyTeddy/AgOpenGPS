@@ -13,7 +13,7 @@ namespace AgOpenGPS.Core
     public class WorldGrid
     {
         private BingMapVisual _bingMapVisual;
-        private Bitmap _floorBitmap;
+        private readonly Bitmap _floorBitmap;
 
         //Y
         public double northingMax;

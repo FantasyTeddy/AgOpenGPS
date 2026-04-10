@@ -30,7 +30,7 @@ namespace AgOpenGPS
 
         public vec3 pint = new vec3(0.0, 1.0, 0.0);
 
-        private bool isLinesVisible = true;
+        private readonly bool isLinesVisible = true;
 
         public FormHeadAche(Form callingForm)
         {

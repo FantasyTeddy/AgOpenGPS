@@ -31,7 +31,7 @@ namespace GPS_Out
         // (empty field) DGPS station ID number
         // *47          the checksum data, always begins with*
 
-        private frmStart mf;
+        private readonly frmStart mf;
 
         public PGN_GGA(frmStart CalledFrom)
         {

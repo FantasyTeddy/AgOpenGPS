@@ -11,7 +11,7 @@ namespace AgIO
     public partial class FormLoop
     {
         //B5,62,7F,PGN_ID,Length
-        private int totalHeaderByteCount = 5;
+        private readonly int totalHeaderByteCount = 5;
 
         public static string portNameGPS = "***";
         public static int baudRateGPS = 4800;
@@ -69,9 +69,9 @@ namespace AgIO
         public SerialPort spMachineModule = new SerialPort(portNameMachineModule, baudRateMachineModule, Parity.None, 8, StopBits.One);
 
         //lists for parsing incoming bytes
-        private byte[] pgnSteerModule = new byte[22];
-        private byte[] pgnMachineModule = new byte[22];
-        private byte[] pgnIMU = new byte[22];
+        private readonly byte[] pgnSteerModule = new byte[22];
+        private readonly byte[] pgnMachineModule = new byte[22];
+        private readonly byte[] pgnIMU = new byte[22];
 
         #region IMUSerialPort //--------------------------------------------------------------------
         private void ReceiveIMUPort(byte[] Data)

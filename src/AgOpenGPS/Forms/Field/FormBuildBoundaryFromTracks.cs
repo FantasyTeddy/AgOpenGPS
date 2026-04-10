@@ -29,7 +29,7 @@ namespace AgOpenGPS.Forms.Field
         private CTrk _activeTrack;
         private double _viewLeft, _viewRight, _viewTop, _viewBottom;
         private bool _showTrimmedOnly;
-        private Form _parentForm;
+        private readonly Form _parentForm;
         private bool _redrawPending;
 
         // Touch drag scrolling

@@ -42,7 +42,7 @@ namespace AgIO
         public StringBuilder logUDPSentence = new StringBuilder();
         public bool isLogNMEA, isLogMonitorOn, isUDPMonitorOn, isGPSLogOn, isNTRIPLogOn;
 
-        private StringBuilder sbRTCM = new StringBuilder();
+        private readonly StringBuilder sbRTCM = new StringBuilder();
 
         public bool isKeyboardOn = true;
 

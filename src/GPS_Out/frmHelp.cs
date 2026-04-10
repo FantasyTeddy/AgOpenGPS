@@ -7,7 +7,7 @@ namespace RateController
 {
     public partial class frmHelp : Form
     {
-        private frmStart mf;
+        private readonly frmStart mf;
 
         public frmHelp(frmStart CallingForm, string Message, string Title = "Help", int timeInMsec = 30000)
         {

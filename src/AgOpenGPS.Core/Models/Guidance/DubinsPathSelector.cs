@@ -6,7 +6,7 @@ namespace AgOpenGPS.Core.Models
     public class DubinsPathSelector
     {
         private readonly DubinsPathConstraints _constraints;
-        private List<DubinsPath> _paths = new List<DubinsPath>();
+        private readonly List<DubinsPath> _paths = new List<DubinsPath>();
 
         public DubinsPathSelector(DubinsPathConstraints constraints)
         {

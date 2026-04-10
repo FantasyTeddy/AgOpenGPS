@@ -8,7 +8,7 @@ namespace AgOpenGPS
     public partial class FormEventViewer : Form
     {
         //class variables
-        private string filename;
+        private readonly string filename;
 
         public FormEventViewer(string _filename)
         {

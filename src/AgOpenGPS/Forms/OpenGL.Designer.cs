@@ -17,24 +17,24 @@ namespace AgOpenGPS
         public double[] frustum = new double[24];
 
         private bool isInit = false;
-        private double fovy = 0.7;
-        private double camDistanceFactor = -4;
+        private readonly double fovy = 0.7;
+        private readonly double camDistanceFactor = -4;
 
         private int mouseX = 0, mouseY = 0;
         public int steerModuleConnectedCounter = 0;
 
         //data buffer for pixels read from off screen buffer
-        private byte[] rateRed = new byte[1];
-        private byte[] rateGrn = new byte[1];
-        private byte[] rateBlu = new byte[1];
+        private readonly byte[] rateRed = new byte[1];
+        private readonly byte[] rateGrn = new byte[1];
+        private readonly byte[] rateBlu = new byte[1];
 
-        private byte[] grnPixels = new byte[150001];
+        private readonly byte[] grnPixels = new byte[150001];
 
         private bool isHeadlandClose = false;
 
         private int deadCam = 0;
 
-        private StringBuilder sb = new StringBuilder();
+        private readonly StringBuilder sb = new StringBuilder();
 
         private ulong number = 0, lastNumber = 0;
 

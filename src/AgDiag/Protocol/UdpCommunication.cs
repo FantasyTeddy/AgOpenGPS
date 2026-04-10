@@ -10,7 +10,7 @@ namespace AgDiag.Protocol
     {
         private readonly Pgns _pgns;
 
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private int cntr;
 

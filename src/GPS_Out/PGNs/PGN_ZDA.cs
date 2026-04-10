@@ -20,7 +20,7 @@ namespace GPS_Out.PGNs
 
         #endregion ZDA Message
 
-        private frmStart mf;
+        private readonly frmStart mf;
 
         public PGN_ZDA(frmStart CalledFrom)
         {

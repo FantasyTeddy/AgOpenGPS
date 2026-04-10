@@ -19,7 +19,7 @@ namespace AgIO
         private int ntripCounter = 10;
 
         private Socket clientSocket;                      // Server connection
-        private byte[] casterRecBuffer = new byte[2800];    // Recieved data buffer
+        private readonly byte[] casterRecBuffer = new byte[2800];    // Recieved data buffer
 
         //Send GGA back timer
         private Timer tmr;
@@ -49,11 +49,11 @@ namespace AgIO
         public bool isSerialPass_RequiredOn = false;
         internal SerialPort spRadio = new SerialPort("Radio", 9600, Parity.None, 8, StopBits.One);
 
-        private List<int> rList = new List<int>();
-        private List<int> aList = new List<int>();
+        private readonly List<int> rList = new List<int>();
+        private readonly List<int> aList = new List<int>();
 
         //NTRIP metering
-        private Queue<byte> rawTrip = new Queue<byte>();
+        private readonly Queue<byte> rawTrip = new Queue<byte>();
 
         //set up connection to Caster
         private void DoNTRIPSecondRoutine()

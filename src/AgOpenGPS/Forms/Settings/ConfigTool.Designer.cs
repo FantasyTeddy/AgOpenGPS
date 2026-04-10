@@ -9,8 +9,8 @@ namespace AgOpenGPS
 {
     public partial class FormConfig
     {
-        private decimal[] sectionWidthArr = new decimal[16];
-        private decimal[] sectionPositionArr = new decimal[17];
+        private readonly decimal[] sectionWidthArr = new decimal[16];
+        private readonly decimal[] sectionPositionArr = new decimal[17];
 
         private double defaultSectionWidth;
 

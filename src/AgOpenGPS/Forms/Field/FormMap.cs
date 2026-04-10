@@ -22,10 +22,10 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
 
         private bool isClosing;
-        private GMapPolygon polygon;
-        private GMapOverlay overlay = new GMapOverlay();
+        private readonly GMapPolygon polygon;
+        private readonly GMapOverlay overlay = new GMapOverlay();
         private Point lastMouseLocation;
-        private bool isColorMap = true;
+        private readonly bool isColorMap = true;
 
         public FormMap(Form callingForm)
         {

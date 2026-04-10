@@ -79,7 +79,7 @@ namespace GPS_Out
         public PGN_ZDA ZDA;
         public string ZDAsentence = "";
         private string HeadingType;
-        private Color SimColor = Color.Orange;
+        private readonly Color SimColor = Color.Orange;
         private int Watchdog;
 
         public frmStart()

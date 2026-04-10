@@ -18,11 +18,11 @@ namespace AgOpenGPS
         private Socket loopBackSocket;
 
         //endpoints of modules
-        private EndPoint epAgIO = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
+        private readonly EndPoint epAgIO = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
 
         // Data stream
-        private byte[] loopBuffer = new byte[1024];
+        private readonly byte[] loopBuffer = new byte[1024];
 
         // Status delegate
         public int missedSentenceCount = 0;

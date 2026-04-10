@@ -31,9 +31,9 @@ namespace AgOpenGPS
         //tramTrams
         private List<vec2> tramArr = new List<vec2>();
 
-        private List<List<vec2>> tramList = new List<List<vec2>>();
+        private readonly List<List<vec2>> tramList = new List<List<vec2>>();
 
-        private List<CTrk> gTemp = new List<CTrk>();
+        private readonly List<CTrk> gTemp = new List<CTrk>();
 
         private int passes, startPass;
 

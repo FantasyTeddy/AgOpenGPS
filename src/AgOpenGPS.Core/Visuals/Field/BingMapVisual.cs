@@ -6,8 +6,8 @@ namespace AgOpenGPS.Core.Visuals
 {
     public class BingMapVisual
     {
-        private BingMap _bingMap;
-        private GeoTexture2D _bingMapTexture;
+        private readonly BingMap _bingMap;
+        private readonly GeoTexture2D _bingMapTexture;
 
         public BingMapVisual(BingMap bingMap)
         {

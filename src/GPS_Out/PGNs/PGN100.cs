@@ -27,7 +27,7 @@ namespace GPS_Out.PGNs
         // 29       CRC
 
         private const byte HeaderCount = 5;
-        private frmStart mf;
+        private readonly frmStart mf;
         private DateTime ReceiveTime;
         private bool ExtendedPGN = false;
 

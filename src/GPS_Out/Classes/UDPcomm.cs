@@ -7,13 +7,13 @@ namespace GPS_Out
     public class UDPComm
     {
         private readonly frmStart mf;
-        private byte[] buffer = new byte[1024];
-        private string cConnectionName;
+        private readonly byte[] buffer = new byte[1024];
+        private readonly string cConnectionName;
         private string cLog;
         private IPAddress cNetworkEP;
-        private int cReceivePort;   // local ports must be unique for each app on same pc and each class instance
-        private int cSendFromPort;
-        private int cSendToPort;
+        private readonly int cReceivePort;   // local ports must be unique for each app on same pc and each class instance
+        private readonly int cSendFromPort;
+        private readonly int cSendToPort;
         private IPAddress cSourceIP;
         private string cSubNet;
         private HandleDataDelegateObj HandleDataDelegate = null;

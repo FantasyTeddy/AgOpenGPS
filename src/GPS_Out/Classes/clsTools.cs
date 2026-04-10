@@ -33,12 +33,12 @@ namespace GPS_Out
 
         private static Hashtable HTapp;
         private static Hashtable HTfiles;
-        private string cAppName = "GPS_Out";
-        private string cAppVersion = "1.2.2";
+        private readonly string cAppName = "GPS_Out";
+        private readonly string cAppVersion = "1.2.2";
         private string cPropertiesApp;
         private string cPropertiesFile;
         private string cSettingsDir;
-        private frmStart mf;
+        private readonly frmStart mf;
         private int SentenceCount = 0;
 
         public clsTools(frmStart CallingForm)

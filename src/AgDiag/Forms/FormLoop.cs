@@ -7,8 +7,8 @@ namespace AgDiag
 {
     public partial class FormLoop : Form
     {
-        private Pgns _pgns;
-        private UdpCommunication _udpCommunication;
+        private readonly Pgns _pgns;
+        private readonly UdpCommunication _udpCommunication;
 
         public FormLoop()
         {
