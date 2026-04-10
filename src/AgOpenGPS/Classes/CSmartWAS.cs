@@ -4,6 +4,7 @@ using AgLibrary.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace AgOpenGPS
 {
@@ -24,7 +25,7 @@ namespace AgOpenGPS
 
         // Collected data
         private readonly List<double> steerAngleHistory = new();
-        private readonly object dataLock = new();
+        private readonly Lock dataLock = new();
 
         // Analysis results
 
