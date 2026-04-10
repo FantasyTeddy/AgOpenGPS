@@ -423,13 +423,13 @@ namespace AgOpenGPS
 
         private void UpdateUturnText()
         {
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 lblDistance.Text = Math.Abs(mf.yt.youTurnStartOffset).ToString() + " m";
             }
             else
             {
-                lblDistance.Text = Math.Abs((int)(mf.yt.youTurnStartOffset * glm.m2ft)).ToString() + " ft";
+                lblDistance.Text = Math.Abs((int)(mf.yt.youTurnStartOffset * Glm.m2ft)).ToString() + " ft";
             }
         }
 

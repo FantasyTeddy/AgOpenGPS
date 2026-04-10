@@ -27,11 +27,11 @@ namespace GPS_Out.PGNs
         // 29       CRC
 
         private const byte HeaderCount = 5;
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
         private DateTime ReceiveTime;
         private bool ExtendedPGN = false;
 
-        public PGN100(frmStart CalledFrom)
+        public PGN100(FrmStart CalledFrom)
         {
             mf = CalledFrom;
             Fix2FixHeading = 1000;    // invalid data flag

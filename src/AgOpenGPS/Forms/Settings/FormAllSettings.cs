@@ -341,7 +341,7 @@ namespace AgOpenGPS
             AddSysRow(dgv, "Fix Quality", mf.FixQuality);
             AddSysRow(dgv, "Sats Tracked", mf.SatsTracked);
             AddSysRow(dgv, "HDOP", mf.HDOP);
-            AddSysRow(dgv, "Altitude", mf.isMetric ? mf.Altitude : mf.AltitudeFeet);
+            AddSysRow(dgv, "Altitude", mf.IsMetric ? mf.Altitude : mf.AltitudeFeet);
             AddSysRow(dgv, "Easting", Math.Round(mf.pn.fix.easting, 2).ToString());
             AddSysRow(dgv, "Northing", Math.Round(mf.pn.fix.northing, 2).ToString());
             AddSysRow(dgv, "Missed UDP Sentences", mf.missedSentenceCount.ToString());
@@ -349,7 +349,7 @@ namespace AgOpenGPS
             AddHeader(dgv, "── Heading");
             AddSysRow(dgv, "IMU Heading", mf.GyroInDegrees);
             AddSysRow(dgv, "Fix-to-Fix Heading", mf.GPSHeading);
-            AddSysRow(dgv, "Fused Heading (deg)", (mf.fixHeading * 57.2957795).ToString("N1"));
+            AddSysRow(dgv, "Fused Heading (deg)", (mf.FixHeading * 57.2957795).ToString("N1"));
             AddSysRow(dgv, "Angular Velocity", mf.ahrs.imuYawRate.ToString("N2"));
 
             AddHeader(dgv, "── Application");

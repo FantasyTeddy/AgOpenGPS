@@ -12,7 +12,7 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
 
         private readonly Color inColor;
-        public Color useThisColor { get; set; }
+        public Color UseThisColor { get; set; }
 
         private bool isUse = true;
 
@@ -34,7 +34,7 @@ namespace AgOpenGPS
             btnDay.Text = gStr.gsDay;
             groupBoxSelectPresetColor.Text = gStr.gsPresetColor;
 
-            useThisColor = inColor;
+            UseThisColor = inColor;
 
             UpdateColor(inColor);
 
@@ -55,7 +55,7 @@ namespace AgOpenGPS
             this.colorHsl = colorHSL;
             this.colorSlider.ColorHSL = this.colorHsl;
 
-            useThisColor = colorRgb;
+            UseThisColor = colorRgb;
             btnNight.BackColor = colorRgb;
             btnDay.BackColor = colorRgb;
         }
@@ -67,7 +67,7 @@ namespace AgOpenGPS
             this.colorRgb = this.colorHsl.RgbValue.CheckColorFor255();
             this.colorBox2D.ColorHSL = this.colorHsl;
 
-            useThisColor = colorRgb;
+            UseThisColor = colorRgb;
             btnNight.BackColor = colorRgb;
             btnDay.BackColor = colorRgb;
         }
@@ -80,7 +80,7 @@ namespace AgOpenGPS
             this.colorSlider.ColorHSL = this.colorHsl;
             this.colorBox2D.ColorHSL = this.colorHsl;
 
-            useThisColor = col;
+            UseThisColor = col;
             btnNight.BackColor = col;
             btnDay.BackColor = col;
         }
@@ -131,18 +131,18 @@ namespace AgOpenGPS
             Button butt = (Button)sender;
             if (isUse)
             {
-                useThisColor = butt.BackColor.CheckColorFor255();
-                UpdateColor(useThisColor);
+                UseThisColor = butt.BackColor.CheckColorFor255();
+                UpdateColor(UseThisColor);
             }
             else
             {
                 int.TryParse(butt.Name.Substring(3, 2), out int buttNumber);
 
-                useThisColor = useThisColor.CheckColorFor255();
+                UseThisColor = UseThisColor.CheckColorFor255();
 
-                int iCol = (useThisColor.A << 24) | (useThisColor.R << 16) | (useThisColor.G << 8) | useThisColor.B;
+                int iCol = (UseThisColor.A << 24) | (UseThisColor.R << 16) | (UseThisColor.G << 8) | UseThisColor.B;
                 mf.customColorsList[buttNumber] = iCol;
-                butt.BackColor = useThisColor;
+                butt.BackColor = UseThisColor;
 
                 SaveCustomColor();
             }

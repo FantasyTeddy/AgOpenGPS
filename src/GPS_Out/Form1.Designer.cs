@@ -1,6 +1,6 @@
 ﻿namespace GPS_Out
 {
-    partial class frmStart
+    partial class FrmStart
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStart));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStart));
             this.tmrGGA = new System.Windows.Forms.Timer(this.components);
             this.tmrVTG = new System.Windows.Forms.Timer(this.components);
             this.tmrMinimize = new System.Windows.Forms.Timer(this.components);

@@ -37,14 +37,14 @@ namespace AgOpenGPS.Core.DrawLib
             {
                 GL.Rotate(90, 1, 0, 0);
                 if (_camera.FollowDirectionHint) GL.Rotate(-camHeadingHint, 0, 1, 0);
-                size = -_camera.camSetDistance;
+                size = -_camera.CamSetDistance;
                 size = Math.Pow(size, 0.8);
                 size /= 800;
             }
             else
             {
                 if (_camera.FollowDirectionHint) GL.Rotate(-camHeadingHint, 0, 0, 1);
-                size = -_camera.camSetDistance;
+                size = -_camera.CamSetDistance;
                 size = Math.Pow(size, 0.85);
                 size /= 1000;
             }

@@ -25,7 +25,7 @@ namespace AgOpenGPS
         // Create a snapshot from the current GPS session to upload
         public static FieldSnapshot CreateSnapshot(FormGPS gps)
         {
-            string dir = Path.Combine(RegistrySettings.fieldsDirectory, gps.currentFieldDirectory);
+            string dir = Path.Combine(RegistrySettings.fieldsDirectory, gps.CurrentFieldDirectory);
             string idPath = Path.Combine(dir, "agshare.txt");
 
             Guid fieldId;
@@ -39,7 +39,7 @@ namespace AgOpenGPS
                 fieldId = Guid.NewGuid();
             }
 
-            List<List<vec3>> boundaries = new();
+            List<List<Vec3>> boundaries = new();
             foreach (CBoundaryList b in gps.bnd.bndList)
             {
                 boundaries.Add(b.fenceLine.ToList());
@@ -52,7 +52,7 @@ namespace AgOpenGPS
 
             FieldSnapshot snapshot = new()
             {
-                FieldName = gps.displayFieldName,
+                FieldName = gps.DisplayFieldName,
                 FieldDirectory = dir,
                 FieldId = fieldId,
                 OriginLat = origin.Latitude,
@@ -77,7 +77,7 @@ namespace AgOpenGPS
                 if (snapshot.Boundaries != null && snapshot.Boundaries.Count > 0)
                 {
                     // Convert first boundary as outer boundary
-                    List<vec3> firstBoundary = snapshot.Boundaries.FirstOrDefault();
+                    List<Vec3> firstBoundary = snapshot.Boundaries.FirstOrDefault();
                     if (firstBoundary != null)
                     {
                         outer = ConvertBoundary(firstBoundary, snapshot.Converter);
@@ -85,7 +85,7 @@ namespace AgOpenGPS
                     }
 
                     // Convert remaining boundaries as holes
-                    foreach (List<vec3> innerBoundary in snapshot.Boundaries.Skip(1))
+                    foreach (List<Vec3> innerBoundary in snapshot.Boundaries.Skip(1))
                     {
                         List<CoordinateDto> hole = ConvertBoundary(innerBoundary, snapshot.Converter);
                         if (hole != null && hole.Count >= 4) holes.Add(hole);
@@ -140,7 +140,7 @@ namespace AgOpenGPS
         }
 
         // Convert local NE boundary to WGS84
-        private static List<CoordinateDto> ConvertBoundary(List<vec3> localFence, LocalPlane converter)
+        private static List<CoordinateDto> ConvertBoundary(List<Vec3> localFence, LocalPlane converter)
         {
             List<CoordinateDto> coords = new();
             for (int i = 0; i < localFence.Count; i++)
@@ -191,7 +191,7 @@ namespace AgOpenGPS
                 else if (ab.mode == TrackMode.Curve && ab.curvePts.Count >= 2)
                 {
                     List<CoordinateDto> coords = new();
-                    foreach (vec3 pt in ab.curvePts)
+                    foreach (Vec3 pt in ab.curvePts)
                     {
                         GeoCoord geo = new(pt.northing, pt.easting);
                         Wgs84 wgs = converter.ConvertGeoCoordToWgs84(geo);

@@ -31,10 +31,10 @@ namespace GPS_Out
         private ushort cHdopX100;
         private short cImuPitch;
         private short cImuRoll;
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
         private DateTime ReceiveTime;
 
-        public PGN54908(frmStart CalledFrom)
+        public PGN54908(FrmStart CalledFrom)
         {
             mf = CalledFrom;
         }

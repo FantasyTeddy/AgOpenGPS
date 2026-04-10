@@ -29,9 +29,9 @@ namespace GPS_Out.PGNs
         #endregion GSA message
 
         private string cSentence;
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
 
-        public PGN_GSA(frmStart CalledFrom)
+        public PGN_GSA(FrmStart CalledFrom)
         {
             mf = CalledFrom;
         }

@@ -63,7 +63,7 @@ namespace AgOpenGPS.IO
                         double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double northing) &&
                         double.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double heading))
                     {
-                        b.fenceLine.Add(new vec3(easting, northing, heading));
+                        b.fenceLine.Add(new Vec3(easting, northing, heading));
                     }
                 }
 
@@ -76,13 +76,13 @@ namespace AgOpenGPS.IO
                 {
                     if (i == 0)
                     {
-                        b.fenceLineEar.Add(new vec2(b.fenceLine[i].easting, b.fenceLine[i].northing));
+                        b.fenceLineEar.Add(new Vec2(b.fenceLine[i].easting, b.fenceLine[i].northing));
                         continue;
                     }
                     delta += b.fenceLine[i - 1].heading - b.fenceLine[i].heading;
                     if (Math.Abs(delta) > 0.005)
                     {
-                        b.fenceLineEar.Add(new vec2(b.fenceLine[i].easting, b.fenceLine[i].northing));
+                        b.fenceLineEar.Add(new Vec2(b.fenceLine[i].easting, b.fenceLine[i].northing));
                         delta = 0;
                     }
                 }
@@ -104,14 +104,14 @@ namespace AgOpenGPS.IO
             for (int i = 0; i < boundaries.Count; i++)
             {
                 CBoundaryList b = boundaries[i];
-                List<vec3> fence = b.fenceLine ?? new List<vec3>();
+                List<Vec3> fence = b.fenceLine ?? new List<Vec3>();
 
                 writer.WriteLine(b.isDriveThru.ToString());
                 writer.WriteLine(fence.Count.ToString(CultureInfo.InvariantCulture));
 
                 for (int j = 0; j < fence.Count; j++)
                 {
-                    vec3 p = fence[j];
+                    Vec3 p = fence[j];
                     writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
                 }
             }

@@ -33,7 +33,7 @@ public class IsoXmlFieldImporter
         return IsoXmlParserHelpers.ParseBoundaries(_fieldParts, _appModel);
     }
 
-    public List<vec3> GetHeadland()
+    public List<Vec3> GetHeadland()
     {
         return IsoXmlParserHelpers.ParseHeadland(_fieldParts, _appModel);
     }

@@ -6,7 +6,7 @@ namespace GPS_Out
 {
     public class UDPComm
     {
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
         private readonly byte[] buffer = new byte[1024];
         private readonly string cConnectionName;
         private string cLog;
@@ -18,7 +18,7 @@ namespace GPS_Out
         private Socket recvSocket;
         private Socket sendSocket;
 
-        public UDPComm(frmStart CallingForm, int ReceivePort, int SendFromPort,
+        public UDPComm(FrmStart CallingForm, int ReceivePort, int SendFromPort,
             string ConnectionName, string SourceIPaddress, string DestinationEndPoint = "")
         {
             mf = CallingForm;

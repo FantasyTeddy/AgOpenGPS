@@ -40,13 +40,13 @@ namespace AgOpenGPS
             //lblRoll.Text = mf.RollInDegrees;
             lblIMUHeading.Text = mf.GyroInDegrees;
             lblFix2FixHeading.Text = mf.GPSHeading;
-            lblFuzeHeading.Text = (mf.fixHeading * 57.2957795).ToString("N1");
+            lblFuzeHeading.Text = (mf.FixHeading * 57.2957795).ToString("N1");
 
             lblAngularVelocity.Text = mf.ahrs.imuYawRate.ToString("N2");
 
             lbludpWatchCounts.Text = mf.missedSentenceCount.ToString();
 
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 lblAltitude.Text = mf.Altitude;
             }

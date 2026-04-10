@@ -37,32 +37,32 @@ namespace AgOpenGPS
         private void FormJob_Load(object sender, EventArgs e)
         {
             //check if directory and file exists, maybe was deleted etc
-            if (String.IsNullOrEmpty(mf.currentFieldDirectory)) btnJobResume.Enabled = false;
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+            if (String.IsNullOrEmpty(mf.CurrentFieldDirectory)) btnJobResume.Enabled = false;
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory);
 
             string fileAndDirectory = Path.Combine(directoryName, "Field.txt");
 
             //Trigger a snapshot to create a temp data file for the AgShare Upload
-            if (mf.isJobStarted && Properties.Settings.Default.AgShareEnabled) mf.AgShareSnapshot();
+            if (mf.IsJobStarted && Properties.Settings.Default.AgShareEnabled) mf.AgShareSnapshot();
 
 
             if (!File.Exists(fileAndDirectory))
             {
                 lblResumeField.Text = "";
                 btnJobResume.Enabled = false;
-                mf.currentFieldDirectory = "";
+                mf.CurrentFieldDirectory = "";
 
                 Log.EventWriter("Field Directory is Empty or Missing");
             }
             else
             {
-                lblResumeField.Text = gStr.gsResume + ": " + mf.currentFieldDirectory;
+                lblResumeField.Text = gStr.gsResume + ": " + mf.CurrentFieldDirectory;
 
-                if (mf.isJobStarted)
+                if (mf.IsJobStarted)
                 {
 
                     btnJobResume.Enabled = false;
-                    lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
+                    lblResumeField.Text = gStr.gsOpen + ": " + mf.CurrentFieldDirectory;
                 }
                 else
                 {
@@ -85,7 +85,7 @@ namespace AgOpenGPS
 
         private void btnJobNew_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 _ = mf.FileSaveEverythingBeforeClosingField();
             }
@@ -108,7 +108,7 @@ namespace AgOpenGPS
 
         private async void btnJobOpen_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
@@ -127,7 +127,7 @@ namespace AgOpenGPS
 
         private async void btnInField_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
@@ -172,7 +172,7 @@ namespace AgOpenGPS
 
                                 // Convert to miles if not metric
                                 Distance distanceObj = new(distance * 1000); // Distance expects meters
-                                double displayDistance = mf.isMetric ? distanceObj.InKilometers : distanceObj.InMiles;
+                                double displayDistance = mf.IsMetric ? distanceObj.InKilometers : distanceObj.InMiles;
                                 distanceList += displayDistance.ToString("F3");
                             }
                         }
@@ -218,7 +218,7 @@ namespace AgOpenGPS
         private async void btnFromKML_Click(object sender, EventArgs e)
         {
             //back to FormGPS
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
@@ -235,7 +235,7 @@ namespace AgOpenGPS
 
         private void btnJobClose_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 _ = Task.Run(() => mf.FileSaveEverythingBeforeClosingField());
             }
@@ -253,7 +253,7 @@ namespace AgOpenGPS
 
         private async void btnFromISOXML_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
@@ -269,7 +269,7 @@ namespace AgOpenGPS
 
         private async void btnJobAgShare_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
@@ -284,7 +284,7 @@ namespace AgOpenGPS
 
         private void btnAgShareBulkUpload_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 FormDialog.Show(gStr.gsError, gStr.gsCloseFieldFirst, DialogSeverity.Error);
                 return;

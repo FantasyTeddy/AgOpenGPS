@@ -111,7 +111,7 @@ namespace AgOpenGPS.Core
             GLW.RotateZ(gridRotation);
         }
 
-        public void checkZoomWorldGrid(GeoCoord geoCoord)
+        public void CheckZoomWorldGrid(GeoCoord geoCoord)
         {
             double n = Math.Round(geoCoord.Northing / (GridSize / Count * 2), MidpointRounding.AwayFromZero) * (GridSize / Count * 2);
             double e = Math.Round(geoCoord.Easting / (GridSize / Count * 2), MidpointRounding.AwayFromZero) * (GridSize / Count * 2);

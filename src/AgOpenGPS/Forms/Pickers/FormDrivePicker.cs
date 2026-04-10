@@ -22,7 +22,7 @@ namespace AgOpenGPS
             btnOpenExistingLv.Text = gStr.gsUseSelected;
 
             // Set distance column header based on metric setting
-            chDistance.Text = mf.isMetric ? "Distance (km)" : "Distance (mi)";
+            chDistance.Text = mf.IsMetric ? "Distance (km)" : "Distance (mi)";
 
             string[] fileList = _fileList.Split(',');
             string[] distanceList = _distanceList.Split(',');

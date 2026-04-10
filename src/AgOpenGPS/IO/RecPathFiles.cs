@@ -59,7 +59,7 @@ namespace AgOpenGPS.IO
             for (int i = 0; i < list.Count; i++)
             {
                 CRecPathPt p = list[i];
-                writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 3)},{FileIoUtils.FormatDouble(p.speed, 1)},{p.autoBtnState}");
+                writer.WriteLine($"{FileIoUtils.FormatDouble(p.Easting, 3)},{FileIoUtils.FormatDouble(p.Northing, 3)},{FileIoUtils.FormatDouble(p.Heading, 3)},{FileIoUtils.FormatDouble(p.Speed, 1)},{p.AutoBtnState}");
             }
         }
 

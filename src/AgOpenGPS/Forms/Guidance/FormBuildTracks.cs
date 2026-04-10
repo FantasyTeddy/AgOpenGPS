@@ -27,8 +27,8 @@ namespace AgOpenGPS
 
         private bool isRefRightSide = true; //left side 0 middle 1 right 2
         private TrackMode mode = TrackMode.None;
-        private vec2 ptAa = new();
-        private vec2 ptBb = new();
+        private Vec2 ptAa = new();
+        private Vec2 ptBb = new();
 
         private bool isOn = true;
 
@@ -531,13 +531,13 @@ namespace AgOpenGPS
 
                 if (mf.trk.gArr[idx].mode == TrackMode.AB)
                 {
-                    vec2 bob = mf.trk.gArr[idx].ptA;
+                    Vec2 bob = mf.trk.gArr[idx].ptA;
                     mf.trk.gArr[idx].ptA = mf.trk.gArr[idx].ptB;
-                    mf.trk.gArr[idx].ptB = new vec2(bob);
+                    mf.trk.gArr[idx].ptB = new Vec2(bob);
 
                     mf.trk.gArr[idx].heading += Math.PI;
-                    if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += glm.twoPI;
-                    if (mf.trk.gArr[idx].heading > glm.twoPI) mf.trk.gArr[idx].heading -= glm.twoPI;
+                    if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += Glm.twoPI;
+                    if (mf.trk.gArr[idx].heading > Glm.twoPI) mf.trk.gArr[idx].heading -= Glm.twoPI;
                 }
                 else
                 {
@@ -546,28 +546,28 @@ namespace AgOpenGPS
                     {
                         mf.trk.gArr[idx].curvePts.Reverse();
 
-                        vec3[] arr = new vec3[cnt];
+                        Vec3[] arr = new Vec3[cnt];
                         cnt--;
                         mf.trk.gArr[idx].curvePts.CopyTo(arr);
                         mf.trk.gArr[idx].curvePts.Clear();
 
                         mf.trk.gArr[idx].heading += Math.PI;
-                        if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += glm.twoPI;
-                        if (mf.trk.gArr[idx].heading > glm.twoPI) mf.trk.gArr[idx].heading -= glm.twoPI;
+                        if (mf.trk.gArr[idx].heading < 0) mf.trk.gArr[idx].heading += Glm.twoPI;
+                        if (mf.trk.gArr[idx].heading > Glm.twoPI) mf.trk.gArr[idx].heading -= Glm.twoPI;
 
                         for (int i = 1; i < cnt; i++)
                         {
-                            vec3 pt3 = arr[i];
+                            Vec3 pt3 = arr[i];
                             pt3.heading += Math.PI;
-                            if (pt3.heading > glm.twoPI) pt3.heading -= glm.twoPI;
-                            if (pt3.heading < 0) pt3.heading += glm.twoPI;
-                            mf.trk.gArr[idx].curvePts.Add(new vec3(pt3));
+                            if (pt3.heading > Glm.twoPI) pt3.heading -= Glm.twoPI;
+                            if (pt3.heading < 0) pt3.heading += Glm.twoPI;
+                            mf.trk.gArr[idx].curvePts.Add(new Vec3(pt3));
                         }
 
-                        vec2 temp = new(mf.trk.gArr[idx].ptA);
+                        Vec2 temp = new(mf.trk.gArr[idx].ptA);
 
-                        mf.trk.gArr[idx].ptA = new vec2(mf.trk.gArr[idx].ptB);
-                        mf.trk.gArr[idx].ptB = new vec2(temp);
+                        mf.trk.gArr[idx].ptA = new Vec2(mf.trk.gArr[idx].ptB);
+                        mf.trk.gArr[idx].ptB = new Vec2(temp);
                     }
                 }
 
@@ -768,7 +768,7 @@ namespace AgOpenGPS
         {
             if (mf.curve.isMakingCurve)
             {
-                mf.curve.desList.Add(new vec3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, mf.pivotAxlePos.heading));
+                mf.curve.desList.Add(new Vec3(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing, mf.pivotAxlePos.heading));
                 btnBCurve.Enabled = mf.curve.desList.Count > 2;
                 if (mode == TrackMode.waterPivot)
                 {
@@ -829,14 +829,14 @@ namespace AgOpenGPS
                 //array number is 1 less since it starts at zero
                 idx = mf.trk.gArr.Count - 1;
 
-                mf.trk.gArr[idx].ptA = new vec2(ptAa);
-                mf.trk.gArr[idx].ptB = new vec2(ptBb);
+                mf.trk.gArr[idx].ptA = new Vec2(ptAa);
+                mf.trk.gArr[idx].ptB = new Vec2(ptBb);
 
                 mf.trk.gArr[idx].mode = TrackMode.Curve;
 
                 //calculate average heading of line
                 double x = 0, y = 0;
-                foreach (vec3 pt in mf.curve.desList)
+                foreach (Vec3 pt in mf.curve.desList)
                 {
                     x += Math.Cos(pt.heading);
                     y += Math.Sin(pt.heading);
@@ -844,7 +844,7 @@ namespace AgOpenGPS
                 x /= mf.curve.desList.Count;
                 y /= mf.curve.desList.Count;
                 aveLineHeading = Math.Atan2(y, x);
-                if (aveLineHeading < 0) aveLineHeading += glm.twoPI;
+                if (aveLineHeading < 0) aveLineHeading += Glm.twoPI;
 
                 mf.trk.gArr[idx].heading = aveLineHeading;
 
@@ -854,13 +854,13 @@ namespace AgOpenGPS
                 CABCurve.CalculateHeadings(ref mf.curve.desList);
 
                 //write out the Curve Points
-                foreach (vec3 item in mf.curve.desList)
+                foreach (Vec3 item in mf.curve.desList)
                 {
                     mf.trk.gArr[idx].curvePts.Add(item);
                 }
 
                 mf.curve.desName = "Cu " +
-                    Math.Round(glm.toDegrees(aveLineHeading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                    Math.Round(Glm.ToDegrees(aveLineHeading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
 
                 textBox1.Text = mf.curve.desName;
 
@@ -939,7 +939,7 @@ namespace AgOpenGPS
             btnALine.Enabled = false;
             btnEnter_AB.Enabled = false;
 
-            mf.ABLine.desPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            mf.ABLine.desPtA = new Vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
             mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.pivotAxlePos.heading) * 1000);
             mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.pivotAxlePos.heading) * 1000);
@@ -960,13 +960,13 @@ namespace AgOpenGPS
             timer1.Enabled = false;
             btnEnter_AB.Enabled = true;
 
-            mf.ABLine.desPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            mf.ABLine.desPtB = new Vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
             btnBLine.BackColor = System.Drawing.Color.Teal;
 
             mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
                mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
-            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
+            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += Glm.twoPI;
 
             mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.ABLine.desHeading) * 1000);
             mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.ABLine.desHeading) * 1000);
@@ -985,15 +985,15 @@ namespace AgOpenGPS
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-            mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
+            mf.trk.gArr[idx].ptA = new Vec2(mf.ABLine.desPtA);
+            mf.trk.gArr[idx].ptB = new Vec2(mf.ABLine.desPtB);
 
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "AB " +
-                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(Glm.ToDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             double dist;
@@ -1034,7 +1034,7 @@ namespace AgOpenGPS
         {
             mf.ABLine.isMakingABLine = true;
 
-            mf.ABLine.desPtA = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            mf.ABLine.desPtA = new Vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
             mf.ABLine.desPtB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.pivotAxlePos.heading) * 1);
             mf.ABLine.desPtB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.pivotAxlePos.heading) * 1);
@@ -1050,7 +1050,7 @@ namespace AgOpenGPS
             btnEnter_AB.Enabled = true;
             nudHeading.Enabled = true;
 
-            nudHeading.Value = (decimal)glm.toDegrees(mf.ABLine.desHeading);
+            nudHeading.Value = (decimal)Glm.ToDegrees(mf.ABLine.desHeading);
 
             timer1.Enabled = true;
             mf.Activate();
@@ -1063,7 +1063,7 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 //original A pt. 
-                mf.ABLine.desHeading = glm.toRadians((double)nudHeading.Value);
+                mf.ABLine.desHeading = Glm.ToRadians((double)nudHeading.Value);
 
                 //start end of line
                 mf.ABLine.desPtB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.ABLine.desHeading) * 200);
@@ -1087,15 +1087,15 @@ namespace AgOpenGPS
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-            mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
+            mf.trk.gArr[idx].ptA = new Vec2(mf.ABLine.desPtA);
+            mf.trk.gArr[idx].ptB = new Vec2(mf.ABLine.desPtB);
 
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "A+" +
-                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(Glm.ToDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             double dist;
@@ -1122,11 +1122,11 @@ namespace AgOpenGPS
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            mf.ABLine.desPtB = new vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
+            mf.ABLine.desPtB = new Vec2(mf.pivotAxlePos.easting, mf.pivotAxlePos.northing);
 
             mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
                mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
-            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
+            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += Glm.twoPI;
 
             mf.ABLine.desLineEndA.easting = mf.ABLine.desPtA.easting - (Math.Sin(mf.ABLine.desHeading) * 1000);
             mf.ABLine.desLineEndA.northing = mf.ABLine.desPtA.northing - (Math.Cos(mf.ABLine.desHeading) * 1000);
@@ -1155,7 +1155,7 @@ namespace AgOpenGPS
                     Filter = "KML files (*.KML)|*.KML",
 
                     //the initial directory, fields, for the open dialog
-                    InitialDirectory = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory)
+                    InitialDirectory = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory)
                 };
 
                 //was a file selected
@@ -1203,7 +1203,7 @@ namespace AgOpenGPS
                             double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double latK);
 
                             GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latK, lonK));
-                            mf.curve.desList.Add(new vec3(geoCoord));
+                            mf.curve.desList.Add(new Vec3(geoCoord));
                         }
                     }
 
@@ -1219,7 +1219,7 @@ namespace AgOpenGPS
                         // heading based on AB points
                         mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
                             mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
-                        if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
+                        if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += Glm.twoPI;
 
                         if (namelist.Count > i)
                         {
@@ -1229,7 +1229,7 @@ namespace AgOpenGPS
                         else
                         {
                             mf.ABLine.desName = "AB " +
-                            Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                            Math.Round(Glm.ToDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
                         }
 
                         mf.trk.gArr.Add(new CTrk());
@@ -1239,8 +1239,8 @@ namespace AgOpenGPS
                         mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
                         mf.trk.gArr[idx].mode = TrackMode.AB;
 
-                        mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-                        mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
+                        mf.trk.gArr[idx].ptA = new Vec2(mf.ABLine.desPtA);
+                        mf.trk.gArr[idx].ptB = new Vec2(mf.ABLine.desPtB);
 
                         //create a name
                         mf.trk.gArr[idx].name = mf.ABLine.desName;
@@ -1259,16 +1259,16 @@ namespace AgOpenGPS
                         idx = mf.trk.gArr.Count - 1;
 
                         mf.trk.gArr[idx].ptA =
-                            new vec2(mf.curve.desList[0].easting, mf.curve.desList[0].northing);
+                            new Vec2(mf.curve.desList[0].easting, mf.curve.desList[0].northing);
                         mf.trk.gArr[idx].ptB =
-                            new vec2(mf.curve.desList[^1].easting,
+                            new Vec2(mf.curve.desList[^1].easting,
                             mf.curve.desList[^1].northing);
 
                         mf.trk.gArr[idx].mode = TrackMode.Curve;
 
                         //calculate average heading of line
                         double x = 0, y = 0;
-                        foreach (vec3 pt in mf.curve.desList)
+                        foreach (Vec3 pt in mf.curve.desList)
                         {
                             x += Math.Cos(pt.heading);
                             y += Math.Sin(pt.heading);
@@ -1276,7 +1276,7 @@ namespace AgOpenGPS
                         x /= mf.curve.desList.Count;
                         y /= mf.curve.desList.Count;
                         aveLineHeading = Math.Atan2(y, x);
-                        if (aveLineHeading < 0) aveLineHeading += glm.twoPI;
+                        if (aveLineHeading < 0) aveLineHeading += Glm.twoPI;
 
                         mf.trk.gArr[idx].heading = aveLineHeading;
 
@@ -1286,9 +1286,9 @@ namespace AgOpenGPS
                         CABCurve.CalculateHeadings(ref mf.curve.desList);
 
                         //write out the Curve Points
-                        foreach (vec3 item in mf.curve.desList)
+                        foreach (Vec3 item in mf.curve.desList)
                         {
-                            mf.trk.gArr[idx].curvePts.Add(new vec3(item));
+                            mf.trk.gArr[idx].curvePts.Add(new Vec3(item));
                         }
                         if (namelist.Count > i)
                         {
@@ -1298,7 +1298,7 @@ namespace AgOpenGPS
                         else
                         {
                             mf.curve.desName = "Cu " +
-                                 Math.Round(glm.toDegrees(aveLineHeading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                                 Math.Round(Glm.ToDegrees(aveLineHeading), 1).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
                         }
 
                         mf.trk.gArr[idx].name = mf.curve.desName;
@@ -1362,15 +1362,15 @@ namespace AgOpenGPS
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-            mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
+            mf.trk.gArr[idx].ptA = new Vec2(mf.ABLine.desPtA);
+            mf.trk.gArr[idx].ptB = new Vec2(mf.ABLine.desPtB);
 
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "AB " +
-                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(Glm.ToDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             panelLatLonLatLon.Visible = false;
@@ -1383,15 +1383,15 @@ namespace AgOpenGPS
         {
             GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitudeA.Value, (double)nudLongitudeA.Value));
 
-            mf.ABLine.desPtA = new vec2(geoCoord);
+            mf.ABLine.desPtA = new Vec2(geoCoord);
 
             geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitudeB.Value, (double)nudLongitudeB.Value));
-            mf.ABLine.desPtB = new vec2(geoCoord);
+            mf.ABLine.desPtB = new Vec2(geoCoord);
 
             // heading based on AB points
             mf.ABLine.desHeading = Math.Atan2(mf.ABLine.desPtB.easting - mf.ABLine.desPtA.easting,
                 mf.ABLine.desPtB.northing - mf.ABLine.desPtA.northing);
-            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += glm.twoPI;
+            if (mf.ABLine.desHeading < 0) mf.ABLine.desHeading += Glm.twoPI;
         }
 
         private void btnFillLatLonLatLonA_Click(object sender, EventArgs e)
@@ -1438,15 +1438,15 @@ namespace AgOpenGPS
             mf.ABLine.desPtB.easting = mf.ABLine.desPtA.easting + (Math.Sin(mf.ABLine.desHeading) * 200);
             mf.ABLine.desPtB.northing = mf.ABLine.desPtA.northing + (Math.Cos(mf.ABLine.desHeading) * 200);
 
-            mf.trk.gArr[idx].ptA = new vec2(mf.ABLine.desPtA);
-            mf.trk.gArr[idx].ptB = new vec2(mf.ABLine.desPtB);
+            mf.trk.gArr[idx].ptA = new Vec2(mf.ABLine.desPtA);
+            mf.trk.gArr[idx].ptB = new Vec2(mf.ABLine.desPtB);
 
             mf.trk.gArr[idx].mode = TrackMode.AB;
 
             mf.trk.gArr[idx].heading = mf.ABLine.desHeading;
 
             mf.ABLine.desName = "A+ " +
-                Math.Round(glm.toDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
+                Math.Round(Glm.ToDegrees(mf.ABLine.desHeading), 5).ToString(CultureInfo.InvariantCulture) + "\u00B0 ";
             textBox1.Text = mf.ABLine.desName;
 
             panelLatLonPlus.Visible = false;
@@ -1465,8 +1465,8 @@ namespace AgOpenGPS
         {
             GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitudePlus.Value, (double)nudLongitudePlus.Value));
 
-            mf.ABLine.desHeading = glm.toRadians((double)nudHeadingLatLonPlus.Value);
-            mf.ABLine.desPtA = new vec2(geoCoord);
+            mf.ABLine.desHeading = Glm.ToRadians((double)nudHeadingLatLonPlus.Value);
+            mf.ABLine.desPtA = new Vec2(geoCoord);
         }
 
         #endregion
@@ -1491,7 +1491,7 @@ namespace AgOpenGPS
 
             idx = mf.trk.gArr.Count - 1;
 
-            mf.trk.gArr[idx].ptA = new vec2(geoCoord);
+            mf.trk.gArr[idx].ptA = new Vec2(geoCoord);
             mf.trk.gArr[idx].mode = TrackMode.waterPivot;
 
             mf.ABLine.desName = "Piv";
@@ -1504,7 +1504,7 @@ namespace AgOpenGPS
             mf.Activate();
         }
 
-        private vec2 FindCircleCenter(vec3 p1, vec3 p2, vec3 p3)
+        private Vec2 FindCircleCenter(Vec3 p1, Vec3 p2, Vec3 p3)
         {
             double d2 = (p2.northing * p2.northing) + (p2.easting * p2.easting);
             double bc = ((p1.northing * p1.northing) + (p1.easting * p1.easting) - d2) / 2;
@@ -1512,14 +1512,14 @@ namespace AgOpenGPS
             double det = ((p1.northing - p2.northing) * (p2.easting - p3.easting)) - ((p2.northing - p3.northing) * (p1.easting - p2.easting));
             if (Math.Abs(det) > 1e-10)
             {
-                return new vec2(
+                return new Vec2(
               (((p1.northing - p2.northing) * cd) - ((p2.northing - p3.northing) * bc)) / det,
               ((bc * (p2.easting - p3.easting)) - (cd * (p1.easting - p2.easting))) / det
             );
             }
             else
             {
-                return new vec2();
+                return new Vec2();
             }
         }
 
@@ -1615,7 +1615,7 @@ namespace AgOpenGPS
             int cnt = mf.curve.desList.Count;
 
             //the temp array
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
 
             //read the points before and after the setpoint
             for (int s = 0; s < smPts / 2; s++)

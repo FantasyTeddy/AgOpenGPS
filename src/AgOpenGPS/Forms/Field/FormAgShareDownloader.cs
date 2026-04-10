@@ -134,7 +134,7 @@ namespace AgOpenGPS.Forms.Field
             }
 
             // Close Current Field if necessary
-            if (gps.isJobStarted)
+            if (gps.IsJobStarted)
             {
                 await gps.FileSaveEverythingBeforeClosingField();
             }
@@ -240,7 +240,7 @@ namespace AgOpenGPS.Forms.Field
             foreach (CBoundaryList bnd in field.Boundaries)
             {
                 GL.Begin(PrimitiveType.LineLoop);
-                foreach (vec3 pt in bnd.fenceLine)
+                foreach (Vec3 pt in bnd.fenceLine)
                     GL.Vertex2(pt.easting, pt.northing);
                 GL.End();
             }
@@ -257,7 +257,7 @@ namespace AgOpenGPS.Forms.Field
                     // Render curve (red dashed line)
                     GL.Color4(1f, 0f, 0f, 0.9f);
                     GL.Begin(PrimitiveType.LineStrip);
-                    foreach (vec3 pt in trk.curvePts)
+                    foreach (Vec3 pt in trk.curvePts)
                         GL.Vertex2(pt.easting, pt.northing);
                     GL.End();
                 }
@@ -287,7 +287,7 @@ namespace AgOpenGPS.Forms.Field
             {
                 foreach (CBoundaryList bnd in boundaries)
                 {
-                    foreach (vec3 pt in bnd.fenceLine)
+                    foreach (Vec3 pt in bnd.fenceLine)
                     {
                         bb.Include(pt.ToGeoCoord());
                     }
@@ -301,7 +301,7 @@ namespace AgOpenGPS.Forms.Field
                 {
                     if (trk.mode == TrackMode.Curve && trk.curvePts != null && trk.curvePts.Count > 0)
                     {
-                        foreach (vec3 pt in trk.curvePts)
+                        foreach (Vec3 pt in trk.curvePts)
                         {
                             bb.Include(pt.ToGeoCoord());
                         }

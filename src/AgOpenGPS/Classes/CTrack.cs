@@ -23,7 +23,7 @@ namespace AgOpenGPS
             idx = -1;
         }
 
-        public int FindClosestRefTrack(vec3 pivot)
+        public int FindClosestRefTrack(Vec3 pivot)
         {
             if (idx < 0 || gArr.Count == 0) return -1;
 
@@ -70,7 +70,7 @@ namespace AgOpenGPS
             double minDistA = double.MaxValue;
             double dist;
 
-            vec2 endPtA, endPtB;
+            Vec2 endPtA, endPtB;
 
             for (int i = 0; i < gArr.Count; i++)
             {
@@ -109,7 +109,7 @@ namespace AgOpenGPS
                     for (int j = 0; j < gArr[i].curvePts.Count; j++)
                     {
 
-                        dist = glm.DistanceSquared(gArr[i].curvePts[j], pivot);
+                        dist = Glm.DistanceSquared(gArr[i].curvePts[j], pivot);
 
                         if (dist < minDistA)
                         {
@@ -196,27 +196,27 @@ namespace AgOpenGPS
         {
             double head = gArr[idx].heading;
 
-            gArr[idx].ptA.easting += Math.Sin(head + glm.PIBy2) * dist;
-            gArr[idx].ptA.northing += Math.Cos(head + glm.PIBy2) * dist;
+            gArr[idx].ptA.easting += Math.Sin(head + Glm.PIBy2) * dist;
+            gArr[idx].ptA.northing += Math.Cos(head + Glm.PIBy2) * dist;
 
-            gArr[idx].ptB.easting += Math.Sin(head + glm.PIBy2) * dist;
-            gArr[idx].ptB.northing += Math.Cos(head + glm.PIBy2) * dist;
+            gArr[idx].ptB.easting += Math.Sin(head + Glm.PIBy2) * dist;
+            gArr[idx].ptB.northing += Math.Cos(head + Glm.PIBy2) * dist;
         }
 
         public void NudgeRefCurve(double distAway)
         {
             mf.curve.isCurveValid = false;
 
-            List<vec3> curList = new();
+            List<Vec3> curList = new();
 
             double distSqAway = (distAway * distAway) - 0.01;
-            vec3 point;
+            Vec3 point;
 
             for (int i = 0; i < gArr[idx].curvePts.Count; i++)
             {
-                point = new vec3(
-                gArr[idx].curvePts[i].easting + (Math.Sin(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
-                gArr[idx].curvePts[i].northing + (Math.Cos(glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
+                point = new Vec3(
+                gArr[idx].curvePts[i].easting + (Math.Sin(Glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
+                gArr[idx].curvePts[i].northing + (Math.Cos(Glm.PIBy2 + gArr[idx].curvePts[i].heading) * distAway),
                 gArr[idx].curvePts[i].heading);
                 bool Add = true;
 
@@ -250,7 +250,7 @@ namespace AgOpenGPS
             int cnt = curList.Count;
             if (cnt > 6)
             {
-                vec3[] arr = new vec3[cnt];
+                Vec3[] arr = new Vec3[cnt];
                 curList.CopyTo(arr);
 
                 curList.Clear();
@@ -258,8 +258,8 @@ namespace AgOpenGPS
                 for (int i = 0; i < (arr.Length - 1); i++)
                 {
                     arr[i].heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
-                    if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
-                    if (arr[i].heading >= glm.twoPI) arr[i].heading -= glm.twoPI;
+                    if (arr[i].heading < 0) arr[i].heading += Glm.twoPI;
+                    if (arr[i].heading >= Glm.twoPI) arr[i].heading -= Glm.twoPI;
                 }
 
                 arr[^1].heading = arr[^2].heading;
@@ -277,14 +277,14 @@ namespace AgOpenGPS
                     // add p2
                     curList.Add(arr[i + 1]);
 
-                    distance = glm.Distance(arr[i + 1], arr[i + 2]);
+                    distance = Glm.Distance(arr[i + 1], arr[i + 2]);
 
                     if (distance > spacing)
                     {
                         int loopTimes = (int)((distance / spacing) + 1);
                         for (int j = 1; j < loopTimes; j++)
                         {
-                            vec3 pos = new(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
+                            Vec3 pos = new(Glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
                             curList.Add(pos);
                         }
                     }
@@ -297,9 +297,9 @@ namespace AgOpenGPS
 
                 gArr[idx].curvePts.Clear();
 
-                foreach (vec3 item in curList)
+                foreach (Vec3 item in curList)
                 {
-                    gArr[idx].curvePts.Add(new vec3(item));
+                    gArr[idx].curvePts.Add(new Vec3(item));
                 }
 
                 //for (int i = 0; i < cnt; i++)
@@ -314,42 +314,42 @@ namespace AgOpenGPS
 
     public class CTrk
     {
-        public List<vec3> curvePts = new();
+        public List<Vec3> curvePts = new();
         public double heading;
         public string name;
         public bool isVisible;
-        public vec2 ptA;
-        public vec2 ptB;
-        public vec2 endPtA;
-        public vec2 endPtB;
+        public Vec2 ptA;
+        public Vec2 ptB;
+        public Vec2 endPtA;
+        public Vec2 endPtB;
         public TrackMode mode;
         public double nudgeDistance;
         public HashSet<int> workedTracks = new();
 
         public CTrk()
         {
-            curvePts = new List<vec3>();
+            curvePts = new List<Vec3>();
             heading = 3;
             name = "New Track";
             isVisible = true;
-            ptA = new vec2();
-            ptB = new vec2();
-            endPtA = new vec2();
-            endPtB = new vec2();
+            ptA = new Vec2();
+            ptB = new Vec2();
+            endPtA = new Vec2();
+            endPtB = new Vec2();
             mode = TrackMode.None;
             nudgeDistance = 0;
         }
 
         public CTrk(CTrk _trk)
         {
-            curvePts = new List<vec3>(_trk.curvePts);
+            curvePts = new List<Vec3>(_trk.curvePts);
             heading = _trk.heading;
             name = _trk.name;
             isVisible = _trk.isVisible;
             ptA = _trk.ptA;
             ptB = _trk.ptB;
-            endPtA = new vec2();
-            endPtB = new vec2();
+            endPtA = new Vec2();
+            endPtB = new Vec2();
             mode = _trk.mode;
             nudgeDistance = _trk.nudgeDistance;
         }

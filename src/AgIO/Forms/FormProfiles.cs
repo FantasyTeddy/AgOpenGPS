@@ -77,7 +77,7 @@ namespace AgIO
         {
             TextBox textboxSender = (TextBox)sender;
             int cursorPosition = textboxSender.SelectionStart;
-            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.Text = Regex.Replace(textboxSender.Text, Glm.fileRegex, "");
             textboxSender.SelectionStart = cursorPosition;
             if (textboxSender.Text.Length > 0)
             {
@@ -125,7 +125,7 @@ namespace AgIO
         {
             TextBox textboxSender = (TextBox)sender;
             int cursorPosition = textboxSender.SelectionStart;
-            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.Text = Regex.Replace(textboxSender.Text, Glm.fileRegex, "");
 
             textboxSender.SelectionStart = cursorPosition;
             if (textboxSender.Text.Length > 0)

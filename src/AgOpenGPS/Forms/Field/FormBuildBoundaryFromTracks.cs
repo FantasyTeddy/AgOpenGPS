@@ -273,7 +273,7 @@ namespace AgOpenGPS.Forms.Field
 
         private void AdjustABTrackPoints(CTrk track, bool isPointA, double deltaMeters)
         {
-            vec2 direction = (track.ptB - track.ptA).Normalize();
+            Vec2 direction = (track.ptB - track.ptA).Normalize();
 
             if (isPointA)
             {
@@ -305,13 +305,13 @@ namespace AgOpenGPS.Forms.Field
         {
             for (int s = 0; s < steps && (isExtend || track.curvePts.Count > 2); s++)
             {
-                vec3 pt0 = track.curvePts[0];
-                vec3 pt1 = track.curvePts[1];
-                vec2 dir = (new vec2(pt0.easting, pt0.northing) - new vec2(pt1.easting, pt1.northing)).Normalize();
+                Vec3 pt0 = track.curvePts[0];
+                Vec3 pt1 = track.curvePts[1];
+                Vec2 dir = (new Vec2(pt0.easting, pt0.northing) - new Vec2(pt1.easting, pt1.northing)).Normalize();
 
                 if (isExtend)
                 {
-                    track.curvePts.Insert(0, new vec3(
+                    track.curvePts.Insert(0, new Vec3(
                         pt0.easting + dir.easting,
                         pt0.northing + dir.northing,
                         pt0.heading));
@@ -328,13 +328,13 @@ namespace AgOpenGPS.Forms.Field
             for (int s = 0; s < steps && (isExtend || track.curvePts.Count > 2); s++)
             {
                 int last = track.curvePts.Count - 1;
-                vec3 ptN = track.curvePts[last];
-                vec3 ptN1 = track.curvePts[last - 1];
-                vec2 dir = (new vec2(ptN.easting, ptN.northing) - new vec2(ptN1.easting, ptN1.northing)).Normalize();
+                Vec3 ptN = track.curvePts[last];
+                Vec3 ptN1 = track.curvePts[last - 1];
+                Vec2 dir = (new Vec2(ptN.easting, ptN.northing) - new Vec2(ptN1.easting, ptN1.northing)).Normalize();
 
                 if (isExtend)
                 {
-                    track.curvePts.Add(new vec3(
+                    track.curvePts.Add(new Vec3(
                         ptN.easting + dir.easting,
                         ptN.northing + dir.northing,
                         ptN.heading));
@@ -370,8 +370,8 @@ namespace AgOpenGPS.Forms.Field
                 }
                 else if (trk.mode == TrackMode.Curve)
                 {
-                    foreach (vec3 pt in trk.curvePts)
-                        UpdateMinMax(new vec2(pt.easting, pt.northing));
+                    foreach (Vec3 pt in trk.curvePts)
+                        UpdateMinMax(new Vec2(pt.easting, pt.northing));
                 }
             }
 
@@ -382,7 +382,7 @@ namespace AgOpenGPS.Forms.Field
             }
         }
 
-        private void UpdateMinMax(vec2 pt)
+        private void UpdateMinMax(Vec2 pt)
         {
             _viewLeft = Math.Min(_viewLeft, pt.easting);
             _viewRight = Math.Max(_viewRight, pt.easting);
@@ -494,7 +494,7 @@ namespace AgOpenGPS.Forms.Field
                 }
                 else if (trk.mode == TrackMode.Curve)
                 {
-                    DrawPolyline(trk.curvePts.Select(p => new vec2(p.easting, p.northing)).ToList(), color, width);
+                    DrawPolyline(trk.curvePts.Select(p => new Vec2(p.easting, p.northing)).ToList(), color, width);
                 }
             }
         }
@@ -524,7 +524,7 @@ namespace AgOpenGPS.Forms.Field
 
         private void DrawIntersectionPoints()
         {
-            foreach (vec2 pt in _builder.IntersectionPoints)
+            foreach (Vec2 pt in _builder.IntersectionPoints)
             {
                 DrawCircle(pt, Color.Red, INTERSECTION_POINT_SIZE);
             }
@@ -539,7 +539,7 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(Color.Red);
             GL.Begin(PrimitiveType.LineLoop);
 
-            foreach (vec3 pt in _builder.FinalBoundary)
+            foreach (Vec3 pt in _builder.FinalBoundary)
             {
                 GL.Vertex2(pt.easting, pt.northing);
             }
@@ -547,7 +547,7 @@ namespace AgOpenGPS.Forms.Field
             GL.End();
         }
 
-        private void DrawLine(vec2 ptA, vec2 ptB, Color color, float width = 1.0f)
+        private void DrawLine(Vec2 ptA, Vec2 ptB, Color color, float width = 1.0f)
         {
             GL.LineWidth(width);
             GL.Color3(color);
@@ -557,7 +557,7 @@ namespace AgOpenGPS.Forms.Field
             GL.End();
         }
 
-        private void DrawPolyline(List<vec2> points, Color color, float width = 1.0f)
+        private void DrawPolyline(List<Vec2> points, Color color, float width = 1.0f)
         {
             if (points.Count < 2) return;
 
@@ -565,13 +565,13 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(color);
             GL.Begin(PrimitiveType.LineStrip);
 
-            foreach (vec2 pt in points)
+            foreach (Vec2 pt in points)
                 GL.Vertex2(pt.easting, pt.northing);
 
             GL.End();
         }
 
-        private void DrawCircle(vec2 center, Color color, float radius)
+        private void DrawCircle(Vec2 center, Color color, float radius)
         {
             GL.Color3(color);
             GL.Begin(PrimitiveType.LineLoop);
@@ -693,7 +693,7 @@ namespace AgOpenGPS.Forms.Field
 
             try
             {
-                List<vec3> result = _builder.BuildTrimmedBoundary();
+                List<Vec3> result = _builder.BuildTrimmedBoundary();
                 CBoundaryList finalized = _builder.FinalizedBoundary;
 
                 if (result.Count < 3 || finalized == null)
@@ -745,7 +745,7 @@ namespace AgOpenGPS.Forms.Field
             try
             {
                 ValidateSaveConditions();
-                _builder.SaveToBoundaryFile(_mf.currentFieldDirectory);
+                _builder.SaveToBoundaryFile(_mf.CurrentFieldDirectory);
             }
             catch (Exception ex)
             {
@@ -756,7 +756,7 @@ namespace AgOpenGPS.Forms.Field
 
         private bool ValidateSaveConditions()
         {
-            if (string.IsNullOrEmpty(_mf.currentFieldDirectory))
+            if (string.IsNullOrEmpty(_mf.CurrentFieldDirectory))
             {
                 FormDialog.Show("Save Error", "Please select a field before saving.", DialogSeverity.Error);
                 return false;

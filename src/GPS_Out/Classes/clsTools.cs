@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace GPS_Out
 {
-    public class clsTools
+    public class ClsTools
     {
         #region Form Dragging API Support
 
@@ -38,10 +38,10 @@ namespace GPS_Out
         private string cPropertiesApp;
         private string cPropertiesFile;
         private string cSettingsDir;
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
         private int SentenceCount = 0;
 
-        public clsTools(frmStart CallingForm)
+        public ClsTools(FrmStart CallingForm)
         {
             mf = CallingForm;
             CheckFolders();
@@ -229,7 +229,7 @@ namespace GPS_Out
         public void ShowHelp(string Message, string Title = "Help",
             int timeInMsec = 30000, bool LogError = false, bool Modal = false, bool PlayErrorSound = false)
         {
-            frmHelp Hlp = new(mf, Message, Title, timeInMsec);
+            FrmHelp Hlp = new(mf, Message, Title, timeInMsec);
             if (Modal)
             {
                 Hlp.ShowDialog();

@@ -487,7 +487,7 @@ namespace AgOpenGPS.Forms
 
                     // Load boundaries from Boundary.txt
                     List<CBoundaryList> boundaryList = BoundaryFiles.Load(fieldInfo.DirectoryPath);
-                    List<List<vec3>> boundaries = new();
+                    List<List<Vec3>> boundaries = new();
                     foreach (CBoundaryList bnd in boundaryList)
                     {
                         if (bnd.fenceLine != null && bnd.fenceLine.Count > 0)

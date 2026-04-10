@@ -103,11 +103,11 @@ namespace AgOpenGPS
             mf.SaveFormGPSWindowSettings();
 
             //metric or imp on spinners min/maxes
-            if (!mf.isMetric) FixMinMaxSpinners();
+            if (!mf.IsMetric) FixMinMaxSpinners();
 
             //tabTSections_Enter(this, e);
             lblVehicleToolWidth.Text = Convert.ToString((int)(mf.tool.width * 100 * mf.cm2CmOrIn));
-            SectionFeetInchesTotalWidthLabelUpdate(mf.isMetric, mf.tool.width);
+            SectionFeetInchesTotalWidthLabelUpdate(mf.IsMetric, mf.tool.width);
 
             tab1.SelectedTab = tabSummary;
             //Label translations
@@ -359,7 +359,7 @@ namespace AgOpenGPS
 
         private void tabSummary_Enter(object sender, EventArgs e)
         {
-            SectionFeetInchesTotalWidthLabelUpdate(mf.isMetric, mf.tool.width);
+            SectionFeetInchesTotalWidthLabelUpdate(mf.IsMetric, mf.tool.width);
             UpdateSummary();
         }
 
@@ -384,7 +384,7 @@ namespace AgOpenGPS
             chkLineSmooth.Checked = Properties.Settings.Default.setDisplay_isLineSmooth;
             chkboxHeadlandDist.Checked = Properties.Settings.Default.isHeadlandDistanceOn;
 
-            if (mf.isMetric) rbtnDisplayMetric.Checked = true;
+            if (mf.IsMetric) rbtnDisplayMetric.Checked = true;
             else rbtnDisplayImperial.Checked = true;
 
             nudNumGuideLines.Value = mf.ABLine.numGuideLines;
@@ -399,8 +399,8 @@ namespace AgOpenGPS
         {
             Log.EventWriter("Units To Imperial");
 
-            mf.isMetric = false;
-            Properties.Settings.Default.setMenu_isMetric = mf.isMetric;
+            mf.IsMetric = false;
+            Properties.Settings.Default.setMenu_isMetric = mf.IsMetric;
             isClosing = true;
             Close();
         }
@@ -409,8 +409,8 @@ namespace AgOpenGPS
         {
             Log.EventWriter("Units to Metric");
 
-            mf.isMetric = true;
-            Properties.Settings.Default.setMenu_isMetric = mf.isMetric;
+            mf.IsMetric = true;
+            Properties.Settings.Default.setMenu_isMetric = mf.IsMetric;
             isClosing = true;
             Close();
             //FormConfig_Load(this, e);

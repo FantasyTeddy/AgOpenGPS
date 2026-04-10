@@ -15,7 +15,7 @@ namespace AgOpenGPS.Updater.Forms
     {
         private readonly UpdateService _updateService;
         private string _currentVersion;
-        private _updateSource currentSource;
+        private UpdateSource currentSource;
         private string _installPath;
         private readonly string _gitHubToken;
         private ReleaseInfo _availableUpdate;
@@ -26,7 +26,7 @@ namespace AgOpenGPS.Updater.Forms
         private CancellationTokenSource _cancellationTokenSource;
         private bool _isInstalling;
 
-        private enum _updateSource { Web, Local }
+        private enum UpdateSource { Web, Local }
 
         public FormUpdate(string currentVersion = null, string installPath = null, string gitHubToken = null)
         {
@@ -36,7 +36,7 @@ namespace AgOpenGPS.Updater.Forms
             _currentVersion = currentVersion ?? UpdateService.GetCurrentVersion();
             _installPath = installPath ?? UpdateService.GetCurrentApplicationPath();
             _gitHubToken = gitHubToken;
-            currentSource = _updateSource.Web;
+            currentSource = UpdateSource.Web;
 
             // Handle command line arguments
             ParseCommandLineArgs();
@@ -99,7 +99,7 @@ namespace AgOpenGPS.Updater.Forms
             // If local update found, switch to local and enable install
             if (foundLocal && _localUpdatePath != null)
             {
-                currentSource = _updateSource.Local;
+                currentSource = UpdateSource.Local;
                 string displayVersion = !string.IsNullOrEmpty(_localUpdateVersion) ? $"v{_localUpdateVersion}" : "Local";
                 _availableUpdate = new ReleaseInfo
                 {
@@ -169,7 +169,7 @@ namespace AgOpenGPS.Updater.Forms
 
         private void UpdateSourceUI()
         {
-            if (currentSource == _updateSource.Web)
+            if (currentSource == UpdateSource.Web)
             {
                 btnToggleSource.Text = "Use USB";
                 btnToggleSource.BackColor = System.Drawing.Color.FromArgb(100, 100, 100);
@@ -223,17 +223,17 @@ namespace AgOpenGPS.Updater.Forms
         private void BtnToggleSource_Click(object sender, EventArgs e)
         {
             // Toggle between Web and Local source
-            if (currentSource == _updateSource.Web)
+            if (currentSource == UpdateSource.Web)
             {
-                currentSource = _updateSource.Local;
+                currentSource = UpdateSource.Local;
             }
             else
             {
-                currentSource = _updateSource.Web;
+                currentSource = UpdateSource.Web;
             }
 
             // Re-check for update from new source
-            if (currentSource == _updateSource.Local)
+            if (currentSource == UpdateSource.Local)
             {
                 CheckForLocalUpdate();
 
@@ -362,7 +362,7 @@ namespace AgOpenGPS.Updater.Forms
             {
                 SetBusy(true);
 
-                if (currentSource == _updateSource.Web)
+                if (currentSource == UpdateSource.Web)
                 {
                     SetStatus("Checking GitHub releases...");
                     bool includePrerelease = chkIncludePrerelease.Checked;
@@ -433,8 +433,8 @@ namespace AgOpenGPS.Updater.Forms
                 return;
 
             // Show confirmation dialog FIRST on UI thread
-            string updateSource = currentSource == _updateSource.Web ? "GitHub" : "USB";
-            string updateInfo = currentSource == _updateSource.Web
+            string updateSource = currentSource == UpdateSource.Web ? "GitHub" : "USB";
+            string updateInfo = currentSource == UpdateSource.Web
                 ? $"{_availableUpdate.Version} ({_availableUpdate.ReleaseType})"
                 : UsbUpdateService.GetUpdateLocation(_localUpdatePath);
 
@@ -494,7 +494,7 @@ namespace AgOpenGPS.Updater.Forms
 
                 string downloadPath;
 
-                if (currentSource == _updateSource.Web)
+                if (currentSource == UpdateSource.Web)
                 {
                     // Step 2: Download from GitHub
                     string tempDir = Path.Combine(Path.GetTempPath(), "AgOpenGPS_Update");

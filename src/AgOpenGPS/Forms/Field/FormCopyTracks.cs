@@ -53,7 +53,7 @@ namespace AgOpenGPS.Forms.Field
 
                     // Don't show the current field in the list
                     string fieldName = Path.GetFileName(fieldDir);
-                    if (mf.currentFieldDirectory != null && fieldName == mf.currentFieldDirectory)
+                    if (mf.CurrentFieldDirectory != null && fieldName == mf.CurrentFieldDirectory)
                         continue;
 
                     DirectoryInfo fieldDirInfo = new(fieldDir);
@@ -205,14 +205,14 @@ namespace AgOpenGPS.Forms.Field
                 }
 
                 // Verify current field is open
-                if (string.IsNullOrEmpty(mf.currentFieldDirectory))
+                if (string.IsNullOrEmpty(mf.CurrentFieldDirectory))
                 {
                     FormDialog.Show("Import Tracks", "No field is currently open.", DialogSeverity.Error);
                     return;
                 }
 
                 // Build full path for current field directory
-                string currentFieldFullPath = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+                string currentFieldFullPath = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory);
 
                 lblStatus.Text = "Saving current tracks...";
                 Application.DoEvents();

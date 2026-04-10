@@ -14,7 +14,7 @@ namespace AgOpenGPS.Visuals
 
             foreach (CPatches patches in triStrip)
             {
-                foreach (List<vec3> triList in patches.patchList)
+                foreach (List<Vec3> triList in patches.patchList)
                 {
                     GLW.BeginTriangleStripPrimitive();
                     int cnt = triList.Count;

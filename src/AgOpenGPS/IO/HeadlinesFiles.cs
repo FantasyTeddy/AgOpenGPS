@@ -43,7 +43,7 @@ namespace AgOpenGPS.IO
                             double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double northing) &&
                             double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double heading))
                         {
-                            hp.trackPts.Add(new vec3(easting, northing, heading));
+                            hp.trackPts.Add(new Vec3(easting, northing, heading));
                         }
                     }
 
@@ -70,12 +70,12 @@ namespace AgOpenGPS.IO
                 writer.WriteLine(hp.mode.ToString(CultureInfo.InvariantCulture));
                 writer.WriteLine(hp.a_point.ToString(CultureInfo.InvariantCulture));
 
-                List<vec3> pts = hp.trackPts ?? new List<vec3>();
+                List<Vec3> pts = hp.trackPts ?? new List<Vec3>();
                 writer.WriteLine(pts.Count.ToString(CultureInfo.InvariantCulture));
 
                 for (int j = 0; j < pts.Count; j++)
                 {
-                    vec3 p = pts[j];
+                    Vec3 p = pts[j];
                     writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)} , {FileIoUtils.FormatDouble(p.northing, 3)} , {FileIoUtils.FormatDouble(p.heading, 5)}");
                 }
             }

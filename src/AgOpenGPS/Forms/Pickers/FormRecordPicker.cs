@@ -37,7 +37,7 @@ namespace AgOpenGPS.Forms.Pickers
         {
             ListViewItem itm;
 
-            string fieldDir = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+            string fieldDir = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory);
 
             string[] files = Directory.GetFiles(fieldDir);
 
@@ -74,11 +74,11 @@ namespace AgOpenGPS.Forms.Pickers
             if (count > 0)
             {
                 string selectedRecord = lvLines.SelectedItems[0].SubItems[0].Text;
-                string selectedRecordPath = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, selectedRecord + ".rec");
+                string selectedRecordPath = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory, selectedRecord + ".rec");
 
                 // Copy the selected record file to the original record name inside the field dir:
                 // ( this will load the last selected path automatically when this field is opened again)
-                File.Copy(selectedRecordPath, Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "RecPath.txt"), true);
+                File.Copy(selectedRecordPath, Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory, "RecPath.txt"), true);
                 // and load the selected path into the recPath object:
                 string line;
                 if (File.Exists(selectedRecordPath))
@@ -126,7 +126,7 @@ namespace AgOpenGPS.Forms.Pickers
             if (count > 0)
             {
                 string selectedRecord = lvLines.SelectedItems[0].SubItems[0].Text;
-                dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, selectedRecord + ".rec");
+                dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory, selectedRecord + ".rec");
 
                 // Ask confirmation before deleting the file
                 DialogResult result = FormDialog.ShowQuestion(

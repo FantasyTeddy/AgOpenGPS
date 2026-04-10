@@ -74,8 +74,8 @@ namespace AgOpenGPS
 
             double temp = stepDistance * Math.Tan(steerangleAve * 0.0165329252) / 2;
             headingTrue += temp;
-            if (headingTrue > glm.twoPI) headingTrue -= glm.twoPI;
-            if (headingTrue < 0) headingTrue += glm.twoPI;
+            if (headingTrue > Glm.twoPI) headingTrue -= Glm.twoPI;
+            if (headingTrue < 0) headingTrue += Glm.twoPI;
 
             mf.pn.vtgSpeed = Math.Abs(Math.Round(4 * stepDistance * 10, 2));
             mf.pn.AverageTheSpeed();
@@ -86,7 +86,7 @@ namespace AgOpenGPS
             GeoCoord fixCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(CurrentLatLon);
             mf.pn.fix.northing = fixCoord.Northing;
             mf.pn.fix.easting = fixCoord.Easting;
-            mf.pn.headingTrue = mf.pn.headingTrueDual = glm.toDegrees(headingTrue);
+            mf.pn.headingTrue = mf.pn.headingTrueDual = Glm.ToDegrees(headingTrue);
             mf.ahrs.imuHeading = mf.pn.headingTrue;
             if (mf.ahrs.imuHeading >= 360) mf.ahrs.imuHeading -= 360;
 

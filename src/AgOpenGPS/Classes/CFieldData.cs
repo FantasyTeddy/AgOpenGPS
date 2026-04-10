@@ -33,15 +33,15 @@ namespace AgOpenGPS
         public double userSquareMetersAlarm;
 
         //Area inside Boundary less inside boundary areas
-        public string AreaBoundaryLessInnersHectares => (areaBoundaryOuterLessInner * glm.m2ha).ToString("N2");
+        public string AreaBoundaryLessInnersHectares => (areaBoundaryOuterLessInner * Glm.m2ha).ToString("N2");
 
-        public string AreaBoundaryLessInnersAcres => (areaBoundaryOuterLessInner * glm.m2ac).ToString("N2");
+        public string AreaBoundaryLessInnersAcres => (areaBoundaryOuterLessInner * Glm.m2ac).ToString("N2");
 
         //USer tally string
-        public string WorkedUserHectares => (workedAreaTotalUser * glm.m2ha).ToString("N2");
+        public string WorkedUserHectares => (workedAreaTotalUser * Glm.m2ha).ToString("N2");
 
         //user tally string
-        public string WorkedUserAcres => (workedAreaTotalUser * glm.m2ac).ToString("N2");
+        public string WorkedUserAcres => (workedAreaTotalUser * Glm.m2ac).ToString("N2");
 
         //String of Area worked
         public string WorkedAcres => (workedAreaTotal * 0.000247105).ToString("N2");
@@ -51,12 +51,12 @@ namespace AgOpenGPS
         //User Distance strings
         public string DistanceUserMeters => Convert.ToString(Math.Round(distanceUser, 1));
 
-        public string DistanceUserFeet => Convert.ToString(Math.Round(distanceUser * glm.m2ft, 1));
+        public string DistanceUserFeet => Convert.ToString(Math.Round(distanceUser * Glm.m2ft, 1));
 
         //remaining area to be worked
-        public string WorkedAreaRemainHectares => ((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ha).ToString("N2");
+        public string WorkedAreaRemainHectares => ((areaBoundaryOuterLessInner - workedAreaTotal) * Glm.m2ha).ToString("N2");
 
-        public string WorkedAreaRemainAcres => ((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ac).ToString("N2");
+        public string WorkedAreaRemainAcres => ((areaBoundaryOuterLessInner - workedAreaTotal) * Glm.m2ac).ToString("N2");
 
         public string WorkedAreaRemainPercentage
         {
@@ -76,11 +76,11 @@ namespace AgOpenGPS
         }
 
         //overlap strings
-        public string ActualAreaWorkedHectares => (actualAreaCovered * glm.m2ha).ToString("N2");
-        public string ActualAreaWorkedAcres => (actualAreaCovered * glm.m2ac).ToString("N2");
+        public string ActualAreaWorkedHectares => (actualAreaCovered * Glm.m2ha).ToString("N2");
+        public string ActualAreaWorkedAcres => (actualAreaCovered * Glm.m2ac).ToString("N2");
 
-        public string ActualRemainHectares => ((areaBoundaryOuterLessInner - actualAreaCovered) * glm.m2ha).ToString("N2");
-        public string ActualRemainAcres => ((areaBoundaryOuterLessInner - actualAreaCovered) * glm.m2ac).ToString("N2");
+        public string ActualRemainHectares => ((areaBoundaryOuterLessInner - actualAreaCovered) * Glm.m2ha).ToString("N2");
+        public string ActualRemainAcres => ((areaBoundaryOuterLessInner - actualAreaCovered) * Glm.m2ac).ToString("N2");
 
         public string ActualOverlapPercent => overlapPercent.ToString("N1") + "% ";
 
@@ -90,7 +90,7 @@ namespace AgOpenGPS
             {
                 if (mf.avgSpeed > 2)
                 {
-                    TimeSpan timeSpan = TimeSpan.FromHours((areaBoundaryOuterLessInner - workedAreaTotal) * glm.m2ha
+                    TimeSpan timeSpan = TimeSpan.FromHours((areaBoundaryOuterLessInner - workedAreaTotal) * Glm.m2ha
                         / (mf.tool.width * mf.avgSpeed * 0.1));
                     return timeSpan.Hours.ToString("00:") + timeSpan.Minutes.ToString("00") + '"';
                 }
@@ -137,7 +137,7 @@ namespace AgOpenGPS
         public String GetDescription()
         {
             StringBuilder sb = new();
-            sb.AppendFormat("Field: {0}", mf.displayFieldName);
+            sb.AppendFormat("Field: {0}", mf.DisplayFieldName);
             sb.AppendLine();
             sb.AppendFormat("Total Hectares: {0}", AreaBoundaryLessInnersHectares);
             sb.AppendLine();

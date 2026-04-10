@@ -43,7 +43,7 @@ namespace AgOpenGPS.Forms
         {
             TextBox textboxSender = (TextBox)sender;
             int cursorPosition = textboxSender.SelectionStart;
-            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.Text = Regex.Replace(textboxSender.Text, Glm.fileRegex, "");
             textboxSender.SelectionStart = cursorPosition;
 
             if (String.IsNullOrEmpty(tboxFieldName.Text.Trim()))

@@ -9,7 +9,7 @@ namespace AgOpenGPS
 
         public int idx;
 
-        public List<vec3> desList = new();
+        public List<Vec3> desList = new();
 
         public CHeadLine()
         {
@@ -19,7 +19,7 @@ namespace AgOpenGPS
 
     public class CHeadPath
     {
-        public List<vec3> trackPts = new();
+        public List<Vec3> trackPts = new();
         public string name = "";
         public double moveDistance = 0;
         public int mode = 0;

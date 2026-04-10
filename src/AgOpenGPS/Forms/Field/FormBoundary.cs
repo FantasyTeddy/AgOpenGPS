@@ -146,7 +146,7 @@ namespace AgOpenGPS
                     b.Anchor = System.Windows.Forms.AnchorStyles.None;
                 }
 
-                if (mf.isMetric)
+                if (mf.IsMetric)
                 {
                     int length = (mf.bnd.bndList[i].area * 0.0001).ToString("0").Length;
                     if (length > 10) length = 10;
@@ -249,7 +249,7 @@ namespace AgOpenGPS
             //save new copy of kml with selected flag and view in GoogleEarth
 
             mf.FileMakeKMLFromCurrentPosition(mf.AppModel.CurrentLatLon);
-            System.Diagnostics.Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "CurrentPosition.KML"));
+            System.Diagnostics.Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory, "CurrentPosition.KML"));
             isClosing = true;
             Close();
         }
@@ -298,7 +298,7 @@ namespace AgOpenGPS
                         Filter = "KML files (*.KML)|*.KML",
 
                         //the initial directory, fields, for the open dialog
-                        InitialDirectory = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory)
+                        InitialDirectory = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory)
                     };
 
                     //was a file selected
@@ -360,7 +360,7 @@ namespace AgOpenGPS
                                     double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
 
                                     GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latK, lonK));
-                                    New.fenceLine.Add(new vec3(geoCoord));
+                                    New.fenceLine.Add(new Vec3(geoCoord));
                                 }
 
                                 New.CalculateFenceArea(mf.bnd.bndList.Count);

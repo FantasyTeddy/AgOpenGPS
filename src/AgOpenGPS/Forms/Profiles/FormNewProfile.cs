@@ -63,7 +63,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void textBoxName_Click(object sender, EventArgs e)
         {
-            if (!_formGPS.isJobStarted)
+            if (!_formGPS.IsJobStarted)
             {
                 if (_formGPS.isKeyboardOn)
                 {
@@ -81,7 +81,7 @@ namespace AgOpenGPS.Forms.Profiles
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
             int cursorPosition = textBoxName.SelectionStart;
-            textBoxName.Text = Regex.Replace(textBoxName.Text, glm.fileRegex, "");
+            textBoxName.Text = Regex.Replace(textBoxName.Text, Glm.fileRegex, "");
             textBoxName.SelectionStart = cursorPosition;
 
             buttonCreate.Enabled = !string.IsNullOrEmpty(textBoxName.Text);

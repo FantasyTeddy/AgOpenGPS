@@ -21,9 +21,9 @@ namespace AgOpenGPS.Classes
         #region Properties
         public List<CTrk> InputTracks { get; private set; } = new List<CTrk>();
         public List<Segment> Segments { get; private set; } = new List<Segment>();
-        public List<vec2> IntersectionPoints { get; private set; } = new List<vec2>();
+        public List<Vec2> IntersectionPoints { get; private set; } = new List<Vec2>();
         public List<Segment> TrimmedSegments { get; private set; } = new List<Segment>();
-        public List<vec3> FinalBoundary { get; private set; } = new List<vec3>();
+        public List<Vec3> FinalBoundary { get; private set; } = new List<Vec3>();
         public CBoundaryList FinalizedBoundary { get; private set; }
         #endregion
 
@@ -54,14 +54,14 @@ namespace AgOpenGPS.Classes
 
                 if (trk.mode == TrackMode.AB && extended.Count >= 2)
                 {
-                    trk.ptA = new vec2(extended[0].Easting, extended[0].Northing);
-                    trk.ptB = new vec2(extended[^1].Easting,
+                    trk.ptA = new Vec2(extended[0].Easting, extended[0].Northing);
+                    trk.ptB = new Vec2(extended[^1].Easting,
                                        extended[^1].Northing);
                 }
                 else if (trk.mode == TrackMode.Curve)
                 {
                     trk.curvePts = extended
-                        .Select(p => new vec3(p.Easting, p.Northing, 0))
+                        .Select(p => new Vec3(p.Easting, p.Northing, 0))
                         .ToList();
                 }
 
@@ -72,30 +72,30 @@ namespace AgOpenGPS.Classes
         }
 
 
-        public List<vec3> BuildTrimmedBoundary()
+        public List<Vec3> BuildTrimmedBoundary()
         {
             try
             {
                 if (InputTracks.Count == 0)
                 {
                     Log.EventWriter("No input tracks to process");
-                    return new List<vec3>();
+                    return new List<Vec3>();
                 }
 
                 BuildSegments();
                 FindIntersections();
 
                 List<Segment> trimmed = TrimSegmentsToIntersections();
-                List<vec3> polygon = ConvertSegmentsToPolygon(trimmed);
+                List<Vec3> polygon = ConvertSegmentsToPolygon(trimmed);
 
                 if (polygon.Count < MIN_POLYGON_POINTS)
                 {
                     Log.EventWriter("Insufficient points for valid polygon");
-                    return new List<vec3>();
+                    return new List<Vec3>();
                 }
 
                 FinalizedBoundary = FinalizeBoundaryPolygon(polygon);
-                FinalBoundary = FinalizedBoundary?.fenceLine ?? new List<vec3>();
+                FinalBoundary = FinalizedBoundary?.fenceLine ?? new List<Vec3>();
 
                 Log.EventWriter($"Boundary created with {FinalBoundary.Count} points");
                 return FinalBoundary;
@@ -103,7 +103,7 @@ namespace AgOpenGPS.Classes
             catch (Exception ex)
             {
                 Log.EventWriter($"Error building boundary: {ex.Message}");
-                return new List<vec3>();
+                return new List<Vec3>();
             }
         }
 
@@ -184,7 +184,7 @@ namespace AgOpenGPS.Classes
 
                 foreach (CTrk trk in InputTracks)
                 {
-                    List<vec2> points = GetTrackPoints(trk);
+                    List<Vec2> points = GetTrackPoints(trk);
                     if (points.Count < 2) continue;
 
                     for (int i = 0; i < points.Count - 1; i++)
@@ -207,7 +207,7 @@ namespace AgOpenGPS.Classes
         {
             try
             {
-                HashSet<vec2> uniqueIntersections = new(new Vec2EqualityComparer());
+                HashSet<Vec2> uniqueIntersections = new(new Vec2EqualityComparer());
                 int totalChecks = 0;
                 int potentialIntersections = 0;
 
@@ -228,7 +228,7 @@ namespace AgOpenGPS.Classes
                             continue;
 
                         potentialIntersections++;
-                        (bool intersects, vec2 intersection) = LineSegmentsIntersect(seg1.Start, seg1.End, seg2.Start, seg2.End);
+                        (bool intersects, Vec2 intersection) = LineSegmentsIntersect(seg1.Start, seg1.End, seg2.Start, seg2.End);
 
                         if (intersects)
                         {
@@ -258,20 +258,20 @@ namespace AgOpenGPS.Classes
                     List<Segment> trackSegments = Segments.Where(s => s.ParentTrack == trk).ToList();
                     if (trackSegments.Count == 0) continue;
 
-                    List<vec2> intersections = trackSegments
+                    List<Vec2> intersections = trackSegments
                         .SelectMany(s => s.Intersections)
                         .Distinct(new Vec2EqualityComparer())
                         .ToList();
 
                     if (intersections.Count < 2) continue;
 
-                    List<vec2> originalPoints = GetTrackPoints(trk);
+                    List<Vec2> originalPoints = GetTrackPoints(trk);
                     if (originalPoints.Count < 2) continue;
 
                     (double startDist, double endDist) = GetTrimDistances(originalPoints, intersections);
                     if (startDist >= endDist) continue;
 
-                    List<vec2> trimmedPoints = ExtractTrimmedPoints(originalPoints, startDist, endDist);
+                    List<Vec2> trimmedPoints = ExtractTrimmedPoints(originalPoints, startDist, endDist);
                     trimmed.AddRange(CreateUniformSegments(trimmedPoints, trk, TRIM_SEGMENT_LENGTH));
                 }
 
@@ -305,14 +305,14 @@ namespace AgOpenGPS.Classes
 
             return !(maxX1 < minX2 || maxX2 < minX1 || maxY1 < minY2 || maxY2 < minY1);
         }
-        private (bool intersects, vec2 intersection) LineSegmentsIntersect(vec2 p1, vec2 p2, vec2 p3, vec2 p4)
+        private (bool intersects, Vec2 intersection) LineSegmentsIntersect(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4)
         {
-            vec2 r = p2 - p1;
-            vec2 s = p4 - p3;
-            vec2 pq = p3 - p1;
+            Vec2 r = p2 - p1;
+            Vec2 s = p4 - p3;
+            Vec2 pq = p3 - p1;
 
-            float rxs = vec2.Cross(r, s);
-            float pqxr = vec2.Cross(pq, r);
+            float rxs = Vec2.Cross(r, s);
+            float pqxr = Vec2.Cross(pq, r);
 
             // Handle parallel/collinear cases first
             if (Math.Abs(rxs) < float.Epsilon)
@@ -321,8 +321,8 @@ namespace AgOpenGPS.Classes
                 if (Math.Abs(pqxr) < float.Epsilon)
                 {
                     // Collinear - check segment overlap
-                    float t0 = (float)(vec2.Dot(pq, r) / vec2.Dot(r, r));
-                    float t1 = t0 + (float)(vec2.Dot(s, r) / vec2.Dot(r, r));
+                    float t0 = (float)(Vec2.Dot(pq, r) / Vec2.Dot(r, r));
+                    float t1 = t0 + (float)(Vec2.Dot(s, r) / Vec2.Dot(r, r));
                     if (t0 > t1) (t0, t1) = (t1, t0);
 
                     if (t0 <= 1 && t1 >= 0)
@@ -334,7 +334,7 @@ namespace AgOpenGPS.Classes
                 return (false, default); // Parallel but not collinear
             }
 
-            float t = vec2.Cross(pq, s) / rxs;
+            float t = Vec2.Cross(pq, s) / rxs;
             float u = pqxr / rxs;
 
             if (t >= 0 && t <= 1 && u >= 0 && u <= 1)
@@ -347,12 +347,12 @@ namespace AgOpenGPS.Classes
         #endregion
 
         #region Boundary Construction
-        private List<vec3> ConvertSegmentsToPolygon(List<Segment> segments)
+        private List<Vec3> ConvertSegmentsToPolygon(List<Segment> segments)
         {
             if (segments.Count == 0)
-                return new List<vec3>();
+                return new List<Vec3>();
 
-            List<vec3> polygon = new();
+            List<Vec3> polygon = new();
             HashSet<Segment> visited = new();
             Segment current = segments[0];
 
@@ -373,7 +373,7 @@ namespace AgOpenGPS.Classes
             return polygon;
         }
 
-        private CBoundaryList FinalizeBoundaryPolygon(List<vec3> polygon)
+        private CBoundaryList FinalizeBoundaryPolygon(List<Vec3> polygon)
         {
             if (polygon?.Count < MIN_POLYGON_POINTS)
                 return null;
@@ -389,26 +389,26 @@ namespace AgOpenGPS.Classes
         #endregion
 
         #region Helper Methods
-        private List<vec2> GetTrackPoints(CTrk track)
+        private List<Vec2> GetTrackPoints(CTrk track)
         {
-            List<vec2> points = track.mode == TrackMode.AB
-                ? new List<vec2> { track.ptA, track.ptB }
-                : track.curvePts.Select(p => new vec2(p.easting, p.northing)).ToList();
+            List<Vec2> points = track.mode == TrackMode.AB
+                ? new List<Vec2> { track.ptA, track.ptB }
+                : track.curvePts.Select(p => new Vec2(p.easting, p.northing)).ToList();
 
             return EnforceMaxStep(points, MAX_SEGMENT_STEP);
         }
 
-        private List<vec2> EnforceMaxStep(List<vec2> points, double maxStep)
+        private List<Vec2> EnforceMaxStep(List<Vec2> points, double maxStep)
         {
-            List<vec2> result = new();
+            List<Vec2> result = new();
             if (points.Count == 0) return result;
 
             result.Add(points[0]);
 
             for (int i = 1; i < points.Count; i++)
             {
-                vec2 prev = points[i - 1];
-                vec2 current = points[i];
+                Vec2 prev = points[i - 1];
+                Vec2 current = points[i];
                 double distance = (current - prev).GetLength();
 
                 if (distance <= maxStep)
@@ -422,7 +422,7 @@ namespace AgOpenGPS.Classes
                 for (int s = 1; s < steps; s++)
                 {
                     double t = (double)s / steps;
-                    result.Add(vec2.Lerp(prev, current, t));
+                    result.Add(Vec2.Lerp(prev, current, t));
                 }
 
                 result.Add(current);
@@ -431,25 +431,25 @@ namespace AgOpenGPS.Classes
             return result;
         }
 
-        private (double startDist, double endDist) GetTrimDistances(List<vec2> points, List<vec2> intersections)
+        private (double startDist, double endDist) GetTrimDistances(List<Vec2> points, List<Vec2> intersections)
         {
             // Calculate cumulative distances along track
             List<double> distances = new() { 0 };
             for (int i = 1; i < points.Count; i++)
             {
-                distances.Add(distances[i - 1] + glm.Distance(points[i - 1], points[i]));
+                distances.Add(distances[i - 1] + Glm.Distance(points[i - 1], points[i]));
             }
 
             // Project intersections to get their distances along track
             List<double> intersectionDistances = new();
-            foreach (vec2 pt in intersections)
+            foreach (Vec2 pt in intersections)
             {
                 for (int i = 0; i < points.Count - 1; i++)
                 {
-                    if (vec2.IsPointOnSegment(points[i], points[i + 1], pt))
+                    if (Vec2.IsPointOnSegment(points[i], points[i + 1], pt))
                     {
-                        vec2.ProjectOnSegment(points[i], points[i + 1], pt, out double _);
-                        intersectionDistances.Add(distances[i] + glm.Distance(points[i], pt));
+                        Vec2.ProjectOnSegment(points[i], points[i + 1], pt, out double _);
+                        intersectionDistances.Add(distances[i] + Glm.Distance(points[i], pt));
                         break;
                     }
                 }
@@ -458,16 +458,16 @@ namespace AgOpenGPS.Classes
             return (intersectionDistances.Min(), intersectionDistances.Max());
         }
 
-        private List<vec2> ExtractTrimmedPoints(List<vec2> points, double startDist, double endDist)
+        private List<Vec2> ExtractTrimmedPoints(List<Vec2> points, double startDist, double endDist)
         {
-            List<vec2> trimmed = new();
+            List<Vec2> trimmed = new();
             double accumulatedDist = 0;
 
             for (int i = 0; i < points.Count - 1; i++)
             {
-                vec2 a = points[i];
-                vec2 b = points[i + 1];
-                double segmentLength = glm.Distance(a, b);
+                Vec2 a = points[i];
+                Vec2 b = points[i + 1];
+                double segmentLength = Glm.Distance(a, b);
                 double segmentStart = accumulatedDist;
                 double segmentEnd = accumulatedDist + segmentLength;
 
@@ -482,15 +482,15 @@ namespace AgOpenGPS.Classes
                 double t1 = Math.Max(0, (startDist - segmentStart) / segmentLength);
                 double t2 = Math.Min(1, (endDist - segmentStart) / segmentLength);
 
-                vec2 p1 = vec2.Lerp(a, b, t1);
-                vec2 p2 = vec2.Lerp(a, b, t2);
+                Vec2 p1 = Vec2.Lerp(a, b, t1);
+                Vec2 p2 = Vec2.Lerp(a, b, t2);
 
-                if (!trimmed.Any() || glm.Distance(trimmed.Last(), p1) > INTERSECTION_TOLERANCE)
+                if (!trimmed.Any() || Glm.Distance(trimmed.Last(), p1) > INTERSECTION_TOLERANCE)
                 {
                     trimmed.Add(p1);
                 }
 
-                if (glm.Distance(p1, p2) > INTERSECTION_TOLERANCE)
+                if (Glm.Distance(p1, p2) > INTERSECTION_TOLERANCE)
                 {
                     trimmed.Add(p2);
                 }
@@ -501,15 +501,15 @@ namespace AgOpenGPS.Classes
             return trimmed;
         }
 
-        private List<Segment> CreateUniformSegments(List<vec2> points, CTrk parentTrack, double segmentLength)
+        private List<Segment> CreateUniformSegments(List<Vec2> points, CTrk parentTrack, double segmentLength)
         {
             List<Segment> segments = new();
 
             for (int i = 0; i < points.Count - 1; i++)
             {
-                vec2 start = points[i];
-                vec2 end = points[i + 1];
-                double distance = glm.Distance(start, end);
+                Vec2 start = points[i];
+                Vec2 end = points[i + 1];
+                double distance = Glm.Distance(start, end);
                 int steps = Math.Max(1, (int)(distance / segmentLength));
 
                 for (int j = 0; j < steps; j++)
@@ -518,8 +518,8 @@ namespace AgOpenGPS.Classes
                     double t2 = (double)(j + 1) / steps;
 
                     segments.Add(new Segment(
-                        vec2.Lerp(start, end, t1),
-                        vec2.Lerp(start, end, t2),
+                        Vec2.Lerp(start, end, t1),
+                        Vec2.Lerp(start, end, t2),
                         parentTrack));
                 }
             }
@@ -527,18 +527,18 @@ namespace AgOpenGPS.Classes
             return segments;
         }
 
-        private Segment FindConnectedSegment(List<Segment> segments, HashSet<Segment> visited, vec2 connectionPoint)
+        private Segment FindConnectedSegment(List<Segment> segments, HashSet<Segment> visited, Vec2 connectionPoint)
         {
             foreach (Segment seg in segments)
             {
                 if (visited.Contains(seg)) continue;
 
-                if (glm.Distance(seg.Start, connectionPoint) < INTERSECTION_TOLERANCE)
+                if (Glm.Distance(seg.Start, connectionPoint) < INTERSECTION_TOLERANCE)
                 {
                     return seg;
                 }
 
-                if (glm.Distance(seg.End, connectionPoint) < INTERSECTION_TOLERANCE)
+                if (Glm.Distance(seg.End, connectionPoint) < INTERSECTION_TOLERANCE)
                 {
                     seg.Reverse();
                     return seg;
@@ -553,7 +553,7 @@ namespace AgOpenGPS.Classes
             yield return bnd.isDriveThru.ToString();
             yield return bnd.fenceLine.Count.ToString();
 
-            foreach (vec3 pt in bnd.fenceLine)
+            foreach (Vec3 pt in bnd.fenceLine)
             {
                 yield return FormattableString.Invariant(
                     $"{pt.easting:F6},{pt.northing:F6},{pt.heading:F6}");
@@ -569,12 +569,12 @@ namespace AgOpenGPS.Classes
         #region Helper Classes
         public class Segment
         {
-            public vec2 Start { get; private set; }
-            public vec2 End { get; private set; }
+            public Vec2 Start { get; private set; }
+            public Vec2 End { get; private set; }
             public CTrk ParentTrack { get; }
-            public List<vec2> Intersections { get; } = new List<vec2>();
+            public List<Vec2> Intersections { get; } = new List<Vec2>();
 
-            public Segment(vec2 start, vec2 end, CTrk parentTrack)
+            public Segment(Vec2 start, Vec2 end, CTrk parentTrack)
             {
                 Start = start;
                 End = end;
@@ -586,7 +586,7 @@ namespace AgOpenGPS.Classes
                 (Start, End) = (End, Start);
             }
 
-            public void AddIntersection(vec2 point)
+            public void AddIntersection(Vec2 point)
             {
                 if (!Intersections.Any(p => (p - point).GetLengthSquared() < INTERSECTION_TOLERANCE_SQ))
                 {
@@ -595,14 +595,14 @@ namespace AgOpenGPS.Classes
             }
         }
 
-        private class Vec2EqualityComparer : IEqualityComparer<vec2>
+        private class Vec2EqualityComparer : IEqualityComparer<Vec2>
         {
-            public bool Equals(vec2 a, vec2 b)
+            public bool Equals(Vec2 a, Vec2 b)
             {
                 return (a - b).GetLengthSquared() < INTERSECTION_TOLERANCE_SQ;
             }
 
-            public int GetHashCode(vec2 p)
+            public int GetHashCode(Vec2 p)
             {
                 return HashCode.Combine(
                     Math.Round(p.easting / INTERSECTION_TOLERANCE),
@@ -615,9 +615,9 @@ namespace AgOpenGPS.Classes
 
     public static class Vec2Extensions
     {
-        public static vec3 ToVec3(this vec2 vector, double heading = 0)
+        public static Vec3 ToVec3(this Vec2 vector, double heading = 0)
         {
-            return new vec3(vector.easting, vector.northing, heading);
+            return new Vec3(vector.easting, vector.northing, heading);
         }
     }
 }

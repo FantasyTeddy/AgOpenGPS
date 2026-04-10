@@ -53,7 +53,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonProfileDelete_Click(object sender, EventArgs e)
         {
-            if (_formGPS.isJobStarted) return;
+            if (_formGPS.IsJobStarted) return;
 
             if (listViewProfiles.SelectedItems.Count <= 0) return;
 
@@ -81,7 +81,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (!_formGPS.isJobStarted)
+            if (!_formGPS.IsJobStarted)
             {
                 if (listViewProfiles.SelectedItems.Count <= 0) return;
 

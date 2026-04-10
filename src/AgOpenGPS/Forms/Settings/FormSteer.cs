@@ -17,7 +17,7 @@ namespace AgOpenGPS
 
         private bool toSend = false, isSA = false;
         private int counter = 0, secondCntr = 0, cntr;
-        private vec3 startFix;
+        private Vec3 startFix;
         private double diameter, steerAngleRight, dist;
         private int windowSizeState = 0;
 
@@ -383,7 +383,7 @@ namespace AgOpenGPS
             if (isSA)
             {
                 //bool isSame = Math.PI - Math.Abs(Math.Abs(cH - mf.gpsHeading) - Math.PI) < (glm.PIBy2+0.1);
-                dist = glm.Distance(startFix, mf.pivotAxlePos);
+                dist = Glm.Distance(startFix, mf.pivotAxlePos);
                 cntr++;
                 if (dist > diameter)
                 {
@@ -395,7 +395,7 @@ namespace AgOpenGPS
                 if (cntr > 9)
                 {
                     steerAngleRight = Math.Atan(mf.vehicle.VehicleConfig.Wheelbase / ((diameter - (mf.vehicle.VehicleConfig.TrackWidth * 0.5)) / 2));
-                    steerAngleRight = glm.toDegrees(steerAngleRight);
+                    steerAngleRight = Glm.ToDegrees(steerAngleRight);
                     //steerAngleLeft = Math.Atan(mf.vehicle.wheelbase / (diameter / 2 ));
                     //steerAngleLeft = glm.toDegrees(steerAngleLeft);
 
@@ -670,7 +670,7 @@ namespace AgOpenGPS
 
         private void tabAlarm_Enter(object sender, EventArgs e)
         {
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 nudMaxSteerSpeed.Value = (decimal)Properties.VehicleSettings.Default.setAS_maxSteerSpeed;
                 nudMinSteerSpeed.Value = (decimal)Properties.VehicleSettings.Default.setAS_minSteerSpeed;
@@ -699,7 +699,7 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.VehicleSettings.Default.setAS_minSteerSpeed = (double)nudMinSteerSpeed.Value;
-                if (!mf.isMetric) Properties.VehicleSettings.Default.setAS_minSteerSpeed = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_minSteerSpeed);
+                if (!mf.IsMetric) Properties.VehicleSettings.Default.setAS_minSteerSpeed = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_minSteerSpeed);
                 mf.vehicle.minSteerSpeed = Properties.VehicleSettings.Default.setAS_minSteerSpeed;
             }
         }
@@ -709,7 +709,7 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.VehicleSettings.Default.setAS_maxSteerSpeed = (double)nudMaxSteerSpeed.Value;
-                if (!mf.isMetric) Properties.VehicleSettings.Default.setAS_maxSteerSpeed = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_maxSteerSpeed);
+                if (!mf.IsMetric) Properties.VehicleSettings.Default.setAS_maxSteerSpeed = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_maxSteerSpeed);
                 mf.vehicle.maxSteerSpeed = Properties.VehicleSettings.Default.setAS_maxSteerSpeed;
             }
         }
@@ -719,7 +719,7 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 Properties.VehicleSettings.Default.setAS_functionSpeedLimit = (double)nudGuidanceSpeedLimit.Value;
-                if (!mf.isMetric) Properties.VehicleSettings.Default.setAS_functionSpeedLimit = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_functionSpeedLimit);
+                if (!mf.IsMetric) Properties.VehicleSettings.Default.setAS_functionSpeedLimit = Speed.MphToKmh(Properties.VehicleSettings.Default.setAS_functionSpeedLimit);
                 mf.vehicle.functionSpeedLimit = Properties.VehicleSettings.Default.setAS_functionSpeedLimit;
             }
         }
@@ -735,7 +735,7 @@ namespace AgOpenGPS
             if (chkDisplayLightbar.Checked) { chkDisplayLightbar.Image = Resources.SwitchOn; }
             else { chkDisplayLightbar.Image = Resources.SwitchOff; }
 
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
                 nudSnapDistance.Value = (int)(Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);

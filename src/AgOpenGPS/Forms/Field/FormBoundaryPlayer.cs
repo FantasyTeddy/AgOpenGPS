@@ -30,7 +30,7 @@ namespace AgOpenGPS
 
         private void FormBoundaryPlayer_Load(object sender, EventArgs e)
         {
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 nudOffset.Maximum = 4999;
                 nudOffset.Value = (decimal)(mf.tool.width * 0.5 * 100);
@@ -77,7 +77,7 @@ namespace AgOpenGPS
         {
             ((NudlessNumericUpDown)sender).ShowKeypad(this);
             btnPausePlay.Focus();
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 mf.bnd.createBndOffset = (double)nudOffset.Value * 0.01;
             }
@@ -104,7 +104,7 @@ namespace AgOpenGPS
                 }
                 area = Math.Abs(area / 2);
             }
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 lblArea.Text = Math.Round(area * 0.0001, 2).ToString();
             }

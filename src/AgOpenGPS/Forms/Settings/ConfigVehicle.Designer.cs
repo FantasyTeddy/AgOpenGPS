@@ -46,7 +46,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_isLogElevation = mf.isLogElevation;
 
             Properties.Settings.Default.setMenu_isMetric = rbtnDisplayMetric.Checked;
-            mf.isMetric = rbtnDisplayMetric.Checked;
+            mf.IsMetric = rbtnDisplayMetric.Checked;
 
             Properties.ToolSettings.Default.setTool_isDirectionMarkers = mf.isDirectionMarkers;
 

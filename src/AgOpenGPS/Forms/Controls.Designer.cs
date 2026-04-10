@@ -179,7 +179,7 @@ namespace AgOpenGPS
 
                     Log.EventWriter("Steer Off, Above Max Safe Speed for Autosteer");
 
-                    if (isMetric)
+                    if (IsMetric)
                         TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + vehicle.maxSteerSpeed.ToString("N0") + " Kmh");
                     else
                         TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + Speed.KmhToMph(vehicle.maxSteerSpeed).ToString("N1") + " MPH");
@@ -505,8 +505,8 @@ namespace AgOpenGPS
         private void btnJobMenu_Click(object sender, EventArgs e)
         {
             // Remember current state before opening the Job dialog
-            bool wasJobStarted = isJobStarted;
-            string prevFieldDir = currentFieldDirectory;
+            bool wasJobStarted = IsJobStarted;
+            string prevFieldDir = CurrentFieldDirectory;
 
             Form f = Application.OpenForms["FormGPSData"];
             if (f != null)
@@ -555,10 +555,10 @@ namespace AgOpenGPS
                     return;
                 }
 
-                if (isJobStarted)
+                if (IsJobStarted)
                 {
-                    if (autoBtnState == btnStates.Auto) btnSectionMasterAuto.PerformClick();
-                    if (manualBtnState == btnStates.On) btnSectionMasterManual.PerformClick();
+                    if (autoBtnState == BtnStates.Auto) btnSectionMasterAuto.PerformClick();
+                    if (manualBtnState == BtnStates.On) btnSectionMasterManual.PerformClick();
                 }
 
                 if (result == DialogResult.Yes)
@@ -584,9 +584,9 @@ namespace AgOpenGPS
 
                 // ---- Only log "Opened" if a field was newly opened or changed ----
                 bool openedNewOrChanged =
-                    isJobStarted &&
+                    IsJobStarted &&
                     (!wasJobStarted ||
-                     !string.Equals(currentFieldDirectory, prevFieldDir, StringComparison.OrdinalIgnoreCase));
+                     !string.Equals(CurrentFieldDirectory, prevFieldDir, StringComparison.OrdinalIgnoreCase));
 
                 if (openedNewOrChanged)
                 {
@@ -598,18 +598,18 @@ namespace AgOpenGPS
                         Log.EventWriter("High Field Start Distance Warning");
                     }
 
-                    Log.EventWriter("** Opened **  " + currentFieldDirectory + "   " +
+                    Log.EventWriter("** Opened **  " + CurrentFieldDirectory + "   " +
                         DateTime.Now.ToString("f", CultureInfo.InvariantCulture));
 
-                    Settings.Default.setF_CurrentDir = currentFieldDirectory;
+                    Settings.Default.setF_CurrentDir = CurrentFieldDirectory;
                     Settings.Default.Save();
 
-                    isobus.SendFieldName(currentFieldDirectory);
+                    isobus.SendFieldName(CurrentFieldDirectory);
                 }
             }
 
-            FieldMenuButtonEnableDisable(isJobStarted);
-            toolStripBtnFieldTools.Enabled = isJobStarted;
+            FieldMenuButtonEnableDisable(IsJobStarted);
+            toolStripBtnFieldTools.Enabled = IsJobStarted;
             bnd.isHeadlandOn = bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0;
             trk.idx = -1;
             PanelUpdateRightAndBottom();
@@ -620,10 +620,10 @@ namespace AgOpenGPS
             // Save the current field data before closing
             if (ct.isContourOn) ct.StopContourLine();
 
-            if (autoBtnState == btnStates.Auto)
+            if (autoBtnState == BtnStates.Auto)
                 btnSectionMasterAuto.PerformClick();
 
-            if (manualBtnState == btnStates.On)
+            if (manualBtnState == BtnStates.On)
                 btnSectionMasterManual.PerformClick();
 
             for (int j = 0; j < tool.numOfSections; j++)
@@ -693,7 +693,7 @@ namespace AgOpenGPS
                 }
             }
 
-            Log.EventWriter("** Field closed **   " + currentFieldDirectory + "   " +
+            Log.EventWriter("** Field closed **   " + CurrentFieldDirectory + "   " +
                 DateTime.Now.ToString("f", CultureInfo.InvariantCulture));
 
             isobus.SendFieldName(string.Empty);
@@ -715,7 +715,7 @@ namespace AgOpenGPS
         //this method is called to create a snapshot of the field for AgShare so we can close the field to speed up close and re-open
         public void AgShareSnapshot()
         {
-            if (!isJobStarted) return;
+            if (!IsJobStarted) return;
 
             snapshot = AgShareUploader.CreateSnapshot(this);
         }
@@ -725,7 +725,7 @@ namespace AgOpenGPS
         public void AgShareUpload()
         {
             //check if we're already uploading by closing a field or are we shutting down
-            if (!isJobStarted || snapshot == null || isAgShareUploadStarted || isShuttingDown)
+            if (!IsJobStarted || snapshot == null || isAgShareUploadStarted || isShuttingDown)
                 return;
 
             //set bool to true so we don't start another upload by double clicking or something.
@@ -815,7 +815,7 @@ namespace AgOpenGPS
         }
         private void boundariesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!isJobStarted) return;
+            if (!IsJobStarted) return;
 
             using (FormBoundary boundaryForm = new(this))
             {
@@ -920,7 +920,7 @@ namespace AgOpenGPS
                     recPath.recList.Clear();
                 }
             }
-            else if (isJobStarted)
+            else if (IsJobStarted)
             {
                 recPath.recList.Clear();
                 recPath.isRecordOn = true;
@@ -959,8 +959,8 @@ namespace AgOpenGPS
 
             for (int i = cnt - 1; i > -1; i--)
             {
-                recPath.recList[i].heading += glm.PIBy2 + glm.PIBy2;
-                if (recPath.recList[i].heading < -glm.twoPI) recPath.recList[i].heading += glm.twoPI;
+                recPath.recList[i].Heading += Glm.PIBy2 + Glm.PIBy2;
+                if (recPath.recList[i].Heading < -Glm.twoPI) recPath.recList[i].Heading += Glm.twoPI;
 
                 _recList.Add(recPath.recList[i]);
             }
@@ -988,7 +988,7 @@ namespace AgOpenGPS
             btnResumePath.Image = Properties.Resources.pathResumeStart;
             recPath.currentPositonIndex = 0;
 
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 if (panelDrag.Visible)
                 {
@@ -1010,7 +1010,7 @@ namespace AgOpenGPS
 
         private void copyTracksToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 using Forms.Field.FormCopyTracks form = new(this);
                 form.ShowDialog(this);
@@ -1086,7 +1086,7 @@ namespace AgOpenGPS
                 else btnBrightnessDn.Text = "??";
             }
 
-            if (isJobStarted) btnGrid.Enabled = true;
+            if (IsJobStarted) btnGrid.Enabled = true;
             else btnGrid.Enabled = false;
 
         }
@@ -1195,7 +1195,7 @@ namespace AgOpenGPS
                 AppModel.CurrentLatLon.Latitude,
                 AppModel.CurrentLatLon.Longitude,
                 pn.fix.easting, pn.fix.northing,
-                fixHeading, flagColor, nextflag, nextflag.ToString());
+                FixHeading, flagColor, nextflag, nextflag.ToString());
             flagPts.Add(flagPt);
             flagPts = FlagsFiles.DeduplicateFlags(flagPts);
             FileSaveFlags();
@@ -1253,7 +1253,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (!isJobStarted) return;
+            if (!IsJobStarted) return;
 
             Form form = new FormFieldData(this);
             form.Show(this);
@@ -1379,7 +1379,7 @@ namespace AgOpenGPS
         }
         private void setWorkingDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 // Show timed message if a job is still open
                 TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
@@ -1427,7 +1427,7 @@ namespace AgOpenGPS
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Prevent updater when field is open
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 FormDialog.Show("Updater", "Close Field first to run Updater", AgOpenGPS.Forms.DialogSeverity.Info);
                 return;
@@ -1498,7 +1498,7 @@ namespace AgOpenGPS
         }
         private void resetALLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 // Show message if field is still open
                 FormDialog.Show("Warning", gStr.gsCloseFieldFirst, DialogSeverity.Warning);
@@ -1527,7 +1527,7 @@ namespace AgOpenGPS
         }
         private void simulatorOnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 return;
@@ -1690,7 +1690,7 @@ namespace AgOpenGPS
         }
         private void btnResetToolHeading_Click(object sender, EventArgs e)
         {
-            tankPos.heading = fixHeading;
+            tankPos.heading = FixHeading;
             tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * tool.tankTrailingHitchLength);
             tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * tool.tankTrailingHitchLength);
 
@@ -1741,7 +1741,7 @@ namespace AgOpenGPS
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    sectionColorDay = form.useThisColor;
+                    sectionColorDay = form.UseThisColor;
                 }
             }
 
@@ -1861,7 +1861,7 @@ namespace AgOpenGPS
         }
         private void boundaryToolToolStripMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 using FormBndTool form = new(this);
                 form.ShowDialog(this);
@@ -1869,14 +1869,14 @@ namespace AgOpenGPS
         }
         private void SmoothABtoolStripMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted && trk.idx > -1)
+            if (IsJobStarted && trk.idx > -1)
             {
                 using FormSmoothAB form = new(this);
                 form.ShowDialog(this);
             }
             else
             {
-                if (!isJobStarted) TimedMessageBox(2000, gStr.gsFieldNotOpen, gStr.gsStartNewField);
+                if (!IsJobStarted) TimedMessageBox(2000, gStr.gsFieldNotOpen, gStr.gsStartNewField);
                 else TimedMessageBox(2000, gStr.gsCurveNotOn, gStr.gsTurnABCurveOn);
             }
         }
@@ -1890,9 +1890,9 @@ namespace AgOpenGPS
         }
         private void toolStripAreYouSure_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
-                if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
+                if (autoBtnState == BtnStates.Off && manualBtnState == BtnStates.Off)
                 {
                     DialogResult result = FormDialog.ShowQuestion(
                         gStr.gsDeleteAllContoursAndSections,
@@ -1905,23 +1905,23 @@ namespace AgOpenGPS
                         if (tool.isSectionsNotZones)
                         {
                             //Update the button colors and text
-                            AllSectionsAndButtonsToState(btnStates.Off);
+                            AllSectionsAndButtonsToState(BtnStates.Off);
 
                             //enable disable manual buttons
                             LineUpIndividualSectionBtns();
                         }
                         else
                         {
-                            AllZonesAndButtonsToState(btnStates.Off);
+                            AllZonesAndButtonsToState(BtnStates.Off);
                             LineUpAllZoneButtons();
                         }
 
                         //turn manual button off
-                        manualBtnState = btnStates.Off;
+                        manualBtnState = BtnStates.Off;
                         btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
                         //turn auto button off
-                        autoBtnState = btnStates.Off;
+                        autoBtnState = BtnStates.Off;
                         btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
 
@@ -2118,13 +2118,13 @@ namespace AgOpenGPS
         }
         private void googleEarthOpenGLContextMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 //save new copy of kml with selected flag and view in GoogleEarth
                 FileSaveSingleFlagKML(flagNumberPicked);
 
                 //Process.Start(@"C:\Program Files (x86)\Google\Google Earth\client\googleearth", workingDirectory + currentFieldDirectory + "\\Flags.KML");
-                Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Flag.KML"));
+                Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory, "Flag.KML"));
             }
         }
 

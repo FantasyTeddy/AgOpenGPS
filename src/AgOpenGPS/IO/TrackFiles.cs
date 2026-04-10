@@ -45,14 +45,14 @@ namespace AgOpenGPS.IO
                 string[] aParts = aLine.Split(',');
                 double aEasting = double.Parse(aParts[0], CultureInfo.InvariantCulture);
                 double aNorthing = double.Parse(aParts[1], CultureInfo.InvariantCulture);
-                vec2 ptA = new(aEasting, aNorthing);
+                Vec2 ptA = new(aEasting, aNorthing);
 
                 // --- B point (easting,northing) ---
                 string bLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF reading point B.");
                 string[] bParts = bLine.Split(',');
                 double bEasting = double.Parse(bParts[0], CultureInfo.InvariantCulture);
                 double bNorthing = double.Parse(bParts[1], CultureInfo.InvariantCulture);
-                vec2 ptB = new(bEasting, bNorthing);
+                Vec2 ptB = new(bEasting, bNorthing);
 
                 // --- Nudge ---
                 string nudgeLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF reading nudge.");
@@ -72,7 +72,7 @@ namespace AgOpenGPS.IO
                 int curveCount = int.Parse(countLine.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture);
 
                 // --- Curve points ---
-                List<vec3> curvePts = new();
+                List<Vec3> curvePts = new();
                 for (int i = 0; i < curveCount; i++)
                 {
                     string line = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF in curve points.");
@@ -80,7 +80,7 @@ namespace AgOpenGPS.IO
                     double easting = double.Parse(parts[0], CultureInfo.InvariantCulture);
                     double northing = double.Parse(parts[1], CultureInfo.InvariantCulture);
                     double pointheading = double.Parse(parts[2], CultureInfo.InvariantCulture);
-                    curvePts.Add(new vec3(easting, northing, pointheading));
+                    curvePts.Add(new Vec3(easting, northing, pointheading));
                 }
 
                 // --- Twol Track --- Don't read inner outer flag or halfToolWidth
@@ -134,11 +134,11 @@ namespace AgOpenGPS.IO
                 writer.WriteLine(((int)track.mode).ToString(CultureInfo.InvariantCulture));
                 writer.WriteLine(track.isVisible.ToString());
 
-                List<vec3> pts = track.curvePts ?? new List<vec3>();
+                List<Vec3> pts = track.curvePts ?? new List<Vec3>();
                 writer.WriteLine(pts.Count.ToString(CultureInfo.InvariantCulture));
                 for (int j = 0; j < pts.Count; j++)
                 {
-                    vec3 p = pts[j];
+                    Vec3 p = pts[j];
                     writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
                 }
             }

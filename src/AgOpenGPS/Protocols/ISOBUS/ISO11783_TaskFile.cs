@@ -88,7 +88,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
                     LineStringType = ISOLineStringType.PolygonExterior
                 };
 
-                foreach (vec2 v2 in bndList[i].fenceLineEar)
+                foreach (Vec2 v2 in bndList[i].fenceLineEar)
                 {
                     Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(v2.ToGeoCoord());
                     lineString.Point.Add(new ISOPoint
@@ -121,7 +121,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
                     LineStringType = ISOLineStringType.PolygonExterior
                 };
 
-                foreach (vec3 v3 in boundaryList.hdLine)
+                foreach (Vec3 v3 in boundaryList.hdLine)
                 {
                     Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(v3.ToGeoCoord());
                     lineString.Point.Add(new ISOPoint

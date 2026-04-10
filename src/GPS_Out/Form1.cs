@@ -60,7 +60,7 @@ namespace GPS_Out
         *48          Checksum
     */
 
-    public partial class frmStart : Form
+    public partial class FrmStart : Form
     {
         public UDPComm AGIOcomm;
         public PGN54908 AGIOdata;
@@ -73,7 +73,7 @@ namespace GPS_Out
         public PGN_RMC RMC;
         public string RMCsentence = "";
         public SerialSend SER;
-        public clsTools Tls;
+        public ClsTools Tls;
         public PGN_VTG VTG;
         public string VTGsentence = "";
         public PGN_ZDA ZDA;
@@ -82,10 +82,10 @@ namespace GPS_Out
         private readonly Color SimColor = Color.Orange;
         private int Watchdog;
 
-        public frmStart()
+        public FrmStart()
         {
             InitializeComponent();
-            Tls = new clsTools(this);
+            Tls = new ClsTools(this);
             AGIOcomm = new UDPComm(this, 15555, 7120, "AGIO", "127.103.104.105", "127.255.255.255");
             AOGcomm = new UDPComm(this, 17777, 9010, "AOG", "127.100.101.102", "127.255.255.255");
             AGIOdata = new PGN54908(this);

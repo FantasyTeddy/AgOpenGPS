@@ -203,7 +203,7 @@ namespace AgOpenGPS.Forms.Profiles
         {
             TextBox tb = (TextBox)sender;
             int pos = tb.SelectionStart;
-            tb.Text = Regex.Replace(tb.Text, glm.fileRegex, "");
+            tb.Text = Regex.Replace(tb.Text, Glm.fileRegex, "");
             tb.SelectionStart = pos;
 
             UpdateConvertButton();

@@ -24,14 +24,14 @@ namespace AgOpenGPS
         public bool isABValid;
 
         //the current AB guidance line
-        public vec3 currentLinePtA = new(0.0, 0.0, 0.0);
-        public vec3 currentLinePtB = new(0.0, 1.0, 0.0);
+        public Vec3 currentLinePtA = new(0.0, 0.0, 0.0);
+        public Vec3 currentLinePtB = new(0.0, 1.0, 0.0);
 
         public double distanceFromCurrentLinePivot;
         public double distanceFromRefLine;
 
         //pure pursuit values
-        public vec2 goalPointAB = new(0, 0);
+        public Vec2 goalPointAB = new(0, 0);
 
         public int howManyPathsAway, lastHowManyPathsAway;
         public bool isMakingABLine;
@@ -41,7 +41,7 @@ namespace AgOpenGPS
         //public int tramBasedOn;
         public double ppRadiusAB;
 
-        public vec2 radiusPointAB = new(0, 0);
+        public Vec2 radiusPointAB = new(0, 0);
         public double rEastAB, rNorthAB;
 
         public double snapDistance, lastSecond = 0;
@@ -49,11 +49,11 @@ namespace AgOpenGPS
         public int lineWidth, numGuideLines;
 
         //design
-        public vec2 desPtA = new(0.2, 0.15);
-        public vec2 desPtB = new(0.3, 0.3);
+        public Vec2 desPtA = new(0.2, 0.15);
+        public Vec2 desPtB = new(0.3, 0.3);
 
-        public vec2 desLineEndA = new(0.0, 0.0);
-        public vec2 desLineEndB = new(999997, 1.0);
+        public Vec2 desLineEndA = new(0.0, 0.0);
+        public Vec2 desLineEndB = new(999997, 1.0);
 
         public double desHeading = 0;
 
@@ -83,7 +83,7 @@ namespace AgOpenGPS
             numGuideLines = Properties.Settings.Default.setAS_numGuideLines;
         }
 
-        public void BuildCurrentABLineList(vec3 pivot)
+        public void BuildCurrentABLineList(Vec3 pivot)
         {
             if (mf.trk.gArr.Count < mf.trk.idx || mf.trk.idx < 0) return;
 
@@ -117,7 +117,7 @@ namespace AgOpenGPS
 
                 distanceFromRefLine -= 0.5 * widthMinusOverlap;
 
-                isHeadingSameWay = Math.PI - Math.Abs(Math.Abs(pivot.heading - abHeading) - Math.PI) < glm.PIBy2;
+                isHeadingSameWay = Math.PI - Math.Abs(Math.Abs(pivot.heading - abHeading) - Math.PI) < Glm.PIBy2;
 
                 //if (mf.yt.isYouTurnTriggered && !mf.yt.isGoingStraightThrough) isHeadingSameWay = !isHeadingSameWay;
 
@@ -142,13 +142,13 @@ namespace AgOpenGPS
                 distAway += 0.5 * widthMinusOverlap;
 
                 //move the curline as well. 
-                vec2 nudgePtA = new(track.ptA);
-                vec2 nudgePtB = new(track.ptB);
+                Vec2 nudgePtA = new(track.ptA);
+                Vec2 nudgePtB = new(track.ptB);
 
                 //depending which way you are going, the offset can be either side
-                vec2 point1 = new((Math.Cos(-abHeading) * distAway) + nudgePtA.easting, (Math.Sin(-abHeading) * distAway) + nudgePtA.northing);
+                Vec2 point1 = new((Math.Cos(-abHeading) * distAway) + nudgePtA.easting, (Math.Sin(-abHeading) * distAway) + nudgePtA.northing);
 
-                vec2 point2 = new((Math.Cos(-abHeading) * distAway) + nudgePtB.easting, (Math.Sin(-abHeading) * distAway) + nudgePtB.northing);
+                Vec2 point2 = new((Math.Cos(-abHeading) * distAway) + nudgePtB.easting, (Math.Sin(-abHeading) * distAway) + nudgePtB.northing);
 
                 //create the new line extent points for current ABLine based on original heading of AB line
                 currentLinePtA.easting = point1.easting - (Math.Sin(abHeading) * abLength);
@@ -162,7 +162,7 @@ namespace AgOpenGPS
             }
         }
 
-        public void GetCurrentABLine(vec3 pivot, vec3 steer)
+        public void GetCurrentABLine(Vec3 pivot, Vec3 steer)
         {
             double dx, dy;
 
@@ -279,18 +279,18 @@ namespace AgOpenGPS
 
                 //calc "D" the distance from pivot axle to lookahead point
                 double goalPointDistanceDSquared
-                    = glm.DistanceSquared(goalPointAB.northing, goalPointAB.easting, pivot.northing, pivot.easting);
+                    = Glm.DistanceSquared(goalPointAB.northing, goalPointAB.easting, pivot.northing, pivot.easting);
 
                 //calculate the the new x in local coordinates and steering angle degrees based on wheelbase
                 double localHeading;
 
-                if (isHeadingSameWay) localHeading = glm.twoPI - mf.fixHeading + inty;
-                else localHeading = glm.twoPI - mf.fixHeading - inty;
+                if (isHeadingSameWay) localHeading = Glm.twoPI - mf.FixHeading + inty;
+                else localHeading = Glm.twoPI - mf.FixHeading - inty;
 
                 ppRadiusAB = goalPointDistanceDSquared / (2 * (((goalPointAB.easting - pivot.easting) * Math.Cos(localHeading))
                     + ((goalPointAB.northing - pivot.northing) * Math.Sin(localHeading))));
 
-                steerAngleAB = glm.toDegrees(Math.Atan(2 * (((goalPointAB.easting - pivot.easting) * Math.Cos(localHeading))
+                steerAngleAB = Glm.ToDegrees(Math.Atan(2 * (((goalPointAB.easting - pivot.easting) * Math.Cos(localHeading))
                     + ((goalPointAB.northing - pivot.northing) * Math.Sin(localHeading))) * mf.vehicle.VehicleConfig.Wheelbase
                     / goalPointDistanceDSquared));
 
@@ -335,12 +335,12 @@ namespace AgOpenGPS
                 else if (steerHeadingError < -Math.PI)
                     steerHeadingError += Math.PI;
 
-                if (steerHeadingError > glm.PIBy2)
+                if (steerHeadingError > Glm.PIBy2)
                     steerHeadingError -= Math.PI;
-                else if (steerHeadingError < -glm.PIBy2)
+                else if (steerHeadingError < -Glm.PIBy2)
                     steerHeadingError += Math.PI;
 
-                mf.vehicle.modeActualHeadingError = glm.toDegrees(steerHeadingError);
+                mf.vehicle.modeActualHeadingError = Glm.ToDegrees(steerHeadingError);
 
                 //Convert to millimeters
                 mf.guidanceLineDistanceOff = (short)Math.Round(distanceFromCurrentLinePivot * 1000.0, MidpointRounding.AwayFromZero);
@@ -431,7 +431,7 @@ namespace AgOpenGPS
                 blackBackgroundStyle,
                 purpleForgroundStyle);
 
-            if (mf.isSideGuideLines && mf.camera.camSetDistance > mf.tool.width * -400)
+            if (mf.isSideGuideLines && mf.camera.CamSetDistance > mf.tool.width * -400)
             {
                 double toolWidth = mf.tool.width - mf.tool.overlap;
                 GeoLineSegment currentLine = new(currentLinePtA.ToGeoCoord(), currentLinePtB.ToGeoCoord());
@@ -484,7 +484,7 @@ namespace AgOpenGPS
 
             if (mf.tram.generateMode == 2) return;
 
-            List<vec2> tramRef = new();
+            List<Vec2> tramRef = new();
 
             bool isBndExist = mf.bnd.bndList.Count != 0;
 
@@ -493,9 +493,9 @@ namespace AgOpenGPS
             double hsin = Math.Sin(abHeading);
             double hcos = Math.Cos(abHeading);
 
-            double len = glm.Distance(mf.trk.gArr[mf.trk.idx].endPtA, mf.trk.gArr[mf.trk.idx].endPtB);
+            double len = Glm.Distance(mf.trk.gArr[mf.trk.idx].endPtA, mf.trk.gArr[mf.trk.idx].endPtB);
             //divide up the AB line into segments
-            vec2 P1 = new();
+            Vec2 P1 = new();
             for (int i = 0; i < (int)len; i += 4)
             {
                 P1.easting = (hsin * i) + mf.trk.gArr[mf.trk.idx].endPtA.easting;
@@ -504,7 +504,7 @@ namespace AgOpenGPS
             }
 
             //create list of list of points of triangle strip of AB Highlight
-            double headingCalc = abHeading + glm.PIBy2;
+            double headingCalc = abHeading + Glm.PIBy2;
 
             hsin = Math.Sin(headingCalc);
             hcos = Math.Cos(headingCalc);
@@ -525,7 +525,7 @@ namespace AgOpenGPS
             double widd;
             for (int i = cntr; i < mf.tram.passes; i++)
             {
-                mf.tram.tramArr = new List<vec2>
+                mf.tram.tramArr = new List<Vec2>
                 {
                     Capacity = 128
                 };
@@ -549,7 +549,7 @@ namespace AgOpenGPS
 
             for (int i = cntr; i < mf.tram.passes; i++)
             {
-                mf.tram.tramArr = new List<vec2>
+                mf.tram.tramArr = new List<Vec2>
                 {
                     Capacity = 128
                 };

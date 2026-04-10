@@ -56,7 +56,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                     if (ring == null || ring.Count < 3) continue;
 
                     CBoundaryList bnd = new();
-                    bnd.fenceLine ??= new List<vec3>();
+                    bnd.fenceLine ??= new List<Vec3>();
 
                     foreach (CoordinateDto point in ring)
                     {
@@ -69,7 +69,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                         }
 
                         Vec2 local = converter.ToLocal(wgs.Latitude, wgs.Longitude);
-                        bnd.fenceLine.Add(new vec3(local.Easting, local.Northing, 0.0));
+                        bnd.fenceLine.Add(new Vec3(local.Easting, local.Northing, 0.0));
                     }
 
                     if (bnd.fenceLine.Count >= 3)
@@ -105,8 +105,8 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
 
                     Vec2 vA = converter.ToLocal(wgsA.Latitude, wgsA.Longitude);
                     Vec2 vB = converter.ToLocal(wgsB.Latitude, wgsB.Longitude);
-                    vec3 ptA = new(vA.Easting, vA.Northing, 0);
-                    vec3 ptB = new(vB.Easting, vB.Northing, 0);
+                    Vec3 ptA = new(vA.Easting, vA.Northing, 0);
+                    Vec3 ptB = new(vB.Easting, vB.Northing, 0);
                     bool isCurve = ab.Coords.Count > 2;
 
                     CTrk trk = new()
@@ -118,14 +118,14 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                         heading = new GeoDir(ptA.ToGeoCoord(), ptB.ToGeoCoord()).AngleInRadians,
                         nudgeDistance = 0,
                         isVisible = true,
-                        curvePts = new List<vec3>()
+                        curvePts = new List<Vec3>()
                     };
 
                     // Parse curve points if present
                     if (isCurve)
                     {
                         // First pass: convert all points to local coordinates
-                        List<vec3> localPts = new();
+                        List<Vec3> localPts = new();
                         for (int i = 0; i < ab.Coords.Count; i++)
                         {
                             CoordinateDto p = ab.Coords[i];
@@ -134,7 +134,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                             if (!wgs.IsValid) continue;
 
                             Vec2 local = converter.ToLocal(wgs.Latitude, wgs.Longitude);
-                            localPts.Add(new vec3(local.Easting, local.Northing, 0));
+                            localPts.Add(new Vec3(local.Easting, local.Northing, 0));
                         }
 
                         // Second pass: calculate headings for all points
@@ -157,7 +157,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                                 heading = new GeoDir(localPts[i - 1].ToGeoCoord(), localPts[i].ToGeoCoord()).AngleInRadians;
                             }
 
-                            trk.curvePts.Add(new vec3(localPts[i].easting, localPts[i].northing, heading));
+                            trk.curvePts.Add(new Vec3(localPts[i].easting, localPts[i].northing, heading));
                         }
 
                         // Update ptA/ptB to first/last curve points

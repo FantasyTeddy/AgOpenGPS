@@ -46,7 +46,7 @@ namespace AgOpenGPS
         {
             TextBox textboxSender = (TextBox)sender;
             int cursorPosition = textboxSender.SelectionStart;
-            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.Text = Regex.Replace(textboxSender.Text, Glm.fileRegex, "");
             textboxSender.SelectionStart = cursorPosition;
 
             if (String.IsNullOrEmpty(tboxFieldName.Text.Trim()))
@@ -66,7 +66,7 @@ namespace AgOpenGPS
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
                 await mf.FileSaveEverythingBeforeClosingField();
 
             //reset sim and world to kml position
@@ -183,7 +183,7 @@ namespace AgOpenGPS
                                     double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
 
                                     GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latK, lonK));
-                                    New.fenceLine.Add(new vec3(geoCoord));
+                                    New.fenceLine.Add(new Vec3(geoCoord));
                                 }
 
                                 //build the boundary, make sure is clockwise for outer counter clockwise for inner
@@ -328,10 +328,10 @@ namespace AgOpenGPS
             }
 
             //append date time to name
-            mf.currentFieldDirectory = tboxFieldName.Text.Trim();
+            mf.CurrentFieldDirectory = tboxFieldName.Text.Trim();
 
             //get the directory and make sure it exists, create if not
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory);
 
             mf.menustripLanguage.Enabled = false;
             //if no template set just make a new file.
@@ -355,7 +355,7 @@ namespace AgOpenGPS
                     { Directory.CreateDirectory(directoryName); }
 
                     //create the field file header info
-                    if (!mf.isJobStarted)
+                    if (!mf.IsJobStarted)
                     {
                         FormDialog.Show(gStr.gsFieldNotOpen, gStr.gsCreateNewField, DialogSeverity.Error);
                         return;
@@ -363,7 +363,7 @@ namespace AgOpenGPS
                     string myFileName;
 
                     //get the directory and make sure it exists, create if not
-                    directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+                    directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory);
 
                     if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
                     { Directory.CreateDirectory(directoryName); }
@@ -406,7 +406,7 @@ namespace AgOpenGPS
                 Log.EventWriter("Creating new kml field " + ex.ToString());
 
                 FormDialog.Show(gStr.gsError, ex.ToString(), DialogSeverity.Error);
-                mf.currentFieldDirectory = "";
+                mf.CurrentFieldDirectory = "";
             }
         }
     }

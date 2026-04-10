@@ -218,7 +218,7 @@ namespace AgOpenGPS
             // Detect reconnect: TC was dead (no heartbeat for >1s) and is now alive again
             bool wasAlive = timestamp != default && DateTimeOffset.Now - timestamp < TimeSpan.FromSeconds(1);
             if (!wasAlive)
-                SendFieldName(mf.isJobStarted ? mf.currentFieldDirectory : string.Empty);
+                SendFieldName(mf.IsJobStarted ? mf.CurrentFieldDirectory : string.Empty);
 
             // Extract fields from byte 0 (backward compatible):
             // Bit 0: Section control enabled (existing)

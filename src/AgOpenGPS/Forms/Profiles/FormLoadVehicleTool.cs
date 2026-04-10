@@ -138,7 +138,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonDeleteVehicle_Click(object sender, EventArgs e)
         {
-            if (_formGPS.isJobStarted || string.IsNullOrEmpty(_selectedVehicle)) return;
+            if (_formGPS.IsJobStarted || string.IsNullOrEmpty(_selectedVehicle)) return;
             if (_selectedVehicle == RegistrySettings.vehicleProfileName)
             {
                 FormDialog.Show(gStr.gsVehicleInUse, gStr.gsCannotDeleteActiveVehicle, DialogSeverity.Error);
@@ -248,7 +248,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonDeleteTool_Click(object sender, EventArgs e)
         {
-            if (_formGPS.isJobStarted || string.IsNullOrEmpty(_selectedTool)) return;
+            if (_formGPS.IsJobStarted || string.IsNullOrEmpty(_selectedTool)) return;
             if (_selectedTool == RegistrySettings.toolProfileName)
             {
                 FormDialog.Show(gStr.gsToolInUse, gStr.gsCannotDeleteActiveTool, DialogSeverity.Error);
@@ -378,7 +378,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            if (_formGPS.isJobStarted)
+            if (_formGPS.IsJobStarted)
             {
                 _formGPS.TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 return;

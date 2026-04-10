@@ -99,8 +99,8 @@ namespace AgOpenGPS.IO
                 writer.WriteLine(
                     f.latitude.ToString(CultureInfo.InvariantCulture) + "," +
                     f.longitude.ToString(CultureInfo.InvariantCulture) + "," +
-                    f.easting.ToString(CultureInfo.InvariantCulture) + "," +
-                    f.northing.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.Easting.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.Northing.ToString(CultureInfo.InvariantCulture) + "," +
                     f.heading.ToString(CultureInfo.InvariantCulture) + "," +
                     f.color.ToString(CultureInfo.InvariantCulture) + "," +
                     f.ID.ToString(CultureInfo.InvariantCulture) + "," +

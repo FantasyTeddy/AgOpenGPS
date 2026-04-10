@@ -124,8 +124,8 @@ namespace AgOpenGPS
                 mf.worldGrid.gridRotation = Math.Atan2(
                     mf.trk.gArr[mf.trk.idx].ptB.easting - mf.trk.gArr[mf.trk.idx].ptA.easting,
                     mf.trk.gArr[mf.trk.idx].ptB.northing - mf.trk.gArr[mf.trk.idx].ptA.northing);
-                if (mf.worldGrid.gridRotation < 0) mf.worldGrid.gridRotation += glm.twoPI;
-                mf.worldGrid.gridRotation = glm.toDegrees(mf.worldGrid.gridRotation);
+                if (mf.worldGrid.gridRotation < 0) mf.worldGrid.gridRotation += Glm.twoPI;
+                mf.worldGrid.gridRotation = Glm.ToDegrees(mf.worldGrid.gridRotation);
             }
             Close();
         }

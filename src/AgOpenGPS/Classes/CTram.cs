@@ -8,8 +8,8 @@ namespace AgOpenGPS
     {
         private readonly FormGPS mf;
 
-        public List<vec2> tramBndOuterArr = new();
-        public List<vec2> tramBndInnerArr = new();
+        public List<Vec2> tramBndOuterArr = new();
+        public List<Vec2> tramBndInnerArr = new();
 
         //tram settings
         //public double wheelTrack;
@@ -23,9 +23,9 @@ namespace AgOpenGPS
 
 
         //tramlines
-        public List<vec2> tramArr = new();
+        public List<Vec2> tramArr = new();
 
-        public List<List<vec2>> tramList = new();
+        public List<List<Vec2>> tramList = new();
 
         // 0 off, 1 All, 2, Lines, 3 Outer
         public int displayMode, generateMode = 0;
@@ -58,7 +58,7 @@ namespace AgOpenGPS
 
         public void DrawTram()
         {
-            if (mf.camera.camSetDistance > -500) GL.LineWidth(10);
+            if (mf.camera.CamSetDistance > -500) GL.LineWidth(10);
             else GL.LineWidth(6);
 
             GL.Color4(0, 0, 0, alpha);
@@ -90,7 +90,7 @@ namespace AgOpenGPS
                 }
             }
 
-            if (mf.camera.camSetDistance > -500) GL.LineWidth(4);
+            if (mf.camera.CamSetDistance > -500) GL.LineWidth(4);
             else GL.LineWidth(2);
 
             GL.Color4(0.930f, 0.72f, 0.73530f, alpha);
@@ -151,15 +151,15 @@ namespace AgOpenGPS
             tramBndInnerArr.ReducePointsByAngle(0.01, 50);
         }
 
-        private List<vec2> CreateBoundaryTrack(double distance)
+        private List<Vec2> CreateBoundaryTrack(double distance)
         {
-            List<vec2> newTrack = new();
+            List<Vec2> newTrack = new();
 
             //countExit the points from the boundary
             int ptCount = mf.bnd.bndList[0].fenceLine.Count;
 
             //outside point
-            vec2 pt3 = new();
+            Vec2 pt3 = new();
 
             double distSq = distance * distance * 0.999;
 
@@ -167,16 +167,16 @@ namespace AgOpenGPS
             {
                 //calculate the point inside the boundary
                 pt3.easting = mf.bnd.bndList[0].fenceLine[i].easting -
-                    (Math.Sin(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * distance);
+                    (Math.Sin(Glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * distance);
 
                 pt3.northing = mf.bnd.bndList[0].fenceLine[i].northing -
-                    (Math.Cos(glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * distance);
+                    (Math.Cos(Glm.PIBy2 + mf.bnd.bndList[0].fenceLine[i].heading) * distance);
 
                 bool Add = true;
 
                 for (int j = 0; j < ptCount; j++)
                 {
-                    double check = glm.DistanceSquared(pt3.northing, pt3.easting,
+                    double check = Glm.DistanceSquared(pt3.northing, pt3.easting,
                                         mf.bnd.bndList[0].fenceLine[j].northing, mf.bnd.bndList[0].fenceLine[j].easting);
                     if (check < distSq)
                     {

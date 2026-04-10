@@ -15,7 +15,7 @@ namespace AgOpenGPS
 
         private bool toSend252 = false, toSend251 = false, isSARight = false, isSALeft = false;
         private int counter252 = 0, counter251 = 0, cntr;
-        private vec3 startFix;
+        private Vec3 startFix;
         private double diameter, steerAngleRight, steerAngleLeft, dist, startAngleLeft;
         private bool isWizardStarted = false;
 
@@ -256,7 +256,7 @@ namespace AgOpenGPS
         {
             if (isSARight)
             {
-                dist = glm.Distance(startFix, mf.pivotAxlePos);
+                dist = Glm.Distance(startFix, mf.pivotAxlePos);
                 cntr++;
                 if (dist > diameter)
                 {
@@ -268,7 +268,7 @@ namespace AgOpenGPS
                 if (cntr > 9)
                 {
                     steerAngleRight = Math.Atan(mf.vehicle.VehicleConfig.Wheelbase / ((diameter - (mf.vehicle.VehicleConfig.TrackWidth * 0.5)) / 2));
-                    steerAngleRight = glm.toDegrees(steerAngleRight);
+                    steerAngleRight = Glm.ToDegrees(steerAngleRight);
 
                     lblCalcSteerAngleInner.Text = steerAngleRight.ToString("N1") + "\u00B0";
                     lblDiameter.Text = diameter.ToString("N2") + " m";
@@ -294,7 +294,7 @@ namespace AgOpenGPS
 
             if (isSALeft)
             {
-                dist = glm.Distance(startFix, mf.pivotAxlePos);
+                dist = Glm.Distance(startFix, mf.pivotAxlePos);
                 cntr++;
                 if (dist > diameter)
                 {
@@ -306,7 +306,7 @@ namespace AgOpenGPS
                 if (cntr > 9)
                 {
                     steerAngleLeft = Math.Atan(mf.vehicle.VehicleConfig.Wheelbase / ((diameter - (mf.vehicle.VehicleConfig.TrackWidth * 0.5)) / 2));
-                    steerAngleLeft = glm.toDegrees(steerAngleLeft);
+                    steerAngleLeft = Glm.ToDegrees(steerAngleLeft);
 
                     lblCalcSteerAngleLeft.Text = steerAngleLeft.ToString("N1") + "\u00B0";
                     lblDiameterLeft.Text = diameter.ToString("N2") + " m";

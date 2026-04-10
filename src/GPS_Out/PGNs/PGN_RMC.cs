@@ -22,9 +22,9 @@ namespace GPS_Out
 
         #endregion RMC Message
 
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
 
-        public PGN_RMC(frmStart CalledFrom)
+        public PGN_RMC(FrmStart CalledFrom)
         {
             mf = CalledFrom;
         }

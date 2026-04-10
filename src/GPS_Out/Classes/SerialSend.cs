@@ -5,13 +5,13 @@ namespace GPS_Out
 {
     public class SerialSend
     {
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
         private bool cWriteTimeOut = false;
         private readonly SerialPort Sport;
         private readonly System.Windows.Forms.Timer Timer1 = new();
         private int WriteErrorCount;
 
-        public SerialSend(frmStart CalledFrom)
+        public SerialSend(FrmStart CalledFrom)
         {
             this.mf = CalledFrom;
             Sport = new SerialPort(Properties.Settings.Default.Port, Properties.Settings.Default.Baud)

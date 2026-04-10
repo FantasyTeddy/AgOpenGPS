@@ -5,7 +5,7 @@ namespace AgOpenGPS
 {
     public static class TrackMethods
     {
-        public static void FixReferenceTrack(this List<vec3> points, bool isLoop)
+        public static void FixReferenceTrack(this List<Vec3> points, bool isLoop)
         {
             points.SmoothSegments(4);
             points.CatmullFix(1);
@@ -20,12 +20,12 @@ namespace AgOpenGPS
             }
         }
 
-        public static void CatmullFix(this List<vec3> points, double step = 2)
+        public static void CatmullFix(this List<Vec3> points, double step = 2)
         {
             int cnt = points.Count;
             if (cnt > 6)
             {
-                vec3[] arr = new vec3[cnt];
+                Vec3[] arr = new Vec3[cnt];
                 points.CopyTo(arr);
 
                 points.Clear();
@@ -41,14 +41,14 @@ namespace AgOpenGPS
                     // add p1
                     points.Add(arr[i + 1]);
 
-                    distance = glm.Distance(arr[i + 1], arr[i + 2]);
+                    distance = Glm.Distance(arr[i + 1], arr[i + 2]);
 
                     if (distance > step)
                     {
                         int loopTimes = (int)((distance / step) + 1);
                         for (int j = 1; j < loopTimes; j++)
                         {
-                            vec3 pos = new(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
+                            Vec3 pos = new(Glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
                             points.Add(pos);
                         }
                     }
@@ -60,26 +60,26 @@ namespace AgOpenGPS
         }
 
 
-        public static void CalculateAverageHeadings(this List<vec3> points, bool loop)
+        public static void CalculateAverageHeadings(this List<Vec3> points, bool loop)
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = points.Count;
 
             if (cnt > 1)
             {
-                vec3[] arr = new vec3[cnt];
+                Vec3[] arr = new Vec3[cnt];
                 cnt--;
                 points.CopyTo(arr);
                 points.Clear();
 
                 //first point needs last, first, second points
-                vec3 pt3 = arr[0];
+                Vec3 pt3 = arr[0];
                 if (loop)
                     pt3.heading = Math.Atan2(arr[1].easting - arr[cnt].easting, arr[1].northing - arr[cnt].northing);
                 else
                     pt3.heading = Math.Atan2(arr[1].easting - arr[0].easting, arr[1].northing - arr[0].northing);
 
-                if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                if (pt3.heading < 0) pt3.heading += Glm.twoPI;
                 points.Add(pt3);
 
                 //middle points
@@ -87,7 +87,7 @@ namespace AgOpenGPS
                 {
                     pt3 = arr[i];
                     pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting, arr[i + 1].northing - arr[i - 1].northing);
-                    if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                    if (pt3.heading < 0) pt3.heading += Glm.twoPI;
                     points.Add(pt3);
                 }
 
@@ -98,31 +98,31 @@ namespace AgOpenGPS
                 else
                     pt3.heading = Math.Atan2(arr[cnt].easting - arr[cnt - 1].easting, arr[cnt].northing - arr[cnt - 1].northing);
 
-                if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                if (pt3.heading < 0) pt3.heading += Glm.twoPI;
                 points.Add(pt3);
             }
         }
 
-        public static void CalculateSingleHeadings(this List<vec3> points, bool loop)
+        public static void CalculateSingleHeadings(this List<Vec3> points, bool loop)
         {
             //to calc heading based on next point.
             int cnt = points.Count;
 
             if (cnt > 1)
             {
-                vec3[] arr = new vec3[cnt];
+                Vec3[] arr = new Vec3[cnt];
                 cnt--;
                 points.CopyTo(arr);
                 points.Clear();
 
                 //first point needs last, first, second points
-                vec3 pt3 = arr[0];
+                Vec3 pt3 = arr[0];
                 if (loop)
                     pt3.heading = Math.Atan2(arr[1].easting - arr[cnt].easting, arr[1].northing - arr[cnt].northing);
                 else
                     pt3.heading = Math.Atan2(arr[1].easting - arr[0].easting, arr[1].northing - arr[0].northing);
 
-                if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                if (pt3.heading < 0) pt3.heading += Glm.twoPI;
                 points.Add(pt3);
 
                 //middle points
@@ -130,7 +130,7 @@ namespace AgOpenGPS
                 {
                     pt3 = arr[i];
                     pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i].easting, arr[i + 1].northing - arr[i].northing);
-                    if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                    if (pt3.heading < 0) pt3.heading += Glm.twoPI;
                     points.Add(pt3);
                 }
 
@@ -141,14 +141,14 @@ namespace AgOpenGPS
                 else
                     pt3.heading = Math.Atan2(arr[cnt].easting - arr[cnt - 1].easting, arr[cnt].northing - arr[cnt - 1].northing);
 
-                if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                if (pt3.heading < 0) pt3.heading += Glm.twoPI;
                 points.Add(pt3);
             }
         }
 
-        public static void GenerateEquidistantPoints(this List<vec3> points, double spacing, bool isLoop)
+        public static void GenerateEquidistantPoints(this List<Vec3> points, double spacing, bool isLoop)
         {
-            List<vec3> result = new();
+            List<Vec3> result = new();
             const double eps = 1e-9;
 
             if (points == null || points.Count == 0) return;
@@ -164,7 +164,7 @@ namespace AgOpenGPS
             double total = 0.0;
             for (int i = 0; i < n - 1; i++)
             {
-                double d = glm.Distance(points[i], points[i + 1]);
+                double d = Glm.Distance(points[i], points[i + 1]);
                 segLen.Add(d);
                 total += d;
                 cumul.Add(total);
@@ -172,7 +172,7 @@ namespace AgOpenGPS
 
             if (isLoop)
             {
-                double d = glm.Distance(points[n - 1], points[0]);
+                double d = Glm.Distance(points[n - 1], points[0]);
                 segLen.Add(d);
                 total += d;
                 cumul.Add(total);
@@ -185,7 +185,7 @@ namespace AgOpenGPS
             }
 
             // Add the first point
-            result.Add(new vec3(points[0]));
+            result.Add(new Vec3(points[0]));
 
             // sample points at multiples of spacing
             double tDist = spacing;
@@ -207,7 +207,7 @@ namespace AgOpenGPS
                     // fallback: place at end
                     if (!isLoop)
                     {
-                        result.Add(new vec3(points[n - 1]));
+                        result.Add(new Vec3(points[n - 1]));
                     }
                     break;
                 }
@@ -218,13 +218,13 @@ namespace AgOpenGPS
                 double frac = thisSegLen < eps ? 0.0 : (local / thisSegLen);
 
                 // determine segment endpoints (wrap for loop)
-                vec3 a = points[segIndex];
-                vec3 b = (segIndex + 1 < n) ? points[segIndex + 1] : points[0];
+                Vec3 a = points[segIndex];
+                Vec3 b = (segIndex + 1 < n) ? points[segIndex + 1] : points[0];
 
                 double x = a.easting + ((b.easting - a.easting) * frac);
                 double y = a.northing + ((b.northing - a.northing) * frac);
 
-                result.Add(new vec3(x, y, 0));
+                result.Add(new Vec3(x, y, 0));
 
                 tDist += spacing;
             }
@@ -232,19 +232,19 @@ namespace AgOpenGPS
             // For open polyline ensure last point present
             if (!isLoop)
             {
-                vec3 last = points[n - 1];
-                if (result.Count == 0 || glm.Distance(result[^1], last) > 1e-6)
-                    result.Add(new vec3(last));
+                Vec3 last = points[n - 1];
+                if (result.Count == 0 || Glm.Distance(result[^1], last) > 1e-6)
+                    result.Add(new Vec3(last));
             }
 
             points.Clear();
             points.AddRange(result);
         }
 
-        public static void ReducePointsByAngle(this List<vec3> points, double angleDelta = 0.005, double spread = 2)
+        public static void ReducePointsByAngle(this List<Vec3> points, double angleDelta = 0.005, double spread = 2)
         {
             int cont = points.Count;
-            vec3[] smList = new vec3[cont];
+            Vec3[] smList = new Vec3[cont];
             cont--;
             points.CopyTo(smList);
             points.Clear();
@@ -252,7 +252,7 @@ namespace AgOpenGPS
             double delta = 0;
             double check;
             double dist = 0;
-            vec3 lastPt = new(smList[0]);
+            Vec3 lastPt = new(smList[0]);
             spread *= spread;
             spread *= 0.95;
 
@@ -261,42 +261,42 @@ namespace AgOpenGPS
 
                 if (i < 2 || i > cont - 3)
                 {
-                    points.Add(new vec3(smList[i]));
+                    points.Add(new Vec3(smList[i]));
                     continue;
                 }
                 check = smList[i - 1].heading - smList[i].heading;
                 if (check is > Math.PI or < -Math.PI)
                 {
-                    if (check > 0) check -= glm.twoPI;
-                    else check += glm.twoPI;
+                    if (check > 0) check -= Glm.twoPI;
+                    else check += Glm.twoPI;
                 }
 
                 delta += check;
-                dist += glm.DistanceSquared(lastPt, smList[i]);
+                dist += Glm.DistanceSquared(lastPt, smList[i]);
                 lastPt = smList[i];
 
                 if (Math.Abs(delta) > angleDelta || dist >= spread)
                 {
-                    points.Add(new vec3(smList[i]));
+                    points.Add(new Vec3(smList[i]));
                     delta = 0;
                     dist = 0;
                 }
             }
         }
 
-        public static void ReducePointsByAngle(this List<vec2> points, double angleDelta = 0.005, double spread = 2)
+        public static void ReducePointsByAngle(this List<Vec2> points, double angleDelta = 0.005, double spread = 2)
         {
             if (points == null || points.Count < 6) return;
 
             int cont = points.Count;
-            vec2[] smList = new vec2[cont];
+            Vec2[] smList = new Vec2[cont];
             points.CopyTo(smList);
             points.Clear();
 
             double delta = 0;
             double check;
             double dist = 0;
-            vec2 lastPt = new(smList[0]);
+            Vec2 lastPt = new(smList[0]);
             spread *= spread;
             spread *= 0.95;
 
@@ -305,7 +305,7 @@ namespace AgOpenGPS
 
                 if (i < 2 || i > cont - 3)
                 {
-                    points.Add(new vec2(smList[i]));
+                    points.Add(new Vec2(smList[i]));
                     continue;
                 }
 
@@ -315,26 +315,26 @@ namespace AgOpenGPS
                 check = heading - heading2;
                 if (check is > Math.PI or < -Math.PI)
                 {
-                    if (check > 0) check -= glm.twoPI;
-                    else check += glm.twoPI;
+                    if (check > 0) check -= Glm.twoPI;
+                    else check += Glm.twoPI;
                 }
 
                 delta += check;
-                dist += glm.DistanceSquared(lastPt, smList[i]);
+                dist += Glm.DistanceSquared(lastPt, smList[i]);
                 lastPt = smList[i];
 
                 if (Math.Abs(delta) > angleDelta || dist >= spread)
                 {
-                    points.Add(new vec2(smList[i]));
+                    points.Add(new Vec2(smList[i]));
                     delta = 0;
                     dist = 0;
                 }
             }
         }
 
-        public static List<vec2> ReducePointsByAngleToVec2(this List<vec3> points, double angleDelta = 0.02, double spread = 30)
+        public static List<Vec2> ReducePointsByAngleToVec2(this List<Vec3> points, double angleDelta = 0.02, double spread = 30)
         {
-            List<vec2> smList = new();
+            List<Vec2> smList = new();
 
             double delta = 0;
             int cont = points.Count;
@@ -346,19 +346,19 @@ namespace AgOpenGPS
             {
                 if (i < 2 || i > cont - 3)
                 {
-                    smList.Add(new vec2(points[i].easting, points[i].northing));
+                    smList.Add(new Vec2(points[i].easting, points[i].northing));
                     continue;
                 }
                 check = points[i - 1].heading - points[i].heading;
                 if (check is > Math.PI or < -Math.PI)
                 {
-                    if (check > 0) check -= glm.twoPI;
-                    else check += glm.twoPI;
+                    if (check > 0) check -= Glm.twoPI;
+                    else check += Glm.twoPI;
                 }
                 delta += check;
                 if (Math.Abs(delta) > angleDelta || counter > spread)
                 {
-                    smList.Add(new vec2(points[i].easting, points[i].northing));
+                    smList.Add(new Vec2(points[i].easting, points[i].northing));
                     delta = 0;
                     counter = 0;
                 }
@@ -368,7 +368,7 @@ namespace AgOpenGPS
             return smList;
         }
 
-        public static void MinimumSpacingPointRemoval(this List<vec3> points, double spacing = 1)
+        public static void MinimumSpacingPointRemoval(this List<Vec3> points, double spacing = 1)
         {
             //make sure distance isn't too small between points on headland
             spacing *= spacing;
@@ -376,7 +376,7 @@ namespace AgOpenGPS
 
             for (int i = 0; i < ptCount - 1; i++)
             {
-                double distance = glm.DistanceSquared(points[i], points[i + 1]);
+                double distance = Glm.DistanceSquared(points[i], points[i + 1]);
                 if (distance < spacing)
                 {
                     points.RemoveAt(i + 1);
@@ -386,13 +386,13 @@ namespace AgOpenGPS
             }
         }
 
-        public static void AddStartEndPoints(this List<vec3> xList, int ptsToAdd = 10, double distBetweenPoints = 50)
+        public static void AddStartEndPoints(this List<Vec3> xList, int ptsToAdd = 10, double distBetweenPoints = 50)
         {
-            vec3 start = new(xList[0]);
+            Vec3 start = new(xList[0]);
 
             for (int i = 1; i < ptsToAdd; i++)
             {
-                vec3 pt = new(start);
+                Vec3 pt = new(start);
                 pt.easting -= Math.Sin(pt.heading) * i * distBetweenPoints;
                 pt.northing -= Math.Cos(pt.heading) * i * distBetweenPoints;
                 xList.Insert(0, pt);
@@ -401,44 +401,44 @@ namespace AgOpenGPS
             int ptCnt = xList.Count - 1;
             for (int i = 1; i < ptsToAdd; i++)
             {
-                vec3 pt = new(xList[ptCnt]);
+                Vec3 pt = new(xList[ptCnt]);
                 pt.easting += Math.Sin(pt.heading) * i * distBetweenPoints;
                 pt.northing += Math.Cos(pt.heading) * i * distBetweenPoints;
                 xList.Add(pt);
             }
         }
 
-        public static void AddStartPoints(this List<vec3> xList, int ptsToAdd = 10, double distBetweenPoints = 50)
+        public static void AddStartPoints(this List<Vec3> xList, int ptsToAdd = 10, double distBetweenPoints = 50)
         {
-            vec3 start = new(xList[0]);
+            Vec3 start = new(xList[0]);
 
             for (int i = 1; i <= ptsToAdd; i++)
             {
-                vec3 pt = new(start);
+                Vec3 pt = new(start);
                 pt.easting -= Math.Sin(pt.heading) * i * distBetweenPoints;
                 pt.northing -= Math.Cos(pt.heading) * i * distBetweenPoints;
                 xList.Insert(0, pt);
             }
         }
 
-        public static void AddEndPoints(this List<vec3> xList, int ptsToAdd = 10, double distBetweenPoints = 50)
+        public static void AddEndPoints(this List<Vec3> xList, int ptsToAdd = 10, double distBetweenPoints = 50)
         {
             int ptCnt = xList.Count - 1;
             for (int i = 1; i <= ptsToAdd; i++)
             {
-                vec3 pt = new(xList[ptCnt]);
+                Vec3 pt = new(xList[ptCnt]);
                 pt.easting += Math.Sin(pt.heading) * i * distBetweenPoints;
                 pt.northing += Math.Cos(pt.heading) * i * distBetweenPoints;
                 xList.Add(pt);
             }
         }
 
-        public static void SmoothSegments(this List<vec3> points, int smPts = 4)
+        public static void SmoothSegments(this List<Vec3> points, int smPts = 4)
         {
             int cnt = points.Count;
             if (cnt == 0 || smPts <= 0) return;
 
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
 
             // copy first smPts/2 (or all, if fewer)
             for (int s = 0; s < smPts / 2 && s < cnt; s++)
@@ -480,12 +480,12 @@ namespace AgOpenGPS
             points.AddRange(arr);
         }
 
-        public static void SmoothSegments(this List<vec2> points, int smPts = 4)
+        public static void SmoothSegments(this List<Vec2> points, int smPts = 4)
         {
             int cnt = points.Count;
             if (cnt == 0 || smPts <= 0) return;
 
-            vec2[] arr = new vec2[cnt];
+            Vec2[] arr = new Vec2[cnt];
 
             // copy first smPts/2 (or all, if fewer)
             for (int s = 0; s < smPts / 2 && s < cnt; s++)
@@ -524,11 +524,11 @@ namespace AgOpenGPS
             points.AddRange(arr);
         }
 
-        public static double TrackAverageHeading(this List<vec3> points)
+        public static double TrackAverageHeading(this List<Vec3> points)
         {
             //calculate average heading of line
             double x = 0, y = 0;
-            foreach (vec3 pt in points)
+            foreach (Vec3 pt in points)
             {
                 x += Math.Cos(pt.heading);
                 y += Math.Sin(pt.heading);
@@ -537,18 +537,18 @@ namespace AgOpenGPS
             y /= points.Count;
 
             double aveLineHeading = Math.Atan2(y, x);
-            if (aveLineHeading < 0) aveLineHeading += glm.twoPI;
+            if (aveLineHeading < 0) aveLineHeading += Glm.twoPI;
 
             return aveLineHeading;
         }
 
-        public static void ChaikinsSmooth(this List<vec3> points, int iterations, bool preserveEndPoints = true)
+        public static void ChaikinsSmooth(this List<Vec3> points, int iterations, bool preserveEndPoints = true)
         {
-            List<vec3> currentPoints = new(points);
+            List<Vec3> currentPoints = new(points);
 
             for (int iter = 0; iter < iterations; iter++)
             {
-                List<vec3> nextPoints = new();
+                List<Vec3> nextPoints = new();
 
                 // Optionally preserve the start point for non-closed polylines
                 if (preserveEndPoints && currentPoints.Count > 0)
@@ -558,12 +558,12 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < currentPoints.Count - 1; i++)
                 {
-                    vec3 p0 = currentPoints[i];
-                    vec3 p1 = currentPoints[i + 1];
+                    Vec3 p0 = currentPoints[i];
+                    Vec3 p1 = currentPoints[i + 1];
 
                     // Calculate Q and R points, which are 25% and 75% along the segment
-                    nextPoints.Add(new vec3((0.75f * p0.easting) + (0.25f * p1.easting), (0.75f * p0.northing) + (0.25f * p1.northing), 0));
-                    nextPoints.Add(new vec3((0.25f * p0.easting) + (0.75f * p1.easting), (0.25f * p0.northing) + (0.75f * p1.northing), 0));
+                    nextPoints.Add(new Vec3((0.75f * p0.easting) + (0.25f * p1.easting), (0.75f * p0.northing) + (0.25f * p1.northing), 0));
+                    nextPoints.Add(new Vec3((0.25f * p0.easting) + (0.75f * p1.easting), (0.25f * p0.northing) + (0.75f * p1.northing), 0));
                 }
 
                 // Optionally preserve the end point for non-closed polylines
@@ -579,13 +579,13 @@ namespace AgOpenGPS
             points.AddRange(currentPoints);
         }
 
-        public static void ChaikinsSmooth(this List<vec2> points, int iterations, bool preserveEndPoints = true)
+        public static void ChaikinsSmooth(this List<Vec2> points, int iterations, bool preserveEndPoints = true)
         {
-            List<vec2> currentPoints = new(points);
+            List<Vec2> currentPoints = new(points);
 
             for (int iter = 0; iter < iterations; iter++)
             {
-                List<vec2> nextPoints = new();
+                List<Vec2> nextPoints = new();
 
                 // Optionally preserve the start point for non-closed polylines
                 if (preserveEndPoints && currentPoints.Count > 0)
@@ -595,12 +595,12 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < currentPoints.Count - 1; i++)
                 {
-                    vec2 p0 = currentPoints[i];
-                    vec2 p1 = currentPoints[i + 1];
+                    Vec2 p0 = currentPoints[i];
+                    Vec2 p1 = currentPoints[i + 1];
 
                     // Calculate Q and R points, which are 25% and 75% along the segment
-                    nextPoints.Add(new vec2((0.75f * p0.easting) + (0.25f * p1.easting), (0.75f * p0.northing) + (0.25f * p1.northing)));
-                    nextPoints.Add(new vec2((0.25f * p0.easting) + (0.75f * p1.easting), (0.25f * p0.northing) + (0.75f * p1.northing)));
+                    nextPoints.Add(new Vec2((0.75f * p0.easting) + (0.25f * p1.easting), (0.75f * p0.northing) + (0.25f * p1.northing)));
+                    nextPoints.Add(new Vec2((0.25f * p0.easting) + (0.75f * p1.easting), (0.25f * p0.northing) + (0.75f * p1.northing)));
                 }
 
                 // Optionally preserve the end point for non-closed polylines

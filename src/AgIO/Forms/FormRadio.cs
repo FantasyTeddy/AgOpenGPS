@@ -298,7 +298,7 @@ namespace AgIO
                     if (double.TryParse(locationArray[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double lat) &&
                         double.TryParse(locationArray[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double lon))
                     {
-                        distance = glm.DistanceLonLat(lon, lat, _currentLon, _currentLat).ToString("N2");
+                        distance = Glm.DistanceLonLat(lon, lat, _currentLon, _currentLat).ToString("N2");
                     }
                 }
             }

@@ -36,7 +36,7 @@ namespace AgOpenGPS
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppViewModel.IsMetric directly
-        public bool isMetric
+        public bool IsMetric
         {
             get => AppViewModel.IsMetric;
             set => AppViewModel.IsMetric = value;
@@ -44,7 +44,7 @@ namespace AgOpenGPS
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppViewModel.IsDay directly
-        public bool isDay
+        public bool IsDay
         {
             get => AppViewModel.IsDay;
             set => AppViewModel.IsDay = value;
@@ -52,7 +52,7 @@ namespace AgOpenGPS
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppViewModel.Fields directly
-        public string currentFieldDirectory
+        public string CurrentFieldDirectory
         {
             get => AppModel.Fields.CurrentFieldName;
             set => AppModel.Fields.SetCurrentFieldByName(value);
@@ -60,15 +60,15 @@ namespace AgOpenGPS
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppModel.FixHeading directly
-        public double fixHeading
+        public double FixHeading
         {
             get => AppModel.FixHeading.AngleInRadians;
             set => AppModel.FixHeading = new GeoDir(value);
         }
 
-        public bool isJobStarted => AppModel.Fields.ActiveField != null;
+        public bool IsJobStarted => AppModel.Fields.ActiveField != null;
 
-        public string displayFieldName => AppModel.Fields.ActiveField != null ? AppModel.Fields.ActiveField.Name : gStr.gsNone;
+        public string DisplayFieldName => AppModel.Fields.ActiveField != null ? AppModel.Fields.ActiveField.Name : gStr.gsNone;
 
 
         //To bring forward AgIO if running
@@ -450,7 +450,7 @@ namespace AgOpenGPS
             SetLanguage(RegistrySettings.culture);
 
             //make sure current field directory exists, null if not
-            currentFieldDirectory = Settings.Default.setF_CurrentDir;
+            CurrentFieldDirectory = Settings.Default.setF_CurrentDir;
 
             Log.EventWriter("Program Directory: " + Application.StartupPath);
             Log.EventWriter("Fields Directory: " + RegistrySettings.fieldsDirectory);
@@ -658,7 +658,7 @@ namespace AgOpenGPS
             }
 
             // Turn off auto sections if active
-            if (isJobStarted && autoBtnState == btnStates.Auto)
+            if (IsJobStarted && autoBtnState == BtnStates.Auto)
             {
                 btnSectionMasterAuto.PerformClick();
             }
@@ -691,7 +691,7 @@ namespace AgOpenGPS
             {
                 savingForm = new FormSaving();
 
-                if (isJobStarted)
+                if (IsJobStarted)
                 {
                     // Check if AgShare is enabled (step will be added regardless of whether upload already started)
                     bool isAgShareEnabled = Settings.Default.AgShareEnabled &&
@@ -1054,11 +1054,11 @@ namespace AgOpenGPS
             btnFieldStats.Visible = true;
 
             btnSectionMasterManual.Enabled = true;
-            manualBtnState = btnStates.Off;
+            manualBtnState = BtnStates.Off;
             btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
             btnSectionMasterAuto.Enabled = true;
-            autoBtnState = btnStates.Off;
+            autoBtnState = BtnStates.Off;
             btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
             btnSection1Man.BackColor = Color.Red;
@@ -1201,17 +1201,17 @@ namespace AgOpenGPS
 
 
             //fix ManualOffOnAuto buttons
-            manualBtnState = btnStates.Off;
+            manualBtnState = BtnStates.Off;
             btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
             //fix auto button
-            autoBtnState = btnStates.Off;
+            autoBtnState = BtnStates.Off;
             btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
             if (tool.isSectionsNotZones)
             {
                 //Update the button colors and text
-                AllSectionsAndButtonsToState(btnStates.Off);
+                AllSectionsAndButtonsToState(BtnStates.Off);
 
                 //enable disable manual buttons
                 LineUpIndividualSectionBtns();
@@ -1385,7 +1385,7 @@ namespace AgOpenGPS
         public void SetZoom()
         {
             //match grid to cam distance and redo perspective
-            double gridStep = camera.camSetDistance / -15;
+            double gridStep = camera.CamSetDistance / -15;
 
             gridToolSpacing = (int)((gridStep / tool.width) + 0.5);
             if (gridToolSpacing < 1) gridToolSpacing = 1;
@@ -1394,7 +1394,7 @@ namespace AgOpenGPS
             oglMain.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.AspectRatio, 1f, (float)(camDistanceFactor * camera.camSetDistance));
+            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.AspectRatio, 1f, (float)(camDistanceFactor * camera.CamSetDistance));
             GL.LoadMatrix(ref mat);
             GL.MatrixMode(MatrixMode.Modelview);
         }

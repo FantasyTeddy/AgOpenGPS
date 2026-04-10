@@ -30,7 +30,7 @@ namespace AgOpenGPS.IO
                 if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int count))
                     break;
 
-                List<vec3> hd = boundaries[k].hdLine;
+                List<Vec3> hd = boundaries[k].hdLine;
                 hd?.Clear();
 
                 for (int i = 0; i < count; i++)
@@ -45,7 +45,7 @@ namespace AgOpenGPS.IO
                         double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double northing) &&
                        double.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double heading))
                     {
-                        boundaries[k].hdLine.Add(new vec3(easting, northing, heading));
+                        boundaries[k].hdLine.Add(new Vec3(easting, northing, heading));
                     }
                 }
 
@@ -66,12 +66,12 @@ namespace AgOpenGPS.IO
 
             for (int i = 0; i < boundaries.Count; i++)
             {
-                List<vec3> hd = boundaries[i].hdLine ?? new List<vec3>();
+                List<Vec3> hd = boundaries[i].hdLine ?? new List<Vec3>();
                 writer.WriteLine(hd.Count.ToString(CultureInfo.InvariantCulture));
 
                 for (int j = 0; j < hd.Count; j++)
                 {
-                    vec3 p = hd[j];
+                    Vec3 p = hd[j];
                     writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
                 }
             }

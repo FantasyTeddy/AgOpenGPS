@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace RateController
 {
-    public partial class frmHelp : Form
+    public partial class FrmHelp : Form
     {
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
 
-        public frmHelp(frmStart CallingForm, string Message, string Title = "Help", int timeInMsec = 30000)
+        public FrmHelp(FrmStart CallingForm, string Message, string Title = "Help", int timeInMsec = 30000)
         {
             mf = CallingForm;
             InitializeComponent();

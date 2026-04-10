@@ -243,10 +243,10 @@ namespace AgOpenGPS
 
                     if (form.ShowDialog(this) == DialogResult.OK)
                     {
-                        int iCol = (form.useThisColor.A << 24) | (form.useThisColor.R << 16)
-                            | (form.useThisColor.G << 8) | form.useThisColor.B;
+                        int iCol = (form.UseThisColor.A << 24) | (form.UseThisColor.R << 16)
+                            | (form.UseThisColor.G << 8) | form.UseThisColor.B;
                         customSectionColorsList[buttNumber - 1] = iCol;
-                        butt.BackColor = form.useThisColor;
+                        butt.BackColor = form.UseThisColor;
                     }
                 }
 

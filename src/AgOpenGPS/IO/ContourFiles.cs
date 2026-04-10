@@ -7,12 +7,12 @@ namespace AgOpenGPS.IO
 {
     public static class ContourFiles
     {
-        public static List<List<vec3>> Load(string fieldDirectory)
+        public static List<List<Vec3>> Load(string fieldDirectory)
         {
             if (string.IsNullOrWhiteSpace(fieldDirectory))
                 throw new ArgumentNullException(nameof(fieldDirectory));
 
-            List<List<vec3>> result = new();
+            List<List<Vec3>> result = new();
             string path = Path.Combine(fieldDirectory, "Contour.txt");
             if (!File.Exists(path)) return result;
 
@@ -33,7 +33,7 @@ namespace AgOpenGPS.IO
                     int count = int.Parse(countLine, NumberStyles.Integer, CultureInfo.InvariantCulture);
                     if (count <= 0) continue;
 
-                    List<vec3> patch = FileIoUtils.ReadVec3Block(reader, count);
+                    List<Vec3> patch = FileIoUtils.ReadVec3Block(reader, count);
                     if (patch.Count > 0) result.Add(patch);
                 }
             }
@@ -41,19 +41,19 @@ namespace AgOpenGPS.IO
             return result;
         }
 
-        public static void Append(string fieldDirectory, IEnumerable<IReadOnlyList<vec3>> contourPatches)
+        public static void Append(string fieldDirectory, IEnumerable<IReadOnlyList<Vec3>> contourPatches)
         {
             string filename = Path.Combine(fieldDirectory, "Contour.txt");
             if (contourPatches == null) return;
 
             using StreamWriter writer = new(filename, true);
-            foreach (IReadOnlyList<vec3> triList in contourPatches)
+            foreach (IReadOnlyList<Vec3> triList in contourPatches)
             {
                 if (triList == null) continue;
                 writer.WriteLine(triList.Count.ToString(CultureInfo.InvariantCulture));
                 for (int i = 0; i < triList.Count; i++)
                 {
-                    vec3 p = triList[i];
+                    Vec3 p = triList[i];
                     writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
                 }
             }

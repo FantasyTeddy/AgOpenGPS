@@ -50,14 +50,14 @@ namespace AgOpenGPS
         public int rpSectionPosition = 0;
 
         //points in world space that start and end of section are in
-        public vec2 leftPoint;
+        public Vec2 leftPoint;
 
-        public vec2 rightPoint;
+        public Vec2 rightPoint;
 
         //used to determine left and right speed of section
-        public vec2 lastLeftPoint;
+        public Vec2 lastLeftPoint;
 
-        public vec2 lastRightPoint;
+        public Vec2 lastRightPoint;
 
         //whether or not this section is in boundary, headland
         public bool isInBoundary = true;
@@ -66,7 +66,7 @@ namespace AgOpenGPS
         public bool isLookOnInHeadland = true;
 
         //used to determine state of Manual section button - Off Auto On
-        public btnStates sectionBtnState = btnStates.Off;
+        public BtnStates sectionBtnState = BtnStates.Off;
 
         //simple constructor, position is set in GPSWinForm_Load in FormGPS when creating new object
         public CSection()

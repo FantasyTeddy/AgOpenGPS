@@ -13,9 +13,9 @@ namespace GPS_Out
         //   010.2,K Ground speed, Kilometers per hour
         //   *48          Checksum
 
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
 
-        public PGN_VTG(frmStart CalledFrom)
+        public PGN_VTG(FrmStart CalledFrom)
         {
             mf = CalledFrom;
         }

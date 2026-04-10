@@ -181,13 +181,13 @@ namespace AgOpenGPS
         {
             if (mf.trk.gArr[mf.trk.idx].mode == TrackMode.AB)
             {
-                vec2 bob = mf.trk.gArr[mf.trk.idx].ptA;
+                Vec2 bob = mf.trk.gArr[mf.trk.idx].ptA;
                 mf.trk.gArr[mf.trk.idx].ptA = mf.trk.gArr[mf.trk.idx].ptB;
-                mf.trk.gArr[mf.trk.idx].ptB = new vec2(bob);
+                mf.trk.gArr[mf.trk.idx].ptB = new Vec2(bob);
 
                 mf.trk.gArr[mf.trk.idx].heading += Math.PI;
-                if (mf.trk.gArr[mf.trk.idx].heading < 0) mf.trk.gArr[mf.trk.idx].heading += glm.twoPI;
-                if (mf.trk.gArr[mf.trk.idx].heading > glm.twoPI) mf.trk.gArr[mf.trk.idx].heading -= glm.twoPI;
+                if (mf.trk.gArr[mf.trk.idx].heading < 0) mf.trk.gArr[mf.trk.idx].heading += Glm.twoPI;
+                if (mf.trk.gArr[mf.trk.idx].heading > Glm.twoPI) mf.trk.gArr[mf.trk.idx].heading -= Glm.twoPI;
 
                 double abHeading = mf.trk.gArr[mf.trk.idx].heading;
                 mf.trk.gArr[mf.trk.idx].endPtA.easting = mf.trk.gArr[mf.trk.idx].ptA.easting - (Math.Sin(abHeading) * mf.ABLine.abLength);
@@ -204,28 +204,28 @@ namespace AgOpenGPS
                 {
                     mf.trk.gArr[mf.trk.idx].curvePts.Reverse();
 
-                    vec3[] arr = new vec3[cnt];
+                    Vec3[] arr = new Vec3[cnt];
                     cnt--;
                     mf.trk.gArr[mf.trk.idx].curvePts.CopyTo(arr);
                     mf.trk.gArr[mf.trk.idx].curvePts.Clear();
 
                     mf.trk.gArr[mf.trk.idx].heading += Math.PI;
-                    if (mf.trk.gArr[mf.trk.idx].heading < 0) mf.trk.gArr[mf.trk.idx].heading += glm.twoPI;
-                    if (mf.trk.gArr[mf.trk.idx].heading > glm.twoPI) mf.trk.gArr[mf.trk.idx].heading -= glm.twoPI;
+                    if (mf.trk.gArr[mf.trk.idx].heading < 0) mf.trk.gArr[mf.trk.idx].heading += Glm.twoPI;
+                    if (mf.trk.gArr[mf.trk.idx].heading > Glm.twoPI) mf.trk.gArr[mf.trk.idx].heading -= Glm.twoPI;
 
                     for (int i = 1; i < cnt; i++)
                     {
-                        vec3 pt3 = arr[i];
+                        Vec3 pt3 = arr[i];
                         pt3.heading += Math.PI;
-                        if (pt3.heading > glm.twoPI) pt3.heading -= glm.twoPI;
-                        if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                        if (pt3.heading > Glm.twoPI) pt3.heading -= Glm.twoPI;
+                        if (pt3.heading < 0) pt3.heading += Glm.twoPI;
                         mf.trk.gArr[mf.trk.idx].curvePts.Add(pt3);
                     }
 
-                    vec2 temp = new(mf.trk.gArr[mf.trk.idx].ptA);
+                    Vec2 temp = new(mf.trk.gArr[mf.trk.idx].ptA);
 
-                    mf.trk.gArr[mf.trk.idx].ptA = new vec2(mf.trk.gArr[mf.trk.idx].ptB);
-                    mf.trk.gArr[mf.trk.idx].ptB = new vec2(temp);
+                    mf.trk.gArr[mf.trk.idx].ptA = new Vec2(mf.trk.gArr[mf.trk.idx].ptB);
+                    mf.trk.gArr[mf.trk.idx].ptB = new Vec2(temp);
                 }
             }
 

@@ -25,9 +25,9 @@ namespace AgOpenGPS.IO
             return 0;
         }
 
-        public static List<vec3> ReadVec3Block(StreamReader r, int count)
+        public static List<Vec3> ReadVec3Block(StreamReader r, int count)
         {
-            List<vec3> list = new(count > 0 ? count : 0);
+            List<Vec3> list = new(count > 0 ? count : 0);
             for (int i = 0; i < count && !r.EndOfStream; i++)
             {
                 string[] words = (r.ReadLine() ?? string.Empty).Split(',');
@@ -37,7 +37,7 @@ namespace AgOpenGPS.IO
                     double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double n) &&
                     double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double h))
                 {
-                    list.Add(new vec3(e, n, h));
+                    list.Add(new Vec3(e, n, h));
                 }
             }
             return list;

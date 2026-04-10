@@ -13,7 +13,7 @@ namespace AgOpenGPS
         //point at the farthest turn segment from pivotAxle
         //public vec3 closestTurnPt = new vec3(-10000, -10000, 9);
 
-        public int IsPointInsideTurnArea(vec3 pt)
+        public int IsPointInsideTurnArea(Vec3 pt)
         {
             if (bndList.Count > 0 && bndList[0].turnLine.IsPointInPolygon(pt))
             {
@@ -121,7 +121,7 @@ namespace AgOpenGPS
             mf.fd.UpdateFieldBoundaryGUIAreas();
 
             //to fill the list of line points
-            vec3 point = new();
+            Vec3 point = new();
 
             //determine how wide a headland space
             double totalHeadWidth = mf.yt.uturnDistanceFromBoundary;
@@ -137,15 +137,15 @@ namespace AgOpenGPS
                 for (int i = ptCount - 1; i >= 0; i--)
                 {
                     //calculate the point outside the boundary
-                    point.easting = bndList[j].fenceLine[i].easting + (-Math.Sin(glm.PIBy2 + bndList[j].fenceLine[i].heading) * totalHeadWidth);
-                    point.northing = bndList[j].fenceLine[i].northing + (-Math.Cos(glm.PIBy2 + bndList[j].fenceLine[i].heading) * totalHeadWidth);
+                    point.easting = bndList[j].fenceLine[i].easting + (-Math.Sin(Glm.PIBy2 + bndList[j].fenceLine[i].heading) * totalHeadWidth);
+                    point.northing = bndList[j].fenceLine[i].northing + (-Math.Cos(Glm.PIBy2 + bndList[j].fenceLine[i].heading) * totalHeadWidth);
                     point.heading = bndList[j].fenceLine[i].heading;
-                    if (point.heading < -glm.twoPI) point.heading += glm.twoPI;
+                    if (point.heading < -Glm.twoPI) point.heading += Glm.twoPI;
 
                     //only add if outside actual field boundary
                     if (j == 0 == bndList[j].fenceLineEar.IsPointInPolygon(point))
                     {
-                        vec3 tPnt = new(point.easting, point.northing, point.heading);
+                        Vec3 tPnt = new(point.easting, point.northing, point.heading);
                         bndList[j].turnLine.Add(tPnt);
                     }
                 }
@@ -155,7 +155,7 @@ namespace AgOpenGPS
                 int cnt = bndList[j].turnLine.Count;
 
                 //the temp array
-                vec3[] arr = new vec3[cnt];
+                Vec3[] arr = new Vec3[cnt];
 
                 for (int s = 0; s < cnt; s++)
                 {
@@ -182,7 +182,7 @@ namespace AgOpenGPS
 
                 if (bndList[j].turnLine.Count > 0)
                 {
-                    vec3 end = new(bndList[j].turnLine[0].easting,
+                    Vec3 end = new(bndList[j].turnLine[0].easting,
                         bndList[j].turnLine[0].northing, bndList[j].turnLine[0].heading);
                     bndList[j].turnLine.Add(end);
                 }

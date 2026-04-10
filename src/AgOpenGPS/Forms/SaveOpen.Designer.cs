@@ -19,15 +19,15 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         // Holds pending section patches to persist.
-        public List<List<vec3>> patchSaveList = new();
+        public List<List<Vec3>> patchSaveList = new();
 
         // Holds pending contour patches to persist.
-        public List<List<vec3>> contourSaveList = new();
+        public List<List<Vec3>> contourSaveList = new();
 
         // Returns field directory; creates it when ensureExists is true.
         private string GetFieldDir(bool ensureExists = false)
         {
-            string dir = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string dir = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if (ensureExists && !string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
@@ -38,7 +38,7 @@ namespace AgOpenGPS
         // Open a field with required precheck and per-file loaders.
         public void FileOpenField(string openType)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 _ = FileSaveEverythingBeforeClosingField();
             }
@@ -53,7 +53,7 @@ namespace AgOpenGPS
 
             if (openType == "Resume")
             {
-                fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Field.txt");
+                fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory, "Field.txt");
                 if (!File.Exists(fileAndDirectory)) fileAndDirectory = "Cancel";
             }
             else if (openType == "Open")
@@ -68,7 +68,7 @@ namespace AgOpenGPS
             if (fileAndDirectory == "Cancel") return;
 
             // Set current field directory
-            currentFieldDirectory = new DirectoryInfo(Path.GetDirectoryName(fileAndDirectory)).Name;
+            CurrentFieldDirectory = new DirectoryInfo(Path.GetDirectoryName(fileAndDirectory)).Name;
             string dir = GetFieldDir(false);
 
             // --- Load all field data ---
@@ -84,16 +84,16 @@ namespace AgOpenGPS
             FileLoadTracks();
 
             // --- Sections into triStrip + area ---
-            if (TryLoad("Sections.txt", LoadCriticality.Optional, () => SectionsFiles.Load(dir), out List<List<vec3>> sections))
+            if (TryLoad("Sections.txt", LoadCriticality.Optional, () => SectionsFiles.Load(dir), out List<List<Vec3>> sections))
             {
                 fd.workedAreaTotal = 0;
                 fd.distanceUser = 0;
                 if (triStrip != null && triStrip.Count > 0 && triStrip[0] != null)
                 {
-                    triStrip[0].patchList = new List<List<vec3>>();
-                    foreach (List<vec3> patch in sections)
+                    triStrip[0].patchList = new List<List<Vec3>>();
+                    foreach (List<Vec3> patch in sections)
                     {
-                        triStrip[0].triangleList = new List<vec3>(patch);
+                        triStrip[0].triangleList = new List<Vec3>(patch);
                         triStrip[0].patchList.Add(triStrip[0].triangleList);
 
                         int verts = patch.Count - 2;
@@ -112,12 +112,12 @@ namespace AgOpenGPS
             }
 
             // --- Contour ---
-            if (TryLoad("Contour.txt", LoadCriticality.Optional, () => ContourFiles.Load(dir), out List<List<vec3>> contours))
+            if (TryLoad("Contour.txt", LoadCriticality.Optional, () => ContourFiles.Load(dir), out List<List<Vec3>> contours))
             {
                 ct.stripList.Clear();
-                foreach (List<vec3> patch in contours)
+                foreach (List<Vec3> patch in contours)
                 {
-                    ct.ptList = new List<vec3>(patch);
+                    ct.ptList = new List<Vec3>(patch);
                     ct.stripList.Add(ct.ptList);
                 }
             }
@@ -219,7 +219,7 @@ namespace AgOpenGPS
         // Create Field.txt for a new field session.
         public void FileCreateField()
         {
-            if (!isJobStarted)
+            if (!IsJobStarted)
             {
                 FormDialog.Show(gStr.gsFieldNotOpen, gStr.gsCreateNewField, DialogSeverity.Error);
                 return;
@@ -377,7 +377,7 @@ namespace AgOpenGPS
         {
             Wgs84 latLon = AppModel.LocalPlane.ConvertGeoCoordToWgs84(flagPts[flagNumber - 1].GeoCoord);
 
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
@@ -416,7 +416,7 @@ namespace AgOpenGPS
         // Export one flag to KML using stored WGS84.
         public void FileSaveSingleFlagKML(int flagNumber)
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
@@ -454,7 +454,7 @@ namespace AgOpenGPS
         // Export current position to KML.
         public void FileMakeKMLFromCurrentPosition(Wgs84 currentLatLon)
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
@@ -481,7 +481,7 @@ namespace AgOpenGPS
         // Export full field to KML.
         public void ExportFieldAs_KML()
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
@@ -513,7 +513,7 @@ namespace AgOpenGPS
                 kml.WriteStartElement("Placemark");
                 if (i == 0)
                 {
-                    kml.WriteElementString("name", currentFieldDirectory);
+                    kml.WriteElementString("name", CurrentFieldDirectory);
                 }
 
                 kml.WriteStartElement("Style");
@@ -620,7 +620,7 @@ namespace AgOpenGPS
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                foreach (vec3 v3 in trk.gArr[i].curvePts)
+                foreach (Vec3 v3 in trk.gArr[i].curvePts)
                 {
                     linePts += GetGeoCoordToWgs84_KML(v3.ToGeoCoord());
                 }
@@ -712,7 +712,7 @@ namespace AgOpenGPS
 
                 if (patches > 0)
                 {
-                    foreach (List<vec3> triList in triStrip[j].patchList)
+                    foreach (List<Vec3> triList in triStrip[j].patchList)
                     {
                         if (triList.Count > 0)
                         {
@@ -778,7 +778,7 @@ namespace AgOpenGPS
         {
             StringBuilder sb = new();
 
-            foreach (vec3 v3 in bnd.bndList[bndNum].fenceLine)
+            foreach (Vec3 v3 in bnd.bndList[bndNum].fenceLine)
             {
                 sb.Append(GetGeoCoordToWgs84_KML(v3.ToGeoCoord()));
             }
@@ -796,7 +796,7 @@ namespace AgOpenGPS
         // Export ISOXML v3.
         public void ExportFieldAs_ISOXMLv3()
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "zISOXML", "v3");
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory, "zISOXML", "v3");
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
@@ -806,7 +806,7 @@ namespace AgOpenGPS
             {
                 ISO11783_TaskFile.Export(
                     directoryName,
-                    currentFieldDirectory,
+                    CurrentFieldDirectory,
                     (int)fd.areaOuterBoundary,
                     bnd.bndList,
                     AppModel.LocalPlane,
@@ -823,7 +823,7 @@ namespace AgOpenGPS
         // Export ISOXML v4.
         public void ExportFieldAs_ISOXMLv4()
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "zISOXML", "v4");
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory, "zISOXML", "v4");
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
@@ -833,7 +833,7 @@ namespace AgOpenGPS
             {
                 ISO11783_TaskFile.Export(
                     directoryName,
-                    currentFieldDirectory,
+                    CurrentFieldDirectory,
                     (int)fd.areaOuterBoundary,
                     bnd.bndList,
                     AppModel.LocalPlane,

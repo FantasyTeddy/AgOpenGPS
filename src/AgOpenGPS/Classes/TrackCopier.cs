@@ -81,7 +81,7 @@ namespace AgOpenGPS
         /// <summary>
         /// Convert a vec2 position from one coordinate system to another.
         /// </summary>
-        private static vec2 ConvertVec2(vec2 source, LocalPlane sourcePlane, LocalPlane targetPlane)
+        private static Vec2 ConvertVec2(Vec2 source, LocalPlane sourcePlane, LocalPlane targetPlane)
         {
             // Convert vec2 (easting, northing) to GeoCoord
             GeoCoord sourceGeoCoord = new(source.northing, source.easting);
@@ -93,27 +93,27 @@ namespace AgOpenGPS
             GeoCoord targetGeoCoord = targetPlane.ConvertWgs84ToGeoCoord(wgs84);
 
             // Convert back to vec2
-            return new vec2(targetGeoCoord.Easting, targetGeoCoord.Northing);
+            return new Vec2(targetGeoCoord.Easting, targetGeoCoord.Northing);
         }
 
         /// <summary>
         /// Convert curve points, recalculating headings between consecutive points.
         /// </summary>
-        private static List<vec3> ConvertCurvePoints(
-            List<vec3> sourceCurvePts,
+        private static List<Vec3> ConvertCurvePoints(
+            List<Vec3> sourceCurvePts,
             LocalPlane sourcePlane,
             LocalPlane targetPlane)
         {
             if (sourceCurvePts == null || sourceCurvePts.Count == 0)
-                return new List<vec3>();
+                return new List<Vec3>();
 
-            List<vec3> convertedCurvePts = new();
+            List<Vec3> convertedCurvePts = new();
 
             // First convert all positions
-            List<vec2> convertedPositions = new();
-            foreach (vec3 pt in sourceCurvePts)
+            List<Vec2> convertedPositions = new();
+            foreach (Vec3 pt in sourceCurvePts)
             {
-                convertedPositions.Add(ConvertVec2(new vec2(pt.easting, pt.northing), sourcePlane, targetPlane));
+                convertedPositions.Add(ConvertVec2(new Vec2(pt.easting, pt.northing), sourcePlane, targetPlane));
             }
 
             // Now recalculate headings between consecutive converted points using GeoDir
@@ -137,7 +137,7 @@ namespace AgOpenGPS
                     heading = convertedCurvePts[i - 1].heading;
                 }
 
-                convertedCurvePts.Add(new vec3(convertedPositions[i].easting, convertedPositions[i].northing, heading));
+                convertedCurvePts.Add(new Vec3(convertedPositions[i].easting, convertedPositions[i].northing, heading));
             }
 
             return convertedCurvePts;

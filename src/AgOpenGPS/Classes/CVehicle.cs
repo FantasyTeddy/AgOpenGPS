@@ -141,14 +141,14 @@ namespace AgOpenGPS
 
         public void DrawVehicle()
         {
-            GL.Rotate(glm.toDegrees(-mf.fixHeading), 0.0, 0.0, 1.0);
+            GL.Rotate(Glm.ToDegrees(-mf.FixHeading), 0.0, 0.0, 1.0);
             //mf.font.DrawText3D(0, 0, "&TGF");
             if (mf.isFirstHeadingSet && !mf.tool.isToolFrontFixed)
             {
                 // Draw the rigid hitch
                 double hitchLengthFromPivot = mf.tool.GetHitchLengthFromVehiclePivot();
                 double hitchHeading = mf.tool.GetHitchHeadingFromVehiclePivot(hitchLengthFromPivot);
-                double hitchAngleOffset = hitchHeading - mf.fixHeading;
+                double hitchAngleOffset = hitchHeading - mf.FixHeading;
                 double sinOffset = Math.Sin(hitchAngleOffset);
                 double cosOffset = Math.Cos(hitchAngleOffset);
 
@@ -307,7 +307,7 @@ namespace AgOpenGPS
                 }
                 GL.End();
             }
-            if (mf.camera.camSetDistance > -75 && mf.isFirstHeadingSet)
+            if (mf.camera.CamSetDistance > -75 && mf.isFirstHeadingSet)
             {
                 //draw the bright antenna dot
                 // background layer
@@ -352,10 +352,10 @@ namespace AgOpenGPS
             }
 
             //Svenn Arrow
-            if (mf.isSvennArrowOn && mf.camera.camSetDistance > -1000)
+            if (mf.isSvennArrowOn && mf.camera.CamSetDistance > -1000)
             {
                 //double offs = mf.curve.distanceFromCurrentLinePivot * 0.3;
-                double svennDist = mf.camera.camSetDistance * -0.07;
+                double svennDist = mf.camera.CamSetDistance * -0.07;
                 double svennWidth = svennDist * 0.22;
                 GLW.SetLineWidth(mf.ABLine.lineWidth);
                 GLW.SetColor(Colors.SvenArrowColor);

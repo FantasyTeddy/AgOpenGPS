@@ -118,7 +118,7 @@ namespace AgOpenGPS
                 if (File.Exists(filename))
                 {
                     string line;
-                    List<vec3> pointList = new();
+                    List<Vec3> pointList = new();
                     double area = 0;
 
                     using (StreamReader reader = new(filename))
@@ -154,7 +154,7 @@ namespace AgOpenGPS
                                     {
                                         line = reader.ReadLine();
                                         string[] words = line.Split(',');
-                                        vec3 vecPt = new(
+                                        Vec3 vecPt = new(
                                         double.Parse(words[0], CultureInfo.InvariantCulture),
                                         double.Parse(words[1], CultureInfo.InvariantCulture),
                                         double.Parse(words[2], CultureInfo.InvariantCulture));
@@ -172,7 +172,7 @@ namespace AgOpenGPS
                                         {
                                             area += (pointList[j].easting + pointList[i].easting) * (pointList[j].northing - pointList[i].northing);
                                         }
-                                        if (mf.isMetric)
+                                        if (mf.IsMetric)
                                         {
                                             area = Math.Abs(area / 2) * 0.0001;
                                         }
@@ -266,7 +266,7 @@ namespace AgOpenGPS
         {
             TextBox textboxSender = (TextBox)sender;
             int cursorPosition = textboxSender.SelectionStart;
-            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.Text = Regex.Replace(textboxSender.Text, Glm.fileRegex, "");
             textboxSender.SelectionStart = cursorPosition;
 
             if (String.IsNullOrEmpty(tboxFieldName.Text.Trim()))
@@ -300,7 +300,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
                 await mf.FileSaveEverythingBeforeClosingField();
 
             //get the directory and make sure it exists, create if not

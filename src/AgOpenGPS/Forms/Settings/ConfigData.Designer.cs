@@ -90,16 +90,16 @@ namespace AgOpenGPS
                 Properties.Settings.Default.setF_minHeadingStepDistance = 1.0;
                 Properties.VehicleSettings.Default.setGPS_minimumStepLimit = 0.1;
 
-                cboxMinGPSStep.Text = mf.isMetric ? "10 cm" : "3.93 in";
-                lblHeadingDistance.Text = mf.isMetric ? "100 cm" : "39.3 in";
+                cboxMinGPSStep.Text = mf.IsMetric ? "10 cm" : "3.93 in";
+                lblHeadingDistance.Text = mf.IsMetric ? "100 cm" : "39.3 in";
             }
             else
             {
                 Properties.Settings.Default.setF_minHeadingStepDistance = 0.5;
                 Properties.VehicleSettings.Default.setGPS_minimumStepLimit = 0.05;
 
-                cboxMinGPSStep.Text = mf.isMetric ? "5 cm" : "1.96 in";
-                lblHeadingDistance.Text = mf.isMetric ? "50 cm" : "19.68 in";
+                cboxMinGPSStep.Text = mf.IsMetric ? "5 cm" : "1.96 in";
+                lblHeadingDistance.Text = mf.IsMetric ? "50 cm" : "19.68 in";
             }
 
             mf.isFirstHeadingSet = false;
@@ -191,7 +191,7 @@ namespace AgOpenGPS
             {
                 // Always convert back to km/h
                 double input = (double)nudAutoSwitchDualFixSpeed.Value;
-                double kmh = mf.isMetric ? input : Speed.MphToKmh(input);
+                double kmh = mf.IsMetric ? input : Speed.MphToKmh(input);
 
                 Properties.Settings.Default.setAutoSwitchDualFixSpeed = kmh;
                 mf.ahrs.autoSwitchDualFixSpeed = kmh;
@@ -212,7 +212,7 @@ namespace AgOpenGPS
             double displayValue, displayMin, displayMax;
             string unitText;
 
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 displayValue = speedKmh;
                 displayMin = minKmh;
@@ -370,20 +370,20 @@ namespace AgOpenGPS
 
         private void tabBtns_Enter(object sender, EventArgs e)
         {
-            cboxFeatureTram.Checked = Properties.Settings.Default.setFeatures.isTramOn;
-            cboxFeatureHeadland.Checked = Properties.Settings.Default.setFeatures.isHeadlandOn;
-            cboxFeatureBoundary.Checked = Properties.Settings.Default.setFeatures.isBoundaryOn;
+            cboxFeatureTram.Checked = Properties.Settings.Default.setFeatures.IsTramOn;
+            cboxFeatureHeadland.Checked = Properties.Settings.Default.setFeatures.IsHeadlandOn;
+            cboxFeatureBoundary.Checked = Properties.Settings.Default.setFeatures.IsBoundaryOn;
 
             //the nudge controls at bottom menu
-            cboxFeatureNudge.Checked = Properties.Settings.Default.setFeatures.isABLineOn;
+            cboxFeatureNudge.Checked = Properties.Settings.Default.setFeatures.IsABLineOn;
             //cboxFeatureBoundaryContour.Checked = Properties.Settings.Default.setFeatures.isBndContourOn;
-            cboxFeatureRecPath.Checked = Properties.Settings.Default.setFeatures.isRecPathOn;
-            cboxFeatureABSmooth.Checked = Properties.Settings.Default.setFeatures.isABSmoothOn;
-            cboxFeatureHideContour.Checked = Properties.Settings.Default.setFeatures.isHideContourOn;
-            cboxFeatureOffsetFix.Checked = Properties.Settings.Default.setFeatures.isOffsetFixOn;
+            cboxFeatureRecPath.Checked = Properties.Settings.Default.setFeatures.IsRecPathOn;
+            cboxFeatureABSmooth.Checked = Properties.Settings.Default.setFeatures.IsABSmoothOn;
+            cboxFeatureHideContour.Checked = Properties.Settings.Default.setFeatures.IsHideContourOn;
+            cboxFeatureOffsetFix.Checked = Properties.Settings.Default.setFeatures.IsOffsetFixOn;
 
-            cboxFeatureUTurn.Checked = Properties.Settings.Default.setFeatures.isUTurnOn;
-            cboxFeatureLateral.Checked = Properties.Settings.Default.setFeatures.isLateralOn;
+            cboxFeatureUTurn.Checked = Properties.Settings.Default.setFeatures.IsUTurnOn;
+            cboxFeatureLateral.Checked = Properties.Settings.Default.setFeatures.IsLateralOn;
 
             cboxTurnSound.Checked = Properties.Settings.Default.setSound_isUturnOn;
             cboxSteerSound.Checked = Properties.Settings.Default.setSound_isAutoSteerOn;
@@ -398,20 +398,20 @@ namespace AgOpenGPS
 
         private void tabBtns_Leave(object sender, EventArgs e)
         {
-            Properties.Settings.Default.setFeatures.isTramOn = cboxFeatureTram.Checked;
-            Properties.Settings.Default.setFeatures.isHeadlandOn = cboxFeatureHeadland.Checked;
+            Properties.Settings.Default.setFeatures.IsTramOn = cboxFeatureTram.Checked;
+            Properties.Settings.Default.setFeatures.IsHeadlandOn = cboxFeatureHeadland.Checked;
 
-            Properties.Settings.Default.setFeatures.isABLineOn = cboxFeatureNudge.Checked;
+            Properties.Settings.Default.setFeatures.IsABLineOn = cboxFeatureNudge.Checked;
 
-            Properties.Settings.Default.setFeatures.isBoundaryOn = cboxFeatureBoundary.Checked;
+            Properties.Settings.Default.setFeatures.IsBoundaryOn = cboxFeatureBoundary.Checked;
             //Properties.Settings.Default.setFeatures.isBndContourOn = cboxFeatureBoundaryContour.Checked;
-            Properties.Settings.Default.setFeatures.isRecPathOn = cboxFeatureRecPath.Checked;
-            Properties.Settings.Default.setFeatures.isABSmoothOn = cboxFeatureABSmooth.Checked;
-            Properties.Settings.Default.setFeatures.isHideContourOn = cboxFeatureHideContour.Checked;
-            Properties.Settings.Default.setFeatures.isOffsetFixOn = cboxFeatureOffsetFix.Checked;
+            Properties.Settings.Default.setFeatures.IsRecPathOn = cboxFeatureRecPath.Checked;
+            Properties.Settings.Default.setFeatures.IsABSmoothOn = cboxFeatureABSmooth.Checked;
+            Properties.Settings.Default.setFeatures.IsHideContourOn = cboxFeatureHideContour.Checked;
+            Properties.Settings.Default.setFeatures.IsOffsetFixOn = cboxFeatureOffsetFix.Checked;
 
-            Properties.Settings.Default.setFeatures.isLateralOn = cboxFeatureLateral.Checked;
-            Properties.Settings.Default.setFeatures.isUTurnOn = cboxFeatureUTurn.Checked;
+            Properties.Settings.Default.setFeatures.IsLateralOn = cboxFeatureLateral.Checked;
+            Properties.Settings.Default.setFeatures.IsUTurnOn = cboxFeatureUTurn.Checked;
 
             Properties.Settings.Default.setSound_isUturnOn = cboxTurnSound.Checked;
             mf.sounds.isTurnSoundOn = cboxTurnSound.Checked;

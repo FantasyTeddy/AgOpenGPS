@@ -28,7 +28,7 @@ namespace AgOpenGPS.Forms
             textBoxInput.TextChanged += (s, e) =>
             {
                 int pos = textBoxInput.SelectionStart;
-                textBoxInput.Text = Regex.Replace(textBoxInput.Text, glm.fileRegex, "");
+                textBoxInput.Text = Regex.Replace(textBoxInput.Text, Glm.fileRegex, "");
                 textBoxInput.SelectionStart = pos;
             };
         }

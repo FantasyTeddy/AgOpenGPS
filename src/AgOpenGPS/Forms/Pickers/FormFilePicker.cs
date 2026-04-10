@@ -158,7 +158,7 @@ namespace AgOpenGPS
         /// </summary>
         private double CalculateBoundaryArea(string filename)
         {
-            List<vec3> pointList = new();
+            List<Vec3> pointList = new();
             using (StreamReader reader = new(filename))
             {
                 string line;
@@ -199,7 +199,7 @@ namespace AgOpenGPS
                     if (!double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double n)) return 0;
                     if (!double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double h)) return 0;
 
-                    pointList.Add(new vec3(e, n, h));
+                    pointList.Add(new Vec3(e, n, h));
                 }
             }
 
@@ -216,7 +216,7 @@ namespace AgOpenGPS
             }
 
             double areaM2 = Math.Abs(acc / 2.0);
-            return mf.isMetric ? (areaM2 * 0.0001) : (areaM2 * 0.00024711);
+            return mf.IsMetric ? (areaM2 * 0.0001) : (areaM2 * 0.00024711);
         }
 
         private void UpdateListView()

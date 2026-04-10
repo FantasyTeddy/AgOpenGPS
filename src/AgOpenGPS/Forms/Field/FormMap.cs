@@ -180,7 +180,7 @@ namespace AgOpenGPS
                 foreach (PointLatLng point in polygon.Points)
                 {
                     GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(point.Lat, point.Lng));
-                    New.fenceLine.Add(new vec3(geoCoord));
+                    New.fenceLine.Add(new Vec3(geoCoord));
                 }
 
                 New.CalculateFenceArea(mf.bnd.bndList.Count);
@@ -291,7 +291,7 @@ namespace AgOpenGPS
 
                 if (!isColorMap)
                 {
-                    bitmap = glm.MakeGrayscale3(bitmap);
+                    bitmap = Glm.MakeGrayscale3(bitmap);
                 }
                 bingMap = new BingMap(geoBoundingBox, bitmap);
             }

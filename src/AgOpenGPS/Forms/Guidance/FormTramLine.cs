@@ -22,16 +22,16 @@ namespace AgOpenGPS
 
         private int indx = -1;
 
-        private vec2 ptA = new(9999999, 9999999);
-        private vec2 ptB = new(9999999, 9999999);
-        private vec2 ptCut = new(9999999, 9999999);
+        private Vec2 ptA = new(9999999, 9999999);
+        private Vec2 ptB = new(9999999, 9999999);
+        private Vec2 ptCut = new(9999999, 9999999);
 
         private int step = 0;
 
         //tramTrams
-        private List<vec2> tramArr = new();
+        private List<Vec2> tramArr = new();
 
-        private readonly List<List<vec2>> tramList = new();
+        private readonly List<List<Vec2>> tramList = new();
 
         private readonly List<CTrk> gTemp = new();
 
@@ -201,7 +201,7 @@ namespace AgOpenGPS
             {
                 for (int i = 0; i < tramList.Count; i++)
                 {
-                    mf.tram.tramArr = new List<vec2>
+                    mf.tram.tramArr = new List<Vec2>
                     {
                         Capacity = 32
                     };
@@ -210,7 +210,7 @@ namespace AgOpenGPS
 
                     for (int j = 0; j < tramList[i].Count; j++)
                     {
-                        vec2 tr = new(tramList[i][j]);
+                        Vec2 tr = new(tramList[i][j]);
                         mf.tram.tramArr.Add(tr);
                     }
                 }
@@ -257,7 +257,7 @@ namespace AgOpenGPS
 
             for (int i = cntr; i <= passes + startPass - 1; i++)
             {
-                tramArr = new List<vec2>
+                tramArr = new List<Vec2>
                 {
                     Capacity = 128
                 };
@@ -271,10 +271,10 @@ namespace AgOpenGPS
 
                 for (int j = 0; j < refCount; j += 1)
                 {
-                    vec2 point = new(
-                    (Math.Sin(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
+                    Vec2 point = new(
+                    (Math.Sin(Glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
                         widd) + gTemp[indx].curvePts[j].easting,
-                    (Math.Cos(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
+                    (Math.Cos(Glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
                         widd) + gTemp[indx].curvePts[j].northing
                         );
 
@@ -309,7 +309,7 @@ namespace AgOpenGPS
 
             for (int i = cntr; i <= passes + startPass - 1; i++)
             {
-                tramArr = new List<vec2>
+                tramArr = new List<Vec2>
                 {
                     Capacity = 128
                 };
@@ -322,10 +322,10 @@ namespace AgOpenGPS
 
                 for (int j = 0; j < refCount; j += 1)
                 {
-                    vec2 point = new(
-                    (Math.Sin(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
+                    Vec2 point = new(
+                    (Math.Sin(Glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
                         widd) + gTemp[indx].curvePts[j].easting,
-                    (Math.Cos(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
+                    (Math.Cos(Glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
                         widd) + gTemp[indx].curvePts[j].northing
                         );
 
@@ -361,7 +361,7 @@ namespace AgOpenGPS
 
         private void BuildABTram()
         {
-            List<vec2> tramRef = new();
+            List<Vec2> tramRef = new();
 
             double abHeading = gTemp[indx].heading;
 
@@ -374,9 +374,9 @@ namespace AgOpenGPS
             gTemp[indx].endPtB.easting = gTemp[indx].ptB.easting + (Math.Sin(abHeading) * mf.maxFieldDistance);
             gTemp[indx].endPtB.northing = gTemp[indx].ptB.northing + (Math.Cos(abHeading) * mf.maxFieldDistance);
 
-            double len = glm.Distance(gTemp[indx].endPtA, gTemp[indx].endPtB);
+            double len = Glm.Distance(gTemp[indx].endPtA, gTemp[indx].endPtB);
             //divide up the AB line into segments
-            vec2 P1 = new();
+            Vec2 P1 = new();
             for (int i = 0; i < (int)len; i += 2)
             {
                 P1.easting = (hsin * i) + gTemp[indx].endPtA.easting;
@@ -385,13 +385,13 @@ namespace AgOpenGPS
             }
 
             //create list of list of points of triangle strip of AB Highlight
-            double headingCalc = abHeading + glm.PIBy2;
+            double headingCalc = abHeading + Glm.PIBy2;
 
-            if (headingCalc < 0) headingCalc += glm.twoPI;
-            if (headingCalc > glm.twoPI) headingCalc -= glm.twoPI;
+            if (headingCalc < 0) headingCalc += Glm.twoPI;
+            if (headingCalc > Glm.twoPI) headingCalc -= Glm.twoPI;
 
             if (gTemp[indx].isVisible) headingCalc += Math.PI;
-            if (headingCalc > glm.twoPI) headingCalc -= glm.twoPI;
+            if (headingCalc > Glm.twoPI) headingCalc -= Glm.twoPI;
 
             hsin = Math.Sin(headingCalc);
             hcos = Math.Cos(headingCalc);
@@ -405,7 +405,7 @@ namespace AgOpenGPS
             double widd;
             for (int i = cntr; i < passes + startPass; i++)
             {
-                tramArr = new List<vec2>
+                tramArr = new List<Vec2>
                 {
                     Capacity = 128
                 };
@@ -429,7 +429,7 @@ namespace AgOpenGPS
 
             for (int i = cntr; i < passes + startPass; i++)
             {
-                tramArr = new List<vec2>
+                tramArr = new List<Vec2>
                 {
                     Capacity = 128
                 };
@@ -473,15 +473,15 @@ namespace AgOpenGPS
 
             if (step == 1)
             {
-                ptA = new vec2(mouseDownCoord);
+                ptA = new Vec2(mouseDownCoord);
             }
             else if (step == 2)
             {
-                ptB = new vec2(mouseDownCoord);
+                ptB = new Vec2(mouseDownCoord);
             }
             else
             {
-                ptCut = new vec2(mouseDownCoord);
+                ptCut = new Vec2(mouseDownCoord);
 
                 bool isLeft = (ptB.easting - ptA.easting) * (ptCut.northing - ptA.northing)
                     > (ptB.northing - ptA.northing) * (ptCut.easting - ptA.easting);
@@ -704,7 +704,7 @@ namespace AgOpenGPS
                     GL.Color3(0.30f, 0.97f, 0.30f);
                     if (gTemp[i].mode == TrackMode.bndCurve) GL.Color3(0.70f, 0.5f, 0.2f);
                     GL.Begin(PrimitiveType.LineStrip);
-                    foreach (vec3 pts in gTemp[i].curvePts)
+                    foreach (Vec3 pts in gTemp[i].curvePts)
                     {
                         GL.Vertex3(pts.easting, pts.northing, 0);
                     }

@@ -33,9 +33,9 @@ namespace AgOpenGPS
 
         public double avgPivDistance, lightbarDistance, longAvgPivDistance;
 
-        private vec2 left = new();
-        private vec2 right = new();
-        private vec2 ptTip = new();
+        private Vec2 left = new();
+        private Vec2 right = new();
+        private Vec2 ptTip = new();
 
         private void oglMain_Load(object sender, EventArgs e)
         {
@@ -57,7 +57,7 @@ namespace AgOpenGPS
             GL.LoadIdentity();
             GL.Viewport(0, 0, oglMain.Width, oglMain.Height);
             Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.Width / (float)oglMain.Height,
-                1.0f, (float)(camDistanceFactor * camera.camSetDistance));
+                1.0f, (float)(camDistanceFactor * camera.CamSetDistance));
             GL.LoadMatrix(ref mat);
             GL.MatrixMode(MatrixMode.Modelview);
             if (isLineSmooth) GL.Enable(EnableCap.LineSmooth);
@@ -81,7 +81,7 @@ namespace AgOpenGPS
                     //  Clear the color and depth buffer.
                     GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
-                    if (isDay) GL.ClearColor(0.27f, 0.4f, 0.7f, 1.0f);
+                    if (IsDay) GL.ClearColor(0.27f, 0.4f, 0.7f, 1.0f);
                     else GL.ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
                     GL.LoadIdentity();
@@ -98,9 +98,9 @@ namespace AgOpenGPS
 
                     #region World and Grid
 
-                    worldGrid.DrawFieldSurface(fieldColor, camera.ZoomValue, isTextureOn);
+                    worldGrid.DrawFieldSurface(FieldColor, camera.ZoomValue, isTextureOn);
 
-                    if (isGridOn) worldGrid.DrawWorldGrid(worldGridColor);
+                    if (isGridOn) worldGrid.DrawWorldGrid(WorldGridColor);
 
                     if (isDrawPolygons) GL.PolygonMode(TriangleFace.Front, PolygonMode.Line);
 
@@ -127,13 +127,13 @@ namespace AgOpenGPS
                         {
                             //initialize the steps for mipmap of triangles (skipping detail while zooming out)
                             int mipmap = 0;
-                            if (camera.camSetDistance < -800) mipmap = 2;
-                            if (camera.camSetDistance < -1500) mipmap = 4;
-                            if (camera.camSetDistance < -2400) mipmap = 8;
-                            if (camera.camSetDistance < -5000) mipmap = 16;
+                            if (camera.CamSetDistance < -800) mipmap = 2;
+                            if (camera.CamSetDistance < -1500) mipmap = 4;
+                            if (camera.CamSetDistance < -2400) mipmap = 8;
+                            if (camera.CamSetDistance < -5000) mipmap = 16;
 
                             //for every new chunk of patch
-                            foreach (List<vec3> triList in triStrip[j].patchList)
+                            foreach (List<Vec3> triList in triStrip[j].patchList)
                             {
                                 //check for even
                                 if (triList.Count % 2 == 0)
@@ -168,7 +168,7 @@ namespace AgOpenGPS
                                     count2 = triList.Count;
                                     GL.Begin(PrimitiveType.TriangleStrip);
 
-                                    if (isDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
+                                    if (IsDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
                                     else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(152 * 0.5));
 
                                     //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
@@ -226,22 +226,22 @@ namespace AgOpenGPS
                                             double headz =
                                                 Math.Atan2(triList[39].easting - triList[37].easting, triList[39].northing - triList[37].northing);
 
-                                            left = new vec2(
+                                            left = new Vec2(
                                                 triList[37].easting + (factor * (triList[38].easting - triList[37].easting)),
                                                 triList[37].northing + (factor * (triList[38].northing - triList[37].northing)));
 
                                             factor = 1 - factor;
 
-                                            right = new vec2(
+                                            right = new Vec2(
                                                 triList[37].easting + (factor * (triList[38].easting - triList[37].easting)),
                                                 triList[37].northing + (factor * (triList[38].northing - triList[37].northing)));
 
-                                            double disst = glm.Distance(left, right);
+                                            double disst = Glm.Distance(left, right);
                                             disst *= 1.5;
 
-                                            ptTip = new vec2((left.easting + right.easting) / 2, (left.northing + right.northing) / 2);
+                                            ptTip = new Vec2((left.easting + right.easting) / 2, (left.northing + right.northing) / 2);
 
-                                            ptTip = new vec2(ptTip.easting + (Math.Sin(headz) * disst), ptTip.northing + (Math.Cos(headz) * disst));
+                                            ptTip = new Vec2(ptTip.easting + (Math.Sin(headz) * disst), ptTip.northing + (Math.Cos(headz) * disst));
 
                                             GL.Color4((byte)(255 - triList[0].easting), (byte)(255 - triList[0].northing), (byte)(255 - triList[0].heading), (byte)150);
                                             //GL.LineWidth(3.0f);
@@ -262,7 +262,7 @@ namespace AgOpenGPS
 
                     if (patchCounter > 0)
                     {
-                        if (isDay) GL.Color4(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B, (byte)152);
+                        if (IsDay) GL.Color4(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B, (byte)152);
                         else GL.Color4(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B, (byte)76);
 
                         for (int j = 0; j < triStrip.Count; j++)
@@ -271,7 +271,7 @@ namespace AgOpenGPS
                             {
                                 if (tool.isMultiColoredSections)
                                 {
-                                    if (isDay) GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)152);
+                                    if (IsDay) GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)152);
                                     else GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)76);
                                 }
                                 // the follow up to sections patches
@@ -284,13 +284,13 @@ namespace AgOpenGPS
                                         GL.Begin(PrimitiveType.TriangleStrip);
 
                                         //left side of triangle
-                                        vec2 pt = new((cosSectionHeading * section[triStrip[j].currentStartSectionNum].positionLeft) + toolPos.easting,
+                                        Vec2 pt = new((cosSectionHeading * section[triStrip[j].currentStartSectionNum].positionLeft) + toolPos.easting,
                                                 (sinSectionHeading * section[triStrip[j].currentStartSectionNum].positionLeft) + toolPos.northing);
 
                                         GL.Vertex3(pt.easting, pt.northing, 0);
 
                                         //Right side of triangle
-                                        pt = new vec2((cosSectionHeading * section[triStrip[j].currentEndSectionNum].positionRight) + toolPos.easting,
+                                        pt = new Vec2((cosSectionHeading * section[triStrip[j].currentEndSectionNum].positionRight) + toolPos.easting,
                                            (sinSectionHeading * section[triStrip[j].currentEndSectionNum].positionRight) + toolPos.northing);
 
                                         GL.Vertex3(pt.easting, pt.northing, 0);
@@ -402,7 +402,7 @@ namespace AgOpenGPS
                             GL.Begin(PrimitiveType.Lines);
                             GL.Color3(0.930f, 0.72f, 0.32f);
                             GL.Vertex3(pivotAxlePos.easting, pivotAxlePos.northing, 0);
-                            GL.Vertex3(flagPts[flagNumberPicked - 1].easting, flagPts[flagNumberPicked - 1].northing, 0);
+                            GL.Vertex3(flagPts[flagNumberPicked - 1].Easting, flagPts[flagNumberPicked - 1].Northing, 0);
                             GL.End();
                             GL.Disable(EnableCap.LineStipple);
                         }
@@ -421,7 +421,7 @@ namespace AgOpenGPS
                     }
                     GL.PopMatrix();
 
-                    if (camera.camSetDistance > -250)
+                    if (camera.CamSetDistance > -250)
                     {
                         if (trk.idx > -1 && !isStanleyUsed)
                         {
@@ -429,7 +429,7 @@ namespace AgOpenGPS
                                 Math.Abs(vehicle.modeActualXTE) > 0.15 ?
                                 Colors.GoalPointColor :
                                 Colors.Green;
-                            vec2 goalPoint = trk.gArr[trk.idx].mode == TrackMode.AB ? ABLine.goalPointAB : curve.goalPointCu;
+                            Vec2 goalPoint = trk.gArr[trk.idx].mode == TrackMode.AB ? ABLine.goalPointAB : curve.goalPointCu;
                             GeoCoord goalCoord = goalPoint.ToGeoCoord();
 
                             // background layer
@@ -732,7 +732,7 @@ namespace AgOpenGPS
                 DistanceToFieldOriginCheck();
 
                 //don't save if no gps
-                if (isJobStarted)
+                if (IsJobStarted)
                 {
                     //auto save the field patches, contours accumulated so far
                     FileSaveSections();
@@ -787,7 +787,7 @@ namespace AgOpenGPS
             GL.Translate(0, 0, -500);
 
             //rotate camera so heading matched fix heading in the world
-            GL.Rotate(glm.toDegrees(toolPos.heading), 0, 0, 1);
+            GL.Rotate(Glm.ToDegrees(toolPos.heading), 0, 0, 1);
 
             GL.Translate(-toolPos.easting - (Math.Sin(toolPos.heading) * 15),
                 -toolPos.northing - (Math.Cos(toolPos.heading) * 15),
@@ -815,7 +815,7 @@ namespace AgOpenGPS
                 if (patchCount > 0)
                 {
                     //for every new chunk of patch
-                    foreach (List<vec3> triList in triStrip[j].patchList)
+                    foreach (List<Vec3> triList in triStrip[j].patchList)
                     {
                         isDraw = false;
                         int count2 = triList.Count;
@@ -1043,13 +1043,13 @@ namespace AgOpenGPS
             for (int j = 0; j < tool.numOfSections; j++)
             {
                 //Off or too slow or going backwards
-                if (section[j].sectionBtnState == btnStates.Off || avgSpeed < vehicle.slowSpeedCutoff || section[j].speedPixels < 0)
+                if (section[j].sectionBtnState == BtnStates.Off || avgSpeed < vehicle.slowSpeedCutoff || section[j].speedPixels < 0)
                 {
                     section[j].sectionOnRequest = false;
                     section[j].sectionOffRequest = true;
 
                     // Manual on, force the section On
-                    if (section[j].sectionBtnState == btnStates.On)
+                    if (section[j].sectionBtnState == BtnStates.On)
                     {
                         section[j].sectionOnRequest = true;
                         section[j].sectionOffRequest = false;
@@ -1059,7 +1059,7 @@ namespace AgOpenGPS
                 }
 
                 // Manual on, force the section On
-                if (section[j].sectionBtnState == btnStates.On)
+                if (section[j].sectionBtnState == BtnStates.On)
                 {
                     section[j].sectionOnRequest = true;
                     section[j].sectionOffRequest = false;
@@ -1454,7 +1454,7 @@ namespace AgOpenGPS
 
         private void oglZoom_Paint(object sender, PaintEventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 oglZoom.MakeCurrent();
 
@@ -1467,7 +1467,7 @@ namespace AgOpenGPS
                 GL.Enable(EnableCap.Blend);
 
                 //translate to that spot in the world 
-                GL.Translate(-fieldCenterX, -fieldCenterY, 0);
+                GL.Translate(-FieldCenterX, -FieldCenterY, 0);
 
                 GL.Color4(0.5, 0.5, 0.5, 0.5);
                 //draw patches
@@ -1481,7 +1481,7 @@ namespace AgOpenGPS
                     if (patchCount > 0)
                     {
                         //for every new chunk of patch
-                        foreach (List<vec3> triList in triStrip[j].patchList)
+                        foreach (List<Vec3> triList in triStrip[j].patchList)
                         {
                             //draw the triangle in each triangle strip
                             GL.Begin(PrimitiveType.TriangleStrip);
@@ -1783,7 +1783,7 @@ namespace AgOpenGPS
             two3 -= 140;
             GL.Color3(0.927f, 0.9635f, 0.74f);
 
-            if (isMetric)
+            if (IsMetric)
             {
                 if (!yt.isYouTurnTriggered)
                 {
@@ -1958,10 +1958,10 @@ namespace AgOpenGPS
                     }
                     flagColorRgb.Blue = (byte)flag.ID;
                     GLW.SetColor(flagColorRgb);
-                    GL.Vertex3(flag.easting, flag.northing, 0);
+                    GL.Vertex3(flag.Easting, flag.Northing, 0);
                     GL.End();
 
-                    font.DrawText3D(flag.easting, flag.northing, flagColor + flag.notes, camHeading);
+                    font.DrawText3D(flag.Easting, flag.Northing, flagColor + flag.notes, camHeading);
                 }
                 if (flagNumberPicked != 0)
                 {
@@ -1971,10 +1971,10 @@ namespace AgOpenGPS
                     GLW.SetColor(Colors.FlagSelectedBoxColor);
                     CFlag flag = flagPts[flagNumberPicked - 1];
                     XyCoord[] squareCorners = {
-                        new(flag.easting         , flag.northing + offSet),
-                        new(flag.easting - offSet, flag.northing),
-                        new(flag.easting         , flag.northing - offSet),
-                        new(flag.easting + offSet, flag.northing),
+                        new(flag.Easting         , flag.Northing + offSet),
+                        new(flag.Easting - offSet, flag.Northing),
+                        new(flag.Easting         , flag.Northing - offSet),
+                        new(flag.Easting + offSet, flag.Northing),
                     };
                     GLW.DrawLineLoopPrimitive(squareCorners);
                 }
@@ -2103,7 +2103,7 @@ namespace AgOpenGPS
                 if (longAvgPivDistance > 150) longAvgPivDistance = 150; // cap AFTER filter to keep smoothing effective
 
                 // Convert to display units: cm (metric) or inch (imperial)
-                double avgPivotDistance = avgPivDistance * (isMetric ? 0.1 : 0.03937);
+                double avgPivotDistance = avgPivDistance * (IsMetric ? 0.1 : 0.03937);
 
                 // Keep geometry identical to SteerBarText
                 double textSize = (100.0 + (oglMain.Height - 600.0)) * 0.0012;
@@ -2155,7 +2155,7 @@ namespace AgOpenGPS
                 // Secondary small line: long-term average (only when small)
                 if (longAvgPivDistance < 150)
                 {
-                    string small = Math.Abs(longAvgPivDistance * (isMetric ? 0.1 : 0.03937)).ToString("N1");
+                    string small = Math.Abs(longAvgPivDistance * (IsMetric ? 0.1 : 0.03937)).ToString("N1");
                     GL.Color3(0.950f, 0.952f, 0.3f);
                     int centerSmall = -(int)(small.Length * 0.5 * 16);
                     font.DrawText(centerSmall, (int)(30 * (1.0 + (0.2 * textSize))) + 10, small, 1.0);
@@ -2198,7 +2198,7 @@ namespace AgOpenGPS
                 avgPivDistance = (avgPivDistance * 0.8) + (lightbarDistance * 0.2);
 
                 // in millimeters
-                double avgPivotDistance = avgPivDistance * (isMetric ? 0.1 : 0.03937);
+                double avgPivotDistance = avgPivDistance * (IsMetric ? 0.1 : 0.03937);
                 double err = mc.actualSteerAngleDegrees - (guidanceLineSteerAngle * 0.01);
 
                 if (isBtnAutoSteerOn)
@@ -2389,7 +2389,7 @@ namespace AgOpenGPS
             ScreenTextures.ZoomOut.Draw(zoomOutCoord, zoomOutCoord + sizeDelta);
 
             //Pan
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 center = (oglMain.Width / -2) + 30;
                 if (!isPanFormVisible)
@@ -2408,7 +2408,7 @@ namespace AgOpenGPS
             }
 
             center = (oglMain.Width / -2) + 10;
-            double deg = glm.toDegrees(fixHeading);
+            double deg = Glm.ToDegrees(FixHeading);
             if (deg > 359.9) deg = 359.9;
             string strHeading = deg.ToString("N1");
             int lenth = 18 * strHeading.Length;
@@ -2520,7 +2520,7 @@ namespace AgOpenGPS
             ScreenTextures.Speedo.DrawCenteredAroundOrigin(new XyDelta(58, 58));
 
             // speedoSpeed is just a number without a unit
-            double speedoSpeed = Math.Abs(isMetric ? avgSpeed : Speed.KmhToMph(avgSpeed));
+            double speedoSpeed = Math.Abs(IsMetric ? avgSpeed : Speed.KmhToMph(avgSpeed));
             speedoSpeed = Math.Min(speedoSpeed, 20);
             double angle = (speedoSpeed - 10) * 15;
 
@@ -2620,7 +2620,7 @@ namespace AgOpenGPS
                 double meters = bnd.HeadlandDistance.Value;
 
                 // Show feet (2 decimals) or meters (1 decimal)
-                label = Distance.MediumBigDistanceString(isMetric, meters, 0, 1);
+                label = Distance.MediumBigDistanceString(IsMetric, meters, 0, 1);
             }
             else
             {
@@ -2923,8 +2923,8 @@ namespace AgOpenGPS
 
         public GeoBoundingBox FieldBoundingBox { get; private set; }
         public GeoCoord FieldCenter => FieldBoundingBox.CenterCoord;
-        public double fieldCenterX => FieldCenter.Easting;
-        public double fieldCenterY => FieldCenter.Northing;
+        public double FieldCenterX => FieldCenter.Easting;
+        public double FieldCenterY => FieldCenter.Northing;
         public double maxFieldDistance;
 
         //determine mins maxs of patches and whole field.
@@ -2954,7 +2954,7 @@ namespace AgOpenGPS
             GeoBoundingBox bb = GeoBoundingBox.CreateEmpty();
             if (bnd.bndList.Count > 0)
             {
-                foreach (vec3 vertex in bnd.bndList[0].fenceLine)
+                foreach (Vec3 vertex in bnd.bndList[0].fenceLine)
                 {
                     bb.Include(vertex.ToGeoCoord());
                 }
@@ -2964,7 +2964,7 @@ namespace AgOpenGPS
                 foreach (CPatches patches in triStrip)
                 {
                     //for every new chunk of patch
-                    foreach (List<vec3> triList in patches.patchList)
+                    foreach (List<Vec3> triList in patches.patchList)
                     {
                         // Skip the first entry. It is the color disguised as vec3
                         for (int i = 1; i < triList.Count; i += 3)

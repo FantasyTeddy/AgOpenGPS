@@ -64,28 +64,28 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
         /// <summary>
         /// Calculate Heading for CurvePoints   
         /// </summary>
-        public static List<vec3> CalculateHeadings(List<vec3> inputPoints)
+        public static List<Vec3> CalculateHeadings(List<Vec3> inputPoints)
         {
-            List<vec3> output = new();
+            List<Vec3> output = new();
 
             if (inputPoints == null || inputPoints.Count < 2)
                 return output;
 
             for (int i = 0; i < inputPoints.Count - 1; i++)
             {
-                vec3 p1 = inputPoints[i];
-                vec3 p2 = inputPoints[i + 1];
+                Vec3 p1 = inputPoints[i];
+                Vec3 p2 = inputPoints[i + 1];
 
                 double dx = p2.easting - p1.easting;
                 double dy = p2.northing - p1.northing;
 
                 double heading = Math.Atan2(dx, dy);
 
-                output.Add(new vec3(p1.easting, p1.northing, heading));
+                output.Add(new Vec3(p1.easting, p1.northing, heading));
             }
-            vec3 last = inputPoints[^1];
+            Vec3 last = inputPoints[^1];
             double lastHeading = output[^1].heading;
-            output.Add(new vec3(last.easting, last.northing, lastHeading));
+            output.Add(new Vec3(last.easting, last.northing, lastHeading));
 
             return output;
         }
