@@ -2,7 +2,7 @@
 {
     public struct GeoBoundingBox
     {
-        static public GeoBoundingBox CreateEmpty()
+        public static GeoBoundingBox CreateEmpty()
         {
             GeoCoord minCoord = new GeoCoord(double.MaxValue, double.MaxValue);
             GeoCoord maxCoord = new GeoCoord(double.MinValue, double.MinValue);
