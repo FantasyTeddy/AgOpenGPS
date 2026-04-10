@@ -24,7 +24,7 @@ namespace AgOpenGPS
         private bool isA = true;
         private int start = 99999, end = 99999;
         private int bndSelect = 0;
-        TrackMode mode = TrackMode.None;
+        private TrackMode mode = TrackMode.None;
         public List<vec3> sliceArr = new List<vec3>();
         public List<vec3> backupList = new List<vec3>();
 

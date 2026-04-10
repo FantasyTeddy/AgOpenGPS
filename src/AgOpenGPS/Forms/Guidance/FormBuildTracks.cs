@@ -26,7 +26,7 @@ namespace AgOpenGPS
         public List<CTrk> gTemp = new List<CTrk>();
 
         private bool isRefRightSide = true; //left side 0 middle 1 right 2
-        TrackMode mode = TrackMode.None;
+        private TrackMode mode = TrackMode.None;
         private vec2 ptAa = new vec2();
         private vec2 ptBb = new vec2();
 

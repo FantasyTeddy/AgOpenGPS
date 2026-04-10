@@ -5,7 +5,7 @@ namespace AgOpenGPS.Core.Models
     // Represents a coordinate in the World Geodetic System 1984
     public struct Wgs84
     {
-        const double EarthRadiusInMeters = 6371 * 1000.0;
+        private const double EarthRadiusInMeters = 6371 * 1000.0;
         public Wgs84(double latitude, double longitude)
         {
             Latitude = latitude;

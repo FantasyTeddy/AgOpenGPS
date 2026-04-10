@@ -8,7 +8,7 @@ namespace AgIO
     public partial class FormEventViewer : Form
     {
         //class variables
-        string filename;
+        private string filename;
 
         public FormEventViewer(string _filename)
         {

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using AgLibrary.Logging;
 
 // Declare the delegate prototype to send data back to the form
-delegate void UpdateRTCM_Data(byte[] data);
+internal delegate void UpdateRTCM_Data(byte[] data);
 
 namespace AgIO
 {
@@ -22,7 +22,7 @@ namespace AgIO
         private byte[] casterRecBuffer = new byte[2800];    // Recieved data buffer
 
         //Send GGA back timer
-        Timer tmr;
+        private Timer tmr;
 
         private string mount;
         private string username;
@@ -49,11 +49,11 @@ namespace AgIO
         public bool isSerialPass_RequiredOn = false;
         internal SerialPort spRadio = new SerialPort("Radio", 9600, Parity.None, 8, StopBits.One);
 
-        List<int> rList = new List<int>();
-        List<int> aList = new List<int>();
+        private List<int> rList = new List<int>();
+        private List<int> aList = new List<int>();
 
         //NTRIP metering
-        Queue<byte> rawTrip = new Queue<byte>();
+        private Queue<byte> rawTrip = new Queue<byte>();
 
         //set up connection to Caster
         private void DoNTRIPSecondRoutine()

@@ -20,29 +20,29 @@ namespace AgOpenGPS
         private double fovy = 0.7;
         private double camDistanceFactor = -4;
 
-        int mouseX = 0, mouseY = 0;
+        private int mouseX = 0, mouseY = 0;
         public int steerModuleConnectedCounter = 0;
 
         //data buffer for pixels read from off screen buffer
-        byte[] rateRed = new byte[1];
-        byte[] rateGrn = new byte[1];
-        byte[] rateBlu = new byte[1];
+        private byte[] rateRed = new byte[1];
+        private byte[] rateGrn = new byte[1];
+        private byte[] rateBlu = new byte[1];
 
-        byte[] grnPixels = new byte[150001];
+        private byte[] grnPixels = new byte[150001];
 
         private bool isHeadlandClose = false;
 
-        int deadCam = 0;
+        private int deadCam = 0;
 
-        StringBuilder sb = new StringBuilder();
+        private StringBuilder sb = new StringBuilder();
 
         private ulong number = 0, lastNumber = 0;
 
         public double avgPivDistance, lightbarDistance, longAvgPivDistance;
 
-        vec2 left = new vec2();
-        vec2 right = new vec2();
-        vec2 ptTip = new vec2();
+        private vec2 left = new vec2();
+        private vec2 right = new vec2();
+        private vec2 ptTip = new vec2();
 
         private void oglMain_Load(object sender, EventArgs e)
         {

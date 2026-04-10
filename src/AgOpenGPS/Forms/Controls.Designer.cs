@@ -2181,7 +2181,7 @@ namespace AgOpenGPS
             if (sim.stepDistance < -0.5) sim.stepDistance = -0.5;
         }
 
-        double lastSimGuidanceAngle = 0;
+        private double lastSimGuidanceAngle = 0;
         private void timerSim_Tick(object sender, EventArgs e)
         {
             if (recPath.isDrivingRecordedPath || isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000))

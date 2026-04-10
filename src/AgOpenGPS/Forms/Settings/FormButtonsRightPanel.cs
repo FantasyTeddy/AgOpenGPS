@@ -11,8 +11,8 @@ namespace AgOpenGPS
     {
         //class variables
         private readonly FormGPS mf = null;
-        int btnCounter = 0;
-        string original;
+        private int btnCounter = 0;
+        private string original;
         public FormButtonsRightPanel(Form callingForm)
         {
             //get copy of the calling main form

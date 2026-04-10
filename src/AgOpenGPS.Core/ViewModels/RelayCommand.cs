@@ -6,7 +6,7 @@ namespace AgOpenGPS.Core.ViewModels
     public class RelayCommand : ICommand
     {
         private readonly Action _execute;
-        readonly Func<bool> _canExecute;
+        private readonly Func<bool> _canExecute;
 
         public RelayCommand(Action execute)
         {
@@ -38,8 +38,8 @@ namespace AgOpenGPS.Core.ViewModels
 
     public class RelayCommand<T> : ICommand
     {
-        readonly Action<T> _execute;
-        readonly Predicate<T> _canExecute;
+        private readonly Action<T> _execute;
+        private readonly Predicate<T> _canExecute;
 
 
         public RelayCommand(Action<T> execute)

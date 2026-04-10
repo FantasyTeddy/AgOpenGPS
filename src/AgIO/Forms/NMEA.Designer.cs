@@ -37,7 +37,7 @@ namespace AgIO
         private float rollK, Pc, G, Xp, Zp, XeRoll, P = 1.0f;
         private readonly float varRoll = 0.1f, varProcess = 0.0003f;
 
-        double LastUpdateUTC = 0;
+        private double LastUpdateUTC = 0;
 
         //Convert Fix value to Text
         public string FixQuality

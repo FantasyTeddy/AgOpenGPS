@@ -6,10 +6,10 @@ namespace AgOpenGPS.Core.Tests.Models
 {
     public class GeoPolygonTests
     {
-        readonly double _minNorthing = -1.0;
-        readonly double _maxNorthing = 3.0;
-        readonly double _minEasting = 2.0;
-        readonly double _maxEasting = 4.0;
+        private readonly double _minNorthing = -1.0;
+        private readonly double _maxNorthing = 3.0;
+        private readonly double _minEasting = 2.0;
+        private readonly double _maxEasting = 4.0;
         private GeoPolygon _cwPolygon;
 
 
