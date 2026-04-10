@@ -296,21 +296,13 @@ namespace AgOpenGPS
                 lblFix.Text = FixQuality + "Age: " + pn.age.ToString("N1");
 
 
-                switch (pn.fixQuality)
+                btnGPSData.BackColor = pn.fixQuality switch
                 {
-                    case 4:
-                        btnGPSData.BackColor = Color.PaleGreen;
-                        break;
-                    case 5:
-                        btnGPSData.BackColor = Color.Orange;
-                        break;
-                    case 2:
-                        btnGPSData.BackColor = Color.Yellow;
-                        break;
-                    default:
-                        btnGPSData.BackColor = Color.Red;
-                        break;
-                }
+                    4 => Color.PaleGreen,
+                    5 => Color.Orange,
+                    2 => Color.Yellow,
+                    _ => Color.Red,
+                };
 
                 //statusbar flash red undefined headland
                 if (timerSim.Enabled)

@@ -55,15 +55,12 @@ namespace AgOpenGPS.Core.Streamers
 
         private FlagColor FlagColorFromInt(int intColor)
         {
-            switch (intColor)
+            return intColor switch
             {
-                case 1:
-                    return FlagColor.Green;
-                case 2:
-                    return FlagColor.Yellow;
-                default:
-                    return FlagColor.Red;
-            }
+                1 => FlagColor.Green,
+                2 => FlagColor.Yellow,
+                _ => FlagColor.Red,
+            };
         }
 
         private List<Flag> Read(DirectoryInfo fieldDirectory)
@@ -97,17 +94,13 @@ namespace AgOpenGPS.Core.Streamers
 
         private int FlagColorToInt(FlagColor flagColor)
         {
-            switch (flagColor)
+            return flagColor switch
             {
-                case FlagColor.Red:
-                    return 0;
-                case FlagColor.Green:
-                    return 1;
-                case FlagColor.Yellow:
-                    return 2;
-                default:
-                    throw new InvalidEnumArgumentException(nameof(flagColor), (int)flagColor, typeof(FlagColor));
-            }
+                FlagColor.Red => 0,
+                FlagColor.Green => 1,
+                FlagColor.Yellow => 2,
+                _ => throw new InvalidEnumArgumentException(nameof(flagColor), (int)flagColor, typeof(FlagColor)),
+            };
         }
 
         private void Write(List<Flag> flags, DirectoryInfo fieldDirectory)

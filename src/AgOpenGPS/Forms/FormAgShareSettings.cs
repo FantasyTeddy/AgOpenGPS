@@ -94,17 +94,13 @@ namespace AgOpenGPS
 
         private string ConvertError(AgShareError error)
         {
-            switch (error)
+            return error switch
             {
-                case InvalidApiKeyError _:
-                    return "Invalid API key";
-                case StatusCodeError statusCodeError:
-                    return $"Status {statusCodeError.StatusCode}: {statusCodeError.Body}";
-                case HttpRequestError httpRequestError:
-                    return $"Error: {httpRequestError.Exception.Message}";
-                default:
-                    throw new InvalidOperationException($"Unknown {nameof(AgShareError)}: {error.GetType()}");
-            }
+                InvalidApiKeyError _ => "Invalid API key",
+                StatusCodeError statusCodeError => $"Status {statusCodeError.StatusCode}: {statusCodeError.Body}",
+                HttpRequestError httpRequestError => $"Error: {httpRequestError.Exception.Message}",
+                _ => throw new InvalidOperationException($"Unknown {nameof(AgShareError)}: {error.GetType()}"),
+            };
         }
 
         // Save current values to settings
