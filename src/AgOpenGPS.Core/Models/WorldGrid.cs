@@ -12,10 +12,8 @@ namespace AgOpenGPS.Core
 {
     public class WorldGrid
     {
-        private BingMap _bingMap;
         private BingMapVisual _bingMapVisual;
         private Bitmap _floorBitmap;
-        private GeoTexture2D _floorTexture;
 
         //Y
         public double northingMax;
@@ -40,11 +38,11 @@ namespace AgOpenGPS.Core
         public double GridStep { private get; set; }
         public BingMap BingMap
         {
-            private get => _bingMap;
+            private get;
             set
             {
-                _bingMap = value;
-                _bingMapVisual = (_bingMap != null) ? new BingMapVisual(_bingMap) : null;
+                field = value;
+                _bingMapVisual = (field != null) ? new BingMapVisual(field) : null;
             }
         }
 
@@ -54,8 +52,8 @@ namespace AgOpenGPS.Core
         {
             get
             {
-                if (null == _floorTexture) _floorTexture = new GeoTexture2D(_floorBitmap);
-                return _floorTexture;
+                if (null == field) field = new GeoTexture2D(_floorBitmap);
+                return field;
             }
         }
 

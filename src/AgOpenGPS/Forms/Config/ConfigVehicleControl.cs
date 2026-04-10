@@ -12,9 +12,6 @@ namespace AgOpenGPS.Forms.Config
     public partial class ConfigVehicleControl : UserControl
     {
         private VehicleConfig _vehicleConfig;
-        private TractorBrand _tractorBrand;
-        private HarvesterBrand _harvesterBrand;
-        private ArticulatedBrand _articulatedBrand;
         private Image _original = null;
 
         public ConfigVehicleControl()
@@ -28,34 +25,34 @@ namespace AgOpenGPS.Forms.Config
 
         public TractorBrand TractorBrand
         {
-            get => _tractorBrand;
+            get;
             private set
             {
-                _tractorBrand = value;
+                field = value;
 
-                pboxAlpha.BackgroundImage = TractorBitmaps.GetBitmap(_tractorBrand);
+                pboxAlpha.BackgroundImage = TractorBitmaps.GetBitmap(field);
             }
         }
 
         public HarvesterBrand HarvesterBrand
         {
-            get => _harvesterBrand;
+            get;
             private set
             {
-                _harvesterBrand = value;
+                field = value;
 
-                pboxAlpha.BackgroundImage = HarvesterBitmaps.GetBitmap(_harvesterBrand);
+                pboxAlpha.BackgroundImage = HarvesterBitmaps.GetBitmap(field);
             }
         }
 
         public ArticulatedBrand ArticulatedBrand
         {
-            get => _articulatedBrand;
+            get;
             private set
             {
-                _articulatedBrand = value;
+                field = value;
 
-                pboxAlpha.BackgroundImage = ArticulatedBitmaps.GetFrontBitmap(_articulatedBrand);
+                pboxAlpha.BackgroundImage = ArticulatedBitmaps.GetFrontBitmap(field);
             }
         }
 

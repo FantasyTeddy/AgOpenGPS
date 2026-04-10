@@ -22,7 +22,6 @@ namespace GPS_Out
 
         #endregion RMC Message
 
-        private string cSentence;
         private frmStart mf;
 
         public PGN_RMC(frmStart CalledFrom)
@@ -30,7 +29,7 @@ namespace GPS_Out
             mf = CalledFrom;
         }
 
-        public string Sentence => cSentence;
+        public string Sentence { get; private set; }
 
         public string Build()
         {
@@ -47,42 +46,42 @@ namespace GPS_Out
                 lon = mf.AGIOdata.Longitude;
             }
 
-            cSentence = Properties.Settings.Default.SentenceStart + "RMC";
-            cSentence += "," + DateTime.UtcNow.ToString("HHmmss.ff", CultureInfo.InvariantCulture);
+            Sentence = Properties.Settings.Default.SentenceStart + "RMC";
+            Sentence += "," + DateTime.UtcNow.ToString("HHmmss.ff", CultureInfo.InvariantCulture);
 
-            cSentence += ",A";
+            Sentence += ",A";
 
             string NS = ",N";
             if (lat < 0) NS = ",S";
             lat = Math.Abs(lat);
-            cSentence += "," + ((int)lat).ToString("D2");
+            Sentence += "," + ((int)lat).ToString("D2");
             double Mins = (double)(lat - (int)lat) * 60.0;
-            cSentence += Mins.ToString(Properties.Settings.Default.SentencePrecisionFormat, CultureInfo.InvariantCulture);
-            cSentence += NS;
+            Sentence += Mins.ToString(Properties.Settings.Default.SentencePrecisionFormat, CultureInfo.InvariantCulture);
+            Sentence += NS;
 
             string EW = ",E";
             if (lon < 0) EW = ",W";
             lon = Math.Abs(lon);
-            cSentence += "," + ((int)lon).ToString("D3");
+            Sentence += "," + ((int)lon).ToString("D3");
             Mins = (double)(lon - (int)lon) * 60.0;
-            cSentence += Mins.ToString(Properties.Settings.Default.SentencePrecisionFormat, CultureInfo.InvariantCulture);
-            cSentence += EW;
+            Sentence += Mins.ToString(Properties.Settings.Default.SentencePrecisionFormat, CultureInfo.InvariantCulture);
+            Sentence += EW;
 
             double knots = mf.AGIOdata.Speed * 0.5399568;
-            cSentence += "," + knots.ToString("000.0", CultureInfo.InvariantCulture);
+            Sentence += "," + knots.ToString("000.0", CultureInfo.InvariantCulture);
 
-            cSentence += "," + mf.Heading().ToString("000.0", CultureInfo.InvariantCulture);
+            Sentence += "," + mf.Heading().ToString("000.0", CultureInfo.InvariantCulture);
 
-            cSentence += "," + DateTime.UtcNow.ToString("ddMMyy");
+            Sentence += "," + DateTime.UtcNow.ToString("ddMMyy");
 
-            cSentence += ",0.0,W";
+            Sentence += ",0.0,W";
 
-            cSentence += ",*";
+            Sentence += ",*";
             //cSentence += "*";
-            string Hex = mf.CheckSum(cSentence).ToString("X2");
-            cSentence += Hex;
+            string Hex = mf.CheckSum(Sentence).ToString("X2");
+            Sentence += Hex;
 
-            return cSentence;
+            return Sentence;
         }
     }
 }

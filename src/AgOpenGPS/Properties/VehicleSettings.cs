@@ -6,9 +6,7 @@ namespace AgOpenGPS.Properties
 {
     public sealed class VehicleSettings
     {
-        private static VehicleSettings settings_ = new VehicleSettings();
-
-        public static VehicleSettings Default => settings_;
+        public static VehicleSettings Default { get; private set; } = new VehicleSettings();
 
         // Vehicle dimensions
         public double setVehicle_wheelbase = 3.3;
@@ -112,7 +110,7 @@ namespace AgOpenGPS.Properties
 
         public void Reset()
         {
-            settings_ = new VehicleSettings();
+            Default = new VehicleSettings();
         }
     }
 }

@@ -7,8 +7,6 @@ namespace AgOpenGPS.Core.ViewModels
     public class DayNightAndUnitsViewModel : ViewModel
     {
         private readonly Collection<DayNightAndUnitsViewModel> _children;
-        private bool _isMetric;
-        private bool _isDay;
 
         public DayNightAndUnitsViewModel()
         {
@@ -17,12 +15,12 @@ namespace AgOpenGPS.Core.ViewModels
 
         public bool IsMetric
         {
-            get => _isMetric;
+            get;
             set
             {
-                if (value != _isMetric)
+                if (value != field)
                 {
-                    _isMetric = value;
+                    field = value;
                     foreach (DayNightAndUnitsViewModel child in _children) child.IsMetric = value;
                     NotifyAllPropertiesChanged();
                 }
@@ -31,12 +29,12 @@ namespace AgOpenGPS.Core.ViewModels
 
         public bool IsDay
         {
-            get => _isDay;
+            get;
             set
             {
-                if (value != _isDay)
+                if (value != field)
                 {
-                    _isDay = value;
+                    field = value;
                     foreach (DayNightAndUnitsViewModel child in _children) child.IsDay = value;
                     NotifyAllPropertiesChanged();
                 }

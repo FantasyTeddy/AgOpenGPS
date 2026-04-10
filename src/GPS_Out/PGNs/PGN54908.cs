@@ -29,20 +29,9 @@ namespace GPS_Out
 
         private const byte cByteCount = 57;
         private ushort cAgeX100;
-        private float cAltitude;
-        private byte cFixQuality;
         private ushort cHdopX100;
-        private float cHeadingDual;
-        private float cImuHeading;
         private short cImuPitch;
         private short cImuRoll;
-        private ushort cImuYaw;
-        private double cLatitude;
-        private double cLongitude;
-        private float cRoll;
-        private ushort cSatellites;
-        private float cSpeed;
-        private float cTrueHeading;
         private frmStart mf;
         private DateTime ReceiveTime;
 
@@ -76,7 +65,7 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    return cAltitude;
+                    return field;
                 }
                 else if (Properties.Settings.Default.Simulate)
                 {
@@ -87,6 +76,8 @@ namespace GPS_Out
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public byte FixQuality
@@ -95,7 +86,7 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    return cFixQuality;
+                    return field;
                 }
                 else if (Properties.Settings.Default.Simulate)
                 {
@@ -106,6 +97,8 @@ namespace GPS_Out
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public float HDOP
@@ -133,7 +126,7 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    return cHeadingDual;
+                    return field;
                 }
                 else if (Properties.Settings.Default.Simulate)
                 {
@@ -144,6 +137,8 @@ namespace GPS_Out
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public float IMUheading
@@ -152,7 +147,7 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    return cImuHeading;
+                    return field;
                 }
                 else if (Properties.Settings.Default.Simulate)
                 {
@@ -163,6 +158,8 @@ namespace GPS_Out
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public float IMUpitch
@@ -190,9 +187,11 @@ namespace GPS_Out
             get
             {
                 ushort Result = 0;
-                if (cImuYaw < 30) Result = cImuYaw;
+                if (field < 30) Result = field;
                 return Result;
             }
+
+            private set;
         }
 
         public double Latitude
@@ -201,13 +200,15 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    return cLatitude;
+                    return field;
                 }
                 else
                 {
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public double Longitude
@@ -216,13 +217,15 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    return cLongitude;
+                    return field;
                 }
                 else
                 {
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public float Roll
@@ -231,9 +234,9 @@ namespace GPS_Out
             {
                 float Result = 0;
 
-                if (Math.Abs(cRoll) < 30)
+                if (Math.Abs(field) < 30)
                 {
-                    Result = cRoll;
+                    Result = field;
                 }
                 else if (Math.Abs(cImuRoll / 10.0) < 30)
                 {
@@ -242,6 +245,8 @@ namespace GPS_Out
 
                 return Result;
             }
+
+            private set;
         }
 
         public UInt16 Satellites
@@ -250,7 +255,7 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    return cSatellites;
+                    return field;
                 }
                 else if (Properties.Settings.Default.Simulate)
                 {
@@ -261,6 +266,8 @@ namespace GPS_Out
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public float Speed
@@ -269,9 +276,9 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    if (cSpeed < 100)
+                    if (field < 100)
                     {
-                        return cSpeed;
+                        return field;
                     }
                     else
                     {
@@ -287,6 +294,8 @@ namespace GPS_Out
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public float TrueHeading
@@ -295,7 +304,7 @@ namespace GPS_Out
             {
                 if (Connected())
                 {
-                    return cTrueHeading;
+                    return field;
                 }
                 else if (Properties.Settings.Default.Simulate)
                 {
@@ -306,6 +315,8 @@ namespace GPS_Out
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public bool Connected()
@@ -318,21 +329,21 @@ namespace GPS_Out
             bool Result = false;
             if (mf.Tls.GoodCRC(Data, 2))
             {
-                cLongitude = BitConverter.ToDouble(Data, 5);
-                cLatitude = BitConverter.ToDouble(Data, 13);
-                cHeadingDual = BitConverter.ToSingle(Data, 21);
-                cTrueHeading = BitConverter.ToSingle(Data, 25);
-                cSpeed = BitConverter.ToSingle(Data, 29);
-                cRoll = BitConverter.ToSingle(Data, 33);
-                cAltitude = BitConverter.ToSingle(Data, 37);
-                cSatellites = BitConverter.ToUInt16(Data, 41);
-                cFixQuality = Data[43];
+                Longitude = BitConverter.ToDouble(Data, 5);
+                Latitude = BitConverter.ToDouble(Data, 13);
+                HeadingDual = BitConverter.ToSingle(Data, 21);
+                TrueHeading = BitConverter.ToSingle(Data, 25);
+                Speed = BitConverter.ToSingle(Data, 29);
+                Roll = BitConverter.ToSingle(Data, 33);
+                Altitude = BitConverter.ToSingle(Data, 37);
+                Satellites = BitConverter.ToUInt16(Data, 41);
+                FixQuality = Data[43];
                 cHdopX100 = BitConverter.ToUInt16(Data, 44);
                 cAgeX100 = BitConverter.ToUInt16(Data, 46);
-                cImuHeading = (float)(BitConverter.ToUInt16(Data, 48) / 10.0);
+                IMUheading = (float)(BitConverter.ToUInt16(Data, 48) / 10.0);
                 cImuRoll = BitConverter.ToInt16(Data, 50);
                 cImuPitch = BitConverter.ToInt16(Data, 52);
-                cImuYaw = BitConverter.ToUInt16(Data, 54);
+                IMUyawRate = BitConverter.ToUInt16(Data, 54);
 
                 ReceiveTime = DateTime.Now;
                 Result = true;

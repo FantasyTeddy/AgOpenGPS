@@ -27,9 +27,6 @@ namespace GPS_Out.PGNs
         // 29       CRC
 
         private const byte HeaderCount = 5;
-        private double cFix2Fix;
-        private double cLatitude;
-        private double cLongitude;
         private frmStart mf;
         private DateTime ReceiveTime;
         private bool ExtendedPGN = false;
@@ -37,7 +34,7 @@ namespace GPS_Out.PGNs
         public PGN100(frmStart CalledFrom)
         {
             mf = CalledFrom;
-            cFix2Fix = 1000;    // invalid data flag
+            Fix2FixHeading = 1000;    // invalid data flag
         }
 
         public double Fix2FixHeading
@@ -46,13 +43,15 @@ namespace GPS_Out.PGNs
             {
                 if (Connected() && Properties.Settings.Default.UseRollCorrected && ExtendedPGN)
                 {
-                    return cFix2Fix;
+                    return field;
                 }
                 else
                 {
                     return 1000;
                 }
             }
+
+            private set;
         }
 
         public double Latitude
@@ -61,13 +60,15 @@ namespace GPS_Out.PGNs
             {
                 if (Connected())
                 {
-                    return cLatitude;
+                    return field;
                 }
                 else
                 {
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public double Longitude
@@ -76,13 +77,15 @@ namespace GPS_Out.PGNs
             {
                 if (Connected())
                 {
-                    return cLongitude;
+                    return field;
                 }
                 else
                 {
                     return 0;
                 }
             }
+
+            private set;
         }
 
         public bool Connected()
@@ -99,9 +102,9 @@ namespace GPS_Out.PGNs
                     ExtendedPGN = (Data[4] == 24);
                     if (mf.Tls.GoodCRC(Data, 2))
                     {
-                        cLongitude = BitConverter.ToDouble(Data, 5);
-                        cLatitude = BitConverter.ToDouble(Data, 13);
-                        if (Data[4] == 24) cFix2Fix = BitConverter.ToDouble(Data, 21);  // alternate pgn
+                        Longitude = BitConverter.ToDouble(Data, 5);
+                        Latitude = BitConverter.ToDouble(Data, 13);
+                        if (Data[4] == 24) Fix2FixHeading = BitConverter.ToDouble(Data, 21);  // alternate pgn
                         ReceiveTime = DateTime.Now;
                         //mf.Tls.WriteByteFile(Data, "AOGdata.txt");
                     }

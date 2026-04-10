@@ -7,8 +7,7 @@ namespace AgOpenGPS.Properties
 {
     public sealed class Settings
     {
-        private static Settings settings_ = new Settings();
-        public static Settings Default => settings_;
+        public static Settings Default { get; private set; } = new Settings();
 
         // ===== WINDOW POSITIONS =====
         public Point setWindow_Location = new Point(30, 30);
@@ -350,8 +349,8 @@ namespace AgOpenGPS.Properties
 
         public void Reset()
         {
-            settings_ = new Settings();
-            settings_.Save();
+            Default = new Settings();
+            Default.Save();
         }
     }
 }

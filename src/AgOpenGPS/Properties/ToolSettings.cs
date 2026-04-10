@@ -6,9 +6,7 @@ namespace AgOpenGPS.Properties
 {
     public sealed class ToolSettings
     {
-        private static ToolSettings settings_ = new ToolSettings();
-
-        public static ToolSettings Default => settings_;
+        public static ToolSettings Default { get; private set; } = new ToolSettings();
 
         // Tool dimensions
         public double setVehicle_toolWidth = 4.0;
@@ -162,7 +160,7 @@ namespace AgOpenGPS.Properties
 
         public void Reset()
         {
-            settings_ = new ToolSettings();
+            Default = new ToolSettings();
         }
     }
 }

@@ -14,8 +14,6 @@ namespace AgOpenGPS.Core.ViewModels
         protected readonly FieldDescriptionStreamer _fieldDescriptionStreamer;
         protected readonly FieldStreamer _fieldStreamer;
         protected FieldDescriptionViewModel _localSelectedField;
-        private Collection<FieldDescriptionViewModel> _fieldDescriptions;
-        private FieldSortMode _fieldSortMode;
 
         public FieldTableViewModel(
             ApplicationModel appModel,
@@ -39,12 +37,12 @@ namespace AgOpenGPS.Core.ViewModels
 
         public FieldSortMode SortMode
         {
-            get => _fieldSortMode;
+            get;
             set
             {
-                if (value != _fieldSortMode)
+                if (value != field)
                 {
-                    _fieldSortMode = value;
+                    field = value;
                     NotifyAllPropertiesChanged();
                 }
             }
@@ -52,10 +50,10 @@ namespace AgOpenGPS.Core.ViewModels
 
         public Collection<FieldDescriptionViewModel> FieldDescriptionViewModels
         {
-            get => _fieldDescriptions;
+            get;
             set
             {
-                _fieldDescriptions = value;
+                field = value;
                 NotifyPropertyChanged();
             }
         }

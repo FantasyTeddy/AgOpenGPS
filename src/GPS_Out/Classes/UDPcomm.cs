@@ -9,7 +9,6 @@ namespace GPS_Out
         private readonly frmStart mf;
         private byte[] buffer = new byte[1024];
         private string cConnectionName;
-        private bool cIsUDPSendConnected;
         private string cLog;
         private IPAddress cNetworkEP;
         private int cReceivePort;   // local ports must be unique for each app on same pc and each class instance
@@ -36,7 +35,7 @@ namespace GPS_Out
         // Status delegate
         private delegate void HandleDataDelegateObj(int port, byte[] msg);
 
-        public bool IsUDPSendConnected { get => cIsUDPSendConnected; set => cIsUDPSendConnected = value; }
+        public bool IsUDPSendConnected { get; set; }
 
         public string NetworkEP
         {

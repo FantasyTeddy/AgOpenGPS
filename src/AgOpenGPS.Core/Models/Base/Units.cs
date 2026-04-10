@@ -28,16 +28,15 @@ namespace AgOpenGPS.Core.Models
         private const double metersToCm = 100;
         private const double metersToMiles = metersToKilometers * kilometersToMiles;
 
-        private double _distanceInMeters;
         public Distance(double distanceInMeters)
         {
-            _distanceInMeters = distanceInMeters;
+            InMeters = distanceInMeters;
         }
 
-        public double InMeters => _distanceInMeters;
-        public double InKilometers => _distanceInMeters * metersToKilometers;
-        public double InMiles => _distanceInMeters * metersToMiles;
-        public double InFeet => _distanceInMeters * metersToFeet;
+        public double InMeters { get; }
+        public double InKilometers => InMeters * metersToKilometers;
+        public double InMiles => InMeters * metersToMiles;
+        public double InFeet => InMeters * metersToFeet;
 
 
         // Return the distance (value and unit) in a string expressed in cm or inches, (depending on argument isMetric)
@@ -106,15 +105,14 @@ namespace AgOpenGPS.Core.Models
         private const double _squareMetersToHectares = 0.0001;
         private const double _squareMetersToAcres = 0.000247105;
 
-        private double _areaInSquareMeters;
         public Area(double areaInSquareMeters)
         {
-            _areaInSquareMeters = areaInSquareMeters;
+            InSquareMeters = areaInSquareMeters;
         }
 
-        public double InSquareMeters => _areaInSquareMeters;
-        public double InHectares => _squareMetersToHectares * _areaInSquareMeters;
-        public double InAcres => _squareMetersToAcres * _areaInSquareMeters;
+        public double InSquareMeters { get; }
+        public double InHectares => _squareMetersToHectares * InSquareMeters;
+        public double InAcres => _squareMetersToAcres * InSquareMeters;
     }
 
     public class Speed
@@ -122,14 +120,13 @@ namespace AgOpenGPS.Core.Models
         private const double kmhToMph = 0.621371;
         private const double mphToKmh = 1 / kmhToMph;
 
-        private double _speedInKmh;
         public Speed(double speedInKmh)
         {
-            _speedInKmh = speedInKmh;
+            InKmh = speedInKmh;
         }
 
-        public double InKmh => _speedInKmh;
-        public double InMph => _speedInKmh * kmhToMph;
+        public double InKmh { get; }
+        public double InMph => InKmh * kmhToMph;
 
         public static double KmhToMph(double kmh)
         {

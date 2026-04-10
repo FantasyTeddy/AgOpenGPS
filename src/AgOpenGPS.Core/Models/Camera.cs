@@ -5,7 +5,6 @@ namespace AgOpenGPS.Core
 {
     public class Camera
     {
-        private double _zoomValue;
         public Camera(double pitchInDegrees, double zoomValue)
         {
             PitchInDegrees = pitchInDegrees;
@@ -19,11 +18,11 @@ namespace AgOpenGPS.Core
         // Beware: bigger values mean more zoomed out!
         public double ZoomValue
         {
-            get => _zoomValue;
+            get;
             private set
             {
-                _zoomValue = value;
-                DistanceToLookAt = 0.5 * _zoomValue * _zoomValue;
+                field = value;
+                DistanceToLookAt = 0.5 * field * field;
             }
         }
 
