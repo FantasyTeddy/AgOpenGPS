@@ -218,6 +218,9 @@ namespace AgOpenGPS.Core.Models
             return ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.CompareTo(right) >= 0;
         }
 
-        public static implicit operator string(SemanticVersion version) => version?.ToString();
+        public static implicit operator string(SemanticVersion version)
+        {
+            return version?.ToString();
+        }
     }
 }
