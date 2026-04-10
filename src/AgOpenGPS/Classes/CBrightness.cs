@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Management;
 
 //Class written and inspired by Andy
@@ -29,7 +30,7 @@ public class CWindowsSettingsBrightnessController
                 Scope = new ManagementScope(@"\\.\root\wmi")
             };
             ManagementObjectCollection instances = mclass.GetInstances();
-            foreach (ManagementObject instance in instances)
+            foreach (ManagementObject instance in instances.Cast<ManagementObject>())
             {
                 return (byte)instance.GetPropertyValue("CurrentBrightness");
             }
@@ -51,7 +52,7 @@ public class CWindowsSettingsBrightnessController
             };
             ManagementObjectCollection instances = mclass.GetInstances();
             object[] args = new object[] { 1, brightness };
-            foreach (ManagementObject instance in instances)
+            foreach (ManagementObject instance in instances.Cast<ManagementObject>())
             {
                 instance.InvokeMethod("WmiSetBrightness", args);
             }
