@@ -260,9 +260,6 @@ namespace AgOpenGPS
                         }
                     }
 
-                    // the follow up to sections patches
-                    int patchCount = 0;
-
                     if (patchCounter > 0)
                     {
                         if (isDay) GL.Color4(sectionColorDay.R, sectionColorDay.G, sectionColorDay.B, (byte)152);
@@ -277,8 +274,8 @@ namespace AgOpenGPS
                                     if (isDay) GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)152);
                                     else GL.Color4(tool.secColors[j].R, tool.secColors[j].G, tool.secColors[j].B, (byte)76);
                                 }
-                                patchCount = triStrip[j].patchList.Count - 1;
-
+                                // the follow up to sections patches
+                                int patchCount = triStrip[j].patchList.Count - 1;
                                 if (patchCount > -1)
                                 {
                                     try
@@ -930,14 +927,14 @@ namespace AgOpenGPS
             if (tool.lookAheadDistanceOffPixelsRight > 160) tool.lookAheadDistanceOffPixelsRight = 160;
 
             //determine if section is in boundary and headland using the section left/right positions
-            bool isLeftIn = true, isRightIn = true;
+            bool isRightIn = true;
 
             if (bnd.bndList.Count > 0)
             {
                 for (int j = 0; j < tool.numOfSections; j++)
                 {
                     //only one first left point, the rest are all rights moved over to left
-                    isLeftIn = j == 0 ? bnd.IsPointInsideFenceArea(section[j].leftPoint) : isRightIn;
+                    bool isLeftIn = j == 0 ? bnd.IsPointInsideFenceArea(section[j].leftPoint) : isRightIn;
                     isRightIn = bnd.IsPointInsideFenceArea(section[j].rightPoint);
 
                     if (!tool.isSectionOffWhenOut)
@@ -955,15 +952,12 @@ namespace AgOpenGPS
                 }
             }
 
-            //determine farthest ahead lookahead - is the height of the readpixel line
-            double rpHeight = 0;
-            double rpOnHeight = 0;
-            double rpToolHeight = 0;
+            double rpToolHeight;
 
             //pick the larger side
             if (vehicle.hydLiftLookAheadDistanceLeft > vehicle.hydLiftLookAheadDistanceRight) rpToolHeight = vehicle.hydLiftLookAheadDistanceLeft;
             else rpToolHeight = vehicle.hydLiftLookAheadDistanceRight;
-
+            double rpOnHeight;
             if (tool.lookAheadDistanceOnPixelsLeft > tool.lookAheadDistanceOnPixelsRight) rpOnHeight = tool.lookAheadDistanceOnPixelsLeft;
             else rpOnHeight = tool.lookAheadDistanceOnPixelsRight;
 
@@ -977,9 +971,9 @@ namespace AgOpenGPS
             rpOnHeight = Math.Abs(rpOnHeight);
             rpToolHeight = Math.Abs(rpToolHeight);
 
-            //10 % min is required for overlap, otherwise it never would be on.
-            int pixLimit = (int)((double)(section[0].rpSectionWidth * rpOnHeight) / (double)5.0);
 
+            //determine farthest ahead lookahead - is the height of the readpixel line
+            double rpHeight;
             if (rpOnHeight < rpToolHeight && bnd.isHeadlandOn) rpHeight = rpToolHeight + 2;
             else rpHeight = rpOnHeight + 2;
 
@@ -989,18 +983,9 @@ namespace AgOpenGPS
             //read the whole block of pixels up to max lookahead, one read only
             GL.ReadPixels(tool.rpXPosition, 0, tool.rpWidth, (int)rpHeight, OpenTK.Graphics.OpenGL.PixelFormat.Green, PixelType.UnsignedByte, grnPixels);
 
-            //Paint to context for troubleshooting
-            //oglBack.MakeCurrent();
-            //oglBack.SwapBuffers();
-
-            //determine if headland is in read pixel buffer left middle and right. 
-            int start = 0, end = 0, tagged = 0, totalPixel = 0;
 
             //slope of the look ahead line
-            double mOn = 0, mOff = 0;
-
-            double theta = mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-            double deg = glm.toDegrees(Math.Atan(theta));
+            double mOn;
 
             //tram and hydraulics
             if (tram.displayMode > 0 && tool.width > vehicle.VehicleConfig.TrackWidth)
@@ -1028,11 +1013,9 @@ namespace AgOpenGPS
             {
                 //calculate the slope
                 double m = (vehicle.hydLiftLookAheadDistanceRight - vehicle.hydLiftLookAheadDistanceLeft) / tool.rpWidth;
-                int height = 1;
-
                 for (int pos = 0; pos < tool.rpWidth; pos++)
                 {
-                    height = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) - 1;
+                    int height = (int)(vehicle.hydLiftLookAheadDistanceLeft + (m * pos)) - 1;
                     for (int a = pos; a < height * tool.rpWidth; a += tool.rpWidth)
                     {
                         if (grnPixels[a] == 250)
@@ -1051,13 +1034,9 @@ namespace AgOpenGPS
                 bnd.SetHydPosition();
             }
 
+
             #endregion
-
             #region Section Control
-
-            ///////////////////////////////////////////   Section control        ssssssssssssssssssssss
-
-            int endHeight = 1, startHeight = 1;
 
             if (bnd.isHeadlandOn && bnd.isSectionControlledByHeadland) bnd.WhereAreToolLookOnPoints();
 
@@ -1092,17 +1071,26 @@ namespace AgOpenGPS
 
                 //calculate the slopes of the lines
                 mOn = (tool.lookAheadDistanceOnPixelsRight - tool.lookAheadDistanceOnPixelsLeft) / tool.rpWidth;
-                mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
+                double mOff = (tool.lookAheadDistanceOffPixelsRight - tool.lookAheadDistanceOffPixelsLeft) / tool.rpWidth;
 
-                start = section[j].rpSectionPosition - section[0].rpSectionPosition;
-                end = section[j].rpSectionWidth - 1 + start;
+                //Paint to context for troubleshooting
+                //oglBack.MakeCurrent();
+                //oglBack.SwapBuffers();
+
+                //determine if headland is in read pixel buffer left middle and right. 
+                int start = section[j].rpSectionPosition - section[0].rpSectionPosition;
+                int end = section[j].rpSectionWidth - 1 + start;
 
                 if (end >= tool.rpWidth)
                     end = tool.rpWidth - 1;
+                int totalPixel = 1;
+                int tagged = 0;
 
-                totalPixel = 1;
-                tagged = 0;
 
+                ///////////////////////////////////////////   Section control        ssssssssssssssssssssss
+
+                int endHeight;
+                int startHeight;
                 for (int pos = start; pos <= end; pos++)
                 {
                     startHeight = ((int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth) + pos;
@@ -1148,9 +1136,6 @@ namespace AgOpenGPS
 
                             if (end >= tool.rpWidth)
                                 end = tool.rpWidth - 1;
-
-                            tagged = 0;
-
                             for (int pos = start; pos <= end; pos++)
                             {
                                 startHeight = ((int)(tool.lookAheadDistanceOffPixelsLeft + (mOff * pos)) * tool.rpWidth) + pos;
@@ -1541,31 +1526,26 @@ namespace AgOpenGPS
                 int once = 0;
                 int twice = 0;
                 int more = 0;
-                int level = 0;
-                double total = 0;
-                double total2 = 0;
 
                 //50, 96, 112                
                 for (int i = 0; i < grnHeight * grnWidth; i++)
                 {
-
                     if (overPix[i] > 105)
                     {
                         more++;
-                        level = overPix[i];
                     }
                     else if (overPix[i] > 85)
                     {
                         twice++;
-                        level = overPix[i];
                     }
                     else if (overPix[i] > 50)
                     {
                         once++;
                     }
                 }
-                total = once + twice + more;
-                total2 = total + twice + more + more;
+
+                double total = once + twice + more;
+                double total2 = total + twice + more + more;
 
                 if (total2 > 0)
                 {
@@ -1745,7 +1725,6 @@ namespace AgOpenGPS
 
         private void DrawManUTurnBtn()
         {
-            int bottomSide = 90;
             int two3 = -oglMain.Width / 4;
 
             if (!isStanleyUsed && isUTurnOn)
@@ -1758,7 +1737,6 @@ namespace AgOpenGPS
 
             //lateral line move
 
-            bottomSide += 80;
             if (isLateralOn)
             {
                 GL.Color3(0.590f, 0.90f, 0.93f);
@@ -2260,7 +2238,6 @@ namespace AgOpenGPS
 
                     if (err > 0.0)
                     {
-                        spacing *= -1;
                         offset *= -1;
                         pointy *= -1;
                     }
@@ -2296,12 +2273,13 @@ namespace AgOpenGPS
                     GL.End();
                 }
 
-                int center = 0;
                 string hede = "> 0 <";
 
                 if (avgPivotDistance > 999) avgPivotDistance = 999;
                 if (avgPivotDistance < -999) avgPivotDistance = -999;
 
+
+                int center;
                 if (Math.Abs(avgPivotDistance) > 0.9999)
                 {
                     if (avgPivotDistance < 0.0)
@@ -2386,10 +2364,9 @@ namespace AgOpenGPS
             }
 
             int start = -(int)(dire.Length * 0.45 * (22 * 1.0));
-            int down = 0;
             int baseDown = (bnd.isHeadlandOn && isHeadlandDistanceOn) ? 175 : 70;
             int offset = (int)((oglMain.Height - 600) / 12.0);
-            down = baseDown + offset;
+            int down = baseDown + offset;
 
             double textSize = ((300 + (double)(oglMain.Height - 600)) * 0.0012) + 1;
 

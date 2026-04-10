@@ -576,8 +576,7 @@ namespace AgOpenGPS
             kml.WriteElementString("name", "AB_Lines");
             kml.WriteElementString("visibility", "0");
 
-            string linePts = "";
-
+            string linePts;
             foreach (CTrk track in trk.gArr)
             {
                 kml.WriteStartElement("Placemark");
@@ -713,8 +712,6 @@ namespace AgOpenGPS
             // Sections
             kml.WriteStartElement("Folder");
             kml.WriteElementString("name", "Sections");
-
-            string secPts = "";
             int cntr = 0;
 
             for (int j = 0; j < triStrip.Count; j++)
@@ -750,7 +747,7 @@ namespace AgOpenGPS
                             kml.WriteStartElement("LinearRing");
 
                             kml.WriteStartElement("coordinates");
-                            secPts = "";
+                            string secPts = "";
                             for (int i = 1; i < triList.Count; i += 2)
                             {
                                 secPts += GetGeoCoordToWgs84_KML(triList[i].ToGeoCoord());

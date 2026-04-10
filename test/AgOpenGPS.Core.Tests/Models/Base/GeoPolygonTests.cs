@@ -202,7 +202,6 @@ namespace AgOpenGPS.Core.Tests.Models
                 {
                     p.Add(polygon[(i + rotate) % polygon.Count]);
                 }
-                double oldArea = p.Area;
 
                 // Act
                 int nInterSection = p.RemoveSelfIntersections();

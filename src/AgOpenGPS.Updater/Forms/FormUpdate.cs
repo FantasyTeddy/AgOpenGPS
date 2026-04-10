@@ -121,7 +121,7 @@ namespace AgOpenGPS.Updater.Forms
 
         private bool CheckForLocalUpdate()
         {
-            (bool found, string filePath, string version, string location, string message) = UsbUpdateService.CheckForLocalUpdate();
+            (bool found, string filePath, string version, _, string message) = UsbUpdateService.CheckForLocalUpdate();
             _localUpdatePath = filePath;
             _localUpdateVersion = version;
 

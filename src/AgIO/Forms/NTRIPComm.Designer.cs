@@ -425,7 +425,6 @@ namespace AgIO
 
             if (isViewAdvanced && isNTRIP_RequiredOn)
             {
-                int mess = 0;
                 //lblPacketSize.Text = data.Length.ToString();
 
                 try
@@ -437,7 +436,7 @@ namespace AgIO
 
                         if (data[i] == 211 && (data[i + 1] >> 2) == 0)
                         {
-                            mess = (data[i + 3] << 4) + (data[i + 4] >> 4);
+                            int mess = (data[i + 3] << 4) + (data[i + 4] >> 4);
                             if (mess > 1000 && mess < 1231)
                             {
                                 rList.Add(mess);
@@ -654,8 +653,7 @@ namespace AgIO
         private string ToBase64(string str)
         {
             Encoding asciiEncoding = Encoding.ASCII;
-            byte[] byteArray = new byte[asciiEncoding.GetByteCount(str)];
-            byteArray = asciiEncoding.GetBytes(str);
+            byte[] byteArray = asciiEncoding.GetBytes(str);
             return Convert.ToBase64String(byteArray, 0, byteArray.Length);
         }
 
@@ -733,9 +731,8 @@ namespace AgIO
 
         private void BuildGGA()
         {
-            double latitude = 0;
-            double longitude = 0;
-
+            double latitude;
+            double longitude;
             if (Properties.Settings.Default.setNTRIP_isGGAManual)
             {
                 latitude = Properties.Settings.Default.setNTRIP_manualLat;
@@ -765,11 +762,10 @@ namespace AgIO
 
             double latNMEA = latMinu + latDeg;
             double longNMEA = longMinu + longDeg;
-
-            char NS = 'W';
-            char EW = 'N';
+            char NS;
             if (latitude >= 0) NS = 'N';
             else NS = 'S';
+            char EW;
             if (longitude >= 0) EW = 'E';
             else EW = 'W';
 

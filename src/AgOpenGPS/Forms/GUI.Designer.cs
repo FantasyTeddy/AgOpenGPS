@@ -194,7 +194,6 @@ namespace AgOpenGPS
                                 double oppositeAbAngle = glm.toDegrees(trk.gArr[trk.idx].heading) + 180;
                                 if (oppositeAbAngle > 360)
                                 {
-                                    oppositeAbAngle -= 360;
                                 }
 
                                 GeoDir headingDir = new GeoDir(trk.gArr[trk.idx].heading);
@@ -790,9 +789,8 @@ namespace AgOpenGPS
             if (isJobStarted)
             {
                 int tracksTotal = 0, tracksVisible = 0;
-                bool isHdl = false;
-
                 bool isBnd = bnd.bndList.Count > 0;
+                bool isHdl;
                 if (!isBnd) isHdl = isBnd;
                 else isHdl = bnd.bndList[0].hdLine.Count > 0;
 

@@ -73,12 +73,12 @@ namespace AgIO
                 compareResult = DateTime.Compare(dtx, dty);
             }
             // When one is a number and the other not, return -1 to have the numbers on top (or bottom)
-            else if (decimal.TryParse(listviewX.SubItems[SortColumn].Text, out dx))
+            else if (decimal.TryParse(listviewX.SubItems[SortColumn].Text, out _))
             {
                 compareResult = -1;
             }
             // When one is a number and the other not, return 1 to have the numbers on top (or bottom)
-            else if (decimal.TryParse(listviewY.SubItems[SortColumn].Text, out dy))
+            else if (decimal.TryParse(listviewY.SubItems[SortColumn].Text, out _))
             {
                 compareResult = 1;
             }

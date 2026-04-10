@@ -202,12 +202,11 @@ namespace AgOpenGPS
             }
             HideZones();
 
-            int oglCenter = isPanelBottomHidden ? oglCenter = (oglMain.Width / 2) + 30 : statusStripLeft.Width + (oglMain.Width / 2);
-
-            int top = 140;
-
+            int oglCenter = isPanelBottomHidden ? (oglMain.Width / 2) + 30 : statusStripLeft.Width + (oglMain.Width / 2);
             int buttonMaxWidth = 360, buttonHeight = 35;
 
+
+            int top;
             if ((Height - oglMain.Height) < 80) //max size - buttons hid
             {
                 top = Height - 85;
@@ -293,13 +292,12 @@ namespace AgOpenGPS
                 return;
             }
 
-            int oglCenter = isPanelBottomHidden ? oglCenter = (oglMain.Width / 2) + 30 : statusStripLeft.Width + (oglMain.Width / 2);
-
-            int top = 130;
-
+            int oglCenter = isPanelBottomHidden ? (oglMain.Width / 2) + 30 : statusStripLeft.Width + (oglMain.Width / 2);
             int buttonMaxWidth = 400, buttonHeight = 30;
 
 
+
+            int top;
             if ((Height - oglMain.Height) < 80) //max size - buttons hid
             {
                 top = Height - 70;

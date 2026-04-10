@@ -1248,7 +1248,6 @@ namespace AgOpenGPS
                 f.Close();
             }
 
-            f = null;
             f = Application.OpenForms["FormFieldData"];
 
             if (f != null)
@@ -1287,7 +1286,6 @@ namespace AgOpenGPS
                 return;
             }
 
-            f = null;
             f = Application.OpenForms["FormFieldData"];
 
             if (f != null)
@@ -1318,7 +1316,6 @@ namespace AgOpenGPS
                 f.Close();
             }
 
-            f = null;
             f = Application.OpenForms["FormFieldData"];
 
             if (f != null)
@@ -1327,7 +1324,6 @@ namespace AgOpenGPS
                 f.Close();
             }
 
-            f = null;
             f = Application.OpenForms["FormEventViewer"];
 
             if (f != null)
@@ -1336,7 +1332,6 @@ namespace AgOpenGPS
                 f.Close();
             }
 
-            f = null;
             f = Application.OpenForms["FormPan"];
 
             if (f != null)

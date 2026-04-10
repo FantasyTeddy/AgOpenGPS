@@ -276,7 +276,7 @@ namespace AgOpenGPS
                     }
 
                     sliceArr?.Clear();
-                    vec3 pt3 = new vec3();
+                    vec3 pt3;
 
                     if (start < end)
                     {

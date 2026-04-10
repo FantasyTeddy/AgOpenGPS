@@ -477,10 +477,10 @@ namespace AgOpenGPS
 
             if (mf.trk.idx < 0 || mf.trk.gArr.Count < mf.trk.idx) return true;
             CTrk track = mf.trk.gArr[mf.trk.idx];
+            int count = mf.curve.isHeadingSameWay ? -1 : 1;
 
             //we are doing a wide turn
-            double head = 0;
-            int count = mf.curve.isHeadingSameWay ? -1 : 1;
+            double head;
             switch (youTurnPhase)
             {
                 case 0:
@@ -734,7 +734,7 @@ namespace AgOpenGPS
                     else
                     {
                         //mulitple segments
-                        vec3 tPoint = new vec3();
+                        vec3 tPoint;
                         int turnCount = mf.bnd.bndList[startClosestTurnPt.turnLineNum].turnLine.Count;
 
                         //how many points from turnline do we add
@@ -1159,7 +1159,7 @@ namespace AgOpenGPS
                     else
                     {
                         //multiple segments
-                        vec3 tPoint = new vec3();
+                        vec3 tPoint;
                         int turnCount = mf.bnd.bndList[startClosestTurnPt.turnLineNum].turnLine.Count;
 
                         //how many points from turnline do we add
@@ -1316,9 +1316,6 @@ namespace AgOpenGPS
 
             bool pointOutOfBnd = true;
             int stopIfWayOut = 0;
-
-            double head = 0;
-
             while (pointOutOfBnd)
             {
                 stopIfWayOut++;
@@ -1367,17 +1364,17 @@ namespace AgOpenGPS
             }
 
             //move out
-            head = ytList[0].heading;
+            double head = ytList[0].heading;
             double cosHead = Math.Cos(head) * 0.1;
             double sinHead = Math.Sin(head) * 0.1;
             vec3[] arr2 = new vec3[ytList.Count];
             ytList.CopyTo(arr2);
             ytList.Clear();
-
-            //step 2 move the turn inside with steps of 0.1 meter
-            int j = 0;
             pointOutOfBnd = false;
 
+
+            //step 2 move the turn inside with steps of 0.1 meter
+            int j;
             while (!pointOutOfBnd)
             {
                 stopIfWayOut++;
@@ -1413,15 +1410,6 @@ namespace AgOpenGPS
             curveIndex -= count;
 
             //point used to set next guidance line
-
-            //now we go the other way to turn round
-            head = ytList[0].heading;
-            head -= Math.PI;
-            if (head < -Math.PI) head += glm.twoPI;
-            if (head > Math.PI) head -= glm.twoPI;
-
-            if (head >= glm.twoPI) head -= glm.twoPI;
-            else if (head < 0) head += glm.twoPI;
 
             //add the tail to first turn
             head = ytList[^1].heading;

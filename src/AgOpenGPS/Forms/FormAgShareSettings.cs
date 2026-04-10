@@ -166,7 +166,7 @@ namespace AgOpenGPS
         {
             if (Settings.Default.setDisplay_isKeyboardOn)
             {
-                if (this.Owner is FormGPS mf)
+                if (this.Owner is FormGPS)
                 {
                     ((TextBox)sender).ShowKeyboard(this);
                     btnPaste.Focus();

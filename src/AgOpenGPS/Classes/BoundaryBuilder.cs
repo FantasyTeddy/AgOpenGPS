@@ -448,7 +448,7 @@ namespace AgOpenGPS.Classes
                 {
                     if (vec2.IsPointOnSegment(points[i], points[i + 1], pt))
                     {
-                        vec2.ProjectOnSegment(points[i], points[i + 1], pt, out double t);
+                        vec2.ProjectOnSegment(points[i], points[i + 1], pt, out double _);
                         intersectionDistances.Add(distances[i] + glm.Distance(points[i], pt));
                         break;
                     }

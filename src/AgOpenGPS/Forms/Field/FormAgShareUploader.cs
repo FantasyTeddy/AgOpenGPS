@@ -107,7 +107,7 @@ namespace AgOpenGPS.Forms
 
         private void OnFieldSelectionChanged(object sender, EventArgs e)
         {
-            if (sender is CheckBox checkbox && checkbox.Tag is FieldInfo fieldInfo)
+            if (sender is CheckBox checkbox && checkbox.Tag is FieldInfo)
             {
                 if (checkbox.Checked)
                 {

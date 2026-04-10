@@ -117,10 +117,9 @@ namespace GPS_Out
 
         public bool GoodCRC(byte[] Data, byte Start = 0)
         {
-            bool Result = false;
             int Length = Data.Length;
             byte cr = CRC(Data, Length - 1, Start);
-            Result = cr == Data[Length - 1];
+            bool Result = cr == Data[Length - 1];
             return Result;
         }
 

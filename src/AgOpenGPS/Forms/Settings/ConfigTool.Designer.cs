@@ -806,9 +806,7 @@ namespace AgOpenGPS
                     mf.tool.zoneRanges[7] = (int)nudZone7To.Value;
                     mf.tool.zoneRanges[8] = (int)nudZone8To.Value;
                 }
-
-                String str = "";
-                str = String.Join(",", mf.tool.zoneRanges);
+                string str = String.Join(",", mf.tool.zoneRanges);
                 Properties.ToolSettings.Default.setTool_zones = str;
 
                 mf.LineUpAllZoneButtons();
