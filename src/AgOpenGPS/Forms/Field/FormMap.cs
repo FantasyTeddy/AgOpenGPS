@@ -411,7 +411,7 @@ namespace AgOpenGPS
 
                 if (Label != null)
                 {
-                    g.DrawString(Label, _font, _labelBrush, LocalPosition.X + _radius * 0.7f, LocalPosition.Y + _radius * 0.7f);
+                    g.DrawString(Label, _font, _labelBrush, LocalPosition.X + (_radius * 0.7f), LocalPosition.Y + (_radius * 0.7f));
                 }
             }
         }

@@ -11,7 +11,7 @@ namespace ModSim
             lblMessage2.Text = messageStr;
 
             int messWidth = messageStr.Length;
-            Width = messWidth * 15 + 180;
+            Width = (messWidth * 15) + 180;
         }
     }
 }

@@ -202,7 +202,7 @@ namespace AgOpenGPS
             }
             HideZones();
 
-            int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
+            int oglCenter = isPanelBottomHidden ? oglCenter = (oglMain.Width / 2) + 30 : statusStripLeft.Width + (oglMain.Width / 2);
 
             int top = 140;
 
@@ -243,7 +243,7 @@ namespace AgOpenGPS
                     btn.Top = top;
                     if (i == 1)
                     {
-                        btnSection1Man.Left = oglCenter - tool.numOfSections * btnSection1Man.Size.Width / 2;
+                        btnSection1Man.Left = oglCenter - (tool.numOfSections * btnSection1Man.Size.Width / 2);
                     }
                     else
                     {
@@ -293,7 +293,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
+            int oglCenter = isPanelBottomHidden ? oglCenter = (oglMain.Width / 2) + 30 : statusStripLeft.Width + (oglMain.Width / 2);
 
             int top = 130;
 
@@ -340,7 +340,7 @@ namespace AgOpenGPS
                 }
                 if (i == 1)
                 {
-                    btn.Left = oglCenter - tool.zones * btn.Size.Width / 2;
+                    btn.Left = oglCenter - (tool.zones * btn.Size.Width / 2);
                 }
                 else
                 {
@@ -509,7 +509,7 @@ namespace AgOpenGPS
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if (section[j + k * 8].isSectionOn)
+                        if (section[j + (k * 8)].isSectionOn)
                             number |= 1 << j;
                     }
                     p_229.pgn[5 + k] = unchecked((byte)number);

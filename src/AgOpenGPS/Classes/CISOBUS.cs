@@ -244,7 +244,7 @@ namespace AgOpenGPS
             }
 
             // Validate we have enough data for section states
-            if (data.Length != 2 + (newNumberOfSections + 7) / 8)
+            if (data.Length != 2 + ((newNumberOfSections + 7) / 8))
             {
                 // Make sure we have enough data to read all the section states
                 return false;

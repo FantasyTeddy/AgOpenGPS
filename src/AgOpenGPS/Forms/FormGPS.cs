@@ -444,7 +444,7 @@ namespace AgOpenGPS
             oglMain.Left = 75;
             oglMain.Width = this.Width - statusStripLeft.Width - 84;
 
-            panelSim.Left = Width / 2 - 330;
+            panelSim.Left = (Width / 2) - 330;
             panelSim.Width = 700;
             panelSim.Top = Height - 60;
 
@@ -996,21 +996,21 @@ namespace AgOpenGPS
             Form f = Application.OpenForms["FormGPSData"];
             if (f != null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
                 f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormFieldData"];
             if (f != null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
                 f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormPan"];
             if (f != null)
             {
-                f.Top = this.Height / 3 + this.Top;
+                f.Top = (this.Height / 3) + this.Top;
                 f.Left = this.Width - 400 + this.Left;
             }
         }
@@ -1030,14 +1030,14 @@ namespace AgOpenGPS
             Form f = Application.OpenForms["FormGPSData"];
             if (f != null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
                 f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormFieldData"];
             if (f != null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
                 f.Left = this.Left + GPSDataWindowLeft;
             }
 
@@ -1393,7 +1393,7 @@ namespace AgOpenGPS
             //match grid to cam distance and redo perspective
             double gridStep = camera.camSetDistance / -15;
 
-            gridToolSpacing = (int)(gridStep / tool.width + 0.5);
+            gridToolSpacing = (int)((gridStep / tool.width) + 0.5);
             if (gridToolSpacing < 1) gridToolSpacing = 1;
             worldGrid.GridStep = gridToolSpacing * tool.width;
 

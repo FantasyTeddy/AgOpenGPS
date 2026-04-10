@@ -612,8 +612,8 @@ namespace AgOpenGPS
                 heading = 0
             };
 
-            plotPt.easting += mf.fieldCenterX + mf.maxFieldDistance * -sX;
-            plotPt.northing += mf.fieldCenterY + mf.maxFieldDistance * -sY;
+            plotPt.easting += mf.fieldCenterX + (mf.maxFieldDistance * -sX);
+            plotPt.northing += mf.fieldCenterY + (mf.maxFieldDistance * -sY);
 
             pint.easting = plotPt.easting;
             pint.northing = plotPt.northing;
@@ -678,7 +678,7 @@ namespace AgOpenGPS
             GL.Translate(0, 0, -mf.maxFieldDistance * zoom);
 
             //translate to that spot in the world
-            GL.Translate(-mf.fieldCenterX + sX * mf.maxFieldDistance, -mf.fieldCenterY + sY * mf.maxFieldDistance, 0);
+            GL.Translate(-mf.fieldCenterX + (sX * mf.maxFieldDistance), -mf.fieldCenterY + (sY * mf.maxFieldDistance), 0);
 
             if (isDrawSections) SectionsVisual.DrawSections(mf.triStrip);
 

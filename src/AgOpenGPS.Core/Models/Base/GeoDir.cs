@@ -28,13 +28,13 @@ namespace AgOpenGPS.Core.Models
 
         public GeoDir PerpendicularLeft => new GeoDir(
             0.5 * Math.PI < AngleInRadians
-            ? AngleInRadians - 0.5 * Math.PI
-            : AngleInRadians + 1.5 * Math.PI);
+            ? AngleInRadians - (0.5 * Math.PI)
+            : AngleInRadians + (1.5 * Math.PI));
 
         public GeoDir PerpendicularRight => new GeoDir(
             1.5 * Math.PI < AngleInRadians
-            ? AngleInRadians - 1.5 * Math.PI
-            : AngleInRadians + 0.5 * Math.PI);
+            ? AngleInRadians - (1.5 * Math.PI)
+            : AngleInRadians + (0.5 * Math.PI));
 
         public GeoDir Inverted => new GeoDir(
             Math.PI < AngleInRadians

@@ -19,7 +19,7 @@ namespace AgOpenGPS.Core.Models
 
         public GeoCoord PointOnCircle(GeoDir dir)
         {
-            return Center + Radius * dir;
+            return Center + (Radius * dir);
         }
 
         public double GetArcLength(

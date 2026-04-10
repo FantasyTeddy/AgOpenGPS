@@ -94,7 +94,7 @@
                     oldSteerSwitchHigh = steerSwitchHigh;
 
                     if ((mf.isBtnAutoSteerOn && mf.ahrs.isAutoSteerAuto)
-                        || !mf.ahrs.isAutoSteerAuto && !steerSwitchHigh)
+                        || (!mf.ahrs.isAutoSteerAuto && !steerSwitchHigh))
                     {
                         if (isSteerWorkSwitchManualSections)
                         {

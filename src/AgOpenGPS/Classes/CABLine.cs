@@ -137,7 +137,7 @@ namespace AgOpenGPS
 
                 double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
 
-                double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
+                double distAway = (widthMinusOverlap * howManyPathsAway) + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
 
                 distAway += 0.5 * widthMinusOverlap;
 
@@ -205,7 +205,7 @@ namespace AgOpenGPS
                 //integral slider is set to 0
                 if (mf.vehicle.purePursuitIntegralGain != 0 && !mf.isReverse)
                 {
-                    pivotDistanceError = distanceFromCurrentLinePivot * 0.2 + pivotDistanceError * 0.8;
+                    pivotDistanceError = (distanceFromCurrentLinePivot * 0.2) + (pivotDistanceError * 0.8);
 
                     if (counter2++ > 4)
                     {
@@ -406,8 +406,8 @@ namespace AgOpenGPS
             GeoCoord ptB = currentLinePtB.ToGeoCoord();
             GeoDir abDir = new GeoDir(abHeading);
             GeoDir perpendicalurRightDir = abDir.PerpendicularRight;
-            GeoDelta rightOffset = (shadowOffset + 0.5 * mf.tool.width) * perpendicalurRightDir;
-            GeoDelta leftOffset = (shadowOffset - 0.5 * mf.tool.width) * perpendicalurRightDir;
+            GeoDelta rightOffset = (shadowOffset + (0.5 * mf.tool.width)) * perpendicalurRightDir;
+            GeoDelta leftOffset = (shadowOffset - (0.5 * mf.tool.width)) * perpendicalurRightDir;
 
             GeoCoord[] shadowCoords = {
                 ptA + leftOffset,
@@ -442,8 +442,8 @@ namespace AgOpenGPS
                 double oddOffset = 2 * (isHeadingSameWay ? mf.tool.offset : -mf.tool.offset);
                 for (int i = 1; i <= numGuideLines; i += 2)
                 {
-                    GeoLineSegment rightOddLine = currentLine.Shifted((toolWidth * i + oddOffset) * perpendicularRightDir);
-                    GeoLineSegment leftOddLine = currentLine.Shifted((toolWidth * -i + oddOffset) * perpendicularRightDir);
+                    GeoLineSegment rightOddLine = currentLine.Shifted(((toolWidth * i) + oddOffset) * perpendicularRightDir);
+                    GeoLineSegment leftOddLine = currentLine.Shifted(((toolWidth * -i) + oddOffset) * perpendicularRightDir);
                     lines[linesIndex++] = rightOddLine;
                     lines[linesIndex++] = leftOddLine;
                 }
@@ -537,7 +537,7 @@ namespace AgOpenGPS
 
                 for (int j = 0; j < tramRef.Count; j++)
                 {
-                    P1.easting = hsin * widd + tramRef[j].easting;
+                    P1.easting = (hsin * widd) + tramRef[j].easting;
                     P1.northing = (hcos * widd) + tramRef[j].northing;
 
                     if (!isBndExist || mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(P1))

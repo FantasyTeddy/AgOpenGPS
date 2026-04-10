@@ -45,7 +45,7 @@ namespace AgOpenGPS
 
                     if (distance > step)
                     {
-                        int loopTimes = (int)(distance / step + 1);
+                        int loopTimes = (int)((distance / step) + 1);
                         for (int j = 1; j < loopTimes; j++)
                         {
                             vec3 pos = new vec3(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
@@ -221,8 +221,8 @@ namespace AgOpenGPS
                 vec3 a = points[segIndex];
                 vec3 b = (segIndex + 1 < n) ? points[segIndex + 1] : points[0];
 
-                double x = a.easting + (b.easting - a.easting) * frac;
-                double y = a.northing + (b.northing - a.northing) * frac;
+                double x = a.easting + ((b.easting - a.easting) * frac);
+                double y = a.northing + ((b.northing - a.northing) * frac);
 
                 result.Add(new vec3(x, y, 0));
 
@@ -562,8 +562,8 @@ namespace AgOpenGPS
                     vec3 p1 = currentPoints[i + 1];
 
                     // Calculate Q and R points, which are 25% and 75% along the segment
-                    nextPoints.Add(new vec3(0.75f * p0.easting + 0.25f * p1.easting, 0.75f * p0.northing + 0.25f * p1.northing, 0));
-                    nextPoints.Add(new vec3(0.25f * p0.easting + 0.75f * p1.easting, 0.25f * p0.northing + 0.75f * p1.northing, 0));
+                    nextPoints.Add(new vec3((0.75f * p0.easting) + (0.25f * p1.easting), (0.75f * p0.northing) + (0.25f * p1.northing), 0));
+                    nextPoints.Add(new vec3((0.25f * p0.easting) + (0.75f * p1.easting), (0.25f * p0.northing) + (0.75f * p1.northing), 0));
                 }
 
                 // Optionally preserve the end point for non-closed polylines
@@ -599,8 +599,8 @@ namespace AgOpenGPS
                     vec2 p1 = currentPoints[i + 1];
 
                     // Calculate Q and R points, which are 25% and 75% along the segment
-                    nextPoints.Add(new vec2(0.75f * p0.easting + 0.25f * p1.easting, 0.75f * p0.northing + 0.25f * p1.northing));
-                    nextPoints.Add(new vec2(0.25f * p0.easting + 0.75f * p1.easting, 0.25f * p0.northing + 0.75f * p1.northing));
+                    nextPoints.Add(new vec2((0.75f * p0.easting) + (0.25f * p1.easting), (0.75f * p0.northing) + (0.25f * p1.northing)));
+                    nextPoints.Add(new vec2((0.25f * p0.easting) + (0.75f * p1.easting), (0.25f * p0.northing) + (0.75f * p1.northing)));
                 }
 
                 // Optionally preserve the end point for non-closed polylines

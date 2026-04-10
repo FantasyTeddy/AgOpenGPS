@@ -39,7 +39,7 @@
                     double t = aToOtherADelta.CrossProductZ(otherDelta) / denominator;
                     if (-epsilon <= t && t <= 1.0 + epsilon)
                     {
-                        intersectionPoint = CoordA + t * delta;
+                        intersectionPoint = CoordA + (t * delta);
                     }
                 }
             }

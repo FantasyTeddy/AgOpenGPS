@@ -270,19 +270,19 @@ namespace AgOpenGPS
         {
             intersection = default;
 
-            double denominator = (a0.easting - a1.easting) * (b0.northing - b1.northing)
-                - (a0.northing - a1.northing) * (b0.easting - b1.easting);
+            double denominator = ((a0.easting - a1.easting) * (b0.northing - b1.northing))
+                - ((a0.northing - a1.northing) * (b0.easting - b1.easting));
 
             if (Math.Abs(denominator) < 1e-6)
             {
                 return false;
             }
 
-            double t = ((a0.easting - b0.easting) * (b0.northing - b1.northing)
-                - (a0.northing - b0.northing) * (b0.easting - b1.easting)) / denominator;
+            double t = (((a0.easting - b0.easting) * (b0.northing - b1.northing))
+                - ((a0.northing - b0.northing) * (b0.easting - b1.easting))) / denominator;
 
-            double u = ((a0.easting - b0.easting) * (a0.northing - a1.northing)
-                - (a0.northing - b0.northing) * (a0.easting - a1.easting)) / denominator;
+            double u = (((a0.easting - b0.easting) * (a0.northing - a1.northing))
+                - ((a0.northing - b0.northing) * (a0.easting - a1.easting))) / denominator;
 
             const double epsilon = 1e-6;
 
@@ -292,8 +292,8 @@ namespace AgOpenGPS
             }
 
             intersection = new vec2(
-                a0.easting + t * (a1.easting - a0.easting),
-                a0.northing + t * (a1.northing - a0.northing));
+                a0.easting + (t * (a1.easting - a0.easting)),
+                a0.northing + (t * (a1.northing - a0.northing)));
 
             return true;
         }

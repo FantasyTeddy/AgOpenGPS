@@ -214,8 +214,8 @@ namespace AgOpenGPS
                 else //pivot guide list
                 {
                     //cross product
-                    isHeadingSameWay = ((mf.pivotAxlePos.easting - track.ptA.easting) * (mf.steerAxlePos.northing - track.ptA.northing)
-                        - (mf.pivotAxlePos.northing - track.ptA.northing) * (mf.steerAxlePos.easting - track.ptA.easting)) < 0;
+                    isHeadingSameWay = (((mf.pivotAxlePos.easting - track.ptA.easting) * (mf.steerAxlePos.northing - track.ptA.northing))
+                        - ((mf.pivotAxlePos.northing - track.ptA.northing) * (mf.steerAxlePos.easting - track.ptA.easting))) < 0;
 
                     //pivot circle center
                     distanceFromRefLine = -glm.Distance(mf.guidanceLookPos, track.ptA);
@@ -235,7 +235,7 @@ namespace AgOpenGPS
                 isCurveValid = true;
                 lastHowManyPathsAway = howManyPathsAway;
                 lastIsHeadingSameWay = isHeadingSameWay;
-                double distAway = widthMinusOverlap * howManyPathsAway + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
+                double distAway = (widthMinusOverlap * howManyPathsAway) + (isHeadingSameWay ? -mf.tool.offset : mf.tool.offset) + track.nudgeDistance;
 
                 distAway += 0.5 * widthMinusOverlap;
 
@@ -307,7 +307,7 @@ namespace AgOpenGPS
                         //Update the heading
                         rotation += Angle;
                         //Add the new coordinate to the path
-                        newCurList.Add(new vec3(centerPos.easting + distAway * Math.Sin(rotation), centerPos.northing + distAway * Math.Cos(rotation), 0));
+                        newCurList.Add(new vec3(centerPos.easting + (distAway * Math.Sin(rotation)), centerPos.northing + (distAway * Math.Cos(rotation)), 0));
                     }
 
                     if (newCurList.Count > 1)
@@ -414,7 +414,7 @@ namespace AgOpenGPS
 
                             if (distance > step)
                             {
-                                int loopTimes = (int)(distance / step + 1);
+                                int loopTimes = (int)((distance / step) + 1);
                                 for (int j = 1; j < loopTimes; j++)
                                 {
                                     vec3 pos = new vec3(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));
@@ -893,7 +893,7 @@ namespace AgOpenGPS
                     //integral slider is set to 0
                     if (mf.vehicle.purePursuitIntegralGain != 0 && !mf.isReverse)
                     {
-                        pivotDistanceError = distanceFromCurrentLinePivot * 0.2 + pivotDistanceError * 0.8;
+                        pivotDistanceError = (distanceFromCurrentLinePivot * 0.2) + (pivotDistanceError * 0.8);
 
                         if (counter2++ > 4)
                         {
@@ -1311,10 +1311,10 @@ namespace AgOpenGPS
                 for (int j = 0; j < refCount; j += 1)
                 {
                     vec2 point = new vec2(
-                    Math.Sin(glm.PIBy2 + mf.trk.gArr[mf.trk.idx].curvePts[j].heading) *
-                        widd + mf.trk.gArr[mf.trk.idx].curvePts[j].easting,
-                    Math.Cos(glm.PIBy2 + mf.trk.gArr[mf.trk.idx].curvePts[j].heading) *
-                        widd + mf.trk.gArr[mf.trk.idx].curvePts[j].northing
+                    (Math.Sin(glm.PIBy2 + mf.trk.gArr[mf.trk.idx].curvePts[j].heading) *
+                        widd) + mf.trk.gArr[mf.trk.idx].curvePts[j].easting,
+                    (Math.Cos(glm.PIBy2 + mf.trk.gArr[mf.trk.idx].curvePts[j].heading) *
+                        widd) + mf.trk.gArr[mf.trk.idx].curvePts[j].northing
                         );
 
                     bool Add = true;
@@ -1546,8 +1546,8 @@ namespace AgOpenGPS
                     double ratio = 1.0 - (overshoot / segmentLength);
 
                     vec3 newPoint = new vec3(
-                        originalList[sourceIndex - 1].easting + ratio * (originalList[sourceIndex].easting - originalList[sourceIndex - 1].easting),
-                        originalList[sourceIndex - 1].northing + ratio * (originalList[sourceIndex].northing - originalList[sourceIndex - 1].northing),
+                        originalList[sourceIndex - 1].easting + (ratio * (originalList[sourceIndex].easting - originalList[sourceIndex - 1].easting)),
+                        originalList[sourceIndex - 1].northing + (ratio * (originalList[sourceIndex].northing - originalList[sourceIndex - 1].northing)),
                         originalList[sourceIndex - 1].heading
                     );
 

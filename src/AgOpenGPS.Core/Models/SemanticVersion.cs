@@ -178,10 +178,10 @@ namespace AgOpenGPS.Core.Models
             unchecked
             {
                 int hash = 17;
-                hash = hash * 31 + Major.GetHashCode();
-                hash = hash * 31 + Minor.GetHashCode();
-                hash = hash * 31 + Patch.GetHashCode();
-                hash = hash * 31 + (Prerelease?.GetHashCode() ?? 0);
+                hash = (hash * 31) + Major.GetHashCode();
+                hash = (hash * 31) + Minor.GetHashCode();
+                hash = (hash * 31) + Patch.GetHashCode();
+                hash = (hash * 31) + (Prerelease?.GetHashCode() ?? 0);
                 return hash;
             }
         }

@@ -299,13 +299,13 @@ namespace AgOpenGPS.Protocols.ISOBUS
             vec3 second = list[1];
             double dxF = first.easting - second.easting;
             double dyF = first.northing - second.northing;
-            double lenF = Math.Sqrt(dxF * dxF + dyF * dyF);
+            double lenF = Math.Sqrt((dxF * dxF) + (dyF * dyF));
             if (lenF > 1e-6)
             {
                 dxF /= lenF; dyF /= lenF;
                 list.Insert(0, new vec3(
-                    first.easting + dxF * extendMeters,
-                    first.northing + dyF * extendMeters,
+                    first.easting + (dxF * extendMeters),
+                    first.northing + (dyF * extendMeters),
                     0
                 ));
             }
@@ -315,13 +315,13 @@ namespace AgOpenGPS.Protocols.ISOBUS
             vec3 beforeLast = list[list.Count - 2];
             double dxL = last.easting - beforeLast.easting;
             double dyL = last.northing - beforeLast.northing;
-            double lenL = Math.Sqrt(dxL * dxL + dyL * dyL);
+            double lenL = Math.Sqrt((dxL * dxL) + (dyL * dyL));
             if (lenL > 1e-6)
             {
                 dxL /= lenL; dyL /= lenL;
                 list.Add(new vec3(
-                    last.easting + dxL * extendMeters,
-                    last.northing + dyL * extendMeters,
+                    last.easting + (dxL * extendMeters),
+                    last.northing + (dyL * extendMeters),
                     0
                 ));
             }

@@ -26,7 +26,7 @@ namespace AgIO
             double dlon = toRadians(lon2 - lon1);
             double dlat = toRadians(lat2 - lat1);
 
-            double a = (Math.Sin(dlat / 2) * Math.Sin(dlat / 2)) + Math.Cos(toRadians(lat1)) * Math.Cos(toRadians(lat2)) * (Math.Sin(dlon / 2) * Math.Sin(dlon / 2));
+            double a = (Math.Sin(dlat / 2) * Math.Sin(dlat / 2)) + (Math.Cos(toRadians(lat1)) * Math.Cos(toRadians(lat2)) * (Math.Sin(dlon / 2) * Math.Sin(dlon / 2)));
             double angle = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             return angle * EarthMeanRadius;
         }

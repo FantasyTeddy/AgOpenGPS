@@ -108,11 +108,11 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord nwCoord = new GeoCoord(maxNorthing, minEasting);
 
             GeoDelta delta = new GeoDelta(nwCoord, seCoord);
-            GeoLineSegment nwseLineSegment = new GeoLineSegment(nwCoord, nwCoord + 1000.0 * delta);
-            GeoCoord almostEnd = nwCoord + 999.0 * delta;
+            GeoLineSegment nwseLineSegment = new GeoLineSegment(nwCoord, nwCoord + (1000.0 * delta));
+            GeoCoord almostEnd = nwCoord + (999.0 * delta);
             GeoLineSegment otherSegment = new GeoLineSegment(
-                almostEnd - 1.0 * new GeoDir(delta).PerpendicularLeft,
-                almostEnd + 1.0 * new GeoDir(delta).PerpendicularLeft);
+                almostEnd - (1.0 * new GeoDir(delta).PerpendicularLeft),
+                almostEnd + (1.0 * new GeoDir(delta).PerpendicularLeft));
 
             // Act
             GeoCoord? intersectionPoint = nwseLineSegment.IntersectionPoint(otherSegment);

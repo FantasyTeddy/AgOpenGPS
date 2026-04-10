@@ -131,19 +131,19 @@ namespace AgOpenGPS
         public static vec2 Lerp(vec2 a, vec2 b, double t)
         {
             return new vec2(
-                a.easting + (b.easting - a.easting) * t,
-                a.northing + (b.northing - a.northing) * t
+                a.easting + ((b.easting - a.easting) * t),
+                a.northing + ((b.northing - a.northing) * t)
             );
         }
 
         public static float Cross(vec2 a, vec2 b)
         {
-            return (float)(a.easting * b.northing - a.northing * b.easting);
+            return (float)((a.easting * b.northing) - (a.northing * b.easting));
         }
 
         public static double Dot(vec2 a, vec2 b)
         {
-            return a.easting * b.easting + a.northing * b.northing;
+            return (a.easting * b.easting) + (a.northing * b.northing);
         }
 
         public static bool IsPointOnSegment(vec2 a, vec2 b, vec2 p)
@@ -165,7 +165,7 @@ namespace AgOpenGPS
 
             vec2 ap = p - a;
             t = Math.Max(0, Math.Min(1, Dot(ap, ab) / abLenSq));
-            return a + ab * t;
+            return a + (ab * t);
         }
     }
 }

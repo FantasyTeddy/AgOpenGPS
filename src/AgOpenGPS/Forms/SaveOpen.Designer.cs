@@ -103,9 +103,9 @@ namespace AgOpenGPS
                         {
                             for (int j = 1; j < verts; j++)
                             {
-                                double temp = patch[j].easting * (patch[j + 1].northing - patch[j + 2].northing)
-                                            + patch[j + 1].easting * (patch[j + 2].northing - patch[j].northing)
-                                            + patch[j + 2].easting * (patch[j].northing - patch[j + 1].northing);
+                                double temp = (patch[j].easting * (patch[j + 1].northing - patch[j + 2].northing))
+                                            + (patch[j + 1].easting * (patch[j + 2].northing - patch[j].northing))
+                                            + (patch[j + 2].easting * (patch[j].northing - patch[j + 1].northing));
                                 fd.workedAreaTotal += Math.Abs(temp * 0.5);
                             }
                         }
@@ -596,8 +596,8 @@ namespace AgOpenGPS
 
                 GeoCoord pointA = track.ptA.ToGeoCoord();
                 GeoDir heading = new GeoDir(track.heading);
-                linePts = GetGeoCoordToWgs84_KML(pointA - ABLine.abLength * heading);
-                linePts += GetGeoCoordToWgs84_KML(pointA + ABLine.abLength * heading);
+                linePts = GetGeoCoordToWgs84_KML(pointA - (ABLine.abLength * heading));
+                linePts += GetGeoCoordToWgs84_KML(pointA + (ABLine.abLength * heading));
                 kml.WriteRaw(linePts);
 
                 kml.WriteEndElement();

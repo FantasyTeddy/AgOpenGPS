@@ -58,7 +58,7 @@ namespace AgLibrary.Logging
                 {
                     StringBuilder sbF = new StringBuilder();
                     long bytes = txtfile.Length - sizeLimit;
-                    bytes = sizeLimit * 2 / 10 + bytes;
+                    bytes = (sizeLimit * 2 / 10) + bytes;
                     sbEvents.Append("Log File Reduced by: " + bytes.ToString());
 
                     //create some extra space

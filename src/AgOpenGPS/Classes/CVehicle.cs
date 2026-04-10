@@ -154,8 +154,8 @@ namespace AgOpenGPS
 
                 XyCoord TransformVertex(double lateral, double longitudinal)
                 {
-                    double x = lateral * cosOffset + longitudinal * sinOffset;
-                    double y = longitudinal * cosOffset - lateral * sinOffset;
+                    double x = (lateral * cosOffset) + (longitudinal * sinOffset);
+                    double y = (longitudinal * cosOffset) - (lateral * sinOffset);
                     return new XyCoord(x, y);
                 }
 

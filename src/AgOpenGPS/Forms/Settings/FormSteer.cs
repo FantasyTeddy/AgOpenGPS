@@ -394,7 +394,7 @@ namespace AgOpenGPS
 
                 if (cntr > 9)
                 {
-                    steerAngleRight = Math.Atan(mf.vehicle.VehicleConfig.Wheelbase / ((diameter - mf.vehicle.VehicleConfig.TrackWidth * 0.5) / 2));
+                    steerAngleRight = Math.Atan(mf.vehicle.VehicleConfig.Wheelbase / ((diameter - (mf.vehicle.VehicleConfig.TrackWidth * 0.5)) / 2));
                     steerAngleRight = glm.toDegrees(steerAngleRight);
                     //steerAngleLeft = Math.Atan(mf.vehicle.wheelbase / (diameter / 2 ));
                     //steerAngleLeft = glm.toDegrees(steerAngleLeft);
@@ -424,7 +424,7 @@ namespace AgOpenGPS
             lblSteerAngle.Text = mf.SetSteerAngle;
             lblSteerAngleActual.Text = mf.mc.actualSteerAngleDegrees.ToString("N1") + "\u00B0";
             lblActualSteerAngleUpper.Text = lblSteerAngleActual.Text;
-            double err = mf.mc.actualSteerAngleDegrees - mf.guidanceLineSteerAngle * 0.01;
+            double err = mf.mc.actualSteerAngleDegrees - (mf.guidanceLineSteerAngle * 0.01);
             lblError.Text = Math.Abs(err).ToString("N1") + "\u00B0";
             if (err > 0) lblError.ForeColor = Color.Red;
             else lblError.ForeColor = Color.DarkGreen;
@@ -892,7 +892,7 @@ namespace AgOpenGPS
 
         private void btnZeroWAS_Click(object sender, EventArgs e)
         {
-            int offset = (int)(hsbarCountsPerDegree.Value * -mf.mc.actualSteerAngleDegrees + hsbarWasOffset.Value);
+            int offset = (int)((hsbarCountsPerDegree.Value * -mf.mc.actualSteerAngleDegrees) + hsbarWasOffset.Value);
             if (Math.Abs(offset) > 3900)
             {
                 FormDialog.Show("Exceeded Range", "Excessive Steer Angle - Cannot Zero", DialogSeverity.Error);

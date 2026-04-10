@@ -165,7 +165,7 @@ namespace AgOpenGPS
 
             //TODO: is calculated many taimes after the priveous turn is complete
             //grab the vehicle widths and offsets
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
+            double turnOffset = ((mf.tool.width - mf.tool.overlap) * rowSkipsWidth) + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
             pointSpacing = youTurnRadius * 0.1;
 
             if (uTurnStyle == 0)
@@ -208,7 +208,7 @@ namespace AgOpenGPS
                 rowSkipsWidth = GetNextNotWorkedTrack(isTurnLeft, Properties.Settings.Default.set_youSkipWidth, true);
             }
 
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth
+            double turnOffset = ((mf.tool.width - mf.tool.overlap) * rowSkipsWidth)
                 + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
 
             pointSpacing = youTurnRadius * 0.1;
@@ -251,7 +251,7 @@ namespace AgOpenGPS
             CTrk track = mf.trk.gArr[mf.trk.idx];
 
             //grab the vehicle widths and offsets
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
+            double turnOffset = ((mf.tool.width - mf.tool.overlap) * rowSkipsWidth) + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
 
             switch (youTurnPhase)
             {
@@ -378,7 +378,7 @@ namespace AgOpenGPS
                     //build the next line to add sequencelines
                     double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
 
-                    double distAway = widthMinusOverlap * (mf.curve.howManyPathsAway + ((isTurnLeft ^ mf.curve.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.curve.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
+                    double distAway = (widthMinusOverlap * (mf.curve.howManyPathsAway + ((isTurnLeft ^ mf.curve.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth))) + (mf.curve.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
 
                     distAway += 0.5 * widthMinusOverlap;
 
@@ -593,7 +593,7 @@ namespace AgOpenGPS
                     //build the next line to add sequencelines
                     double widthMinusOverlap = mf.tool.width - mf.tool.overlap;
 
-                    double distAway = widthMinusOverlap * (mf.curve.howManyPathsAway + ((isTurnLeft ^ mf.curve.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.curve.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
+                    double distAway = (widthMinusOverlap * (mf.curve.howManyPathsAway + ((isTurnLeft ^ mf.curve.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth))) + (mf.curve.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
 
                     distAway += 0.5 * widthMinusOverlap;
 
@@ -888,7 +888,7 @@ namespace AgOpenGPS
                     CDubins.turningRadius = youTurnRadius;
 
                     //grab the vehicle widths and offsets
-                    double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
+                    double turnOffset = ((mf.tool.width - mf.tool.overlap) * rowSkipsWidth) + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
 
                     vec3 start = new vec3(inClosestTurnPt.closePt)
                     {
@@ -1049,7 +1049,7 @@ namespace AgOpenGPS
 
                     CTrk track = mf.trk.gArr[mf.trk.idx];
 
-                    double distAway = widthMinusOverlap * (mf.ABLine.howManyPathsAway + ((isTurnLeft ^ mf.ABLine.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth)) + (mf.ABLine.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
+                    double distAway = (widthMinusOverlap * (mf.ABLine.howManyPathsAway + ((isTurnLeft ^ mf.ABLine.isHeadingSameWay) ? rowSkipsWidth : -rowSkipsWidth))) + (mf.ABLine.isHeadingSameWay ? mf.tool.offset : -mf.tool.offset) + track.nudgeDistance;
 
                     distAway += 0.5 * widthMinusOverlap;
 
@@ -1286,7 +1286,7 @@ namespace AgOpenGPS
         public bool KStyleTurnCurve()
         {
             //grab the vehicle widths and offsets
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
+            double turnOffset = ((mf.tool.width - mf.tool.overlap) * rowSkipsWidth) + (isTurnLeft ? -mf.tool.offset * 2.0 : mf.tool.offset * 2.0);
             double pointSpacing = youTurnRadius * 0.1;
 
             isHeadingSameWay = mf.curve.isHeadingSameWay;
@@ -1438,7 +1438,7 @@ namespace AgOpenGPS
             //leading in line of turn
             for (int i = 0; i < 4; i++)
             {
-                ytList.Insert(0, new vec3(mf.curve.curList[curveIndex + i * count]));
+                ytList.Insert(0, new vec3(mf.curve.curList[curveIndex + (i * count)]));
             }
 
             //fill in the gaps
@@ -1569,7 +1569,7 @@ namespace AgOpenGPS
                 }
 
                 //grab the vehicle widths and offsets
-                double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnLeft ? mf.tool.offset : -mf.tool.offset);
+                double turnOffset = ((mf.tool.width - mf.tool.overlap) * rowSkipsWidth) + (isTurnLeft ? mf.tool.offset : -mf.tool.offset);
 
                 //add the tail to first turn
                 int count = ytList.Count;
@@ -2284,12 +2284,12 @@ namespace AgOpenGPS
             s2y = p3y - p2y;
 
             double s, t;
-            s = (-s1y * (p0x - p2x) + s1x * (p0y - p2y)) / (-s2x * s1y + s1x * s2y);
+            s = ((-s1y * (p0x - p2x)) + (s1x * (p0y - p2y))) / ((-s2x * s1y) + (s1x * s2y));
 
             if (s >= 0 && s <= 1)
             {
                 //check oher side
-                t = (s2x * (p0y - p2y) - s2y * (p0x - p2x)) / (-s2x * s1y + s1x * s2y);
+                t = ((s2x * (p0y - p2y)) - (s2y * (p0x - p2x))) / ((-s2x * s1y) + (s1x * s2y));
                 if (t >= 0 && t <= 1)
                 {
                     // Collision detected
@@ -2452,7 +2452,7 @@ namespace AgOpenGPS
                     if (--turnSkips == 0)
                     {
                         isTurnLeft = !isTurnLeft;
-                        turnSkips = rowSkipsWidth2 * 2 - 1;
+                        turnSkips = (rowSkipsWidth2 * 2) - 1;
                     }
                     else if (previousBigSkip = !previousBigSkip)
                     {
@@ -2481,7 +2481,7 @@ namespace AgOpenGPS
         public void Set_Alternate_skips()
         {
             rowSkipsWidth2 = rowSkipsWidth;
-            turnSkips = rowSkipsWidth2 * 2 - 1;
+            turnSkips = (rowSkipsWidth2 * 2) - 1;
             previousBigSkip = false;
         }
 
@@ -2579,7 +2579,7 @@ namespace AgOpenGPS
             }
 
             //grab the vehicle widths and offsets
-            double turnOffset = (mf.tool.width - mf.tool.overlap) * rowSkipsWidth + (isTurnRight ? mf.tool.offset * 2.0 : -mf.tool.offset * 2.0);
+            double turnOffset = ((mf.tool.width - mf.tool.overlap) * rowSkipsWidth) + (isTurnRight ? mf.tool.offset * 2.0 : -mf.tool.offset * 2.0);
 
             CDubins dubYouTurnPath = new CDubins();
             CDubins.turningRadius = youTurnRadius;
@@ -2756,7 +2756,7 @@ namespace AgOpenGPS
                     if (steerAngleYT < -0.74) steerAngleYT = -0.74;
 
                     //add them up and clamp to max in vehicle settings
-                    steerAngleYT = glm.toDegrees((steerAngleYT + abFixHeadingDelta * mf.vehicle.uturnCompensation) * -1.0);
+                    steerAngleYT = glm.toDegrees((steerAngleYT + (abFixHeadingDelta * mf.vehicle.uturnCompensation)) * -1.0);
                     if (steerAngleYT < -mf.vehicle.maxSteerAngle) steerAngleYT = -mf.vehicle.maxSteerAngle;
                     if (steerAngleYT > mf.vehicle.maxSteerAngle) steerAngleYT = mf.vehicle.maxSteerAngle;
                 }

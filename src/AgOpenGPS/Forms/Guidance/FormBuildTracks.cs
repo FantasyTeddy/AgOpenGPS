@@ -363,13 +363,13 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < mf.trk.gArr.Count; i++)
                 {
-                    flp.Controls[i * 3 + 1].BackColor = Color.AliceBlue;
+                    flp.Controls[(i * 3) + 1].BackColor = Color.AliceBlue;
                 }
                 selectedItem = -1;
 
                 b.BackColor = mf.trk.gArr[line].isVisible ? System.Drawing.Color.Green : System.Drawing.Color.Red;
 
-                flp.Controls[line * 3 + 1].ForeColor = mf.trk.gArr[line].isVisible ? System.Drawing.Color.Black : System.Drawing.Color.Gray;
+                flp.Controls[(line * 3) + 1].ForeColor = mf.trk.gArr[line].isVisible ? System.Drawing.Color.Black : System.Drawing.Color.Gray;
             }
         }
 
@@ -389,7 +389,7 @@ namespace AgOpenGPS
                 //un highlight selected item
                 for (int i = 0; i < numLines; i++)
                 {
-                    flp.Controls[i * 3 + 1].BackColor = Color.AliceBlue;
+                    flp.Controls[(i * 3) + 1].BackColor = Color.AliceBlue;
                 }
 
                 if (mf.trk.gArr[line].isVisible)
@@ -399,14 +399,14 @@ namespace AgOpenGPS
                     {
                         selectedItem = line;
                         selectedItem = Convert.ToInt32(t.Name);
-                        flp.Controls[line * 3 + 1].BackColor = Color.LightBlue;
+                        flp.Controls[(line * 3) + 1].BackColor = Color.LightBlue;
                     }
 
                     //a different line was selcted and one already was
                     else if (selectedItem != line)
                     {
                         selectedItem = line;
-                        flp.Controls[line * 3 + 1].BackColor = Color.LightBlue;
+                        flp.Controls[(line * 3) + 1].BackColor = Color.LightBlue;
                     }
                 }
                 else
@@ -871,13 +871,13 @@ namespace AgOpenGPS
 
                 if (isRefRightSide)
                 {
-                    dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                    dist = ((mf.tool.width - mf.tool.overlap) * 0.5) + mf.tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefCurve(dist);
                 }
                 else
                 {
-                    dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                    dist = ((mf.tool.width - mf.tool.overlap) * -0.5) + mf.tool.offset;
                     mf.trk.idx = idx;
                     mf.trk.NudgeRefCurve(dist);
                 }
@@ -999,14 +999,14 @@ namespace AgOpenGPS
             double dist;
             if (isRefRightSide)
             {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                dist = ((mf.tool.width - mf.tool.overlap) * 0.5) + mf.tool.offset;
                 mf.trk.idx = idx;
                 mf.trk.NudgeRefABLine(dist);
 
             }
             else
             {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                dist = ((mf.tool.width - mf.tool.overlap) * -0.5) + mf.tool.offset;
                 mf.trk.idx = idx;
                 mf.trk.NudgeRefABLine(dist);
             }
@@ -1101,14 +1101,14 @@ namespace AgOpenGPS
             double dist;
             if (isRefRightSide)
             {
-                dist = (mf.tool.width - mf.tool.overlap) * 0.5 + mf.tool.offset;
+                dist = ((mf.tool.width - mf.tool.overlap) * 0.5) + mf.tool.offset;
                 mf.trk.idx = idx;
                 mf.trk.NudgeRefABLine(dist);
 
             }
             else
             {
-                dist = (mf.tool.width - mf.tool.overlap) * -0.5 + mf.tool.offset;
+                dist = ((mf.tool.width - mf.tool.overlap) * -0.5) + mf.tool.offset;
                 mf.trk.idx = idx;
                 mf.trk.NudgeRefABLine(dist);
             }
@@ -1506,15 +1506,15 @@ namespace AgOpenGPS
 
         private vec2 FindCircleCenter(vec3 p1, vec3 p2, vec3 p3)
         {
-            double d2 = p2.northing * p2.northing + p2.easting * p2.easting;
-            double bc = (p1.northing * p1.northing + p1.easting * p1.easting - d2) / 2;
-            double cd = (d2 - p3.northing * p3.northing - p3.easting * p3.easting) / 2;
-            double det = (p1.northing - p2.northing) * (p2.easting - p3.easting) - (p2.northing - p3.northing) * (p1.easting - p2.easting);
+            double d2 = (p2.northing * p2.northing) + (p2.easting * p2.easting);
+            double bc = ((p1.northing * p1.northing) + (p1.easting * p1.easting) - d2) / 2;
+            double cd = (d2 - (p3.northing * p3.northing) - (p3.easting * p3.easting)) / 2;
+            double det = ((p1.northing - p2.northing) * (p2.easting - p3.easting)) - ((p2.northing - p3.northing) * (p1.easting - p2.easting));
             if (Math.Abs(det) > 1e-10)
             {
                 return new vec2(
-              ((p1.northing - p2.northing) * cd - (p2.northing - p3.northing) * bc) / det,
-              (bc * (p2.easting - p3.easting) - cd * (p1.easting - p2.easting)) / det
+              (((p1.northing - p2.northing) * cd) - ((p2.northing - p3.northing) * bc)) / det,
+              ((bc * (p2.easting - p3.easting)) - (cd * (p1.easting - p2.easting))) / det
             );
             }
             else

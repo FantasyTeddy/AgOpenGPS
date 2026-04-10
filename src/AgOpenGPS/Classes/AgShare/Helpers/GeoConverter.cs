@@ -20,13 +20,13 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
 
             // CNMEA meters-per-degree conversion formulas
             metersPerDegLat = 111132.92
-                            - 559.82 * Math.Cos(2 * lat0Rad)
-                            + 1.175 * Math.Cos(4 * lat0Rad)
-                            - 0.0023 * Math.Cos(6 * lat0Rad);
+                            - (559.82 * Math.Cos(2 * lat0Rad))
+                            + (1.175 * Math.Cos(4 * lat0Rad))
+                            - (0.0023 * Math.Cos(6 * lat0Rad));
 
-            metersPerDegLon = 111412.84 * Math.Cos(lat0Rad)
-                            - 93.5 * Math.Cos(3 * lat0Rad)
-                            + 0.118 * Math.Cos(5 * lat0Rad);
+            metersPerDegLon = (111412.84 * Math.Cos(lat0Rad))
+                            - (93.5 * Math.Cos(3 * lat0Rad))
+                            + (0.118 * Math.Cos(5 * lat0Rad));
         }
 
         // Convert WGS84 lat/lon to local easting/northing

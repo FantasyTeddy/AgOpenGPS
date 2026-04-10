@@ -316,8 +316,8 @@ namespace AgOpenGPS
                 //statusbar flash red undefined headland
                 if (timerSim.Enabled)
                 {
-                    if (mc.isOutOfBounds && panelSim.BackColor == Color.Transparent
-                        || !mc.isOutOfBounds && panelSim.BackColor == Color.Tomato)
+                    if ((mc.isOutOfBounds && panelSim.BackColor == Color.Transparent)
+                        || (!mc.isOutOfBounds && panelSim.BackColor == Color.Tomato))
                     {
                         if (!mc.isOutOfBounds)
                         {
@@ -1220,7 +1220,7 @@ namespace AgOpenGPS
                         if (point.Y < 150 && point.Y > 90 && (trk.idx > -1))
                         {
 
-                            int middle = oglMain.Width / 2 + oglMain.Width / 5;
+                            int middle = (oglMain.Width / 2) + (oglMain.Width / 5);
                             if (point.X > middle - 80 && point.X < middle + 80)
                             {
                                 SwapDirection();
@@ -1246,7 +1246,7 @@ namespace AgOpenGPS
                             if (!isStanleyUsed)
                             {
                                 //manual uturn triggering
-                                middle = oglMain.Width / 2 - oglMain.Width / 4;
+                                middle = (oglMain.Width / 2) - (oglMain.Width / 4);
                                 if (point.X > middle - 100 && point.X < middle && isUTurnOn)
                                 {
                                     if (yt.isYouTurnTriggered)
@@ -1295,7 +1295,7 @@ namespace AgOpenGPS
                         //lateral
                         if (point.Y < 240 && point.Y > 170 && (trk.idx > -1))
                         {
-                            int middle = oglMain.Width / 2 - oglMain.Width / 4;
+                            int middle = (oglMain.Width / 2) - (oglMain.Width / 4);
                             if (point.X > middle - 100 && point.X < middle && isLateralOn)
                             {
                                 if (vehicle.functionSpeedLimit > avgSpeed)
@@ -1345,7 +1345,7 @@ namespace AgOpenGPS
                             Form form = new FormPan(this);
                             form.Show(this);
 
-                            form.Top = this.Height / 3 + this.Top;
+                            form.Top = (this.Height / 3) + this.Top;
                             form.Left = this.Width - 400 + this.Left;
                         }
 
@@ -1361,7 +1361,7 @@ namespace AgOpenGPS
                     }
 
                     //tram override
-                    int bottomSide = oglMain.Height / 5 + 25;
+                    int bottomSide = (oglMain.Height / 5) + 25;
 
                     if (tool.isDisplayTramControl && point.Y > (bottomSide - 50) && point.Y < bottomSide)
                     {

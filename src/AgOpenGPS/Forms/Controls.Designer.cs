@@ -1263,7 +1263,7 @@ namespace AgOpenGPS
             Form form = new FormFieldData(this);
             form.Show(this);
 
-            form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+            form.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
             if (isPanelBottomHidden)
                 form.Left = this.Left + 5;
             else
@@ -1299,7 +1299,7 @@ namespace AgOpenGPS
             Form form = new FormGPSData(this);
             form.Show(this);
 
-            form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+            form.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
             if (isPanelBottomHidden)
                 form.Left = this.Left + 5;
             else
@@ -2184,7 +2184,7 @@ namespace AgOpenGPS
         private double lastSimGuidanceAngle = 0;
         private void timerSim_Tick(object sender, EventArgs e)
         {
-            if (recPath.isDrivingRecordedPath || isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000))
+            if (recPath.isDrivingRecordedPath || (isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000)))
             {
                 if (vehicle.isInDeadZone)
                 {

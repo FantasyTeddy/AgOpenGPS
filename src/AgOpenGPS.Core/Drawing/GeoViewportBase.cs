@@ -83,7 +83,7 @@ namespace AgOpenGPS.Core.Drawing
         public GeoCoord GetGeoCoord(XyCoord xyClientCoord)
         {
             double scaleViewportToBoundingBox = 1.0 / scaleBoundingBoxToViewport;
-            XyCoord xyCenteredCoord = xyClientCoord - 0.5 * ViewportSize;
+            XyCoord xyCenteredCoord = xyClientCoord - (0.5 * ViewportSize);
             // Magic number 0.903
             GeoDelta delta = scaleViewportToBoundingBox / Zoom / 0.903 * new GeoDelta(-xyCenteredCoord.Y, xyCenteredCoord.X);
             return ViewportCenter + delta;

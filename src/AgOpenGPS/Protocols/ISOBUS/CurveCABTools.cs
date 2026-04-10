@@ -33,7 +33,7 @@ namespace AgOpenGPS
             {
                 double dx = points[i].easting - last.easting;
                 double dy = points[i].northing - last.northing;
-                if ((dx * dx + dy * dy) >= minSq)
+                if (((dx * dx) + (dy * dy)) >= minSq)
                 {
                     spaced.Add(points[i]);
                     last = points[i];
@@ -64,14 +64,14 @@ namespace AgOpenGPS
 
                 double dx = b.easting - a.easting;
                 double dy = b.northing - a.northing;
-                double distance = Math.Sqrt(dx * dx + dy * dy);
+                double distance = Math.Sqrt((dx * dx) + (dy * dy));
 
                 int steps = (int)(distance / spacingMeters);
                 for (int j = 1; j < steps; j++)
                 {
                     double t = (double)j / steps;
-                    double x = a.easting + dx * t;
-                    double y = a.northing + dy * t;
+                    double x = a.easting + (dx * t);
+                    double y = a.northing + (dy * t);
                     result.Add(new vec3(x, y, 0));
                 }
             }

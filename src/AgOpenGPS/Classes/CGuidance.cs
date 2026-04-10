@@ -46,12 +46,12 @@ namespace AgOpenGPS
             steerHeadingError *= mf.vehicle.stanleyHeadingErrorGain;
 
             double sped = Math.Abs(mf.avgSpeed);
-            if (sped > 1) sped = 1 + 0.277 * (sped - 1);
+            if (sped > 1) sped = 1 + (0.277 * (sped - 1));
             else sped = 1;
             double XTEc = Math.Atan(distanceFromCurrentLineSteer * mf.vehicle.stanleyDistanceErrorGain
                 / sped);
 
-            xTrackSteerCorrection = (xTrackSteerCorrection * 0.5) + XTEc * 0.5;
+            xTrackSteerCorrection = (xTrackSteerCorrection * 0.5) + (XTEc * 0.5);
 
             //derivative of steer distance error
             distSteerError = (distSteerError * 0.95) + (xTrackSteerCorrection * 60 * 0.05);

@@ -19,7 +19,7 @@ namespace AgOpenGPS.Core.Models
         public double NorthingDelta { get; }
         public double EastingDelta { get; }
 
-        public double LengthSquared => NorthingDelta * NorthingDelta + EastingDelta * EastingDelta;
+        public double LengthSquared => (NorthingDelta * NorthingDelta) + (EastingDelta * EastingDelta);
         public double Length => Math.Sqrt(LengthSquared);
 
 
@@ -27,7 +27,7 @@ namespace AgOpenGPS.Core.Models
         // (when this GeoDelta and otherDelta are considered as 3D-vector with Z-component equal to 0)
         public double CrossProductZ(GeoDelta otherDelta)
         {
-            return NorthingDelta * otherDelta.EastingDelta - EastingDelta * otherDelta.NorthingDelta;
+            return (NorthingDelta * otherDelta.EastingDelta) - (EastingDelta * otherDelta.NorthingDelta);
         }
 
         public static GeoDelta operator *(double factor, GeoDelta delta)

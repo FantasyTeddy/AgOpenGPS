@@ -85,7 +85,7 @@ namespace AgOpenGPS
             minDistance = double.MaxValue;
             int start, stop;
 
-            double toolContourDistance = mf.tool.width * 3 + Math.Abs(mf.tool.offset);
+            double toolContourDistance = (mf.tool.width * 3) + Math.Abs(mf.tool.offset);
 
             //check if no strips yet, return
             int stripCount = stripList.Count;
@@ -257,7 +257,7 @@ namespace AgOpenGPS
                     stop = pt + 20; if (stop > ptCount) stop = ptCount;
                 }
 
-                double distAway = (mf.tool.width - mf.tool.overlap) * howManyPathsAway
+                double distAway = ((mf.tool.width - mf.tool.overlap) * howManyPathsAway)
                     + (isSameWay ? -mf.tool.offset : mf.tool.offset);
                 double distSqAway = distAway * distAway * 0.97;
 
@@ -455,7 +455,7 @@ namespace AgOpenGPS
                     //integral slider is set to 0
                     if (mf.vehicle.purePursuitIntegralGain != 0)
                     {
-                        pivotDistanceError = distanceFromCurrentLinePivot * 0.2 + pivotDistanceError * 0.8;
+                        pivotDistanceError = (distanceFromCurrentLinePivot * 0.2) + (pivotDistanceError * 0.8);
 
                         if (counter2++ > 4)
                         {
@@ -587,8 +587,8 @@ namespace AgOpenGPS
         //Add current position to stripList
         public void AddPoint(vec3 pivot)
         {
-            ptList.Add(new vec3(pivot.easting + Math.Cos(pivot.heading) * mf.tool.offset,
-                pivot.northing - Math.Sin(pivot.heading) * mf.tool.offset,
+            ptList.Add(new vec3(pivot.easting + (Math.Cos(pivot.heading) * mf.tool.offset),
+                pivot.northing - (Math.Sin(pivot.heading) * mf.tool.offset),
                 pivot.heading));
         }
 

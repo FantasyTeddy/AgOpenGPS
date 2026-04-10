@@ -91,8 +91,8 @@ namespace AgOpenGPS.Core.Models
                 if ((iCoord.Easting < testPoint.Easting && jCoord.Easting >= testPoint.Easting)
                     || (jCoord.Easting < testPoint.Easting && iCoord.Easting >= testPoint.Easting))
                 {
-                    if (iCoord.Northing + (testPoint.Easting - iCoord.Easting)
-                        / (jCoord.Easting - iCoord.Easting) * (jCoord.Northing - iCoord.Northing)
+                    if (iCoord.Northing + ((testPoint.Easting - iCoord.Easting)
+                        / (jCoord.Easting - iCoord.Easting) * (jCoord.Northing - iCoord.Northing))
                         < testPoint.Northing)
                     {
                         result = !result;

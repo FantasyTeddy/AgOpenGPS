@@ -79,7 +79,7 @@ namespace AgOpenGPS.Core.Models
             {
                 int totalInches = Convert.ToInt32(distanceInMeters * metersToInches);
                 int feet = totalInches / 12;
-                int inches = totalInches - 12 * feet;
+                int inches = totalInches - (12 * feet);
                 return feet.ToString() + "' " + inches.ToString() + '"';
             }
         }

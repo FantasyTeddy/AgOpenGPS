@@ -227,7 +227,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
             GeoCoord pointA = track.ptA.ToGeoCoord();
             GeoDir heading = new GeoDir(track.heading);
-            Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(pointA - 1000.0 * heading);
+            Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(pointA - (1000.0 * heading));
 
             lineString.Point.Add(new ISOPoint
             {
@@ -236,7 +236,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
                 PointEast = (decimal)latLon.Longitude
             });
 
-            latLon = localPlane.ConvertGeoCoordToWgs84(pointA + 1000.0 * heading);
+            latLon = localPlane.ConvertGeoCoordToWgs84(pointA + (1000.0 * heading));
 
             lineString.Point.Add(new ISOPoint
             {

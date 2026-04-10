@@ -445,7 +445,7 @@ namespace AgOpenGPS
 
             int headerH = panelHeader.Height;
             int tabStripH = tabControl.ItemSize.Height + 4;
-            int totalH = headerH + (tabStripH + pages[0].Height) * 3;
+            int totalH = headerH + ((tabStripH + pages[0].Height) * 3);
             int totalW = pages[0].Width;
 
             Bitmap combined = new Bitmap(totalW, totalH);

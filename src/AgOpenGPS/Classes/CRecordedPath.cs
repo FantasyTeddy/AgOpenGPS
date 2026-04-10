@@ -357,7 +357,7 @@ namespace AgOpenGPS
             //integral slider is set to 0
             if (mf.vehicle.purePursuitIntegralGain != 0)
             {
-                pivotDistanceError = distanceFromCurrentLinePivot * 0.2 + pivotDistanceError * 0.8;
+                pivotDistanceError = (distanceFromCurrentLinePivot * 0.2) + (pivotDistanceError * 0.8);
 
                 if (counter2++ > 4)
                 {
@@ -427,8 +427,8 @@ namespace AgOpenGPS
             for (int i = ReverseHeading ? B : A; i < ptCount && i >= 0; i += count)
             {
                 // used for calculating the length squared of next segment.
-                double tempDist = Math.Sqrt((start.easting - recList[i].easting) * (start.easting - recList[i].easting)
-                    + (start.northing - recList[i].northing) * (start.northing - recList[i].northing));
+                double tempDist = Math.Sqrt(((start.easting - recList[i].easting) * (start.easting - recList[i].easting))
+                    + ((start.northing - recList[i].northing) * (start.northing - recList[i].northing)));
 
                 //will we go too far?
                 if ((tempDist + distSoFar) > goalPointDistance)
@@ -514,7 +514,7 @@ namespace AgOpenGPS
             //integral slider is set to 0
             if (mf.vehicle.purePursuitIntegralGain != 0)
             {
-                pivotDistanceError = distanceFromCurrentLinePivot * 0.2 + pivotDistanceError * 0.8;
+                pivotDistanceError = (distanceFromCurrentLinePivot * 0.2) + (pivotDistanceError * 0.8);
 
                 if (counter2++ > 4)
                 {
@@ -584,8 +584,8 @@ namespace AgOpenGPS
             for (int i = ReverseHeading ? B : A; i < ptCount && i >= 0; i += count)
             {
                 // used for calculating the length squared of next segment.
-                double tempDist = Math.Sqrt((start.easting - shuttleDubinsList[i].easting) * (start.easting - shuttleDubinsList[i].easting)
-                    + (start.northing - shuttleDubinsList[i].northing) * (start.northing - shuttleDubinsList[i].northing));
+                double tempDist = Math.Sqrt(((start.easting - shuttleDubinsList[i].easting) * (start.easting - shuttleDubinsList[i].easting))
+                    + ((start.northing - shuttleDubinsList[i].northing) * (start.northing - shuttleDubinsList[i].northing)));
 
                 //will we go too far?
                 if ((tempDist + distSoFar) > goalPointDistance)

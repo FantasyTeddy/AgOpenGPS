@@ -281,7 +281,7 @@ namespace AgOpenGPS
 
                     if (distance > spacing)
                     {
-                        int loopTimes = (int)(distance / spacing + 1);
+                        int loopTimes = (int)((distance / spacing) + 1);
                         for (int j = 1; j < loopTimes; j++)
                         {
                             vec3 pos = new vec3(glm.Catmull(j / (double)loopTimes, arr[i], arr[i + 1], arr[i + 2], arr[i + 3]));

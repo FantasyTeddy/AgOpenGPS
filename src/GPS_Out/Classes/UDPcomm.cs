@@ -100,12 +100,12 @@ namespace GPS_Out
             {
                 if (Data.Length > 1)
                 {
-                    int PGN = Data[1] << 8 | Data[0];
+                    int PGN = (Data[1] << 8) | Data[0];
                     AddToLog("< " + PGN.ToString());
 
                     if (PGN == 33152) // AOG, 0x8180
                     {
-                        int SubPGN = Data[3] << 8 | Data[2];
+                        int SubPGN = (Data[3] << 8) | Data[2];
                         if (SubPGN == 54908) // 0xD67C, AGIO NEMA translation
                         {
                             mf.AGIOdata.ParseByteData(Data);

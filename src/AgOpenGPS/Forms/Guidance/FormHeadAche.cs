@@ -221,8 +221,8 @@ namespace AgOpenGPS
                 heading = 0
             };
 
-            plotPt.easting += mf.fieldCenterX + mf.maxFieldDistance * -sX;
-            plotPt.northing += mf.fieldCenterY + mf.maxFieldDistance * -sY;
+            plotPt.easting += mf.fieldCenterX + (mf.maxFieldDistance * -sX);
+            plotPt.northing += mf.fieldCenterY + (mf.maxFieldDistance * -sY);
 
             pint.easting = plotPt.easting;
             pint.northing = plotPt.northing;
@@ -545,7 +545,7 @@ namespace AgOpenGPS
             GL.Translate(0, 0, -mf.maxFieldDistance * zoom);
 
             //translate to that spot in the world
-            GL.Translate(-mf.fieldCenterX + sX * mf.maxFieldDistance, -mf.fieldCenterY + sY * mf.maxFieldDistance, 0);
+            GL.Translate(-mf.fieldCenterX + (sX * mf.maxFieldDistance), -mf.fieldCenterY + (sY * mf.maxFieldDistance), 0);
 
             GL.LineWidth(2);
 
@@ -793,7 +793,7 @@ namespace AgOpenGPS
             for (int i = 0; i < mf.hdl.tracksArr.Count; i++)
             {
                 int low = crossings[i * 2];
-                int high = crossings[i * 2 + 1];
+                int high = crossings[(i * 2) + 1];
                 for (int k = low; k < high; k++)
                 {
                     mf.bnd.bndList[0].hdLine.Add(mf.hdl.tracksArr[i].trackPts[k]);

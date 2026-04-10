@@ -582,8 +582,8 @@ namespace AgOpenGPS.Forms.Field
             {
                 double angle = i * Math.PI * 2.0 / CIRCLE_SEGMENTS;
                 GL.Vertex2(
-                    center.easting + Math.Cos(angle) * radius,
-                    center.northing + Math.Sin(angle) * radius);
+                    center.easting + (Math.Cos(angle) * radius),
+                    center.northing + (Math.Sin(angle) * radius));
             }
 
             GL.End();

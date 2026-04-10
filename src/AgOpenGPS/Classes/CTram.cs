@@ -52,7 +52,7 @@ namespace AgOpenGPS
 
         public void IsTramOuterOrInner()
         {
-            isOuter = ((int)(tramWidth / mf.tool.width + 0.5)) % 2 == 0;
+            isOuter = ((int)((tramWidth / mf.tool.width) + 0.5)) % 2 == 0;
             if (Properties.ToolSettings.Default.setTool_isTramOuterInverted) isOuter = !isOuter;
         }
 
@@ -141,13 +141,13 @@ namespace AgOpenGPS
 
         public void CreateBoundaryOuterTrack()
         {
-            tramBndOuterArr = CreateBoundaryTrack(0.5 * tramWidth - halfWheelTrack);
+            tramBndOuterArr = CreateBoundaryTrack((0.5 * tramWidth) - halfWheelTrack);
             tramBndOuterArr.ReducePointsByAngle(0.01, 50);
         }
 
         public void CreateBoundaryInnerTrack()
         {
-            tramBndInnerArr = CreateBoundaryTrack(0.5 * tramWidth + halfWheelTrack);
+            tramBndInnerArr = CreateBoundaryTrack((0.5 * tramWidth) + halfWheelTrack);
             tramBndInnerArr.ReducePointsByAngle(0.01, 50);
         }
 

@@ -276,13 +276,13 @@ namespace AgOpenGPS
 
                 //lookahead section on
                 GL.Color3(0.20f, 0.7f, 0.2f);
-                GL.Vertex3(mf.tool.farLeftPosition, mf.tool.lookAheadDistanceOnPixelsLeft * 0.1 + trailingTool, 0);
-                GL.Vertex3(mf.tool.farRightPosition, mf.tool.lookAheadDistanceOnPixelsRight * 0.1 + trailingTool, 0);
+                GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOnPixelsLeft * 0.1) + trailingTool, 0);
+                GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOnPixelsRight * 0.1) + trailingTool, 0);
 
                 //lookahead section off
                 GL.Color3(0.70f, 0.2f, 0.2f);
-                GL.Vertex3(mf.tool.farLeftPosition, mf.tool.lookAheadDistanceOffPixelsLeft * 0.1 + trailingTool, 0);
-                GL.Vertex3(mf.tool.farRightPosition, mf.tool.lookAheadDistanceOffPixelsRight * 0.1 + trailingTool, 0);
+                GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOffPixelsLeft * 0.1) + trailingTool, 0);
+                GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOffPixelsRight * 0.1) + trailingTool, 0);
 
                 if (mf.vehicle.isHydLiftOn)
                 {
@@ -327,11 +327,11 @@ namespace AgOpenGPS
                     //GL.Color3(0.7f, 0.2f, 0.2f);
                 }
 
-                double mid = (mf.section[j].positionRight - mf.section[j].positionLeft) / 2 + mf.section[j].positionLeft;
+                double mid = ((mf.section[j].positionRight - mf.section[j].positionLeft) / 2) + mf.section[j].positionLeft;
                 XyCoord[] vertices = {
                     new XyCoord(mf.section[j].positionLeft, trailingTool),
                     new XyCoord(mf.section[j].positionLeft, trailingTool - hite),
-                    new XyCoord(mid, trailingTool - hite * 1.5),
+                    new XyCoord(mid, trailingTool - (hite * 1.5)),
                     new XyCoord(mf.section[j].positionRight, trailingTool - hite),
                     new XyCoord(mf.section[j].positionRight, trailingTool),
                 };

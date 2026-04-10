@@ -15,7 +15,7 @@ namespace AgIO
             timer1.Interval = timeInMsec;
 
             int messWidth = messageStr.Length;
-            Width = messWidth * 15 + 120;
+            Width = (messWidth * 15) + 120;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

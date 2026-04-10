@@ -64,7 +64,7 @@ namespace AgOpenGPS.Core.Streamers
                 //for each patch, write out the list of triangles to the file
                 foreach (QuadStrip quadStrip in workedArea.UnsavedWork)
                 {
-                    writer.WriteInt(1 + 2 * quadStrip.NumberOfPairs);
+                    writer.WriteInt(1 + (2 * quadStrip.NumberOfPairs));
                     writer.WriteColorRgb(quadStrip.ColorRgba);
                     for (int i = 0; i < quadStrip.NumberOfPairs; i++)
                     {

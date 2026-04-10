@@ -195,7 +195,7 @@ namespace AgOpenGPS
             List<double> sorted = steerAngleHistory.OrderBy(x => x).ToList();
             if (count % 2 == 0)
             {
-                Median = (sorted[count / 2 - 1] + sorted[count / 2]) * 0.5;
+                Median = (sorted[(count / 2) - 1] + sorted[count / 2]) * 0.5;
             }
             else
             {
@@ -240,17 +240,17 @@ namespace AgOpenGPS
             double expected2Std = 0.95;
 
             // Score based on normal distribution fit
-            double score1 = 1 - Math.Abs(pct1Std - expected1Std) / expected1Std;
-            double score2 = 1 - Math.Abs(pct2Std - expected2Std) / expected2Std;
+            double score1 = 1 - (Math.Abs(pct1Std - expected1Std) / expected1Std);
+            double score2 = 1 - (Math.Abs(pct2Std - expected2Std) / expected2Std);
 
             // Penalize large recommended offsets
-            double magnitudeScore = Math.Max(0, 1 - Math.Abs(RecommendedOffset) / 10.0);
+            double magnitudeScore = Math.Max(0, 1 - (Math.Abs(RecommendedOffset) / 10.0));
 
             // Sample size factor
             double sizeFactor = Math.Min(1.0, (double)steerAngleHistory.Count / (MIN_SAMPLES * 3));
 
             // Combine scores
-            double confidence = (score1 * 0.3 + score2 * 0.3 + magnitudeScore * 0.2 + sizeFactor * 0.2) * 100;
+            double confidence = ((score1 * 0.3) + (score2 * 0.3) + (magnitudeScore * 0.2) + (sizeFactor * 0.2)) * 100;
             return Math.Max(0, Math.Min(100, confidence));
         }
 

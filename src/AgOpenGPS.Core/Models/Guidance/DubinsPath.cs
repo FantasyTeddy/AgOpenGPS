@@ -100,7 +100,7 @@ namespace AgOpenGPS.Core.Models
         {
             Debug.Assert(turnType != TurnType.Straight);
             GeoDir dir = turnType == TurnType.Right ? cdOnCircle.Direction.PerpendicularRight : cdOnCircle.Direction.PerpendicularLeft;
-            return new GeoCircle(cdOnCircle.Coord + radius * dir, radius);
+            return new GeoCircle(cdOnCircle.Coord + (radius * dir), radius);
         }
     }
 
@@ -214,7 +214,7 @@ namespace AgOpenGPS.Core.Models
             double theta = Math.Acos(D / (4f * _constraints.RadiusConstraint));
 
             GeoDir startTangentDir = (TurnType.Left == startTurnType) ? direction + theta : direction - theta;
-            _middleCircle = new GeoCircle(startCircle.Center + 2 * startCircle.Radius * startTangentDir, startCircle.Radius);
+            _middleCircle = new GeoCircle(startCircle.Center + (2 * startCircle.Radius * startTangentDir), startCircle.Radius);
 
             startTangent = _middleCircle.PointOnCircle(new GeoDir(startCircle.Center - _middleCircle.Center));
             goalTangent = _middleCircle.PointOnCircle(new GeoDir(goalCircle.Center - _middleCircle.Center));

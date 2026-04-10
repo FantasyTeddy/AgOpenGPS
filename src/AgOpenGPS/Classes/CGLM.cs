@@ -21,8 +21,8 @@ namespace AgOpenGPS
         {
             double dx = end_x - start_x;
             double dy = end_y - start_y;
-            double innerProduct = (point_x - start_x) * dx + (point_y - start_y) * dy;
-            return 0 <= innerProduct && innerProduct <= dx * dx + dy * dy;
+            double innerProduct = ((point_x - start_x) * dx) + ((point_y - start_y) * dy);
+            return 0 <= innerProduct && innerProduct <= (dx * dx) + (dy * dy);
         }
 
         public static bool IsPointInPolygon(this List<vec3> polygon, vec3 testPoint)
@@ -34,8 +34,8 @@ namespace AgOpenGPS
                 if ((polygon[i].easting < testPoint.easting && polygon[j].easting >= testPoint.easting)
                     || (polygon[j].easting < testPoint.easting && polygon[i].easting >= testPoint.easting))
                 {
-                    if (polygon[i].northing + (testPoint.easting - polygon[i].easting)
-                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing)
+                    if (polygon[i].northing + ((testPoint.easting - polygon[i].easting)
+                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing))
                         < testPoint.northing)
                     {
                         result = !result;
@@ -55,8 +55,8 @@ namespace AgOpenGPS
                 if ((polygon[i].easting < testPoint.easting && polygon[j].easting >= testPoint.easting)
                     || (polygon[j].easting < testPoint.easting && polygon[i].easting >= testPoint.easting))
                 {
-                    if (polygon[i].northing + (testPoint.easting - polygon[i].easting)
-                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing)
+                    if (polygon[i].northing + ((testPoint.easting - polygon[i].easting)
+                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing))
                         < testPoint.northing)
                     {
                         result = !result;
@@ -76,8 +76,8 @@ namespace AgOpenGPS
                 if ((polygon[i].easting < testPoint.easting && polygon[j].easting >= testPoint.easting)
                     || (polygon[j].easting < testPoint.easting && polygon[i].easting >= testPoint.easting))
                 {
-                    if (polygon[i].northing + (testPoint.easting - polygon[i].easting)
-                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing)
+                    if (polygon[i].northing + ((testPoint.easting - polygon[i].easting)
+                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing))
                         < testPoint.northing)
                     {
                         result = !result;
@@ -97,8 +97,8 @@ namespace AgOpenGPS
                 if ((polygon[i].easting < testPoint.easting && polygon[j].easting >= testPoint.easting)
                     || (polygon[j].easting < testPoint.easting && polygon[i].easting >= testPoint.easting))
                 {
-                    if (polygon[i].northing + (testPoint.easting - polygon[i].easting)
-                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing)
+                    if (polygon[i].northing + ((testPoint.easting - polygon[i].easting)
+                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing))
                         < testPoint.northing)
                     {
                         result = !result;
@@ -141,13 +141,13 @@ namespace AgOpenGPS
             double tt = t * t;
             double ttt = tt * t;
 
-            double q1 = -ttt + 2.0f * tt - t;
-            double q2 = 3.0f * ttt - 5.0f * tt + 2.0f;
-            double q3 = -3.0f * ttt + 4.0f * tt + t;
+            double q1 = -ttt + (2.0f * tt) - t;
+            double q2 = (3.0f * ttt) - (5.0f * tt) + 2.0f;
+            double q3 = (-3.0f * ttt) + (4.0f * tt) + t;
             double q4 = ttt - tt;
 
-            double tx = 0.5f * (p0.easting * q1 + p1.easting * q2 + p2.easting * q3 + p3.easting * q4);
-            double ty = 0.5f * (p0.northing * q1 + p1.northing * q2 + p2.northing * q3 + p3.northing * q4);
+            double tx = 0.5f * ((p0.easting * q1) + (p1.easting * q2) + (p2.easting * q3) + (p3.easting * q4));
+            double ty = 0.5f * ((p0.northing * q1) + (p1.northing * q2) + (p2.northing * q3) + (p3.northing * q4));
 
             vec3 ret = new vec3(tx, ty, 0);
             return ret;
@@ -400,15 +400,15 @@ namespace AgOpenGPS
             double dx = segB.easting - segA.easting;
             double dy = segB.northing - segA.northing;
 
-            double det = -rayDir.easting * dy + dx * rayDir.northing;
+            double det = (-rayDir.easting * dy) + (dx * rayDir.northing);
             if (Math.Abs(det) < 1e-8) return false; // parallel
 
-            double s = (-dy * (segA.easting - rayOrigin.easting) + dx * (segA.northing - rayOrigin.northing)) / det;
-            double t = (rayDir.easting * (segA.northing - rayOrigin.northing) - rayDir.northing * (segA.easting - rayOrigin.easting)) / det;
+            double s = ((-dy * (segA.easting - rayOrigin.easting)) + (dx * (segA.northing - rayOrigin.northing))) / det;
+            double t = ((rayDir.easting * (segA.northing - rayOrigin.northing)) - (rayDir.northing * (segA.easting - rayOrigin.easting))) / det;
 
             if (s >= 0 && t >= 0 && t <= 1)
             {
-                intersection = new vec2(rayOrigin.easting + s * rayDir.easting, rayOrigin.northing + s * rayDir.northing);
+                intersection = new vec2(rayOrigin.easting + (s * rayDir.easting), rayOrigin.northing + (s * rayDir.northing));
                 return true;
             }
 

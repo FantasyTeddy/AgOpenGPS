@@ -149,8 +149,8 @@ namespace AgOpenGPS.Classes
             {
                 double extend = extendMeters / lengthStart;
                 GeoCoord extStart = new GeoCoord(
-                    a0.Northing + dirstart.NorthingDelta * extend,
-                    a0.Easting + dirstart.EastingDelta * extend
+                    a0.Northing + (dirstart.NorthingDelta * extend),
+                    a0.Easting + (dirstart.EastingDelta * extend)
                 );
                 result.Add(extStart);
             }
@@ -165,8 +165,8 @@ namespace AgOpenGPS.Classes
             {
                 double extend = extendMeters / lengthEnd;
                 GeoCoord extEnd = new GeoCoord(
-                    b1.Northing + dirEnd.NorthingDelta * extend,
-                    b1.Easting + dirEnd.EastingDelta * extend
+                    b1.Northing + (dirEnd.NorthingDelta * extend),
+                    b1.Easting + (dirEnd.EastingDelta * extend)
                 );
                 result.Add(extEnd);
             }
@@ -328,7 +328,7 @@ namespace AgOpenGPS.Classes
                     if (t0 <= 1 && t1 >= 0)
                     {
                         float intersectionT = Math.Max(0, Math.Min(t0, 1));
-                        return (true, p1 + r * intersectionT);
+                        return (true, p1 + (r * intersectionT));
                     }
                 }
                 return (false, default); // Parallel but not collinear
@@ -339,7 +339,7 @@ namespace AgOpenGPS.Classes
 
             if (t >= 0 && t <= 1 && u >= 0 && u <= 1)
             {
-                return (true, p1 + r * t);
+                return (true, p1 + (r * t));
             }
 
             return (false, default);

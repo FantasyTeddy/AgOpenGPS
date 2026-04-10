@@ -323,10 +323,10 @@ namespace AgOpenGPS
                 for (int j = 0; j < refCount; j += 1)
                 {
                     vec2 point = new vec2(
-                    Math.Sin(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
-                        widd + gTemp[indx].curvePts[j].easting,
-                    Math.Cos(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
-                        widd + gTemp[indx].curvePts[j].northing
+                    (Math.Sin(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
+                        widd) + gTemp[indx].curvePts[j].easting,
+                    (Math.Cos(glm.PIBy2 + gTemp[indx].curvePts[j].heading + sideHeading) *
+                        widd) + gTemp[indx].curvePts[j].northing
                         );
 
                     bool Add = true;
@@ -417,7 +417,7 @@ namespace AgOpenGPS
 
                 for (int j = 0; j < tramRef.Count; j++)
                 {
-                    P1.easting = hsin * widd + tramRef[j].easting;
+                    P1.easting = (hsin * widd) + tramRef[j].easting;
                     P1.northing = (hcos * widd) + tramRef[j].northing;
 
                     if (mf.bnd.bndList[0].fenceLineEar.IsPointInPolygon(P1))
@@ -552,12 +552,12 @@ namespace AgOpenGPS
             s2y = p3y - p2y;
 
             double s, t;
-            s = (-s1y * (p0x - p2x) + s1x * (p0y - p2y)) / (-s2x * s1y + s1x * s2y);
+            s = ((-s1y * (p0x - p2x)) + (s1x * (p0y - p2y))) / ((-s2x * s1y) + (s1x * s2y));
 
             if (s >= 0 && s <= 1)
             {
                 //check oher side
-                t = (s2x * (p0y - p2y) - s2y * (p0x - p2x)) / (-s2x * s1y + s1x * s2y);
+                t = ((s2x * (p0y - p2y)) - (s2y * (p0x - p2x))) / ((-s2x * s1y) + (s1x * s2y));
                 if (t >= 0 && t <= 1)
                 {
                     // Collision detected
