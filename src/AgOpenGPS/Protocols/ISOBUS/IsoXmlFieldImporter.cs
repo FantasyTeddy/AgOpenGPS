@@ -23,15 +23,23 @@ public class IsoXmlFieldImporter
         _appModel = appModel;
     }
 
-    public bool TryGetOrigin(out Wgs84 origin) =>
-        IsoXmlParserHelpers.TryExtractOrigin(_fieldParts, out origin);
+    public bool TryGetOrigin(out Wgs84 origin)
+    {
+        return IsoXmlParserHelpers.TryExtractOrigin(_fieldParts, out origin);
+    }
 
-    public List<CBoundaryList> GetBoundaries() =>
-        IsoXmlParserHelpers.ParseBoundaries(_fieldParts, _appModel);
+    public List<CBoundaryList> GetBoundaries()
+    {
+        return IsoXmlParserHelpers.ParseBoundaries(_fieldParts, _appModel);
+    }
 
-    public List<vec3> GetHeadland() =>
-        IsoXmlParserHelpers.ParseHeadland(_fieldParts, _appModel);
+    public List<vec3> GetHeadland()
+    {
+        return IsoXmlParserHelpers.ParseHeadland(_fieldParts, _appModel);
+    }
 
-    public List<CTrk> GetGuidanceLines() =>
-        IsoXmlParserHelpers.ParseAllGuidanceLines(_fieldParts, _appModel);
+    public List<CTrk> GetGuidanceLines()
+    {
+        return IsoXmlParserHelpers.ParseAllGuidanceLines(_fieldParts, _appModel);
+    }
 }

@@ -131,8 +131,15 @@ namespace AgOpenGPS.Core.Models
         public double InKmh => _speedInKmh;
         public double InMph => _speedInKmh * kmhToMph;
 
-        public static double KmhToMph(double kmh) => kmh * kmhToMph;
-        public static double MphToKmh(double mph) => mph * mphToKmh;
+        public static double KmhToMph(double kmh)
+        {
+            return kmh * kmhToMph;
+        }
+
+        public static double MphToKmh(double mph)
+        {
+            return mph * mphToKmh;
+        }
     }
 
 }

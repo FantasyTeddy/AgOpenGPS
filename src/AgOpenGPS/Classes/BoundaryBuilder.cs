@@ -581,7 +581,10 @@ namespace AgOpenGPS.Classes
                 ParentTrack = parentTrack;
             }
 
-            public void Reverse() => (Start, End) = (End, Start);
+            public void Reverse()
+            {
+                (Start, End) = (End, Start);
+            }
 
             public void AddIntersection(vec2 point)
             {
@@ -594,21 +597,27 @@ namespace AgOpenGPS.Classes
 
         private class Vec2EqualityComparer : IEqualityComparer<vec2>
         {
-            public bool Equals(vec2 a, vec2 b) =>
-                (a - b).GetLengthSquared() < INTERSECTION_TOLERANCE_SQ;
+            public bool Equals(vec2 a, vec2 b)
+            {
+                return (a - b).GetLengthSquared() < INTERSECTION_TOLERANCE_SQ;
+            }
 
-            public int GetHashCode(vec2 p) =>
-                HashCode.Combine(
+            public int GetHashCode(vec2 p)
+            {
+                return HashCode.Combine(
                     Math.Round(p.easting / INTERSECTION_TOLERANCE),
                     Math.Round(p.northing / INTERSECTION_TOLERANCE)
                 );
+            }
         }
         #endregion
     }
 
     public static class Vec2Extensions
     {
-        public static vec3 ToVec3(this vec2 vector, double heading = 0) =>
-            new vec3(vector.easting, vector.northing, heading);
+        public static vec3 ToVec3(this vec2 vector, double heading = 0)
+        {
+            return new vec3(vector.easting, vector.northing, heading);
+        }
     }
 }

@@ -7,16 +7,24 @@ namespace AgOpenGPS.Core.AgShare
     public abstract class AgShareError
     {
         public static AgShareError InvalidApiKey()
-            => new InvalidApiKeyError();
+        {
+            return new InvalidApiKeyError();
+        }
 
         public static AgShareError WrongStatusCode(HttpStatusCode statusCode, string body)
-            => new StatusCodeError(statusCode, body);
+        {
+            return new StatusCodeError(statusCode, body);
+        }
 
         public static AgShareError JsonException(JsonException exception)
-            => new JsonError(exception);
+        {
+            return new JsonError(exception);
+        }
 
         public static AgShareError HttpRequestException(HttpRequestException exception)
-            => new HttpRequestError(exception);
+        {
+            return new HttpRequestError(exception);
+        }
     }
 
     public class InvalidApiKeyError : AgShareError

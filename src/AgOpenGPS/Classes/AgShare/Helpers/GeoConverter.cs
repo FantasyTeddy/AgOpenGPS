@@ -41,7 +41,10 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
             return new Vec2(easting, northing);
         }
 
-        private static double DegToRad(double deg) => deg * Math.PI / 180.0;
+        private static double DegToRad(double deg)
+        {
+            return deg * Math.PI / 180.0;
+        }
     }
 
     // Simple struct to store local easting/northing

@@ -663,10 +663,25 @@ namespace AgOpenGPS.Forms.Field
 
 
 
-        private void btnExtendForward_Click(object sender, EventArgs e) => ShiftSelectedTrackPoint(false, -10);
-        private void btnExtendBackward_Click(object sender, EventArgs e) => ShiftSelectedTrackPoint(true, -10);
-        private void btnShrinkA_Click(object sender, EventArgs e) => ShiftSelectedTrackPoint(true, +10);
-        private void btnShrinkB_Click(object sender, EventArgs e) => ShiftSelectedTrackPoint(false, +10);
+        private void btnExtendForward_Click(object sender, EventArgs e)
+        {
+            ShiftSelectedTrackPoint(false, -10);
+        }
+
+        private void btnExtendBackward_Click(object sender, EventArgs e)
+        {
+            ShiftSelectedTrackPoint(true, -10);
+        }
+
+        private void btnShrinkA_Click(object sender, EventArgs e)
+        {
+            ShiftSelectedTrackPoint(true, +10);
+        }
+
+        private void btnShrinkB_Click(object sender, EventArgs e)
+        {
+            ShiftSelectedTrackPoint(false, +10);
+        }
 
         private void btnBuildBoundary_Click(object sender, EventArgs e)
         {
