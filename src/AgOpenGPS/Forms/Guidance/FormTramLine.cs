@@ -756,10 +756,7 @@ namespace AgOpenGPS
 
         private void CreateViewport()
         {
-            if (_viewport == null)
-            {
-                _viewport = new GeoViewport(mf.FieldBoundingBox, oglSelf);
-            }
+            _viewport ??= new GeoViewport(mf.FieldBoundingBox, oglSelf);
         }
 
         #endregion

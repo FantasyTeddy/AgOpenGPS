@@ -34,11 +34,8 @@ namespace AgIO
             // Load radio channels
             _channels = Properties.Settings.Default.setRadio_Channels;
 
-            if (_channels == null)
-            {
-                // No channels found, create a new list
-                _channels = new List<CRadioChannel>();
-            }
+            // No channels found, create a new list
+            _channels ??= new List<CRadioChannel>();
 
             foreach (CRadioChannel channel in _channels)
             {

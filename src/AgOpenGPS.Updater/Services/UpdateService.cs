@@ -57,11 +57,8 @@ namespace AgOpenGPS.Updater.Services
             {
                 // Find the appropriate asset (zip file)
                 ReleaseAsset asset = release.Assets.FirstOrDefault(a => a.IsZipFile && a.IsMainRelease);
-                if (asset == null)
-                {
-                    // Fallback to any zip file
-                    asset = release.Assets.FirstOrDefault(a => a.IsZipFile);
-                }
+                // Fallback to any zip file
+                asset ??= release.Assets.FirstOrDefault(a => a.IsZipFile);
 
                 if (asset == null)
                 {

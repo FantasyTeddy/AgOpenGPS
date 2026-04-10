@@ -13,7 +13,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(null);
+                field ??= new Texture2D(null);
                 return field;
             }
         }
@@ -22,7 +22,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(null);
+                field ??= new Texture2D(null);
                 return field;
             }
         }
@@ -31,7 +31,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(null);
+                field ??= new Texture2D(null);
                 return field;
             }
         }
@@ -40,7 +40,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(null);
+                field ??= new Texture2D(null);
                 return field;
             }
         }
@@ -49,7 +49,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_FrontWheels);
+                field ??= new Texture2D(Resources.z_FrontWheels);
                 return field;
             }
         }
@@ -58,7 +58,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_Tire);
+                field ??= new Texture2D(Resources.z_Tire);
                 return field;
             }
         }
@@ -67,7 +67,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_Tool);
+                field ??= new Texture2D(Resources.z_Tool);
                 return field;
             }
         }

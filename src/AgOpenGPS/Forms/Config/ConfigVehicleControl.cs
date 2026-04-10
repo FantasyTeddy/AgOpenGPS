@@ -216,8 +216,7 @@ namespace AgOpenGPS.Forms.Config
 
         private void UpdateOpacity()
         {
-            if (_original == null)
-                _original = (Bitmap)pboxAlpha.BackgroundImage.Clone();
+            _original ??= (Bitmap)pboxAlpha.BackgroundImage.Clone();
 
             pboxAlpha.BackColor = Color.Transparent;
             pboxAlpha.BackgroundImage = SetAlpha((Bitmap)_original, (byte)(255 * _vehicleConfig.Opacity));

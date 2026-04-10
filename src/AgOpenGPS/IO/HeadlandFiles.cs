@@ -24,7 +24,7 @@ namespace AgOpenGPS.IO
             for (int k = 0; k < boundaries.Count; k++)
             {
                 // if we don't already have a line, read next
-                if (line == null) line = reader.ReadLine();
+                line ??= reader.ReadLine();
                 if (line == null) break;
 
                 if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int count))

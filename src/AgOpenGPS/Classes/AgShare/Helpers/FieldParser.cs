@@ -56,7 +56,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                     if (ring == null || ring.Count < 3) continue;
 
                     CBoundaryList bnd = new CBoundaryList();
-                    if (bnd.fenceLine == null) bnd.fenceLine = new List<vec3>();
+                    bnd.fenceLine ??= new List<vec3>();
 
                     foreach (CoordinateDto point in ring)
                     {

@@ -13,7 +13,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_Compass);
+                field ??= new Texture2D(Resources.z_Compass);
                 return field;
             }
         }
@@ -22,7 +22,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.CrossTrackBackground);
+                field ??= new Texture2D(Resources.CrossTrackBackground);
                 return field;
             }
         }
@@ -31,7 +31,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_Font);
+                field ??= new Texture2D(Resources.z_Font);
                 return field;
             }
         }
@@ -40,7 +40,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_LateralManual);
+                field ??= new Texture2D(Resources.z_LateralManual);
                 return field;
             }
         }
@@ -49,7 +49,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_Lift);
+                field ??= new Texture2D(Resources.z_Lift);
                 return field;
             }
         }
@@ -58,7 +58,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.MenuHideShow);
+                field ??= new Texture2D(Resources.MenuHideShow);
                 return field;
             }
         }
@@ -67,7 +67,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_NoGPS);
+                field ??= new Texture2D(Resources.z_NoGPS);
                 return field;
             }
         }
@@ -76,7 +76,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.Pan);
+                field ??= new Texture2D(Resources.Pan);
                 return field;
             }
         }
@@ -85,7 +85,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_Speedo);
+                field ??= new Texture2D(Resources.z_Speedo);
                 return field;
             }
         }
@@ -94,7 +94,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_SpeedoNeedle);
+                field ??= new Texture2D(Resources.z_SpeedoNeedle);
                 return field;
             }
         }
@@ -103,7 +103,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_SteerDot);
+                field ??= new Texture2D(Resources.z_SteerDot);
                 return field;
             }
         }
@@ -112,7 +112,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_SteerPointer);
+                field ??= new Texture2D(Resources.z_SteerPointer);
                 return field;
             }
         }
@@ -121,7 +121,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_TramOnOff);
+                field ??= new Texture2D(Resources.z_TramOnOff);
                 return field;
             }
         }
@@ -130,7 +130,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_Turn);
+                field ??= new Texture2D(Resources.z_Turn);
                 return field;
             }
         }
@@ -139,7 +139,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_TurnCancel);
+                field ??= new Texture2D(Resources.z_TurnCancel);
                 return field;
             }
         }
@@ -148,7 +148,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_TurnManual);
+                field ??= new Texture2D(Resources.z_TurnManual);
                 return field;
             }
         }
@@ -157,7 +157,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.YouTurnU);
+                field ??= new Texture2D(Resources.YouTurnU);
                 return field;
             }
         }
@@ -166,7 +166,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.YouTurnH);
+                field ??= new Texture2D(Resources.YouTurnH);
                 return field;
             }
         }
@@ -175,7 +175,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_QuestionMark);
+                field ??= new Texture2D(Resources.z_QuestionMark);
                 return field;
             }
         }
@@ -184,7 +184,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.ZoomIn48);
+                field ??= new Texture2D(Resources.ZoomIn48);
                 return field;
             }
         }
@@ -193,7 +193,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.ZoomOut48);
+                field ??= new Texture2D(Resources.ZoomOut48);
                 return field;
             }
         }
@@ -202,7 +202,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_HeadlandLight);
+                field ??= new Texture2D(Resources.z_HeadlandLight);
                 return field;
             }
         }
@@ -211,7 +211,7 @@ namespace AgOpenGPS.Classes
         {
             get
             {
-                if (field == null) field = new Texture2D(Resources.z_HeadlandDark);
+                field ??= new Texture2D(Resources.z_HeadlandDark);
                 return field;
             }
         }

@@ -20,10 +20,7 @@ namespace AgOpenGPS.Core.ViewModels
         {
             get
             {
-                if (_configViewModel == null)
-                {
-                    _configViewModel = new ConfigViewModel();
-                }
+                _configViewModel ??= new ConfigViewModel();
                 return _configViewModel;
             }
         }

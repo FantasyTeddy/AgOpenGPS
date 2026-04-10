@@ -81,7 +81,7 @@ namespace AgOpenGPS
                     if (firstBoundary != null)
                     {
                         outer = ConvertBoundary(firstBoundary, snapshot.Converter);
-                        if (outer == null) outer = new List<CoordinateDto>();
+                        outer ??= new List<CoordinateDto>();
                     }
 
                     // Convert remaining boundaries as holes
