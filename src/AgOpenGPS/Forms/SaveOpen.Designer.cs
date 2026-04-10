@@ -947,7 +947,7 @@ namespace AgOpenGPS
                 {
                     FormDialog.Show("Optional file problem", $"{fileLabel} is missing or corrupt but Field is Loaded", DialogSeverity.Warning);
                 }
-                result = default(T);
+                result = default;
                 return false;
             }
         }
