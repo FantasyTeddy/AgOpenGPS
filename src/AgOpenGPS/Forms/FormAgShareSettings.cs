@@ -96,7 +96,7 @@ namespace AgOpenGPS
         {
             return error switch
             {
-                InvalidApiKeyError _ => "Invalid API key",
+                InvalidApiKeyError => "Invalid API key",
                 StatusCodeError statusCodeError => $"Status {statusCodeError.StatusCode}: {statusCodeError.Body}",
                 HttpRequestError httpRequestError => $"Error: {httpRequestError.Exception.Message}",
                 _ => throw new InvalidOperationException($"Unknown {nameof(AgShareError)}: {error.GetType()}"),
