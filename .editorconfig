@@ -49,8 +49,11 @@ dotnet_diagnostic.CS8981.severity = none
 # CA2024: Do not use 'StreamReader.EndOfStream' in async methods
 dotnet_diagnostic.CA2024.severity = silent
 
-# IDE0055: Fix formatting
-dotnet_diagnostic.IDE0055.severity = warning
+# Enable all Style analyzer rules
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+# IDE0058: Remove unnecessary expression value
+dotnet_diagnostic.IDE0058.severity = none
 
 # WFO1000: Property does not configure the code serialization for its property content
 dotnet_diagnostic.WFO1000.severity = none

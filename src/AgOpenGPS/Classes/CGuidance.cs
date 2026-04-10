@@ -116,7 +116,6 @@ namespace AgOpenGPS
         /// <param name="curPtB"></param>
         /// <param name="pivot"></param>
         /// <param name="steer"></param>
-        /// <param name="isValid"></param>
         public void StanleyGuidanceABLine(vec3 curPtA, vec3 curPtB, vec3 pivot, vec3 steer)
         {
             //get the pivot distance from currently active AB segment   ///////////  Pivot  ////////////
