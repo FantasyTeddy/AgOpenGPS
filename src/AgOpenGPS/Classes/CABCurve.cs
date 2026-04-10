@@ -756,7 +756,7 @@ namespace AgOpenGPS
                 }
                 else if (mf.isStanleyUsed)//Stanley
                 {
-                    mf.gyd.StanleyGuidanceCurve(pivot, steer, ref curList);
+                    mf.gyd.StanleyGuidanceCurve(steer, ref curList);
                 }
                 else// Pure Pursuit ------------------------------------------
                 {

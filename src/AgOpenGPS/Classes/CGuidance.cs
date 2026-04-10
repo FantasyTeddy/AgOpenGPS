@@ -198,10 +198,9 @@ namespace AgOpenGPS
         /// <summary>
         /// Find the steer angle for a curve list, curvature and integral
         /// </summary>
-        /// <param name="pivot">Pivot position vector</param>
         /// <param name="steer">Steer position vector</param>
         /// <param name="curList">the current list of guidance points</param>
-        public void StanleyGuidanceCurve(vec3 pivot, vec3 steer, ref List<vec3> curList)
+        public void StanleyGuidanceCurve(vec3 steer, ref List<vec3> curList)
         {            //calculate required steer angle
             //find the closest point roughly
             int cc = 0, dd;

@@ -93,7 +93,7 @@ namespace AgOpenGPS
             }
             else
             {
-                MoveBuildTramLine(0);
+                MoveBuildTramLine();
             }
 
             if (!ScreenHelper.IsOnScreen(Bounds))
@@ -131,7 +131,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.Save();
         }
 
-        private void MoveBuildTramLine(double Dist)
+        private void MoveBuildTramLine()
         {
             mf.tram.displayMode = 1;
 
@@ -160,7 +160,7 @@ namespace AgOpenGPS
             mf.tram.passes = (int)nudPasses.Value;
             Properties.Settings.Default.setTram_passes = mf.tram.passes;
             Properties.Settings.Default.Save();
-            MoveBuildTramLine(0);
+            MoveBuildTramLine();
         }
 
         private void nudPasses_Click(object sender, EventArgs e)
@@ -236,7 +236,7 @@ namespace AgOpenGPS
             mf.tram.tramBndOuterArr?.Clear();
             mf.tram.tramBndInnerArr?.Clear();
 
-            MoveBuildTramLine(0);
+            MoveBuildTramLine();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -268,7 +268,7 @@ namespace AgOpenGPS
                     break;
             }
 
-            MoveBuildTramLine(0);
+            MoveBuildTramLine();
         }
 
         private void tbarTramAlpha_Scroll(object sender, EventArgs e)

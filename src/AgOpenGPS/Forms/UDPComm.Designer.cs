@@ -484,7 +484,7 @@ namespace AgOpenGPS
         /// Called by the app-wide message filter to forward keystrokes to the existing mapping logic.
         /// We strip modifiers to keep your (char)keyData comparisons working, and ignore keys until UI is ready.
         /// </summary>
-        public bool HandleAppWideKey(Keys key, Keys mods)
+        public bool HandleAppWideKey(Keys key)
         {
             if (!_uiReady) return false; // ignore while Terms&Conditions or before FormGPS is ready
 

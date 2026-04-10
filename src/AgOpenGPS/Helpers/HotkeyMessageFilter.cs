@@ -26,10 +26,9 @@ namespace AgOpenGPS.Helpers
             if (IsTypingContext()) return false;
 
             Keys key = (Keys)m.WParam.ToInt32();
-            Keys mods = Control.ModifierKeys;
 
             // Let FormGPS do the handling
-            return _mf.HandleAppWideKey(key, mods);
+            return _mf.HandleAppWideKey(key);
         }
 
         private static bool IsTypingContext()

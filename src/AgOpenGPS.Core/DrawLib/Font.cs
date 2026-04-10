@@ -24,8 +24,9 @@ namespace AgOpenGPS.Core.DrawLib
         }
 
         public void DrawText3D(
-            double x1, double y1, string text, double camHeadingHint, double size = 1.0)
+            double x1, double y1, string text, double camHeadingHint)
         {
+            double size;
             double x = 0, y = 0;
 
             GL.PushMatrix();

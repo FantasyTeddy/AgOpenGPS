@@ -2003,7 +2003,7 @@ namespace AgOpenGPS
             GL.End();
         }
 
-        private void DrawLightBar(double width, double height, double offlineDistance)
+        private void DrawLightBar(double width, double offlineDistance)
         {
             const int spacing = 32;
             const int dotsPerSide = 8;
@@ -2111,7 +2111,7 @@ namespace AgOpenGPS
                 if (wide < 64) wide = 64;
 
                 // Draw the dot-rail LightBar using the same sizing
-                if (isLightbarOn) DrawLightBar(oglMain.Width, oglMain.Height, avgPivotDistance);
+                if (isLightbarOn) DrawLightBar(oglMain.Width, avgPivotDistance);
 
                 // Clamp display range for the main label
                 if (avgPivotDistance > 999) avgPivotDistance = 999;

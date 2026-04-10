@@ -66,7 +66,7 @@ namespace AgOpenGPS
         }
 
         // Upload snapshot to AgShare using boundary with holes
-        public async Task UploadAsync(FieldSnapshot snapshot, FormGPS gps)
+        public async Task UploadAsync(FieldSnapshot snapshot)
         {
             try
             {

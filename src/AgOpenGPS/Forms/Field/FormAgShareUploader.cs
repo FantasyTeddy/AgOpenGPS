@@ -414,7 +414,7 @@ namespace AgOpenGPS.Forms
             }
 
             // Use existing upload logic
-            await uploader.UploadAsync(snapshot, null);
+            await uploader.UploadAsync(snapshot);
         }
 
         private async Task<Guid?> FindFieldByNameOnCloud(string fieldName)
