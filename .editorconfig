@@ -6,6 +6,8 @@
 
 csharp_prefer_braces = when_multiline
 
+dotnet_style_prefer_collection_expression = false
+
 #### Naming styles ####
 
 # Symbol specifications
