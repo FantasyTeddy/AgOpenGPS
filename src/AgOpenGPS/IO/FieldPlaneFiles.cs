@@ -35,10 +35,9 @@ namespace AgOpenGPS.IO
                         }
 
                         string[] parts = next.Split(',');
-                        double lat, lon;
                         if (parts.Length >= 2 &&
-                            double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lat) &&
-                            double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out lon))
+                            double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double lat) &&
+                            double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double lon))
                         {
                             return new Wgs84(lat, lon);
                         }

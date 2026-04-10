@@ -18,9 +18,8 @@ namespace AgOpenGPS.IO
             {
                 string headerOrCount = reader.ReadLine();
                 string cntLine = reader.ReadLine();
-                int numPoints;
 
-                if (cntLine == null && headerOrCount != null && int.TryParse(headerOrCount.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out numPoints))
+                if (cntLine == null && headerOrCount != null && int.TryParse(headerOrCount.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int numPoints))
                 {
                     // single-line count
                 }

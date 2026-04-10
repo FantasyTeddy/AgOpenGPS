@@ -390,9 +390,8 @@ namespace AgOpenGPS
                 vec2[] vecs = new vec2[pts.Count];
                 for (int i = 0; i < pts.Count; i++)
                 {
-                    double lat, lon;
-                    if (!double.TryParse(pts[i].Attributes["C"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lat)) continue;
-                    if (!double.TryParse(pts[i].Attributes["D"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lon)) continue;
+                    if (!double.TryParse(pts[i].Attributes["C"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double lat)) continue;
+                    if (!double.TryParse(pts[i].Attributes["D"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double lon)) continue;
 
                     GeoCoord geo = appModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(lat, lon));
                     vecs[i] = new vec2(geo.Easting, geo.Northing);

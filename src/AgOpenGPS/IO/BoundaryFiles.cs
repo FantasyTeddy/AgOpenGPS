@@ -36,8 +36,7 @@ namespace AgOpenGPS.IO
                     // Some legacy wrote "True/False" twice; accept and consume up to two flags.
                     for (int pass = 0; pass < 2; pass++)
                     {
-                        bool flag;
-                        if (bool.TryParse(line.Trim(), out flag))
+                        if (bool.TryParse(line.Trim(), out bool flag))
                         {
                             b.isDriveThru = flag;
                             line = reader.ReadLine();
@@ -49,8 +48,7 @@ namespace AgOpenGPS.IO
 
                     if (line == null) break;
                     string countLine = line.Trim();
-                    int count;
-                    if (!int.TryParse(countLine, NumberStyles.Integer, CultureInfo.InvariantCulture, out count))
+                    if (!int.TryParse(countLine, NumberStyles.Integer, CultureInfo.InvariantCulture, out int count))
                     {
                         break; // malformed count -> stop parsing rings
                     }
@@ -62,10 +60,9 @@ namespace AgOpenGPS.IO
                         if (line == null) break;
                         string[] parts = line.Split(',');
                         if (parts.Length < 3) continue;
-                        double easting, northing, heading;
-                        if (double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out easting) &&
-                            double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out northing) &&
-                            double.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out heading))
+                        if (double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double easting) &&
+                            double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double northing) &&
+                            double.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double heading))
                         {
                             b.fenceLine.Add(new vec3(easting, northing, heading));
                         }

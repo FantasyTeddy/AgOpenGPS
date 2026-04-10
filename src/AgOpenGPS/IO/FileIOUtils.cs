@@ -17,9 +17,8 @@ namespace AgOpenGPS.IO
 
         public static int ParseIntSafe(string line)
         {
-            int v;
             if (!string.IsNullOrWhiteSpace(line) &&
-                int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out v))
+                int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int v))
             {
                 return v;
             }
@@ -34,10 +33,9 @@ namespace AgOpenGPS.IO
                 string[] words = (r.ReadLine() ?? string.Empty).Split(',');
                 if (words.Length < 3) continue;
 
-                double e, n, h;
-                if (double.TryParse(words[0], NumberStyles.Float, CultureInfo.InvariantCulture, out e) &&
-                    double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out n) &&
-                    double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out h))
+                if (double.TryParse(words[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double e) &&
+                    double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double n) &&
+                    double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double h))
                 {
                     list.Add(new vec3(e, n, h));
                 }

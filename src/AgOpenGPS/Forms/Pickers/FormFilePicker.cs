@@ -184,8 +184,7 @@ namespace AgOpenGPS
                     if (line == null) return 0;
                 }
 
-                int numPoints;
-                if (!int.TryParse(line, NumberStyles.Integer, CultureInfo.InvariantCulture, out numPoints))
+                if (!int.TryParse(line, NumberStyles.Integer, CultureInfo.InvariantCulture, out int numPoints))
                     return 0;
 
                 if (numPoints <= 0) return 0;
@@ -198,10 +197,9 @@ namespace AgOpenGPS
                     string[] words = line.Split(',');
                     if (words.Length < 3) return 0;
 
-                    double e, n, h;
-                    if (!double.TryParse(words[0], NumberStyles.Float, CultureInfo.InvariantCulture, out e)) return 0;
-                    if (!double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out n)) return 0;
-                    if (!double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out h)) return 0;
+                    if (!double.TryParse(words[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double e)) return 0;
+                    if (!double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double n)) return 0;
+                    if (!double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double h)) return 0;
 
                     pointList.Add(new vec3(e, n, h));
                 }

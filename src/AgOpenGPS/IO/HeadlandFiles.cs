@@ -28,8 +28,7 @@ namespace AgOpenGPS.IO
                     if (line == null) line = reader.ReadLine();
                     if (line == null) break;
 
-                    int count;
-                    if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out count))
+                    if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int count))
                         break;
 
                     List<vec3> hd = boundaries[k].hdLine;

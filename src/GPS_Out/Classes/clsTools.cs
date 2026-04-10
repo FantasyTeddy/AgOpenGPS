@@ -150,12 +150,10 @@ namespace GPS_Out
 
         public void LoadFormData(Form Frm)
         {
-            int Leftloc = 0;
-            int.TryParse(LoadAppProperty(Frm.Name + ".Left"), out Leftloc);
+            int.TryParse(LoadAppProperty(Frm.Name + ".Left"), out int Leftloc);
             Frm.Left = Leftloc;
 
-            int Toploc = 0;
-            int.TryParse(LoadAppProperty(Frm.Name + ".Top"), out Toploc);
+            int.TryParse(LoadAppProperty(Frm.Name + ".Top"), out int Toploc);
             Frm.Top = Toploc;
 
             IsOnScreen(Frm, true);

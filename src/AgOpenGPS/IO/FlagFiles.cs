@@ -35,8 +35,7 @@ namespace AgOpenGPS.IO
             {
                 reader.ReadLine(); // header
                 string line = reader.ReadLine();
-                int count;
-                if (!int.TryParse(line, out count)) return result;
+                if (!int.TryParse(line, out int count)) return result;
 
                 for (int i = 0; i < count; i++)
                 {

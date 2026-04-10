@@ -25,8 +25,7 @@ namespace AgOpenGPS.IO
                     string line = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(line)) continue;
 
-                    int verts;
-                    if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out verts))
+                    if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int verts))
                         continue;
 
                     List<vec3> patch = FileIoUtils.ReadVec3Block(reader, verts);

@@ -187,8 +187,7 @@ namespace AgOpenGPS
         public void FileLoadHeadLines()
         {
             string dir = GetFieldDir();
-            List<CHeadPath> headlines;
-            if (!TryLoad("Headlines.txt", LoadCriticality.Optional, () => HeadlinesFiles.Load(dir), out headlines))
+            if (!TryLoad("Headlines.txt", LoadCriticality.Optional, () => HeadlinesFiles.Load(dir), out List<CHeadPath> headlines))
             {
                 headlines = new List<CHeadPath>();
             }
@@ -209,8 +208,7 @@ namespace AgOpenGPS
         {
             string dir = GetFieldDir();
 
-            List<CTrk> tracks;
-            if (!TryLoad("TrackLines.txt", LoadCriticality.Optional, () => TrackFiles.Load(dir), out tracks))
+            if (!TryLoad("TrackLines.txt", LoadCriticality.Optional, () => TrackFiles.Load(dir), out List<CTrk> tracks))
             {
                 tracks = new List<CTrk>();
             }
@@ -331,8 +329,7 @@ namespace AgOpenGPS
         {
             string dir = GetFieldDir();
 
-            List<CRecPathPt> rec;
-            if (!TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out rec))
+            if (!TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out List<CRecPathPt> rec))
             {
                 rec = new List<CRecPathPt>();
             }
