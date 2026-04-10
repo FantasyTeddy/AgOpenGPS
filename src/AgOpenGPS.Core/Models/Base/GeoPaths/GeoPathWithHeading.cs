@@ -15,10 +15,7 @@ namespace AgOpenGPS.Core.Models
 
         public int Count => _path.Count;
 
-        public GeoCoord this[int index]
-        {
-            get { return _path[index]; }
-        }
+        public GeoCoord this[int index] => _path[index];
 
         public void Add(GeoCoord geoCoord, GeoDir heading)
         {

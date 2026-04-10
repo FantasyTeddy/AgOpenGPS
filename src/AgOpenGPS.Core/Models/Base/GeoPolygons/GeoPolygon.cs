@@ -25,10 +25,7 @@ namespace AgOpenGPS.Core.Models
 
         public override int Count => _coords.Count;
 
-        public override GeoCoord this[int index]
-        {
-            get { return _coords[index]; }
-        }
+        public override GeoCoord this[int index] => _coords[index];
 
         public GeoCoord Last => this[Count - 1];
 
