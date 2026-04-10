@@ -20,7 +20,7 @@ namespace AgOpenGPS.Helpers
         public bool PreFilterMessage(ref Message m)
         {
             if (!Enabled) return false;
-            if (m.Msg != WM_KEYDOWN && m.Msg != WM_SYSKEYDOWN) return false;
+            if (m.Msg is not WM_KEYDOWN and not WM_SYSKEYDOWN) return false;
 
             // if user in typing in textbox, ignore hotkey
             if (IsTypingContext()) return false;

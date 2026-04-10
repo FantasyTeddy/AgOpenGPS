@@ -144,7 +144,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
             foreach (CTrk track in trk.gArr)
             {
-                if (track.mode != TrackMode.AB && track.mode != TrackMode.Curve) continue;
+                if (track.mode is not TrackMode.AB and not TrackMode.Curve) continue;
 
                 switch (version)
                 {

@@ -265,7 +265,7 @@ namespace AgOpenGPS
                     continue;
                 }
                 check = smList[i - 1].heading - smList[i].heading;
-                if (check > Math.PI || check < -Math.PI)
+                if (check is > Math.PI or < -Math.PI)
                 {
                     if (check > 0) check -= glm.twoPI;
                     else check += glm.twoPI;
@@ -313,7 +313,7 @@ namespace AgOpenGPS
                 double heading2 = Math.Atan2(smList[i - 1].easting - smList[i].easting, smList[i - 1].northing - smList[i].northing);
 
                 check = heading - heading2;
-                if (check > Math.PI || check < -Math.PI)
+                if (check is > Math.PI or < -Math.PI)
                 {
                     if (check > 0) check -= glm.twoPI;
                     else check += glm.twoPI;
@@ -350,7 +350,7 @@ namespace AgOpenGPS
                     continue;
                 }
                 check = points[i - 1].heading - points[i].heading;
-                if (check > Math.PI || check < -Math.PI)
+                if (check is > Math.PI or < -Math.PI)
                 {
                     if (check > 0) check -= glm.twoPI;
                     else check += glm.twoPI;

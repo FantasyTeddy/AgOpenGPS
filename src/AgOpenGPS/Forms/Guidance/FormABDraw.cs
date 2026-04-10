@@ -748,7 +748,7 @@ namespace AgOpenGPS
 
                 }
 
-                else if (gTemp[i].mode == TrackMode.Curve || gTemp[i].mode == TrackMode.bndCurve)
+                else if (gTemp[i].mode is TrackMode.Curve or TrackMode.bndCurve)
                 {
                     GL.Enable(EnableCap.LineStipple);
                     GL.LineWidth(5);

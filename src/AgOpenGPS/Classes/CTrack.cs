@@ -60,7 +60,7 @@ namespace AgOpenGPS
                 else
                 {
                     double diff = Math.PI - Math.Abs(Math.Abs(pivot.heading - gArr[i].heading) - Math.PI);
-                    if (diff < 1 || diff > 2.14)
+                    if (diff is < 1 or > 2.14)
                         isAlignedArr[i] = true;
                     else
                         isAlignedArr[i] = false;

@@ -234,7 +234,7 @@ namespace AgIO
 
                             case 2: //Source Address (7F)
                                 {
-                                    if (a < 128 && a > 120)
+                                    if (a is < 128 and > 120)
                                         ByteList[ByteList[21]++] = a;
                                     else ByteList[21] = 0;
                                     break;
@@ -445,7 +445,7 @@ namespace AgIO
 
                             case 2: //Source Address (7F)
                                 {
-                                    if (a < 128 && a > 120)
+                                    if (a is < 128 and > 120)
                                         ByteList[ByteList[21]++] = a;
                                     else ByteList[21] = 0;
                                     break;
@@ -663,7 +663,7 @@ namespace AgIO
 
                             case 2: //Source Address (7F)
                                 {
-                                    if (a < 128 && a > 120)
+                                    if (a is < 128 and > 120)
                                         ByteList[ByteList[21]++] = a;
                                     else ByteList[21] = 0;
                                     break;

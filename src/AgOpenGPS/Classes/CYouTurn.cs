@@ -258,7 +258,7 @@ namespace AgOpenGPS
                 case 0: //find the crossing points
                     if (!FindCurveTurnPoint(mf.curve, false))
                     {
-                        if (track.mode == TrackMode.waterPivot || track.mode == TrackMode.bndCurve)
+                        if (track.mode is TrackMode.waterPivot or TrackMode.bndCurve)
                         {
                             youTurnPhase = 11;//ignore
                         }
@@ -487,7 +487,7 @@ namespace AgOpenGPS
                     //Create first semicircle
                     if (!FindCurveTurnPoint(mf.curve, false))
                     {
-                        if (track.mode == TrackMode.waterPivot || track.mode == TrackMode.bndCurve)
+                        if (track.mode is TrackMode.waterPivot or TrackMode.bndCurve)
                         {
                             youTurnPhase = 11;//ignore
                         }
@@ -603,7 +603,7 @@ namespace AgOpenGPS
                     //going with or against boundary?
                     bool isTurnLineSameWay = true;
                     double headingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[^1].heading);
-                    if (headingDifference > glm.PIBy2 && headingDifference < 3 * glm.PIBy2) isTurnLineSameWay = false;
+                    if (headingDifference is > glm.PIBy2 and < (3 * glm.PIBy2)) isTurnLineSameWay = false;
 
                     if (!FindCurveOutTurnPoint(mf.curve, ref nextCurve, startOfTurnPt, isTurnLineSameWay))
                     {
@@ -706,7 +706,7 @@ namespace AgOpenGPS
                     //Find if the turn goes same way as turnline heading
                     bool isFirstTurnLineSameWay = true;
                     double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[^1].heading);
-                    if (firstHeadingDifference > glm.PIBy2 && firstHeadingDifference < 3 * glm.PIBy2) isFirstTurnLineSameWay = false;
+                    if (firstHeadingDifference is > glm.PIBy2 and < (3 * glm.PIBy2)) isFirstTurnLineSameWay = false;
 
                     //finds out start and goal point along the tunline
                     FindInnerTurnPoints(ytList[cnt1 - 1], ytList[0].heading, inClosestTurnPt, isFirstTurnLineSameWay);
@@ -1058,7 +1058,7 @@ namespace AgOpenGPS
                     //going with or against boundary?
                     bool isTurnLineSameWay = true;
                     double headingDifference = Math.Abs(startOfTurnPt.closePt.heading - ytList[^1].heading);
-                    if (headingDifference > glm.PIBy2 && headingDifference < 3 * glm.PIBy2) isTurnLineSameWay = false;
+                    if (headingDifference is > glm.PIBy2 and < (3 * glm.PIBy2)) isTurnLineSameWay = false;
 
                     if (!FindABOutTurnPoint(mf.ABLine, ref nextCurve, inClosestTurnPt, isTurnLineSameWay))
                     {
@@ -1130,7 +1130,7 @@ namespace AgOpenGPS
                     bool isFirstTurnLineSameWay = true;
                     double firstHeadingDifference = Math.Abs(inClosestTurnPt.turnLineHeading - ytList[^1].heading);
 
-                    if (firstHeadingDifference > glm.PIBy2 && firstHeadingDifference < 3 * glm.PIBy2) isFirstTurnLineSameWay = false;
+                    if (firstHeadingDifference is > glm.PIBy2 and < (3 * glm.PIBy2)) isFirstTurnLineSameWay = false;
 
                     //finds out start and goal point along the tunline
                     FindInnerTurnPoints(ytList[cnt1 - 1], ytList[0].heading, inClosestTurnPt, isFirstTurnLineSameWay);
@@ -1997,7 +1997,7 @@ namespace AgOpenGPS
             if (mf.trk.idx < 0 || mf.trk.gArr.Count < mf.trk.idx) return true;
             CTrk track = mf.trk.gArr[mf.trk.idx];
 
-            bool loop = track.mode == TrackMode.bndCurve || track.mode == TrackMode.waterPivot;
+            bool loop = track.mode is TrackMode.bndCurve or TrackMode.waterPivot;
 
             for (j = thisCurve.currentLocationIndex; j > 0 && j < thisCurve.curList.Count; j += Count)
             {
@@ -2274,11 +2274,11 @@ namespace AgOpenGPS
             double s, t;
             s = ((-s1y * (p0x - p2x)) + (s1x * (p0y - p2y))) / ((-s2x * s1y) + (s1x * s2y));
 
-            if (s >= 0 && s <= 1)
+            if (s is >= 0 and <= 1)
             {
                 //check oher side
                 t = ((s2x * (p0y - p2y)) - (s2y * (p0x - p2x))) / ((-s2x * s1y) + (s1x * s2y));
-                if (t >= 0 && t <= 1)
+                if (t is >= 0 and <= 1)
                 {
                     // Collision detected
                     iEast = p0x + (t * s1x);

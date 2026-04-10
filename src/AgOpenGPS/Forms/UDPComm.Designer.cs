@@ -170,7 +170,7 @@ namespace AgOpenGPS
                         {
                             if (data.Length != 14)
                                 break;
-                            if (ahrs.imuRoll > 25 || ahrs.imuRoll < -25) ahrs.imuRoll = 0;
+                            if (ahrs.imuRoll is > 25 or < -25) ahrs.imuRoll = 0;
                             //Heading
                             ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
                             ahrs.imuHeading *= 0.1;
@@ -718,7 +718,7 @@ namespace AgOpenGPS
             // speed up
             if (keyData == Keys.Up)
             {
-                if (sim.stepDistance < 0.4 && sim.stepDistance > -0.36) sim.stepDistance += 0.01;
+                if (sim.stepDistance is < 0.4 and > -0.36) sim.stepDistance += 0.01;
                 else sim.stepDistance += 0.04;
                 if (sim.stepDistance > 4) sim.stepDistance = 4;
                 return true;
@@ -727,7 +727,7 @@ namespace AgOpenGPS
             // slow down
             if (keyData == Keys.Down)
             {
-                if (sim.stepDistance < 0.2 && sim.stepDistance > -0.04) sim.stepDistance -= 0.01;
+                if (sim.stepDistance is < 0.2 and > -0.04) sim.stepDistance -= 0.01;
                 else sim.stepDistance -= 0.04;
                 if (sim.stepDistance < -0.35) sim.stepDistance = -0.35;
                 return true;

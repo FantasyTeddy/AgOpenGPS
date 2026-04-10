@@ -554,11 +554,11 @@ namespace AgOpenGPS
             double s, t;
             s = ((-s1y * (p0x - p2x)) + (s1x * (p0y - p2y))) / ((-s2x * s1y) + (s1x * s2y));
 
-            if (s >= 0 && s <= 1)
+            if (s is >= 0 and <= 1)
             {
                 //check oher side
                 t = ((s2x * (p0y - p2y)) - (s2y * (p0x - p2x))) / ((-s2x * s1y) + (s1x * s2y));
-                if (t >= 0 && t <= 1)
+                if (t is >= 0 and <= 1)
                 {
                     // Collision detected
                     return true;
@@ -686,7 +686,7 @@ namespace AgOpenGPS
                     GL.Disable(EnableCap.LineStipple);
                 }
 
-                else if (gTemp[i].mode == TrackMode.Curve || gTemp[i].mode == TrackMode.bndCurve)
+                else if (gTemp[i].mode is TrackMode.Curve or TrackMode.bndCurve)
                 {
                     GL.Enable(EnableCap.LineStipple);
                     GL.LineWidth(5);

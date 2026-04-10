@@ -117,7 +117,7 @@ namespace AgOpenGPS
                 goalPointDistance += LoekiAheadHold;
             }
 
-            else if (xTE > 0.1 && xTE < 0.4)
+            else if (xTE is > 0.1 and < 0.4)
             {
                 xTE -= 0.1;
 

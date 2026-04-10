@@ -68,7 +68,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
                         outerBuilt = true;
                     }
                 }
-                else if (type == "3" || type == "4" || type == "6")
+                else if (type is "3" or "4" or "6")
                 {
                     if (node.SelectSingleNode("LSG[@A='1']") is XmlNode lsg)
                     {

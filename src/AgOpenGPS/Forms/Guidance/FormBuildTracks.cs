@@ -420,7 +420,7 @@ namespace AgOpenGPS
 
         private void btnMoveUp_Click(object sender, EventArgs e)
         {
-            if (selectedItem == -1 || selectedItem == 0)
+            if (selectedItem is -1 or 0)
                 return;
 
             mf.trk.gArr.Reverse(selectedItem - 1, 2);

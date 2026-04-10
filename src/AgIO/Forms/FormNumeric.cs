@@ -158,7 +158,7 @@ namespace AgIO
 
         private void BtnDistanceUp_MouseDown(object sender, MouseEventArgs e)
         {
-            if (tboxNumber.Text == "" || tboxNumber.Text == "-" || tboxNumber.Text == "Error") tboxNumber.Text = "0";
+            if (tboxNumber.Text is "" or "-" or "Error") tboxNumber.Text = "0";
             double tryNumber = double.Parse(tboxNumber.Text, CultureInfo.CurrentCulture);
 
             tryNumber++;
@@ -169,7 +169,7 @@ namespace AgIO
 
         private void BtnDistanceDn_MouseDown(object sender, MouseEventArgs e)
         {
-            if (tboxNumber.Text == "" || tboxNumber.Text == "-" || tboxNumber.Text == "Error") tboxNumber.Text = "0";
+            if (tboxNumber.Text is "" or "-" or "Error") tboxNumber.Text = "0";
             double tryNumber = double.Parse(tboxNumber.Text, CultureInfo.CurrentCulture);
 
             tryNumber--;

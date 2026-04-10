@@ -134,13 +134,13 @@ namespace AgOpenGPS
                                 line = reader.ReadLine();
 
                                 //Check for older boundary files, then above line string is num of points
-                                if (line == "True" || line == "False")
+                                if (line is "True" or "False")
                                 {
                                     line = reader.ReadLine(); //number of points
                                 }
 
                                 //Check for latest boundary files, then above line string is num of points
-                                if (line == "True" || line == "False")
+                                if (line is "True" or "False")
                                 {
                                     line = reader.ReadLine(); //number of points
                                 }

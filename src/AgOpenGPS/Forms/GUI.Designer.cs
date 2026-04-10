@@ -1155,35 +1155,35 @@ namespace AgOpenGPS
 
             heading = glm.toDegrees(heading);
 
-            if (heading > 337.5 || heading < 22.5)
+            if (heading is > 337.5 or < 22.5)
             {
                 return " " + gStr.gsNorth + " ";
             }
-            if (heading > 22.5 && heading < 67.5)
+            if (heading is > 22.5 and < 67.5)
             {
                 return " " + gStr.gsN_East + " ";
             }
-            if (heading > 67.5 && heading < 111.5)
+            if (heading is > 67.5 and < 111.5)
             {
                 return " " + gStr.gsEast + " ";
             }
-            if (heading > 111.5 && heading < 157.5)
+            if (heading is > 111.5 and < 157.5)
             {
                 return " " + gStr.gsS_East + " ";
             }
-            if (heading > 157.5 && heading < 202.5)
+            if (heading is > 157.5 and < 202.5)
             {
                 return " " + gStr.gsSouth + " ";
             }
-            if (heading > 202.5 && heading < 247.5)
+            if (heading is > 202.5 and < 247.5)
             {
                 return " " + gStr.gsS_West + " ";
             }
-            if (heading > 247.5 && heading < 292.5)
+            if (heading is > 247.5 and < 292.5)
             {
                 return " " + gStr.gsWest + " ";
             }
-            if (heading > 292.5 && heading < 337.5)
+            if (heading is > 292.5 and < 337.5)
             {
                 return " " + gStr.gsN_West + " ";
             }
@@ -1319,9 +1319,9 @@ namespace AgOpenGPS
                     }
 
                     //pan and hide menus
-                    if (point.X > 30 && point.X < 60)
+                    if (point.X is > 30 and < 60)
                     {
-                        if (point.Y > 50 && point.Y < 80)
+                        if (point.Y is > 50 and < 80)
                         {
                             isPanFormVisible = true;
                             Form f = Application.OpenForms["FormPan"];
@@ -1372,14 +1372,14 @@ namespace AgOpenGPS
                 if (point.X > oglMain.Width - 80)
                 {
                     // --
-                    if (point.Y < 260 && point.Y > 170)
+                    if (point.Y is < 260 and > 170)
                     {
                         camera.ZoomOut();
                         SetZoom();
                         return;
                     }
                     //++
-                    if (point.Y < 120 && point.Y > 30)
+                    if (point.Y is < 120 and > 30)
                     {
                         camera.ZoomIn();
                         SetZoom();

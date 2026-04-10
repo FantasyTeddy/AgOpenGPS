@@ -158,7 +158,7 @@ namespace AgOpenGPS.Core.Streamers
         public bool PeekReadBool(out bool boolValue)
         {
             int asciiCode = Peek();
-            if ('A' <= asciiCode && asciiCode <= 'Z')
+            if (asciiCode is >= 'A' and <= 'Z')
             {
                 boolValue = bool.Parse(ReadLine());
                 return true;

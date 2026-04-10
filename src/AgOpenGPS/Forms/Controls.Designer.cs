@@ -2151,7 +2151,7 @@ namespace AgOpenGPS
         }
         private void btnSpeedDn_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (sim.stepDistance < 0.2 && sim.stepDistance > -0.51) sim.stepDistance -= 0.02;
+            if (sim.stepDistance is < 0.2 and > -0.51) sim.stepDistance -= 0.02;
             else sim.stepDistance *= 0.8;
             if (sim.stepDistance < -0.5) sim.stepDistance = -0.5;
         }

@@ -238,7 +238,7 @@ namespace AgOpenGPS
                 howManyPathsAway = 0;
             }
 
-            if (howManyPathsAway >= -1 && howManyPathsAway <= 1)
+            if (howManyPathsAway is >= -1 and <= 1)
             {
                 ctList.Clear();
 

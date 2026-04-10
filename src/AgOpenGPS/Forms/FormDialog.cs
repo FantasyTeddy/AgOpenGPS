@@ -75,7 +75,7 @@ namespace AgOpenGPS.Forms
         public static void Show(string title, string message, DialogSeverity? severity = null)
         {
             // Log to event viewer before showing dialog
-            if (severity == DialogSeverity.Error || severity == DialogSeverity.Warning)
+            if (severity is DialogSeverity.Error or DialogSeverity.Warning)
             {
                 Log.EventWriter($"Dialog: {title} | {message}");
             }

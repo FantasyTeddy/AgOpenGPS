@@ -63,7 +63,7 @@ namespace AgOpenGPS
 
             GL.Color4(0, 0, 0, alpha);
 
-            if (mf.tram.displayMode == 1 || mf.tram.displayMode == 2)
+            if (mf.tram.displayMode is 1 or 2)
             {
                 if (tramList.Count > 0)
                 {
@@ -77,7 +77,7 @@ namespace AgOpenGPS
                 }
             }
 
-            if (mf.tram.displayMode == 1 || mf.tram.displayMode == 3)
+            if (mf.tram.displayMode is 1 or 3)
             {
                 if (tramBndOuterArr.Count > 0)
                 {
@@ -95,7 +95,7 @@ namespace AgOpenGPS
 
             GL.Color4(0.930f, 0.72f, 0.73530f, alpha);
 
-            if (mf.tram.displayMode == 1 || mf.tram.displayMode == 2)
+            if (mf.tram.displayMode is 1 or 2)
             {
                 if (tramList.Count > 0)
                 {
@@ -109,7 +109,7 @@ namespace AgOpenGPS
                 }
             }
 
-            if (mf.tram.displayMode == 1 || mf.tram.displayMode == 3)
+            if (mf.tram.displayMode is 1 or 3)
             {
                 if (tramBndOuterArr.Count > 0)
                 {

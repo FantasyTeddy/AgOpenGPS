@@ -59,7 +59,7 @@ namespace AgDiag.Protocol
 
             public bool IsSectionOn(int section)
             {
-                if (section < 1 || section > 8) throw new ArgumentOutOfRangeException(nameof(section));
+                if (section is < 1 or > 8) throw new ArgumentOutOfRangeException(nameof(section));
 
                 return IsBitOn(sc1to8, section - 1);
             }

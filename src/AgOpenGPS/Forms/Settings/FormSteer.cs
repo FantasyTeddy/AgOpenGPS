@@ -478,7 +478,7 @@ namespace AgOpenGPS
 
             if (mf.mc.sensorData != -1)
             {
-                if (mf.mc.sensorData < 0 || mf.mc.sensorData > 255) mf.mc.sensorData = 0;
+                if (mf.mc.sensorData is < 0 or > 255) mf.mc.sensorData = 0;
                 CExtensionMethods.SetProgressNoAnimation(pbarSensor, mf.mc.sensorData);
                 if (nudMaxCounts.Visible == false)
                     lblPercentFS.Text = ((int)(mf.mc.sensorData * 0.3921568627)).ToString() + "%";
@@ -499,8 +499,8 @@ namespace AgOpenGPS
 
             if (sender is CheckBox checkbox)
             {
-                if (checkbox.Name == "cboxEncoder" || checkbox.Name == "cboxPressureSensor"
-                    || checkbox.Name == "cboxCurrentSensor")
+                if (checkbox.Name is "cboxEncoder" or "cboxPressureSensor"
+                    or "cboxCurrentSensor")
                 {
                     if (!checkbox.Checked)
                     {

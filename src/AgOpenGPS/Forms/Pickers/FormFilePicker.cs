@@ -171,12 +171,12 @@ namespace AgOpenGPS
                 line = reader.ReadLine();
                 if (line == null) return 0;
 
-                if (line == "True" || line == "False")
+                if (line is "True" or "False")
                 {
                     line = reader.ReadLine();
                     if (line == null) return 0;
                 }
-                if (line == "True" || line == "False")
+                if (line is "True" or "False")
                 {
                     line = reader.ReadLine();
                     if (line == null) return 0;

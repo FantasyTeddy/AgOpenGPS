@@ -193,7 +193,7 @@ namespace AgIO
                     if (isGPSSentencesOn) pandaSentence = nextNMEASentence;
                 }
 
-                else if (words[0] == "$GPHDT" || words[0] == "$GNHDT")
+                else if (words[0] is "$GPHDT" or "$GNHDT")
                 {
                     ParseHDT();
                     if (isGPSSentencesOn) hdtSentence = nextNMEASentence;
@@ -205,7 +205,7 @@ namespace AgIO
                     if (isGPSSentencesOn) avrSentence = nextNMEASentence;
                 }
 
-                else if (words[0] == "$GNTRA" || words[0] == "$GPTRA")
+                else if (words[0] is "$GNTRA" or "$GPTRA")
                 {
                     ParseTRA();
                 }

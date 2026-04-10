@@ -150,7 +150,7 @@ namespace AgOpenGPS
         {
             double lenSq = (b - a).GetLengthSquared();
             double proj = Dot(p - a, b - a) / lenSq;
-            return proj >= 0 && proj <= 1;
+            return proj is >= 0 and <= 1;
         }
 
         public static vec2 ProjectOnSegment(vec2 a, vec2 b, vec2 p, out double t)

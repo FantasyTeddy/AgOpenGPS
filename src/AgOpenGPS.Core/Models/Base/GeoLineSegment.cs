@@ -34,10 +34,10 @@
                 GeoDelta aToOtherADelta = new GeoDelta(CoordA, otherSegment.CoordA);
 
                 double s = aToOtherADelta.CrossProductZ(delta) / denominator;
-                if (-epsilon <= s && s <= 1.0 + epsilon)
+                if (s is >= -epsilon and <= (1.0 + epsilon))
                 {
                     double t = aToOtherADelta.CrossProductZ(otherDelta) / denominator;
-                    if (-epsilon <= t && t <= 1.0 + epsilon)
+                    if (t is >= -epsilon and <= (1.0 + epsilon))
                     {
                         intersectionPoint = CoordA + (t * delta);
                     }
