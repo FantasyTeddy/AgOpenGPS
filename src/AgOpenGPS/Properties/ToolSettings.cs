@@ -8,10 +8,7 @@ namespace AgOpenGPS.Properties
     {
         private static ToolSettings settings_ = new ToolSettings();
 
-        public static ToolSettings Default
-        {
-            get { return settings_; }
-        }
+        public static ToolSettings Default => settings_;
 
         // Tool dimensions
         public double setVehicle_toolWidth = 4.0;

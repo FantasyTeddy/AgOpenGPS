@@ -1498,10 +1498,10 @@ namespace AgOpenGPS
 
         #region Properties // ---------------------------------------------------------------------
 
-        public string Latitude { get { return Convert.ToString(Math.Round(AppModel.CurrentLatLon.Latitude, 7)); } }
-        public string Longitude { get { return Convert.ToString(Math.Round(AppModel.CurrentLatLon.Longitude, 7)); } }
-        public string SatsTracked { get { return Convert.ToString(pn.satellitesTracked); } }
-        public string HDOP { get { return Convert.ToString(pn.hdop); } }
+        public string Latitude => Convert.ToString(Math.Round(AppModel.CurrentLatLon.Latitude, 7));
+        public string Longitude => Convert.ToString(Math.Round(AppModel.CurrentLatLon.Longitude, 7));
+        public string SatsTracked => Convert.ToString(pn.satellitesTracked);
+        public string HDOP => Convert.ToString(pn.hdop);
         public string Heading => AppModel.FixHeading.HeadingString();
         public string GPSHeading => new GeoDir(gpsHeading).HeadingString();
         public string FixQuality
@@ -1538,8 +1538,8 @@ namespace AgOpenGPS
                 else return "-";
             }
         }
-        public string SetSteerAngle { get { return (guidanceLineSteerAngle * 0.01).ToString("N1"); } }
-        public string ActualSteerAngle { get { return (mc.actualSteerAngleDegrees).ToString("N1"); } }
+        public string SetSteerAngle => (guidanceLineSteerAngle * 0.01).ToString("N1");
+        public string ActualSteerAngle => (mc.actualSteerAngleDegrees).ToString("N1");
 
         //Metric and Imperial Properties
         public string SpeedMPH
@@ -1563,8 +1563,8 @@ namespace AgOpenGPS
             }
         }
 
-        public string Altitude { get { return Convert.ToString(Math.Round(pn.altitude, 2)); } }
-        public string AltitudeFeet { get { return Convert.ToString((Math.Round((pn.altitude * 3.28084), 1))); } }
+        public string Altitude => Convert.ToString(Math.Round(pn.altitude, 2));
+        public string AltitudeFeet => Convert.ToString((Math.Round((pn.altitude * 3.28084), 1)));
         public string DistPivotM
         {
             get

@@ -9,13 +9,7 @@ namespace AgIO.Properties
     {
         private static Settings settings_ = new Settings();
 
-        public static Settings Default
-        {
-            get
-            {
-                return settings_;
-            }
-        }
+        public static Settings Default => settings_;
 
         public string setPort_portNameGPS = "GPS**";
         public int setPort_baudRateGPS = 9600;

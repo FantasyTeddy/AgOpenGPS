@@ -27,8 +27,7 @@ namespace GPS_Out.PGNs
         {
             mf = CalledFrom;
         }
-        public string Sentence
-        { get { return cSentence; } }
+        public string Sentence => cSentence;
 
         public string Build()
         {

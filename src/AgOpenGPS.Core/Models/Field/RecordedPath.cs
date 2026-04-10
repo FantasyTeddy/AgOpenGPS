@@ -7,10 +7,7 @@ namespace AgOpenGPS.Core.Models
     {
         public List<RecordedPoint> PointList = new List<RecordedPoint>();
 
-        public override int Count
-        {
-            get { return PointList.Count; }
-        }
+        public override int Count => PointList.Count;
 
         public override GeoCoord this[int index]
         {

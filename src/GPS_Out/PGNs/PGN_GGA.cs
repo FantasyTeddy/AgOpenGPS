@@ -39,8 +39,7 @@ namespace GPS_Out
             mf = CalledFrom;
         }
 
-        public string Sentence
-        { get { return cSentence; } }
+        public string Sentence => cSentence;
 
         public string Build()
         {
