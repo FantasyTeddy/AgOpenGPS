@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.IO.Ports;
 using System.Collections.Generic;
-using System.Linq;
 using AgLibrary.Logging;
 
 // Declare the delegate prototype to send data back to the form

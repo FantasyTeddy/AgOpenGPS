@@ -1,6 +1,5 @@
 ﻿using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.ViewModels;
-using System.IO;
 
 namespace AgOpenGPS.Core.Presenters
 {

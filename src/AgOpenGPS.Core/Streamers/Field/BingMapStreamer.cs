@@ -1,5 +1,4 @@
 ﻿using AgLibrary.Logging;
-using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.Models;
 using System;
 using System.Drawing;

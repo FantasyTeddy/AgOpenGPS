@@ -2,7 +2,6 @@ using AgLibrary.Settings;
 using AgLibrary.Logging;
 using System.Drawing;
 using System.IO;
-using AgOpenGPS.Core.Models;
 
 namespace AgOpenGPS.Properties
 {

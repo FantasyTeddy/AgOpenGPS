@@ -1,5 +1,4 @@
 ﻿using AgLibrary.Logging;
-using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Streamers;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;

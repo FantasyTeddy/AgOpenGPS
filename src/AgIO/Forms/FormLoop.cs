@@ -1,11 +1,9 @@
 ﻿using AgIO.Properties;
 using AgLibrary.Logging;
-using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;

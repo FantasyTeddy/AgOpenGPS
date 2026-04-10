@@ -1,5 +1,4 @@
 using AgLibrary.Logging;
-using AgOpenGPS.Classes;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms.Field;
@@ -10,7 +9,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-using System.Runtime.CompilerServices;
 
 namespace AgOpenGPS
 {

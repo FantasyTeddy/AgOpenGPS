@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using AgOpenGPS.Properties;
-using System.Globalization;
-using System.IO;
-using System.Media;
 using System.Linq;
 
 namespace AgOpenGPS

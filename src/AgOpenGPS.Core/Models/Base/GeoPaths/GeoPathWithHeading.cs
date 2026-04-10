@@ -1,6 +1,4 @@
-﻿using AgOpenGPS.Core.Models;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AgOpenGPS.Core.Models
 {

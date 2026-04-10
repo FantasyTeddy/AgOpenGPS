@@ -1,6 +1,4 @@
-﻿using AgOpenGPS.Core.Translations;
-
-namespace AgOpenGPS
+﻿namespace AgOpenGPS
 {
     public class CModuleComm
     {

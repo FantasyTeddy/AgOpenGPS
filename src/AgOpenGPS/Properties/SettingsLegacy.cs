@@ -1,5 +1,3 @@
-using AgLibrary.Settings;
-using AgOpenGPS.Core.Models;
 using System.Drawing;
 
 namespace AgOpenGPS.Properties

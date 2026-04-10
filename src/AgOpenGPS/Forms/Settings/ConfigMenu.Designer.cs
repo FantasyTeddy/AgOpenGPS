@@ -1,8 +1,5 @@
-﻿using AgOpenGPS.Core.Translations;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace AgOpenGPS

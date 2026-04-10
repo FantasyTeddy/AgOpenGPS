@@ -1,7 +1,6 @@
 //Please, if you use this, share the improvements
 
 using AgLibrary.Logging;
-using AgOpenGPS.Core.AgShare;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;

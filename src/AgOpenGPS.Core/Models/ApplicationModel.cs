@@ -1,6 +1,5 @@
 ﻿using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.Models;
-using AgOpenGPS.Core.Streamers;
 using System.IO;
 
 namespace AgOpenGPS.Core

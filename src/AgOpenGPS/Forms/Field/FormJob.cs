@@ -4,7 +4,6 @@ using AgOpenGPS.Core.Streamers;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;
 using AgOpenGPS.Forms.Field;
-using AgOpenGPS.Helpers;
 using System;
 using System.IO;
 using System.Threading.Tasks;

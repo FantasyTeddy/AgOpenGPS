@@ -1,7 +1,6 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using AgOpenGPS.Classes;
 using AgOpenGPS.Controls;
 
 namespace AgOpenGPS.Forms

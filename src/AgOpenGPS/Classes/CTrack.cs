@@ -1,11 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 
 namespace AgOpenGPS
 {

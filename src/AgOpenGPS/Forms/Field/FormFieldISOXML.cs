@@ -5,7 +5,6 @@ using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;
 using AgOpenGPS.Helpers;
-using AgOpenGPS.Protocols.ISOBUS;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

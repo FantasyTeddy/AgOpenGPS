@@ -1,5 +1,4 @@
 ﻿using AgLibrary.Logging;
-using AgOpenGPS.Core.Drawing;
 using AgOpenGPS.Core.DrawLib;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;

@@ -1,9 +1,7 @@
 ﻿using AgLibrary.Logging;
-using AgOpenGPS;
 using AgOpenGPS.Core.Drawing;
 using AgOpenGPS.Core.DrawLib;
 using AgOpenGPS.Core.Models;
-using AgOpenGPS.Properties;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using System;

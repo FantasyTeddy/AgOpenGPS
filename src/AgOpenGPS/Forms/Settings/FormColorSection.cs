@@ -2,7 +2,6 @@
 
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
-using AgOpenGPS.Properties;
 using System;
 using System.Drawing;
 using System.Globalization;

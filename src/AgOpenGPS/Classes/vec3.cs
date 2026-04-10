@@ -2,7 +2,6 @@
 
 using AgOpenGPS.Core.Models;
 using System;
-using System.Globalization;
 
 namespace AgOpenGPS
 {

@@ -1,14 +1,8 @@
-﻿using AgIO.Properties;
-using AgLibrary.Logging;
+﻿using AgLibrary.Logging;
 using Microsoft.Win32;
 using System;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace AgIO
 {

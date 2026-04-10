@@ -1,5 +1,4 @@
-﻿using AgOpenGPS.Core;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace AgOpenGPS.Core.DrawLib

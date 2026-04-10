@@ -1,8 +1,4 @@
-﻿using AgOpenGPS.Core;
-using AgOpenGPS.Core.Models;
-using System;
-using System.Globalization;
-using System.Text;
+﻿using AgOpenGPS.Core.Models;
 
 namespace AgOpenGPS
 {

@@ -18,7 +18,6 @@ using AgOpenGPS.Core.AgShare;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Core.ViewModels;
-using AgOpenGPS.Forms.Profiles;
 using AgOpenGPS.Properties;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;

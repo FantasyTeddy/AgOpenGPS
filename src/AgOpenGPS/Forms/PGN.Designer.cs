@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AgOpenGPS
+﻿namespace AgOpenGPS
 {
     public partial class FormGPS
     {
