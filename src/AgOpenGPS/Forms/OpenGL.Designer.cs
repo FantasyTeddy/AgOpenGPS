@@ -2458,23 +2458,6 @@ namespace AgOpenGPS
             }
         }
 
-        private void DrawCompass()
-        {
-            //Heading text
-            int center = (oglMain.Width / 2) - 55;
-            font.DrawText(center - 8, 40, "^", 0.8);
-
-            GL.PushMatrix();
-            GL.Color4(0.952f, 0.870f, 0.73f, 0.8);
-
-            GL.Translate(center, 78, 0);
-            GL.Rotate(-camHeading, 0, 0, 1);
-
-            ScreenTextures.Compass.DrawCenteredAroundOrigin(new XyDelta(52.0, 52.0));
-
-            GL.PopMatrix();
-        }
-
         private void DrawReverse()
         {
             if (isReverseWithIMU)

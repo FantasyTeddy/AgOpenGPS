@@ -154,18 +154,6 @@ namespace GPS_Out
             }
         }
 
-        private void SendData(IAsyncResult asyncResult)
-        {
-            try
-            {
-                sendSocket.EndSend(asyncResult);
-            }
-            catch (Exception ex)
-            {
-                mf.Tls.WriteErrorLog(" UDP Send Data" + ex.ToString());
-            }
-        }
-
         private void SetEP(string DestinationEndPoint)
         {
             try

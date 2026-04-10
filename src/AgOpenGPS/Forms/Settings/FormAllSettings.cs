@@ -416,13 +416,6 @@ namespace AgOpenGPS
             sw.WriteLine();
         }
 
-        private static string CsvEscape(string s)
-        {
-            if (s.Contains(",") || s.Contains("\"") || s.Contains("\n"))
-                return "\"" + s.Replace("\"", "\"\"") + "\"";
-            return s;
-        }
-
         // ── Screenshot: capture alle 3 settings tabs en samenvoegen ──────────
 
         private Bitmap CaptureTabsBitmap()

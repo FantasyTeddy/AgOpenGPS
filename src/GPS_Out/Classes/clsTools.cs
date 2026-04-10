@@ -354,24 +354,6 @@ namespace GPS_Out
             }
         }
 
-        private void SaveProperties()
-        {
-            try
-            {
-                string[] NewLines = new string[HTfiles.Count];
-                int i = -1;
-                foreach (DictionaryEntry Pair in HTfiles)
-                {
-                    i++;
-                    NewLines[i] = Pair.Key.ToString() + "=" + Pair.Value.ToString();
-                }
-                if (i > -1) File.WriteAllLines(cPropertiesFile, NewLines);
-            }
-            catch (Exception)
-            {
-            }
-        }
-
         private void TrimFile(string FileName, int MaxSize = 100000)
         {
             try

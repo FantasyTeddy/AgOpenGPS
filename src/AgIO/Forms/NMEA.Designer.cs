@@ -37,8 +37,6 @@ namespace AgIO
         private float rollK, Pc, G, Xp, Zp, XeRoll, P = 1.0f;
         private readonly float varRoll = 0.1f, varProcess = 0.0003f;
 
-        private double LastUpdateUTC = 0;
-
         //Convert Fix value to Text
         public string FixQuality
         {
@@ -947,78 +945,6 @@ namespace AgIO
                 if (trasolution != 4) rollK = 0;
                 rollData = rollK;
                 roll = rollK;
-            }
-        }
-
-        private void ParseRMC()
-        {
-            #region RMC Message
-            //$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A
-
-            //RMC          Recommended Minimum sentence C
-            //123519       Fix taken at 12:35:19 UTC
-            //A            Status A=active or V=Void.
-            //4807.038,N   Latitude 48 deg 07.038' N
-            //01131.000,E  Longitude 11 deg 31.000' E
-            //022.4        Speed over the ground in knots
-            //084.4        Track angle in degrees True
-            //230394       Date - 23rd of March 1994
-            //003.1,W      Magnetic Variation
-            //*6A          * Checksum
-            #endregion RMC Message
-
-            if (!string.IsNullOrEmpty(words[1]) && !string.IsNullOrEmpty(words[3]) && !string.IsNullOrEmpty(words[4])
-                && !string.IsNullOrEmpty(words[5]) && !string.IsNullOrEmpty(words[6]))
-            {
-                //Convert from knots to kph for speed
-                float.TryParse(words[7], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
-                speed *= 1.852f;
-                speedData = speed;
-
-                //True heading
-                float.TryParse(words[8], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrueDual);
-                headingTrueDualData = headingTrueDual;
-
-                double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double UTC);
-                if ((UTC < LastUpdateUTC ? 240000 + UTC : UTC) - LastUpdateUTC > 0.045)
-                {
-                    LastUpdateUTC = UTC;
-
-                    //get latitude and convert to decimal degrees
-                    int decim = words[3].IndexOf(".", StringComparison.Ordinal);
-                    if (decim == -1)
-                    {
-                        words[3] += ".00";
-                        decim = words[3].IndexOf(".", StringComparison.Ordinal);
-                    }
-
-                    decim -= 2;
-                    double.TryParse(words[3].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                    double.TryParse(words[3].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
-                    latitude += temp * 0.01666666666666666666666666666667;
-
-                    if (words[4] == "S")
-                        latitude *= -1;
-                    latitudeSend = latitude;
-
-                    //get longitude and convert to decimal degrees
-                    decim = words[5].IndexOf(".", StringComparison.Ordinal);
-                    if (decim == -1)
-                    {
-                        words[5] += ".00";
-                        decim = words[5].IndexOf(".", StringComparison.Ordinal);
-                    }
-
-                    decim -= 2;
-                    double.TryParse(words[5].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                    double.TryParse(words[5].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
-                    longitude += temp * 0.01666666666666666666666666666667;
-
-                    if (words[6] == "W") longitude *= -1;
-                    longitudeSend = longitude;
-
-                    isNMEAToSend = true;
-                }
             }
         }
 

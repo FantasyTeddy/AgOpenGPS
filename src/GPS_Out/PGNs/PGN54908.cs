@@ -27,7 +27,6 @@ namespace GPS_Out
         // 54-55    imuYaw          ushort
         // 56       CRC
 
-        private const byte cByteCount = 57;
         private ushort cAgeX100;
         private ushort cHdopX100;
         private short cImuPitch;

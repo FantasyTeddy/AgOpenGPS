@@ -182,29 +182,6 @@ namespace AgOpenGPS.Properties
             XmlSettingsHandler.SaveXMLFile(path, this);
         }
 
-        private LoadResult MigrateFromOld()
-        {
-            // Check if old vehicle file exists
-            // Note: old combined profiles are in baseDirectory\Vehicles, not VehicleProfiles
-            if (!string.IsNullOrEmpty(RegistrySettings.vehicleProfileName))
-            {
-                string oldPath = Path.Combine(RegistrySettings.baseDirectory, "Vehicles", RegistrySettings.vehicleProfileName + ".xml");
-                if (File.Exists(oldPath))
-                {
-                    SettingsLegacy oldSettings = new SettingsLegacy();
-                    LoadResult result = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
-                    if (result == LoadResult.Ok)
-                    {
-                        // Copy environment settings
-                        MigrateFromOldToTarget(oldSettings, this);
-                        Save();
-                        return LoadResult.Ok;
-                    }
-                }
-            }
-            return LoadResult.MissingFile;
-        }
-
         public static void MigrateFromOldToTarget(SettingsLegacy source, Settings dest)
         {
             // Copy all environment-related fields from source to dest

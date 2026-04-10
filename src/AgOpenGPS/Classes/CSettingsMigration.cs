@@ -373,28 +373,6 @@ namespace AgOpenGPS
             dest.setF_isSteerWorkSwitchEnabled = source.setF_isSteerWorkSwitchEnabled;
         }
 
-        private static void CheckAndBackupOldFile(string fileName)
-        {
-            string oldPath = Path.Combine(RegistrySettings.vehiclesDirectory, fileName + ".XML");
-            string vehiclePath = Path.Combine(RegistrySettings.vehiclesDirectory, fileName + ".xml");
-            string toolPath = Path.Combine(RegistrySettings.toolsDirectory, fileName + ".xml");
-
-            // If both new files exist, backup the old one
-            if (File.Exists(vehiclePath) && File.Exists(toolPath) && File.Exists(oldPath))
-            {
-                string backupDir = Path.Combine(RegistrySettings.vehiclesDirectory, "oldSettingsFiles");
-                if (!Directory.Exists(backupDir))
-                    Directory.CreateDirectory(backupDir);
-
-                string backupPath = Path.Combine(backupDir, fileName + ".XML.backup");
-                if (File.Exists(backupPath))
-                    File.Delete(backupPath);
-
-                File.Move(oldPath, backupPath);
-                Log.EventWriter($"Settings migrated for {fileName}. Old file backed up to oldSettingsFiles.");
-            }
-        }
-
         public static LoadResult MigrateEnvironment(string sourceFileName, string outputName)
         {
             string oldPath = Path.Combine(RegistrySettings.baseDirectory, "Vehicles", sourceFileName + ".xml");
