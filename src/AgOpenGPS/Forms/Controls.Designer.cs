@@ -2185,11 +2185,11 @@ namespace AgOpenGPS
             {
                 if (vehicle.isInDeadZone)
                 {
-                    sim.DoSimTick((double)lastSimGuidanceAngle);
+                    sim.DoSimTick(lastSimGuidanceAngle);
                 }
                 else
                 {
-                    lastSimGuidanceAngle = (double)guidanceLineSteerAngle * 0.01 * 0.9;
+                    lastSimGuidanceAngle = guidanceLineSteerAngle * 0.01 * 0.9;
                     sim.DoSimTick(lastSimGuidanceAngle);
                 }
             }

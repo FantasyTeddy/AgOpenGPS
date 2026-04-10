@@ -330,8 +330,8 @@ namespace GPS_Out
                 cHdopX100 = BitConverter.ToUInt16(Data, 44);
                 cAgeX100 = BitConverter.ToUInt16(Data, 46);
                 cImuHeading = (float)(BitConverter.ToUInt16(Data, 48) / 10.0);
-                cImuRoll = (short)BitConverter.ToInt16(Data, 50);
-                cImuPitch = (short)BitConverter.ToInt16(Data, 52);
+                cImuRoll = BitConverter.ToInt16(Data, 50);
+                cImuPitch = BitConverter.ToInt16(Data, 52);
                 cImuYaw = BitConverter.ToUInt16(Data, 54);
 
                 ReceiveTime = DateTime.Now;

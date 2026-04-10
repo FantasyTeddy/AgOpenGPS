@@ -134,7 +134,7 @@ namespace AgOpenGPS.Forms
                 var cloudFields = result.Data;
 
                 // Update UI on UI thread
-                this.Invoke((Action)(() =>
+                this.Invoke(() =>
                 {
                     foreach (CheckBox checkbox in flpFieldList.Controls)
                     {
@@ -201,7 +201,7 @@ namespace AgOpenGPS.Forms
                             }
                         }
                     }
-                }));
+                });
             }
             catch (Exception ex)
             {

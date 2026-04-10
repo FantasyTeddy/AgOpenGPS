@@ -46,7 +46,7 @@ namespace ModSim
 
         private void tbarRoll_Scroll(object sender, EventArgs e)
         {
-            roll = (double)tbarRoll.Value * 0.1;
+            roll = tbarRoll.Value * 0.1;
             rollIMU = (int)(roll * 10);
             lblRoll.Text = "Roll: " + (roll).ToString("N2") + "°";
         }

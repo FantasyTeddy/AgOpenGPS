@@ -104,7 +104,7 @@ namespace AgOpenGPS
             cboxDataInvertRoll.Checked = Properties.VehicleSettings.Default.setIMU_invertRoll;
             mf.ahrs.isRollInvert = Properties.VehicleSettings.Default.setIMU_invertRoll;
 
-            lblRollZeroOffset.Text = ((double)Properties.VehicleSettings.Default.setIMU_rollZero).ToString("N2");
+            lblRollZeroOffset.Text = Properties.VehicleSettings.Default.setIMU_rollZero.ToString("N2");
             mf.ahrs.rollZero = Properties.VehicleSettings.Default.setIMU_rollZero;
             lblRollZeroOffset.Text = "0.00";
 
@@ -144,9 +144,9 @@ namespace AgOpenGPS
             if ((sett & 128) == 0) cboxEncoder.Checked = false;
             else cboxEncoder.Checked = true;
 
-            nudMaxCounts.Value = (decimal)Properties.VehicleSettings.Default.setArdSteer_maxPulseCounts;
-            hsbarSensor.Value = (int)Properties.VehicleSettings.Default.setArdSteer_maxPulseCounts;
-            lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
+            nudMaxCounts.Value = Properties.VehicleSettings.Default.setArdSteer_maxPulseCounts;
+            hsbarSensor.Value = Properties.VehicleSettings.Default.setArdSteer_maxPulseCounts;
+            lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
 
             sett = Properties.VehicleSettings.Default.setArdSteer_setting1;
 
@@ -490,7 +490,7 @@ namespace AgOpenGPS
             {
                 if (mf.mc.sensorData < 0 || mf.mc.sensorData > 255) mf.mc.sensorData = 0;
                 CExtensionMethods.SetProgressNoAnimation(pbarSensor, mf.mc.sensorData);
-                lblPercentFS.Text = ((int)((double)mf.mc.sensorData * 0.3921568627)).ToString() + "%";
+                lblPercentFS.Text = ((int)(mf.mc.sensorData * 0.3921568627)).ToString() + "%";
             }
 
             // Emulate the OGL Steer circle
@@ -784,7 +784,7 @@ namespace AgOpenGPS
 
         private void hsbarSensor_Scroll(object sender, ScrollEventArgs e)
         {
-            lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
+            lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
             if (isWizardStarted)
             {
                 toSend251 = true;

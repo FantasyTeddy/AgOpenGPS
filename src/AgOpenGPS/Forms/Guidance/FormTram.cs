@@ -273,7 +273,7 @@ namespace AgOpenGPS
 
         private void tbarTramAlpha_Scroll(object sender, EventArgs e)
         {
-            mf.tram.alpha = (double)tbarTramAlpha.Value * 0.01;
+            mf.tram.alpha = tbarTramAlpha.Value * 0.01;
             lblAplha.Text = tbarTramAlpha.Value.ToString() + "%";
         }
     }

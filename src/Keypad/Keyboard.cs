@@ -77,7 +77,7 @@ namespace Keypad
 
         private void SendChar(Button senderb)
         {
-            Button btn = (Button)senderb;
+            Button btn = senderb;
             RaiseButtonPressed(btn.Text[0]);
             //if (chk_shift.Checked) chk_shift.Checked = false;
         }

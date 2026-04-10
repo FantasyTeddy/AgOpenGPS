@@ -1247,7 +1247,7 @@ namespace AgOpenGPS
 
         public void UpdateSpinners()
         {
-            int i = (int)numberOfSections;
+            int i = numberOfSections;
 
             decimal toolWidth = 0;
 

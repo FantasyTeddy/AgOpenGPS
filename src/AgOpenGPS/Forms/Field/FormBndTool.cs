@@ -429,7 +429,7 @@ namespace AgOpenGPS
             timer1.Interval = 500;
             EndStep();
 
-            minDistDisp = (double)(cboxPointDistance.SelectedIndex + 1);
+            minDistDisp = cboxPointDistance.SelectedIndex + 1;
             minDistSq = minDistDisp * minDistDisp;
 
             rA = rB = rC = rD = rE = rF = rG = firstPoint = currentPoint = 0;

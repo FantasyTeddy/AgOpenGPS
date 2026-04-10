@@ -273,7 +273,7 @@ namespace AgIO
                 Buffer.BlockCopy(BitConverter.GetBytes(satellitesTracked), 0, nmeaPGN, 41, 2);
                 satellitesTracked = ushort.MaxValue;
 
-                nmeaPGN[43] = (byte)fixQuality;
+                nmeaPGN[43] = fixQuality;
                 fixQuality = byte.MaxValue;
 
                 Buffer.BlockCopy(BitConverter.GetBytes(hdopX100), 0, nmeaPGN, 44, 2);
@@ -348,7 +348,7 @@ namespace AgIO
 
                 if (headingQuality == 3)   // roll only when rtk 
                 {
-                    roll = (float)(rollK);
+                    roll = rollK;
                     rollData = rollK;
                 }
                 else
@@ -543,7 +543,7 @@ namespace AgIO
 
                 if (baseline > 0)   // roll only when rtk and baseline
                 {
-                    roll = (float)(rollK);
+                    roll = rollK;
                     rollData = rollK;
                 }
                 else
@@ -862,7 +862,7 @@ namespace AgIO
                 XeRoll = (G * (rollK - Zp)) + Xp;
                 rollData = XeRoll;
 
-                roll = (float)(XeRoll);
+                roll = XeRoll;
             }
         }
 
@@ -921,7 +921,7 @@ namespace AgIO
 
                 if (words[7] == "R") //MovingBase Mode Indicator
                 {
-                    roll = (float)(rollK);
+                    roll = rollK;
                     rollData = roll;
                 }
                 else
@@ -947,7 +947,7 @@ namespace AgIO
                 int.TryParse(words[5], NumberStyles.Float, CultureInfo.InvariantCulture, out int trasolution);
                 if (trasolution != 4) rollK = 0;
                 rollData = rollK;
-                roll = (float)(rollK);
+                roll = rollK;
             }
         }
 

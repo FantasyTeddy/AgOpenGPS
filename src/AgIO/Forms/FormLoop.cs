@@ -669,10 +669,10 @@ namespace AgIO
                 ShowWindow(processName[0].MainWindowHandle, 9);
 
                 // Simulate an "ALT" key press.
-                keybd_event((byte)ALT, 0x45, EXTENDEDKEY | 0, 0);
+                keybd_event(ALT, 0x45, EXTENDEDKEY | 0, 0);
 
                 // Simulate an "ALT" key release.
-                keybd_event((byte)ALT, 0x45, EXTENDEDKEY | KEYUP, 0);
+                keybd_event(ALT, 0x45, EXTENDEDKEY | KEYUP, 0);
 
                 // Show window in forground.
                 SetForegroundWindow(processName[0].MainWindowHandle);

@@ -65,7 +65,7 @@ namespace AgOpenGPS
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Viewport(0, 0, oglMain.Width, oglMain.Height);
-            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, (float)oglMain.Width / (float)oglMain.Height,
+            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.Width / (float)oglMain.Height,
                 1.0f, (float)(camDistanceFactor * camera.camSetDistance));
             GL.LoadMatrix(ref mat);
             GL.MatrixMode(MatrixMode.Modelview);
@@ -465,7 +465,7 @@ namespace AgOpenGPS
                     GL.LoadIdentity();
 
                     //negative and positive on width, 0 at top to bottom ortho view
-                    GL.Ortho(-(double)oglMain.Width / 2, (double)oglMain.Width / 2, (double)oglMain.Height, 0, -1, 1);
+                    GL.Ortho(-(double)oglMain.Width / 2, (double)oglMain.Width / 2, oglMain.Height, 0, -1, 1);
 
                     //  Create the appropriate modelview matrix.
                     GL.MatrixMode(MatrixMode.Modelview);
@@ -605,7 +605,7 @@ namespace AgOpenGPS
                     GL.MatrixMode(MatrixMode.Projection);
                     GL.PushMatrix();
                     GL.LoadIdentity();
-                    GL.Ortho(-(double)oglMain.Width / 2, (double)oglMain.Width / 2, (double)oglMain.Height, 0, -1, 1);
+                    GL.Ortho(-(double)oglMain.Width / 2, (double)oglMain.Width / 2, oglMain.Height, 0, -1, 1);
 
                     GL.MatrixMode(MatrixMode.Modelview);
                     GL.PushMatrix();
@@ -691,7 +691,7 @@ namespace AgOpenGPS
                 GL.LoadIdentity();
 
                 //negative and positive on width, 0 at top to bottom ortho view
-                GL.Ortho(-(double)oglMain.Width / 2, (double)oglMain.Width / 2, (double)oglMain.Height, 0, -1, 1);
+                GL.Ortho(-(double)oglMain.Width / 2, (double)oglMain.Width / 2, oglMain.Height, 0, -1, 1);
 
                 //  Create the appropriate modelview matrix.
                 GL.MatrixMode(MatrixMode.Modelview);
@@ -1876,7 +1876,7 @@ namespace AgOpenGPS
             if ((ahrs.imuRoll != 88888))
             {
                 string head = Math.Round(ahrs.imuRoll, 1).ToString();
-                font.DrawText((int)(((head.Length) * -9)), -45, head, 1.2);
+                font.DrawText(head.Length * -9, -45, head, 1.2);
             }
 
             GL.PopMatrix();
@@ -2046,7 +2046,7 @@ namespace AgOpenGPS
 
             // Clamp offline distance
             int dotDistance = (int)offlineDistance;
-            int limit = (int)(lightbarCmPerPixel * dotsPerSide);
+            int limit = lightbarCmPerPixel * dotsPerSide;
             if (dotDistance < -limit) dotDistance = -limit;
             if (dotDistance > limit) dotDistance = limit;
 
@@ -2221,7 +2221,7 @@ namespace AgOpenGPS
 
                 // in millimeters
                 double avgPivotDistance = avgPivDistance * (isMetric ? 0.1 : 0.03937);
-                double err = (mc.actualSteerAngleDegrees - (double)(guidanceLineSteerAngle) * 0.01);
+                double err = mc.actualSteerAngleDegrees - (guidanceLineSteerAngle * 0.01);
 
                 if (isBtnAutoSteerOn)
                 {
@@ -2307,12 +2307,12 @@ namespace AgOpenGPS
                     if (avgPivotDistance < 0.0)
                     {
                         hede = (Math.Abs(avgPivotDistance)).ToString("N0") + " >";
-                        center = -(int)(((double)(hede.Length) * 0.5) * (18 * (1.0 + textSize)) - 0);
+                        center = -(int)((hede.Length * 0.5 * (18 * (1.0 + textSize))) - 0);
                     }
                     else
                     {
                         hede = "< " + (Math.Abs(avgPivotDistance)).ToString("N0");
-                        center = -(int)(((double)(hede.Length) * 0.5) * (18 * (1.0 + textSize)));
+                        center = -(int)(hede.Length * 0.5 * (18 * (1.0 + textSize)));
                     }
                 }
                 else
@@ -2385,7 +2385,7 @@ namespace AgOpenGPS
                     dire = dire + (-curve.howManyPathsAway).ToString() + "L " + offs;
             }
 
-            int start = -(int)(((double)(dire.Length) * 0.45) * (22 * (1.0)));
+            int start = -(int)(dire.Length * 0.45 * (22 * 1.0));
             int down = 0;
             int baseDown = (bnd.isHeadlandOn && isHeadlandDistanceOn) ? 175 : 70;
             int offset = (int)((oglMain.Height - 600) / 12.0);

@@ -51,7 +51,7 @@ namespace AgOpenGPS
             if (daySet != mf.isDay) mf.SwapDayNightMode();
             Properties.Settings.Default.setDisplay_camSmooth = hsbarSmooth.Value;
 
-            mf.camSmoothFactor = ((double)(hsbarSmooth.Value) * 0.004) + 0.15;
+            mf.camSmoothFactor = (hsbarSmooth.Value * 0.004) + 0.15;
 
             Settings.Default.Save();
             Close();

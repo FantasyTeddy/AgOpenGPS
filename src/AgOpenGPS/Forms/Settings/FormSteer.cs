@@ -224,7 +224,7 @@ namespace AgOpenGPS
 
             //nudDeadZoneDistance.Value = (decimal)((double)(Properties.ToolSettings.Default.setAS_deadZoneDistance)/10);
             nudDeadZoneHeading.Value = (decimal)((double)(Properties.ToolSettings.Default.setAS_deadZoneHeading) / 100);
-            nudDeadZoneDelay.Value = (decimal)(mf.vehicle.deadZoneDelay);
+            nudDeadZoneDelay.Value = mf.vehicle.deadZoneDelay;
 
             toSend = false;
 
@@ -252,9 +252,9 @@ namespace AgOpenGPS
             if ((sett & 128) == 0) cboxEncoder.Checked = false;
             else cboxEncoder.Checked = true;
 
-            nudMaxCounts.Value = (decimal)Properties.VehicleSettings.Default.setArdSteer_maxPulseCounts;
-            hsbarSensor.Value = (int)Properties.VehicleSettings.Default.setArdSteer_maxPulseCounts;
-            lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
+            nudMaxCounts.Value = VehicleSettings.Default.setArdSteer_maxPulseCounts;
+            hsbarSensor.Value = VehicleSettings.Default.setArdSteer_maxPulseCounts;
+            lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
 
             sett = Properties.VehicleSettings.Default.setArdSteer_setting1;
 
@@ -483,7 +483,7 @@ namespace AgOpenGPS
                 if (mf.mc.sensorData < 0 || mf.mc.sensorData > 255) mf.mc.sensorData = 0;
                 CExtensionMethods.SetProgressNoAnimation(pbarSensor, mf.mc.sensorData);
                 if (nudMaxCounts.Visible == false)
-                    lblPercentFS.Text = ((int)((double)mf.mc.sensorData * 0.3921568627)).ToString() + "%";
+                    lblPercentFS.Text = ((int)(mf.mc.sensorData * 0.3921568627)).ToString() + "%";
                 else
                     lblPercentFS.Text = mf.mc.sensorData.ToString();
             }
@@ -572,7 +572,7 @@ namespace AgOpenGPS
         {
             pboxSendSteer.Visible = true;
             btnClose.Enabled = false;
-            lblhsbarSensor.Text = ((int)((double)hsbarSensor.Value * 0.3921568627)).ToString() + "%";
+            lblhsbarSensor.Text = ((int)(hsbarSensor.Value * 0.3921568627)).ToString() + "%";
         }
 
         #endregion
@@ -740,12 +740,12 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);
+                nudSnapDistance.Value = (int)(Settings.Default.setAS_snapDistance * mf.cm2CmOrIn);
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1, MidpointRounding.AwayFromZero);
+                nudSnapDistance.Value = (decimal)Math.Round(Settings.Default.setAS_snapDistance * mf.cm2CmOrIn, 1, MidpointRounding.AwayFromZero);
             }
 
             nudGuidanceLookAhead.Value = (decimal)Properties.Settings.Default.setAS_guidanceLookAheadTime;

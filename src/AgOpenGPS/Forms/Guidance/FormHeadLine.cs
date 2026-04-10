@@ -166,7 +166,7 @@ namespace AgOpenGPS
 
             int wid = oglSelf.Width;
             int halfWid = oglSelf.Width / 2;
-            double scale = (double)wid * 0.903;
+            double scale = wid * 0.903;
 
             if (checkBoxZoomIn.Checked && !zoomToggle)
             {

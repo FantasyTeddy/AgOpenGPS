@@ -543,7 +543,7 @@ namespace AgOpenGPS
             panelNavigation.Location = new System.Drawing.Point(90, 100);
             panelDrag.Location = new System.Drawing.Point(87, 268);
 
-            vehicle.VehicleConfig.Opacity = ((double)(Properties.Settings.Default.setDisplay_vehicleOpacity) * 0.01);
+            vehicle.VehicleConfig.Opacity = Settings.Default.setDisplay_vehicleOpacity * 0.01;
             vehicle.VehicleConfig.Color = (ColorRgba)Settings.Default.setDisplay_colorVehicle.CheckColorFor255();
 
 
@@ -1535,7 +1535,7 @@ namespace AgOpenGPS
                 else return "-";
             }
         }
-        public string SetSteerAngle { get { return ((double)(guidanceLineSteerAngle) * 0.01).ToString("N1"); } }
+        public string SetSteerAngle { get { return (guidanceLineSteerAngle * 0.01).ToString("N1"); } }
         public string ActualSteerAngle { get { return (mc.actualSteerAngleDegrees).ToString("N1"); } }
 
         //Metric and Imperial Properties

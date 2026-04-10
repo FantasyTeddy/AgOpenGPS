@@ -890,7 +890,7 @@ namespace AgOpenGPS
             if (minutesSinceStart < 1) minutesSinceStart = 1;
 
             Log.EventWriter("Missed Sentence Counter Total: " + missedSentenceCount.ToString()
-                + "   Missed Per Minute: " + ((double)missedSentenceCount / minutesSinceStart).ToString("N4"));
+                + "   Missed Per Minute: " + (missedSentenceCount / minutesSinceStart).ToString("N4"));
 
             Log.EventWriter("Program Exit: " + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)) + "\r");
 
@@ -1408,16 +1408,16 @@ namespace AgOpenGPS
         public void SendSettings()
         {
             //Form Steer Settings
-            p_252.pgn[p_252.countsPerDegree] = unchecked((byte)Properties.VehicleSettings.Default.setAS_countsPerDegree);
-            p_252.pgn[p_252.ackerman] = unchecked((byte)Properties.VehicleSettings.Default.setAS_ackerman);
+            p_252.pgn[p_252.countsPerDegree] = unchecked(VehicleSettings.Default.setAS_countsPerDegree);
+            p_252.pgn[p_252.ackerman] = unchecked(VehicleSettings.Default.setAS_ackerman);
 
             p_252.pgn[p_252.wasOffsetHi] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset >> 8));
             p_252.pgn[p_252.wasOffsetLo] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset));
 
-            p_252.pgn[p_252.highPWM] = unchecked((byte)Properties.VehicleSettings.Default.setAS_highSteerPWM);
-            p_252.pgn[p_252.lowPWM] = unchecked((byte)Properties.VehicleSettings.Default.setAS_lowSteerPWM);
-            p_252.pgn[p_252.gainProportional] = unchecked((byte)Properties.VehicleSettings.Default.setAS_Kp);
-            p_252.pgn[p_252.minPWM] = unchecked((byte)Properties.VehicleSettings.Default.setAS_minSteerPWM);
+            p_252.pgn[p_252.highPWM] = unchecked(VehicleSettings.Default.setAS_highSteerPWM);
+            p_252.pgn[p_252.lowPWM] = unchecked(VehicleSettings.Default.setAS_lowSteerPWM);
+            p_252.pgn[p_252.gainProportional] = unchecked(VehicleSettings.Default.setAS_Kp);
+            p_252.pgn[p_252.minPWM] = unchecked(VehicleSettings.Default.setAS_minSteerPWM);
 
             SendPgnToLoop(p_252.pgn);
 

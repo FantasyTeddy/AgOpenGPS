@@ -28,12 +28,12 @@ namespace AgOpenGPS
             if (mf.isMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistance);
+                nudSnapDistance.Value = (int)Properties.Settings.Default.setAS_snapDistance;
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1);
+                nudSnapDistance.Value = (decimal)Math.Round(Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn, 1);
             }
 
             snapAdj = Properties.Settings.Default.setAS_snapDistance * 0.01;
@@ -196,7 +196,7 @@ namespace AgOpenGPS
                         // If no control is under the cursor, treat the area as caption (draggable)
                         if (child == null)
                         {
-                            m.Result = (IntPtr)HTCAPTION;
+                            m.Result = HTCAPTION;
                             return;
                         }
                     }

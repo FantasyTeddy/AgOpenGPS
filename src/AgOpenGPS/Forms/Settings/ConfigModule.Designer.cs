@@ -53,8 +53,8 @@ namespace AgOpenGPS
                 nudRaiseTime.Enabled = false;
             }
 
-            nudRaiseTime.Value = (decimal)Properties.ToolSettings.Default.setArdMac_hydRaiseTime;
-            nudLowerTime.Value = (decimal)Properties.ToolSettings.Default.setArdMac_hydLowerTime;
+            nudRaiseTime.Value = Properties.ToolSettings.Default.setArdMac_hydRaiseTime;
+            nudLowerTime.Value = Properties.ToolSettings.Default.setArdMac_hydLowerTime;
 
             nudUser1.Value = Properties.ToolSettings.Default.setArdMac_user1;
             nudUser2.Value = Properties.ToolSettings.Default.setArdMac_user2;

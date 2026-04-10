@@ -43,7 +43,7 @@ namespace AgOpenGPS
                         CK_A += data[j];
                     }
 
-                    if (data[Length] != (byte)CK_A)
+                    if (data[Length] != CK_A)
                     {
                         return;
                     }
@@ -207,7 +207,7 @@ namespace AgOpenGPS
                             if (data.Length != 14)
                                 break;
                             mc.actualSteerAngleChart = (Int16)((data[6] << 8) + data[5]);
-                            mc.actualSteerAngleDegrees = (double)mc.actualSteerAngleChart * 0.01;
+                            mc.actualSteerAngleDegrees = mc.actualSteerAngleChart * 0.01;
 
                             //Heading
                             double head253 = (Int16)((data[8] << 8) + data[7]);
@@ -432,29 +432,29 @@ namespace AgOpenGPS
                             if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
                             {
                                 if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = (IntPtr)13/*HTTOPLEFT*/ ;
+                                    m.Result = 13/*HTTOPLEFT*/ ;
                                 else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = (IntPtr)12/*HTTOP*/ ;
+                                    m.Result = 12/*HTTOP*/ ;
                                 else
-                                    m.Result = (IntPtr)14/*HTTOPRIGHT*/ ;
+                                    m.Result = 14/*HTTOPRIGHT*/ ;
                             }
                             else if (clientPoint.Y <= (Size.Height - RESIZE_HANDLE_SIZE))
                             {
                                 if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = (IntPtr)10/*HTLEFT*/ ;
+                                    m.Result = 10/*HTLEFT*/ ;
                                 else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = (IntPtr)2/*HTCAPTION*/ ;
+                                    m.Result = 2/*HTCAPTION*/ ;
                                 else
-                                    m.Result = (IntPtr)11/*HTRIGHT*/ ;
+                                    m.Result = 11/*HTRIGHT*/ ;
                             }
                             else
                             {
                                 if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = (IntPtr)16/*HTBOTTOMLEFT*/ ;
+                                    m.Result = 16/*HTBOTTOMLEFT*/ ;
                                 else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = (IntPtr)15/*HTBOTTOM*/ ;
+                                    m.Result = 15/*HTBOTTOM*/ ;
                                 else
-                                    m.Result = (IntPtr)17/*HTBOTTOMRIGHT*/ ;
+                                    m.Result = 17/*HTBOTTOMRIGHT*/ ;
                             }
                         }
                     }
@@ -592,14 +592,14 @@ namespace AgOpenGPS
             if ((char)keyData == hotkeys[7]) // nudge track left
             {
                 if (trk.idx > -1)
-                    trk.NudgeTrack((double)Properties.Settings.Default.setAS_snapDistance * -0.01);
+                    trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance * -0.01);
                 return true;
             }
 
             if ((char)keyData == hotkeys[8]) // nudge track right
             {
                 if (trk.idx > -1)
-                    trk.NudgeTrack((double)Properties.Settings.Default.setAS_snapDistance * 0.01);
+                    trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance * 0.01);
                 return true;
             }
 

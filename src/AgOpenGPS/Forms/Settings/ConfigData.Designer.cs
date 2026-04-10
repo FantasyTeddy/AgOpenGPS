@@ -107,8 +107,8 @@ namespace AgOpenGPS
 
         private void tabDHeading_Leave(object sender, EventArgs e)
         {
-            Properties.VehicleSettings.Default.setIMU_fusionWeight2 = (double)hsbarFusion.Value * 0.002;
-            mf.ahrs.fusionWeight = (double)hsbarFusion.Value * 0.002;
+            Properties.VehicleSettings.Default.setIMU_fusionWeight2 = hsbarFusion.Value * 0.002;
+            mf.ahrs.fusionWeight = hsbarFusion.Value * 0.002;
 
             Properties.Settings.Default.setGPS_isRTK = mf.isRTK_AlarmOn = cboxIsRTK.Checked;
 
@@ -177,7 +177,7 @@ namespace AgOpenGPS
             lblFusion.Text = (hsbarFusion.Value).ToString() + "%";
             lblFusionIMU.Text = (100 - hsbarFusion.Value).ToString() + "%";
 
-            mf.ahrs.fusionWeight = (double)hsbarFusion.Value * 0.002;
+            mf.ahrs.fusionWeight = hsbarFusion.Value * 0.002;
         }
 
         private void cboxIsAutoSwitchDualFixOn_CheckedChanged(object sender, EventArgs e)
@@ -289,14 +289,14 @@ namespace AgOpenGPS
         private void tabDRoll_Enter(object sender, EventArgs e)
         {
             //Roll
-            lblRollZeroOffset.Text = ((double)Properties.VehicleSettings.Default.setIMU_rollZero).ToString("N2");
+            lblRollZeroOffset.Text = Properties.VehicleSettings.Default.setIMU_rollZero.ToString("N2");
             hsbarRollFilter.Value = (int)(Properties.VehicleSettings.Default.setIMU_rollFilter * 100);
             cboxDataInvertRoll.Checked = Properties.VehicleSettings.Default.setIMU_invertRoll;
         }
 
         private void tabDRoll_Leave(object sender, EventArgs e)
         {
-            Properties.VehicleSettings.Default.setIMU_rollFilter = (double)hsbarRollFilter.Value * 0.01;
+            Properties.VehicleSettings.Default.setIMU_rollFilter = hsbarRollFilter.Value * 0.01;
             Properties.VehicleSettings.Default.setIMU_rollZero = mf.ahrs.rollZero;
             Properties.VehicleSettings.Default.setIMU_invertRoll = cboxDataInvertRoll.Checked;
 
