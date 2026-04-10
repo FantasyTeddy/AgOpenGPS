@@ -36,54 +36,46 @@ namespace AgOpenGPS.IO
                 if (name.Length == 0) continue;
 
                 // --- Heading
-                string headingLine = reader.ReadLine();
-                if (headingLine == null) throw new InvalidDataException("Unexpected EOF after track name.");
+                string headingLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF after track name.");
                 double heading = double.Parse(headingLine.Trim(), CultureInfo.InvariantCulture);
 
 
                 // --- A point (easting,northing) ---
-                string aLine = reader.ReadLine();
-                if (aLine == null) throw new InvalidDataException("Unexpected EOF reading point A.");
+                string aLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF reading point A.");
                 string[] aParts = aLine.Split(',');
                 double aEasting = double.Parse(aParts[0], CultureInfo.InvariantCulture);
                 double aNorthing = double.Parse(aParts[1], CultureInfo.InvariantCulture);
                 vec2 ptA = new(aEasting, aNorthing);
 
                 // --- B point (easting,northing) ---
-                string bLine = reader.ReadLine();
-                if (bLine == null) throw new InvalidDataException("Unexpected EOF reading point B.");
+                string bLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF reading point B.");
                 string[] bParts = bLine.Split(',');
                 double bEasting = double.Parse(bParts[0], CultureInfo.InvariantCulture);
                 double bNorthing = double.Parse(bParts[1], CultureInfo.InvariantCulture);
                 vec2 ptB = new(bEasting, bNorthing);
 
                 // --- Nudge ---
-                string nudgeLine = reader.ReadLine();
-                if (nudgeLine == null) throw new InvalidDataException("Unexpected EOF reading nudge.");
+                string nudgeLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF reading nudge.");
                 double nudgeDistance = double.Parse(nudgeLine.Trim(), CultureInfo.InvariantCulture);
 
                 // --- Mode ---
-                string modeLine = reader.ReadLine();
-                if (modeLine == null) throw new InvalidDataException("Unexpected EOF reading mode.");
+                string modeLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF reading mode.");
                 int modeInt = int.Parse(modeLine.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture);
                 TrackMode modeEnum = (TrackMode)modeInt;
 
                 // --- Visibility ---
-                string visLine = reader.ReadLine();
-                if (visLine == null) throw new InvalidDataException("Unexpected EOF reading visibility.");
+                string visLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF reading visibility.");
                 bool isVisible = bool.Parse(visLine.Trim());
 
                 // --- Curve count ---
-                string countLine = reader.ReadLine();
-                if (countLine == null) throw new InvalidDataException("Unexpected EOF reading curve count.");
+                string countLine = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF reading curve count.");
                 int curveCount = int.Parse(countLine.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture);
 
                 // --- Curve points ---
                 List<vec3> curvePts = new();
                 for (int i = 0; i < curveCount; i++)
                 {
-                    string line = reader.ReadLine();
-                    if (line == null) throw new InvalidDataException("Unexpected EOF in curve points.");
+                    string line = reader.ReadLine() ?? throw new InvalidDataException("Unexpected EOF in curve points.");
                     string[] parts = line.Split(',');
                     double easting = double.Parse(parts[0], CultureInfo.InvariantCulture);
                     double northing = double.Parse(parts[1], CultureInfo.InvariantCulture);

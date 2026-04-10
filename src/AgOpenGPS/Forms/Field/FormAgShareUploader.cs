@@ -336,13 +336,7 @@ namespace AgOpenGPS.Forms
         private async Task UploadField(FieldInfo fieldInfo)
         {
             // Load field data from directory
-            FieldSnapshot snapshot = await LoadFieldSnapshot(fieldInfo);
-
-            if (snapshot == null)
-            {
-                throw new Exception("Failed to load field data");
-            }
-
+            FieldSnapshot snapshot = await LoadFieldSnapshot(fieldInfo) ?? throw new Exception("Failed to load field data");
             string idPath = Path.Combine(fieldInfo.DirectoryPath, "agshare.txt");
 
             // Scenario: Cloud ID was found via name check, but local agshare.txt has different ID
