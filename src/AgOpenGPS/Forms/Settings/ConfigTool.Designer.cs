@@ -1246,7 +1246,7 @@ namespace AgOpenGPS
             {
                 if (item is NudlessNumericUpDown item2)
                 {
-                    if (item2.Name.Substring(0, 6) == "nudSec")
+                    if (item2.Name[..6] == "nudSec")
                     {
                         //grab the number from nudSection01
                         string bob = item2.Name.Substring(10, 2);

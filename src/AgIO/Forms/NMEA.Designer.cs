@@ -64,24 +64,24 @@ namespace AgIO
                 // Find start of next sentence
                 int start = buffer.IndexOf("$", StringComparison.Ordinal);
                 if (start == -1) return null;
-                buffer = buffer.Substring(start);
+                buffer = buffer[start..];
 
                 // Find end of sentence
                 int end = buffer.IndexOf("\r", StringComparison.Ordinal);
                 if (end == -1) return null;
 
                 //the NMEA sentence to be parsed
-                sentence = buffer.Substring(0, end + 1);
+                sentence = buffer[..(end + 1)];
 
                 //remove the processed sentence from the rawBuffer
-                buffer = buffer.Substring(end + 1);
+                buffer = buffer[(end + 1)..];
             }
 
             //if sentence has valid checksum, its all good
             while (!ValidateChecksum(sentence));
 
             // Remove trailing checksum and \r\n and return
-            sentence = sentence.Substring(0, sentence.IndexOf("*", StringComparison.Ordinal));
+            sentence = sentence[..sentence.IndexOf("*", StringComparison.Ordinal)];
 
             return sentence;
         }
@@ -99,7 +99,7 @@ namespace AgIO
             if (dollar == -1) return;
 
             //if the $ isn't first, get rid of the tail of corrupt sentence
-            if (dollar >= cr) rawBuffer = rawBuffer.Substring(dollar);
+            if (dollar >= cr) rawBuffer = rawBuffer[dollar..];
 
             cr = rawBuffer.IndexOf("\r", StringComparison.Ordinal);
             if (cr == -1) return; // No end found, wait for more data
@@ -107,7 +107,7 @@ namespace AgIO
             if (dollar == -1) return;
 
             //if the $ isn't first, get rid of the tail of corrupt sentence
-            if (dollar >= cr) rawBuffer = rawBuffer.Substring(dollar);
+            if (dollar >= cr) rawBuffer = rawBuffer[dollar..];
 
             cr = rawBuffer.IndexOf("\r", StringComparison.Ordinal);
             dollar = rawBuffer.IndexOf("$", StringComparison.Ordinal);
@@ -430,8 +430,8 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[2].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
+                double.TryParse(words[2][..decim], NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
+                double.TryParse(words[2][decim..], NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
                 temp *= 0.01666666666667;
                 latitude += temp;
                 if (words[3] == "S")
@@ -447,8 +447,8 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[4].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                double.TryParse(words[4].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
+                double.TryParse(words[4][..decim], NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
+                double.TryParse(words[4][decim..], NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.0166666666667;
 
                 { if (words[5] == "W") longitude *= -1; }
@@ -638,8 +638,8 @@ namespace AgIO
                 ageX100 = (ushort)(ageData * 100.0);
 
                 decim -= 2;
-                double.TryParse(words[2].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
+                double.TryParse(words[2][..decim], NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
+                double.TryParse(words[2][decim..], NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
                 temp *= 0.01666666666666666666666666666667;
                 latitude += temp;
                 if (words[3] == "S")
@@ -656,8 +656,8 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[4].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                double.TryParse(words[4].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
+                double.TryParse(words[4][..decim], NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
+                double.TryParse(words[4][decim..], NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.01666666666666666666666666666667;
 
                 { if (words[5] == "W") longitude *= -1; }
@@ -719,9 +719,9 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[2].Substring(0, decim),
+                double.TryParse(words[2][..decim],
                     NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(decim),
+                double.TryParse(words[2][decim..],
                     NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
                 temp *= 0.01666666666666666666666666666667;
                 latitude += temp;
@@ -739,9 +739,9 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[4].Substring(0, decim),
+                double.TryParse(words[4][..decim],
                     NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                double.TryParse(words[4].Substring(decim),
+                double.TryParse(words[4][decim..],
                     NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.01666666666666666666666666666667;
 

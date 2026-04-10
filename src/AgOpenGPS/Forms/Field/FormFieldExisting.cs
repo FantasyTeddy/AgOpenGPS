@@ -642,7 +642,7 @@ namespace AgOpenGPS
         private void btnBackSpace_MouseDown(object sender, MouseEventArgs e)
         {
             if (tboxFieldName.Text.Length > 0)
-                tboxFieldName.Text = tboxFieldName.Text.Remove(tboxFieldName.Text.Length - 1, 1);
+                tboxFieldName.Text = tboxFieldName.Text[..^1];
         }
     }
 }

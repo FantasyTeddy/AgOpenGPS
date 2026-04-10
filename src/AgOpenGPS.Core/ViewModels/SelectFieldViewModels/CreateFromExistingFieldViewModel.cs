@@ -80,7 +80,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         private void BackSpace()
         {
-            if (NewFieldName.Length > 0) NewFieldName = NewFieldName.Remove(NewFieldName.Length - 1);
+            if (NewFieldName.Length > 0) NewFieldName = NewFieldName[..^1];
         }
 
         protected override void SelectField()

@@ -1172,7 +1172,7 @@ namespace AgOpenGPS
             {
                 doc.Load(fileAndDirectory);
                 string trackName = Path.GetFileName(fileAndDirectory);
-                trackName = trackName.Substring(0, trackName.Length - 4);
+                trackName = trackName[..^4];
 
                 XmlElement root = doc.DocumentElement;
                 XmlNodeList trackList = root.GetElementsByTagName("coordinates");

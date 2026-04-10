@@ -151,13 +151,13 @@ namespace AgOpenGPS
                                 if (endIndex == -1)
                                 {
                                     //just add the line
-                                    if (startIndex == -1) coordinates += " " + line.Substring(0);
-                                    else coordinates += line.Substring(startIndex + 13);
+                                    if (startIndex == -1) coordinates += " " + line[..];
+                                    else coordinates += line[(startIndex + 13)..];
                                 }
                                 else
                                 {
-                                    if (startIndex == -1) coordinates += " " + line.Substring(0, endIndex);
-                                    else coordinates += line.Substring(startIndex + 13, endIndex - (startIndex + 13));
+                                    if (startIndex == -1) coordinates += " " + line[..endIndex];
+                                    else coordinates += line[(startIndex + 13)..endIndex];
                                     break;
                                 }
                                 line = reader.ReadLine();
@@ -255,13 +255,13 @@ namespace AgOpenGPS
                                 if (endIndex == -1)
                                 {
                                     //just add the line
-                                    if (startIndex == -1) coordinates += " " + line.Substring(0);
-                                    else coordinates += line.Substring(startIndex + 13);
+                                    if (startIndex == -1) coordinates += " " + line[..];
+                                    else coordinates += line[(startIndex + 13)..];
                                 }
                                 else
                                 {
-                                    if (startIndex == -1) coordinates += " " + line.Substring(0, endIndex);
-                                    else coordinates += line.Substring(startIndex + 13, endIndex - (startIndex + 13));
+                                    if (startIndex == -1) coordinates += " " + line[..endIndex];
+                                    else coordinates += line[(startIndex + 13)..endIndex];
                                     break;
                                 }
                                 line = reader.ReadLine();

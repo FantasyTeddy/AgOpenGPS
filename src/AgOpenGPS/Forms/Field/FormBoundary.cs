@@ -151,14 +151,14 @@ namespace AgOpenGPS
                     int length = (mf.bnd.bndList[i].area * 0.0001).ToString("0").Length;
                     if (length > 10) length = 10;
                     if (length < 3) length = 3;
-                    b.Text = (mf.bnd.bndList[i].area * 0.0001).ToString("0.########".Substring(0, 11 - length)) + " Ha";
+                    b.Text = (mf.bnd.bndList[i].area * 0.0001).ToString("0.########"[..(11 - length)]) + " Ha";
                 }
                 else
                 {
                     int length = (mf.bnd.bndList[i].area * 0.000247105).ToString("0").Length;
                     if (length > 10) length = 10;
                     if (length < 3) length = 3;
-                    b.Text = (mf.bnd.bndList[i].area * 0.000247105).ToString("0.########".Substring(0, 11 - length)) + " Ac";
+                    b.Text = (mf.bnd.bndList[i].area * 0.000247105).ToString("0.########"[..(11 - length)]) + " Ac";
                 }
 
                 if (i == fenceSelected)
@@ -331,13 +331,13 @@ namespace AgOpenGPS
                                     if (endIndex == -1)
                                     {
                                         //just add the line
-                                        if (startIndex == -1) coordinates += line.Substring(0);
-                                        else coordinates += line.Substring(startIndex + 13);
+                                        if (startIndex == -1) coordinates += line[..];
+                                        else coordinates += line[(startIndex + 13)..];
                                     }
                                     else
                                     {
-                                        if (startIndex == -1) coordinates += line.Substring(0, endIndex);
-                                        else coordinates += line.Substring(startIndex + 13, endIndex - (startIndex + 13));
+                                        if (startIndex == -1) coordinates += line[..endIndex];
+                                        else coordinates += line[(startIndex + 13)..endIndex];
                                         break;
                                     }
                                     line = reader.ReadLine();
