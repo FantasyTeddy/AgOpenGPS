@@ -189,7 +189,7 @@ namespace AgOpenGPS.Updater.Models
         // Comparison operators
         public static bool operator ==(SemanticVersion left, SemanticVersion right)
         {
-            if (ReferenceEquals(left, null)) return ReferenceEquals(right, null);
+            if (left is null) return right is null;
             return left.Equals(right);
         }
 
@@ -200,22 +200,22 @@ namespace AgOpenGPS.Updater.Models
 
         public static bool operator <(SemanticVersion left, SemanticVersion right)
         {
-            return ReferenceEquals(left, null) ? !ReferenceEquals(right, null) : left.CompareTo(right) < 0;
+            return left is null ? right is not null : left.CompareTo(right) < 0;
         }
 
         public static bool operator <=(SemanticVersion left, SemanticVersion right)
         {
-            return ReferenceEquals(left, null) || left.CompareTo(right) <= 0;
+            return left is null || left.CompareTo(right) <= 0;
         }
 
         public static bool operator >(SemanticVersion left, SemanticVersion right)
         {
-            return !ReferenceEquals(left, null) && left.CompareTo(right) > 0;
+            return left is not null && left.CompareTo(right) > 0;
         }
 
         public static bool operator >=(SemanticVersion left, SemanticVersion right)
         {
-            return ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.CompareTo(right) >= 0;
+            return left is null ? right is null : left.CompareTo(right) >= 0;
         }
 
         public static implicit operator string(SemanticVersion version)
