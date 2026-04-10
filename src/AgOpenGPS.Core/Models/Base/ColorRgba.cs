@@ -21,25 +21,25 @@ namespace AgOpenGPS.Core.Models
         // For better performance in GLW.SetColor()
         public byte[] ByteArray { get; private set; }
 
-        public byte Red
+        public readonly byte Red
         {
             get => ByteArray[0];
             set => ByteArray[0] = value;
         }
 
-        public byte Green
+        public readonly byte Green
         {
             get => ByteArray[1];
             set => ByteArray[1] = value;
         }
 
-        public byte Blue
+        public readonly byte Blue
         {
             get => ByteArray[2];
             set => ByteArray[2] = value;
         }
 
-        public byte Alpha
+        public readonly byte Alpha
         {
             get => ByteArray[3];
             set => ByteArray[3] = value;

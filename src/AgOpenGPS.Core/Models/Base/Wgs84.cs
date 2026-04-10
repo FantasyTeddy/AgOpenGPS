@@ -15,11 +15,11 @@ namespace AgOpenGPS.Core.Models
         public double Latitude { get; }
         public double Longitude { get; }
 
-        public bool IsValid =>
+        public readonly bool IsValid =>
             Latitude >= -90 && Latitude <= 90 &&
             Longitude >= -180 && Longitude <= 180;
 
-        public double DistanceInMeters(Wgs84 b)
+        public readonly double DistanceInMeters(Wgs84 b)
         {
             double aLatRad = Units.DegreesToRadians(Latitude);
             double aLongRad = Units.DegreesToRadians(Longitude);
@@ -32,12 +32,12 @@ namespace AgOpenGPS.Core.Models
             return EarthRadiusInMeters * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
         }
 
-        public double DistanceInKiloMeters(Wgs84 b)
+        public readonly double DistanceInKiloMeters(Wgs84 b)
         {
             return 0.001 * DistanceInMeters(b);
         }
 
-        public Wgs84 CalculateNewPostionFromBearingDistance(double bearing, double distanceInMeters)
+        public readonly Wgs84 CalculateNewPostionFromBearingDistance(double bearing, double distanceInMeters)
         {
             double latRadians = Units.DegreesToRadians(Latitude);
             double lonRadians = Units.DegreesToRadians(Longitude);

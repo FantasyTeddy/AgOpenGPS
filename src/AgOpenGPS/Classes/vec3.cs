@@ -32,11 +32,11 @@ namespace AgOpenGPS
             heading = 0.0;
         }
 
-        public GeoCoord ToGeoCoord()
+        public readonly GeoCoord ToGeoCoord()
         {
             return new GeoCoord(northing, easting);
         }
-        public vec2 ToVec2()
+        public readonly vec2 ToVec2()
         {
             return new vec2(easting, northing);
         }
@@ -82,7 +82,7 @@ namespace AgOpenGPS
             easting = geoCoord.Easting;
         }
 
-        public GeoCoord ToGeoCoord()
+        public readonly GeoCoord ToGeoCoord()
         {
             return new GeoCoord(northing, easting);
         }
@@ -92,12 +92,12 @@ namespace AgOpenGPS
             return new vec2(lhs.easting - rhs.easting, lhs.northing - rhs.northing);
         }
 
-        public double HeadingXZ()
+        public readonly double HeadingXZ()
         {
             return Math.Atan2(easting, northing);
         }
 
-        public vec2 Normalize()
+        public readonly vec2 Normalize()
         {
             double length = GetLength();
             if (Math.Abs(length) < 0.000000000001)
@@ -108,12 +108,12 @@ namespace AgOpenGPS
             return new vec2(easting / length, northing / length);
         }
 
-        public double GetLength()
+        public readonly double GetLength()
         {
             return Math.Sqrt((easting * easting) + (northing * northing));
         }
 
-        public double GetLengthSquared()
+        public readonly double GetLengthSquared()
         {
             return (easting * easting) + (northing * northing);
         }

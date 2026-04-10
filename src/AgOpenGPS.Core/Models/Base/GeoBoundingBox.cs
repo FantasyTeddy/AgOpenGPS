@@ -15,16 +15,16 @@
             MaxCoord = maxCoord;
         }
 
-        public bool IsEmpty =>
+        public readonly bool IsEmpty =>
             MaxCoord.Northing < MinCoord.Northing &&
             MaxCoord.Easting < MinCoord.Easting;
-        public double MinNorthing => MinCoord.Northing;
-        public double MaxNorthing => MaxCoord.Northing;
-        public double MinEasting => MinCoord.Easting;
-        public double MaxEasting => MaxCoord.Easting;
+        public readonly double MinNorthing => MinCoord.Northing;
+        public readonly double MaxNorthing => MaxCoord.Northing;
+        public readonly double MinEasting => MinCoord.Easting;
+        public readonly double MaxEasting => MaxCoord.Easting;
         public GeoCoord MinCoord { get; private set; }
         public GeoCoord MaxCoord { get; private set; }
-        public GeoCoord CenterCoord => MinCoord.Average(MaxCoord);
+        public readonly GeoCoord CenterCoord => MinCoord.Average(MaxCoord);
 
         public void Include(GeoCoord geoCoord)
         {
@@ -38,7 +38,7 @@
             MaxCoord = MaxCoord.Max(bb.MaxCoord);
         }
 
-        public bool IsInside(GeoCoord testCoord)
+        public readonly bool IsInside(GeoCoord testCoord)
         {
             return
                 MinCoord.Northing <= testCoord.Northing && testCoord.Northing <= MaxCoord.Northing &&
