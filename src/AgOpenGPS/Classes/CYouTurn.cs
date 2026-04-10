@@ -575,7 +575,7 @@ namespace AgOpenGPS
                         }
 
                         //keep moving infield till pattern is all inside
-                        inClosestTurnPt.curveIndex = inClosestTurnPt.curveIndex + count;
+                        inClosestTurnPt.curveIndex += count;
                         inClosestTurnPt.closePt = new vec3(mf.curve.curList[inClosestTurnPt.curveIndex]);
 
 
@@ -684,8 +684,8 @@ namespace AgOpenGPS
                         }
 
                         //keep moving infield till pattern is all inside
-                        if (!isOutSameCurve) outClosestTurnPt.curveIndex = outClosestTurnPt.curveIndex + count;
-                        else outClosestTurnPt.curveIndex = outClosestTurnPt.curveIndex - count;
+                        if (!isOutSameCurve) outClosestTurnPt.curveIndex += count;
+                        else outClosestTurnPt.curveIndex -= count;
                         outClosestTurnPt.closePt = new vec3(nextCurve[outClosestTurnPt.curveIndex]);
 
                     }
@@ -904,13 +904,13 @@ namespace AgOpenGPS
 
                     if (isTurnLeft)
                     {
-                        goal.easting = goal.easting + (Math.Cos(-invertedHead) * turnOffset);
-                        goal.northing = goal.northing + (Math.Sin(-invertedHead) * turnOffset);
+                        goal.easting += Math.Cos(-invertedHead) * turnOffset;
+                        goal.northing += Math.Sin(-invertedHead) * turnOffset;
                     }
                     else
                     {
-                        goal.easting = goal.easting - (Math.Cos(-invertedHead) * turnOffset);
-                        goal.northing = goal.northing - (Math.Sin(-invertedHead) * turnOffset);
+                        goal.easting -= Math.Cos(-invertedHead) * turnOffset;
+                        goal.northing -= Math.Sin(-invertedHead) * turnOffset;
                     }
 
                     goal.heading = invertedHead;

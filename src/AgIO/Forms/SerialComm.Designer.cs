@@ -268,7 +268,7 @@ namespace AgIO
                                             int CK_A = 0;
                                             for (int j = 2; j < length; j++)
                                             {
-                                                CK_A = CK_A + ByteList[j];
+                                                CK_A += ByteList[j];
                                             }
 
                                             //if checksum matches finish and update main thread
@@ -479,7 +479,7 @@ namespace AgIO
                                             int CK_A = 0;
                                             for (int j = 2; j < length; j++)
                                             {
-                                                CK_A = CK_A + ByteList[j];
+                                                CK_A += ByteList[j];
                                             }
 
                                             //if checksum matches finish and update main thread
@@ -697,7 +697,7 @@ namespace AgIO
                                             int CK_A = 0;
                                             for (int j = 2; j < length; j++)
                                             {
-                                                CK_A = CK_A + ByteList[j];
+                                                CK_A += ByteList[j];
                                             }
 
                                             //if checksum matches finish and update main thread

@@ -194,7 +194,7 @@ namespace AgOpenGPS
                                 double oppositeAbAngle = glm.toDegrees(trk.gArr[trk.idx].heading) + 180;
                                 if (oppositeAbAngle > 360)
                                 {
-                                    oppositeAbAngle = oppositeAbAngle - 360;
+                                    oppositeAbAngle -= 360;
                                 }
 
                                 GeoDir headingDir = new GeoDir(trk.gArr[trk.idx].heading);
