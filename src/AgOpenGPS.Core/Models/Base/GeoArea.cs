@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS.Core.Models
 {
-    public struct GeoArea
+    public readonly struct GeoArea
     {
         public GeoArea(double area)
         {

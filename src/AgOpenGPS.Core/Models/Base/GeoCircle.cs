@@ -5,7 +5,7 @@ namespace AgOpenGPS.Core.Models
 {
     public enum TurnType { Straight, Left, Right }
 
-    public struct GeoCircle
+    public readonly struct GeoCircle
     {
 
         public GeoCircle(GeoCoord center, double radius)

@@ -2,7 +2,7 @@
 
 namespace AgOpenGPS.Core.Models
 {
-    public struct GeoDir
+    public readonly struct GeoDir
     {
         public GeoDir(double angleInRadians)
         {

@@ -2,7 +2,7 @@
 
 namespace AgOpenGPS.Core.Models
 {
-    public struct GeoCoord
+    public readonly struct GeoCoord
     {
         public GeoCoord(double northing, double easting)
         {

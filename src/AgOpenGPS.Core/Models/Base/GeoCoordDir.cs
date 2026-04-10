@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS.Core.Models
 {
-    public struct GeoCoordDir
+    public readonly struct GeoCoordDir
     {
         public GeoCoordDir(GeoCoord coord, GeoDir direction)
         {

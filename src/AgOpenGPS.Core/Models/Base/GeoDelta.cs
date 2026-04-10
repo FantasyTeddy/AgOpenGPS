@@ -2,7 +2,7 @@
 
 namespace AgOpenGPS.Core.Models
 {
-    public struct GeoDelta
+    public readonly struct GeoDelta
     {
         public GeoDelta(GeoCoord fromCoord, GeoCoord toCoord)
         {
