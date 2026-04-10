@@ -1244,9 +1244,8 @@ namespace AgOpenGPS
 
             foreach (object item in tab1.TabPages[9].Controls)
             {
-                if (item is NudlessNumericUpDown)
+                if (item is NudlessNumericUpDown item2)
                 {
-                    NudlessNumericUpDown item2 = (NudlessNumericUpDown)item;
                     if (item2.Name.Substring(0, 6) == "nudSec")
                     {
                         //grab the number from nudSection01
