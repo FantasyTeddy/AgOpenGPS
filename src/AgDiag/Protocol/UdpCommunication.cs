@@ -23,7 +23,7 @@ namespace AgDiag.Protocol
 
         public void LoadLoopback()
         {
-            var cancellationToken = _cancellationTokenSource.Token;
+            CancellationToken cancellationToken = _cancellationTokenSource.Token;
             Task.Factory.StartNew(() => ReceiveLoopAsync(cancellationToken), cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
@@ -40,7 +40,7 @@ namespace AgDiag.Protocol
                 {
                     while (!cancellationToken.IsCancellationRequested)
                     {
-                        var result = await udpClient.ReceiveAsync().ConfigureAwait(false);
+                        UdpReceiveResult result = await udpClient.ReceiveAsync().ConfigureAwait(false);
 
                         HandleMessage(result.Buffer);
                     }

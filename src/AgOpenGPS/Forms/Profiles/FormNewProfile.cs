@@ -72,7 +72,7 @@ namespace AgOpenGPS.Forms.Profiles
             }
             else
             {
-                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                FormTimedMessage form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 form.Show(this);
                 textBoxName.Enabled = false;
             }
@@ -80,7 +80,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
-            var cursorPosition = textBoxName.SelectionStart;
+            int cursorPosition = textBoxName.SelectionStart;
             textBoxName.Text = Regex.Replace(textBoxName.Text, glm.fileRegex, "");
             textBoxName.SelectionStart = cursorPosition;
 
@@ -97,7 +97,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             if (File.Exists(newProfilePath))
             {
-                var overwrite = FormDialog.ShowQuestion(
+                DialogResult overwrite = FormDialog.ShowQuestion(
                     gStr.gsSaveAndReturn,
                     $"Profile '{newProfileName}' already exists.\r\n\r\nOverwrite?");
 
@@ -112,7 +112,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             if (existingProfileName.Equals(EmptyProfile))
             {
-                var confirmReset = FormDialog.ShowQuestion(
+                DialogResult confirmReset = FormDialog.ShowQuestion(
                     "!! WARNING !!",
                     "This will reset all Environment settings (display, sounds, window positions). Are you Sure?",
                     DialogSeverity.Warning);
@@ -166,7 +166,7 @@ namespace AgOpenGPS.Forms.Profiles
             string previousEnv = RegistrySettings.environmentFileName;
             RegistrySettings.Save(RegKeys.environmentFileName, existingProfileName);
 
-            var result = Settings.Default.Load();
+            LoadResult result = Settings.Default.Load();
             if (result != LoadResult.Ok)
             {
                 Log.EventWriter($"Error loading environment profile {existingProfileName}.xml ({result})");

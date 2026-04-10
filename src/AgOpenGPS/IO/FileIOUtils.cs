@@ -28,10 +28,10 @@ namespace AgOpenGPS.IO
 
         public static List<vec3> ReadVec3Block(StreamReader r, int count)
         {
-            var list = new List<vec3>(count > 0 ? count : 0);
+            List<vec3> list = new List<vec3>(count > 0 ? count : 0);
             for (int i = 0; i < count && !r.EndOfStream; i++)
             {
-                var words = (r.ReadLine() ?? string.Empty).Split(',');
+                string[] words = (r.ReadLine() ?? string.Empty).Split(',');
                 if (words.Length < 3) continue;
 
                 double e, n, h;

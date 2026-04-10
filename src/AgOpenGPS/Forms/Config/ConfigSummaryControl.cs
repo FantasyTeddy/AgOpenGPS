@@ -1,6 +1,7 @@
 using System.Windows.Forms;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
+using AgOpenGPS.Properties;
 
 namespace AgOpenGPS.Forms.Config
 {
@@ -28,8 +29,8 @@ namespace AgOpenGPS.Forms.Config
 
         public void UpdateSummary(FormGPS mf)
         {
-            var vs = Properties.VehicleSettings.Default;
-            var ts = Properties.ToolSettings.Default;
+            VehicleSettings vs = Properties.VehicleSettings.Default;
+            ToolSettings ts = Properties.ToolSettings.Default;
 
             // Vehicle panel
             lblSummaryVehicleName.Text = RegistrySettings.vehicleProfileName;

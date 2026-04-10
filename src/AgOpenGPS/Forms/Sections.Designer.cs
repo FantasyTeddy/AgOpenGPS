@@ -18,7 +18,7 @@ namespace AgOpenGPS
             // return if there was a track selected
             if (this.trk.idx < 0) return;
 
-            var track = this.trk.gArr[this.trk.idx];
+            CTrk track = this.trk.gArr[this.trk.idx];
 
             if (track.mode == TrackMode.AB)
             {

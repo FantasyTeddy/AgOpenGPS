@@ -66,16 +66,16 @@ namespace AgOpenGPS.Updater.Services
                     url = $"/repos/{_owner}/{_repository}/releases/latest";
                 }
 
-                var response = await _httpClient.GetAsync(url);
+                HttpResponseMessage response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
 
-                var content = await response.Content.ReadAsStringAsync();
+                string content = await response.Content.ReadAsStringAsync();
 
                 if (includePrerelease)
                 {
                     // Parse as array and get the first non-draft release
-                    var releases = JsonConvert.DeserializeObject<List<ReleaseInfo>>(content);
-                    foreach (var release in releases)
+                    List<ReleaseInfo> releases = JsonConvert.DeserializeObject<List<ReleaseInfo>>(content);
+                    foreach (ReleaseInfo release in releases)
                     {
                         if (!release.Draft)
                         {
@@ -87,7 +87,7 @@ namespace AgOpenGPS.Updater.Services
                 else
                 {
                     // Parse as single release
-                    var release = JsonConvert.DeserializeObject<ReleaseInfo>(content);
+                    ReleaseInfo release = JsonConvert.DeserializeObject<ReleaseInfo>(content);
 
                     // Don't return pre-releases if we only want stable
                     if (release != null && release.Prerelease)
@@ -115,13 +115,13 @@ namespace AgOpenGPS.Updater.Services
         /// </summary>
         private async Task<ReleaseInfo> GetLatestStableRelease()
         {
-            var response = await _httpClient.GetAsync($"/repos/{_owner}/{_repository}/releases");
+            HttpResponseMessage response = await _httpClient.GetAsync($"/repos/{_owner}/{_repository}/releases");
             response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
-            var releases = JsonConvert.DeserializeObject<List<ReleaseInfo>>(content);
+            string content = await response.Content.ReadAsStringAsync();
+            List<ReleaseInfo> releases = JsonConvert.DeserializeObject<List<ReleaseInfo>>(content);
 
-            foreach (var release in releases)
+            foreach (ReleaseInfo release in releases)
             {
                 if (!release.Draft && !release.Prerelease)
                 {
@@ -139,11 +139,11 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"/repos/{_owner}/{_repository}/releases");
+                HttpResponseMessage response = await _httpClient.GetAsync($"/repos/{_owner}/{_repository}/releases");
                 response.EnsureSuccessStatusCode();
 
-                var content = await response.Content.ReadAsStringAsync();
-                var releases = JsonConvert.DeserializeObject<List<ReleaseInfo>>(content);
+                string content = await response.Content.ReadAsStringAsync();
+                List<ReleaseInfo> releases = JsonConvert.DeserializeObject<List<ReleaseInfo>>(content);
 
                 // Filter out drafts
                 releases.RemoveAll(r => r.Draft);
@@ -163,10 +163,10 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"/repos/{_owner}/{_repository}/releases/tags/{tag}");
+                HttpResponseMessage response = await _httpClient.GetAsync($"/repos/{_owner}/{_repository}/releases/tags/{tag}");
                 response.EnsureSuccessStatusCode();
 
-                var content = await response.Content.ReadAsStringAsync();
+                string content = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<ReleaseInfo>(content);
             }
             catch (HttpRequestException ex)
@@ -186,7 +186,7 @@ namespace AgOpenGPS.Updater.Services
             try
             {
                 // Use a new client for download to handle large files better
-                using (var downloadClient = new HttpClient())
+                using (HttpClient downloadClient = new HttpClient())
                 {
                     downloadClient.Timeout = TimeSpan.FromMinutes(10);
 
@@ -199,27 +199,27 @@ namespace AgOpenGPS.Updater.Services
                     // The asset URLs are public and don't need authentication
 
                     // Get the file size first
-                    var headResponse = await downloadClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, downloadUrl));
+                    HttpResponseMessage headResponse = await downloadClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, downloadUrl));
                     headResponse.EnsureSuccessStatusCode();
 
                     long totalBytes = headResponse.Content.Headers.ContentLength ?? 0;
 
                     // Download the file
-                    var response = await downloadClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                    HttpResponseMessage response = await downloadClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
                     response.EnsureSuccessStatusCode();
 
                     long totalBytesRead = 0;
-                    var buffer = new byte[8192];
+                    byte[] buffer = new byte[8192];
 
                     // Ensure directory exists
-                    var directory = Path.GetDirectoryName(destinationPath);
+                    string directory = Path.GetDirectoryName(destinationPath);
                     if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                     {
                         Directory.CreateDirectory(directory);
                     }
 
-                    using (var contentStream = await response.Content.ReadAsStreamAsync())
-                    using (var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true))
+                    using (Stream contentStream = await response.Content.ReadAsStreamAsync())
+                    using (FileStream fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, buffer.Length, true))
                     {
                         int bytesRead;
                         while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
@@ -252,7 +252,7 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                using (var downloadClient = new HttpClient())
+                using (HttpClient downloadClient = new HttpClient())
                 {
                     downloadClient.Timeout = TimeSpan.FromMinutes(10);
 
@@ -261,16 +261,16 @@ namespace AgOpenGPS.Updater.Services
 
                     // NOTE: Don't add Authorization header for asset downloads (see DownloadAsset)
 
-                    var response = await downloadClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
+                    HttpResponseMessage response = await downloadClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead);
                     response.EnsureSuccessStatusCode();
 
                     long totalBytes = response.Content.Headers.ContentLength ?? 0;
                     long totalBytesRead = 0;
 
-                    using (var contentStream = await response.Content.ReadAsStreamAsync())
-                    using (var memoryStream = new MemoryStream())
+                    using (Stream contentStream = await response.Content.ReadAsStreamAsync())
+                    using (MemoryStream memoryStream = new MemoryStream())
                     {
-                        var buffer = new byte[8192];
+                        byte[] buffer = new byte[8192];
                         int bytesRead;
 
                         while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
@@ -302,16 +302,16 @@ namespace AgOpenGPS.Updater.Services
         /// <returns>The release info if an update is available, null otherwise.</returns>
         public async Task<ReleaseInfo> CheckForUpdate(string currentVersion, bool includePrerelease = false)
         {
-            var latestRelease = await GetLatestRelease(includePrerelease);
+            ReleaseInfo latestRelease = await GetLatestRelease(includePrerelease);
             if (latestRelease == null)
                 return null;
 
             // Parse current version
-            if (!SemanticVersion.TryParse(currentVersion, out var currentSemVer))
+            if (!SemanticVersion.TryParse(currentVersion, out SemanticVersion currentSemVer))
                 return null;
 
             // Parse latest version
-            if (!SemanticVersion.TryParse(latestRelease.Version, out var latestSemVer))
+            if (!SemanticVersion.TryParse(latestRelease.Version, out SemanticVersion latestSemVer))
                 return null;
 
             // If including prereleases but current is also prerelease,

@@ -273,7 +273,7 @@ namespace AgIO
 
                 YesMessageBox("AgIO - No Profile Open \r\n\r\n Create or Open a Profile");
 
-                using (var form = new FormProfiles(this))
+                using (FormProfiles form = new FormProfiles(this))
                 {
                     form.ShowDialog(this);
                     if (form.DialogResult == DialogResult.Yes)
@@ -495,7 +495,7 @@ namespace AgIO
                     try
                     {
                         //add the uniques messages to all the new ones
-                        foreach (var item in aList)
+                        foreach (int item in aList)
                         {
                             rList.Add(item);
                         }
@@ -503,13 +503,13 @@ namespace AgIO
                         //sort and group using Linq
                         sbRTCM.Clear();
 
-                        var g = rList.GroupBy(i => i)
+                        IOrderedEnumerable<IGrouping<int, int>> g = rList.GroupBy(i => i)
                             .OrderBy(grp => grp.Key);
                         int count = 0;
                         aList.Clear();
 
                         //Create the text box of unique message numbers
-                        foreach (var grp in g)
+                        foreach (IGrouping<int, int> grp in g)
                         {
                             aList.Add(grp.Key);
                             sbRTCM.AppendLine(grp.Key + " - " + (grp.Count() - 1));

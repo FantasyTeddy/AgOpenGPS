@@ -140,7 +140,7 @@ namespace AgOpenGPS
                             if (camera.camSetDistance < -5000) mipmap = 16;
 
                             //for every new chunk of patch
-                            foreach (var triList in triStrip[j].patchList)
+                            foreach (List<vec3> triList in triStrip[j].patchList)
                             {
                                 //check for even
                                 if (triList.Count % 2 == 0)
@@ -538,7 +538,7 @@ namespace AgOpenGPS
                                 }
                                 else
                                 {
-                                    var stableMs = (DateTime.UtcNow - RTKBackSinceUtc).TotalMilliseconds;
+                                    double stableMs = (DateTime.UtcNow - RTKBackSinceUtc).TotalMilliseconds;
                                     if (stableMs >= RTK_RECOVER_DEBOUNCE_MS)
                                     {
                                         // One-shot "recovered" event
@@ -825,7 +825,7 @@ namespace AgOpenGPS
                 if (patchCount > 0)
                 {
                     //for every new chunk of patch
-                    foreach (var triList in triStrip[j].patchList)
+                    foreach (List<vec3> triList in triStrip[j].patchList)
                     {
                         isDraw = false;
                         int count2 = triList.Count;
@@ -1494,7 +1494,7 @@ namespace AgOpenGPS
                     if (patchCount > 0)
                     {
                         //for every new chunk of patch
-                        foreach (var triList in triStrip[j].patchList)
+                        foreach (List<vec3> triList in triStrip[j].patchList)
                         {
                             //draw the triangle in each triangle strip
                             GL.Begin(PrimitiveType.TriangleStrip);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -19,7 +20,7 @@ namespace AgOpenGPS
         {
             try
             {
-                using (var reader = new XmlTextReader(filePath))
+                using (XmlTextReader reader = new XmlTextReader(filePath))
                 {
                     while (reader.Read())
                     {
@@ -73,7 +74,7 @@ namespace AgOpenGPS
 
             // Load old settings
             SettingsLegacy oldSettings = new SettingsLegacy();
-            var loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
+            LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
             if (loadResult != LoadResult.Ok)
                 return loadResult;
 
@@ -123,7 +124,7 @@ namespace AgOpenGPS
 
             // Load old settings
             SettingsLegacy oldSettings = new SettingsLegacy();
-            var loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
+            LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
             if (loadResult != LoadResult.Ok)
                 return loadResult;
 
@@ -292,7 +293,7 @@ namespace AgOpenGPS
             dest.setTool_defaultSectionWidth = source.setTool_defaultSectionWidth;
             dest.setTool_sectionWidthMulti = source.setTool_sectionWidthMulti;
             // Old format had 10 zones values, new format uses 9 - truncate to prevent IndexOutOfRangeException
-            var zoneWords = source.setTool_zones.Split(',');
+            string[] zoneWords = source.setTool_zones.Split(',');
             dest.setTool_zones = string.Join(",", zoneWords.Take(9));
 
             // Section positions
@@ -403,12 +404,12 @@ namespace AgOpenGPS
 
             // Load old settings
             SettingsLegacy oldSettings = new SettingsLegacy();
-            var loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
+            LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
             if (loadResult != LoadResult.Ok)
                 return loadResult;
 
             // Copy environment settings from old to new
-            var envSettings = new Settings();
+            Settings envSettings = new Settings();
             Settings.MigrateFromOldToTarget(oldSettings, envSettings);
 
             // Save as environment file with error handling
@@ -450,7 +451,7 @@ namespace AgOpenGPS
             if (!Directory.Exists(oldVehiclesDir))
                 return new string[0];
 
-            var files = new System.Collections.Generic.List<string>();
+            List<string> files = new System.Collections.Generic.List<string>();
             foreach (string file in Directory.GetFiles(oldVehiclesDir, "*.xml"))
             {
                 // Include all old format files (converted and not)
@@ -495,7 +496,7 @@ namespace AgOpenGPS
             // Add marker comment at the end (harmless to old versions)
             try
             {
-                using (var writer = File.AppendText(oldPath))
+                using (StreamWriter writer = File.AppendText(oldPath))
                 {
                     writer.WriteLine();
                     writer.WriteLine("<!-- CONVERTED: Vehicle/Tool/Environment profiles created -->");
@@ -515,11 +516,11 @@ namespace AgOpenGPS
             foreach (string fileName in files)
             {
                 // Migrate vehicle settings
-                var vehicleSettings = new VehicleSettings();
+                VehicleSettings vehicleSettings = new VehicleSettings();
                 MigrateVehicle(fileName, fileName, vehicleSettings);
 
                 // Migrate tool settings
-                var toolSettings = new ToolSettings();
+                ToolSettings toolSettings = new ToolSettings();
                 MigrateTool(fileName, fileName, toolSettings);
 
                 // Mark old file as converted

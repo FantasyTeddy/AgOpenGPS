@@ -32,7 +32,7 @@ namespace AgOpenGPS.Core.DrawLib
             else
             {
                 GL.Begin(primitiveType);
-                foreach (var segment in lineSegments)
+                foreach (GeoLineSegment segment in lineSegments)
                 {
                     Vertex2(segment.CoordA);
                     Vertex2(segment.CoordB);
@@ -68,7 +68,7 @@ namespace AgOpenGPS.Core.DrawLib
                 SetLineWidth(backgroundStyle.Width);
                 SetColor(backgroundStyle.Color);
                 GL.Begin(primitiveType);
-                foreach (var segment in lineSegments)
+                foreach (GeoLineSegment segment in lineSegments)
                 {
                     Vertex2(segment.CoordA);
                     Vertex2(segment.CoordB);
@@ -78,7 +78,7 @@ namespace AgOpenGPS.Core.DrawLib
                 SetLineWidth(foregroundStyle.Width);
                 SetColor(foregroundStyle.Color);
                 GL.Begin(primitiveType);
-                foreach (var segment in lineSegments)
+                foreach (GeoLineSegment segment in lineSegments)
                 {
                     Vertex2(segment.CoordA);
                     Vertex2(segment.CoordB);

@@ -22,7 +22,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             if (!Enum.IsDefined(typeof(Version), version))
                 throw new ArgumentOutOfRangeException(nameof(version), version, "Invalid version");
 
-            var isoxml = ISOXML.Create(directoryName);
+            ISOXML isoxml = ISOXML.Create(directoryName);
 
             SetFileInformation(isoxml, version);
             AddPartfield(isoxml, designator, area, bndList, localPlane, trk, version);
@@ -59,7 +59,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             CTrack trk,
             Version version)
         {
-            var partfield = new ISOPartfield();
+            ISOPartfield partfield = new ISOPartfield();
             isoxml.IdTable.AddObjectAndAssignIdIfNone(partfield);
             partfield.PartfieldDesignator = designator;
             partfield.PartfieldArea = (ulong)area;
@@ -75,12 +75,12 @@ namespace AgOpenGPS.Protocols.ISOBUS
         {
             for (int i = 0; i < bndList.Count; i++)
             {
-                var polygon = new ISOPolygon
+                ISOPolygon polygon = new ISOPolygon
                 {
                     PolygonType = i == 0 ? ISOPolygonType.PartfieldBoundary : ISOPolygonType.Obstacle
                 };
 
-                var lineString = new ISOLineString
+                ISOLineString lineString = new ISOLineString
                 {
                     LineStringType = ISOLineStringType.PolygonExterior
                 };
@@ -108,12 +108,12 @@ namespace AgOpenGPS.Protocols.ISOBUS
             {
                 if (boundaryList.hdLine.Count < 1) continue;
 
-                var polygon = new ISOPolygon
+                ISOPolygon polygon = new ISOPolygon
                 {
                     PolygonType = ISOPolygonType.Headland
                 };
 
-                var lineString = new ISOLineString
+                ISOLineString lineString = new ISOLineString
                 {
                     LineStringType = ISOLineStringType.PolygonExterior
                 };
@@ -155,13 +155,13 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
                     case Version.V4:
                         {
-                            var guidanceGroup = new ISOGuidanceGroup
+                            ISOGuidanceGroup guidanceGroup = new ISOGuidanceGroup
                             {
                                 GuidanceGroupDesignator = track.name
                             };
                             isoxml.IdTable.AddObjectAndAssignIdIfNone(guidanceGroup);
 
-                            var guidancePattern = new ISOGuidancePattern
+                            ISOGuidancePattern guidancePattern = new ISOGuidancePattern
                             {
                                 GuidancePatternId = guidanceGroup.GuidanceGroupId,
                                 GuidancePatternPropagationDirection = ISOGuidancePatternPropagationDirection.Bothdirections,
@@ -214,7 +214,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
         private static ISOLineString CreateABLineString(CTrk track, LocalPlane localPlane, Version version)
         {
-            var lineString = new ISOLineString
+            ISOLineString lineString = new ISOLineString
             {
                 LineStringType = ISOLineStringType.GuidancePattern
             };
@@ -244,7 +244,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
         private static ISOLineString CreateCurveLineString(CTrk track, LocalPlane localPlane, Version version)
         {
-            var lineString = new ISOLineString
+            ISOLineString lineString = new ISOLineString
             {
                 LineStringType = ISOLineStringType.GuidancePattern
             };
@@ -253,7 +253,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             {
                 Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(track.curvePts[j].ToGeoCoord());
 
-                var point = new ISOPoint
+                ISOPoint point = new ISOPoint
                 {
                     PointNorth = (decimal)latLon.Latitude,
                     PointEast = (decimal)latLon.Longitude

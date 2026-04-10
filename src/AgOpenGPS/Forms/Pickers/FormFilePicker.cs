@@ -1,4 +1,5 @@
 ﻿using AgLibrary.Logging;
+using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Streamers;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;
@@ -96,7 +97,7 @@ namespace AgOpenGPS
         {
             try
             {
-                using (var reader = new GeoStreamReader(filename))
+                using (GeoStreamReader reader = new GeoStreamReader(filename))
                 {
                     // Legacy format: skip 8 lines, then expect a WGS84 position.
                     for (int i = 0; i < 8; i++) reader.ReadLine();
@@ -104,7 +105,7 @@ namespace AgOpenGPS
                     string distanceStr;
                     if (!reader.EndOfStream)
                     {
-                        var startLatLon = reader.ReadWgs84();
+                        Wgs84 startLatLon = reader.ReadWgs84();
                         double km = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
                         distanceStr = Math.Round(km, 2).ToString("N2").PadLeft(10);
                     }
@@ -159,8 +160,8 @@ namespace AgOpenGPS
         /// </summary>
         private double CalculateBoundaryArea(string filename)
         {
-            var pointList = new List<vec3>();
-            using (var reader = new StreamReader(filename))
+            List<vec3> pointList = new List<vec3>();
+            using (StreamReader reader = new StreamReader(filename))
             {
                 string line;
 
@@ -194,7 +195,7 @@ namespace AgOpenGPS
                     line = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(line)) return 0;
 
-                    var words = line.Split(',');
+                    string[] words = line.Split(',');
                     if (words.Length < 3) return 0;
 
                     double e, n, h;
@@ -297,7 +298,7 @@ namespace AgOpenGPS
         {
             if (lvLines.SelectedItems.Count == 0) return;
 
-            var selectedItem = lvLines.SelectedItems[0];
+            ListViewItem selectedItem = lvLines.SelectedItems[0];
 
             // Determine the field name depending on the current ordering
             string fieldName = order == 0

@@ -10,11 +10,11 @@ namespace AgOpenGPS.IO
     {
         public static List<CRecPathPt> Load(string fieldDirectory)
         {
-            var list = new List<CRecPathPt>();
-            var path = Path.Combine(fieldDirectory, "RecPath.txt");
+            List<CRecPathPt> list = new List<CRecPathPt>();
+            string path = Path.Combine(fieldDirectory, "RecPath.txt");
             if (!File.Exists(path)) return list;
 
-            using (var reader = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(path))
             {
                 string headerOrCount = reader.ReadLine();
                 string cntLine = reader.ReadLine();
@@ -32,10 +32,10 @@ namespace AgOpenGPS.IO
 
                 for (int i = 0; i < numPoints && !reader.EndOfStream; i++)
                 {
-                    var words = (reader.ReadLine() ?? string.Empty).Split(',');
+                    string[] words = (reader.ReadLine() ?? string.Empty).Split(',');
                     if (words.Length < 5) continue;
 
-                    var pt = new CRecPathPt(
+                    CRecPathPt pt = new CRecPathPt(
                         double.Parse(words[0], CultureInfo.InvariantCulture), // easting
                         double.Parse(words[1], CultureInfo.InvariantCulture), // northing
                         double.Parse(words[2], CultureInfo.InvariantCulture), // heading
@@ -50,17 +50,17 @@ namespace AgOpenGPS.IO
         }
         public static void Save(string fieldDirectory, IReadOnlyList<CRecPathPt> recList, string fileName = "RecPath.txt")
         {
-            var filename = Path.Combine(fieldDirectory, fileName ?? "RecPath.txt");
+            string filename = Path.Combine(fieldDirectory, fileName ?? "RecPath.txt");
 
-            using (var writer = new StreamWriter(filename, false))
+            using (StreamWriter writer = new StreamWriter(filename, false))
             {
                 writer.WriteLine("$RecPath");
-                var list = recList ?? new List<CRecPathPt>();
+                IReadOnlyList<CRecPathPt> list = recList ?? new List<CRecPathPt>();
 
                 writer.WriteLine(list.Count.ToString(CultureInfo.InvariantCulture));
                 for (int i = 0; i < list.Count; i++)
                 {
-                    var p = list[i];
+                    CRecPathPt p = list[i];
                     writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 3)},{FileIoUtils.FormatDouble(p.speed, 1)},{p.autoBtnState}");
                 }
             }
@@ -81,8 +81,8 @@ namespace AgOpenGPS.IO
                 Directory.CreateDirectory(fieldDirectory);
             }
 
-            var path = Path.Combine(fieldDirectory, "RecPath.txt");
-            using (var writer = new StreamWriter(path, false, Encoding.UTF8))
+            string path = Path.Combine(fieldDirectory, "RecPath.txt");
+            using (StreamWriter writer = new StreamWriter(path, false, Encoding.UTF8))
             {
                 writer.WriteLine("$RecPath");
                 writer.WriteLine("0");

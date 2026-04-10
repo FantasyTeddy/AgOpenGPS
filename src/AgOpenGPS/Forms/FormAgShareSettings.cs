@@ -71,10 +71,10 @@ namespace AgOpenGPS
             labelStatus.Text = "Connecting...";
             labelStatus.ForeColor = Color.Gray;
 
-            var baseUrl = textBoxServer.Text;
-            var apiKey = textBoxApiKey.Text;
+            string baseUrl = textBoxServer.Text;
+            string apiKey = textBoxApiKey.Text;
 
-            var result = await AgShareClient.CheckApiAsync(baseUrl, apiKey);
+            AgShareResult result = await AgShareClient.CheckApiAsync(baseUrl, apiKey);
 
             if (result.IsSuccessful)
             {

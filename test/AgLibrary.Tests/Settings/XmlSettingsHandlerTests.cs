@@ -12,11 +12,11 @@ namespace AgLibrary.Tests.Settings
         public void LoadXMLFile_ShouldLoadSuccessfully()
         {
             // Arrange
-            var filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Settings", "TestSettings.xml");
-            var testSettings = new TestSettings();
+            string filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Settings", "TestSettings.xml");
+            TestSettings testSettings = new TestSettings();
 
             // Act
-            var loadResult = XmlSettingsHandler.LoadXMLFile(filePath, testSettings);
+            LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(filePath, testSettings);
 
             // Assert
             Assert.That(loadResult, Is.EqualTo(LoadResult.Ok));
@@ -37,10 +37,10 @@ namespace AgLibrary.Tests.Settings
         public void LoadXMLFile_ShouldReturnMissingFile()
         {
             // Arrange
-            var filePath = @"C:\Path\To\Nonexisting\Settings.xml";
+            string filePath = @"C:\Path\To\Nonexisting\Settings.xml";
 
             // Act
-            var loadResult = XmlSettingsHandler.LoadXMLFile(filePath, null);
+            LoadResult loadResult = XmlSettingsHandler.LoadXMLFile(filePath, null);
 
             // Assert
             Assert.That(loadResult, Is.EqualTo(LoadResult.MissingFile));
@@ -50,8 +50,8 @@ namespace AgLibrary.Tests.Settings
         public void SaveXMLFile_ShouldSaveWithoutException()
         {
             // Arrange
-            var filePath = Path.GetTempFileName();
-            var testSettings = new TestSettings
+            string filePath = Path.GetTempFileName();
+            TestSettings testSettings = new TestSettings
             {
                 StringSetting = "Some text",
                 EnumSetting = TestEnum.Two,
@@ -73,8 +73,8 @@ namespace AgLibrary.Tests.Settings
             XmlSettingsHandler.SaveXMLFile(filePath, testSettings);
 
             // Assert
-            var actual = File.ReadAllText(filePath);
-            var expected = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "Settings", "TestSettings.xml"));
+            string actual = File.ReadAllText(filePath);
+            string expected = File.ReadAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "Settings", "TestSettings.xml"));
             Assert.That(actual, Is.EqualTo(expected));
         }
     }

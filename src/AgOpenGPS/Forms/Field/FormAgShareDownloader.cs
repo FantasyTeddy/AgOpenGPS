@@ -46,7 +46,7 @@ namespace AgOpenGPS.Forms.Field
             try
             {
                 // Get user's own fields from the AgShare server
-                var fields = await downloader.GetOwnFieldsAsync();
+                List<GetOwnFieldDto> fields = await downloader.GetOwnFieldsAsync();
 
                 if (fields == null)
                 {
@@ -57,9 +57,9 @@ namespace AgOpenGPS.Forms.Field
                 lbFields.BeginUpdate();
                 lbFields.Items.Clear();
 
-                foreach (var field in fields)
+                foreach (GetOwnFieldDto field in fields)
                 {
-                    var item = new ListViewItem(field.Name) { Tag = field };
+                    ListViewItem item = new ListViewItem(field.Name) { Tag = field };
                     lbFields.Items.Add(item);
                 }
 
@@ -80,14 +80,14 @@ namespace AgOpenGPS.Forms.Field
         {
             if (lbFields.SelectedItems.Count == 0) return;
 
-            var dto = lbFields.SelectedItems[0].Tag as GetOwnFieldDto;
+            GetOwnFieldDto dto = lbFields.SelectedItems[0].Tag as GetOwnFieldDto;
             if (dto == null) return;
 
             lblSelectedField.Text = "Selected Field: " + dto.Name;
             lblSelectedField.ForeColor = Color.Red;
 
             // Download and parse field for preview
-            var previewDto = await downloader.DownloadFieldPreviewAsync(dto.Id);
+            GetFieldDto previewDto = await downloader.DownloadFieldPreviewAsync(dto.Id);
 
             if (previewDto == null)
             {
@@ -95,7 +95,7 @@ namespace AgOpenGPS.Forms.Field
                 return;
             }
 
-            var localModel = AgShareFieldParser.Parse(previewDto); // Already converted to NE
+            ParsedField localModel = AgShareFieldParser.Parse(previewDto); // Already converted to NE
 
             RenderField(localModel);
         }
@@ -110,7 +110,7 @@ namespace AgOpenGPS.Forms.Field
                 return;
             }
 
-            var selected = lbFields.SelectedItems[0].Tag as GetOwnFieldDto;
+            GetOwnFieldDto selected = lbFields.SelectedItems[0].Tag as GetOwnFieldDto;
             if (selected == null)
             {
                 FormDialog.Show("AgShare", "Invalid selection.", DialogSeverity.Error);
@@ -159,11 +159,11 @@ namespace AgOpenGPS.Forms.Field
             progressBarDownloadAll.Value = 0;
 
             // Get list of fields to determine max for progress bar
-            var fields = await downloader.GetOwnFieldsAsync();
+            List<GetOwnFieldDto> fields = await downloader.GetOwnFieldsAsync();
             progressBarDownloadAll.Maximum = fields.Count;
 
             // Prepare progress reporting
-            var progress = new Progress<int>(v =>
+            Progress<int> progress = new Progress<int>(v =>
             {
                 progressBarDownloadAll.Value = v;
                 progressBarDownloadAll.Refresh();
@@ -173,7 +173,7 @@ namespace AgOpenGPS.Forms.Field
             bool forceOverwrite = chkForceOverwrite.Checked;
 
             // Start download
-            var result = await downloader.DownloadAllAsync(forceOverwrite, progress);
+            (int Downloaded, int Skipped, int Failed) result = await downloader.DownloadAllAsync(forceOverwrite, progress);
 
             // Restore UI
             progressBarDownloadAll.Visible = false;
@@ -239,16 +239,16 @@ namespace AgOpenGPS.Forms.Field
 
             // Draw field boundaries in lime green
             GL.Color4(0f, 1f, 0f, 0.8f);
-            foreach (var bnd in field.Boundaries)
+            foreach (CBoundaryList bnd in field.Boundaries)
             {
                 GL.Begin(PrimitiveType.LineLoop);
-                foreach (var pt in bnd.fenceLine)
+                foreach (vec3 pt in bnd.fenceLine)
                     GL.Vertex2(pt.easting, pt.northing);
                 GL.End();
             }
 
             // Draw AB lines and curves (dashed)
-            foreach (var trk in field.Tracks)
+            foreach (CTrk trk in field.Tracks)
             {
                 GL.Enable(EnableCap.LineStipple);
                 GL.LineStipple(1, 0x0F0F);
@@ -259,7 +259,7 @@ namespace AgOpenGPS.Forms.Field
                     // Render curve (red dashed line)
                     GL.Color4(1f, 0f, 0f, 0.9f);
                     GL.Begin(PrimitiveType.LineStrip);
-                    foreach (var pt in trk.curvePts)
+                    foreach (vec3 pt in trk.curvePts)
                         GL.Vertex2(pt.easting, pt.northing);
                     GL.End();
                 }
@@ -287,9 +287,9 @@ namespace AgOpenGPS.Forms.Field
             // Check boundaries first
             if (boundaries != null)
             {
-                foreach (var bnd in boundaries)
+                foreach (CBoundaryList bnd in boundaries)
                 {
-                    foreach (var pt in bnd.fenceLine)
+                    foreach (vec3 pt in bnd.fenceLine)
                     {
                         bb.Include(pt.ToGeoCoord());
                     }
@@ -299,11 +299,11 @@ namespace AgOpenGPS.Forms.Field
             // If no boundary, use tracks to calculate bounds
             if (bb.IsEmpty && tracks != null)
             {
-                foreach (var trk in tracks)
+                foreach (CTrk trk in tracks)
                 {
                     if (trk.mode == TrackMode.Curve && trk.curvePts != null && trk.curvePts.Count > 0)
                     {
-                        foreach (var pt in trk.curvePts)
+                        foreach (vec3 pt in trk.curvePts)
                         {
                             bb.Include(pt.ToGeoCoord());
                         }

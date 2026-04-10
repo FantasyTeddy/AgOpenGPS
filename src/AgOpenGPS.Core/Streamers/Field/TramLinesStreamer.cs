@@ -74,7 +74,7 @@ namespace AgOpenGPS.Core.Streamers
                     if (0 < tramLines.TramList.Count)
                     {
                         writer.WriteInt(tramLines.TramList.Count);
-                        foreach (var tramLine in tramLines.TramList)
+                        foreach (GeoPath tramLine in tramLines.TramList)
                         {
                             writer.WriteGeoPath(tramLine);
                         }

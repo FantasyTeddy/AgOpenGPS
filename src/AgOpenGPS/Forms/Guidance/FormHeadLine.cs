@@ -805,7 +805,7 @@ namespace AgOpenGPS
 
             //save a backup
             backupList?.Clear();
-            foreach (var item in mf.bnd.bndList[0].hdLine)
+            foreach (vec3 item in mf.bnd.bndList[0].hdLine)
             {
                 backupList.Add(item);
             }
@@ -867,7 +867,7 @@ namespace AgOpenGPS
                 //build headline from desList
                 mf.bnd.bndList[0].hdLine.Clear();
 
-                foreach (var item in mf.hdl.desList)
+                foreach (vec3 item in mf.hdl.desList)
                 {
                     mf.bnd.bndList[0].hdLine.Add(item);
                 }
@@ -903,7 +903,7 @@ namespace AgOpenGPS
                 //build headline from desList
                 mf.bnd.bndList[0].hdLine.Clear();
 
-                foreach (var item in mf.hdl.desList)
+                foreach (vec3 item in mf.hdl.desList)
                 {
                     mf.bnd.bndList[0].hdLine.Add(item);
                 }
@@ -933,7 +933,7 @@ namespace AgOpenGPS
         private void btnUndo_Click(object sender, EventArgs e)
         {
             mf.bnd.bndList[0].hdLine?.Clear();
-            foreach (var item in backupList)
+            foreach (vec3 item in backupList)
             {
                 mf.bnd.bndList[0].hdLine.Add(item);
             }

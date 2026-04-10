@@ -15,26 +15,26 @@ namespace AgOpenGPS.IO
         /// </summary>
         public static Wgs84 LoadOrigin(string fieldDirectory)
         {
-            var path = Path.Combine(fieldDirectory, "Field.txt");
+            string path = Path.Combine(fieldDirectory, "Field.txt");
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException("Field.txt not found", path);
             }
 
-            using (var reader = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(path))
             {
                 while (!reader.EndOfStream)
                 {
-                    var line = reader.ReadLine();
+                    string line = reader.ReadLine();
                     if (line != null && line.StartsWith("StartFix", StringComparison.OrdinalIgnoreCase))
                     {
-                        var next = reader.ReadLine();
+                        string next = reader.ReadLine();
                         if (string.IsNullOrWhiteSpace(next))
                         {
                             throw new InvalidDataException("StartFix line missing or empty in Field.txt");
                         }
 
-                        var parts = next.Split(',');
+                        string[] parts = next.Split(',');
                         double lat, lon;
                         if (parts.Length >= 2 &&
                             double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lat) &&
@@ -58,8 +58,8 @@ namespace AgOpenGPS.IO
         /// </summary>
         public static void Save(string fieldDirectory, DateTime timestamp, Wgs84 startFix)
         {
-            var path = Path.Combine(fieldDirectory, "Field.txt");
-            using (var writer = new StreamWriter(path, false))
+            string path = Path.Combine(fieldDirectory, "Field.txt");
+            using (StreamWriter writer = new StreamWriter(path, false))
             {
                 writer.WriteLine(timestamp.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
                 writer.WriteLine("$FieldDir");

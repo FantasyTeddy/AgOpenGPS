@@ -232,7 +232,7 @@ namespace GPS_Out
         public void ShowHelp(string Message, string Title = "Help",
             int timeInMsec = 30000, bool LogError = false, bool Modal = false, bool PlayErrorSound = false)
         {
-            var Hlp = new frmHelp(mf, Message, Title, timeInMsec);
+            frmHelp Hlp = new frmHelp(mf, Message, Title, timeInMsec);
             if (Modal)
             {
                 Hlp.ShowDialog();
@@ -252,7 +252,7 @@ namespace GPS_Out
             if (SentenceCount < 20)
             {
                 SentenceCount++;
-                using (var stream = new FileStream(FileName, FileMode.Append))
+                using (FileStream stream = new FileStream(FileName, FileMode.Append))
                 {
                     stream.Write(Data, 0, Data.Length);
                 }

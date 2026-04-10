@@ -121,12 +121,12 @@ namespace AgOpenGPS
                 overlay.Markers.Clear();
 
                 // Create marker's location point
-                var point = new PointLatLng(
+                PointLatLng point = new PointLatLng(
                     mf.AppModel.CurrentLatLon.Latitude,
                     mf.AppModel.CurrentLatLon.Longitude);
 
                 // Create marker instance: specify location on the map and radius
-                var marker = new GMapMarkerCircle(point, 5f);
+                GMapMarkerCircle marker = new GMapMarkerCircle(point, 5f);
 
                 // Add marker to the map
                 overlay.Markers.Add(marker);
@@ -146,7 +146,7 @@ namespace AgOpenGPS
             gMapControl.UpdatePolygonLocalPosition(polygon);
 
             // Create marker instance: specify location on the map, radius and label
-            var marker = new GMapMarkerCircle(pointClick, 4f, polygon.Points.Count.ToString());
+            GMapMarkerCircle marker = new GMapMarkerCircle(pointClick, 4f, polygon.Points.Count.ToString());
 
             // Add marker to the map
             overlay.Markers.Add(marker);
@@ -162,7 +162,7 @@ namespace AgOpenGPS
             polygon.Points.RemoveAt(polygon.Points.Count - 1);
             gMapControl.UpdatePolygonLocalPosition(polygon);
 
-            foreach (var marker in overlay.Markers.OfType<GMapMarkerCircle>())
+            foreach (GMapMarkerCircle marker in overlay.Markers.OfType<GMapMarkerCircle>())
             {
                 if (marker.Label == sNum)
                 {
@@ -177,7 +177,7 @@ namespace AgOpenGPS
             if (polygon.Points.Count > 2)
             {
                 CBoundaryList New = new CBoundaryList();
-                foreach (var point in polygon.Points)
+                foreach (PointLatLng point in polygon.Points)
                 {
                     GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(point.Lat, point.Lng));
                     New.fenceLine.Add(new vec3(geoCoord));

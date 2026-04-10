@@ -79,7 +79,7 @@ namespace AgOpenGPS
 
             gTemp.Clear();
 
-            foreach (var item in mf.trk.gArr)
+            foreach (CTrk item in mf.trk.gArr)
             {
                 gTemp.Add(new CTrk(item));
             }
@@ -180,7 +180,7 @@ namespace AgOpenGPS
 
             mf.trk.gArr.Clear();
 
-            foreach (var item in gTemp)
+            foreach (CTrk item in gTemp)
             {
                 mf.trk.gArr.Add(new CTrk(item));
             }
@@ -220,7 +220,7 @@ namespace AgOpenGPS
                 bool isOneVis = false;
                 int trac = -1;
 
-                foreach (var item in mf.trk.gArr)
+                foreach (CTrk item in mf.trk.gArr)
                 {
                     trac++;
                     if (item.isVisible)
@@ -1500,10 +1500,10 @@ namespace AgOpenGPS
 
         private vec2 FindCircleCenter(vec3 p1, vec3 p2, vec3 p3)
         {
-            var d2 = p2.northing * p2.northing + p2.easting * p2.easting;
-            var bc = (p1.northing * p1.northing + p1.easting * p1.easting - d2) / 2;
-            var cd = (d2 - p3.northing * p3.northing - p3.easting * p3.easting) / 2;
-            var det = (p1.northing - p2.northing) * (p2.easting - p3.easting) - (p2.northing - p3.northing) * (p1.easting - p2.easting);
+            double d2 = p2.northing * p2.northing + p2.easting * p2.easting;
+            double bc = (p1.northing * p1.northing + p1.easting * p1.easting - d2) / 2;
+            double cd = (d2 - p3.northing * p3.northing - p3.easting * p3.easting) / 2;
+            double det = (p1.northing - p2.northing) * (p2.easting - p3.easting) - (p2.northing - p3.northing) * (p1.easting - p2.easting);
             if (Math.Abs(det) > 1e-10)
                 return new vec2(
               ((p1.northing - p2.northing) * cd - (p2.northing - p3.northing) * bc) / det,

@@ -21,8 +21,8 @@ namespace AgOpenGPS.Helpers
             // if user in typing in textbox, ignore hotkey
             if (IsTypingContext()) return false;
 
-            var key = (Keys)m.WParam.ToInt32();
-            var mods = Control.ModifierKeys;
+            Keys key = (Keys)m.WParam.ToInt32();
+            Keys mods = Control.ModifierKeys;
 
             // Let FormGPS do the handling
             return _mf.HandleAppWideKey(key, mods);
@@ -30,9 +30,9 @@ namespace AgOpenGPS.Helpers
 
         private static bool IsTypingContext()
         {
-            var af = Form.ActiveForm;
+            Form af = Form.ActiveForm;
             if (af == null) return false;
-            var c = af.ActiveControl;
+            Control c = af.ActiveControl;
             while (c != null)
             {
                 if (c is TextBoxBase) return true;

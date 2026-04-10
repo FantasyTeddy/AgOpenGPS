@@ -121,7 +121,7 @@ namespace AgOpenGPS.Properties
         public LoadResult Load(string toolFileName)
         {
             string path = Path.Combine(RegistrySettings.toolsDirectory, toolFileName + ".xml");
-            var result = XmlSettingsHandler.LoadXMLFile(path, this);
+            LoadResult result = XmlSettingsHandler.LoadXMLFile(path, this);
             if (result == LoadResult.MissingFile)
             {
                 // Try loading from old format and migrate

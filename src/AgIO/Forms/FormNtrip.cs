@@ -142,7 +142,7 @@ namespace AgIO
                 if (addresslist != null)
                 {
                     tboxCasterIP.Text = "";
-                    foreach (var addr in addresslist)
+                    foreach (IPAddress addr in addresslist)
                     {
                         if (addr.AddressFamily == AddressFamily.InterNetwork)
                         {

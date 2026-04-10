@@ -47,8 +47,8 @@ namespace AgOpenGPS.Core.Streamers
                     QuadStrip strip = new QuadStrip(reader.ReadColorRgb());
                     for (int i = 0; i < nPairs; i++)
                     {
-                        var leftCoord = reader.ReadGeoCoord();
-                        var rightCoord = reader.ReadGeoCoord();
+                        GeoCoord leftCoord = reader.ReadGeoCoord();
+                        GeoCoord rightCoord = reader.ReadGeoCoord();
                         strip.AddQuad(leftCoord, rightCoord);
                     }
                     workedArea.AddStrip(strip);
@@ -62,7 +62,7 @@ namespace AgOpenGPS.Core.Streamers
             using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory), true))
             {
                 //for each patch, write out the list of triangles to the file
-                foreach (var quadStrip in workedArea.UnsavedWork)
+                foreach (QuadStrip quadStrip in workedArea.UnsavedWork)
                 {
                     writer.WriteInt(1 + 2 * quadStrip.NumberOfPairs);
                     writer.WriteColorRgb(quadStrip.ColorRgba);

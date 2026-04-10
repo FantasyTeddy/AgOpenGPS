@@ -29,7 +29,7 @@ namespace AgOpenGPS.Core.Streamers
             double? area = null;
             try
             {
-                var overview = _overviewStreamer.Read(fieldDirectory);
+                FieldOverview overview = _overviewStreamer.Read(fieldDirectory);
                 wgs84Start = overview.Start;
             }
             catch (Exception)
@@ -38,7 +38,7 @@ namespace AgOpenGPS.Core.Streamers
             }
             try
             {
-                var boundary = _boundaryStreamer.Read(fieldDirectory);
+                Boundary boundary = _boundaryStreamer.Read(fieldDirectory);
                 area = boundary.Area;
             }
             catch (Exception)
@@ -59,7 +59,7 @@ namespace AgOpenGPS.Core.Streamers
 
                 if (0 < fileInfos.Length)
                 {
-                    var fieldDescription = CreateFieldDescription(fieldDirectory);
+                    FieldDescription fieldDescription = CreateFieldDescription(fieldDirectory);
                     if (fieldDescription.Wgs84Start.HasValue)
                     {
                         list.Add(fieldDescription);

@@ -40,7 +40,7 @@ namespace AgOpenGPS
             }
 
             List<List<vec3>> boundaries = new List<List<vec3>>();
-            foreach (var b in gps.bnd.bndList)
+            foreach (CBoundaryList b in gps.bnd.bndList)
             {
                 boundaries.Add(b.fenceLine.ToList());
             }
@@ -77,7 +77,7 @@ namespace AgOpenGPS
                 if (snapshot.Boundaries != null && snapshot.Boundaries.Count > 0)
                 {
                     // Convert first boundary as outer boundary
-                    var firstBoundary = snapshot.Boundaries.FirstOrDefault();
+                    List<vec3> firstBoundary = snapshot.Boundaries.FirstOrDefault();
                     if (firstBoundary != null)
                     {
                         outer = ConvertBoundary(firstBoundary, snapshot.Converter);
@@ -85,7 +85,7 @@ namespace AgOpenGPS
                     }
 
                     // Convert remaining boundaries as holes
-                    foreach (var innerBoundary in snapshot.Boundaries.Skip(1))
+                    foreach (List<vec3> innerBoundary in snapshot.Boundaries.Skip(1))
                     {
                         List<CoordinateDto> hole = ConvertBoundary(innerBoundary, snapshot.Converter);
                         if (hole != null && hole.Count >= 4) holes.Add(hole);
@@ -97,10 +97,10 @@ namespace AgOpenGPS
                 bool isPublic = false;
                 try
                 {
-                    var downloadResult = await _client.DownloadFieldAsync(snapshot.FieldId);
+                    AgShareResult<GetFieldDto> downloadResult = await _client.DownloadFieldAsync(snapshot.FieldId);
                     if (downloadResult.IsSuccessful)
                     {
-                        var field = downloadResult.Data;
+                        GetFieldDto field = downloadResult.Data;
                         isPublic = field.IsPublic;
                     }
                 }
@@ -109,13 +109,13 @@ namespace AgOpenGPS
                     Log.EventWriter("Failed to check field visibility on AgShare, defaulting to private.");
                 }
 
-                var boundary = new PolygonDto
+                PolygonDto boundary = new PolygonDto
                 {
                     Outer = outer,
                     Holes = holes
                 };
 
-                var payload = new UploadFieldDto
+                UploadFieldDto payload = new UploadFieldDto
                 {
                     Name = snapshot.FieldName,
                     IsPublic = isPublic,
@@ -124,7 +124,7 @@ namespace AgOpenGPS
                     AbLines = abLines
                 };
 
-                var result = await _client.UploadFieldAsync(snapshot.FieldId, payload);
+                AgShareResult result = await _client.UploadFieldAsync(snapshot.FieldId, payload);
 
                 if (result.IsSuccessful)
                 {

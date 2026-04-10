@@ -89,8 +89,8 @@ namespace AgOpenGPS.Core.Models
             bool result = false;
             for (int i = 0; i < Count; i++)
             {
-                var iCoord = this[i];
-                var jCoord = i == 0 ? Last : this[i - 1];
+                GeoCoord iCoord = this[i];
+                GeoCoord jCoord = i == 0 ? Last : this[i - 1];
                 if ((iCoord.Easting < testPoint.Easting && jCoord.Easting >= testPoint.Easting)
                     || (jCoord.Easting < testPoint.Easting && iCoord.Easting >= testPoint.Easting))
                 {

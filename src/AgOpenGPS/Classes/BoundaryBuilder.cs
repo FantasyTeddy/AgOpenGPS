@@ -36,11 +36,11 @@ namespace AgOpenGPS.Classes
 
         public void ExtendAllTracks(double extendMeters)
         {
-            var extendedTracks = new List<CTrk>();
+            List<CTrk> extendedTracks = new List<CTrk>();
 
-            foreach (var trk in InputTracks)
+            foreach (CTrk trk in InputTracks)
             {
-                var pts = trk.mode == TrackMode.AB
+                List<GeoCoord> pts = trk.mode == TrackMode.AB
                     ? new List<GeoCoord>
                       {
                   new GeoCoord(trk.ptA.northing, trk.ptA.easting),
@@ -50,7 +50,7 @@ namespace AgOpenGPS.Classes
                         .Select(p => new GeoCoord(p.northing, p.easting))
                         .ToList();
 
-                var extended = ExtendTrackEndpoints(pts, extendMeters);
+                List<GeoCoord> extended = ExtendTrackEndpoints(pts, extendMeters);
 
                 if (trk.mode == TrackMode.AB && extended.Count >= 2)
                 {
@@ -85,8 +85,8 @@ namespace AgOpenGPS.Classes
                 BuildSegments();
                 FindIntersections();
 
-                var trimmed = TrimSegmentsToIntersections();
-                var polygon = ConvertSegmentsToPolygon(trimmed);
+                List<Segment> trimmed = TrimSegmentsToIntersections();
+                List<vec3> polygon = ConvertSegmentsToPolygon(trimmed);
 
                 if (polygon.Count < MIN_POLYGON_POINTS)
                 {
@@ -138,17 +138,17 @@ namespace AgOpenGPS.Classes
         {
             if (pts == null || pts.Count < 2) return pts;
 
-            var result = new List<GeoCoord>(pts.Count + 2);
+            List<GeoCoord> result = new List<GeoCoord>(pts.Count + 2);
 
             // First segment direction
-            var a0 = pts[0];
-            var a1 = pts[1];
-            var dirstart = new GeoDelta(a1, a0);
-            var lengthStart = dirstart.Length;
+            GeoCoord a0 = pts[0];
+            GeoCoord a1 = pts[1];
+            GeoDelta dirstart = new GeoDelta(a1, a0);
+            double lengthStart = dirstart.Length;
             if (lengthStart > 1e-6)
             {
-                var extend = extendMeters / lengthStart;
-                var extStart = new GeoCoord(
+                double extend = extendMeters / lengthStart;
+                GeoCoord extStart = new GeoCoord(
                     a0.Northing + dirstart.NorthingDelta * extend,
                     a0.Easting + dirstart.EastingDelta * extend
                 );
@@ -157,14 +157,14 @@ namespace AgOpenGPS.Classes
 
             for (int i = 0; i < pts.Count; i++) result.Add(pts[i]);
 
-            var b0 = pts[pts.Count - 2];
-            var b1 = pts[pts.Count - 1];
-            var dirEnd = new GeoDelta(b0, b1);
-            var lengthEnd = dirEnd.Length;
+            GeoCoord b0 = pts[pts.Count - 2];
+            GeoCoord b1 = pts[pts.Count - 1];
+            GeoDelta dirEnd = new GeoDelta(b0, b1);
+            double lengthEnd = dirEnd.Length;
             if (lengthEnd > 1e-6)
             {
-                var extend = extendMeters / lengthEnd;
-                var extEnd = new GeoCoord(
+                double extend = extendMeters / lengthEnd;
+                GeoCoord extEnd = new GeoCoord(
                     b1.Northing + dirEnd.NorthingDelta * extend,
                     b1.Easting + dirEnd.EastingDelta * extend
                 );
@@ -182,9 +182,9 @@ namespace AgOpenGPS.Classes
                 Segments = new List<Segment>();
                 int totalSegments = 0;
 
-                foreach (var trk in InputTracks)
+                foreach (CTrk trk in InputTracks)
                 {
-                    var points = GetTrackPoints(trk);
+                    List<vec2> points = GetTrackPoints(trk);
                     if (points.Count < 2) continue;
 
                     for (int i = 0; i < points.Count - 1; i++)
@@ -207,17 +207,17 @@ namespace AgOpenGPS.Classes
         {
             try
             {
-                var uniqueIntersections = new HashSet<vec2>(new Vec2EqualityComparer());
+                HashSet<vec2> uniqueIntersections = new HashSet<vec2>(new Vec2EqualityComparer());
                 int totalChecks = 0;
                 int potentialIntersections = 0;
 
                 for (int i = 0; i < Segments.Count; i++)
                 {
-                    var seg1 = Segments[i];
+                    Segment seg1 = Segments[i];
 
                     for (int j = i + 1; j < Segments.Count; j++)
                     {
-                        var seg2 = Segments[j];
+                        Segment seg2 = Segments[j];
                         totalChecks++;
 
                         // Early exit conditions
@@ -228,7 +228,7 @@ namespace AgOpenGPS.Classes
                             continue;
 
                         potentialIntersections++;
-                        var (intersects, intersection) = LineSegmentsIntersect(seg1.Start, seg1.End, seg2.Start, seg2.End);
+                        (bool intersects, vec2 intersection) = LineSegmentsIntersect(seg1.Start, seg1.End, seg2.Start, seg2.End);
 
                         if (intersects)
                         {
@@ -249,29 +249,29 @@ namespace AgOpenGPS.Classes
 
         public List<Segment> TrimSegmentsToIntersections()
         {
-            var trimmed = new List<Segment>();
+            List<Segment> trimmed = new List<Segment>();
 
             try
             {
-                foreach (var trk in InputTracks)
+                foreach (CTrk trk in InputTracks)
                 {
-                    var trackSegments = Segments.Where(s => s.ParentTrack == trk).ToList();
+                    List<Segment> trackSegments = Segments.Where(s => s.ParentTrack == trk).ToList();
                     if (trackSegments.Count == 0) continue;
 
-                    var intersections = trackSegments
+                    List<vec2> intersections = trackSegments
                         .SelectMany(s => s.Intersections)
                         .Distinct(new Vec2EqualityComparer())
                         .ToList();
 
                     if (intersections.Count < 2) continue;
 
-                    var originalPoints = GetTrackPoints(trk);
+                    List<vec2> originalPoints = GetTrackPoints(trk);
                     if (originalPoints.Count < 2) continue;
 
-                    var (startDist, endDist) = GetTrimDistances(originalPoints, intersections);
+                    (double startDist, double endDist) = GetTrimDistances(originalPoints, intersections);
                     if (startDist >= endDist) continue;
 
-                    var trimmedPoints = ExtractTrimmedPoints(originalPoints, startDist, endDist);
+                    List<vec2> trimmedPoints = ExtractTrimmedPoints(originalPoints, startDist, endDist);
                     trimmed.AddRange(CreateUniformSegments(trimmedPoints, trk, TRIM_SEGMENT_LENGTH));
                 }
 
@@ -352,9 +352,9 @@ namespace AgOpenGPS.Classes
             if (segments.Count == 0)
                 return new List<vec3>();
 
-            var polygon = new List<vec3>();
-            var visited = new HashSet<Segment>();
-            var current = segments[0];
+            List<vec3> polygon = new List<vec3>();
+            HashSet<Segment> visited = new HashSet<Segment>();
+            Segment current = segments[0];
 
             polygon.Add(current.Start.ToVec3());
             polygon.Add(current.End.ToVec3());
@@ -362,7 +362,7 @@ namespace AgOpenGPS.Classes
 
             while (visited.Count < segments.Count)
             {
-                var next = FindConnectedSegment(segments, visited, current.End);
+                Segment next = FindConnectedSegment(segments, visited, current.End);
                 if (next == null) break;
 
                 polygon.Add(next.End.ToVec3());
@@ -378,7 +378,7 @@ namespace AgOpenGPS.Classes
             if (polygon?.Count < MIN_POLYGON_POINTS)
                 return null;
 
-            var boundary = new CBoundaryList();
+            CBoundaryList boundary = new CBoundaryList();
             boundary.fenceLine.AddRange(polygon);
 
             boundary.CalculateFenceArea(0);
@@ -400,7 +400,7 @@ namespace AgOpenGPS.Classes
 
         private List<vec2> EnforceMaxStep(List<vec2> points, double maxStep)
         {
-            var result = new List<vec2>();
+            List<vec2> result = new List<vec2>();
             if (points.Count == 0) return result;
 
             result.Add(points[0]);
@@ -434,15 +434,15 @@ namespace AgOpenGPS.Classes
         private (double startDist, double endDist) GetTrimDistances(List<vec2> points, List<vec2> intersections)
         {
             // Calculate cumulative distances along track
-            var distances = new List<double> { 0 };
+            List<double> distances = new List<double> { 0 };
             for (int i = 1; i < points.Count; i++)
             {
                 distances.Add(distances[i - 1] + glm.Distance(points[i - 1], points[i]));
             }
 
             // Project intersections to get their distances along track
-            var intersectionDistances = new List<double>();
-            foreach (var pt in intersections)
+            List<double> intersectionDistances = new List<double>();
+            foreach (vec2 pt in intersections)
             {
                 for (int i = 0; i < points.Count - 1; i++)
                 {
@@ -460,7 +460,7 @@ namespace AgOpenGPS.Classes
 
         private List<vec2> ExtractTrimmedPoints(List<vec2> points, double startDist, double endDist)
         {
-            var trimmed = new List<vec2>();
+            List<vec2> trimmed = new List<vec2>();
             double accumulatedDist = 0;
 
             for (int i = 0; i < points.Count - 1; i++)
@@ -503,7 +503,7 @@ namespace AgOpenGPS.Classes
 
         private List<Segment> CreateUniformSegments(List<vec2> points, CTrk parentTrack, double segmentLength)
         {
-            var segments = new List<Segment>();
+            List<Segment> segments = new List<Segment>();
 
             for (int i = 0; i < points.Count - 1; i++)
             {
@@ -529,7 +529,7 @@ namespace AgOpenGPS.Classes
 
         private Segment FindConnectedSegment(List<Segment> segments, HashSet<Segment> visited, vec2 connectionPoint)
         {
-            foreach (var seg in segments)
+            foreach (Segment seg in segments)
             {
                 if (visited.Contains(seg)) continue;
 

@@ -137,11 +137,11 @@ namespace AgIO
             byte[] scanModules = { 0x80, 0x81, 0x7F, 202, 3, 202, 202, 5, 0x47 };
 
             //Send out 255x4 to each installed network interface
-            foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 if (nic.Supports(NetworkInterfaceComponent.IPv4))
                 {
-                    foreach (var info in nic.GetIPProperties().UnicastAddresses)
+                    foreach (UnicastIPAddressInformation info in nic.GetIPProperties().UnicastAddresses)
                     {
                         // Only InterNetwork and not loopback which have a subnetmask
                         if (info.Address.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(info.Address))
@@ -152,7 +152,7 @@ namespace AgIO
                                 //create list of interface properties
                                 if ((cboxUp.Checked && nic.OperationalStatus == OperationalStatus.Up) || !cboxUp.Checked)
                                 {
-                                    var properties = nic.GetIPStatistics();
+                                    IPInterfaceStatistics properties = nic.GetIPStatistics();
                                     tboxNets.Text +=
                                             info.Address + "  - " + nic.OperationalStatus + "\r\n";
 
@@ -222,11 +222,11 @@ namespace AgIO
                 sendIPToModules[9] = ipNew[2];
 
                 //loop thru all interfaces
-                foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
+                foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
                 {
                     if (nic.Supports(NetworkInterfaceComponent.IPv4) && nic.OperationalStatus == OperationalStatus.Up)
                     {
-                        foreach (var info in nic.GetIPProperties().UnicastAddresses)
+                        foreach (UnicastIPAddressInformation info in nic.GetIPProperties().UnicastAddresses)
                         {
                             // Only InterNetwork and not loopback which have a subnetmask
                             if (info.Address.AddressFamily == AddressFamily.InterNetwork &&

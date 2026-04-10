@@ -1242,11 +1242,11 @@ namespace AgOpenGPS
 
             decimal toolWidth = 0;
 
-            foreach (var item in tab1.TabPages[9].Controls)
+            foreach (object item in tab1.TabPages[9].Controls)
             {
                 if (item is NudlessNumericUpDown)
                 {
-                    var item2 = (NudlessNumericUpDown)item;
+                    NudlessNumericUpDown item2 = (NudlessNumericUpDown)item;
                     if (item2.Name.Substring(0, 6) == "nudSec")
                     {
                         //grab the number from nudSection01

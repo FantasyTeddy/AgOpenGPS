@@ -121,7 +121,7 @@ namespace AgOpenGPS
         }
         private void rbtnHeadingFix_CheckedChanged(object sender, EventArgs e)
         {
-            var checkedButton = headingGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
+            RadioButton checkedButton = headingGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
             Properties.VehicleSettings.Default.setGPS_headingFromWhichSource = checkedButton.Text;
             mf.headingFromSource = checkedButton.Text;
 
@@ -437,7 +437,7 @@ namespace AgOpenGPS
 
         private void btnRightMenuOrder_Click(object sender, EventArgs e)
         {
-            using (var form = new FormButtonsRightPanel(mf))
+            using (FormButtonsRightPanel form = new FormButtonsRightPanel(mf))
             {
                 form.ShowDialog(mf);
             }

@@ -86,7 +86,7 @@ namespace AgOpenGPS.Core.Streamers
                 {
                     WriteBoundaryPolygon(writer, boundary.OuterBoundary);
                 }
-                foreach (var polygon in boundary.InnerBoundaries)
+                foreach (BoundaryPolygon polygon in boundary.InnerBoundaries)
                 {
                     WriteBoundaryPolygon(writer, polygon);
                 }

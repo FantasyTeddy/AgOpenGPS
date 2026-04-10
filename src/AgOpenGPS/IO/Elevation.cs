@@ -27,8 +27,8 @@ namespace AgOpenGPS.IO
                 Directory.CreateDirectory(fieldDirectory);
             }
 
-            var path = Path.Combine(fieldDirectory, "Elevation.txt");
-            using (var writer = new StreamWriter(path, false))
+            string path = Path.Combine(fieldDirectory, "Elevation.txt");
+            using (StreamWriter writer = new StreamWriter(path, false))
             {
                 writer.WriteLine(timestamp.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
                 writer.WriteLine("$FieldDir");
@@ -60,8 +60,8 @@ namespace AgOpenGPS.IO
                 Directory.CreateDirectory(fieldDirectory);
             }
 
-            var path = Path.Combine(fieldDirectory, "Elevation.txt");
-            using (var writer = new StreamWriter(path, true))
+            string path = Path.Combine(fieldDirectory, "Elevation.txt");
+            using (StreamWriter writer = new StreamWriter(path, true))
             {
                 writer.Write(gridText);
             }
@@ -75,15 +75,15 @@ namespace AgOpenGPS.IO
 
         public static ElevationData Load(string fieldDirectory)
         {
-            var path = Path.Combine(fieldDirectory, "Elevation.txt");
+            string path = Path.Combine(fieldDirectory, "Elevation.txt");
             if (!File.Exists(path)) return new ElevationData();
 
-            var data = new ElevationData();
-            using (var reader = new StreamReader(path))
+            ElevationData data = new ElevationData();
+            using (StreamReader reader = new StreamReader(path))
             {
                 while (!reader.EndOfStream)
                 {
-                    var line = reader.ReadLine();
+                    string line = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(line)) continue;
                     data.RawLines.Add(line);
                 }

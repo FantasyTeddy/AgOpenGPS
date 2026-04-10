@@ -196,7 +196,7 @@ namespace AgOpenGPS.Properties
                 if (File.Exists(oldPath))
                 {
                     SettingsLegacy oldSettings = new SettingsLegacy();
-                    var result = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
+                    LoadResult result = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
                     if (result == LoadResult.Ok)
                     {
                         // Copy environment settings

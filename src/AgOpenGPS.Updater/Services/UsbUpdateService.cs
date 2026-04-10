@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -38,14 +40,14 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                var drives = GetRemovableDrives();
-                foreach (var drive in drives)
+                DriveInfo[] drives = GetRemovableDrives();
+                foreach (DriveInfo drive in drives)
                 {
                     // Check root directory first for exact AgOpenGPS.zip
-                    var rootFiles = Directory.GetFiles(drive.Name, "*.zip")
+                    IEnumerable<string> rootFiles = Directory.GetFiles(drive.Name, "*.zip")
                         .Where(f => Path.GetFileName(f).StartsWith(FilePrefix, StringComparison.OrdinalIgnoreCase));
 
-                    foreach (var file in rootFiles.OrderBy(f => f))
+                    foreach (string file in rootFiles.OrderBy(f => f))
                     {
                         if (IsValidUpdateFile(file, out string version))
                         {
@@ -56,10 +58,10 @@ namespace AgOpenGPS.Updater.Services
                     // Also check subdirectories
                     try
                     {
-                        var allZipFiles = Directory.GetFiles(drive.Name, "*.zip", SearchOption.AllDirectories)
+                        IEnumerable<string> allZipFiles = Directory.GetFiles(drive.Name, "*.zip", SearchOption.AllDirectories)
                             .Where(f => Path.GetFileName(f).StartsWith(FilePrefix, StringComparison.OrdinalIgnoreCase));
 
-                        foreach (var file in allZipFiles.OrderBy(f => f))
+                        foreach (string file in allZipFiles.OrderBy(f => f))
                         {
                             if (IsValidUpdateFile(file, out string version))
                             {
@@ -88,20 +90,20 @@ namespace AgOpenGPS.Updater.Services
             try
             {
                 // Check file size - must be reasonable
-                var fileInfo = new FileInfo(zipPath);
+                FileInfo fileInfo = new FileInfo(zipPath);
                 if (fileInfo.Length < 1024 * 100) // Less than 100KB is invalid
                     return false;
 
                 // Extract version from filename (AgOpenGPS_6.8.1.zip or AgOpenGPS_v6.8.1.zip)
                 string fileName = Path.GetFileNameWithoutExtension(zipPath);
-                var match = Regex.Match(fileName, $@"^{Regex.Escape(FilePrefix)}[_-]?v?(\d+\.\d+\.\d+)", RegexOptions.IgnoreCase);
+                Match match = Regex.Match(fileName, $@"^{Regex.Escape(FilePrefix)}[_-]?v?(\d+\.\d+\.\d+)", RegexOptions.IgnoreCase);
                 if (match.Success)
                 {
                     version = match.Groups[1].Value;
                 }
 
                 // Verify the zip contains AgOpenGPS.exe
-                using (var archive = ZipFile.OpenRead(zipPath))
+                using (ZipArchive archive = ZipFile.OpenRead(zipPath))
                 {
                     bool hasExe = archive.Entries.Any(e =>
                         e.Name.Equals("AgOpenGPS.exe", StringComparison.OrdinalIgnoreCase));
@@ -112,7 +114,7 @@ namespace AgOpenGPS.Updater.Services
                     // If version not in filename, try to get it from the exe
                     if (string.IsNullOrEmpty(version))
                     {
-                        var exeEntry = archive.Entries.FirstOrDefault(e =>
+                        ZipArchiveEntry exeEntry = archive.Entries.FirstOrDefault(e =>
                             e.Name.Equals("AgOpenGPS.exe", StringComparison.OrdinalIgnoreCase));
 
                         if (exeEntry != null)
@@ -139,21 +141,21 @@ namespace AgOpenGPS.Updater.Services
             {
                 string tempPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".exe");
 
-                using (var stream = exeEntry.Open())
-                using (var fs = File.Create(tempPath))
+                using (Stream stream = exeEntry.Open())
+                using (FileStream fs = File.Create(tempPath))
                 {
                     stream.CopyTo(fs);
                 }
 
                 try
                 {
-                    var fileVersionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(tempPath);
+                    FileVersionInfo fileVersionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(tempPath);
                     string fileVersion = fileVersionInfo.FileVersion;
 
                     if (!string.IsNullOrEmpty(fileVersion))
                     {
                         // Extract just the version number (may have trailing info)
-                        var match = Regex.Match(fileVersion, @"^(\d+\.\d+\.\d+)");
+                        Match match = Regex.Match(fileVersion, @"^(\d+\.\d+\.\d+)");
                         if (match.Success)
                         {
                             return match.Groups[1].Value;
@@ -182,7 +184,7 @@ namespace AgOpenGPS.Updater.Services
 
             try
             {
-                var drive = new DriveInfo(Path.GetPathRoot(filePath));
+                DriveInfo drive = new DriveInfo(Path.GetPathRoot(filePath));
                 string fileName = Path.GetFileName(filePath);
                 string driveName = drive.VolumeLabel;
 
@@ -204,12 +206,12 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                var (filePath, version) = FindUpdateFile();
+                (string filePath, string version) = FindUpdateFile();
 
                 if (filePath != null)
                 {
-                    var location = GetUpdateLocation(filePath);
-                    var info = new FileInfo(filePath);
+                    string location = GetUpdateLocation(filePath);
+                    FileInfo info = new FileInfo(filePath);
 
                     string versionText = string.IsNullOrEmpty(version) ? "Unknown" : version;
                     string message = $"Found: {Path.GetFileName(filePath)}\n" +

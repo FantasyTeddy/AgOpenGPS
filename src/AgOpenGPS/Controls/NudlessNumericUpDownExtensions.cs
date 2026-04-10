@@ -8,7 +8,7 @@ namespace AgOpenGPS.Controls
     {
         public static bool ShowKeypad(this NudlessNumericUpDown nudlessNumericUpDown, Form owner)
         {
-            var color = nudlessNumericUpDown.BackColor;
+            Color color = nudlessNumericUpDown.BackColor;
             nudlessNumericUpDown.BackColor = Color.Red;
             nudlessNumericUpDown.Value = Math.Round(nudlessNumericUpDown.Value, nudlessNumericUpDown.DecimalPlaces);
 

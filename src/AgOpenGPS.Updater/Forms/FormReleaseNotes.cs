@@ -18,7 +18,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static void ShowReleaseNotes(Form parent, string title, string version, string releaseNotes)
         {
-            using (var dialog = new FormReleaseNotes())
+            using (FormReleaseNotes dialog = new FormReleaseNotes())
             {
                 dialog.Text = title;
                 dialog.lblTitle.Text = $"Release Notes - {version}";

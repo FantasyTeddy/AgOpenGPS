@@ -33,8 +33,8 @@ namespace AgOpenGPS
             Wgs84 targetOrigin = FieldPlaneFiles.LoadOrigin(targetFieldDirectory);
 
             // Create LocalPlane converters
-            var sourcePlane = new LocalPlane(sourceOrigin, sharedFieldProperties);
-            var targetPlane = new LocalPlane(targetOrigin, sharedFieldProperties);
+            LocalPlane sourcePlane = new LocalPlane(sourceOrigin, sharedFieldProperties);
+            LocalPlane targetPlane = new LocalPlane(targetOrigin, sharedFieldProperties);
 
             return ConvertTracksWithPlanes(tracks, sourcePlane, targetPlane);
         }
@@ -47,14 +47,14 @@ namespace AgOpenGPS
             LocalPlane sourcePlane,
             LocalPlane targetPlane)
         {
-            var convertedTracks = new List<CTrk>();
+            List<CTrk> convertedTracks = new List<CTrk>();
 
-            foreach (var sourceTrack in tracks)
+            foreach (CTrk sourceTrack in tracks)
             {
                 // Normalize heading to 0-2π range
                 double normalizedHeading = NormalizeHeading(sourceTrack.heading);
 
-                var newTrack = new CTrk
+                CTrk newTrack = new CTrk
                 {
                     name = sourceTrack.name,
                     mode = sourceTrack.mode,
@@ -85,13 +85,13 @@ namespace AgOpenGPS
         private static vec2 ConvertVec2(vec2 source, LocalPlane sourcePlane, LocalPlane targetPlane)
         {
             // Convert vec2 (easting, northing) to GeoCoord
-            var sourceGeoCoord = new GeoCoord(source.northing, source.easting);
+            GeoCoord sourceGeoCoord = new GeoCoord(source.northing, source.easting);
 
             // Convert to WGS84 using source plane
-            var wgs84 = sourcePlane.ConvertGeoCoordToWgs84(sourceGeoCoord);
+            Wgs84 wgs84 = sourcePlane.ConvertGeoCoordToWgs84(sourceGeoCoord);
 
             // Convert to target plane
-            var targetGeoCoord = targetPlane.ConvertWgs84ToGeoCoord(wgs84);
+            GeoCoord targetGeoCoord = targetPlane.ConvertWgs84ToGeoCoord(wgs84);
 
             // Convert back to vec2
             return new vec2(targetGeoCoord.Easting, targetGeoCoord.Northing);
@@ -108,11 +108,11 @@ namespace AgOpenGPS
             if (sourceCurvePts == null || sourceCurvePts.Count == 0)
                 return new List<vec3>();
 
-            var convertedCurvePts = new List<vec3>();
+            List<vec3> convertedCurvePts = new List<vec3>();
 
             // First convert all positions
-            var convertedPositions = new List<vec2>();
-            foreach (var pt in sourceCurvePts)
+            List<vec2> convertedPositions = new List<vec2>();
+            foreach (vec3 pt in sourceCurvePts)
             {
                 convertedPositions.Add(ConvertVec2(new vec2(pt.easting, pt.northing), sourcePlane, targetPlane));
             }
@@ -124,9 +124,9 @@ namespace AgOpenGPS
                 if (i < convertedPositions.Count - 1)
                 {
                     // Calculate heading to next point using GeoDir
-                    var fromCoord = new GeoCoord(convertedPositions[i].northing, convertedPositions[i].easting);
-                    var toCoord = new GeoCoord(convertedPositions[i + 1].northing, convertedPositions[i + 1].easting);
-                    var geoDir = new GeoDir(fromCoord, toCoord);
+                    GeoCoord fromCoord = new GeoCoord(convertedPositions[i].northing, convertedPositions[i].easting);
+                    GeoCoord toCoord = new GeoCoord(convertedPositions[i + 1].northing, convertedPositions[i + 1].easting);
+                    GeoDir geoDir = new GeoDir(fromCoord, toCoord);
                     heading = geoDir.AngleInRadians;
 
                     // Normalize to 0-2π
@@ -171,14 +171,14 @@ namespace AgOpenGPS
             SharedFieldProperties sharedFieldProperties)
         {
             // Convert tracks
-            var convertedTracks = ConvertTracks(
+            List<CTrk> convertedTracks = ConvertTracks(
                 tracksToConvert,
                 sourceFieldDirectory,
                 targetFieldDirectory,
                 sharedFieldProperties);
 
             // Load existing tracks from target field
-            var existingTracks = TrackFiles.Load(targetFieldDirectory);
+            List<CTrk> existingTracks = TrackFiles.Load(targetFieldDirectory);
 
             // Add converted tracks
             existingTracks.AddRange(convertedTracks);

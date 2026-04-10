@@ -24,7 +24,7 @@ namespace AgOpenGPS.Updater
             string gitHubToken = null;
             bool showFirmwareUpdate = false;
 
-            var args = Environment.GetCommandLineArgs();
+            string[] args = Environment.GetCommandLineArgs();
             for (int i = 1; i < args.Length; i++)
             {
                 string arg = args[i];

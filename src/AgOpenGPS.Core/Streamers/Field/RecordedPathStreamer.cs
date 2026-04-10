@@ -67,7 +67,7 @@ namespace AgOpenGPS.Core.Streamers
             {
                 writer.WriteLine("$RecPath");
                 writer.WriteInt(path.Count);
-                foreach (var point in path.PointList)
+                foreach (RecordedPoint point in path.PointList)
                 {
                     writer.WriteLine(
                         writer.GeoCoordDirStringENH(point.GeoCoordDir.Coord, point.GeoCoordDir.Direction)

@@ -38,7 +38,7 @@ namespace GPS_Out.PGNs
             cSentence += "," + DateTime.UtcNow.Month.ToString("00");
             cSentence += "," + DateTime.UtcNow.Year.ToString("0000");
 
-            var offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+            TimeSpan offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
             cSentence += "," + offset.Hours.ToString("00");
             cSentence += "," + offset.Minutes.ToString("00");
 

@@ -279,7 +279,7 @@ namespace AgOpenGPS
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
-            using (var form = new FormAgShareDownloader(mf))
+            using (FormAgShareDownloader form = new FormAgShareDownloader(mf))
             {
                 form.ShowDialog(this);
             }
@@ -296,7 +296,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            using (var form = new FormAgShareUploader(mf.agShareClient))
+            using (FormAgShareUploader form = new FormAgShareUploader(mf.agShareClient))
             {
                 form.ShowDialog(this);
             }

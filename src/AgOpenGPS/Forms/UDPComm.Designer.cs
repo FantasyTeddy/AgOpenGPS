@@ -487,10 +487,10 @@ namespace AgOpenGPS
             if (!_uiReady) return false; // ignore while Terms&Conditions or before FormGPS is ready
 
             // Use only the key code (drop modifiers) so your mappings still match
-            var keyData = (key & Keys.KeyCode);
+            Keys keyData = (key & Keys.KeyCode);
 
             // ProcessCmdKey reads only keyData; the Message payload is irrelevant here
-            var msg = Message.Create(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero);
+            Message msg = Message.Create(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero);
             return ProcessCmdKey(ref msg, keyData);
         }
 

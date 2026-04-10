@@ -23,7 +23,7 @@ namespace AgOpenGPS.Core.ViewModels
                 if (value != _isMetric)
                 {
                     _isMetric = value;
-                    foreach (var child in _children) child.IsMetric = value;
+                    foreach (DayNightAndUnitsViewModel child in _children) child.IsMetric = value;
                     NotifyAllPropertiesChanged();
                 }
             }
@@ -37,7 +37,7 @@ namespace AgOpenGPS.Core.ViewModels
                 if (value != _isDay)
                 {
                     _isDay = value;
-                    foreach (var child in _children) child.IsDay = value;
+                    foreach (DayNightAndUnitsViewModel child in _children) child.IsDay = value;
                     NotifyAllPropertiesChanged();
                 }
             }

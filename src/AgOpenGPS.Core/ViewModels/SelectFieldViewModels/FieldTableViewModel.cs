@@ -79,7 +79,7 @@ namespace AgOpenGPS.Core.ViewModels
         public virtual void UpdateFields()
         {
             Collection<FieldDescriptionViewModel> viewModels = new Collection<FieldDescriptionViewModel>();
-            var descriptions = _fieldDescriptionStreamer.GetFieldDescriptions();
+            ReadOnlyCollection<FieldDescription> descriptions = _fieldDescriptionStreamer.GetFieldDescriptions();
             foreach (FieldDescription description in descriptions)
             {
                 FieldDescriptionViewModel viewModel = new FieldDescriptionViewModel(
@@ -94,7 +94,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         protected virtual void SelectField()
         {
-            var selectedField = LocalSelectedField;
+            FieldDescriptionViewModel selectedField = LocalSelectedField;
             if (null != selectedField)
             {
                 LocalSelectedField = null;

@@ -42,7 +42,7 @@ namespace AgOpenGPS.Updater.Models
             if (string.IsNullOrWhiteSpace(version))
                 throw new ArgumentException("Version string cannot be null or empty", nameof(version));
 
-            var match = VersionRegex.Match(version.Trim());
+            Match match = VersionRegex.Match(version.Trim());
             if (!match.Success)
                 throw new FormatException($"Invalid semantic version format: {version}");
 
@@ -112,8 +112,8 @@ namespace AgOpenGPS.Updater.Models
 
         private static int ComparePrereleaseIdentifiers(string prerelease1, string prerelease2)
         {
-            var identifiers1 = prerelease1.Split('.');
-            var identifiers2 = prerelease2.Split('.');
+            string[] identifiers1 = prerelease1.Split('.');
+            string[] identifiers2 = prerelease2.Split('.');
 
             int maxLength = Math.Max(identifiers1.Length, identifiers2.Length);
 

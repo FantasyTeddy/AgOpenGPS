@@ -57,7 +57,7 @@ namespace AgOpenGPS
 
             gTemp.Clear();
 
-            foreach (var item in mf.trk.gArr)
+            foreach (CTrk item in mf.trk.gArr)
             {
                 gTemp.Add(new CTrk(item));
             }
@@ -70,7 +70,7 @@ namespace AgOpenGPS
 
             gTemp.Clear();
 
-            foreach (var item in mf.trk.gArr)
+            foreach (CTrk item in mf.trk.gArr)
             {
                 gTemp.Add(new CTrk(item));
             }
@@ -126,7 +126,7 @@ namespace AgOpenGPS
                 {
                     //load tracks from temp
                     mf.trk.gArr.Clear();
-                    foreach (var item in gTemp)
+                    foreach (CTrk item in gTemp)
                     {
                         mf.trk.gArr.Add(new CTrk(item));
                     }
@@ -148,7 +148,7 @@ namespace AgOpenGPS
                     {
                         bool isOneVis = false;
 
-                        foreach (var item in gTemp)
+                        foreach (CTrk item in gTemp)
                         {
                             if (item.isVisible) isOneVis = true;
                             break;

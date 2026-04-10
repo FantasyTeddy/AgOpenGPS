@@ -40,7 +40,7 @@ namespace AgIO
                 _channels = new List<CRadioChannel>();
             }
 
-            foreach (var channel in _channels)
+            foreach (CRadioChannel channel in _channels)
             {
                 AddChannelToListView(channel);
             }
@@ -61,7 +61,7 @@ namespace AgIO
             cboxBaud.Text = Properties.Settings.Default.setPort_baudRateRadio;
             cboxIsRadioOn.Checked = Properties.Settings.Default.setRadio_isOn;
 
-            for (var i = 0; i < lvChannels.Items.Count; i++)
+            for (int i = 0; i < lvChannels.Items.Count; i++)
             {
                 ListViewItem lvItem = lvChannels.Items[i];
 
@@ -92,7 +92,7 @@ namespace AgIO
 
             if (lvChannels.SelectedItems.Count > 0)
             {
-                var selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
+                CRadioChannel selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
                 Properties.Settings.Default.setPort_radioChannel = selectedChannel.Frequency;
             }
 
@@ -185,7 +185,7 @@ namespace AgIO
         {
             if (mf.spRadio != null && mf.spRadio.IsOpen && lvChannels.SelectedItems.Count == 1)
             {
-                var selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
+                CRadioChannel selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
 
                 // SL&F=nnn.nnnnn
                 mf.spRadio.WriteLine($"SL&F={selectedChannel.Frequency}");
@@ -213,10 +213,10 @@ namespace AgIO
 
         private void btnAddChannel_Click(object sender, EventArgs e)
         {
-            using (var form = new FormRadioChannel(mf))
+            using (FormRadioChannel form = new FormRadioChannel(mf))
             {
                 // Get max id
-                var maxChannelId = 0;
+                int maxChannelId = 0;
 
                 if (_channels.Count > 0)
                 {
@@ -241,9 +241,9 @@ namespace AgIO
         {
             if (lvChannels.SelectedItems.Count == 1)
             {
-                using (var form = new FormRadioChannel(mf))
+                using (FormRadioChannel form = new FormRadioChannel(mf))
                 {
-                    var selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
+                    CRadioChannel selectedChannel = (CRadioChannel)lvChannels.SelectedItems[0].Tag;
 
                     form.Channel.Id = selectedChannel.Id;
                     form.Channel.Name = selectedChannel.Name;
@@ -276,7 +276,7 @@ namespace AgIO
         {
             if (lvChannels.SelectedItems.Count > 0)
             {
-                var selectedItem = lvChannels.SelectedItems[0];
+                ListViewItem selectedItem = lvChannels.SelectedItems[0];
                 lvChannels.Items.Remove(selectedItem);
                 _channels.Clear();
 
@@ -293,12 +293,12 @@ namespace AgIO
 
         private void AddChannelToListView(CRadioChannel channel)
         {
-            var distance = "-";
+            string distance = "-";
 
             // calculate distance
             if (!string.IsNullOrEmpty(channel.Location) && _currentLat > 0 && _currentLon > 0)
             {
-                var locationArray = channel.Location.Split(' ');
+                string[] locationArray = channel.Location.Split(' ');
 
                 if (locationArray.Length >= 2)
                 {
@@ -325,7 +325,7 @@ namespace AgIO
         private void SetButtonState()
         {
             // Set connect disconnect and send buttons
-            var portOpen = mf.spRadio != null && mf.spRadio.IsOpen;
+            bool portOpen = mf.spRadio != null && mf.spRadio.IsOpen;
 
             btnOpenSerial.Enabled = !portOpen;
             btnCloseSerial.Enabled = portOpen;

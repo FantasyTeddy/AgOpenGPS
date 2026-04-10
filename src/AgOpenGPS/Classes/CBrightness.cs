@@ -22,11 +22,11 @@ public class CWindowsSettingsBrightnessController
     {
         try // this will fail if not a device with controllable brightness (eg, a desktop)
         {
-            var mclass = new ManagementClass("WmiMonitorBrightness")
+            ManagementClass mclass = new ManagementClass("WmiMonitorBrightness")
             {
                 Scope = new ManagementScope(@"\\.\root\wmi")
             };
-            var instances = mclass.GetInstances();
+            ManagementObjectCollection instances = mclass.GetInstances();
             foreach (ManagementObject instance in instances)
             {
                 return (byte)instance.GetPropertyValue("CurrentBrightness");
@@ -43,12 +43,12 @@ public class CWindowsSettingsBrightnessController
     {
         try // and so will this
         {
-            var mclass = new ManagementClass("WmiMonitorBrightnessMethods")
+            ManagementClass mclass = new ManagementClass("WmiMonitorBrightnessMethods")
             {
                 Scope = new ManagementScope(@"\\.\root\wmi")
             };
-            var instances = mclass.GetInstances();
-            var args = new object[] { 1, brightness };
+            ManagementObjectCollection instances = mclass.GetInstances();
+            object[] args = new object[] { 1, brightness };
             foreach (ManagementObject instance in instances)
             {
                 instance.InvokeMethod("WmiSetBrightness", args);

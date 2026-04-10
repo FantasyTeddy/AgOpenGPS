@@ -21,7 +21,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowConfirm(Form parent, string title, string message, string okText = "Yes", string cancelText = "No")
         {
-            using (var dialog = new FormDialog())
+            using (FormDialog dialog = new FormDialog())
             {
                 dialog.Text = title;
                 dialog.lblMessage.Text = message;
@@ -35,9 +35,9 @@ namespace AgOpenGPS.Updater.Forms
                 dialog.PerformLayout();
 
                 // Adjust width if message is long
-                using (var g = Graphics.FromHwnd(dialog.Handle))
+                using (Graphics g = Graphics.FromHwnd(dialog.Handle))
                 {
-                    var size = g.MeasureString(message, dialog.lblMessage.Font);
+                    SizeF size = g.MeasureString(message, dialog.lblMessage.Font);
                     int neededWidth = (int)Math.Ceiling(size.Width) + 120; // icon + padding
                     if (neededWidth > 550)
                     {
@@ -59,7 +59,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowInfo(Form parent, string title, string message)
         {
-            using (var dialog = new FormDialog())
+            using (FormDialog dialog = new FormDialog())
             {
                 dialog.Text = title;
                 dialog.lblMessage.Text = message;
@@ -85,7 +85,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowError(Form parent, string title, string message)
         {
-            using (var dialog = new FormDialog())
+            using (FormDialog dialog = new FormDialog())
             {
                 dialog.Text = title;
                 dialog.lblMessage.Text = message;
@@ -112,7 +112,7 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         public static DialogResult ShowSuccess(Form parent, string title, string message)
         {
-            using (var dialog = new FormDialog())
+            using (FormDialog dialog = new FormDialog())
             {
                 dialog.Text = title;
                 dialog.lblMessage.Text = message;

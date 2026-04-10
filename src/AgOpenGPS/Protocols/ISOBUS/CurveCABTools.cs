@@ -23,7 +23,7 @@ namespace AgOpenGPS
         {
             if (points == null || points.Count < 2) return points;
 
-            var spaced = new List<vec3>(points.Count);
+            List<vec3> spaced = new List<vec3>(points.Count);
             vec3 last = points[0];
             spaced.Add(last);
 
@@ -54,7 +54,7 @@ namespace AgOpenGPS
         {
             if (points == null || points.Count < 2) return points;
 
-            var result = new List<vec3>(points.Count * 2);
+            List<vec3> result = new List<vec3>(points.Count * 2);
 
             for (int i = 0; i < points.Count - 1; i++)
             {
@@ -89,14 +89,14 @@ namespace AgOpenGPS
             {
                 double dx = points[i + 1].easting - points[i].easting;
                 double dy = points[i + 1].northing - points[i].northing;
-                var pt = points[i];
+                vec3 pt = points[i];
                 pt.heading = Math.Atan2(dx, dy);
                 if (pt.heading < 0) pt.heading += glm.twoPI;
                 points[i] = pt;
             }
 
             // Copy last heading from the second last
-            var last = points[points.Count - 1];
+            vec3 last = points[points.Count - 1];
             last.heading = points[points.Count - 2].heading;
             points[points.Count - 1] = last;
 

@@ -109,7 +109,7 @@ namespace AgOpenGPS.Core.Streamers
 
         public GeoPath ReadGeoPath()
         {
-            var result = new GeoPath();
+            GeoPath result = new GeoPath();
             int count = ReadInt();
             for (int i = 0; i < count; i++)
             {
@@ -150,7 +150,7 @@ namespace AgOpenGPS.Core.Streamers
             int count = ReadInt();
             for (int i = 0; i < count; i++)
             {
-                var coordDir = ReadGeoCoordDir();
+                GeoCoordDir coordDir = ReadGeoCoordDir();
                 polygon.Add(coordDir.Coord, coordDir.Direction);
             }
         }

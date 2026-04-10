@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AgLibrary.Logging;
 using AgOpenGPS.Core.AgShare;
+using AgOpenGPS.Core.AgShare.Models;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.IO;
 
@@ -58,7 +59,7 @@ namespace AgOpenGPS.Forms
                     string fieldFile = Path.Combine(fieldDir, "Field.txt");
                     if (File.Exists(fieldFile))
                     {
-                        var fieldInfo = new FieldInfo
+                        FieldInfo fieldInfo = new FieldInfo
                         {
                             Name = fieldName,
                             DirectoryPath = fieldDir,
@@ -69,7 +70,7 @@ namespace AgOpenGPS.Forms
                         availableFields.Add(fieldInfo);
 
                         // Create checkbox for this field
-                        var checkbox = CreateFieldCheckbox(fieldInfo);
+                        CheckBox checkbox = CreateFieldCheckbox(fieldInfo);
                         flpFieldList.Controls.Add(checkbox);
                     }
                 }
@@ -85,7 +86,7 @@ namespace AgOpenGPS.Forms
 
         private CheckBox CreateFieldCheckbox(FieldInfo fieldInfo)
         {
-            var checkbox = new CheckBox
+            CheckBox checkbox = new CheckBox
             {
                 Text = fieldInfo.Name,  // Cloud check will add ☁ later if needed
                 Checked = false,
@@ -125,13 +126,13 @@ namespace AgOpenGPS.Forms
         {
             try
             {
-                var result = await client.GetOwnFieldsAsync();
+                AgShareResult<List<GetOwnFieldDto>> result = await client.GetOwnFieldsAsync();
                 if (!result.IsSuccessful || result.Data == null)
                 {
                     return; // Silently fail if cloud check fails
                 }
 
-                var cloudFields = result.Data;
+                List<GetOwnFieldDto> cloudFields = result.Data;
 
                 // Update UI on UI thread
                 this.Invoke(() =>
@@ -153,7 +154,7 @@ namespace AgOpenGPS.Forms
                                     Guid localId = Guid.Parse(raw);
 
                                     // Check if this ID exists in current user's cloud fields
-                                    var cloudField = cloudFields.FirstOrDefault(f => f.Id == localId);
+                                    GetOwnFieldDto cloudField = cloudFields.FirstOrDefault(f => f.Id == localId);
                                     if (cloudField != null)
                                     {
                                         // ID belongs to current user - mark as on cloud
@@ -178,7 +179,7 @@ namespace AgOpenGPS.Forms
                             // (even if agshare.txt exists, the ID might be wrong/outdated)
                             if (!fieldInfo.IsOnCloud)
                             {
-                                var cloudField = cloudFields.FirstOrDefault(f => f.Name == fieldInfo.Name);
+                                GetOwnFieldDto cloudField = cloudFields.FirstOrDefault(f => f.Name == fieldInfo.Name);
                                 if (cloudField != null)
                                 {
                                     // Found field with same name on cloud - mark as on cloud
@@ -235,7 +236,7 @@ namespace AgOpenGPS.Forms
             }
 
             // Get selected fields
-            var selectedFields = new List<FieldInfo>();
+            List<FieldInfo> selectedFields = new List<FieldInfo>();
             foreach (CheckBox checkbox in flpFieldList.Controls)
             {
                 if (checkbox.Checked && checkbox.Tag is FieldInfo fieldInfo)
@@ -277,7 +278,7 @@ namespace AgOpenGPS.Forms
 
             try
             {
-                foreach (var fieldInfo in selectedFields)
+                foreach (FieldInfo fieldInfo in selectedFields)
                 {
                     lblStatus.Text = $"Uploading: {fieldInfo.Name}...";
                     Application.DoEvents(); // Keep UI responsive
@@ -335,7 +336,7 @@ namespace AgOpenGPS.Forms
         private async Task UploadField(FieldInfo fieldInfo)
         {
             // Load field data from directory
-            var snapshot = await LoadFieldSnapshot(fieldInfo);
+            FieldSnapshot snapshot = await LoadFieldSnapshot(fieldInfo);
 
             if (snapshot == null)
             {
@@ -392,7 +393,7 @@ namespace AgOpenGPS.Forms
             else if (!File.Exists(idPath))
             {
                 // Check if field with same name exists on cloud (might have been added since initial check)
-                var existingFieldId = await FindFieldByNameOnCloud(snapshot.FieldName);
+                Guid? existingFieldId = await FindFieldByNameOnCloud(snapshot.FieldName);
                 if (existingFieldId.HasValue)
                 {
                     // Ask user what to do
@@ -420,10 +421,10 @@ namespace AgOpenGPS.Forms
         {
             try
             {
-                var result = await client.GetOwnFieldsAsync();
+                AgShareResult<List<GetOwnFieldDto>> result = await client.GetOwnFieldsAsync();
                 if (result.IsSuccessful && result.Data != null)
                 {
-                    var existing = result.Data.FirstOrDefault(f => f.Name == fieldName);
+                    GetOwnFieldDto existing = result.Data.FirstOrDefault(f => f.Name == fieldName);
                     if (existing != null)
                     {
                         return existing.Id;
@@ -493,7 +494,7 @@ namespace AgOpenGPS.Forms
                     // Load boundaries from Boundary.txt
                     List<CBoundaryList> boundaryList = BoundaryFiles.Load(fieldInfo.DirectoryPath);
                     List<List<vec3>> boundaries = new List<List<vec3>>();
-                    foreach (var bnd in boundaryList)
+                    foreach (CBoundaryList bnd in boundaryList)
                     {
                         if (bnd.fenceLine != null && bnd.fenceLine.Count > 0)
                         {

@@ -44,7 +44,7 @@ namespace AgLibrary.Settings
                                 {
                                     if (!string.IsNullOrEmpty(name))
                                     {
-                                        var pinfo = obj.GetType().GetField(name);
+                                        FieldInfo pinfo = obj.GetType().GetField(name);
                                         if (pinfo != null)
                                         {
                                             try
@@ -90,7 +90,7 @@ namespace AgLibrary.Settings
             }
             else if (fieldType.IsEnum) // Handle Enums
             {
-                var enumValue = Enum.Parse(fieldType, value, ignoreCase: true);
+                object enumValue = Enum.Parse(fieldType, value, ignoreCase: true);
                 pinfo.SetValue(obj, enumValue);
             }
             else if (fieldType.IsPrimitive || fieldType == typeof(decimal))
@@ -100,7 +100,7 @@ namespace AgLibrary.Settings
             }
             else if (fieldType == typeof(Color))
             {
-                var parts = value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] parts = value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length == 3 && parseInvariantCulture(parts[0], out int r) && parseInvariantCulture(parts[1], out int g) && parseInvariantCulture(parts[2], out int b))
                 {
                     pinfo.SetValue(obj, Color.FromArgb(r, g, b));
@@ -108,7 +108,7 @@ namespace AgLibrary.Settings
             }
             else if (fieldType == typeof(Point))
             {
-                var parts = value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] parts = value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length == 2 && parseInvariantCulture(parts[0], out int x) && parseInvariantCulture(parts[1], out int y))
                 {
                     pinfo.SetValue(obj, new Point(x, y));
@@ -116,7 +116,7 @@ namespace AgLibrary.Settings
             }
             else if (fieldType == typeof(Size))
             {
-                var parts = value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] parts = value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length == 2 && parseInvariantCulture(parts[0], out int width) && parseInvariantCulture(parts[1], out int height))
                 {
                     pinfo.SetValue(obj, new Size(width, height));
@@ -136,12 +136,12 @@ namespace AgLibrary.Settings
                 }
 
                 // Deserialize XML into the custom object
-                var serializer = new XmlSerializer(typeof(List<>).MakeGenericType(itemType));
-                var list = serializer.Deserialize(reader);
+                XmlSerializer serializer = new XmlSerializer(typeof(List<>).MakeGenericType(itemType));
+                object list = serializer.Deserialize(reader);
 
                 if (fieldType.IsArray) // Convert List<T> to T[] for arrays
                 {
-                    var array = ((IEnumerable)list).Cast<object>().ToArray();
+                    object[] array = ((IEnumerable)list).Cast<object>().ToArray();
                     pinfo.SetValue(obj, Array.CreateInstance(itemType, array.Length));
                     Array.Copy(array, (Array)pinfo.GetValue(obj), array.Length);
                 }
@@ -163,7 +163,7 @@ namespace AgLibrary.Settings
                         {
                             using (StringReader stringReader = new StringReader(innerXml))
                             {
-                                var serializer = new XmlSerializer(fieldType);
+                                XmlSerializer serializer = new XmlSerializer(fieldType);
                                 object nestedObj = serializer.Deserialize(stringReader);
                                 pinfo.SetValue(obj, nestedObj);
                             }
@@ -193,7 +193,7 @@ namespace AgLibrary.Settings
         {
             try
             {
-                var dirName = Path.GetDirectoryName(filePath);
+                string dirName = Path.GetDirectoryName(filePath);
                 if (!string.IsNullOrEmpty(dirName) && !Directory.Exists(dirName))
                 {
                     Directory.CreateDirectory(dirName);
@@ -212,10 +212,10 @@ namespace AgLibrary.Settings
                     xml.WriteStartElement("userSettings");
                     xml.WriteStartElement(obj.ToString());
 
-                    foreach (var fld in obj.GetType().GetFields())
+                    foreach (FieldInfo fld in obj.GetType().GetFields())
                     {
-                        var value = fld.GetValue(obj);
-                        var fieldType = value.GetType();
+                        object value = fld.GetValue(obj);
+                        Type fieldType = value.GetType();
 
                         // Start a "setting" element
                         xml.WriteStartElement("setting");
@@ -231,7 +231,7 @@ namespace AgLibrary.Settings
                             // Write the serialized object to a nested "value" element
                             xml.WriteStartElement("value");
 
-                            var serializer = new XmlSerializer(fieldType);
+                            XmlSerializer serializer = new XmlSerializer(fieldType);
                             serializer.Serialize(xml, value);
 
                             xml.WriteEndElement(); // value

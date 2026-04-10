@@ -80,13 +80,13 @@ namespace ModSim
 
         public void TimedMessageBox(int timeout, string title, string message)
         {
-            var form = new FormTimedMessage(timeout, title, message);
+            FormTimedMessage form = new FormTimedMessage(timeout, title, message);
             form.Show();
         }
 
         public void YesMessageBox(string s1)
         {
-            var form = new FormYes(s1);
+            FormYes form = new FormYes(s1);
             form.ShowDialog(this);
         }
 

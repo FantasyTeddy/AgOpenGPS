@@ -38,11 +38,11 @@ namespace AgOpenGPS.Forms.Field
                     return;
                 }
 
-                var fieldDirs = Directory.GetDirectories(fieldsDir);
+                string[] fieldDirs = Directory.GetDirectories(fieldsDir);
                 lbFields.BeginUpdate();
                 lbFields.Items.Clear();
 
-                foreach (var fieldDir in fieldDirs)
+                foreach (string fieldDir in fieldDirs)
                 {
                     // Check if field has Field.txt and TrackLines.txt
                     string fieldFile = Path.Combine(fieldDir, "Field.txt");
@@ -56,8 +56,8 @@ namespace AgOpenGPS.Forms.Field
                     if (mf.currentFieldDirectory != null && fieldName == mf.currentFieldDirectory)
                         continue;
 
-                    var fieldDirInfo = new DirectoryInfo(fieldDir);
-                    var item = new ListViewItem(fieldDirInfo.Name);
+                    DirectoryInfo fieldDirInfo = new DirectoryInfo(fieldDir);
+                    ListViewItem item = new ListViewItem(fieldDirInfo.Name);
                     item.Tag = fieldDirInfo;
                     lbFields.Items.Add(item);
                 }
@@ -79,7 +79,7 @@ namespace AgOpenGPS.Forms.Field
         {
             if (lbFields.SelectedItems.Count == 0) return;
 
-            var selectedItem = lbFields.SelectedItems[0];
+            ListViewItem selectedItem = lbFields.SelectedItems[0];
             if (selectedItem.Tag is DirectoryInfo fieldDirInfo)
             {
                 selectedFieldDirectory = fieldDirInfo.FullName;
@@ -91,7 +91,7 @@ namespace AgOpenGPS.Forms.Field
         {
             try
             {
-                var availableTracks = TrackFiles.Load(fieldDirectory);
+                List<CTrk> availableTracks = TrackFiles.Load(fieldDirectory);
                 flpTrackList.Controls.Clear();
 
                 if (availableTracks.Count == 0)
@@ -100,14 +100,14 @@ namespace AgOpenGPS.Forms.Field
                     return;
                 }
 
-                foreach (var track in availableTracks)
+                foreach (CTrk track in availableTracks)
                 {
                     string trackName = track.name ?? "Unnamed Track";
                     string trackType = track.mode == TrackMode.AB ? "AB Line" :
                                       track.mode == TrackMode.Curve ? "Curve" :
                                       track.mode.ToString();
 
-                    var checkbox = CreateTrackCheckbox(track, $"{trackName} ({trackType})");
+                    CheckBox checkbox = CreateTrackCheckbox(track, $"{trackName} ({trackType})");
                     flpTrackList.Controls.Add(checkbox);
                 }
 
@@ -122,7 +122,7 @@ namespace AgOpenGPS.Forms.Field
 
         private CheckBox CreateTrackCheckbox(CTrk track, string displayText)
         {
-            var checkbox = new CheckBox
+            CheckBox checkbox = new CheckBox
             {
                 Text = displayText,
                 Checked = false,
@@ -187,7 +187,7 @@ namespace AgOpenGPS.Forms.Field
                 }
 
                 // Get selected tracks
-                var selectedTracks = new List<CTrk>();
+                List<CTrk> selectedTracks = new List<CTrk>();
                 foreach (CheckBox checkbox in flpTrackList.Controls)
                 {
                     if (checkbox.Checked && checkbox.Tag is CTrk track)

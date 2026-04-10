@@ -14,22 +14,22 @@ namespace AgOpenGPS.IO
 
         public static List<List<vec3>> Load(string fieldDirectory)
         {
-            var result = new List<List<vec3>>();
-            var path = Path.Combine(fieldDirectory, "Sections.txt");
+            List<List<vec3>> result = new List<List<vec3>>();
+            string path = Path.Combine(fieldDirectory, "Sections.txt");
             if (!File.Exists(path)) return result;
 
-            using (var reader = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(path))
             {
                 while (!reader.EndOfStream)
                 {
-                    var line = reader.ReadLine();
+                    string line = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(line)) continue;
 
                     int verts;
                     if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out verts))
                         continue;
 
-                    var patch = FileIoUtils.ReadVec3Block(reader, verts);
+                    List<vec3> patch = FileIoUtils.ReadVec3Block(reader, verts);
                     if (patch.Count > 0)
                     {
                         result.Add(patch);
@@ -42,18 +42,18 @@ namespace AgOpenGPS.IO
 
         public static void Append(string fieldDirectory, IEnumerable<IReadOnlyList<vec3>> patches)
         {
-            var filename = Path.Combine(fieldDirectory, "Sections.txt");
+            string filename = Path.Combine(fieldDirectory, "Sections.txt");
             if (patches == null) return;
 
-            using (var writer = new StreamWriter(filename, true))
+            using (StreamWriter writer = new StreamWriter(filename, true))
             {
-                foreach (var triList in patches)
+                foreach (IReadOnlyList<vec3> triList in patches)
                 {
                     if (triList == null) continue;
                     writer.WriteLine(triList.Count.ToString(CultureInfo.InvariantCulture));
                     for (int i = 0; i < triList.Count; i++)
                     {
-                        var p = triList[i];
+                        vec3 p = triList[i];
                         writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
                     }
                 }
@@ -62,7 +62,7 @@ namespace AgOpenGPS.IO
 
         public static void CreateEmpty(string fieldDirectory)
         {
-            using (var writer = new StreamWriter(Path.Combine(fieldDirectory, "Sections.txt"), false))
+            using (StreamWriter writer = new StreamWriter(Path.Combine(fieldDirectory, "Sections.txt"), false))
             {
                 // Intentionally empty
             }

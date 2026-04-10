@@ -105,7 +105,7 @@ namespace AgOpenGPS.Forms.Profiles
         {
             RegistrySettings.Save(RegKeys.environmentFileName, profileName);
 
-            var result = Settings.Default.Load();
+            LoadResult result = Settings.Default.Load();
             if (result != LoadResult.Ok)
             {
                 Log.EventWriter($"Error loading environment profile {profileName}.xml ({result})");

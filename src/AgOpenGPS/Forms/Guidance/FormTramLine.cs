@@ -130,7 +130,7 @@ namespace AgOpenGPS
             //load the lines from Trks
             gTemp?.Clear();
 
-            foreach (var item in mf.trk.gArr)
+            foreach (CTrk item in mf.trk.gArr)
             {
                 if ((item.mode == TrackMode.AB || item.mode == TrackMode.Curve) && item.isVisible)
                 {

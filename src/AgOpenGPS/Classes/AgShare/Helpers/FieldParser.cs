@@ -24,7 +24,7 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                 throw new ArgumentException("Field name cannot be null, empty or whitespace", nameof(dto));
             }
 
-            var origin = new Wgs84(dto.Latitude, dto.Longitude);
+            Wgs84 origin = new Wgs84(dto.Latitude, dto.Longitude);
             if (!origin.IsValid)
             {
                 throw new ArgumentException($"Invalid origin coordinates: Lat={dto.Latitude}, Lon={dto.Longitude}", nameof(dto));
@@ -38,37 +38,37 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                 throw new ArgumentException($"Field '{dto.Name}' has no boundaries or AB lines", nameof(dto));
             }
 
-            var result = new ParsedField
+            ParsedField result = new ParsedField
             {
                 FieldId = dto.Id,
                 Name = dto.Name,
                 Origin = origin
             };
 
-            var converter = new GeoConverter(origin.Latitude, origin.Longitude);
+            GeoConverter converter = new GeoConverter(origin.Latitude, origin.Longitude);
 
             // Parse boundaries directly to CBoundaryList
             if (dto.Boundaries != null)
             {
                 int boundaryIndex = 0;
-                foreach (var ring in dto.Boundaries)
+                foreach (List<CoordinateDto> ring in dto.Boundaries)
                 {
                     if (ring == null || ring.Count < 3) continue;
 
-                    var bnd = new CBoundaryList();
+                    CBoundaryList bnd = new CBoundaryList();
                     if (bnd.fenceLine == null) bnd.fenceLine = new List<vec3>();
 
-                    foreach (var point in ring)
+                    foreach (CoordinateDto point in ring)
                     {
                         if (point == null) continue;
-                        var wgs = new Wgs84(point.Latitude, point.Longitude);
+                        Wgs84 wgs = new Wgs84(point.Latitude, point.Longitude);
                         if (!wgs.IsValid)
                         {
                             Log.EventWriter($"[AgShare] Skipping invalid boundary coordinate: Lat={point.Latitude}, Lon={point.Longitude}");
                             continue;
                         }
 
-                        var local = converter.ToLocal(wgs.Latitude, wgs.Longitude);
+                        Vec2 local = converter.ToLocal(wgs.Latitude, wgs.Longitude);
                         bnd.fenceLine.Add(new vec3(local.Easting, local.Northing, 0.0));
                     }
 
@@ -90,26 +90,26 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
             // Parse tracks directly to CTrk
             if (dto.AbLines != null)
             {
-                foreach (var ab in dto.AbLines)
+                foreach (GuidanceTrackDto ab in dto.AbLines)
                 {
                     if (ab == null || ab.Coords == null || ab.Coords.Count < 2) continue;
                     if (ab.Coords[0] == null || ab.Coords[1] == null) continue;
 
-                    var wgsA = new Wgs84(ab.Coords[0].Latitude, ab.Coords[0].Longitude);
-                    var wgsB = new Wgs84(ab.Coords[1].Latitude, ab.Coords[1].Longitude);
+                    Wgs84 wgsA = new Wgs84(ab.Coords[0].Latitude, ab.Coords[0].Longitude);
+                    Wgs84 wgsB = new Wgs84(ab.Coords[1].Latitude, ab.Coords[1].Longitude);
                     if (!wgsA.IsValid || !wgsB.IsValid)
                     {
                         Log.EventWriter($"[AgShare] Skipping AB line '{ab.Name ?? "Unnamed"}' - invalid coordinates");
                         continue;
                     }
 
-                    var vA = converter.ToLocal(wgsA.Latitude, wgsA.Longitude);
-                    var vB = converter.ToLocal(wgsB.Latitude, wgsB.Longitude);
-                    var ptA = new vec3(vA.Easting, vA.Northing, 0);
-                    var ptB = new vec3(vB.Easting, vB.Northing, 0);
+                    Vec2 vA = converter.ToLocal(wgsA.Latitude, wgsA.Longitude);
+                    Vec2 vB = converter.ToLocal(wgsB.Latitude, wgsB.Longitude);
+                    vec3 ptA = new vec3(vA.Easting, vA.Northing, 0);
+                    vec3 ptB = new vec3(vB.Easting, vB.Northing, 0);
                     bool isCurve = ab.Coords.Count > 2;
 
-                    var trk = new CTrk
+                    CTrk trk = new CTrk
                     {
                         name = ab.Name ?? "Unnamed",
                         mode = isCurve ? TrackMode.Curve : TrackMode.AB,
@@ -125,15 +125,15 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
                     if (isCurve)
                     {
                         // First pass: convert all points to local coordinates
-                        var localPts = new List<vec3>();
+                        List<vec3> localPts = new List<vec3>();
                         for (int i = 0; i < ab.Coords.Count; i++)
                         {
-                            var p = ab.Coords[i];
+                            CoordinateDto p = ab.Coords[i];
                             if (p == null) continue;
-                            var wgs = new Wgs84(p.Latitude, p.Longitude);
+                            Wgs84 wgs = new Wgs84(p.Latitude, p.Longitude);
                             if (!wgs.IsValid) continue;
 
-                            var local = converter.ToLocal(wgs.Latitude, wgs.Longitude);
+                            Vec2 local = converter.ToLocal(wgs.Latitude, wgs.Longitude);
                             localPts.Add(new vec3(local.Easting, local.Northing, 0));
                         }
 

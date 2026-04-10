@@ -33,7 +33,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
                 {
                     if (node.Name == "GGP")
                     {
-                        var lsg = node.SelectSingleNode("GPN/LSG");
+                        XmlNode lsg = node.SelectSingleNode("GPN/LSG");
                         if (lsg != null) AccumulateCoordinates(lsg.ParentNode, ref latSum, ref lonSum, ref count);
                     }
                 }
@@ -88,7 +88,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
                 {
                     if (node.SelectSingleNode("LSG[@A='1']") is XmlNode lsg)
                     {
-                        var list = new List<vec3>();
+                        List<vec3> list = new List<vec3>();
                         foreach (XmlNode pnt in lsg.SelectNodes("PNT"))
                         {
                             if (double.TryParse(pnt.Attributes["C"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double lat) &&
@@ -118,12 +118,12 @@ namespace AgOpenGPS.Protocols.ISOBUS
             {
                 if (node.Name == "GGP")
                 {
-                    var trk = ParseGGPNode(node, appModel);
+                    CTrk trk = ParseGGPNode(node, appModel);
                     if (trk != null) tracks.Add(trk);
                 }
                 else if (node.Name == "LSG" && node.Attributes["A"]?.Value == "5")
                 {
-                    var trk = ParseLSGNode(node, appModel);
+                    CTrk trk = ParseLSGNode(node, appModel);
                     if (trk != null) tracks.Add(trk);
                 }
             }
@@ -133,7 +133,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
         public static CBoundaryList ParseBoundaryFromLSG(XmlNode lsg, ApplicationModel appModel)
         {
-            var list = new CBoundaryList();
+            CBoundaryList list = new CBoundaryList();
 
             foreach (XmlNode pnt in lsg.SelectNodes("PNT"))
             {
@@ -151,8 +151,8 @@ namespace AgOpenGPS.Protocols.ISOBUS
         // Parse GGP → GPN → LSG line
         private static CTrk ParseGGPNode(XmlNode node, ApplicationModel appModel)
         {
-            var gpn = node.SelectSingleNode("GPN");
-            var lsg = gpn?.SelectSingleNode("LSG[@A='5']");
+            XmlNode gpn = node.SelectSingleNode("GPN");
+            XmlNode lsg = gpn?.SelectSingleNode("LSG[@A='5']");
             if (gpn == null || lsg == null) return null;
 
             string lineType = gpn.Attributes["C"]?.Value;
@@ -179,11 +179,11 @@ namespace AgOpenGPS.Protocols.ISOBUS
         // Parse AB line into CTrk
         private static CTrk ParseABLine(XmlNode lsg, string name, ApplicationModel appModel)
         {
-            var points = lsg.SelectNodes("PNT");
+            XmlNodeList points = lsg.SelectNodes("PNT");
             if (points.Count < 2) return null;
 
-            var ptA = ParseVec2(points[0], appModel);
-            var ptB = ParseVec2(points[1], appModel);
+            vec2 ptA = ParseVec2(points[0], appModel);
+            vec2 ptB = ParseVec2(points[1], appModel);
 
             double heading = Math.Atan2(ptB.easting - ptA.easting, ptB.northing - ptA.northing);
             if (heading < 0) heading += glm.twoPI;
@@ -201,20 +201,20 @@ namespace AgOpenGPS.Protocols.ISOBUS
         // Parse Curve line into CTrk
         private static CTrk ParseCurveLine(XmlNode lsg, string name, ApplicationModel appModel)
         {
-            var points = lsg.SelectNodes("PNT");
+            XmlNodeList points = lsg.SelectNodes("PNT");
             if (points == null || points.Count <= 2) return null;
 
             // Build raw list from ISOXML
-            var desList = new List<vec3>();
+            List<vec3> desList = new List<vec3>();
             foreach (XmlNode pnt in points)
             {
-                var geo = ParseGeoCoord(pnt, appModel);
+                GeoCoord geo = ParseGeoCoord(pnt, appModel);
                 desList.Add(new vec3(geo));
             }
 
             // Keep originals if you want ptA/ptB to reflect the original span
-            var originalFirst = desList[0];
-            var originalLast = desList[desList.Count - 1];
+            vec3 originalFirst = desList[0];
+            vec3 originalLast = desList[desList.Count - 1];
 
             // Extend ends before preprocessing (pure, no ref)
             double extendMeters = 100.0;     // tweak as needed
@@ -241,7 +241,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             }
 
             // Build track
-            var track = new CTrk
+            CTrk track = new CTrk
             {
                 heading = avgHeading,
                 mode = TrackMode.Curve,
@@ -292,11 +292,11 @@ namespace AgOpenGPS.Protocols.ISOBUS
             if (pts == null || pts.Count < 2 || extendMeters <= 0) return pts;
 
             // Work on a copy to keep this pure
-            var list = new List<vec3>(pts);
+            List<vec3> list = new List<vec3>(pts);
 
             // Extend before the first point (backwards along first segment)
-            var first = list[0];
-            var second = list[1];
+            vec3 first = list[0];
+            vec3 second = list[1];
             double dxF = first.easting - second.easting;
             double dyF = first.northing - second.northing;
             double lenF = Math.Sqrt(dxF * dxF + dyF * dyF);
@@ -311,8 +311,8 @@ namespace AgOpenGPS.Protocols.ISOBUS
             }
 
             // Extend after the last point (forwards along last segment)
-            var last = list[list.Count - 1];
-            var beforeLast = list[list.Count - 2];
+            vec3 last = list[list.Count - 1];
+            vec3 beforeLast = list[list.Count - 2];
             double dxL = last.easting - beforeLast.easting;
             double dyL = last.northing - beforeLast.northing;
             double lenL = Math.Sqrt(dxL * dxL + dyL * dyL);

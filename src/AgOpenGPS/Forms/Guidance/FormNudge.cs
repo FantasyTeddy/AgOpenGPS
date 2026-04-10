@@ -146,7 +146,7 @@ namespace AgOpenGPS
             {
                 // Enable drop shadow for a borderless form (CS_DROPSHADOW = 0x00020000)
                 const int CS_DROPSHADOW = 0x00020000;
-                var cp = base.CreateParams;
+                CreateParams cp = base.CreateParams;
                 cp.ClassStyle |= CS_DROPSHADOW;
                 return cp;
             }
@@ -188,7 +188,7 @@ namespace AgOpenGPS
                         Point client = PointToClient(screen);
 
                         // Check if there is a child control under the cursor
-                        var child = GetChildAtPoint(
+                        Control child = GetChildAtPoint(
                             client,
                             GetChildAtPointSkip.Invisible | GetChildAtPointSkip.Disabled
                         );

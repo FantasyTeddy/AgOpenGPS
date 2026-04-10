@@ -39,7 +39,7 @@ namespace AgOpenGPS
 
             snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
-            foreach (var item in mf.trk.gArr)
+            foreach (CTrk item in mf.trk.gArr)
             {
                 gTemp.Add(new CTrk(item));
             }
@@ -122,7 +122,7 @@ namespace AgOpenGPS
         {
             mf.trk.gArr.Clear();
 
-            foreach (var item in gTemp)
+            foreach (CTrk item in gTemp)
             {
                 mf.trk.gArr.Add(new CTrk(item));
             }

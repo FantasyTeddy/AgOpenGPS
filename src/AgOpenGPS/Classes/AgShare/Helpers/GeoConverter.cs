@@ -63,25 +63,25 @@ namespace AgOpenGPS.Classes.AgShare.Helpers
         /// </summary>
         public static List<vec3> CalculateHeadings(List<vec3> inputPoints)
         {
-            var output = new List<vec3>();
+            List<vec3> output = new List<vec3>();
 
             if (inputPoints == null || inputPoints.Count < 2)
                 return output;
 
             for (int i = 0; i < inputPoints.Count - 1; i++)
             {
-                var p1 = inputPoints[i];
-                var p2 = inputPoints[i + 1];
+                vec3 p1 = inputPoints[i];
+                vec3 p2 = inputPoints[i + 1];
 
-                var dx = p2.easting - p1.easting;
-                var dy = p2.northing - p1.northing;
+                double dx = p2.easting - p1.easting;
+                double dy = p2.northing - p1.northing;
 
-                var heading = Math.Atan2(dx, dy);
+                double heading = Math.Atan2(dx, dy);
 
                 output.Add(new vec3(p1.easting, p1.northing, heading));
             }
-            var last = inputPoints[inputPoints.Count - 1];
-            var lastHeading = output[output.Count - 1].heading;
+            vec3 last = inputPoints[inputPoints.Count - 1];
+            double lastHeading = output[output.Count - 1].heading;
             output.Add(new vec3(last.easting, last.northing, lastHeading));
 
             return output;

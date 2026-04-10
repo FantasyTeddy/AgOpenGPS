@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AgLibrary.Logging;
@@ -18,6 +19,7 @@ using AgOpenGPS.Core.AgShare;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Core.ViewModels;
+using AgOpenGPS.Forms.Profiles;
 using AgOpenGPS.Properties;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
@@ -413,7 +415,7 @@ namespace AgOpenGPS
 
             if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
             {
-                using (var form = new FormTermsAndConditions())
+                using (FormTermsAndConditions form = new FormTermsAndConditions())
                 {
                     if (form.ShowDialog(this) != DialogResult.OK)
                     {
@@ -581,7 +583,7 @@ namespace AgOpenGPS
                 }
                 // Scenario: New profiles exist - no message needed, go directly to form
 
-                using (var form = new AgOpenGPS.Forms.Profiles.FormLoadVehicleTool(this))
+                using (FormLoadVehicleTool form = new AgOpenGPS.Forms.Profiles.FormLoadVehicleTool(this))
                 {
                     form.ShowDialog(this);
                 }
@@ -907,7 +909,7 @@ namespace AgOpenGPS
                 bool updaterIsActive = false;
                 try
                 {
-                    using (var updaterMutex = System.Threading.Mutex.OpenExisting("Global\\AgOpenGPS_Updater_Active"))
+                    using (Mutex updaterMutex = System.Threading.Mutex.OpenExisting("Global\\AgOpenGPS_Updater_Active"))
                     {
                         updaterIsActive = true;
                         Log.EventWriter("Updater is active - skipping Windows shutdown");
@@ -933,7 +935,7 @@ namespace AgOpenGPS
 
                     try
                     {
-                        var psi = new ProcessStartInfo("shutdown", "/s /t 0");
+                        ProcessStartInfo psi = new ProcessStartInfo("shutdown", "/s /t 0");
                         psi.CreateNoWindow = true; // Prevents a command prompt window from appearing
                         psi.UseShellExecute = false; // Required for CreateNoWindow to work in some contexts
 
@@ -1527,7 +1529,7 @@ namespace AgOpenGPS
 
         public void YesMessageBox(string s1)
         {
-            var form = new FormYes(s1);
+            FormYes form = new FormYes(s1);
             form.ShowDialog(this);
         }
     }//class FormGPS

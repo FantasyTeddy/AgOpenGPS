@@ -27,7 +27,7 @@ namespace AgOpenGPS
         // Returns field directory; creates it when ensureExists is true.
         private string GetFieldDir(bool ensureExists = false)
         {
-            var dir = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string dir = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
             if (ensureExists && !string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
@@ -59,7 +59,7 @@ namespace AgOpenGPS
                     break;
 
                 case "Open":
-                    using (var ofd = new OpenFileDialog())
+                    using (OpenFileDialog ofd = new OpenFileDialog())
                     {
                         ofd.InitialDirectory = RegistrySettings.fieldsDirectory;
                         ofd.RestoreDirectory = true;
@@ -73,7 +73,7 @@ namespace AgOpenGPS
 
             // Set current field directory
             currentFieldDirectory = new DirectoryInfo(Path.GetDirectoryName(fileAndDirectory)).Name;
-            var dir = GetFieldDir(false);
+            string dir = GetFieldDir(false);
 
             // --- Load all field data ---
             if (!TryLoad("Field.txt", LoadCriticality.Required, () => FieldPlaneFiles.LoadOrigin(dir), out Wgs84 origin))
@@ -88,14 +88,14 @@ namespace AgOpenGPS
             FileLoadTracks();
 
             // --- Sections into triStrip + area ---
-            if (TryLoad("Sections.txt", LoadCriticality.Optional, () => SectionsFiles.Load(dir), out var sections))
+            if (TryLoad("Sections.txt", LoadCriticality.Optional, () => SectionsFiles.Load(dir), out List<List<vec3>> sections))
             {
                 fd.workedAreaTotal = 0;
                 fd.distanceUser = 0;
                 if (triStrip != null && triStrip.Count > 0 && triStrip[0] != null)
                 {
                     triStrip[0].patchList = new List<List<vec3>>();
-                    foreach (var patch in sections)
+                    foreach (List<vec3> patch in sections)
                     {
                         triStrip[0].triangleList = new List<vec3>(patch);
                         triStrip[0].patchList.Add(triStrip[0].triangleList);
@@ -116,10 +116,10 @@ namespace AgOpenGPS
             }
 
             // --- Contour ---
-            if (TryLoad("Contour.txt", LoadCriticality.Optional, () => ContourFiles.Load(dir), out var contours))
+            if (TryLoad("Contour.txt", LoadCriticality.Optional, () => ContourFiles.Load(dir), out List<List<vec3>> contours))
             {
                 ct.stripList.Clear();
-                foreach (var patch in contours)
+                foreach (List<vec3> patch in contours)
                 {
                     ct.ptList = new List<vec3>(patch);
                     ct.stripList.Add(ct.ptList);
@@ -127,14 +127,14 @@ namespace AgOpenGPS
             }
 
             // --- Flags ---
-            if (TryLoad("Flags.txt", LoadCriticality.Optional, () => FlagsFiles.Load(dir), out var flags))
+            if (TryLoad("Flags.txt", LoadCriticality.Optional, () => FlagsFiles.Load(dir), out List<CFlag> flags))
             {
                 flagPts.Clear();
                 flagPts.AddRange(flags);
             }
 
             // --- Boundaries ---
-            if (TryLoad("Boundary.txt", LoadCriticality.Optional, () => BoundaryFiles.Load(dir), out var boundaries))
+            if (TryLoad("Boundary.txt", LoadCriticality.Optional, () => BoundaryFiles.Load(dir), out List<CBoundaryList> boundaries))
             {
                 bnd.bndList.Clear();
                 bnd.bndList.AddRange(boundaries);
@@ -146,7 +146,7 @@ namespace AgOpenGPS
             TryRun("Headland.txt", LoadCriticality.Optional, () => HeadlandFiles.AttachLoad(dir, boundaries));
 
             // --- Tram ---
-            if (TryLoad("Tram.txt", LoadCriticality.Optional, () => TramFiles.Load(dir), out var tramData))
+            if (TryLoad("Tram.txt", LoadCriticality.Optional, () => TramFiles.Load(dir), out TramFiles.TramData tramData))
             {
                 tram.tramBndOuterArr.Clear();
                 tram.tramBndOuterArr.AddRange(tramData.Outer);
@@ -158,7 +158,7 @@ namespace AgOpenGPS
             }
 
             // --- RecPath ---
-            if (TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out var recPathList))
+            if (TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out List<CRecPathPt> recPathList))
             {
                 recPath.recList.Clear();
                 recPath.recList.AddRange(recPathList);
@@ -170,7 +170,7 @@ namespace AgOpenGPS
             worldGrid.BingMap = bingMapStreamer.TryRead(fieldDirectoryInfo);
 
             // optional
-            TryLoad("Elevation.txt", LoadCriticality.Optional, () => ElevationFiles.Load(dir), out var elevation);
+            TryLoad("Elevation.txt", LoadCriticality.Optional, () => ElevationFiles.Load(dir), out ElevationFiles.ElevationData elevation);
 
             // --- Final UI refresh ---
             PanelsAndOGLSize();
@@ -188,7 +188,7 @@ namespace AgOpenGPS
         // Load HeadLines (no message if missing).
         public void FileLoadHeadLines()
         {
-            var dir = GetFieldDir();
+            string dir = GetFieldDir();
             List<CHeadPath> headlines;
             if (!TryLoad("Headlines.txt", LoadCriticality.Optional, () => HeadlinesFiles.Load(dir), out headlines))
             {
@@ -209,7 +209,7 @@ namespace AgOpenGPS
         // Load tracks
         public void FileLoadTracks()
         {
-            var dir = GetFieldDir();
+            string dir = GetFieldDir();
 
             List<CTrk> tracks;
             if (!TryLoad("TrackLines.txt", LoadCriticality.Optional, () => TrackFiles.Load(dir), out tracks))
@@ -231,21 +231,21 @@ namespace AgOpenGPS
                 return;
             }
 
-            var dir = GetFieldDir(true);
-            var startFix = new Wgs84(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
+            string dir = GetFieldDir(true);
+            Wgs84 startFix = new Wgs84(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
             FieldPlaneFiles.Save(dir, DateTime.Now, startFix);
         }
 
         public void FileCreateElevation()
         {
-            var dir = GetFieldDir(true);
-            var startFix = new Wgs84(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
+            string dir = GetFieldDir(true);
+            Wgs84 startFix = new Wgs84(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
             ElevationFiles.CreateHeader(dir, DateTime.Now, startFix);
         }
 
         public void FileSaveElevation()
         {
-            var dir = GetFieldDir(true);
+            string dir = GetFieldDir(true);
             ElevationFiles.Append(dir, sbGrid.ToString());
             sbGrid.Clear();
         }
@@ -269,7 +269,7 @@ namespace AgOpenGPS
         // Create Boundary.txt header.
         public void FileCreateBoundary()
         {
-            var dir = GetFieldDir(true);
+            string dir = GetFieldDir(true);
             BoundaryFiles.CreateEmpty(dir);
         }
 
@@ -317,7 +317,7 @@ namespace AgOpenGPS
         // Create RecPath header + zero count.
         public void FileCreateRecPath()
         {
-            var dir = GetFieldDir(true);
+            string dir = GetFieldDir(true);
             RecPathFiles.CreateEmpty(dir);
         }
 
@@ -331,7 +331,7 @@ namespace AgOpenGPS
         // Load RecPath.txt (message if missing).
         public void FileLoadRecPath()
         {
-            var dir = GetFieldDir();
+            string dir = GetFieldDir();
 
             List<CRecPathPt> rec;
             if (!TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out rec))
@@ -728,7 +728,7 @@ namespace AgOpenGPS
 
                 if (patches > 0)
                 {
-                    foreach (var triList in triStrip[j].patchList)
+                    foreach (List<vec3> triList in triStrip[j].patchList)
                     {
                         if (triList.Count > 0)
                         {
@@ -832,7 +832,7 @@ namespace AgOpenGPS
                 kml.WriteStartElement("Folder");
                 kml.WriteElementString("name", name);
 
-                var lines = File.ReadAllLines(Path.Combine(dir, "Field.kml"));
+                string[] lines = File.ReadAllLines(Path.Combine(dir, "Field.kml"));
                 LinkedList<string> linebuffer = new LinkedList<string>();
                 for (int i = 3; i < lines.Length - 2; i++)
                 {

@@ -435,13 +435,13 @@ namespace AgOpenGPS
         {
             if (mf.bnd.bndList.Count > 0)
             {
-                var result = FormDialog.ShowQuestion("Boundary Exists", "A boundary already exists. Do you want to remove it?");
+                DialogResult result = FormDialog.ShowQuestion("Boundary Exists", "A boundary already exists. Do you want to remove it?");
                 if (result != DialogResult.OK) return;
 
                 mf.bnd.bndList.Clear();
             }
 
-            var form = new FormBuildBoundaryFromTracks(mf, this);
+            FormBuildBoundaryFromTracks form = new FormBuildBoundaryFromTracks(mf, this);
             form.ShowDialog();
             isClosing = true;
             Close();

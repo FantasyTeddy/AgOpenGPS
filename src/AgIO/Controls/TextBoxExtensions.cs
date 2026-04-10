@@ -8,7 +8,7 @@ namespace AgIO.Controls
         public static void ShowKeyboard(this TextBox textBox, Form owner)
         {
             textBox.BackColor = Color.Red;
-            using (var form = new FormKeyboard(textBox.Text))
+            using (FormKeyboard form = new FormKeyboard(textBox.Text))
             {
                 if (form.ShowDialog(owner) == DialogResult.OK)
                 {

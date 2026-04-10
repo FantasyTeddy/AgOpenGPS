@@ -148,7 +148,7 @@ namespace AgOpenGPS
 
         public static void GenerateEquidistantPoints(this List<vec3> points, double spacing, bool isLoop)
         {
-            var result = new List<vec3>();
+            List<vec3> result = new List<vec3>();
             const double eps = 1e-9;
 
             if (points == null || points.Count == 0) return;

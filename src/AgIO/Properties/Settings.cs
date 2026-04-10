@@ -81,7 +81,7 @@ namespace AgIO.Properties
         public LoadResult Load()
         {
             string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");
-            var result = XmlSettingsHandler.LoadXMLFile(path, this);
+            LoadResult result = XmlSettingsHandler.LoadXMLFile(path, this);
             if (result == LoadResult.MissingFile)
             {
                 if (RegistrySettings.profileName != "")

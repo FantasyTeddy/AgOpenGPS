@@ -14,13 +14,13 @@ namespace AgIO
     {
         public void TimedMessageBox(int timeout, string title, string message)
         {
-            var form = new FormTimedMessage(timeout, title, message);
+            FormTimedMessage form = new FormTimedMessage(timeout, title, message);
             form.Show();
         }
 
         public void YesMessageBox(string s1)
         {
-            var form = new FormYes(s1);
+            FormYes form = new FormYes(s1);
             form.ShowDialog(this);
         }
 
@@ -146,9 +146,9 @@ namespace AgIO
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            using (var dlg = new FormYes("Warning: Closing AgIO will stop communication with hardware.\r\nAre you sure you want to close?", true))
+            using (FormYes dlg = new FormYes("Warning: Closing AgIO will stop communication with hardware.\r\nAre you sure you want to close?", true))
             {
-                var result = dlg.ShowDialog(this);
+                DialogResult result = dlg.ShowDialog(this);
 
                 if (result == DialogResult.OK)
                 {
@@ -297,7 +297,7 @@ namespace AgIO
                 return;
             }
 
-            using (var form = new FormSerialPass(this))
+            using (FormSerialPass form = new FormSerialPass(this))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -310,7 +310,7 @@ namespace AgIO
         }
         private void toolStripSettings_Click(object sender, EventArgs e)
         {
-            using (var form = new FormAdvancedSettings())
+            using (FormAdvancedSettings form = new FormAdvancedSettings())
             {
                 form.ShowDialog(this);
             }
@@ -322,7 +322,7 @@ namespace AgIO
                 TimedMessageBox(3000, "AgIO Default Profile Used", "Create or Choose a Profile");
             }
 
-            using (var form = new FormProfiles(this))
+            using (FormProfiles form = new FormProfiles(this))
             {
                 form.ShowDialog(this);
                 if (form.DialogResult == DialogResult.Yes)
@@ -375,13 +375,13 @@ namespace AgIO
 
         public void ShowUDPMonitor()
         {
-            var form = new FormUDPMonitor(this);
+            FormUDPMonitor form = new FormUDPMonitor(this);
             form.Show(this);
         }
 
         public void ShowSerialMonitor()
         {
-            var form = new FormSerialMonitor(this);
+            FormSerialMonitor form = new FormSerialMonitor(this);
             form.Show(this);
         }
 
@@ -424,7 +424,7 @@ namespace AgIO
             }
 
 
-            using (var form = new FormNtrip(this))
+            using (FormNtrip form = new FormNtrip(this))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
@@ -459,7 +459,7 @@ namespace AgIO
                 isRadio_RequiredOn = false;
             }
 
-            using (var form = new FormRadio(this))
+            using (FormRadio form = new FormRadio(this))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {

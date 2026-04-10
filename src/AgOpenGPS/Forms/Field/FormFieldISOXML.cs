@@ -258,8 +258,8 @@ namespace AgOpenGPS
                 return;
             }
 
-            var fieldParts = pfd[idxFieldSelected].ChildNodes;
-            var importer = new IsoXmlFieldImporter(fieldParts, mf.AppModel);
+            XmlNodeList fieldParts = pfd[idxFieldSelected].ChildNodes;
+            IsoXmlFieldImporter importer = new IsoXmlFieldImporter(fieldParts, mf.AppModel);
 
             if (!importer.TryGetOrigin(out _origin))
             {
@@ -271,7 +271,7 @@ namespace AgOpenGPS
             mf.pn.DefineLocalPlane(_origin, true);
 
             List<CBoundaryList> boundaries = importer.GetBoundaries();
-            foreach (var bnd in boundaries)
+            foreach (CBoundaryList bnd in boundaries)
             {
                 mf.bnd.bndList.Add(bnd);
                 int idx = mf.bnd.bndList.Count - 1;
@@ -384,10 +384,10 @@ namespace AgOpenGPS
                 XmlNode lsg = nodePln.SelectSingleNode("LSG[@A='1']");
                 if (lsg == null) continue;
 
-                var pts = lsg.SelectNodes("PNT");
+                XmlNodeList pts = lsg.SelectNodes("PNT");
                 if (pts.Count < 3) continue;
 
-                var vecs = new vec2[pts.Count];
+                vec2[] vecs = new vec2[pts.Count];
                 for (int i = 0; i < pts.Count; i++)
                 {
                     double lat, lon;

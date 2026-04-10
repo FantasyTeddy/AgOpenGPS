@@ -40,7 +40,7 @@ namespace AgOpenGPS.Forms.Profiles
             // Pre-select and preview the currently active vehicle/tool
             if (!string.IsNullOrEmpty(RegistrySettings.vehicleProfileName))
             {
-                var vehicleItem = listViewVehicles.Items[RegistrySettings.vehicleProfileName];
+                ListViewItem vehicleItem = listViewVehicles.Items[RegistrySettings.vehicleProfileName];
                 if (vehicleItem != null)
                 {
                     vehicleItem.Selected = true;
@@ -49,7 +49,7 @@ namespace AgOpenGPS.Forms.Profiles
             }
             if (!string.IsNullOrEmpty(RegistrySettings.toolProfileName))
             {
-                var toolItem = listViewTools.Items[RegistrySettings.toolProfileName];
+                ListViewItem toolItem = listViewTools.Items[RegistrySettings.toolProfileName];
                 if (toolItem != null)
                 {
                     toolItem.Selected = true;
@@ -90,7 +90,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             foreach (string name in GetFiles(RegistrySettings.vehiclesDirectory, "VehicleSettings"))
             {
-                var item = new ListViewItem(name) { Name = name };
+                ListViewItem item = new ListViewItem(name) { Name = name };
                 if (name == RegistrySettings.vehicleProfileName)
                 {
                     item.BackColor = ColorCurrent;
@@ -145,7 +145,7 @@ namespace AgOpenGPS.Forms.Profiles
                 return;
             }
 
-            var result = FormDialog.ShowQuestion(gStr.gsDelete,
+            DialogResult result = FormDialog.ShowQuestion(gStr.gsDelete,
                 gStr.gsDeleteVehicleConfirm + " '" + _selectedVehicle + "'?");
 
             if (result == DialogResult.OK)
@@ -202,7 +202,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             foreach (string name in GetFiles(RegistrySettings.toolsDirectory, "ToolSettings"))
             {
-                var item = new ListViewItem(name) { Name = name };
+                ListViewItem item = new ListViewItem(name) { Name = name };
                 if (name == RegistrySettings.toolProfileName)
                 {
                     item.BackColor = ColorCurrent;
@@ -255,7 +255,7 @@ namespace AgOpenGPS.Forms.Profiles
                 return;
             }
 
-            var result = FormDialog.ShowQuestion(gStr.gsDelete,
+            DialogResult result = FormDialog.ShowQuestion(gStr.gsDelete,
                 gStr.gsDeleteToolConfirm + " '" + _selectedTool + "'?");
 
             if (result == DialogResult.OK)
@@ -308,7 +308,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void LoadVehiclePreview(string name)
         {
-            var preview = new VehicleSettings();
+            VehicleSettings preview = new VehicleSettings();
             string path = Path.Combine(RegistrySettings.vehiclesDirectory, name + ".xml");
             if (File.Exists(path))
                 XmlSettingsHandler.LoadXMLFile(path, preview);
@@ -335,7 +335,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void LoadToolPreview(string name)
         {
-            var preview = new ToolSettings();
+            ToolSettings preview = new ToolSettings();
             string path = Path.Combine(RegistrySettings.toolsDirectory, name + ".xml");
             if (File.Exists(path))
                 XmlSettingsHandler.LoadXMLFile(path, preview);
@@ -389,7 +389,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             if (vehicleChanged)
             {
-                var result = VehicleSettings.Default.Load(_selectedVehicle);
+                LoadResult result = VehicleSettings.Default.Load(_selectedVehicle);
                 if (result != LoadResult.Ok)
                 {
                     Log.EventWriter($"Error loading vehicle {_selectedVehicle}.xml ({result})");
@@ -404,7 +404,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             if (toolChanged)
             {
-                var result = ToolSettings.Default.Load(_selectedTool);
+                LoadResult result = ToolSettings.Default.Load(_selectedTool);
                 if (result != LoadResult.Ok)
                 {
                     Log.EventWriter($"Error loading tool {_selectedTool}.xml ({result})");
@@ -479,7 +479,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonResetVehicle_Click(object sender, EventArgs e)
         {
-            var result = FormDialog.ShowQuestion(gStr.gsCreateDefaultVehicle,
+            DialogResult result = FormDialog.ShowQuestion(gStr.gsCreateDefaultVehicle,
                 gStr.gsCreateDefaultVehicleConfirm + Environment.NewLine + Environment.NewLine + "This will create and load the new profile.",
                 DialogSeverity.Info);
             if (result != DialogResult.OK) return;
@@ -489,17 +489,17 @@ namespace AgOpenGPS.Forms.Profiles
 
             if (File.Exists(path))
             {
-                var overwrite = FormDialog.ShowQuestion(gStr.gsOverwrite,
+                DialogResult overwrite = FormDialog.ShowQuestion(gStr.gsOverwrite,
                     gStr.gsProfileExistsOverwrite + " '" + defaultName + "'?", DialogSeverity.Warning);
                 if (overwrite != DialogResult.OK) return;
             }
 
-            var fresh = new VehicleSettings();
+            VehicleSettings fresh = new VehicleSettings();
             XmlSettingsHandler.SaveXMLFile(path, fresh);
             Log.EventWriter($"Default vehicle profile created: {defaultName}");
 
             // Load the Default profile
-            var loadResult = VehicleSettings.Default.Load(defaultName);
+            LoadResult loadResult = VehicleSettings.Default.Load(defaultName);
             if (loadResult != LoadResult.Ok)
             {
                 Log.EventWriter($"Error loading vehicle {defaultName}.xml ({loadResult})");
@@ -524,7 +524,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonResetTool_Click(object sender, EventArgs e)
         {
-            var result = FormDialog.ShowQuestion(gStr.gsCreateDefaultTool,
+            DialogResult result = FormDialog.ShowQuestion(gStr.gsCreateDefaultTool,
                 gStr.gsCreateDefaultToolConfirm + Environment.NewLine + Environment.NewLine + "This will create and load the new profile.",
                 DialogSeverity.Info);
             if (result != DialogResult.OK) return;
@@ -534,17 +534,17 @@ namespace AgOpenGPS.Forms.Profiles
 
             if (File.Exists(path))
             {
-                var overwrite = FormDialog.ShowQuestion(gStr.gsOverwrite,
+                DialogResult overwrite = FormDialog.ShowQuestion(gStr.gsOverwrite,
                     gStr.gsProfileExistsOverwrite + " '" + defaultName + "'?", DialogSeverity.Warning);
                 if (overwrite != DialogResult.OK) return;
             }
 
-            var fresh = new ToolSettings();
+            ToolSettings fresh = new ToolSettings();
             XmlSettingsHandler.SaveXMLFile(path, fresh);
             Log.EventWriter($"Default tool profile created: {defaultName}");
 
             // Load the Default profile
-            var loadResult = ToolSettings.Default.Load(defaultName);
+            LoadResult loadResult = ToolSettings.Default.Load(defaultName);
             if (loadResult != LoadResult.Ok)
             {
                 Log.EventWriter($"Error loading tool {defaultName}.xml ({loadResult})");
@@ -569,7 +569,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonConvertOld_Click(object sender, EventArgs e)
         {
-            using (var form = new FormConvertProfiles(_formGPS))
+            using (FormConvertProfiles form = new FormConvertProfiles(_formGPS))
             {
                 form.ShowDialog(this);
             }

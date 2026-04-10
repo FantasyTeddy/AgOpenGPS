@@ -93,7 +93,7 @@ namespace AgIO
 
         private void lblPGNGuide_Click(object sender, EventArgs e)
         {
-            var form = new FormPGN();
+            FormPGN form = new FormPGN();
             form.Show(this);
         }
     }

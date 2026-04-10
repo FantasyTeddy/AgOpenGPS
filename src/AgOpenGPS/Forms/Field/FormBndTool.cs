@@ -397,7 +397,7 @@ namespace AgOpenGPS
                 if (patchCount > 0)
                 {
                     //for every new chunk of patch
-                    foreach (var triList in mf.triStrip[j].patchList)
+                    foreach (List<vec3> triList in mf.triStrip[j].patchList)
                     {
                         for (int i = 1; i < triList.Count; i++)
                         {
@@ -481,7 +481,7 @@ namespace AgOpenGPS
             panel1.Visible = false;
 
             secList?.Clear();
-            foreach (var item in arr)
+            foreach (vec3 item in arr)
             {
                 //0 will mean visible
                 if (item.heading == 2) secList.Add(new vec3(item.easting, item.northing, 0));

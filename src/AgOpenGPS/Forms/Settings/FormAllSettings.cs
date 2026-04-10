@@ -85,7 +85,7 @@ namespace AgOpenGPS
         private static void AddHeader(DataGridView dgv, string title)
         {
             int i = dgv.Rows.Add(title, "", "");
-            var style = dgv.Rows[i].DefaultCellStyle;
+            DataGridViewCellStyle style = dgv.Rows[i].DefaultCellStyle;
             style.BackColor = ColorHeader;
             style.Font = new Font("Tahoma", 10F, FontStyle.Bold);
             style.ForeColor = Color.DarkBlue;
@@ -363,7 +363,7 @@ namespace AgOpenGPS
         private void ExportToCSV(string path)
         {
             // Tab-gescheiden zodat het in alle Excel-taalinstellingen correct opent
-            using (var sw = new StreamWriter(path, false, Encoding.UTF8))
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8))
             {
                 WriteSettingsTabToCSV(sw, "VEHICLE", dgvVehicleL, dgvVehicleM, dgvVehicleR);
                 WriteSettingsTabToCSV(sw, "TOOL", dgvToolL, dgvToolM, dgvToolR);
@@ -378,7 +378,7 @@ namespace AgOpenGPS
             sw.WriteLine();
 
             bool firstSection = true;
-            foreach (var dgv in grids)
+            foreach (DataGridView dgv in grids)
             {
                 foreach (DataGridViewRow row in dgv.Rows)
                 {
@@ -435,8 +435,8 @@ namespace AgOpenGPS
                 tabControl.SelectedIndex = t;
                 tabControl.Update();
                 Application.DoEvents();
-                var page = tabControl.SelectedTab;
-                var bm = new Bitmap(page.Width, page.Height);
+                TabPage page = tabControl.SelectedTab;
+                Bitmap bm = new Bitmap(page.Width, page.Height);
                 page.DrawToBitmap(bm, new Rectangle(0, 0, page.Width, page.Height));
                 pages[t] = bm;
             }
@@ -448,19 +448,19 @@ namespace AgOpenGPS
             int totalH = headerH + (tabStripH + pages[0].Height) * 3;
             int totalW = pages[0].Width;
 
-            var combined = new Bitmap(totalW, totalH);
-            using (var g = Graphics.FromImage(combined))
+            Bitmap combined = new Bitmap(totalW, totalH);
+            using (Graphics g = Graphics.FromImage(combined))
             {
-                var headerBm = new Bitmap(panelHeader.Width, panelHeader.Height);
+                Bitmap headerBm = new Bitmap(panelHeader.Width, panelHeader.Height);
                 panelHeader.DrawToBitmap(headerBm, new Rectangle(0, 0, panelHeader.Width, panelHeader.Height));
                 g.DrawImage(headerBm, 0, 0);
                 headerBm.Dispose();
 
                 int y = headerH;
                 string[] labels = { "Vehicle", "Tool", "Environment" };
-                using (var headerFont = new Font("Tahoma", 12F, FontStyle.Bold))
-                using (var headerBrush = new SolidBrush(Color.SteelBlue))
-                using (var textBrush = new SolidBrush(Color.White))
+                using (Font headerFont = new Font("Tahoma", 12F, FontStyle.Bold))
+                using (SolidBrush headerBrush = new SolidBrush(Color.SteelBlue))
+                using (SolidBrush textBrush = new SolidBrush(Color.White))
                 {
                     for (int t = 0; t < 3; t++)
                     {
@@ -493,7 +493,7 @@ namespace AgOpenGPS
 
         private void btnScreenShot_Click(object sender, EventArgs e)
         {
-            using (var bm = CaptureTabsBitmap())
+            using (Bitmap bm = CaptureTabsBitmap())
             {
                 Clipboard.SetImage(bm);
             }
@@ -504,7 +504,7 @@ namespace AgOpenGPS
         private void btnCreatePNG_Click(object sender, EventArgs e)
         {
             string path = Path.Combine(RegistrySettings.baseDirectory, "AllSet.PNG");
-            using (var bm = CaptureTabsBitmap())
+            using (Bitmap bm = CaptureTabsBitmap())
             {
                 bm.Save(path, ImageFormat.Png);
             }

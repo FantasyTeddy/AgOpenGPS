@@ -21,11 +21,11 @@ namespace AgOpenGPS.IO
         /// </summary>
         public static TramData Load(string fieldDirectory)
         {
-            var data = new TramData();
-            var path = Path.Combine(fieldDirectory, "Tram.txt");
+            TramData data = new TramData();
+            string path = Path.Combine(fieldDirectory, "Tram.txt");
             if (!File.Exists(path)) return data;
 
-            using (var reader = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(path))
             {
                 // Optional header line
                 string first = reader.ReadLine();
@@ -39,7 +39,7 @@ namespace AgOpenGPS.IO
                 int outerCount = FileIoUtils.ParseIntSafe(first);
                 for (int i = 0; i < outerCount && !reader.EndOfStream; i++)
                 {
-                    var parts = (reader.ReadLine() ?? string.Empty).Split(',');
+                    string[] parts = (reader.ReadLine() ?? string.Empty).Split(',');
                     if (parts.Length < 2) continue;
 
                     if (double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double easting) &&
@@ -54,7 +54,7 @@ namespace AgOpenGPS.IO
                 int innerCount = FileIoUtils.ParseIntSafe(reader.ReadLine());
                 for (int i = 0; i < innerCount && !reader.EndOfStream; i++)
                 {
-                    var parts = (reader.ReadLine() ?? string.Empty).Split(',');
+                    string[] parts = (reader.ReadLine() ?? string.Empty).Split(',');
                     if (parts.Length < 2) continue;
 
                     if (double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double easting) &&
@@ -71,10 +71,10 @@ namespace AgOpenGPS.IO
                 for (int k = 0; k < lineCount && !reader.EndOfStream; k++)
                 {
                     int pts = FileIoUtils.ParseIntSafe(reader.ReadLine());
-                    var ln = new List<vec2>();
+                    List<vec2> ln = new List<vec2>();
                     for (int i = 0; i < pts && !reader.EndOfStream; i++)
                     {
-                        var parts = (reader.ReadLine() ?? string.Empty).Split(',');
+                        string[] parts = (reader.ReadLine() ?? string.Empty).Split(',');
                         if (parts.Length < 2) continue;
 
                         if (double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double easting) &&
@@ -96,14 +96,14 @@ namespace AgOpenGPS.IO
         /// </summary>        
         public static void Save(string fieldDirectory, IReadOnlyList<vec2> tramOuter, IReadOnlyList<vec2> tramInner, IReadOnlyList<IReadOnlyList<vec2>> tramLines)
         {
-            var filename = Path.Combine(fieldDirectory, "Tram.txt");
+            string filename = Path.Combine(fieldDirectory, "Tram.txt");
 
-            using (var writer = new StreamWriter(filename, false))
+            using (StreamWriter writer = new StreamWriter(filename, false))
             {
                 writer.WriteLine("$Tram");
 
-                var outer = tramOuter ?? new List<vec2>();
-                var inner = tramInner ?? new List<vec2>();
+                IReadOnlyList<vec2> outer = tramOuter ?? new List<vec2>();
+                IReadOnlyList<vec2> inner = tramInner ?? new List<vec2>();
 
                 writer.WriteLine(outer.Count.ToString(CultureInfo.InvariantCulture));
                 for (int i = 0; i < outer.Count; i++)
@@ -118,7 +118,7 @@ namespace AgOpenGPS.IO
                     writer.WriteLine(tramLines.Count.ToString(CultureInfo.InvariantCulture));
                     for (int k = 0; k < tramLines.Count; k++)
                     {
-                        var line = tramLines[k] ?? new List<vec2>();
+                        IReadOnlyList<vec2> line = tramLines[k] ?? new List<vec2>();
                         writer.WriteLine(line.Count.ToString(CultureInfo.InvariantCulture));
                         for (int i = 0; i < line.Count; i++)
                             writer.WriteLine($"{FileIoUtils.FormatDouble(line[i].easting, 3)},{FileIoUtils.FormatDouble(line[i].northing, 3)}");

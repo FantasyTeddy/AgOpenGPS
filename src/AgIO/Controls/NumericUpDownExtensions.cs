@@ -8,7 +8,7 @@ namespace AgIO.Controls
         public static void ShowKeypad(this NumericUpDown numericUpDown, Form owner)
         {
             numericUpDown.BackColor = Color.Red;
-            using (var form = new FormNumeric((double)numericUpDown.Minimum, (double)numericUpDown.Maximum, (double)numericUpDown.Value))
+            using (FormNumeric form = new FormNumeric((double)numericUpDown.Minimum, (double)numericUpDown.Maximum, (double)numericUpDown.Value))
             {
                 if (form.ShowDialog(owner) == DialogResult.OK)
                 {

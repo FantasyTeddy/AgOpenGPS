@@ -291,7 +291,7 @@ namespace AgOpenGPS
 
                 gArr[idx].curvePts.Clear();
 
-                foreach (var item in curList)
+                foreach (vec3 item in curList)
                 {
                     gArr[idx].curvePts.Add(new vec3(item));
                 }

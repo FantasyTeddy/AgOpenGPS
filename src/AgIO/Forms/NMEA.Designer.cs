@@ -1040,7 +1040,7 @@ namespace AgIO
                     {
                         if (inx >= sentenceChars.Length) // No checksum found
                             return false;
-                        var tmp = sentenceChars[inx];
+                        char tmp = sentenceChars[inx];
                         // Indicates end of data and start of checksum
                         if (tmp == '*') break;
                         sum ^= tmp;    // Build checksum

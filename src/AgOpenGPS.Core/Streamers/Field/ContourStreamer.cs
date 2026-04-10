@@ -52,7 +52,7 @@ namespace AgOpenGPS.Core.Streamers
         {
             using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory), true))
             {
-                foreach (var path in contour.UnsavedStrips)
+                foreach (GeoPathWithHeading path in contour.UnsavedStrips)
                 {
                     writer.WriteGeoPathWithHeading(path);
                 }

@@ -10,10 +10,10 @@ namespace AgOpenGPS.IO
         {
             if (boundaries == null || boundaries.Count == 0) return;
 
-            var path = Path.Combine(fieldDirectory, "Headland.txt");
+            string path = Path.Combine(fieldDirectory, "Headland.txt");
             if (!File.Exists(path)) return;
 
-            using (var reader = new StreamReader(path))
+            using (StreamReader reader = new StreamReader(path))
             {
                 // Skip optional header
                 string line = reader.ReadLine();
@@ -32,7 +32,7 @@ namespace AgOpenGPS.IO
                     if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out count))
                         break;
 
-                    var hd = boundaries[k].hdLine;
+                    List<vec3> hd = boundaries[k].hdLine;
                     if (hd != null) hd.Clear();
 
                     for (int i = 0; i < count; i++)
@@ -40,7 +40,7 @@ namespace AgOpenGPS.IO
                         line = reader.ReadLine();
                         if (line == null) break;
 
-                        var parts = line.Split(',');
+                        string[] parts = line.Split(',');
                         if (parts.Length < 3) continue;
 
                         if (double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double easting) &&
@@ -59,9 +59,9 @@ namespace AgOpenGPS.IO
 
         public static void Save(string fieldDirectory, IReadOnlyList<CBoundaryList> boundaries)
         {
-            var filename = Path.Combine(fieldDirectory, "Headland.txt");
+            string filename = Path.Combine(fieldDirectory, "Headland.txt");
 
-            using (var writer = new StreamWriter(filename, false))
+            using (StreamWriter writer = new StreamWriter(filename, false))
             {
                 writer.WriteLine("$Headland");
 
@@ -70,12 +70,12 @@ namespace AgOpenGPS.IO
 
                 for (int i = 0; i < boundaries.Count; i++)
                 {
-                    var hd = boundaries[i].hdLine ?? new List<vec3>();
+                    List<vec3> hd = boundaries[i].hdLine ?? new List<vec3>();
                     writer.WriteLine(hd.Count.ToString(CultureInfo.InvariantCulture));
 
                     for (int j = 0; j < hd.Count; j++)
                     {
-                        var p = hd[j];
+                        vec3 p = hd[j];
                         writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
                     }
                 }

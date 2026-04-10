@@ -198,7 +198,7 @@ namespace AgOpenGPS
             meanAngle = steerAngleHistory.Average();
 
             // Median
-            var sorted = steerAngleHistory.OrderBy(x => x).ToList();
+            List<double> sorted = steerAngleHistory.OrderBy(x => x).ToList();
             if (count % 2 == 0)
             {
                 medianAngle = (sorted[count / 2 - 1] + sorted[count / 2]) * 0.5;

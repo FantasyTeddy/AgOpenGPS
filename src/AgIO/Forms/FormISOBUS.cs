@@ -50,7 +50,7 @@ namespace AgIO
 
                 path += @"\bin\AOG-TaskController.exe";
 
-                var arguments = $"--can_adapter={cboxRadioAdapter.SelectedItem} --can_channel={cboxRadioChannel.SelectedItem} --log_level=debug  --log2file";
+                string arguments = $"--can_adapter={cboxRadioAdapter.SelectedItem} --can_channel={cboxRadioChannel.SelectedItem} --log_level=debug  --log2file";
 
                 aogTaskControllerProcess = new Process
                 {
@@ -93,7 +93,7 @@ namespace AgIO
                     return;
 
                 aogTaskControllerProcess.CloseMainWindow();
-                var startTime = DateTime.UtcNow;
+                DateTime startTime = DateTime.UtcNow;
                 while (!aogTaskControllerProcess.HasExited)
                 {
                     if ((DateTime.UtcNow - startTime).TotalSeconds > 5)

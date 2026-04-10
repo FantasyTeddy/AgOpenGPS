@@ -76,8 +76,8 @@ namespace AgOpenGPS.Forms.Field
         private void LoadTracks()
         {
             _trackList.Clear();
-            var tempTrackList = new List<CTrk>();
-            var originalTrackList = _mf.trk.gArr;
+            List<CTrk> tempTrackList = new List<CTrk>();
+            List<CTrk> originalTrackList = _mf.trk.gArr;
 
             try
             {
@@ -131,9 +131,9 @@ namespace AgOpenGPS.Forms.Field
             flpTrackList.Controls.Clear();
             _selectedTracks.Clear();
 
-            foreach (var trk in _trackList)
+            foreach (CTrk trk in _trackList)
             {
-                var chk = CreateTrackCheckbox(trk);
+                CheckBox chk = CreateTrackCheckbox(trk);
                 _selectedTracks.Add(trk);
                 flpTrackList.Controls.Add(chk);
             }
@@ -141,7 +141,7 @@ namespace AgOpenGPS.Forms.Field
 
         private CheckBox CreateTrackCheckbox(CTrk track)
         {
-            var chk = new CheckBox
+            CheckBox chk = new CheckBox
             {
                 Text = $"{track.name} ({track.mode})",
                 Checked = true,
@@ -169,7 +169,7 @@ namespace AgOpenGPS.Forms.Field
             if ((DateTime.Now - _lastDragEndTime).TotalMilliseconds < 200)
             {
                 // Revert the checkbox state to what it was before
-                var trk = checkbox?.Tag as CTrk;
+                CTrk trk = checkbox?.Tag as CTrk;
                 if (trk != null)
                 {
                     checkbox.Checked = _selectedTracks.Contains(trk);
@@ -247,7 +247,7 @@ namespace AgOpenGPS.Forms.Field
         #region Track Manipulation
         private void ShiftSelectedTrackPoint(bool isPointA, double deltaMeters)
         {
-            var trk = _activeTrack;
+            CTrk trk = _activeTrack;
             if (trk == null) return;
 
             _showTrimmedOnly = false;
@@ -308,8 +308,8 @@ namespace AgOpenGPS.Forms.Field
         {
             for (int s = 0; s < steps && (isExtend || track.curvePts.Count > 2); s++)
             {
-                var pt0 = track.curvePts[0];
-                var pt1 = track.curvePts[1];
+                vec3 pt0 = track.curvePts[0];
+                vec3 pt1 = track.curvePts[1];
                 vec2 dir = (new vec2(pt0.easting, pt0.northing) - new vec2(pt1.easting, pt1.northing)).Normalize();
 
                 if (isExtend)
@@ -331,8 +331,8 @@ namespace AgOpenGPS.Forms.Field
             for (int s = 0; s < steps && (isExtend || track.curvePts.Count > 2); s++)
             {
                 int last = track.curvePts.Count - 1;
-                var ptN = track.curvePts[last];
-                var ptN1 = track.curvePts[last - 1];
+                vec3 ptN = track.curvePts[last];
+                vec3 ptN1 = track.curvePts[last - 1];
                 vec2 dir = (new vec2(ptN.easting, ptN.northing) - new vec2(ptN1.easting, ptN1.northing)).Normalize();
 
                 if (isExtend)
@@ -364,7 +364,7 @@ namespace AgOpenGPS.Forms.Field
             _viewTop = double.NegativeInfinity;
             _viewBottom = double.PositiveInfinity;
 
-            foreach (var trk in _selectedTracks)
+            foreach (CTrk trk in _selectedTracks)
             {
                 if (trk.mode == TrackMode.AB)
                 {
@@ -373,7 +373,7 @@ namespace AgOpenGPS.Forms.Field
                 }
                 else if (trk.mode == TrackMode.Curve)
                 {
-                    foreach (var pt in trk.curvePts)
+                    foreach (vec3 pt in trk.curvePts)
                         UpdateMinMax(new vec2(pt.easting, pt.northing));
                 }
             }
@@ -486,7 +486,7 @@ namespace AgOpenGPS.Forms.Field
         {
             for (int i = 0; i < _selectedTracks.Count; i++)
             {
-                var trk = _selectedTracks[i];
+                CTrk trk = _selectedTracks[i];
                 bool isSelected = (trk == _activeTrack);
                 Color color = isSelected ? Color.Yellow : Color.Gray;
                 float width = isSelected ? SELECTED_TRACK_WIDTH : NORMAL_TRACK_WIDTH;
@@ -516,7 +516,7 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(Color.Green);
             GL.Begin(PrimitiveType.Lines);
 
-            foreach (var seg in _builder.TrimmedSegments)
+            foreach (BoundaryBuilder.Segment seg in _builder.TrimmedSegments)
             {
                 GL.Vertex2(seg.Start.easting, seg.Start.northing);
                 GL.Vertex2(seg.End.easting, seg.End.northing);
@@ -527,7 +527,7 @@ namespace AgOpenGPS.Forms.Field
 
         private void DrawIntersectionPoints()
         {
-            foreach (var pt in _builder.IntersectionPoints)
+            foreach (vec2 pt in _builder.IntersectionPoints)
             {
                 DrawCircle(pt, Color.Red, INTERSECTION_POINT_SIZE);
             }
@@ -542,7 +542,7 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(Color.Red);
             GL.Begin(PrimitiveType.LineLoop);
 
-            foreach (var pt in _builder.FinalBoundary)
+            foreach (vec3 pt in _builder.FinalBoundary)
             {
                 GL.Vertex2(pt.easting, pt.northing);
             }
@@ -568,7 +568,7 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(color);
             GL.Begin(PrimitiveType.LineStrip);
 
-            foreach (var pt in points)
+            foreach (vec2 pt in points)
                 GL.Vertex2(pt.easting, pt.northing);
 
             GL.End();
@@ -598,7 +598,7 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(Color.Gray);
             GL.Begin(PrimitiveType.Lines);
 
-            foreach (var seg in _builder.Segments)
+            foreach (BoundaryBuilder.Segment seg in _builder.Segments)
             {
                 GL.Vertex2(seg.Start.easting, seg.Start.northing);
                 GL.Vertex2(seg.End.easting, seg.End.northing);
@@ -681,8 +681,8 @@ namespace AgOpenGPS.Forms.Field
 
             try
             {
-                var result = _builder.BuildTrimmedBoundary();
-                var finalized = _builder.FinalizedBoundary;
+                List<vec3> result = _builder.BuildTrimmedBoundary();
+                CBoundaryList finalized = _builder.FinalizedBoundary;
 
                 if (result.Count < 3 || finalized == null)
                 {
