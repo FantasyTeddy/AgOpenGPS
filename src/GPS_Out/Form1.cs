@@ -210,7 +210,7 @@ namespace GPS_Out
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            if (worker.CancellationPending == true)
+            if (worker.CancellationPending)
             {
                 e.Cancel = true;
             }
@@ -502,7 +502,7 @@ namespace GPS_Out
 
         private void Send()
         {
-            if (backgroundWorker1.IsBusy != true)
+            if (!backgroundWorker1.IsBusy)
             {
                 // Start the asynchronous operation.
                 backgroundWorker1.RunWorkerAsync();
@@ -528,7 +528,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();
@@ -546,7 +546,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();
@@ -569,7 +569,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();
@@ -587,7 +587,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();
@@ -605,7 +605,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();

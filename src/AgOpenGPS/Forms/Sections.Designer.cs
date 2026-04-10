@@ -210,7 +210,7 @@ namespace AgOpenGPS
             if ((Height - oglMain.Height) < 80) //max size - buttons hid
             {
                 top = Height - 85;
-                if (panelSim.Visible == true)
+                if (panelSim.Visible)
                 {
                     top = Height - 120;
                     panelSim.Top = Height - 78;
@@ -219,7 +219,7 @@ namespace AgOpenGPS
             else //buttons exposed
             {
                 top = Height - 135;
-                if (panelSim.Visible == true)
+                if (panelSim.Visible)
                 {
                     top = Height - 185;
                     panelSim.Top = Height - 128;
@@ -301,7 +301,7 @@ namespace AgOpenGPS
             if ((Height - oglMain.Height) < 80) //max size - buttons hid
             {
                 top = Height - 70;
-                if (panelSim.Visible == true)
+                if (panelSim.Visible)
                 {
                     top = Height - 100;
                     panelSim.Top = Height - 60;
@@ -310,7 +310,7 @@ namespace AgOpenGPS
             else //buttons exposed
             {
                 top = Height - 130;
-                if (panelSim.Visible == true)
+                if (panelSim.Visible)
                 {
                     top = Height - 160;
                     panelSim.Top = Height - 120;

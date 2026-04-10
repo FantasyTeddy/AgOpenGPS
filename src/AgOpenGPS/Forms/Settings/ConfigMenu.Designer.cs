@@ -22,7 +22,7 @@ namespace AgOpenGPS
             ClearDataSubBackgrounds();
             ClearNoSubBackgrounds();
 
-            if (subMenu.Visible == false)
+            if (!subMenu.Visible)
             {
                 HideSubMenu();
                 subMenu.Visible = true;

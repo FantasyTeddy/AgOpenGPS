@@ -316,7 +316,7 @@ namespace AgOpenGPS
 
                     #region Boundaries
 
-                    if (bnd.bndList.Count > 0 || bnd.isBndBeingMade == true)
+                    if (bnd.bndList.Count > 0 || bnd.isBndBeingMade)
                     {
                         //draw Boundaries
                         bnd.DrawFenceLines();

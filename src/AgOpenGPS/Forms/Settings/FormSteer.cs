@@ -480,7 +480,7 @@ namespace AgOpenGPS
             {
                 if (mf.mc.sensorData is < 0 or > 255) mf.mc.sensorData = 0;
                 CExtensionMethods.SetProgressNoAnimation(pbarSensor, mf.mc.sensorData);
-                if (nudMaxCounts.Visible == false)
+                if (!nudMaxCounts.Visible)
                     lblPercentFS.Text = ((int)(mf.mc.sensorData * 0.3921568627)).ToString() + "%";
                 else
                     lblPercentFS.Text = mf.mc.sensorData.ToString();

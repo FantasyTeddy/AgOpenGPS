@@ -64,7 +64,7 @@ namespace AgOpenGPS.Controls
         private static void control_MouseMove(object sender, MouseEventArgs e)
         {
             // only if dragging is turned on
-            if (_draggables[(Control)sender] == true)
+            if (_draggables[(Control)sender])
             {
                 // calculations of control's new position
                 Point newLocationOffset = e.Location - _mouseOffset;
