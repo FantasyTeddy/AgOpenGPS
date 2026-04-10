@@ -2,17 +2,25 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
   </Folder>
-  <Project Path="src/AgDiag/AgDiag.csproj" />
-  <Project Path="src/AgIO/AgIO.csproj" />
-  <Project Path="src/AgLibrary/AgLibrary.csproj" />
-  <Project Path="src/AgOpenGPS.Core/AgOpenGPS.Core.csproj" />
-  <Project Path="src/AgOpenGPS.Updater/AgOpenGPS.Updater.csproj" />
-  <Project Path="src/AgOpenGPS/AgOpenGPS.csproj" />
-  <Project Path="src/GPS_Out/GPS_Out.csproj" />
-  <Project Path="src/Keypad/Keypad.csproj" />
-  <Project Path="src/ModSim/ModSim.csproj" />
-  <Project Path="test/AgLibrary.Tests/AgLibrary.Tests.csproj" />
-  <Project Path="test/AgOpenGPS.Core.Tests/AgOpenGPS.Core.Tests.csproj" />
-  <Project Path="test/AgOpenGPS.Tests/AgOpenGPS.Tests.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/AgDiag/AgDiag.csproj" />
+    <Project Path="src/AgIO/AgIO.csproj" />
+    <Project Path="src/AgLibrary/AgLibrary.csproj" />
+    <Project Path="src/AgOpenGPS.Core/AgOpenGPS.Core.csproj" />
+    <Project Path="src/AgOpenGPS.Updater/AgOpenGPS.Updater.csproj" />
+    <Project Path="src/AgOpenGPS/AgOpenGPS.csproj" />
+    <Project Path="src/GPS_Out/GPS_Out.csproj" />
+    <Project Path="src/Keypad/Keypad.csproj" />
+    <Project Path="src/ModSim/ModSim.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <File Path="test/Directory.Build.props" />
+    <File Path="test/Directory.Packages.props" />
+    <Project Path="test/AgLibrary.Tests/AgLibrary.Tests.csproj" />
+    <Project Path="test/AgOpenGPS.Core.Tests/AgOpenGPS.Core.Tests.csproj" />
+    <Project Path="test/AgOpenGPS.Tests/AgOpenGPS.Tests.csproj" />
+  </Folder>
 </Solution>

@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Dev4Agriculture.ISO11783.ISOXML" Version="0.24.2.7" />
+    <PackageVersion Include="GMap.NET.WinForms" Version="2.1.7" />
+    <PackageVersion Include="MechanikaDesign.WinForms.UI.ColorPicker" Version="2.0.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageVersion Include="OpenTK" Version="4.9.4" />
+    <PackageVersion Include="OpenTK.GLControl" Version="4.0.2" />
+    <PackageVersion Include="SourceGear.sqlite3" Version="3.50.4.5" />
+    <PackageVersion Include="System.Data.SqlClient" Version="4.9.1" />
+    <PackageVersion Include="System.Data.SQLite" Version="2.0.3" />
+    <PackageVersion Include="System.IO.Ports" Version="10.0.5" />
+    <PackageVersion Include="System.Management" Version="10.0.5" />
+    <PackageVersion Include="System.Windows.Forms.DataVisualization" Version="1.0.0-prerelease.20110.1" />
+  </ItemGroup>
+</Project>

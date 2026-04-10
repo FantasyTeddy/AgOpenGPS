@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.IO.Ports" Version="10.0.5" />
+    <PackageReference Include="System.IO.Ports" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +45,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
