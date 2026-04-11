@@ -28,132 +28,138 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnSouth = new AgLibrary.Controls.RepeatButton();
-            this.btnNorth = new AgLibrary.Controls.RepeatButton();
-            this.bntOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.lblSmooth = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            btnSouth = new AgLibrary.Controls.RepeatButton();
+            btnNorth = new AgLibrary.Controls.RepeatButton();
+            bntOK = new System.Windows.Forms.Button();
+            btnCancel = new System.Windows.Forms.Button();
+            btnSave = new System.Windows.Forms.Button();
+            lblSmooth = new System.Windows.Forms.Label();
+            SuspendLayout();
             // 
             // btnSouth
             // 
-            this.btnSouth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSouth.FlatAppearance.BorderSize = 0;
-            this.btnSouth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSouth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnSouth.Image = global::AgOpenGPS.Properties.Resources.DnArrow64;
-            this.btnSouth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSouth.Location = new System.Drawing.Point(33, 12);
-            this.btnSouth.Name = "btnSouth";
-            this.btnSouth.Size = new System.Drawing.Size(72, 72);
-            this.btnSouth.TabIndex = 195;
-            this.btnSouth.UseVisualStyleBackColor = true;
-            this.btnSouth.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSouth_MouseDown);
+            btnSouth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnSouth.FlatAppearance.BorderSize = 0;
+            btnSouth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSouth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            btnSouth.Image = Properties.Resources.DnArrow64;
+            btnSouth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            btnSouth.Location = new System.Drawing.Point(38, 14);
+            btnSouth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSouth.Name = "btnSouth";
+            btnSouth.Size = new System.Drawing.Size(84, 83);
+            btnSouth.TabIndex = 195;
+            btnSouth.UseVisualStyleBackColor = true;
+            btnSouth.MouseDown += btnSouth_MouseDown;
             // 
             // btnNorth
             // 
-            this.btnNorth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnNorth.FlatAppearance.BorderSize = 0;
-            this.btnNorth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNorth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.btnNorth.Image = global::AgOpenGPS.Properties.Resources.UpArrow64;
-            this.btnNorth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnNorth.Location = new System.Drawing.Point(130, 12);
-            this.btnNorth.Name = "btnNorth";
-            this.btnNorth.Size = new System.Drawing.Size(72, 72);
-            this.btnNorth.TabIndex = 196;
-            this.btnNorth.UseVisualStyleBackColor = true;
-            this.btnNorth.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnNorth_MouseDown);
+            btnNorth.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnNorth.FlatAppearance.BorderSize = 0;
+            btnNorth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnNorth.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            btnNorth.Image = Properties.Resources.UpArrow64;
+            btnNorth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            btnNorth.Location = new System.Drawing.Point(152, 14);
+            btnNorth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnNorth.Name = "btnNorth";
+            btnNorth.Size = new System.Drawing.Size(84, 83);
+            btnNorth.TabIndex = 196;
+            btnNorth.UseVisualStyleBackColor = true;
+            btnNorth.MouseDown += btnNorth_MouseDown;
             // 
             // bntOK
             // 
-            this.bntOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.bntOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.bntOK.FlatAppearance.BorderSize = 0;
-            this.bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bntOK.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.bntOK.Image = global::AgOpenGPS.Properties.Resources.FileDontSave;
-            this.bntOK.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bntOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.bntOK.Location = new System.Drawing.Point(12, 179);
-            this.bntOK.Name = "bntOK";
-            this.bntOK.Size = new System.Drawing.Size(93, 93);
-            this.bntOK.TabIndex = 197;
-            this.bntOK.Text = "For Now";
-            this.bntOK.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bntOK.UseVisualStyleBackColor = true;
-            this.bntOK.Click += new System.EventHandler(this.bntOK_Click);
+            bntOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            bntOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            bntOK.FlatAppearance.BorderSize = 0;
+            bntOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            bntOK.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            bntOK.Image = Properties.Resources.FileDontSave;
+            bntOK.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            bntOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            bntOK.Location = new System.Drawing.Point(14, 207);
+            bntOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            bntOK.Name = "bntOK";
+            bntOK.Size = new System.Drawing.Size(108, 107);
+            bntOK.TabIndex = 197;
+            bntOK.Text = "For Now";
+            bntOK.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            bntOK.UseVisualStyleBackColor = true;
+            bntOK.Click += bntOK_Click;
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Image = global::AgOpenGPS.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(130, 298);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(93, 82);
-            this.btnCancel.TabIndex = 198;
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCancel.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnCancel.Image = Properties.Resources.Cancel64;
+            btnCancel.Location = new System.Drawing.Point(152, 344);
+            btnCancel.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new System.Drawing.Size(108, 95);
+            btnCancel.TabIndex = 198;
+            btnCancel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnSave
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.btnSave.Image = global::AgOpenGPS.Properties.Resources.FileSave;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSave.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSave.Location = new System.Drawing.Point(130, 179);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(93, 93);
-            this.btnSave.TabIndex = 199;
-            this.btnSave.Text = "To File";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSave.Font = new System.Drawing.Font("Tahoma", 14.25F);
+            btnSave.Image = Properties.Resources.FileSave;
+            btnSave.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            btnSave.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            btnSave.Location = new System.Drawing.Point(152, 207);
+            btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new System.Drawing.Size(108, 107);
+            btnSave.TabIndex = 199;
+            btnSave.Text = "To File";
+            btnSave.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // lblSmooth
             // 
-            this.lblSmooth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSmooth.AutoSize = true;
-            this.lblSmooth.BackColor = System.Drawing.Color.Transparent;
-            this.lblSmooth.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSmooth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblSmooth.Location = new System.Drawing.Point(73, 96);
-            this.lblSmooth.Name = "lblSmooth";
-            this.lblSmooth.Size = new System.Drawing.Size(87, 58);
-            this.lblSmooth.TabIndex = 200;
-            this.lblSmooth.Text = "99";
+            lblSmooth.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblSmooth.AutoSize = true;
+            lblSmooth.BackColor = System.Drawing.Color.Transparent;
+            lblSmooth.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblSmooth.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            lblSmooth.Location = new System.Drawing.Point(85, 111);
+            lblSmooth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblSmooth.Name = "lblSmooth";
+            lblSmooth.Size = new System.Drawing.Size(87, 58);
+            lblSmooth.TabIndex = 200;
+            lblSmooth.Text = "99";
             // 
             // FormSmoothAB
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(231, 393);
-            this.ControlBox = false;
-            this.Controls.Add(this.lblSmooth);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.bntOK);
-            this.Controls.Add(this.btnSouth);
-            this.Controls.Add(this.btnNorth);
-            this.Name = "FormSmoothAB";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Smooth AB Curve";
-            this.Load += new System.EventHandler(this.FormSmoothAB_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.WhiteSmoke;
+            ClientSize = new System.Drawing.Size(270, 453);
+            ControlBox = false;
+            Controls.Add(lblSmooth);
+            Controls.Add(btnSave);
+            Controls.Add(btnCancel);
+            Controls.Add(bntOK);
+            Controls.Add(btnSouth);
+            Controls.Add(btnNorth);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "FormSmoothAB";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Smooth AB Curve";
+            Load += FormSmoothAB_Load;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

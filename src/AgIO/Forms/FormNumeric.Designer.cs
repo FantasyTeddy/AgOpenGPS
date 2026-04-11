@@ -28,112 +28,113 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tboxNumber = new System.Windows.Forms.TextBox();
-            this.lblMax = new System.Windows.Forms.Label();
-            this.lblMin = new System.Windows.Forms.Label();
-            this.keypad1 = new Keypad.NumKeypad();
-            this.btnDistanceUp = new AgLibrary.Controls.RepeatButton();
-            this.btnDistanceDn = new AgLibrary.Controls.RepeatButton();
-            this.SuspendLayout();
+            tboxNumber = new System.Windows.Forms.TextBox();
+            lblMax = new System.Windows.Forms.Label();
+            lblMin = new System.Windows.Forms.Label();
+            keypad1 = new Keypad.NumKeypad();
+            btnDistanceUp = new AgLibrary.Controls.RepeatButton();
+            btnDistanceDn = new AgLibrary.Controls.RepeatButton();
+            SuspendLayout();
             // 
             // tboxNumber
             // 
-            this.tboxNumber.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tboxNumber.Location = new System.Drawing.Point(208, 7);
-            this.tboxNumber.Name = "tboxNumber";
-            this.tboxNumber.ReadOnly = true;
-            this.tboxNumber.Size = new System.Drawing.Size(246, 52);
-            this.tboxNumber.TabIndex = 1;
-            this.tboxNumber.Text = "234.5643";
-            this.tboxNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            tboxNumber.Font = new System.Drawing.Font("Tahoma", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            tboxNumber.Location = new System.Drawing.Point(208, 7);
+            tboxNumber.Name = "tboxNumber";
+            tboxNumber.ReadOnly = true;
+            tboxNumber.Size = new System.Drawing.Size(246, 52);
+            tboxNumber.TabIndex = 1;
+            tboxNumber.Text = "234.5643";
+            tboxNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblMax
             // 
-            this.lblMax.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMax.Location = new System.Drawing.Point(332, 62);
-            this.lblMax.Name = "lblMax";
-            this.lblMax.Size = new System.Drawing.Size(125, 36);
-            this.lblMax.TabIndex = 6;
-            this.lblMax.Text = "88.8";
-            this.lblMax.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            lblMax.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblMax.Location = new System.Drawing.Point(332, 62);
+            lblMax.Name = "lblMax";
+            lblMax.Size = new System.Drawing.Size(125, 36);
+            lblMax.TabIndex = 6;
+            lblMax.Text = "88.8";
+            lblMax.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lblMin
             // 
-            this.lblMin.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMin.Location = new System.Drawing.Point(205, 62);
-            this.lblMin.Name = "lblMin";
-            this.lblMin.Size = new System.Drawing.Size(125, 36);
-            this.lblMin.TabIndex = 7;
-            this.lblMin.Text = "-22.8";
-            this.lblMin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            lblMin.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblMin.Location = new System.Drawing.Point(205, 62);
+            lblMin.Name = "lblMin";
+            lblMin.Size = new System.Drawing.Size(125, 36);
+            lblMin.TabIndex = 7;
+            lblMin.Text = "-22.8";
+            lblMin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // keypad1
             // 
-            this.keypad1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.keypad1.Location = new System.Drawing.Point(0, 112);
-            this.keypad1.Name = "keypad1";
-            this.keypad1.Size = new System.Drawing.Size(454, 429);
-            this.keypad1.TabIndex = 5;
-            this.keypad1.ButtonPressed += new System.Windows.Forms.KeyPressEventHandler(this.RegisterKeypad1_ButtonPressed);
+            keypad1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            keypad1.Location = new System.Drawing.Point(0, 112);
+            keypad1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            keypad1.Name = "keypad1";
+            keypad1.Size = new System.Drawing.Size(454, 429);
+            keypad1.TabIndex = 5;
+            keypad1.ButtonPressed += RegisterKeypad1_ButtonPressed;
             // 
             // btnDistanceUp
             // 
-            this.btnDistanceUp.BackColor = System.Drawing.SystemColors.Control;
-            this.btnDistanceUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDistanceUp.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.btnDistanceUp.FlatAppearance.BorderSize = 2;
-            this.btnDistanceUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDistanceUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDistanceUp.Image = global::AgIO.Properties.Resources.UpArrow64;
-            this.btnDistanceUp.Location = new System.Drawing.Point(112, 3);
-            this.btnDistanceUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnDistanceUp.Name = "btnDistanceUp";
-            this.btnDistanceUp.Size = new System.Drawing.Size(91, 92);
-            this.btnDistanceUp.TabIndex = 148;
-            this.btnDistanceUp.UseVisualStyleBackColor = false;
-            this.btnDistanceUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnDistanceUp_MouseDown);
+            btnDistanceUp.BackColor = System.Drawing.SystemColors.Control;
+            btnDistanceUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnDistanceUp.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            btnDistanceUp.FlatAppearance.BorderSize = 2;
+            btnDistanceUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnDistanceUp.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnDistanceUp.Image = Properties.Resources.UpArrow64;
+            btnDistanceUp.Location = new System.Drawing.Point(112, 3);
+            btnDistanceUp.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btnDistanceUp.Name = "btnDistanceUp";
+            btnDistanceUp.Size = new System.Drawing.Size(91, 92);
+            btnDistanceUp.TabIndex = 148;
+            btnDistanceUp.UseVisualStyleBackColor = false;
+            btnDistanceUp.MouseDown += BtnDistanceUp_MouseDown;
             // 
             // btnDistanceDn
             // 
-            this.btnDistanceDn.BackColor = System.Drawing.SystemColors.Control;
-            this.btnDistanceDn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDistanceDn.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.btnDistanceDn.FlatAppearance.BorderSize = 2;
-            this.btnDistanceDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDistanceDn.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDistanceDn.Image = global::AgIO.Properties.Resources.DnArrow64;
-            this.btnDistanceDn.Location = new System.Drawing.Point(4, 3);
-            this.btnDistanceDn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.btnDistanceDn.Name = "btnDistanceDn";
-            this.btnDistanceDn.Size = new System.Drawing.Size(91, 92);
-            this.btnDistanceDn.TabIndex = 147;
-            this.btnDistanceDn.UseVisualStyleBackColor = false;
-            this.btnDistanceDn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnDistanceDn_MouseDown);
+            btnDistanceDn.BackColor = System.Drawing.SystemColors.Control;
+            btnDistanceDn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnDistanceDn.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            btnDistanceDn.FlatAppearance.BorderSize = 2;
+            btnDistanceDn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnDistanceDn.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnDistanceDn.Image = Properties.Resources.DnArrow64;
+            btnDistanceDn.Location = new System.Drawing.Point(4, 3);
+            btnDistanceDn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btnDistanceDn.Name = "btnDistanceDn";
+            btnDistanceDn.Size = new System.Drawing.Size(91, 92);
+            btnDistanceDn.TabIndex = 147;
+            btnDistanceDn.UseVisualStyleBackColor = false;
+            btnDistanceDn.MouseDown += BtnDistanceDn_MouseDown;
             // 
             // FormNumeric
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(460, 545);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnDistanceUp);
-            this.Controls.Add(this.btnDistanceDn);
-            this.Controls.Add(this.tboxNumber);
-            this.Controls.Add(this.keypad1);
-            this.Controls.Add(this.lblMin);
-            this.Controls.Add(this.lblMax);
-            this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormNumeric";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Enter a Value";
-            this.Load += new System.EventHandler(this.FormNumeric_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.ActiveCaption;
+            ClientSize = new System.Drawing.Size(460, 545);
+            ControlBox = false;
+            Controls.Add(btnDistanceUp);
+            Controls.Add(btnDistanceDn);
+            Controls.Add(tboxNumber);
+            Controls.Add(keypad1);
+            Controls.Add(lblMin);
+            Controls.Add(lblMax);
+            Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormNumeric";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Enter a Value";
+            Load += FormNumeric_Load;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

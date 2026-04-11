@@ -28,76 +28,76 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblMessage2 = new System.Windows.Forms.Label();
-            this.btnSerialOK = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lblMessage2 = new System.Windows.Forms.Label();
+            btnSerialOK = new System.Windows.Forms.Button();
+            btnCancel = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // lblMessage2
             // 
-            this.lblMessage2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.lblMessage2.Location = new System.Drawing.Point(46, 23);
-            this.lblMessage2.Name = "lblMessage2";
-            this.lblMessage2.Size = new System.Drawing.Size(528, 280);
-            this.lblMessage2.TabIndex = 1;
-            this.lblMessage2.Text = "Message 2";
-            this.lblMessage2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblMessage2.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            lblMessage2.Location = new System.Drawing.Point(46, 23);
+            lblMessage2.Name = "lblMessage2";
+            lblMessage2.Size = new System.Drawing.Size(528, 280);
+            lblMessage2.TabIndex = 1;
+            lblMessage2.Text = "Message 2";
+            lblMessage2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnSerialOK
             // 
-            this.btnSerialOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSerialOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSerialOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSerialOK.FlatAppearance.BorderSize = 0;
-            this.btnSerialOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSerialOK.Image = global::AgIO.Properties.Resources.OK64;
-            this.btnSerialOK.Location = new System.Drawing.Point(490, 266);
-            this.btnSerialOK.Name = "btnSerialOK";
-            this.btnSerialOK.Size = new System.Drawing.Size(105, 90);
-            this.btnSerialOK.TabIndex = 96;
-            this.btnSerialOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSerialOK.UseVisualStyleBackColor = true;
+            btnSerialOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSerialOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnSerialOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnSerialOK.FlatAppearance.BorderSize = 0;
+            btnSerialOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
+            btnSerialOK.Image = Properties.Resources.OK64;
+            btnSerialOK.Location = new System.Drawing.Point(490, 266);
+            btnSerialOK.Name = "btnSerialOK";
+            btnSerialOK.Size = new System.Drawing.Size(105, 90);
+            btnSerialOK.TabIndex = 96;
+            btnSerialOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            btnSerialOK.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnCancel.Image = global::AgIO.Properties.Resources.Cancel64;
-            this.btnCancel.Location = new System.Drawing.Point(363, 266);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(105, 90);
-            this.btnCancel.TabIndex = 97;
-            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Visible = false;
+            btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnCancel.ForeColor = System.Drawing.SystemColors.ControlText;
+            btnCancel.Image = Properties.Resources.Cancel64;
+            btnCancel.Location = new System.Drawing.Point(363, 266);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new System.Drawing.Size(105, 90);
+            btnCancel.TabIndex = 97;
+            btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Visible = false;
             // 
             // FormYes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ClientSize = new System.Drawing.Size(598, 352);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSerialOK);
-            this.Controls.Add(this.lblMessage2);
-            this.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormYes";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AgIO Message";
-            this.TopMost = true;
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(240, 200, 200);
+            ClientSize = new System.Drawing.Size(594, 348);
+            ControlBox = false;
+            Controls.Add(btnCancel);
+            Controls.Add(btnSerialOK);
+            Controls.Add(lblMessage2);
+            Font = new System.Drawing.Font("Tahoma", 14.25F);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(6);
+            Name = "FormYes";
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "AgIO Message";
+            TopMost = true;
+            ResumeLayout(false);
 
         }
 

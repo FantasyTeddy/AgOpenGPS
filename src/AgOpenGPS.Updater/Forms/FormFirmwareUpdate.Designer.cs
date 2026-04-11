@@ -28,105 +28,102 @@ namespace AgOpenGPS.Updater.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelHeader = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.panelMain = new System.Windows.Forms.Panel();
-            this.lblInfo = new System.Windows.Forms.Label();
-            this.panelButtons = new System.Windows.Forms.Panel();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.panelHeader.SuspendLayout();
-            this.panelMain.SuspendLayout();
-            this.panelButtons.SuspendLayout();
-            this.SuspendLayout();
-            //
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFirmwareUpdate));
+            panelHeader = new System.Windows.Forms.Panel();
+            lblTitle = new System.Windows.Forms.Label();
+            panelMain = new System.Windows.Forms.Panel();
+            lblInfo = new System.Windows.Forms.Label();
+            panelButtons = new System.Windows.Forms.Panel();
+            btnClose = new System.Windows.Forms.Button();
+            panelHeader.SuspendLayout();
+            panelMain.SuspendLayout();
+            panelButtons.SuspendLayout();
+            SuspendLayout();
+            // 
             // panelHeader
-            //
-            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(96)))), ((int)(((byte)(144)))));
-            this.panelHeader.Controls.Add(this.lblTitle);
-            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeader.Location = new System.Drawing.Point(0, 0);
-            this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(600, 60);
-            this.panelHeader.TabIndex = 0;
-            //
+            // 
+            panelHeader.BackColor = System.Drawing.Color.FromArgb(40, 96, 144);
+            panelHeader.Controls.Add(lblTitle);
+            panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            panelHeader.Location = new System.Drawing.Point(0, 0);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Size = new System.Drawing.Size(600, 60);
+            panelHeader.TabIndex = 0;
+            // 
             // lblTitle
-            //
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(20, 15);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(239, 32);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "AgOpenGPS Firmware Update";
-            //
+            // 
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            lblTitle.ForeColor = System.Drawing.Color.White;
+            lblTitle.Location = new System.Drawing.Point(20, 15);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new System.Drawing.Size(354, 32);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "AgOpenGPS Firmware Update";
+            // 
             // panelMain
-            //
-            this.panelMain.Controls.Add(this.lblInfo);
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(0, 60);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Padding = new System.Windows.Forms.Padding(20);
-            this.panelMain.Size = new System.Drawing.Size(600, 380);
-            this.panelMain.TabIndex = 1;
-            //
+            // 
+            panelMain.Controls.Add(lblInfo);
+            panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelMain.Location = new System.Drawing.Point(0, 60);
+            panelMain.Name = "panelMain";
+            panelMain.Padding = new System.Windows.Forms.Padding(20);
+            panelMain.Size = new System.Drawing.Size(600, 440);
+            panelMain.TabIndex = 1;
+            // 
             // lblInfo
-            //
-            this.lblInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblInfo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblInfo.Location = new System.Drawing.Point(20, 20);
-            this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(560, 340);
-            this.lblInfo.TabIndex = 0;
-            this.lblInfo.Text = "Firmware Update Feature\r\n\r\nThis feature is under development.\r\n\r\nFuture capabilities will include:\r\n\r\n• Selec" +
-    "t firmware .hex file\r\n• Select communication port (from AgIO settings)\r\n• Start TeensyLoa" +
-    "derCLI with parameters\r\n• Upload firmware to Teensy device\r\n• Progress indicator\r\n\r\n" +
-    "TeensyLoader integration:\r\nteensy_loader_cli --mcu=TEENSY40 --port=COM3 firmware.hex";
-            //
+            // 
+            lblInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            lblInfo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            lblInfo.Location = new System.Drawing.Point(20, 20);
+            lblInfo.Name = "lblInfo";
+            lblInfo.Size = new System.Drawing.Size(560, 400);
+            lblInfo.TabIndex = 0;
+            lblInfo.Text = resources.GetString("lblInfo.Text");
+            // 
             // panelButtons
-            //
-            this.panelButtons.Controls.Add(this.btnClose);
-            this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelButtons.Location = new System.Drawing.Point(0, 440);
-            this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Padding = new System.Windows.Forms.Padding(20);
-            this.panelButtons.Size = new System.Drawing.Size(600, 60);
-            this.panelButtons.TabIndex = 2;
-            //
+            // 
+            panelButtons.Controls.Add(btnClose);
+            panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelButtons.Location = new System.Drawing.Point(0, 440);
+            panelButtons.Name = "panelButtons";
+            panelButtons.Padding = new System.Windows.Forms.Padding(20);
+            panelButtons.Size = new System.Drawing.Size(600, 60);
+            panelButtons.TabIndex = 2;
+            // 
             // btnClose
-            //
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Location = new System.Drawing.Point(480, 12);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(100, 35);
-            this.btnClose.TabIndex = 0;
-            this.btnClose.Text = "Close";
-            this.btnClose.UseVisualStyleBackColor = true;
-            //
+            // 
+            btnClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnClose.Location = new System.Drawing.Point(480, 12);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(100, 35);
+            btnClose.TabIndex = 0;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            // 
             // FormFirmwareUpdate
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(600, 500);
-            this.Controls.Add(this.panelButtons);
-            this.Controls.Add(this.panelMain);
-            this.Controls.Add(this.panelHeader);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormFirmwareUpdate";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = true;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Firmware Update";
-            this.panelHeader.ResumeLayout(false);
-            this.panelHeader.PerformLayout();
-            this.panelMain.ResumeLayout(false);
-            this.panelButtons.ResumeLayout(false);
-            this.ResumeLayout(false);
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            CancelButton = btnClose;
+            ClientSize = new System.Drawing.Size(600, 500);
+            Controls.Add(panelButtons);
+            Controls.Add(panelMain);
+            Controls.Add(panelHeader);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormFirmwareUpdate";
+            ShowIcon = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Firmware Update";
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
+            panelMain.ResumeLayout(false);
+            panelButtons.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 

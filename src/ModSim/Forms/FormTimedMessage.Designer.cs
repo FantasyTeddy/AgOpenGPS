@@ -28,58 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lblMessage2 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            lblTitle = new System.Windows.Forms.Label();
+            timer1 = new System.Windows.Forms.Timer(components);
+            lblMessage2 = new System.Windows.Forms.Label();
+            SuspendLayout();
             // 
-            // lblMessage
+            // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(12, 20);
-            this.lblTitle.Name = "lblMessage";
-            this.lblTitle.Size = new System.Drawing.Size(115, 29);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Message";
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            lblTitle.Location = new System.Drawing.Point(12, 20);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new System.Drawing.Size(115, 29);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Message";
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 3000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            timer1.Enabled = true;
+            timer1.Interval = 3000;
+            timer1.Tick += timer1_Tick;
             // 
             // lblMessage2
             // 
-            this.lblMessage2.AutoSize = true;
-            this.lblMessage2.Font = new System.Drawing.Font("Tahoma", 18F);
-            this.lblMessage2.Location = new System.Drawing.Point(75, 71);
-            this.lblMessage2.Name = "lblMessage2";
-            this.lblMessage2.Size = new System.Drawing.Size(127, 29);
-            this.lblMessage2.TabIndex = 1;
-            this.lblMessage2.Text = "Message 2";
+            lblMessage2.AutoSize = true;
+            lblMessage2.Font = new System.Drawing.Font("Tahoma", 18F);
+            lblMessage2.Location = new System.Drawing.Point(75, 71);
+            lblMessage2.Name = "lblMessage2";
+            lblMessage2.Size = new System.Drawing.Size(127, 29);
+            lblMessage2.TabIndex = 1;
+            lblMessage2.Text = "Message 2";
             // 
             // FormTimedMessage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LightSalmon;
-            this.ClientSize = new System.Drawing.Size(272, 151);
-            this.ControlBox = false;
-            this.Controls.Add(this.lblMessage2);
-            this.Controls.Add(this.lblTitle);
-            this.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormTimedMessage";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AgTwo Message";
-            this.TopMost = true;
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.LightSalmon;
+            ClientSize = new System.Drawing.Size(268, 147);
+            ControlBox = false;
+            Controls.Add(lblMessage2);
+            Controls.Add(lblTitle);
+            Font = new System.Drawing.Font("Tahoma", 14.25F);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(6);
+            Name = "FormTimedMessage";
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "AgTwo Message";
+            TopMost = true;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

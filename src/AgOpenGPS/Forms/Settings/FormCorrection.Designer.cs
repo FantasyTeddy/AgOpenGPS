@@ -29,258 +29,218 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.rollChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lblCorrectionDistance = new System.Windows.Forms.Label();
-            this.lblEast = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblOst = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblRollDegrees = new System.Windows.Forms.Label();
-            this.lblEastOnGraph = new System.Windows.Forms.Label();
-            this.btnScroll = new System.Windows.Forms.Button();
-            this.btnPoleOrMoving = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.rollChart)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            timer1 = new System.Windows.Forms.Timer(components);
+            lblCorrectionDistance = new System.Windows.Forms.Label();
+            lblEast = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            lblOst = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label6 = new System.Windows.Forms.Label();
+            lblRollDegrees = new System.Windows.Forms.Label();
+            lblEastOnGraph = new System.Windows.Forms.Label();
+            btnScroll = new System.Windows.Forms.Button();
+            btnPoleOrMoving = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // rollChart
-            // 
-            this.rollChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rollChart.AntiAliasing = System.Windows.Forms.DataVisualization.Charting.AntiAliasingStyles.None;
-            this.rollChart.BackColor = System.Drawing.Color.Black;
-            chartArea1.AxisX.LabelAutoFitMaxFontSize = 8;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisX.MaximumAutoSize = 80F;
-            chartArea1.AxisY.LineWidth = 2;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.AxisY.MaximumAutoSize = 80F;
-            chartArea1.BackColor = System.Drawing.Color.Black;
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            this.rollChart.ChartAreas.Add(chartArea1);
-            this.rollChart.Location = new System.Drawing.Point(-30, 9);
-            this.rollChart.Margin = new System.Windows.Forms.Padding(0);
-            this.rollChart.Name = "rollChart";
-            this.rollChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series1.Color = System.Drawing.Color.Red;
-            series1.Name = "Ro";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series2.Color = System.Drawing.Color.Lime;
-            series2.Name = "Ze";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
-            series3.Color = System.Drawing.Color.Cyan;
-            series3.Name = "Oe";
-            this.rollChart.Series.Add(series1);
-            this.rollChart.Series.Add(series2);
-            this.rollChart.Series.Add(series3);
-            this.rollChart.Size = new System.Drawing.Size(830, 372);
-            this.rollChart.TabIndex = 241;
-            this.rollChart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.SystemDefault;
+            timer1.Enabled = true;
+            timer1.Tick += timer1_Tick;
             // 
             // lblCorrectionDistance
             // 
-            this.lblCorrectionDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCorrectionDistance.AutoSize = true;
-            this.lblCorrectionDistance.BackColor = System.Drawing.SystemColors.ControlText;
-            this.lblCorrectionDistance.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCorrectionDistance.ForeColor = System.Drawing.Color.Red;
-            this.lblCorrectionDistance.Location = new System.Drawing.Point(533, 386);
-            this.lblCorrectionDistance.Name = "lblCorrectionDistance";
-            this.lblCorrectionDistance.Size = new System.Drawing.Size(85, 29);
-            this.lblCorrectionDistance.TabIndex = 245;
-            this.lblCorrectionDistance.Text = "label5";
-            this.lblCorrectionDistance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblCorrectionDistance.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lblCorrectionDistance.AutoSize = true;
+            lblCorrectionDistance.BackColor = System.Drawing.SystemColors.ControlText;
+            lblCorrectionDistance.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblCorrectionDistance.ForeColor = System.Drawing.Color.Red;
+            lblCorrectionDistance.Location = new System.Drawing.Point(622, 445);
+            lblCorrectionDistance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCorrectionDistance.Name = "lblCorrectionDistance";
+            lblCorrectionDistance.Size = new System.Drawing.Size(85, 29);
+            lblCorrectionDistance.TabIndex = 245;
+            lblCorrectionDistance.Text = "label5";
+            lblCorrectionDistance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblEast
             // 
-            this.lblEast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEast.AutoSize = true;
-            this.lblEast.BackColor = System.Drawing.SystemColors.ControlText;
-            this.lblEast.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEast.ForeColor = System.Drawing.Color.Lime;
-            this.lblEast.Location = new System.Drawing.Point(309, 386);
-            this.lblEast.Name = "lblEast";
-            this.lblEast.Size = new System.Drawing.Size(85, 29);
-            this.lblEast.TabIndex = 247;
-            this.lblEast.Text = "label5";
-            this.lblEast.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblEast.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lblEast.AutoSize = true;
+            lblEast.BackColor = System.Drawing.SystemColors.ControlText;
+            lblEast.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblEast.ForeColor = System.Drawing.Color.Lime;
+            lblEast.Location = new System.Drawing.Point(360, 445);
+            lblEast.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblEast.Name = "lblEast";
+            lblEast.Size = new System.Drawing.Size(85, 29);
+            lblEast.TabIndex = 247;
+            lblEast.Text = "label5";
+            lblEast.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoEllipsis = true;
-            this.label5.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Chartreuse;
-            this.label5.Location = new System.Drawing.Point(214, 372);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 55);
-            this.label5.TabIndex = 249;
-            this.label5.Text = "Corrected Easting";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label5.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            label5.AutoEllipsis = true;
+            label5.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label5.ForeColor = System.Drawing.Color.Chartreuse;
+            label5.Location = new System.Drawing.Point(250, 429);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(114, 63);
+            label5.TabIndex = 249;
+            label5.Text = "Corrected Easting";
+            label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoEllipsis = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(438, 375);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 46);
-            this.label1.TabIndex = 250;
-            this.label1.Text = "Correction Distance";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            label1.AutoEllipsis = true;
+            label1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label1.ForeColor = System.Drawing.Color.Red;
+            label1.Location = new System.Drawing.Point(511, 433);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(113, 53);
+            label1.TabIndex = 250;
+            label1.Text = "Correction Distance";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblOst
             // 
-            this.lblOst.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblOst.AutoSize = true;
-            this.lblOst.BackColor = System.Drawing.SystemColors.ControlText;
-            this.lblOst.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOst.ForeColor = System.Drawing.Color.Cyan;
-            this.lblOst.Location = new System.Drawing.Point(102, 387);
-            this.lblOst.Name = "lblOst";
-            this.lblOst.Size = new System.Drawing.Size(85, 29);
-            this.lblOst.TabIndex = 251;
-            this.lblOst.Text = "label5";
-            this.lblOst.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblOst.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lblOst.AutoSize = true;
+            lblOst.BackColor = System.Drawing.SystemColors.ControlText;
+            lblOst.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblOst.ForeColor = System.Drawing.Color.Cyan;
+            lblOst.Location = new System.Drawing.Point(119, 447);
+            lblOst.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblOst.Name = "lblOst";
+            lblOst.Size = new System.Drawing.Size(85, 29);
+            lblOst.TabIndex = 251;
+            lblOst.Text = "label5";
+            lblOst.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoEllipsis = true;
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Cyan;
-            this.label3.Location = new System.Drawing.Point(22, 387);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 29);
-            this.label3.TabIndex = 252;
-            this.label3.Text = "Antenna";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            label3.AutoEllipsis = true;
+            label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            label3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label3.ForeColor = System.Drawing.Color.Cyan;
+            label3.Location = new System.Drawing.Point(26, 447);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(98, 33);
+            label3.TabIndex = 252;
+            label3.Text = "Antenna";
+            label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoEllipsis = true;
-            this.label6.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.LightSalmon;
-            this.label6.Location = new System.Drawing.Point(642, 376);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(85, 47);
-            this.label6.TabIndex = 256;
-            this.label6.Text = "Roll Degrees";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label6.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            label6.AutoEllipsis = true;
+            label6.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label6.ForeColor = System.Drawing.Color.LightSalmon;
+            label6.Location = new System.Drawing.Point(749, 434);
+            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(99, 54);
+            label6.TabIndex = 256;
+            label6.Text = "Roll Degrees";
+            label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblRollDegrees
             // 
-            this.lblRollDegrees.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRollDegrees.AutoSize = true;
-            this.lblRollDegrees.BackColor = System.Drawing.SystemColors.ControlText;
-            this.lblRollDegrees.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRollDegrees.ForeColor = System.Drawing.Color.LightSalmon;
-            this.lblRollDegrees.Location = new System.Drawing.Point(725, 384);
-            this.lblRollDegrees.Name = "lblRollDegrees";
-            this.lblRollDegrees.Size = new System.Drawing.Size(85, 29);
-            this.lblRollDegrees.TabIndex = 255;
-            this.lblRollDegrees.Text = "label5";
-            this.lblRollDegrees.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblRollDegrees.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            lblRollDegrees.AutoSize = true;
+            lblRollDegrees.BackColor = System.Drawing.SystemColors.ControlText;
+            lblRollDegrees.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblRollDegrees.ForeColor = System.Drawing.Color.LightSalmon;
+            lblRollDegrees.Location = new System.Drawing.Point(846, 443);
+            lblRollDegrees.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblRollDegrees.Name = "lblRollDegrees";
+            lblRollDegrees.Size = new System.Drawing.Size(85, 29);
+            lblRollDegrees.TabIndex = 255;
+            lblRollDegrees.Text = "label5";
+            lblRollDegrees.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblEastOnGraph
             // 
-            this.lblEastOnGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEastOnGraph.BackColor = System.Drawing.SystemColors.ControlText;
-            this.lblEastOnGraph.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEastOnGraph.ForeColor = System.Drawing.Color.Lime;
-            this.lblEastOnGraph.Location = new System.Drawing.Point(705, 4);
-            this.lblEastOnGraph.Name = "lblEastOnGraph";
-            this.lblEastOnGraph.Size = new System.Drawing.Size(105, 29);
-            this.lblEastOnGraph.TabIndex = 257;
-            this.lblEastOnGraph.Text = "-88";
-            this.lblEastOnGraph.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblEastOnGraph.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lblEastOnGraph.BackColor = System.Drawing.SystemColors.ControlText;
+            lblEastOnGraph.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblEastOnGraph.ForeColor = System.Drawing.Color.Lime;
+            lblEastOnGraph.Location = new System.Drawing.Point(822, 5);
+            lblEastOnGraph.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblEastOnGraph.Name = "lblEastOnGraph";
+            lblEastOnGraph.Size = new System.Drawing.Size(122, 33);
+            lblEastOnGraph.TabIndex = 257;
+            lblEastOnGraph.Text = "-88";
+            lblEastOnGraph.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnScroll
             // 
-            this.btnScroll.BackColor = System.Drawing.Color.Transparent;
-            this.btnScroll.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnScroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnScroll.ForeColor = System.Drawing.Color.Lime;
-            this.btnScroll.Location = new System.Drawing.Point(12, 12);
-            this.btnScroll.Name = "btnScroll";
-            this.btnScroll.Size = new System.Drawing.Size(92, 60);
-            this.btnScroll.TabIndex = 258;
-            this.btnScroll.Text = "Scroll On Off";
-            this.btnScroll.UseVisualStyleBackColor = false;
-            this.btnScroll.Click += new System.EventHandler(this.btnScroll_Click_1);
+            btnScroll.BackColor = System.Drawing.Color.Transparent;
+            btnScroll.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            btnScroll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnScroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnScroll.ForeColor = System.Drawing.Color.Lime;
+            btnScroll.Location = new System.Drawing.Point(14, 14);
+            btnScroll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnScroll.Name = "btnScroll";
+            btnScroll.Size = new System.Drawing.Size(107, 69);
+            btnScroll.TabIndex = 258;
+            btnScroll.Text = "Scroll On Off";
+            btnScroll.UseVisualStyleBackColor = false;
+            btnScroll.Click += btnScroll_Click_1;
             // 
             // btnPoleOrMoving
             // 
-            this.btnPoleOrMoving.BackColor = System.Drawing.Color.Transparent;
-            this.btnPoleOrMoving.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnPoleOrMoving.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPoleOrMoving.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPoleOrMoving.ForeColor = System.Drawing.Color.Lime;
-            this.btnPoleOrMoving.Location = new System.Drawing.Point(14, 301);
-            this.btnPoleOrMoving.Name = "btnPoleOrMoving";
-            this.btnPoleOrMoving.Size = new System.Drawing.Size(92, 60);
-            this.btnPoleOrMoving.TabIndex = 259;
-            this.btnPoleOrMoving.Text = "Pole";
-            this.btnPoleOrMoving.UseVisualStyleBackColor = false;
-            this.btnPoleOrMoving.Click += new System.EventHandler(this.btnPoleOrMoving_Click);
+            btnPoleOrMoving.BackColor = System.Drawing.Color.Transparent;
+            btnPoleOrMoving.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            btnPoleOrMoving.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnPoleOrMoving.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnPoleOrMoving.ForeColor = System.Drawing.Color.Lime;
+            btnPoleOrMoving.Location = new System.Drawing.Point(16, 347);
+            btnPoleOrMoving.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnPoleOrMoving.Name = "btnPoleOrMoving";
+            btnPoleOrMoving.Size = new System.Drawing.Size(107, 69);
+            btnPoleOrMoving.TabIndex = 259;
+            btnPoleOrMoving.Text = "Pole";
+            btnPoleOrMoving.UseVisualStyleBackColor = false;
+            btnPoleOrMoving.Click += btnPoleOrMoving_Click;
             // 
             // FormCorrection
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(809, 424);
-            this.Controls.Add(this.btnPoleOrMoving);
-            this.Controls.Add(this.btnScroll);
-            this.Controls.Add(this.lblEastOnGraph);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.lblRollDegrees);
-            this.Controls.Add(this.lblOst);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblEast);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.lblCorrectionDistance);
-            this.Controls.Add(this.rollChart);
-            this.Location = new System.Drawing.Point(30, 30);
-            this.Name = "FormCorrection";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Roll Correction Chart";
-            this.Load += new System.EventHandler(this.FormSteerGraph_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.rollChart)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            ClientSize = new System.Drawing.Size(944, 489);
+            Controls.Add(btnPoleOrMoving);
+            Controls.Add(btnScroll);
+            Controls.Add(lblEastOnGraph);
+            Controls.Add(label6);
+            Controls.Add(lblRollDegrees);
+            Controls.Add(lblOst);
+            Controls.Add(label3);
+            Controls.Add(label1);
+            Controls.Add(lblEast);
+            Controls.Add(label5);
+            Controls.Add(lblCorrectionDistance);
+            Location = new System.Drawing.Point(30, 30);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "FormCorrection";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Roll Correction Chart";
+            Load += FormSteerGraph_Load;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

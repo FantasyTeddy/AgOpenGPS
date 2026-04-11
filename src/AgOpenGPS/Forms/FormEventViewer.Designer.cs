@@ -28,66 +28,68 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.rtbLogViewer = new System.Windows.Forms.RichTextBox();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            rtbLogViewer = new System.Windows.Forms.RichTextBox();
+            btnExit = new System.Windows.Forms.Button();
+            btnRefresh = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // rtbLogViewer
             // 
-            this.rtbLogViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbLogViewer.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbLogViewer.Location = new System.Drawing.Point(12, 12);
-            this.rtbLogViewer.Name = "rtbLogViewer";
-            this.rtbLogViewer.ReadOnly = true;
-            this.rtbLogViewer.Size = new System.Drawing.Size(657, 315);
-            this.rtbLogViewer.TabIndex = 520;
-            this.rtbLogViewer.Text = "";
-            this.rtbLogViewer.WordWrap = false;
+            rtbLogViewer.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            rtbLogViewer.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            rtbLogViewer.Location = new System.Drawing.Point(14, 14);
+            rtbLogViewer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rtbLogViewer.Name = "rtbLogViewer";
+            rtbLogViewer.ReadOnly = true;
+            rtbLogViewer.Size = new System.Drawing.Size(766, 363);
+            rtbLogViewer.TabIndex = 520;
+            rtbLogViewer.Text = "";
+            rtbLogViewer.WordWrap = false;
             // 
             // btnExit
             // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(490, 333);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(179, 28);
-            this.btnExit.TabIndex = 521;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            btnExit.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnExit.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnExit.Location = new System.Drawing.Point(572, 384);
+            btnExit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new System.Drawing.Size(209, 32);
+            btnExit.TabIndex = 521;
+            btnExit.Text = "Exit";
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.Location = new System.Drawing.Point(261, 333);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(179, 28);
-            this.btnRefresh.TabIndex = 522;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            btnRefresh.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnRefresh.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnRefresh.Location = new System.Drawing.Point(304, 384);
+            btnRefresh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new System.Drawing.Size(209, 32);
+            btnRefresh.TabIndex = 522;
+            btnRefresh.Text = "Refresh";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // FormEventViewer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(681, 365);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.rtbLogViewer);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "FormEventViewer";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Event Log Viewer";
-            this.Load += new System.EventHandler(this.FormEventViewer_Load);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.Gainsboro;
+            ClientSize = new System.Drawing.Size(794, 421);
+            ControlBox = false;
+            Controls.Add(btnRefresh);
+            Controls.Add(btnExit);
+            Controls.Add(rtbLogViewer);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "FormEventViewer";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Event Log Viewer";
+            Load += FormEventViewer_Load;
+            ResumeLayout(false);
 
         }
 

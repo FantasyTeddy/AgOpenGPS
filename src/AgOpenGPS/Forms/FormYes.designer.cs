@@ -28,61 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblMessage2 = new System.Windows.Forms.Label();
-            this.btnSerialOK = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lblMessage2 = new System.Windows.Forms.Label();
+            btnSerialOK = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // lblMessage2
             // 
-            this.lblMessage2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMessage2.BackColor = System.Drawing.Color.White;
-            this.lblMessage2.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessage2.Location = new System.Drawing.Point(24, 21);
-            this.lblMessage2.Name = "lblMessage2";
-            this.lblMessage2.Size = new System.Drawing.Size(831, 415);
-            this.lblMessage2.TabIndex = 1;
-            this.lblMessage2.Text = "Message 2";
-            this.lblMessage2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblMessage2.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            lblMessage2.BackColor = System.Drawing.Color.White;
+            lblMessage2.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblMessage2.Location = new System.Drawing.Point(24, 21);
+            lblMessage2.Name = "lblMessage2";
+            lblMessage2.Size = new System.Drawing.Size(831, 415);
+            lblMessage2.TabIndex = 1;
+            lblMessage2.Text = "Message 2";
+            lblMessage2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnSerialOK
             // 
-            this.btnSerialOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSerialOK.BackColor = System.Drawing.Color.White;
-            this.btnSerialOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSerialOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSerialOK.FlatAppearance.BorderSize = 0;
-            this.btnSerialOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSerialOK.Image = global::AgOpenGPS.Properties.Resources.OK64;
-            this.btnSerialOK.Location = new System.Drawing.Point(743, 363);
-            this.btnSerialOK.Name = "btnSerialOK";
-            this.btnSerialOK.Size = new System.Drawing.Size(105, 64);
-            this.btnSerialOK.TabIndex = 96;
-            this.btnSerialOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnSerialOK.UseVisualStyleBackColor = false;
+            btnSerialOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSerialOK.BackColor = System.Drawing.Color.White;
+            btnSerialOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnSerialOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnSerialOK.FlatAppearance.BorderSize = 0;
+            btnSerialOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSerialOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnSerialOK.ForeColor = System.Drawing.SystemColors.ControlText;
+            btnSerialOK.Image = Properties.Resources.OK64;
+            btnSerialOK.Location = new System.Drawing.Point(743, 363);
+            btnSerialOK.Name = "btnSerialOK";
+            btnSerialOK.Size = new System.Drawing.Size(105, 64);
+            btnSerialOK.TabIndex = 96;
+            btnSerialOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            btnSerialOK.UseVisualStyleBackColor = false;
             // 
             // FormYes
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.ClientSize = new System.Drawing.Size(881, 459);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnSerialOK);
-            this.Controls.Add(this.lblMessage2);
-            this.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormYes";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AgOpenGPS Message";
-            this.TopMost = true;
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(254, 170, 170);
+            ClientSize = new System.Drawing.Size(881, 459);
+            ControlBox = false;
+            Controls.Add(btnSerialOK);
+            Controls.Add(lblMessage2);
+            Font = new System.Drawing.Font("Tahoma", 14.25F);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Margin = new System.Windows.Forms.Padding(6);
+            Name = "FormYes";
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "AgOpenGPS Message";
+            TopMost = true;
+            ResumeLayout(false);
 
         }
 

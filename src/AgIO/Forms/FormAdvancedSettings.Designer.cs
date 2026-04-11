@@ -28,131 +28,139 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cboxStartMinimized = new System.Windows.Forms.CheckBox();
-            this.cboxAutoRunGPS_Out = new System.Windows.Forms.CheckBox();
-            this.cboxShowOnWarning = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            cboxStartMinimized = new System.Windows.Forms.CheckBox();
+            cboxAutoRunGPS_Out = new System.Windows.Forms.CheckBox();
+            cboxShowOnWarning = new System.Windows.Forms.CheckBox();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            btnClose = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // cboxStartMinimized
             // 
-            this.cboxStartMinimized.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxStartMinimized.BackColor = System.Drawing.Color.Transparent;
-            this.cboxStartMinimized.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxStartMinimized.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(255)))), ((int)(((byte)(180)))));
-            this.cboxStartMinimized.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxStartMinimized.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxStartMinimized.Image = global::AgIO.Properties.Resources.MinimizeIcon;
-            this.cboxStartMinimized.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxStartMinimized.Location = new System.Drawing.Point(12, 12);
-            this.cboxStartMinimized.Name = "cboxStartMinimized";
-            this.cboxStartMinimized.Size = new System.Drawing.Size(143, 128);
-            this.cboxStartMinimized.TabIndex = 530;
-            this.cboxStartMinimized.UseVisualStyleBackColor = false;
-            this.cboxStartMinimized.CheckedChanged += new System.EventHandler(this.cboxStartMinimized_CheckedChanged);
+            cboxStartMinimized.Appearance = System.Windows.Forms.Appearance.Button;
+            cboxStartMinimized.BackColor = System.Drawing.Color.Transparent;
+            cboxStartMinimized.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            cboxStartMinimized.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(180, 255, 180);
+            cboxStartMinimized.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            cboxStartMinimized.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboxStartMinimized.Image = Properties.Resources.MinimizeIcon;
+            cboxStartMinimized.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            cboxStartMinimized.Location = new System.Drawing.Point(14, 14);
+            cboxStartMinimized.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboxStartMinimized.Name = "cboxStartMinimized";
+            cboxStartMinimized.Size = new System.Drawing.Size(167, 148);
+            cboxStartMinimized.TabIndex = 530;
+            cboxStartMinimized.UseVisualStyleBackColor = false;
+            cboxStartMinimized.CheckedChanged += cboxStartMinimized_CheckedChanged;
             // 
             // cboxAutoRunGPS_Out
             // 
-            this.cboxAutoRunGPS_Out.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxAutoRunGPS_Out.BackColor = System.Drawing.Color.Transparent;
-            this.cboxAutoRunGPS_Out.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxAutoRunGPS_Out.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(255)))), ((int)(((byte)(180)))));
-            this.cboxAutoRunGPS_Out.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxAutoRunGPS_Out.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxAutoRunGPS_Out.Image = global::AgIO.Properties.Resources.GPS_Out;
-            this.cboxAutoRunGPS_Out.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxAutoRunGPS_Out.Location = new System.Drawing.Point(12, 189);
-            this.cboxAutoRunGPS_Out.Name = "cboxAutoRunGPS_Out";
-            this.cboxAutoRunGPS_Out.Size = new System.Drawing.Size(143, 128);
-            this.cboxAutoRunGPS_Out.TabIndex = 529;
-            this.cboxAutoRunGPS_Out.Text = "Auto\r\nRun";
-            this.cboxAutoRunGPS_Out.UseVisualStyleBackColor = false;
-            this.cboxAutoRunGPS_Out.CheckedChanged += new System.EventHandler(this.cboxAutoRunGPS_Out_CheckedChanged);
+            cboxAutoRunGPS_Out.Appearance = System.Windows.Forms.Appearance.Button;
+            cboxAutoRunGPS_Out.BackColor = System.Drawing.Color.Transparent;
+            cboxAutoRunGPS_Out.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            cboxAutoRunGPS_Out.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(180, 255, 180);
+            cboxAutoRunGPS_Out.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            cboxAutoRunGPS_Out.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboxAutoRunGPS_Out.Image = Properties.Resources.GPS_Out;
+            cboxAutoRunGPS_Out.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            cboxAutoRunGPS_Out.Location = new System.Drawing.Point(14, 218);
+            cboxAutoRunGPS_Out.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboxAutoRunGPS_Out.Name = "cboxAutoRunGPS_Out";
+            cboxAutoRunGPS_Out.Size = new System.Drawing.Size(167, 148);
+            cboxAutoRunGPS_Out.TabIndex = 529;
+            cboxAutoRunGPS_Out.Text = "Auto\r\nRun";
+            cboxAutoRunGPS_Out.UseVisualStyleBackColor = false;
+            cboxAutoRunGPS_Out.CheckedChanged += cboxAutoRunGPS_Out_CheckedChanged;
             // 
             // cboxShowOnWarning
             // 
-            this.cboxShowOnWarning.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxShowOnWarning.BackColor = System.Drawing.Color.Transparent;
-            this.cboxShowOnWarning.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxShowOnWarning.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(255)))), ((int)(((byte)(180)))));
-            this.cboxShowOnWarning.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxShowOnWarning.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxShowOnWarning.Image = global::AgIO.Properties.Resources.ConSt_Mandatory;
-            this.cboxShowOnWarning.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxShowOnWarning.Location = new System.Drawing.Point(12, 365);
-            this.cboxShowOnWarning.Name = "cboxShowOnWarning";
-            this.cboxShowOnWarning.Size = new System.Drawing.Size(143, 128);
-            this.cboxShowOnWarning.TabIndex = 534;
-            this.cboxShowOnWarning.Text = "Show\r\nOn\r\nWarn";
-            this.cboxShowOnWarning.UseVisualStyleBackColor = false;
-            this.cboxShowOnWarning.CheckedChanged += new System.EventHandler(this.cboxShowOnWarning_CheckedChanged);
+            cboxShowOnWarning.Appearance = System.Windows.Forms.Appearance.Button;
+            cboxShowOnWarning.BackColor = System.Drawing.Color.Transparent;
+            cboxShowOnWarning.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            cboxShowOnWarning.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(180, 255, 180);
+            cboxShowOnWarning.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            cboxShowOnWarning.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboxShowOnWarning.Image = Properties.Resources.ConSt_Mandatory;
+            cboxShowOnWarning.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            cboxShowOnWarning.Location = new System.Drawing.Point(14, 421);
+            cboxShowOnWarning.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboxShowOnWarning.Name = "cboxShowOnWarning";
+            cboxShowOnWarning.Size = new System.Drawing.Size(167, 148);
+            cboxShowOnWarning.TabIndex = 534;
+            cboxShowOnWarning.Text = "Show\r\nOn\r\nWarn";
+            cboxShowOnWarning.UseVisualStyleBackColor = false;
+            cboxShowOnWarning.CheckedChanged += cboxShowOnWarning_CheckedChanged;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(161, 58);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 31);
-            this.label1.TabIndex = 531;
-            this.label1.Text = "Start Minimized";
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label1.Location = new System.Drawing.Point(188, 67);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(215, 31);
+            label1.TabIndex = 531;
+            label1.Text = "Start Minimized";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(161, 235);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(270, 31);
-            this.label2.TabIndex = 532;
-            this.label2.Text = "Auto Start GPS-Out";
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label2.Location = new System.Drawing.Point(188, 271);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(270, 31);
+            label2.TabIndex = 532;
+            label2.Text = "Auto Start GPS-Out";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(161, 411);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(292, 31);
-            this.label3.TabIndex = 535;
-            this.label3.Text = "PopUp AgIO on Warn";
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label3.Location = new System.Drawing.Point(188, 474);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(292, 31);
+            label3.TabIndex = 535;
+            label3.Text = "PopUp AgIO on Warn";
             // 
             // btnClose
             // 
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Image = global::AgIO.Properties.Resources.OK64;
-            this.btnClose.Location = new System.Drawing.Point(367, 520);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(64, 64);
-            this.btnClose.TabIndex = 533;
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnClose.Image = Properties.Resources.OK64;
+            btnClose.Location = new System.Drawing.Point(428, 600);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(75, 74);
+            btnClose.TabIndex = 533;
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // FormAdvancedSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 596);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cboxShowOnWarning);
-            this.Controls.Add(this.cboxStartMinimized);
-            this.Controls.Add(this.cboxAutoRunGPS_Out);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.MaximumSize = new System.Drawing.Size(500, 639);
-            this.MinimumSize = new System.Drawing.Size(500, 639);
-            this.Name = "FormAdvancedSettings";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Advanced Settings";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(560, 688);
+            ControlBox = false;
+            Controls.Add(btnClose);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(cboxShowOnWarning);
+            Controls.Add(cboxStartMinimized);
+            Controls.Add(cboxAutoRunGPS_Out);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximumSize = new System.Drawing.Size(580, 731);
+            MinimumSize = new System.Drawing.Size(580, 731);
+            Name = "FormAdvancedSettings";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Advanced Settings";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

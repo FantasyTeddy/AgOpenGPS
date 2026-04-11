@@ -28,71 +28,71 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.lblMessage = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lblMessage2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            lblMessage = new System.Windows.Forms.Label();
+            timer1 = new System.Windows.Forms.Timer(components);
+            lblMessage2 = new System.Windows.Forms.Label();
+            panel1 = new System.Windows.Forms.Panel();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // lblMessage
             // 
-            this.lblMessage.AutoSize = true;
-            this.lblMessage.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.lblMessage.Location = new System.Drawing.Point(3, 0);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(115, 29);
-            this.lblMessage.TabIndex = 0;
-            this.lblMessage.Text = "Message";
+            lblMessage.AutoSize = true;
+            lblMessage.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            lblMessage.Location = new System.Drawing.Point(3, 0);
+            lblMessage.Name = "lblMessage";
+            lblMessage.Size = new System.Drawing.Size(115, 29);
+            lblMessage.TabIndex = 0;
+            lblMessage.Text = "Message";
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 3000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            timer1.Enabled = true;
+            timer1.Interval = 3000;
+            timer1.Tick += timer1_Tick;
             // 
             // lblMessage2
             // 
-            this.lblMessage2.AutoSize = true;
-            this.lblMessage2.Font = new System.Drawing.Font("Tahoma", 18F);
-            this.lblMessage2.Location = new System.Drawing.Point(43, 52);
-            this.lblMessage2.Name = "lblMessage2";
-            this.lblMessage2.Size = new System.Drawing.Size(127, 29);
-            this.lblMessage2.TabIndex = 1;
-            this.lblMessage2.Text = "Message 2";
+            lblMessage2.AutoSize = true;
+            lblMessage2.Font = new System.Drawing.Font("Tahoma", 18F);
+            lblMessage2.Location = new System.Drawing.Point(43, 52);
+            lblMessage2.Name = "lblMessage2";
+            lblMessage2.Size = new System.Drawing.Size(127, 29);
+            lblMessage2.TabIndex = 1;
+            lblMessage2.Text = "Message 2";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.OldLace;
-            this.panel1.Controls.Add(this.lblMessage2);
-            this.panel1.Controls.Add(this.lblMessage);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(7, 7);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(262, 120);
-            this.panel1.TabIndex = 2;
+            panel1.BackColor = System.Drawing.Color.OldLace;
+            panel1.Controls.Add(lblMessage2);
+            panel1.Controls.Add(lblMessage);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(7, 7);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(262, 120);
+            panel1.TabIndex = 2;
             // 
             // FormTimedMessage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Red;
-            this.ClientSize = new System.Drawing.Size(276, 134);
-            this.ControlBox = false;
-            this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Tahoma", 14.25F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "FormTimedMessage";
-            this.Padding = new System.Windows.Forms.Padding(7);
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "AgOpenGPS Message";
-            this.TopMost = true;
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.Red;
+            ClientSize = new System.Drawing.Size(276, 134);
+            ControlBox = false;
+            Controls.Add(panel1);
+            Font = new System.Drawing.Font("Tahoma", 14.25F);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Margin = new System.Windows.Forms.Padding(6);
+            Name = "FormTimedMessage";
+            Padding = new System.Windows.Forms.Padding(7);
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            Text = "AgOpenGPS Message";
+            TopMost = true;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
 
         }
 

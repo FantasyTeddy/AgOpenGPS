@@ -28,906 +28,880 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStart));
-            this.tmrGGA = new System.Windows.Forms.Timer(this.components);
-            this.tmrVTG = new System.Windows.Forms.Timer(this.components);
-            this.tmrMinimize = new System.Windows.Forms.Timer(this.components);
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.tmrRMC = new System.Windows.Forms.Timer(this.components);
-            this.tmrDisplay = new System.Windows.Forms.Timer(this.components);
-            this.tmrZDA = new System.Windows.Forms.Timer(this.components);
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.lbAge = new System.Windows.Forms.Label();
-            this.lbElev = new System.Windows.Forms.Label();
-            this.lbSats = new System.Windows.Forms.Label();
-            this.lbHDOP = new System.Windows.Forms.Label();
-            this.lbSim = new System.Windows.Forms.Label();
-            this.btnZDA = new System.Windows.Forms.Button();
-            this.tbZDA = new System.Windows.Forms.TextBox();
-            this.btnRMC = new System.Windows.Forms.Button();
-            this.tbRMC = new System.Windows.Forms.TextBox();
-            this.btnVTG = new System.Windows.Forms.Button();
-            this.btnGGA = new System.Windows.Forms.Button();
-            this.tbVTG = new System.Windows.Forms.TextBox();
-            this.tbGGA = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.PortIndicator1 = new System.Windows.Forms.Label();
-            this.btnRescan = new System.Windows.Forms.Button();
-            this.lbPort = new System.Windows.Forms.Label();
-            this.btnConnect1 = new System.Windows.Forms.Button();
-            this.cboBaud1 = new System.Windows.Forms.ComboBox();
-            this.cboPort1 = new System.Windows.Forms.ComboBox();
-            this.lbBaud = new System.Windows.Forms.Label();
-            this.lbQuality = new System.Windows.Forms.Label();
-            this.lbSpeed = new System.Windows.Forms.Label();
-            this.lbLat = new System.Windows.Forms.Label();
-            this.lbLon = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.cboPrecision = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.ckSimulate = new System.Windows.Forms.CheckBox();
-            this.rbGP = new System.Windows.Forms.RadioButton();
-            this.rbGN = new System.Windows.Forms.RadioButton();
-            this.ckGSA = new System.Windows.Forms.CheckBox();
-            this.ckRoll = new System.Windows.Forms.CheckBox();
-            this.ckAutoConnect = new System.Windows.Forms.CheckBox();
-            this.ckAutoHide = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.cboZDA = new System.Windows.Forms.ComboBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.cboRMC = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.cboVTG = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.cboGGA = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tmrGSA = new System.Windows.Forms.Timer(this.components);
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.SuspendLayout();
+            tmrGGA = new System.Windows.Forms.Timer(components);
+            tmrVTG = new System.Windows.Forms.Timer(components);
+            tmrMinimize = new System.Windows.Forms.Timer(components);
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            tmrRMC = new System.Windows.Forms.Timer(components);
+            tmrDisplay = new System.Windows.Forms.Timer(components);
+            tmrZDA = new System.Windows.Forms.Timer(components);
+            tabControl1 = new System.Windows.Forms.TabControl();
+            tabPage1 = new System.Windows.Forms.TabPage();
+            lbAge = new System.Windows.Forms.Label();
+            lbElev = new System.Windows.Forms.Label();
+            lbSats = new System.Windows.Forms.Label();
+            lbHDOP = new System.Windows.Forms.Label();
+            lbSim = new System.Windows.Forms.Label();
+            btnZDA = new System.Windows.Forms.Button();
+            tbZDA = new System.Windows.Forms.TextBox();
+            btnRMC = new System.Windows.Forms.Button();
+            tbRMC = new System.Windows.Forms.TextBox();
+            btnVTG = new System.Windows.Forms.Button();
+            btnGGA = new System.Windows.Forms.Button();
+            tbVTG = new System.Windows.Forms.TextBox();
+            tbGGA = new System.Windows.Forms.TextBox();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            PortIndicator1 = new System.Windows.Forms.Label();
+            btnRescan = new System.Windows.Forms.Button();
+            lbPort = new System.Windows.Forms.Label();
+            btnConnect1 = new System.Windows.Forms.Button();
+            cboBaud1 = new System.Windows.Forms.ComboBox();
+            cboPort1 = new System.Windows.Forms.ComboBox();
+            lbBaud = new System.Windows.Forms.Label();
+            lbQuality = new System.Windows.Forms.Label();
+            lbSpeed = new System.Windows.Forms.Label();
+            lbLat = new System.Windows.Forms.Label();
+            lbLon = new System.Windows.Forms.Label();
+            label8 = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            label6 = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            tabPage2 = new System.Windows.Forms.TabPage();
+            cboPrecision = new System.Windows.Forms.ComboBox();
+            label12 = new System.Windows.Forms.Label();
+            ckSimulate = new System.Windows.Forms.CheckBox();
+            rbGP = new System.Windows.Forms.RadioButton();
+            rbGN = new System.Windows.Forms.RadioButton();
+            ckGSA = new System.Windows.Forms.CheckBox();
+            ckRoll = new System.Windows.Forms.CheckBox();
+            ckAutoConnect = new System.Windows.Forms.CheckBox();
+            ckAutoHide = new System.Windows.Forms.CheckBox();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            label19 = new System.Windows.Forms.Label();
+            cboZDA = new System.Windows.Forms.ComboBox();
+            label20 = new System.Windows.Forms.Label();
+            label17 = new System.Windows.Forms.Label();
+            cboRMC = new System.Windows.Forms.ComboBox();
+            label18 = new System.Windows.Forms.Label();
+            label16 = new System.Windows.Forms.Label();
+            cboVTG = new System.Windows.Forms.ComboBox();
+            label11 = new System.Windows.Forms.Label();
+            cboGGA = new System.Windows.Forms.ComboBox();
+            label10 = new System.Windows.Forms.Label();
+            label9 = new System.Windows.Forms.Label();
+            tmrGSA = new System.Windows.Forms.Timer(components);
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            groupBox1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            groupBox2.SuspendLayout();
+            SuspendLayout();
             // 
             // tmrGGA
             // 
-            this.tmrGGA.Interval = 5000;
-            this.tmrGGA.Tick += new System.EventHandler(this.tmrGGA_Tick);
+            tmrGGA.Interval = 5000;
+            tmrGGA.Tick += tmrGGA_Tick;
             // 
             // tmrVTG
             // 
-            this.tmrVTG.Tick += new System.EventHandler(this.tmrVTG_Tick);
+            tmrVTG.Tick += tmrVTG_Tick;
             // 
             // tmrMinimize
             // 
-            this.tmrMinimize.Enabled = true;
-            this.tmrMinimize.Interval = 120000;
-            this.tmrMinimize.Tick += new System.EventHandler(this.tmrMinimize_Tick);
+            tmrMinimize.Enabled = true;
+            tmrMinimize.Interval = 120000;
+            tmrMinimize.Tick += tmrMinimize_Tick;
             // 
             // backgroundWorker1
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            backgroundWorker1.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
             // 
             // tmrRMC
             // 
-            this.tmrRMC.Tick += new System.EventHandler(this.tmrRMC_Tick);
+            tmrRMC.Tick += tmrRMC_Tick;
             // 
             // tmrDisplay
             // 
-            this.tmrDisplay.Enabled = true;
-            this.tmrDisplay.Interval = 500;
-            this.tmrDisplay.Tick += new System.EventHandler(this.tmrDisplay_Tick);
+            tmrDisplay.Enabled = true;
+            tmrDisplay.Interval = 500;
+            tmrDisplay.Tick += tmrDisplay_Tick;
             // 
             // tmrZDA
             // 
-            this.tmrZDA.Tick += new System.EventHandler(this.tmrZDA_Tick);
+            tmrZDA.Tick += tmrZDA_Tick;
             // 
             // tabControl1
             // 
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.ItemSize = new System.Drawing.Size(200, 40);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(626, 536);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl1.TabIndex = 309;
+            tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabControl1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            tabControl1.ItemSize = new System.Drawing.Size(200, 40);
+            tabControl1.Location = new System.Drawing.Point(0, 0);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new System.Drawing.Size(626, 536);
+            tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            tabControl1.TabIndex = 309;
             // 
             // tabPage1
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.Controls.Add(this.lbAge);
-            this.tabPage1.Controls.Add(this.lbElev);
-            this.tabPage1.Controls.Add(this.lbSats);
-            this.tabPage1.Controls.Add(this.lbHDOP);
-            this.tabPage1.Controls.Add(this.lbSim);
-            this.tabPage1.Controls.Add(this.btnZDA);
-            this.tabPage1.Controls.Add(this.tbZDA);
-            this.tabPage1.Controls.Add(this.btnRMC);
-            this.tabPage1.Controls.Add(this.tbRMC);
-            this.tabPage1.Controls.Add(this.btnVTG);
-            this.tabPage1.Controls.Add(this.btnGGA);
-            this.tabPage1.Controls.Add(this.tbVTG);
-            this.tabPage1.Controls.Add(this.tbGGA);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.lbQuality);
-            this.tabPage1.Controls.Add(this.lbSpeed);
-            this.tabPage1.Controls.Add(this.lbLat);
-            this.tabPage1.Controls.Add(this.lbLon);
-            this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 44);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(618, 488);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Main";
+            tabPage1.BackColor = System.Drawing.Color.Transparent;
+            tabPage1.Controls.Add(lbAge);
+            tabPage1.Controls.Add(lbElev);
+            tabPage1.Controls.Add(lbSats);
+            tabPage1.Controls.Add(lbHDOP);
+            tabPage1.Controls.Add(lbSim);
+            tabPage1.Controls.Add(btnZDA);
+            tabPage1.Controls.Add(tbZDA);
+            tabPage1.Controls.Add(btnRMC);
+            tabPage1.Controls.Add(tbRMC);
+            tabPage1.Controls.Add(btnVTG);
+            tabPage1.Controls.Add(btnGGA);
+            tabPage1.Controls.Add(tbVTG);
+            tabPage1.Controls.Add(tbGGA);
+            tabPage1.Controls.Add(groupBox1);
+            tabPage1.Controls.Add(lbQuality);
+            tabPage1.Controls.Add(lbSpeed);
+            tabPage1.Controls.Add(lbLat);
+            tabPage1.Controls.Add(lbLon);
+            tabPage1.Controls.Add(label8);
+            tabPage1.Controls.Add(label7);
+            tabPage1.Controls.Add(label6);
+            tabPage1.Controls.Add(label5);
+            tabPage1.Controls.Add(label4);
+            tabPage1.Controls.Add(label3);
+            tabPage1.Controls.Add(label2);
+            tabPage1.Controls.Add(label1);
+            tabPage1.Location = new System.Drawing.Point(4, 44);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            tabPage1.Size = new System.Drawing.Size(618, 488);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Main";
             // 
             // lbAge
             // 
-            this.lbAge.AutoSize = true;
-            this.lbAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAge.Location = new System.Drawing.Point(452, 218);
-            this.lbAge.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbAge.Name = "lbAge";
-            this.lbAge.Size = new System.Drawing.Size(126, 24);
-            this.lbAge.TabIndex = 168;
-            this.lbAge.Text = "1234567890.";
-            this.lbAge.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbAge.AutoSize = true;
+            lbAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbAge.Location = new System.Drawing.Point(452, 218);
+            lbAge.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbAge.Name = "lbAge";
+            lbAge.Size = new System.Drawing.Size(126, 24);
+            lbAge.TabIndex = 168;
+            lbAge.Text = "1234567890.";
+            lbAge.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbElev
             // 
-            this.lbElev.AutoSize = true;
-            this.lbElev.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbElev.Location = new System.Drawing.Point(452, 188);
-            this.lbElev.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbElev.Name = "lbElev";
-            this.lbElev.Size = new System.Drawing.Size(126, 24);
-            this.lbElev.TabIndex = 167;
-            this.lbElev.Text = "1234567890.";
-            this.lbElev.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbElev.AutoSize = true;
+            lbElev.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbElev.Location = new System.Drawing.Point(452, 188);
+            lbElev.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbElev.Name = "lbElev";
+            lbElev.Size = new System.Drawing.Size(126, 24);
+            lbElev.TabIndex = 167;
+            lbElev.Text = "1234567890.";
+            lbElev.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbSats
             // 
-            this.lbSats.AutoSize = true;
-            this.lbSats.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSats.Location = new System.Drawing.Point(452, 158);
-            this.lbSats.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbSats.Name = "lbSats";
-            this.lbSats.Size = new System.Drawing.Size(126, 24);
-            this.lbSats.TabIndex = 166;
-            this.lbSats.Text = "1234567890.";
-            this.lbSats.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbSats.AutoSize = true;
+            lbSats.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbSats.Location = new System.Drawing.Point(452, 158);
+            lbSats.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbSats.Name = "lbSats";
+            lbSats.Size = new System.Drawing.Size(126, 24);
+            lbSats.TabIndex = 166;
+            lbSats.Text = "1234567890.";
+            lbSats.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbHDOP
             // 
-            this.lbHDOP.AutoSize = true;
-            this.lbHDOP.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbHDOP.Location = new System.Drawing.Point(452, 128);
-            this.lbHDOP.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbHDOP.Name = "lbHDOP";
-            this.lbHDOP.Size = new System.Drawing.Size(126, 24);
-            this.lbHDOP.TabIndex = 165;
-            this.lbHDOP.Text = "1234567890.";
-            this.lbHDOP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbHDOP.AutoSize = true;
+            lbHDOP.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbHDOP.Location = new System.Drawing.Point(452, 128);
+            lbHDOP.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbHDOP.Name = "lbHDOP";
+            lbHDOP.Size = new System.Drawing.Size(126, 24);
+            lbHDOP.TabIndex = 165;
+            lbHDOP.Text = "1234567890.";
+            lbHDOP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbSim
             // 
-            this.lbSim.BackColor = System.Drawing.Color.Transparent;
-            this.lbSim.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSim.Location = new System.Drawing.Point(244, 216);
-            this.lbSim.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbSim.Name = "lbSim";
-            this.lbSim.Size = new System.Drawing.Size(102, 24);
-            this.lbSim.TabIndex = 317;
-            this.lbSim.Text = "Simulated";
-            this.lbSim.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbSim.BackColor = System.Drawing.Color.Transparent;
+            lbSim.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbSim.Location = new System.Drawing.Point(244, 216);
+            lbSim.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbSim.Name = "lbSim";
+            lbSim.Size = new System.Drawing.Size(102, 24);
+            lbSim.TabIndex = 317;
+            lbSim.Text = "Simulated";
+            lbSim.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnZDA
             // 
-            this.btnZDA.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnZDA.Location = new System.Drawing.Point(6, 431);
-            this.btnZDA.Name = "btnZDA";
-            this.btnZDA.Size = new System.Drawing.Size(75, 47);
-            this.btnZDA.TabIndex = 316;
-            this.btnZDA.Text = "ZDA";
-            this.btnZDA.UseVisualStyleBackColor = true;
-            this.btnZDA.Click += new System.EventHandler(this.btnZDA_Click);
+            btnZDA.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnZDA.Location = new System.Drawing.Point(6, 431);
+            btnZDA.Name = "btnZDA";
+            btnZDA.Size = new System.Drawing.Size(75, 47);
+            btnZDA.TabIndex = 316;
+            btnZDA.Text = "ZDA";
+            btnZDA.UseVisualStyleBackColor = true;
+            btnZDA.Click += btnZDA_Click;
             // 
             // tbZDA
             // 
-            this.tbZDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbZDA.Location = new System.Drawing.Point(93, 428);
-            this.tbZDA.Multiline = true;
-            this.tbZDA.Name = "tbZDA";
-            this.tbZDA.ReadOnly = true;
-            this.tbZDA.Size = new System.Drawing.Size(512, 52);
-            this.tbZDA.TabIndex = 315;
+            tbZDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            tbZDA.Location = new System.Drawing.Point(93, 428);
+            tbZDA.Multiline = true;
+            tbZDA.Name = "tbZDA";
+            tbZDA.ReadOnly = true;
+            tbZDA.Size = new System.Drawing.Size(512, 52);
+            tbZDA.TabIndex = 315;
             // 
             // btnRMC
             // 
-            this.btnRMC.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRMC.Location = new System.Drawing.Point(6, 373);
-            this.btnRMC.Name = "btnRMC";
-            this.btnRMC.Size = new System.Drawing.Size(75, 47);
-            this.btnRMC.TabIndex = 314;
-            this.btnRMC.Text = "RMC";
-            this.btnRMC.UseVisualStyleBackColor = true;
-            this.btnRMC.Click += new System.EventHandler(this.btnRMC_Click);
+            btnRMC.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnRMC.Location = new System.Drawing.Point(6, 373);
+            btnRMC.Name = "btnRMC";
+            btnRMC.Size = new System.Drawing.Size(75, 47);
+            btnRMC.TabIndex = 314;
+            btnRMC.Text = "RMC";
+            btnRMC.UseVisualStyleBackColor = true;
+            btnRMC.Click += btnRMC_Click;
             // 
             // tbRMC
             // 
-            this.tbRMC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbRMC.Location = new System.Drawing.Point(93, 370);
-            this.tbRMC.Multiline = true;
-            this.tbRMC.Name = "tbRMC";
-            this.tbRMC.ReadOnly = true;
-            this.tbRMC.Size = new System.Drawing.Size(512, 52);
-            this.tbRMC.TabIndex = 313;
+            tbRMC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            tbRMC.Location = new System.Drawing.Point(93, 370);
+            tbRMC.Multiline = true;
+            tbRMC.Name = "tbRMC";
+            tbRMC.ReadOnly = true;
+            tbRMC.Size = new System.Drawing.Size(512, 52);
+            tbRMC.TabIndex = 313;
             // 
             // btnVTG
             // 
-            this.btnVTG.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVTG.Location = new System.Drawing.Point(6, 315);
-            this.btnVTG.Name = "btnVTG";
-            this.btnVTG.Size = new System.Drawing.Size(75, 47);
-            this.btnVTG.TabIndex = 312;
-            this.btnVTG.Text = "VTG";
-            this.btnVTG.UseVisualStyleBackColor = true;
-            this.btnVTG.Click += new System.EventHandler(this.btnVTG_Click);
+            btnVTG.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnVTG.Location = new System.Drawing.Point(6, 315);
+            btnVTG.Name = "btnVTG";
+            btnVTG.Size = new System.Drawing.Size(75, 47);
+            btnVTG.TabIndex = 312;
+            btnVTG.Text = "VTG";
+            btnVTG.UseVisualStyleBackColor = true;
+            btnVTG.Click += btnVTG_Click;
             // 
             // btnGGA
             // 
-            this.btnGGA.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGGA.Location = new System.Drawing.Point(6, 257);
-            this.btnGGA.Name = "btnGGA";
-            this.btnGGA.Size = new System.Drawing.Size(75, 47);
-            this.btnGGA.TabIndex = 311;
-            this.btnGGA.Text = "GGA";
-            this.btnGGA.UseVisualStyleBackColor = true;
-            this.btnGGA.Click += new System.EventHandler(this.btnGGA_Click);
+            btnGGA.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnGGA.Location = new System.Drawing.Point(6, 257);
+            btnGGA.Name = "btnGGA";
+            btnGGA.Size = new System.Drawing.Size(75, 47);
+            btnGGA.TabIndex = 311;
+            btnGGA.Text = "GGA";
+            btnGGA.UseVisualStyleBackColor = true;
+            btnGGA.Click += btnGGA_Click;
             // 
             // tbVTG
             // 
-            this.tbVTG.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbVTG.Location = new System.Drawing.Point(93, 312);
-            this.tbVTG.Multiline = true;
-            this.tbVTG.Name = "tbVTG";
-            this.tbVTG.ReadOnly = true;
-            this.tbVTG.Size = new System.Drawing.Size(512, 52);
-            this.tbVTG.TabIndex = 310;
+            tbVTG.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            tbVTG.Location = new System.Drawing.Point(93, 312);
+            tbVTG.Multiline = true;
+            tbVTG.Name = "tbVTG";
+            tbVTG.ReadOnly = true;
+            tbVTG.Size = new System.Drawing.Size(512, 52);
+            tbVTG.TabIndex = 310;
             // 
             // tbGGA
             // 
-            this.tbGGA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbGGA.Location = new System.Drawing.Point(93, 254);
-            this.tbGGA.Multiline = true;
-            this.tbGGA.Name = "tbGGA";
-            this.tbGGA.ReadOnly = true;
-            this.tbGGA.Size = new System.Drawing.Size(512, 52);
-            this.tbGGA.TabIndex = 309;
+            tbGGA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            tbGGA.Location = new System.Drawing.Point(93, 254);
+            tbGGA.Multiline = true;
+            tbGGA.Name = "tbGGA";
+            tbGGA.ReadOnly = true;
+            tbGGA.Size = new System.Drawing.Size(512, 52);
+            tbGGA.TabIndex = 309;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.PortIndicator1);
-            this.groupBox1.Controls.Add(this.btnRescan);
-            this.groupBox1.Controls.Add(this.lbPort);
-            this.groupBox1.Controls.Add(this.btnConnect1);
-            this.groupBox1.Controls.Add(this.cboBaud1);
-            this.groupBox1.Controls.Add(this.cboPort1);
-            this.groupBox1.Controls.Add(this.lbBaud);
-            this.groupBox1.Location = new System.Drawing.Point(8, 13);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(597, 106);
-            this.groupBox1.TabIndex = 169;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Serial Port";
-            this.groupBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox1_Paint);
+            groupBox1.Controls.Add(PortIndicator1);
+            groupBox1.Controls.Add(btnRescan);
+            groupBox1.Controls.Add(lbPort);
+            groupBox1.Controls.Add(btnConnect1);
+            groupBox1.Controls.Add(cboBaud1);
+            groupBox1.Controls.Add(cboPort1);
+            groupBox1.Controls.Add(lbBaud);
+            groupBox1.Location = new System.Drawing.Point(8, 13);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new System.Drawing.Size(597, 106);
+            groupBox1.TabIndex = 169;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Serial Port";
+            groupBox1.Paint += groupBox1_Paint;
             // 
             // PortIndicator1
             // 
-            this.PortIndicator1.BackColor = System.Drawing.SystemColors.Control;
-            this.PortIndicator1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PortIndicator1.Image = global::GPS_Out.Properties.Resources.Off;
-            this.PortIndicator1.Location = new System.Drawing.Point(453, 54);
-            this.PortIndicator1.Name = "PortIndicator1";
-            this.PortIndicator1.Size = new System.Drawing.Size(41, 37);
-            this.PortIndicator1.TabIndex = 129;
-            this.PortIndicator1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            PortIndicator1.BackColor = System.Drawing.SystemColors.Control;
+            PortIndicator1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            PortIndicator1.Image = Properties.Resources.Off;
+            PortIndicator1.Location = new System.Drawing.Point(453, 54);
+            PortIndicator1.Name = "PortIndicator1";
+            PortIndicator1.Size = new System.Drawing.Size(41, 37);
+            PortIndicator1.TabIndex = 129;
+            PortIndicator1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnRescan
             // 
-            this.btnRescan.BackColor = System.Drawing.Color.Transparent;
-            this.btnRescan.FlatAppearance.BorderSize = 0;
-            this.btnRescan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGreen;
-            this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRescan.Image = global::GPS_Out.Properties.Resources.ScanPorts;
-            this.btnRescan.Location = new System.Drawing.Point(508, 24);
-            this.btnRescan.Name = "btnRescan";
-            this.btnRescan.Size = new System.Drawing.Size(72, 72);
-            this.btnRescan.TabIndex = 151;
-            this.btnRescan.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnRescan.UseVisualStyleBackColor = false;
-            this.btnRescan.Click += new System.EventHandler(this.btnRescan_Click);
+            btnRescan.BackColor = System.Drawing.Color.Transparent;
+            btnRescan.FlatAppearance.BorderSize = 0;
+            btnRescan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightGreen;
+            btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnRescan.Image = Properties.Resources.ScanPorts;
+            btnRescan.Location = new System.Drawing.Point(508, 24);
+            btnRescan.Name = "btnRescan";
+            btnRescan.Size = new System.Drawing.Size(72, 72);
+            btnRescan.TabIndex = 151;
+            btnRescan.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            btnRescan.UseVisualStyleBackColor = false;
+            btnRescan.Click += btnRescan_Click;
             // 
             // lbPort
             // 
-            this.lbPort.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPort.Location = new System.Drawing.Point(177, 27);
-            this.lbPort.Name = "lbPort";
-            this.lbPort.Size = new System.Drawing.Size(127, 23);
-            this.lbPort.TabIndex = 126;
-            this.lbPort.Text = "Port";
-            this.lbPort.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            lbPort.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lbPort.Location = new System.Drawing.Point(177, 27);
+            lbPort.Name = "lbPort";
+            lbPort.Size = new System.Drawing.Size(127, 23);
+            lbPort.TabIndex = 126;
+            lbPort.Text = "Port";
+            lbPort.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btnConnect1
             // 
-            this.btnConnect1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnConnect1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnConnect1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConnect1.Location = new System.Drawing.Point(16, 54);
-            this.btnConnect1.Name = "btnConnect1";
-            this.btnConnect1.Size = new System.Drawing.Size(145, 37);
-            this.btnConnect1.TabIndex = 128;
-            this.btnConnect1.Text = "Connect";
-            this.btnConnect1.UseVisualStyleBackColor = false;
-            this.btnConnect1.Click += new System.EventHandler(this.btnConnect1_Click);
+            btnConnect1.BackColor = System.Drawing.SystemColors.ControlLight;
+            btnConnect1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            btnConnect1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnConnect1.Location = new System.Drawing.Point(16, 54);
+            btnConnect1.Name = "btnConnect1";
+            btnConnect1.Size = new System.Drawing.Size(145, 37);
+            btnConnect1.TabIndex = 128;
+            btnConnect1.Text = "Connect";
+            btnConnect1.UseVisualStyleBackColor = false;
+            btnConnect1.Click += btnConnect1_Click;
             // 
             // cboBaud1
             // 
-            this.cboBaud1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.cboBaud1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboBaud1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboBaud1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cboBaud1.FormattingEnabled = true;
-            this.cboBaud1.Items.AddRange(new object[] {
-            "4800",
-            "9600",
-            "19200",
-            "38400",
-            "57600",
-            "115200"});
-            this.cboBaud1.Location = new System.Drawing.Point(323, 54);
-            this.cboBaud1.Name = "cboBaud1";
-            this.cboBaud1.Size = new System.Drawing.Size(127, 37);
-            this.cboBaud1.TabIndex = 130;
-            this.cboBaud1.SelectedIndexChanged += new System.EventHandler(this.cboBaud1_SelectedIndexChanged);
+            cboBaud1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            cboBaud1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboBaud1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboBaud1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            cboBaud1.FormattingEnabled = true;
+            cboBaud1.Items.AddRange(new object[] { "4800", "9600", "19200", "38400", "57600", "115200" });
+            cboBaud1.Location = new System.Drawing.Point(323, 54);
+            cboBaud1.Name = "cboBaud1";
+            cboBaud1.Size = new System.Drawing.Size(127, 37);
+            cboBaud1.TabIndex = 130;
+            cboBaud1.SelectedIndexChanged += cboBaud1_SelectedIndexChanged;
             // 
             // cboPort1
             // 
-            this.cboPort1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboPort1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboPort1.FormattingEnabled = true;
-            this.cboPort1.Location = new System.Drawing.Point(175, 54);
-            this.cboPort1.Name = "cboPort1";
-            this.cboPort1.Size = new System.Drawing.Size(127, 37);
-            this.cboPort1.TabIndex = 127;
-            this.cboPort1.SelectedIndexChanged += new System.EventHandler(this.cboPort1_SelectedIndexChanged);
+            cboPort1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboPort1.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboPort1.FormattingEnabled = true;
+            cboPort1.Location = new System.Drawing.Point(175, 54);
+            cboPort1.Name = "cboPort1";
+            cboPort1.Size = new System.Drawing.Size(127, 37);
+            cboPort1.TabIndex = 127;
+            cboPort1.SelectedIndexChanged += cboPort1_SelectedIndexChanged;
             // 
             // lbBaud
             // 
-            this.lbBaud.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBaud.Location = new System.Drawing.Point(327, 27);
-            this.lbBaud.Name = "lbBaud";
-            this.lbBaud.Size = new System.Drawing.Size(127, 23);
-            this.lbBaud.TabIndex = 131;
-            this.lbBaud.Text = "Baud";
-            this.lbBaud.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            lbBaud.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lbBaud.Location = new System.Drawing.Point(327, 27);
+            lbBaud.Name = "lbBaud";
+            lbBaud.Size = new System.Drawing.Size(127, 23);
+            lbBaud.TabIndex = 131;
+            lbBaud.Text = "Baud";
+            lbBaud.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // lbQuality
             // 
-            this.lbQuality.BackColor = System.Drawing.Color.Transparent;
-            this.lbQuality.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbQuality.Location = new System.Drawing.Point(120, 216);
-            this.lbQuality.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbQuality.Name = "lbQuality";
-            this.lbQuality.Size = new System.Drawing.Size(126, 24);
-            this.lbQuality.TabIndex = 164;
-            this.lbQuality.Text = "RTK Fix";
-            this.lbQuality.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbQuality.BackColor = System.Drawing.Color.Transparent;
+            lbQuality.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbQuality.Location = new System.Drawing.Point(120, 216);
+            lbQuality.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbQuality.Name = "lbQuality";
+            lbQuality.Size = new System.Drawing.Size(126, 24);
+            lbQuality.TabIndex = 164;
+            lbQuality.Text = "RTK Fix";
+            lbQuality.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbSpeed
             // 
-            this.lbSpeed.AutoSize = true;
-            this.lbSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSpeed.Location = new System.Drawing.Point(119, 188);
-            this.lbSpeed.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbSpeed.Name = "lbSpeed";
-            this.lbSpeed.Size = new System.Drawing.Size(126, 24);
-            this.lbSpeed.TabIndex = 163;
-            this.lbSpeed.Text = "1234567890.";
-            this.lbSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbSpeed.AutoSize = true;
+            lbSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbSpeed.Location = new System.Drawing.Point(119, 188);
+            lbSpeed.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbSpeed.Name = "lbSpeed";
+            lbSpeed.Size = new System.Drawing.Size(126, 24);
+            lbSpeed.TabIndex = 163;
+            lbSpeed.Text = "1234567890.";
+            lbSpeed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbLat
             // 
-            this.lbLat.AutoSize = true;
-            this.lbLat.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLat.Location = new System.Drawing.Point(119, 128);
-            this.lbLat.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbLat.Name = "lbLat";
-            this.lbLat.Size = new System.Drawing.Size(126, 24);
-            this.lbLat.TabIndex = 162;
-            this.lbLat.Text = "1234567890.";
-            this.lbLat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbLat.AutoSize = true;
+            lbLat.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbLat.Location = new System.Drawing.Point(119, 128);
+            lbLat.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbLat.Name = "lbLat";
+            lbLat.Size = new System.Drawing.Size(126, 24);
+            lbLat.TabIndex = 162;
+            lbLat.Text = "1234567890.";
+            lbLat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbLon
             // 
-            this.lbLon.AutoSize = true;
-            this.lbLon.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLon.Location = new System.Drawing.Point(119, 158);
-            this.lbLon.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lbLon.Name = "lbLon";
-            this.lbLon.Size = new System.Drawing.Size(126, 24);
-            this.lbLon.TabIndex = 161;
-            this.lbLon.Text = "1234567890.";
-            this.lbLon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lbLon.AutoSize = true;
+            lbLon.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbLon.Location = new System.Drawing.Point(119, 158);
+            lbLon.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            lbLon.Name = "lbLon";
+            lbLon.Size = new System.Drawing.Size(126, 24);
+            lbLon.TabIndex = 161;
+            lbLon.Text = "1234567890.";
+            lbLon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
             // 
-            this.label8.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(391, 216);
-            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 24);
-            this.label8.TabIndex = 160;
-            this.label8.Text = "Age:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label8.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label8.Location = new System.Drawing.Point(391, 216);
+            label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label8.Name = "label8";
+            label8.Size = new System.Drawing.Size(67, 24);
+            label8.TabIndex = 160;
+            label8.Text = "Age:";
+            label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label7
             // 
-            this.label7.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(350, 186);
-            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(108, 24);
-            this.label7.TabIndex = 159;
-            this.label7.Text = "Elevation:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label7.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label7.Location = new System.Drawing.Point(350, 186);
+            label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(108, 24);
+            label7.TabIndex = 159;
+            label7.Text = "Elevation:";
+            label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label6
             // 
-            this.label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(391, 156);
-            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 24);
-            this.label6.TabIndex = 158;
-            this.label6.Text = "Sats:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label6.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label6.Location = new System.Drawing.Point(391, 156);
+            label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(67, 24);
+            label6.TabIndex = 158;
+            label6.Text = "Sats:";
+            label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label5
             // 
-            this.label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(372, 126);
-            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 24);
-            this.label5.TabIndex = 157;
-            this.label5.Text = "HDOP:";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label5.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label5.Location = new System.Drawing.Point(372, 126);
+            label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(86, 24);
+            label5.TabIndex = 157;
+            label5.Text = "HDOP:";
+            label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
             // 
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(8, 216);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 24);
-            this.label4.TabIndex = 156;
-            this.label4.Text = "Quality:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label4.BackColor = System.Drawing.Color.Transparent;
+            label4.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label4.Location = new System.Drawing.Point(8, 216);
+            label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(119, 24);
+            label4.TabIndex = 156;
+            label4.Text = "Quality:";
+            label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label3
             // 
-            this.label3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 186);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 24);
-            this.label3.TabIndex = 155;
-            this.label3.Text = "Speed:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label3.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label3.Location = new System.Drawing.Point(8, 186);
+            label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(119, 24);
+            label3.TabIndex = 155;
+            label3.Text = "Speed:";
+            label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 126);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(119, 24);
-            this.label2.TabIndex = 154;
-            this.label2.Text = "Latitude:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label2.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label2.Location = new System.Drawing.Point(8, 126);
+            label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(119, 24);
+            label2.TabIndex = 154;
+            label2.Text = "Latitude:";
+            label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 156);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 24);
-            this.label1.TabIndex = 153;
-            this.label1.Text = "Longitude:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            label1.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label1.Location = new System.Drawing.Point(8, 156);
+            label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(119, 24);
+            label1.TabIndex = 153;
+            label1.Text = "Longitude:";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.Gainsboro;
-            this.tabPage2.Controls.Add(this.cboPrecision);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.ckSimulate);
-            this.tabPage2.Controls.Add(this.rbGP);
-            this.tabPage2.Controls.Add(this.rbGN);
-            this.tabPage2.Controls.Add(this.ckGSA);
-            this.tabPage2.Controls.Add(this.ckRoll);
-            this.tabPage2.Controls.Add(this.ckAutoConnect);
-            this.tabPage2.Controls.Add(this.ckAutoHide);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 44);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(618, 488);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Options";
+            tabPage2.BackColor = System.Drawing.Color.Gainsboro;
+            tabPage2.Controls.Add(cboPrecision);
+            tabPage2.Controls.Add(label12);
+            tabPage2.Controls.Add(ckSimulate);
+            tabPage2.Controls.Add(rbGP);
+            tabPage2.Controls.Add(rbGN);
+            tabPage2.Controls.Add(ckGSA);
+            tabPage2.Controls.Add(ckRoll);
+            tabPage2.Controls.Add(ckAutoConnect);
+            tabPage2.Controls.Add(ckAutoHide);
+            tabPage2.Controls.Add(groupBox2);
+            tabPage2.Location = new System.Drawing.Point(4, 44);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            tabPage2.Size = new System.Drawing.Size(618, 488);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Options";
             // 
             // cboPrecision
             // 
-            this.cboPrecision.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboPrecision.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboPrecision.FormattingEnabled = true;
-            this.cboPrecision.Items.AddRange(new object[] {
-            "4",
-            "5",
-            "6",
-            "7"});
-            this.cboPrecision.Location = new System.Drawing.Point(481, 425);
-            this.cboPrecision.Name = "cboPrecision";
-            this.cboPrecision.Size = new System.Drawing.Size(71, 47);
-            this.cboPrecision.TabIndex = 317;
-            this.cboPrecision.SelectedIndexChanged += new System.EventHandler(this.cbPrecision_SelectedIndexChanged);
+            cboPrecision.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboPrecision.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboPrecision.FormattingEnabled = true;
+            cboPrecision.Items.AddRange(new object[] { "4", "5", "6", "7" });
+            cboPrecision.Location = new System.Drawing.Point(481, 425);
+            cboPrecision.Name = "cboPrecision";
+            cboPrecision.Size = new System.Drawing.Size(71, 47);
+            cboPrecision.TabIndex = 317;
+            cboPrecision.SelectedIndexChanged += cbPrecision_SelectedIndexChanged;
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(367, 418);
-            this.label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(105, 61);
-            this.label12.TabIndex = 316;
-            this.label12.Text = "Decimal Precision";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label12.Location = new System.Drawing.Point(367, 418);
+            label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label12.Name = "label12";
+            label12.Size = new System.Drawing.Size(105, 61);
+            label12.TabIndex = 316;
+            label12.Text = "Decimal Precision";
+            label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ckSimulate
             // 
-            this.ckSimulate.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ckSimulate.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ckSimulate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckSimulate.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckSimulate.Location = new System.Drawing.Point(97, 418);
-            this.ckSimulate.Name = "ckSimulate";
-            this.ckSimulate.Size = new System.Drawing.Size(182, 61);
-            this.ckSimulate.TabIndex = 315;
-            this.ckSimulate.Text = "Simulate Data";
-            this.ckSimulate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckSimulate.UseVisualStyleBackColor = true;
-            this.ckSimulate.CheckedChanged += new System.EventHandler(this.ckSimulate_CheckedChanged);
+            ckSimulate.Appearance = System.Windows.Forms.Appearance.Button;
+            ckSimulate.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+            ckSimulate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ckSimulate.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            ckSimulate.Location = new System.Drawing.Point(97, 418);
+            ckSimulate.Name = "ckSimulate";
+            ckSimulate.Size = new System.Drawing.Size(182, 61);
+            ckSimulate.TabIndex = 315;
+            ckSimulate.Text = "Simulate Data";
+            ckSimulate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            ckSimulate.UseVisualStyleBackColor = true;
+            ckSimulate.CheckedChanged += ckSimulate_CheckedChanged;
             // 
             // rbGP
             // 
-            this.rbGP.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbGP.Checked = true;
-            this.rbGP.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbGP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbGP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbGP.Location = new System.Drawing.Point(97, 264);
-            this.rbGP.Name = "rbGP";
-            this.rbGP.Size = new System.Drawing.Size(182, 61);
-            this.rbGP.TabIndex = 314;
-            this.rbGP.TabStop = true;
-            this.rbGP.Text = "Send $GP---";
-            this.rbGP.UseVisualStyleBackColor = true;
-            this.rbGP.CheckedChanged += new System.EventHandler(this.rbGP_CheckedChanged);
+            rbGP.Appearance = System.Windows.Forms.Appearance.Button;
+            rbGP.Checked = true;
+            rbGP.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+            rbGP.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            rbGP.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            rbGP.Location = new System.Drawing.Point(97, 264);
+            rbGP.Name = "rbGP";
+            rbGP.Size = new System.Drawing.Size(182, 61);
+            rbGP.TabIndex = 314;
+            rbGP.TabStop = true;
+            rbGP.Text = "Send $GP---";
+            rbGP.UseVisualStyleBackColor = true;
+            rbGP.CheckedChanged += rbGP_CheckedChanged;
             // 
             // rbGN
             // 
-            this.rbGN.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbGN.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.rbGN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbGN.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbGN.Location = new System.Drawing.Point(370, 264);
-            this.rbGN.Name = "rbGN";
-            this.rbGN.Size = new System.Drawing.Size(182, 61);
-            this.rbGN.TabIndex = 313;
-            this.rbGN.Text = "Send $GN---";
-            this.rbGN.UseVisualStyleBackColor = true;
+            rbGN.Appearance = System.Windows.Forms.Appearance.Button;
+            rbGN.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+            rbGN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            rbGN.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            rbGN.Location = new System.Drawing.Point(370, 264);
+            rbGN.Name = "rbGN";
+            rbGN.Size = new System.Drawing.Size(182, 61);
+            rbGN.TabIndex = 313;
+            rbGN.Text = "Send $GN---";
+            rbGN.UseVisualStyleBackColor = true;
             // 
             // ckGSA
             // 
-            this.ckGSA.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ckGSA.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ckGSA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckGSA.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckGSA.Location = new System.Drawing.Point(370, 341);
-            this.ckGSA.Name = "ckGSA";
-            this.ckGSA.Size = new System.Drawing.Size(182, 61);
-            this.ckGSA.TabIndex = 312;
-            this.ckGSA.Text = "Send empty GSA";
-            this.ckGSA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckGSA.UseVisualStyleBackColor = true;
-            this.ckGSA.CheckedChanged += new System.EventHandler(this.ckGSA_CheckedChanged);
+            ckGSA.Appearance = System.Windows.Forms.Appearance.Button;
+            ckGSA.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+            ckGSA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ckGSA.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            ckGSA.Location = new System.Drawing.Point(370, 341);
+            ckGSA.Name = "ckGSA";
+            ckGSA.Size = new System.Drawing.Size(182, 61);
+            ckGSA.TabIndex = 312;
+            ckGSA.Text = "Send empty GSA";
+            ckGSA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            ckGSA.UseVisualStyleBackColor = true;
+            ckGSA.CheckedChanged += ckGSA_CheckedChanged;
             // 
             // ckRoll
             // 
-            this.ckRoll.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ckRoll.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ckRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckRoll.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckRoll.Location = new System.Drawing.Point(97, 341);
-            this.ckRoll.Name = "ckRoll";
-            this.ckRoll.Size = new System.Drawing.Size(182, 61);
-            this.ckRoll.TabIndex = 311;
-            this.ckRoll.Text = "Roll Corrected";
-            this.ckRoll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckRoll.UseVisualStyleBackColor = true;
-            this.ckRoll.CheckedChanged += new System.EventHandler(this.ckRoll_CheckedChanged);
+            ckRoll.Appearance = System.Windows.Forms.Appearance.Button;
+            ckRoll.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+            ckRoll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ckRoll.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            ckRoll.Location = new System.Drawing.Point(97, 341);
+            ckRoll.Name = "ckRoll";
+            ckRoll.Size = new System.Drawing.Size(182, 61);
+            ckRoll.TabIndex = 311;
+            ckRoll.Text = "Roll Corrected";
+            ckRoll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            ckRoll.UseVisualStyleBackColor = true;
+            ckRoll.CheckedChanged += ckRoll_CheckedChanged;
             // 
             // ckAutoConnect
             // 
-            this.ckAutoConnect.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ckAutoConnect.Checked = true;
-            this.ckAutoConnect.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckAutoConnect.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ckAutoConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckAutoConnect.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckAutoConnect.Location = new System.Drawing.Point(97, 187);
-            this.ckAutoConnect.Name = "ckAutoConnect";
-            this.ckAutoConnect.Size = new System.Drawing.Size(182, 61);
-            this.ckAutoConnect.TabIndex = 306;
-            this.ckAutoConnect.Text = "Auto Connect";
-            this.ckAutoConnect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckAutoConnect.UseVisualStyleBackColor = true;
-            this.ckAutoConnect.CheckedChanged += new System.EventHandler(this.ckAutoConnect_CheckedChanged);
+            ckAutoConnect.Appearance = System.Windows.Forms.Appearance.Button;
+            ckAutoConnect.Checked = true;
+            ckAutoConnect.CheckState = System.Windows.Forms.CheckState.Checked;
+            ckAutoConnect.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+            ckAutoConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ckAutoConnect.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            ckAutoConnect.Location = new System.Drawing.Point(97, 187);
+            ckAutoConnect.Name = "ckAutoConnect";
+            ckAutoConnect.Size = new System.Drawing.Size(182, 61);
+            ckAutoConnect.TabIndex = 306;
+            ckAutoConnect.Text = "Auto Connect";
+            ckAutoConnect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            ckAutoConnect.UseVisualStyleBackColor = true;
+            ckAutoConnect.CheckedChanged += ckAutoConnect_CheckedChanged;
             // 
             // ckAutoHide
             // 
-            this.ckAutoHide.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ckAutoHide.Checked = true;
-            this.ckAutoHide.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckAutoHide.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ckAutoHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ckAutoHide.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckAutoHide.Location = new System.Drawing.Point(370, 187);
-            this.ckAutoHide.Name = "ckAutoHide";
-            this.ckAutoHide.Size = new System.Drawing.Size(182, 61);
-            this.ckAutoHide.TabIndex = 305;
-            this.ckAutoHide.Text = "Auto Hide";
-            this.ckAutoHide.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ckAutoHide.UseVisualStyleBackColor = true;
-            this.ckAutoHide.CheckedChanged += new System.EventHandler(this.ckAutoHide_CheckedChanged);
+            ckAutoHide.Appearance = System.Windows.Forms.Appearance.Button;
+            ckAutoHide.Checked = true;
+            ckAutoHide.CheckState = System.Windows.Forms.CheckState.Checked;
+            ckAutoHide.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(192, 255, 192);
+            ckAutoHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            ckAutoHide.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            ckAutoHide.Location = new System.Drawing.Point(370, 187);
+            ckAutoHide.Name = "ckAutoHide";
+            ckAutoHide.Size = new System.Drawing.Size(182, 61);
+            ckAutoHide.TabIndex = 305;
+            ckAutoHide.Text = "Auto Hide";
+            ckAutoHide.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            ckAutoHide.UseVisualStyleBackColor = true;
+            ckAutoHide.CheckedChanged += ckAutoHide_CheckedChanged;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.cboZDA);
-            this.groupBox2.Controls.Add(this.label20);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.cboRMC);
-            this.groupBox2.Controls.Add(this.label18);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.cboVTG);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.cboGGA);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(97, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(455, 175);
-            this.groupBox2.TabIndex = 155;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Transfer Rate";
-            this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox1_Paint);
+            groupBox2.Controls.Add(label19);
+            groupBox2.Controls.Add(cboZDA);
+            groupBox2.Controls.Add(label20);
+            groupBox2.Controls.Add(label17);
+            groupBox2.Controls.Add(cboRMC);
+            groupBox2.Controls.Add(label18);
+            groupBox2.Controls.Add(label16);
+            groupBox2.Controls.Add(cboVTG);
+            groupBox2.Controls.Add(label11);
+            groupBox2.Controls.Add(cboGGA);
+            groupBox2.Controls.Add(label10);
+            groupBox2.Controls.Add(label9);
+            groupBox2.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            groupBox2.Location = new System.Drawing.Point(97, 6);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new System.Drawing.Size(455, 175);
+            groupBox2.TabIndex = 155;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Transfer Rate";
+            groupBox2.Paint += groupBox1_Paint;
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(392, 122);
-            this.label19.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(39, 25);
-            this.label19.TabIndex = 164;
-            this.label19.Text = "Hz";
+            label19.AutoSize = true;
+            label19.Location = new System.Drawing.Point(392, 122);
+            label19.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label19.Name = "label19";
+            label19.Size = new System.Drawing.Size(39, 25);
+            label19.TabIndex = 164;
+            label19.Text = "Hz";
             // 
             // cboZDA
             // 
-            this.cboZDA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboZDA.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboZDA.FormattingEnabled = true;
-            this.cboZDA.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "5",
-            "10"});
-            this.cboZDA.Location = new System.Drawing.Point(317, 111);
-            this.cboZDA.Name = "cboZDA";
-            this.cboZDA.Size = new System.Drawing.Size(71, 47);
-            this.cboZDA.TabIndex = 163;
-            this.cboZDA.SelectedIndexChanged += new System.EventHandler(this.cboZDA_SelectedIndexChanged);
+            cboZDA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboZDA.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboZDA.FormattingEnabled = true;
+            cboZDA.Items.AddRange(new object[] { "0", "1", "5", "10" });
+            cboZDA.Location = new System.Drawing.Point(317, 111);
+            cboZDA.Name = "cboZDA";
+            cboZDA.Size = new System.Drawing.Size(71, 47);
+            cboZDA.TabIndex = 163;
+            cboZDA.SelectedIndexChanged += cboZDA_SelectedIndexChanged;
             // 
             // label20
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(259, 122);
-            this.label20.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(55, 25);
-            this.label20.TabIndex = 162;
-            this.label20.Text = "ZDA";
+            label20.AutoSize = true;
+            label20.Location = new System.Drawing.Point(259, 122);
+            label20.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label20.Name = "label20";
+            label20.Size = new System.Drawing.Size(55, 25);
+            label20.TabIndex = 162;
+            label20.Text = "ZDA";
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(392, 50);
-            this.label17.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(39, 25);
-            this.label17.TabIndex = 161;
-            this.label17.Text = "Hz";
+            label17.AutoSize = true;
+            label17.Location = new System.Drawing.Point(392, 50);
+            label17.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label17.Name = "label17";
+            label17.Size = new System.Drawing.Size(39, 25);
+            label17.TabIndex = 161;
+            label17.Text = "Hz";
             // 
             // cboRMC
             // 
-            this.cboRMC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboRMC.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboRMC.FormattingEnabled = true;
-            this.cboRMC.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "5",
-            "10"});
-            this.cboRMC.Location = new System.Drawing.Point(317, 39);
-            this.cboRMC.Name = "cboRMC";
-            this.cboRMC.Size = new System.Drawing.Size(71, 47);
-            this.cboRMC.TabIndex = 160;
-            this.cboRMC.SelectedIndexChanged += new System.EventHandler(this.cboRMC_SelectedIndexChanged);
+            cboRMC.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboRMC.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboRMC.FormattingEnabled = true;
+            cboRMC.Items.AddRange(new object[] { "0", "1", "5", "10" });
+            cboRMC.Location = new System.Drawing.Point(317, 39);
+            cboRMC.Name = "cboRMC";
+            cboRMC.Size = new System.Drawing.Size(71, 47);
+            cboRMC.TabIndex = 160;
+            cboRMC.SelectedIndexChanged += cboRMC_SelectedIndexChanged;
             // 
             // label18
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(254, 50);
-            this.label18.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(60, 25);
-            this.label18.TabIndex = 159;
-            this.label18.Text = "RMC";
+            label18.AutoSize = true;
+            label18.Location = new System.Drawing.Point(254, 50);
+            label18.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label18.Name = "label18";
+            label18.Size = new System.Drawing.Size(60, 25);
+            label18.TabIndex = 159;
+            label18.Text = "RMC";
             // 
             // label16
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(150, 122);
-            this.label16.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(39, 25);
-            this.label16.TabIndex = 158;
-            this.label16.Text = "Hz";
+            label16.AutoSize = true;
+            label16.Location = new System.Drawing.Point(150, 122);
+            label16.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label16.Name = "label16";
+            label16.Size = new System.Drawing.Size(39, 25);
+            label16.TabIndex = 158;
+            label16.Text = "Hz";
             // 
             // cboVTG
             // 
-            this.cboVTG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboVTG.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboVTG.FormattingEnabled = true;
-            this.cboVTG.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "5",
-            "10"});
-            this.cboVTG.Location = new System.Drawing.Point(75, 111);
-            this.cboVTG.Name = "cboVTG";
-            this.cboVTG.Size = new System.Drawing.Size(71, 47);
-            this.cboVTG.TabIndex = 157;
-            this.cboVTG.SelectedIndexChanged += new System.EventHandler(this.cboVTG_SelectedIndexChanged);
+            cboVTG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboVTG.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboVTG.FormattingEnabled = true;
+            cboVTG.Items.AddRange(new object[] { "0", "1", "5", "10" });
+            cboVTG.Location = new System.Drawing.Point(75, 111);
+            cboVTG.Name = "cboVTG";
+            cboVTG.Size = new System.Drawing.Size(71, 47);
+            cboVTG.TabIndex = 157;
+            cboVTG.SelectedIndexChanged += cboVTG_SelectedIndexChanged;
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(150, 50);
-            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(39, 25);
-            this.label11.TabIndex = 156;
-            this.label11.Text = "Hz";
+            label11.AutoSize = true;
+            label11.Location = new System.Drawing.Point(150, 50);
+            label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label11.Name = "label11";
+            label11.Size = new System.Drawing.Size(39, 25);
+            label11.TabIndex = 156;
+            label11.Text = "Hz";
             // 
             // cboGGA
             // 
-            this.cboGGA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboGGA.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboGGA.FormattingEnabled = true;
-            this.cboGGA.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "5",
-            "10"});
-            this.cboGGA.Location = new System.Drawing.Point(75, 39);
-            this.cboGGA.Name = "cboGGA";
-            this.cboGGA.Size = new System.Drawing.Size(71, 47);
-            this.cboGGA.TabIndex = 155;
-            this.cboGGA.SelectedIndexChanged += new System.EventHandler(this.cboGGA_SelectedIndexChanged);
+            cboGGA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboGGA.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            cboGGA.FormattingEnabled = true;
+            cboGGA.Items.AddRange(new object[] { "0", "1", "5", "10" });
+            cboGGA.Location = new System.Drawing.Point(75, 39);
+            cboGGA.Name = "cboGGA";
+            cboGGA.Size = new System.Drawing.Size(71, 47);
+            cboGGA.TabIndex = 155;
+            cboGGA.SelectedIndexChanged += cboGGA_SelectedIndexChanged;
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 122);
-            this.label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(55, 25);
-            this.label10.TabIndex = 154;
-            this.label10.Text = "VTG";
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(15, 122);
+            label10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(55, 25);
+            label10.TabIndex = 154;
+            label10.Text = "VTG";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 50);
-            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(58, 25);
-            this.label9.TabIndex = 153;
-            this.label9.Text = "GGA";
+            label9.AutoSize = true;
+            label9.Location = new System.Drawing.Point(12, 50);
+            label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            label9.Name = "label9";
+            label9.Size = new System.Drawing.Size(58, 25);
+            label9.TabIndex = 153;
+            label9.Text = "GGA";
             // 
             // tmrGSA
             // 
-            this.tmrGSA.Interval = 1000;
-            this.tmrGSA.Tick += new System.EventHandler(this.tmrGSA_Tick);
+            tmrGSA.Interval = 1000;
+            tmrGSA.Tick += tmrGSA_Tick;
             // 
-            // frmStart
+            // FrmStart
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(626, 536);
-            this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6);
-            this.MaximizeBox = false;
-            this.Name = "frmStart";
-            this.Text = "GPS_Out";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmStart_FormClosed);
-            this.Load += new System.EventHandler(this.frmStart_Load);
-            this.Resize += new System.EventHandler(this.frmStart_Resize);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.Control;
+            ClientSize = new System.Drawing.Size(626, 536);
+            Controls.Add(tabControl1);
+            Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(6);
+            MaximizeBox = false;
+            Name = "FrmStart";
+            Text = "GPS_Out";
+            FormClosed += frmStart_FormClosed;
+            Load += frmStart_Load;
+            Resize += frmStart_Resize;
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ResumeLayout(false);
 
         }
 

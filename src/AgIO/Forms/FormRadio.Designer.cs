@@ -29,382 +29,389 @@ namespace AgIO
         /// </summary>
         private void InitializeComponent()
         {
-            this.cboxRadioPort = new System.Windows.Forms.ComboBox();
-            this.lblCurrentPort = new System.Windows.Forms.Label();
-            this.cboxBaud = new System.Windows.Forms.ComboBox();
-            this.lblCurrentBaud = new System.Windows.Forms.Label();
-            this.lvChannels = new System.Windows.Forms.ListView();
-            this.columnHeaderId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderFreq = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tbCommand = new System.Windows.Forms.TextBox();
-            this.lblCommand = new System.Windows.Forms.Label();
-            this.tbResponse = new System.Windows.Forms.TextBox();
-            this.lbResponse = new System.Windows.Forms.Label();
-            this.cboxIsRadioOn = new System.Windows.Forms.CheckBox();
-            this.btnEditChannel = new System.Windows.Forms.Button();
-            this.btnDeleteChannel = new System.Windows.Forms.Button();
-            this.btnSetChannel = new System.Windows.Forms.Button();
-            this.btnRescan = new System.Windows.Forms.Button();
-            this.btnCloseSerial = new System.Windows.Forms.Button();
-            this.btnOpenSerial = new System.Windows.Forms.Button();
-            this.btnRadioCancel = new System.Windows.Forms.Button();
-            this.btnRadioOK = new System.Windows.Forms.Button();
-            this.btnSendCommand = new System.Windows.Forms.Button();
-            this.btnAddChannel = new System.Windows.Forms.Button();
-            this.labelChannels = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            cboxRadioPort = new System.Windows.Forms.ComboBox();
+            lblCurrentPort = new System.Windows.Forms.Label();
+            cboxBaud = new System.Windows.Forms.ComboBox();
+            lblCurrentBaud = new System.Windows.Forms.Label();
+            lvChannels = new System.Windows.Forms.ListView();
+            columnHeaderId = new System.Windows.Forms.ColumnHeader();
+            columnHeaderName = new System.Windows.Forms.ColumnHeader();
+            columnHeaderFreq = new System.Windows.Forms.ColumnHeader();
+            columnHeaderDist = new System.Windows.Forms.ColumnHeader();
+            tbCommand = new System.Windows.Forms.TextBox();
+            lblCommand = new System.Windows.Forms.Label();
+            tbResponse = new System.Windows.Forms.TextBox();
+            lbResponse = new System.Windows.Forms.Label();
+            cboxIsRadioOn = new System.Windows.Forms.CheckBox();
+            btnEditChannel = new System.Windows.Forms.Button();
+            btnDeleteChannel = new System.Windows.Forms.Button();
+            btnSetChannel = new System.Windows.Forms.Button();
+            btnRescan = new System.Windows.Forms.Button();
+            btnCloseSerial = new System.Windows.Forms.Button();
+            btnOpenSerial = new System.Windows.Forms.Button();
+            btnRadioCancel = new System.Windows.Forms.Button();
+            btnRadioOK = new System.Windows.Forms.Button();
+            btnSendCommand = new System.Windows.Forms.Button();
+            btnAddChannel = new System.Windows.Forms.Button();
+            labelChannels = new System.Windows.Forms.Label();
+            SuspendLayout();
             // 
             // cboxRadioPort
             // 
-            this.cboxRadioPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxRadioPort.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.cboxRadioPort.FormattingEnabled = true;
-            this.cboxRadioPort.Location = new System.Drawing.Point(63, 38);
-            this.cboxRadioPort.Name = "cboxRadioPort";
-            this.cboxRadioPort.Size = new System.Drawing.Size(124, 37);
-            this.cboxRadioPort.TabIndex = 98;
+            cboxRadioPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboxRadioPort.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            cboxRadioPort.FormattingEnabled = true;
+            cboxRadioPort.Location = new System.Drawing.Point(74, 44);
+            cboxRadioPort.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboxRadioPort.Name = "cboxRadioPort";
+            cboxRadioPort.Size = new System.Drawing.Size(144, 37);
+            cboxRadioPort.TabIndex = 98;
             // 
             // lblCurrentPort
             // 
-            this.lblCurrentPort.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentPort.Location = new System.Drawing.Point(70, 17);
-            this.lblCurrentPort.Name = "lblCurrentPort";
-            this.lblCurrentPort.Size = new System.Drawing.Size(119, 18);
-            this.lblCurrentPort.TabIndex = 99;
-            this.lblCurrentPort.Text = "Port";
-            this.lblCurrentPort.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.lblCurrentPort.UseCompatibleTextRendering = true;
+            lblCurrentPort.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblCurrentPort.Location = new System.Drawing.Point(82, 20);
+            lblCurrentPort.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCurrentPort.Name = "lblCurrentPort";
+            lblCurrentPort.Size = new System.Drawing.Size(139, 21);
+            lblCurrentPort.TabIndex = 99;
+            lblCurrentPort.Text = "Port";
+            lblCurrentPort.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            lblCurrentPort.UseCompatibleTextRendering = true;
             // 
             // cboxBaud
             // 
-            this.cboxBaud.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.cboxBaud.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxBaud.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.cboxBaud.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.cboxBaud.FormattingEnabled = true;
-            this.cboxBaud.Items.AddRange(new object[] {
-            "4800",
-            "9600",
-            "19200",
-            "38400",
-            "57600",
-            "115200",
-            "128000",
-            "256000"});
-            this.cboxBaud.Location = new System.Drawing.Point(218, 38);
-            this.cboxBaud.Name = "cboxBaud";
-            this.cboxBaud.Size = new System.Drawing.Size(127, 37);
-            this.cboxBaud.TabIndex = 101;
+            cboxBaud.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            cboxBaud.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboxBaud.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            cboxBaud.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            cboxBaud.FormattingEnabled = true;
+            cboxBaud.Items.AddRange(new object[] { "4800", "9600", "19200", "38400", "57600", "115200", "128000", "256000" });
+            cboxBaud.Location = new System.Drawing.Point(254, 44);
+            cboxBaud.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboxBaud.Name = "cboxBaud";
+            cboxBaud.Size = new System.Drawing.Size(148, 37);
+            cboxBaud.TabIndex = 101;
             // 
             // lblCurrentBaud
             // 
-            this.lblCurrentBaud.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentBaud.Location = new System.Drawing.Point(218, 17);
-            this.lblCurrentBaud.Name = "lblCurrentBaud";
-            this.lblCurrentBaud.Size = new System.Drawing.Size(127, 18);
-            this.lblCurrentBaud.TabIndex = 100;
-            this.lblCurrentBaud.Text = "Baud";
-            this.lblCurrentBaud.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            lblCurrentBaud.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblCurrentBaud.Location = new System.Drawing.Point(254, 20);
+            lblCurrentBaud.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCurrentBaud.Name = "lblCurrentBaud";
+            lblCurrentBaud.Size = new System.Drawing.Size(148, 21);
+            lblCurrentBaud.TabIndex = 100;
+            lblCurrentBaud.Text = "Baud";
+            lblCurrentBaud.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lvChannels
             // 
-            this.lvChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvChannels.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.lvChannels.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderId,
-            this.columnHeaderName,
-            this.columnHeaderFreq,
-            this.columnHeaderDist});
-            this.lvChannels.Font = new System.Drawing.Font("Tahoma", 21.75F);
-            this.lvChannels.FullRowSelect = true;
-            this.lvChannels.GridLines = true;
-            this.lvChannels.HideSelection = false;
-            this.lvChannels.Location = new System.Drawing.Point(12, 105);
-            this.lvChannels.MultiSelect = false;
-            this.lvChannels.Name = "lvChannels";
-            this.lvChannels.Size = new System.Drawing.Size(685, 326);
-            this.lvChannels.TabIndex = 104;
-            this.lvChannels.UseCompatibleStateImageBehavior = false;
-            this.lvChannels.View = System.Windows.Forms.View.Details;
+            lvChannels.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            lvChannels.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            lvChannels.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeaderId, columnHeaderName, columnHeaderFreq, columnHeaderDist });
+            lvChannels.Font = new System.Drawing.Font("Tahoma", 21.75F);
+            lvChannels.FullRowSelect = true;
+            lvChannels.GridLines = true;
+            lvChannels.Location = new System.Drawing.Point(14, 121);
+            lvChannels.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            lvChannels.MultiSelect = false;
+            lvChannels.Name = "lvChannels";
+            lvChannels.Size = new System.Drawing.Size(798, 376);
+            lvChannels.TabIndex = 104;
+            lvChannels.UseCompatibleStateImageBehavior = false;
+            lvChannels.View = System.Windows.Forms.View.Details;
             // 
             // columnHeaderId
             // 
-            this.columnHeaderId.Text = "Id";
+            columnHeaderId.Text = "Id";
             // 
             // columnHeaderName
             // 
-            this.columnHeaderName.Text = "Name";
-            this.columnHeaderName.Width = 189;
+            columnHeaderName.Text = "Name";
+            columnHeaderName.Width = 189;
             // 
             // columnHeaderFreq
             // 
-            this.columnHeaderFreq.Text = "Frequency";
-            this.columnHeaderFreq.Width = 220;
+            columnHeaderFreq.Text = "Frequency";
+            columnHeaderFreq.Width = 220;
             // 
             // columnHeaderDist
             // 
-            this.columnHeaderDist.Text = "Distance";
-            this.columnHeaderDist.Width = 133;
+            columnHeaderDist.Text = "Distance";
+            columnHeaderDist.Width = 133;
             // 
             // tbCommand
             // 
-            this.tbCommand.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.tbCommand.Location = new System.Drawing.Point(12, 468);
-            this.tbCommand.Name = "tbCommand";
-            this.tbCommand.Size = new System.Drawing.Size(598, 30);
-            this.tbCommand.TabIndex = 107;
-            this.tbCommand.Click += new System.EventHandler(this.tbox_Click);
+            tbCommand.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
+            tbCommand.Location = new System.Drawing.Point(14, 540);
+            tbCommand.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbCommand.Name = "tbCommand";
+            tbCommand.Size = new System.Drawing.Size(697, 30);
+            tbCommand.TabIndex = 107;
+            tbCommand.Click += tbox_Click;
             // 
             // lblCommand
             // 
-            this.lblCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblCommand.AutoSize = true;
-            this.lblCommand.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCommand.Location = new System.Drawing.Point(11, 447);
-            this.lblCommand.Name = "lblCommand";
-            this.lblCommand.Size = new System.Drawing.Size(80, 18);
-            this.lblCommand.TabIndex = 108;
-            this.lblCommand.Text = "Command";
+            lblCommand.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            lblCommand.AutoSize = true;
+            lblCommand.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblCommand.Location = new System.Drawing.Point(13, 516);
+            lblCommand.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCommand.Name = "lblCommand";
+            lblCommand.Size = new System.Drawing.Size(80, 18);
+            lblCommand.TabIndex = 108;
+            lblCommand.Text = "Command";
             // 
             // tbResponse
             // 
-            this.tbResponse.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
-            this.tbResponse.Location = new System.Drawing.Point(12, 522);
-            this.tbResponse.Name = "tbResponse";
-            this.tbResponse.ReadOnly = true;
-            this.tbResponse.Size = new System.Drawing.Size(598, 30);
-            this.tbResponse.TabIndex = 110;
+            tbResponse.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold);
+            tbResponse.Location = new System.Drawing.Point(14, 602);
+            tbResponse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbResponse.Name = "tbResponse";
+            tbResponse.ReadOnly = true;
+            tbResponse.Size = new System.Drawing.Size(697, 30);
+            tbResponse.TabIndex = 110;
             // 
             // lbResponse
             // 
-            this.lbResponse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbResponse.AutoSize = true;
-            this.lbResponse.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbResponse.Location = new System.Drawing.Point(12, 501);
-            this.lbResponse.Name = "lbResponse";
-            this.lbResponse.Size = new System.Drawing.Size(80, 18);
-            this.lbResponse.TabIndex = 111;
-            this.lbResponse.Text = "Response";
+            lbResponse.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            lbResponse.AutoSize = true;
+            lbResponse.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbResponse.Location = new System.Drawing.Point(14, 578);
+            lbResponse.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbResponse.Name = "lbResponse";
+            lbResponse.Size = new System.Drawing.Size(80, 18);
+            lbResponse.TabIndex = 111;
+            lbResponse.Text = "Response";
             // 
             // cboxIsRadioOn
             // 
-            this.cboxIsRadioOn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboxIsRadioOn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cboxIsRadioOn.BackColor = System.Drawing.Color.Salmon;
-            this.cboxIsRadioOn.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cboxIsRadioOn.Checked = true;
-            this.cboxIsRadioOn.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxIsRadioOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.cboxIsRadioOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxIsRadioOn.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxIsRadioOn.Location = new System.Drawing.Point(396, 569);
-            this.cboxIsRadioOn.Name = "cboxIsRadioOn";
-            this.cboxIsRadioOn.Size = new System.Drawing.Size(150, 50);
-            this.cboxIsRadioOn.TabIndex = 112;
-            this.cboxIsRadioOn.Text = "Radio";
-            this.cboxIsRadioOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cboxIsRadioOn.UseVisualStyleBackColor = false;
+            cboxIsRadioOn.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            cboxIsRadioOn.Appearance = System.Windows.Forms.Appearance.Button;
+            cboxIsRadioOn.BackColor = System.Drawing.Color.Salmon;
+            cboxIsRadioOn.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            cboxIsRadioOn.Checked = true;
+            cboxIsRadioOn.CheckState = System.Windows.Forms.CheckState.Checked;
+            cboxIsRadioOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(128, 255, 128);
+            cboxIsRadioOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            cboxIsRadioOn.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            cboxIsRadioOn.Location = new System.Drawing.Point(462, 657);
+            cboxIsRadioOn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboxIsRadioOn.Name = "cboxIsRadioOn";
+            cboxIsRadioOn.Size = new System.Drawing.Size(175, 58);
+            cboxIsRadioOn.TabIndex = 112;
+            cboxIsRadioOn.Text = "Radio";
+            cboxIsRadioOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            cboxIsRadioOn.UseVisualStyleBackColor = false;
             // 
             // btnEditChannel
             // 
-            this.btnEditChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditChannel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnEditChannel.FlatAppearance.BorderSize = 0;
-            this.btnEditChannel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditChannel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditChannel.Image = global::AgIO.Properties.Resources.Edit;
-            this.btnEditChannel.Location = new System.Drawing.Point(703, 287);
-            this.btnEditChannel.Name = "btnEditChannel";
-            this.btnEditChannel.Size = new System.Drawing.Size(105, 64);
-            this.btnEditChannel.TabIndex = 114;
-            this.btnEditChannel.UseVisualStyleBackColor = true;
-            this.btnEditChannel.Click += new System.EventHandler(this.btnEditChannel_Click);
+            btnEditChannel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnEditChannel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnEditChannel.FlatAppearance.BorderSize = 0;
+            btnEditChannel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnEditChannel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnEditChannel.Image = Properties.Resources.Edit;
+            btnEditChannel.Location = new System.Drawing.Point(820, 331);
+            btnEditChannel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnEditChannel.Name = "btnEditChannel";
+            btnEditChannel.Size = new System.Drawing.Size(122, 74);
+            btnEditChannel.TabIndex = 114;
+            btnEditChannel.UseVisualStyleBackColor = true;
+            btnEditChannel.Click += btnEditChannel_Click;
             // 
             // btnDeleteChannel
             // 
-            this.btnDeleteChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteChannel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDeleteChannel.FlatAppearance.BorderSize = 0;
-            this.btnDeleteChannel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteChannel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteChannel.Image = global::AgIO.Properties.Resources.Trash;
-            this.btnDeleteChannel.Location = new System.Drawing.Point(703, 378);
-            this.btnDeleteChannel.Name = "btnDeleteChannel";
-            this.btnDeleteChannel.Size = new System.Drawing.Size(105, 64);
-            this.btnDeleteChannel.TabIndex = 113;
-            this.btnDeleteChannel.UseVisualStyleBackColor = true;
-            this.btnDeleteChannel.Click += new System.EventHandler(this.btnDeleteChannel_Click);
+            btnDeleteChannel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnDeleteChannel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnDeleteChannel.FlatAppearance.BorderSize = 0;
+            btnDeleteChannel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnDeleteChannel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnDeleteChannel.Image = Properties.Resources.Trash;
+            btnDeleteChannel.Location = new System.Drawing.Point(820, 436);
+            btnDeleteChannel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnDeleteChannel.Name = "btnDeleteChannel";
+            btnDeleteChannel.Size = new System.Drawing.Size(122, 74);
+            btnDeleteChannel.TabIndex = 113;
+            btnDeleteChannel.UseVisualStyleBackColor = true;
+            btnDeleteChannel.Click += btnDeleteChannel_Click;
             // 
             // btnSetChannel
             // 
-            this.btnSetChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSetChannel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSetChannel.FlatAppearance.BorderSize = 0;
-            this.btnSetChannel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetChannel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSetChannel.Image = global::AgIO.Properties.Resources.ArrowRight;
-            this.btnSetChannel.Location = new System.Drawing.Point(703, 105);
-            this.btnSetChannel.Name = "btnSetChannel";
-            this.btnSetChannel.Size = new System.Drawing.Size(105, 64);
-            this.btnSetChannel.TabIndex = 106;
-            this.btnSetChannel.UseVisualStyleBackColor = true;
-            this.btnSetChannel.Click += new System.EventHandler(this.btnSetChannel_Click);
+            btnSetChannel.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnSetChannel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnSetChannel.FlatAppearance.BorderSize = 0;
+            btnSetChannel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSetChannel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnSetChannel.Image = Properties.Resources.ArrowRight;
+            btnSetChannel.Location = new System.Drawing.Point(820, 121);
+            btnSetChannel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSetChannel.Name = "btnSetChannel";
+            btnSetChannel.Size = new System.Drawing.Size(122, 74);
+            btnSetChannel.TabIndex = 106;
+            btnSetChannel.UseVisualStyleBackColor = true;
+            btnSetChannel.Click += btnSetChannel_Click;
             // 
             // btnRescan
             // 
-            this.btnRescan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRescan.BackColor = System.Drawing.Color.Transparent;
-            this.btnRescan.FlatAppearance.BorderSize = 0;
-            this.btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRescan.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnRescan.Image = global::AgIO.Properties.Resources.ScanPorts;
-            this.btnRescan.Location = new System.Drawing.Point(703, 469);
-            this.btnRescan.Name = "btnRescan";
-            this.btnRescan.Size = new System.Drawing.Size(105, 63);
-            this.btnRescan.TabIndex = 105;
-            this.btnRescan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnRescan.UseVisualStyleBackColor = false;
-            this.btnRescan.Click += new System.EventHandler(this.btnRescan_Click);
+            btnRescan.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnRescan.BackColor = System.Drawing.Color.Transparent;
+            btnRescan.FlatAppearance.BorderSize = 0;
+            btnRescan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnRescan.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnRescan.ForeColor = System.Drawing.SystemColors.ControlText;
+            btnRescan.Image = Properties.Resources.ScanPorts;
+            btnRescan.Location = new System.Drawing.Point(820, 541);
+            btnRescan.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRescan.Name = "btnRescan";
+            btnRescan.Size = new System.Drawing.Size(122, 73);
+            btnRescan.TabIndex = 105;
+            btnRescan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            btnRescan.UseVisualStyleBackColor = false;
+            btnRescan.Click += btnRescan_Click;
             // 
             // btnCloseSerial
             // 
-            this.btnCloseSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseSerial.FlatAppearance.BorderSize = 0;
-            this.btnCloseSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseSerial.Image = global::AgIO.Properties.Resources.USB_Disconnect;
-            this.btnCloseSerial.Location = new System.Drawing.Point(486, 24);
-            this.btnCloseSerial.Name = "btnCloseSerial";
-            this.btnCloseSerial.Size = new System.Drawing.Size(101, 58);
-            this.btnCloseSerial.TabIndex = 102;
-            this.btnCloseSerial.UseVisualStyleBackColor = false;
-            this.btnCloseSerial.Click += new System.EventHandler(this.btnCloseSerial_Click);
+            btnCloseSerial.BackColor = System.Drawing.Color.Transparent;
+            btnCloseSerial.FlatAppearance.BorderSize = 0;
+            btnCloseSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCloseSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnCloseSerial.Image = Properties.Resources.USB_Disconnect;
+            btnCloseSerial.Location = new System.Drawing.Point(567, 28);
+            btnCloseSerial.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCloseSerial.Name = "btnCloseSerial";
+            btnCloseSerial.Size = new System.Drawing.Size(118, 67);
+            btnCloseSerial.TabIndex = 102;
+            btnCloseSerial.UseVisualStyleBackColor = false;
+            btnCloseSerial.Click += btnCloseSerial_Click;
             // 
             // btnOpenSerial
             // 
-            this.btnOpenSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenSerial.FlatAppearance.BorderSize = 0;
-            this.btnOpenSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenSerial.Image = global::AgIO.Properties.Resources.USB_Connect;
-            this.btnOpenSerial.Location = new System.Drawing.Point(365, 24);
-            this.btnOpenSerial.Name = "btnOpenSerial";
-            this.btnOpenSerial.Size = new System.Drawing.Size(101, 58);
-            this.btnOpenSerial.TabIndex = 103;
-            this.btnOpenSerial.UseVisualStyleBackColor = false;
-            this.btnOpenSerial.Click += new System.EventHandler(this.btnOpenSerial_Click);
+            btnOpenSerial.BackColor = System.Drawing.Color.Transparent;
+            btnOpenSerial.FlatAppearance.BorderSize = 0;
+            btnOpenSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnOpenSerial.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnOpenSerial.Image = Properties.Resources.USB_Connect;
+            btnOpenSerial.Location = new System.Drawing.Point(426, 28);
+            btnOpenSerial.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnOpenSerial.Name = "btnOpenSerial";
+            btnOpenSerial.Size = new System.Drawing.Size(118, 67);
+            btnOpenSerial.TabIndex = 103;
+            btnOpenSerial.UseVisualStyleBackColor = false;
+            btnOpenSerial.Click += btnOpenSerial_Click;
             // 
             // btnRadioCancel
             // 
-            this.btnRadioCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRadioCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnRadioCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnRadioCancel.FlatAppearance.BorderSize = 0;
-            this.btnRadioCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRadioCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRadioCancel.Image = global::AgIO.Properties.Resources.Cancel64;
-            this.btnRadioCancel.Location = new System.Drawing.Point(601, 560);
-            this.btnRadioCancel.Name = "btnRadioCancel";
-            this.btnRadioCancel.Size = new System.Drawing.Size(105, 64);
-            this.btnRadioCancel.TabIndex = 97;
-            this.btnRadioCancel.UseVisualStyleBackColor = true;
+            btnRadioCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnRadioCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnRadioCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnRadioCancel.FlatAppearance.BorderSize = 0;
+            btnRadioCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnRadioCancel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnRadioCancel.Image = Properties.Resources.Cancel64;
+            btnRadioCancel.Location = new System.Drawing.Point(701, 646);
+            btnRadioCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRadioCancel.Name = "btnRadioCancel";
+            btnRadioCancel.Size = new System.Drawing.Size(122, 74);
+            btnRadioCancel.TabIndex = 97;
+            btnRadioCancel.UseVisualStyleBackColor = true;
             // 
             // btnRadioOK
             // 
-            this.btnRadioOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRadioOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnRadioOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnRadioOK.FlatAppearance.BorderSize = 0;
-            this.btnRadioOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRadioOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRadioOK.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnRadioOK.Image = global::AgIO.Properties.Resources.OK64;
-            this.btnRadioOK.Location = new System.Drawing.Point(703, 560);
-            this.btnRadioOK.Name = "btnRadioOK";
-            this.btnRadioOK.Size = new System.Drawing.Size(105, 64);
-            this.btnRadioOK.TabIndex = 96;
-            this.btnRadioOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnRadioOK.UseVisualStyleBackColor = true;
-            this.btnRadioOK.Click += new System.EventHandler(this.btnRadioOK_Click);
+            btnRadioOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnRadioOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnRadioOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnRadioOK.FlatAppearance.BorderSize = 0;
+            btnRadioOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnRadioOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnRadioOK.ForeColor = System.Drawing.SystemColors.ControlText;
+            btnRadioOK.Image = Properties.Resources.OK64;
+            btnRadioOK.Location = new System.Drawing.Point(820, 646);
+            btnRadioOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnRadioOK.Name = "btnRadioOK";
+            btnRadioOK.Size = new System.Drawing.Size(122, 74);
+            btnRadioOK.TabIndex = 96;
+            btnRadioOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            btnRadioOK.UseVisualStyleBackColor = true;
+            btnRadioOK.Click += btnRadioOK_Click;
             // 
             // btnSendCommand
             // 
-            this.btnSendCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSendCommand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSendCommand.FlatAppearance.BorderSize = 0;
-            this.btnSendCommand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSendCommand.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSendCommand.Image = global::AgIO.Properties.Resources.ArrowRight;
-            this.btnSendCommand.Location = new System.Drawing.Point(592, 455);
-            this.btnSendCommand.Name = "btnSendCommand";
-            this.btnSendCommand.Size = new System.Drawing.Size(105, 64);
-            this.btnSendCommand.TabIndex = 109;
-            this.btnSendCommand.UseVisualStyleBackColor = true;
-            this.btnSendCommand.Click += new System.EventHandler(this.btnSendCommand_Click);
+            btnSendCommand.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnSendCommand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnSendCommand.FlatAppearance.BorderSize = 0;
+            btnSendCommand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSendCommand.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnSendCommand.Image = Properties.Resources.ArrowRight;
+            btnSendCommand.Location = new System.Drawing.Point(691, 525);
+            btnSendCommand.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSendCommand.Name = "btnSendCommand";
+            btnSendCommand.Size = new System.Drawing.Size(122, 74);
+            btnSendCommand.TabIndex = 109;
+            btnSendCommand.UseVisualStyleBackColor = true;
+            btnSendCommand.Click += btnSendCommand_Click;
             // 
             // btnAddChannel
             // 
-            this.btnAddChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddChannel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnAddChannel.FlatAppearance.BorderSize = 0;
-            this.btnAddChannel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddChannel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddChannel.Image = global::AgIO.Properties.Resources.AddNew;
-            this.btnAddChannel.Location = new System.Drawing.Point(703, 196);
-            this.btnAddChannel.Name = "btnAddChannel";
-            this.btnAddChannel.Size = new System.Drawing.Size(105, 64);
-            this.btnAddChannel.TabIndex = 114;
-            this.btnAddChannel.UseVisualStyleBackColor = true;
-            this.btnAddChannel.Click += new System.EventHandler(this.btnAddChannel_Click);
+            btnAddChannel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnAddChannel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnAddChannel.FlatAppearance.BorderSize = 0;
+            btnAddChannel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnAddChannel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnAddChannel.Image = Properties.Resources.AddNew;
+            btnAddChannel.Location = new System.Drawing.Point(820, 226);
+            btnAddChannel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnAddChannel.Name = "btnAddChannel";
+            btnAddChannel.Size = new System.Drawing.Size(122, 74);
+            btnAddChannel.TabIndex = 114;
+            btnAddChannel.UseVisualStyleBackColor = true;
+            btnAddChannel.Click += btnAddChannel_Click;
             // 
             // labelChannels
             // 
-            this.labelChannels.AutoSize = true;
-            this.labelChannels.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelChannels.Location = new System.Drawing.Point(11, 84);
-            this.labelChannels.Name = "labelChannels";
-            this.labelChannels.Size = new System.Drawing.Size(76, 18);
-            this.labelChannels.TabIndex = 115;
-            this.labelChannels.Text = "Channels";
+            labelChannels.AutoSize = true;
+            labelChannels.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelChannels.Location = new System.Drawing.Point(13, 97);
+            labelChannels.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelChannels.Name = "labelChannels";
+            labelChannels.Size = new System.Drawing.Size(76, 18);
+            labelChannels.TabIndex = 115;
+            labelChannels.Text = "Channels";
             // 
             // FormRadio
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(820, 627);
-            this.ControlBox = false;
-            this.Controls.Add(this.labelChannels);
-            this.Controls.Add(this.btnAddChannel);
-            this.Controls.Add(this.btnEditChannel);
-            this.Controls.Add(this.btnDeleteChannel);
-            this.Controls.Add(this.cboxIsRadioOn);
-            this.Controls.Add(this.lbResponse);
-            this.Controls.Add(this.tbResponse);
-            this.Controls.Add(this.lblCommand);
-            this.Controls.Add(this.tbCommand);
-            this.Controls.Add(this.btnSetChannel);
-            this.Controls.Add(this.btnRescan);
-            this.Controls.Add(this.lvChannels);
-            this.Controls.Add(this.btnCloseSerial);
-            this.Controls.Add(this.btnOpenSerial);
-            this.Controls.Add(this.cboxBaud);
-            this.Controls.Add(this.lblCurrentBaud);
-            this.Controls.Add(this.cboxRadioPort);
-            this.Controls.Add(this.btnRadioCancel);
-            this.Controls.Add(this.btnRadioOK);
-            this.Controls.Add(this.btnSendCommand);
-            this.Controls.Add(this.lblCurrentPort);
-            this.MinimumSize = new System.Drawing.Size(838, 668);
-            this.Name = "FormRadio";
-            this.Text = "Radio Settings";
-            this.Load += new System.EventHandler(this.FormRadio_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(959, 752);
+            ControlBox = false;
+            Controls.Add(labelChannels);
+            Controls.Add(btnAddChannel);
+            Controls.Add(btnEditChannel);
+            Controls.Add(btnDeleteChannel);
+            Controls.Add(cboxIsRadioOn);
+            Controls.Add(lbResponse);
+            Controls.Add(tbResponse);
+            Controls.Add(lblCommand);
+            Controls.Add(tbCommand);
+            Controls.Add(btnSetChannel);
+            Controls.Add(btnRescan);
+            Controls.Add(lvChannels);
+            Controls.Add(btnCloseSerial);
+            Controls.Add(btnOpenSerial);
+            Controls.Add(cboxBaud);
+            Controls.Add(lblCurrentBaud);
+            Controls.Add(cboxRadioPort);
+            Controls.Add(btnRadioCancel);
+            Controls.Add(btnRadioOK);
+            Controls.Add(btnSendCommand);
+            Controls.Add(lblCurrentPort);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MinimumSize = new System.Drawing.Size(975, 765);
+            Name = "FormRadio";
+            Text = "Radio Settings";
+            Load += FormRadio_Load;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

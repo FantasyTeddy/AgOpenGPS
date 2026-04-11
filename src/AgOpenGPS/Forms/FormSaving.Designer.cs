@@ -28,78 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.listViewSteps = new System.Windows.Forms.ListView();
-            this.labelBeer = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            panel1 = new System.Windows.Forms.Panel();
+            labelBeer = new System.Windows.Forms.Label();
+            progressBar = new System.Windows.Forms.ProgressBar();
+            listViewSteps = new System.Windows.Forms.ListView();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panel1.Controls.Add(this.labelBeer);
-            this.panel1.Controls.Add(this.progressBar);
-            this.panel1.Controls.Add(this.listViewSteps);
-            this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(909, 467);
-            this.panel1.TabIndex = 0;
-            // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(182, 374);
-            this.progressBar.MarqueeAnimationSpeed = 40;
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(566, 28);
-            this.progressBar.Step = 20;
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar.TabIndex = 1;
-            // 
-            // listViewSteps
-            // 
-            this.listViewSteps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.listViewSteps.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listViewSteps.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listViewSteps.ForeColor = System.Drawing.SystemColors.Menu;
-            this.listViewSteps.HideSelection = false;
-            this.listViewSteps.Location = new System.Drawing.Point(67, 22);
-            this.listViewSteps.Name = "listViewSteps";
-            this.listViewSteps.Size = new System.Drawing.Size(771, 333);
-            this.listViewSteps.TabIndex = 3;
-            this.listViewSteps.UseCompatibleStateImageBehavior = false;
-            this.listViewSteps.View = System.Windows.Forms.View.List;
+            panel1.BackColor = System.Drawing.Color.FromArgb(255, 192, 128);
+            panel1.Controls.Add(labelBeer);
+            panel1.Controls.Add(progressBar);
+            panel1.Controls.Add(listViewSteps);
+            panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            panel1.Location = new System.Drawing.Point(14, 14);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(1060, 539);
+            panel1.TabIndex = 0;
             // 
             // labelBeer
             // 
-            this.labelBeer.AutoSize = true;
-            this.labelBeer.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBeer.ForeColor = System.Drawing.Color.Green;
-            this.labelBeer.Location = new System.Drawing.Point(230, 367);
-            this.labelBeer.Name = "labelBeer";
-            this.labelBeer.Size = new System.Drawing.Size(466, 37);
-            this.labelBeer.TabIndex = 4;
-            this.labelBeer.Text = "✔ See you next time!";
-            this.labelBeer.Visible = false;
+            labelBeer.AutoSize = true;
+            labelBeer.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelBeer.ForeColor = System.Drawing.Color.Green;
+            labelBeer.Location = new System.Drawing.Point(268, 423);
+            labelBeer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelBeer.Name = "labelBeer";
+            labelBeer.Size = new System.Drawing.Size(344, 37);
+            labelBeer.TabIndex = 4;
+            labelBeer.Text = "✔ See you next time!";
+            labelBeer.Visible = false;
+            // 
+            // progressBar
+            // 
+            progressBar.Location = new System.Drawing.Point(212, 432);
+            progressBar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            progressBar.MarqueeAnimationSpeed = 40;
+            progressBar.Name = "progressBar";
+            progressBar.Size = new System.Drawing.Size(660, 32);
+            progressBar.Step = 20;
+            progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            progressBar.TabIndex = 1;
+            // 
+            // listViewSteps
+            // 
+            listViewSteps.BackColor = System.Drawing.Color.FromArgb(255, 192, 128);
+            listViewSteps.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            listViewSteps.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            listViewSteps.ForeColor = System.Drawing.SystemColors.Menu;
+            listViewSteps.Location = new System.Drawing.Point(78, 25);
+            listViewSteps.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            listViewSteps.Name = "listViewSteps";
+            listViewSteps.Size = new System.Drawing.Size(899, 384);
+            listViewSteps.TabIndex = 3;
+            listViewSteps.UseCompatibleStateImageBehavior = false;
+            listViewSteps.View = System.Windows.Forms.View.List;
             // 
             // FormSaving
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.ClientSize = new System.Drawing.Size(933, 491);
-            this.ControlBox = false;
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FormSaving";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormSaving";
-            this.TopMost = true;
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(0, 192, 0);
+            ClientSize = new System.Drawing.Size(1088, 567);
+            ControlBox = false;
+            Controls.Add(panel1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "FormSaving";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "FormSaving";
+            TopMost = true;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
 
         }
 

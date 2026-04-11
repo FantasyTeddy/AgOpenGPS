@@ -28,89 +28,90 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.keyboardString = new System.Windows.Forms.TextBox();
-            this.keyboard1 = new Keypad.Keyboard();
-            this.btnCharLeft = new System.Windows.Forms.Button();
-            this.btnCharRight = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            keyboardString = new System.Windows.Forms.TextBox();
+            keyboard1 = new Keypad.Keyboard();
+            btnCharLeft = new System.Windows.Forms.Button();
+            btnCharRight = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // keyboardString
             // 
-            this.keyboardString.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.keyboardString.Location = new System.Drawing.Point(11, 4);
-            this.keyboardString.Name = "keyboardString";
-            this.keyboardString.Size = new System.Drawing.Size(751, 46);
-            this.keyboardString.TabIndex = 0;
+            keyboardString.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            keyboardString.Location = new System.Drawing.Point(13, 5);
+            keyboardString.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            keyboardString.Name = "keyboardString";
+            keyboardString.Size = new System.Drawing.Size(876, 46);
+            keyboardString.TabIndex = 0;
             // 
             // keyboard1
             // 
-            this.keyboard1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.keyboard1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.keyboard1.Location = new System.Drawing.Point(5, 55);
-            this.keyboard1.Margin = new System.Windows.Forms.Padding(4);
-            this.keyboard1.Name = "keyboard1";
-            this.keyboard1.Size = new System.Drawing.Size(929, 395);
-            this.keyboard1.TabIndex = 2;
-            this.keyboard1.ButtonPressed += new System.Windows.Forms.KeyPressEventHandler(this.RegisterKeyboard1_ButtonPressed);
+            keyboard1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            keyboard1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            keyboard1.Location = new System.Drawing.Point(6, 63);
+            keyboard1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            keyboard1.Name = "keyboard1";
+            keyboard1.Size = new System.Drawing.Size(1084, 457);
+            keyboard1.TabIndex = 2;
+            keyboard1.ButtonPressed += RegisterKeyboard1_ButtonPressed;
             // 
             // btnCharLeft
             // 
-            this.btnCharLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCharLeft.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnCharLeft.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnCharLeft.FlatAppearance.BorderSize = 0;
-            this.btnCharLeft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.btnCharLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCharLeft.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnCharLeft.Image = global::AgOpenGPS.Properties.Resources.ArrowLeft;
-            this.btnCharLeft.Location = new System.Drawing.Point(777, 4);
-            this.btnCharLeft.Name = "btnCharLeft";
-            this.btnCharLeft.Size = new System.Drawing.Size(73, 45);
-            this.btnCharLeft.TabIndex = 457;
-            this.btnCharLeft.UseVisualStyleBackColor = false;
-            this.btnCharLeft.Click += new System.EventHandler(this.btnCharLeft_Click);
+            btnCharLeft.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCharLeft.BackColor = System.Drawing.Color.WhiteSmoke;
+            btnCharLeft.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            btnCharLeft.FlatAppearance.BorderSize = 0;
+            btnCharLeft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
+            btnCharLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCharLeft.Font = new System.Drawing.Font("Tahoma", 15.75F);
+            btnCharLeft.Image = Properties.Resources.ArrowLeft;
+            btnCharLeft.Location = new System.Drawing.Point(906, 5);
+            btnCharLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCharLeft.Name = "btnCharLeft";
+            btnCharLeft.Size = new System.Drawing.Size(85, 52);
+            btnCharLeft.TabIndex = 457;
+            btnCharLeft.UseVisualStyleBackColor = false;
+            btnCharLeft.Click += btnCharLeft_Click;
             // 
             // btnCharRight
             // 
-            this.btnCharRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCharRight.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnCharRight.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnCharRight.FlatAppearance.BorderSize = 0;
-            this.btnCharRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
-            this.btnCharRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCharRight.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnCharRight.Image = global::AgOpenGPS.Properties.Resources.ArrowRight;
-            this.btnCharRight.Location = new System.Drawing.Point(860, 4);
-            this.btnCharRight.Name = "btnCharRight";
-            this.btnCharRight.Size = new System.Drawing.Size(73, 45);
-            this.btnCharRight.TabIndex = 458;
-            this.btnCharRight.UseVisualStyleBackColor = false;
-            this.btnCharRight.Click += new System.EventHandler(this.btnCharRight_Click);
+            btnCharRight.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnCharRight.BackColor = System.Drawing.Color.WhiteSmoke;
+            btnCharRight.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            btnCharRight.FlatAppearance.BorderSize = 0;
+            btnCharRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Turquoise;
+            btnCharRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCharRight.Font = new System.Drawing.Font("Tahoma", 15.75F);
+            btnCharRight.Image = Properties.Resources.ArrowRight;
+            btnCharRight.Location = new System.Drawing.Point(1003, 5);
+            btnCharRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCharRight.Name = "btnCharRight";
+            btnCharRight.Size = new System.Drawing.Size(85, 52);
+            btnCharRight.TabIndex = 458;
+            btnCharRight.UseVisualStyleBackColor = false;
+            btnCharRight.Click += btnCharRight_Click;
             // 
             // FormKeyboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(942, 454);
-            this.ControlBox = false;
-            this.Controls.Add(this.btnCharRight);
-            this.Controls.Add(this.btnCharLeft);
-            this.Controls.Add(this.keyboard1);
-            this.Controls.Add(this.keyboardString);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.Location = new System.Drawing.Point(250, 250);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormKeyboard";
-            this.ShowInTaskbar = false;
-            this.Text = "Keyboard";
-            this.Load += new System.EventHandler(this.FormKeyboard_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.ActiveCaption;
+            ClientSize = new System.Drawing.Size(1099, 524);
+            ControlBox = false;
+            Controls.Add(btnCharRight);
+            Controls.Add(btnCharLeft);
+            Controls.Add(keyboard1);
+            Controls.Add(keyboardString);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Location = new System.Drawing.Point(250, 250);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "FormKeyboard";
+            ShowInTaskbar = false;
+            Text = "Keyboard";
+            Load += FormKeyboard_Load;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

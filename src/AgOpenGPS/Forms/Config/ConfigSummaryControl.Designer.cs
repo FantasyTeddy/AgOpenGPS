@@ -28,454 +28,452 @@ namespace AgOpenGPS.Forms.Config
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelVehicle = new System.Windows.Forms.GroupBox();
-            this.panelTool = new System.Windows.Forms.GroupBox();
-            this.lblSummaryVehicleName = new System.Windows.Forms.Label();
-            this.labelVehicleType = new System.Windows.Forms.Label();
-            this.lblSumVehicleType = new System.Windows.Forms.Label();
-            this.labelWheelBase = new System.Windows.Forms.Label();
-            this.lblSumWheelbase = new System.Windows.Forms.Label();
-            this.labelAntPivot = new System.Windows.Forms.Label();
-            this.lblAntPivot = new System.Windows.Forms.Label();
-            this.labelAntOffset = new System.Windows.Forms.Label();
-            this.lblAntOffset = new System.Windows.Forms.Label();
-            this.labelHitch = new System.Windows.Forms.Label();
-            this.lblHitch = new System.Windows.Forms.Label();
-            this.lblSummaryToolName = new System.Windows.Forms.Label();
-            this.labelWidth = new System.Windows.Forms.Label();
-            this.lblSummaryWidth = new System.Windows.Forms.Label();
-            this.labelSections = new System.Windows.Forms.Label();
-            this.lblSumNumSections = new System.Windows.Forms.Label();
-            this.labelOffset = new System.Windows.Forms.Label();
-            this.lblToolOffset = new System.Windows.Forms.Label();
-            this.labelOverlap = new System.Windows.Forms.Label();
-            this.lblOverlap = new System.Windows.Forms.Label();
-            this.labelLookAhead = new System.Windows.Forms.Label();
-            this.lblLookahead = new System.Windows.Forms.Label();
-            this.labelNudge = new System.Windows.Forms.Label();
-            this.lblNudgeDistance = new System.Windows.Forms.Label();
-            this.labelTramW = new System.Windows.Forms.Label();
-            this.lblTramWidth = new System.Windows.Forms.Label();
-            this.labelUnits = new System.Windows.Forms.Label();
-            this.lblUnits = new System.Windows.Forms.Label();
-            this.labelProfileMenuHint = new System.Windows.Forms.Label();
-            this.panelVehicle.SuspendLayout();
-            this.panelTool.SuspendLayout();
-            this.SuspendLayout();
-            //
+            panelVehicle = new System.Windows.Forms.GroupBox();
+            lblSummaryVehicleName = new System.Windows.Forms.Label();
+            labelVehicleType = new System.Windows.Forms.Label();
+            lblSumVehicleType = new System.Windows.Forms.Label();
+            labelWheelBase = new System.Windows.Forms.Label();
+            lblSumWheelbase = new System.Windows.Forms.Label();
+            labelAntPivot = new System.Windows.Forms.Label();
+            lblAntPivot = new System.Windows.Forms.Label();
+            labelAntOffset = new System.Windows.Forms.Label();
+            lblAntOffset = new System.Windows.Forms.Label();
+            labelHitch = new System.Windows.Forms.Label();
+            lblHitch = new System.Windows.Forms.Label();
+            panelTool = new System.Windows.Forms.GroupBox();
+            lblSummaryToolName = new System.Windows.Forms.Label();
+            labelWidth = new System.Windows.Forms.Label();
+            lblSummaryWidth = new System.Windows.Forms.Label();
+            labelSections = new System.Windows.Forms.Label();
+            lblSumNumSections = new System.Windows.Forms.Label();
+            labelOffset = new System.Windows.Forms.Label();
+            lblToolOffset = new System.Windows.Forms.Label();
+            labelOverlap = new System.Windows.Forms.Label();
+            lblOverlap = new System.Windows.Forms.Label();
+            labelLookAhead = new System.Windows.Forms.Label();
+            lblLookahead = new System.Windows.Forms.Label();
+            labelNudge = new System.Windows.Forms.Label();
+            lblNudgeDistance = new System.Windows.Forms.Label();
+            labelTramW = new System.Windows.Forms.Label();
+            lblTramWidth = new System.Windows.Forms.Label();
+            labelUnits = new System.Windows.Forms.Label();
+            lblUnits = new System.Windows.Forms.Label();
+            labelProfileMenuHint = new System.Windows.Forms.Label();
+            panelVehicle.SuspendLayout();
+            panelTool.SuspendLayout();
+            SuspendLayout();
+            // 
             // panelVehicle
-            //
-            this.panelVehicle.Controls.Add(this.lblSummaryVehicleName);
-            this.panelVehicle.Controls.Add(this.labelVehicleType);
-            this.panelVehicle.Controls.Add(this.lblSumVehicleType);
-            this.panelVehicle.Controls.Add(this.labelWheelBase);
-            this.panelVehicle.Controls.Add(this.lblSumWheelbase);
-            this.panelVehicle.Controls.Add(this.labelAntPivot);
-            this.panelVehicle.Controls.Add(this.lblAntPivot);
-            this.panelVehicle.Controls.Add(this.labelAntOffset);
-            this.panelVehicle.Controls.Add(this.lblAntOffset);
-            this.panelVehicle.Controls.Add(this.labelHitch);
-            this.panelVehicle.Controls.Add(this.lblHitch);
-            this.panelVehicle.Location = new System.Drawing.Point(6, 6);
-            this.panelVehicle.Name = "panelVehicle";
-            this.panelVehicle.Size = new System.Drawing.Size(420, 340);
-            this.panelVehicle.TabIndex = 600;
-            this.panelVehicle.TabStop = false;
-            this.panelVehicle.Text = "Vehicle";
-            //
-            // panelTool
-            //
-            this.panelTool.Controls.Add(this.lblSummaryToolName);
-            this.panelTool.Controls.Add(this.labelWidth);
-            this.panelTool.Controls.Add(this.lblSummaryWidth);
-            this.panelTool.Controls.Add(this.labelSections);
-            this.panelTool.Controls.Add(this.lblSumNumSections);
-            this.panelTool.Controls.Add(this.labelOffset);
-            this.panelTool.Controls.Add(this.lblToolOffset);
-            this.panelTool.Controls.Add(this.labelOverlap);
-            this.panelTool.Controls.Add(this.lblOverlap);
-            this.panelTool.Controls.Add(this.labelLookAhead);
-            this.panelTool.Controls.Add(this.lblLookahead);
-            this.panelTool.Controls.Add(this.labelNudge);
-            this.panelTool.Controls.Add(this.lblNudgeDistance);
-            this.panelTool.Controls.Add(this.labelTramW);
-            this.panelTool.Controls.Add(this.lblTramWidth);
-            this.panelTool.Location = new System.Drawing.Point(432, 6);
-            this.panelTool.Name = "panelTool";
-            this.panelTool.Size = new System.Drawing.Size(421, 340);
-            this.panelTool.TabIndex = 601;
-            this.panelTool.TabStop = false;
-            this.panelTool.Text = "Tool";
-            //
-            // lblSummaryVehicleName  (inside panelVehicle)
-            //
-            this.lblSummaryVehicleName.BackColor = System.Drawing.Color.Transparent;
-            this.lblSummaryVehicleName.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummaryVehicleName.ForeColor = System.Drawing.Color.Black;
-            this.lblSummaryVehicleName.Location = new System.Drawing.Point(8, 20);
-            this.lblSummaryVehicleName.Name = "lblSummaryVehicleName";
-            this.lblSummaryVehicleName.Size = new System.Drawing.Size(404, 30);
-            this.lblSummaryVehicleName.TabIndex = 0;
-            this.lblSummaryVehicleName.Text = "Vehicle Name";
-            this.lblSummaryVehicleName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
+            panelVehicle.Controls.Add(lblSummaryVehicleName);
+            panelVehicle.Controls.Add(labelVehicleType);
+            panelVehicle.Controls.Add(lblSumVehicleType);
+            panelVehicle.Controls.Add(labelWheelBase);
+            panelVehicle.Controls.Add(lblSumWheelbase);
+            panelVehicle.Controls.Add(labelAntPivot);
+            panelVehicle.Controls.Add(lblAntPivot);
+            panelVehicle.Controls.Add(labelAntOffset);
+            panelVehicle.Controls.Add(lblAntOffset);
+            panelVehicle.Controls.Add(labelHitch);
+            panelVehicle.Controls.Add(lblHitch);
+            panelVehicle.Location = new System.Drawing.Point(6, 6);
+            panelVehicle.Name = "panelVehicle";
+            panelVehicle.Size = new System.Drawing.Size(420, 340);
+            panelVehicle.TabIndex = 600;
+            panelVehicle.TabStop = false;
+            panelVehicle.Text = "Vehicle";
+            // 
+            // lblSummaryVehicleName
+            // 
+            lblSummaryVehicleName.BackColor = System.Drawing.Color.Transparent;
+            lblSummaryVehicleName.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblSummaryVehicleName.ForeColor = System.Drawing.Color.Black;
+            lblSummaryVehicleName.Location = new System.Drawing.Point(8, 20);
+            lblSummaryVehicleName.Name = "lblSummaryVehicleName";
+            lblSummaryVehicleName.Size = new System.Drawing.Size(404, 30);
+            lblSummaryVehicleName.TabIndex = 0;
+            lblSummaryVehicleName.Text = "Vehicle Name";
+            lblSummaryVehicleName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // labelVehicleType
-            //
-            this.labelVehicleType.BackColor = System.Drawing.Color.Transparent;
-            this.labelVehicleType.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVehicleType.ForeColor = System.Drawing.Color.DimGray;
-            this.labelVehicleType.Location = new System.Drawing.Point(10, 65);
-            this.labelVehicleType.Name = "labelVehicleType";
-            this.labelVehicleType.Size = new System.Drawing.Size(155, 28);
-            this.labelVehicleType.TabIndex = 1;
-            this.labelVehicleType.Text = "Type:";
-            this.labelVehicleType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelVehicleType.BackColor = System.Drawing.Color.Transparent;
+            labelVehicleType.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelVehicleType.ForeColor = System.Drawing.Color.DimGray;
+            labelVehicleType.Location = new System.Drawing.Point(10, 65);
+            labelVehicleType.Name = "labelVehicleType";
+            labelVehicleType.Size = new System.Drawing.Size(155, 28);
+            labelVehicleType.TabIndex = 1;
+            labelVehicleType.Text = "Type:";
+            labelVehicleType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblSumVehicleType
-            //
-            this.lblSumVehicleType.BackColor = System.Drawing.Color.Transparent;
-            this.lblSumVehicleType.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSumVehicleType.ForeColor = System.Drawing.Color.Black;
-            this.lblSumVehicleType.Location = new System.Drawing.Point(170, 65);
-            this.lblSumVehicleType.Name = "lblSumVehicleType";
-            this.lblSumVehicleType.Size = new System.Drawing.Size(235, 28);
-            this.lblSumVehicleType.TabIndex = 2;
-            this.lblSumVehicleType.Text = "Tractor";
-            this.lblSumVehicleType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblSumVehicleType.BackColor = System.Drawing.Color.Transparent;
+            lblSumVehicleType.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblSumVehicleType.ForeColor = System.Drawing.Color.Black;
+            lblSumVehicleType.Location = new System.Drawing.Point(170, 65);
+            lblSumVehicleType.Name = "lblSumVehicleType";
+            lblSumVehicleType.Size = new System.Drawing.Size(235, 28);
+            lblSumVehicleType.TabIndex = 2;
+            lblSumVehicleType.Text = "Tractor";
+            lblSumVehicleType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelWheelBase
-            //
-            this.labelWheelBase.BackColor = System.Drawing.Color.Transparent;
-            this.labelWheelBase.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWheelBase.ForeColor = System.Drawing.Color.DimGray;
-            this.labelWheelBase.Location = new System.Drawing.Point(10, 101);
-            this.labelWheelBase.Name = "labelWheelBase";
-            this.labelWheelBase.Size = new System.Drawing.Size(155, 28);
-            this.labelWheelBase.TabIndex = 3;
-            this.labelWheelBase.Text = "Wheelbase:";
-            this.labelWheelBase.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelWheelBase.BackColor = System.Drawing.Color.Transparent;
+            labelWheelBase.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelWheelBase.ForeColor = System.Drawing.Color.DimGray;
+            labelWheelBase.Location = new System.Drawing.Point(10, 101);
+            labelWheelBase.Name = "labelWheelBase";
+            labelWheelBase.Size = new System.Drawing.Size(155, 28);
+            labelWheelBase.TabIndex = 3;
+            labelWheelBase.Text = "Wheelbase:";
+            labelWheelBase.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblSumWheelbase
-            //
-            this.lblSumWheelbase.BackColor = System.Drawing.Color.Transparent;
-            this.lblSumWheelbase.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSumWheelbase.ForeColor = System.Drawing.Color.Black;
-            this.lblSumWheelbase.Location = new System.Drawing.Point(170, 101);
-            this.lblSumWheelbase.Name = "lblSumWheelbase";
-            this.lblSumWheelbase.Size = new System.Drawing.Size(235, 28);
-            this.lblSumWheelbase.TabIndex = 4;
-            this.lblSumWheelbase.Text = "2.4m";
-            this.lblSumWheelbase.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblSumWheelbase.BackColor = System.Drawing.Color.Transparent;
+            lblSumWheelbase.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblSumWheelbase.ForeColor = System.Drawing.Color.Black;
+            lblSumWheelbase.Location = new System.Drawing.Point(170, 101);
+            lblSumWheelbase.Name = "lblSumWheelbase";
+            lblSumWheelbase.Size = new System.Drawing.Size(235, 28);
+            lblSumWheelbase.TabIndex = 4;
+            lblSumWheelbase.Text = "2.4m";
+            lblSumWheelbase.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelAntPivot
-            //
-            this.labelAntPivot.BackColor = System.Drawing.Color.Transparent;
-            this.labelAntPivot.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAntPivot.ForeColor = System.Drawing.Color.DimGray;
-            this.labelAntPivot.Location = new System.Drawing.Point(10, 137);
-            this.labelAntPivot.Name = "labelAntPivot";
-            this.labelAntPivot.Size = new System.Drawing.Size(155, 28);
-            this.labelAntPivot.TabIndex = 5;
-            this.labelAntPivot.Text = "Ant.Pivot:";
-            this.labelAntPivot.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelAntPivot.BackColor = System.Drawing.Color.Transparent;
+            labelAntPivot.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelAntPivot.ForeColor = System.Drawing.Color.DimGray;
+            labelAntPivot.Location = new System.Drawing.Point(10, 137);
+            labelAntPivot.Name = "labelAntPivot";
+            labelAntPivot.Size = new System.Drawing.Size(155, 28);
+            labelAntPivot.TabIndex = 5;
+            labelAntPivot.Text = "Ant.Pivot:";
+            labelAntPivot.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblAntPivot
-            //
-            this.lblAntPivot.BackColor = System.Drawing.Color.Transparent;
-            this.lblAntPivot.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAntPivot.ForeColor = System.Drawing.Color.Black;
-            this.lblAntPivot.Location = new System.Drawing.Point(170, 137);
-            this.lblAntPivot.Name = "lblAntPivot";
-            this.lblAntPivot.Size = new System.Drawing.Size(235, 28);
-            this.lblAntPivot.TabIndex = 6;
-            this.lblAntPivot.Text = "0.00m";
-            this.lblAntPivot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblAntPivot.BackColor = System.Drawing.Color.Transparent;
+            lblAntPivot.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblAntPivot.ForeColor = System.Drawing.Color.Black;
+            lblAntPivot.Location = new System.Drawing.Point(170, 137);
+            lblAntPivot.Name = "lblAntPivot";
+            lblAntPivot.Size = new System.Drawing.Size(235, 28);
+            lblAntPivot.TabIndex = 6;
+            lblAntPivot.Text = "0.00m";
+            lblAntPivot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelAntOffset
-            //
-            this.labelAntOffset.BackColor = System.Drawing.Color.Transparent;
-            this.labelAntOffset.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAntOffset.ForeColor = System.Drawing.Color.DimGray;
-            this.labelAntOffset.Location = new System.Drawing.Point(10, 173);
-            this.labelAntOffset.Name = "labelAntOffset";
-            this.labelAntOffset.Size = new System.Drawing.Size(155, 28);
-            this.labelAntOffset.TabIndex = 7;
-            this.labelAntOffset.Text = "Ant.Offset:";
-            this.labelAntOffset.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelAntOffset.BackColor = System.Drawing.Color.Transparent;
+            labelAntOffset.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelAntOffset.ForeColor = System.Drawing.Color.DimGray;
+            labelAntOffset.Location = new System.Drawing.Point(10, 173);
+            labelAntOffset.Name = "labelAntOffset";
+            labelAntOffset.Size = new System.Drawing.Size(155, 28);
+            labelAntOffset.TabIndex = 7;
+            labelAntOffset.Text = "Ant.Offset:";
+            labelAntOffset.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblAntOffset
-            //
-            this.lblAntOffset.BackColor = System.Drawing.Color.Transparent;
-            this.lblAntOffset.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAntOffset.ForeColor = System.Drawing.Color.Black;
-            this.lblAntOffset.Location = new System.Drawing.Point(170, 173);
-            this.lblAntOffset.Name = "lblAntOffset";
-            this.lblAntOffset.Size = new System.Drawing.Size(235, 28);
-            this.lblAntOffset.TabIndex = 8;
-            this.lblAntOffset.Text = "0.00m";
-            this.lblAntOffset.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblAntOffset.BackColor = System.Drawing.Color.Transparent;
+            lblAntOffset.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblAntOffset.ForeColor = System.Drawing.Color.Black;
+            lblAntOffset.Location = new System.Drawing.Point(170, 173);
+            lblAntOffset.Name = "lblAntOffset";
+            lblAntOffset.Size = new System.Drawing.Size(235, 28);
+            lblAntOffset.TabIndex = 8;
+            lblAntOffset.Text = "0.00m";
+            lblAntOffset.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelHitch
-            //
-            this.labelHitch.BackColor = System.Drawing.Color.Transparent;
-            this.labelHitch.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHitch.ForeColor = System.Drawing.Color.DimGray;
-            this.labelHitch.Location = new System.Drawing.Point(10, 209);
-            this.labelHitch.Name = "labelHitch";
-            this.labelHitch.Size = new System.Drawing.Size(155, 28);
-            this.labelHitch.TabIndex = 9;
-            this.labelHitch.Text = "Hitch:";
-            this.labelHitch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelHitch.BackColor = System.Drawing.Color.Transparent;
+            labelHitch.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelHitch.ForeColor = System.Drawing.Color.DimGray;
+            labelHitch.Location = new System.Drawing.Point(10, 209);
+            labelHitch.Name = "labelHitch";
+            labelHitch.Size = new System.Drawing.Size(155, 28);
+            labelHitch.TabIndex = 9;
+            labelHitch.Text = "Hitch:";
+            labelHitch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblHitch
-            //
-            this.lblHitch.BackColor = System.Drawing.Color.Transparent;
-            this.lblHitch.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHitch.ForeColor = System.Drawing.Color.Black;
-            this.lblHitch.Location = new System.Drawing.Point(170, 209);
-            this.lblHitch.Name = "lblHitch";
-            this.lblHitch.Size = new System.Drawing.Size(235, 28);
-            this.lblHitch.TabIndex = 10;
-            this.lblHitch.Text = "0.00m";
-            this.lblHitch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
-            // lblSummaryToolName  (inside panelTool)
-            //
-            this.lblSummaryToolName.BackColor = System.Drawing.Color.Transparent;
-            this.lblSummaryToolName.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummaryToolName.ForeColor = System.Drawing.Color.Black;
-            this.lblSummaryToolName.Location = new System.Drawing.Point(8, 20);
-            this.lblSummaryToolName.Name = "lblSummaryToolName";
-            this.lblSummaryToolName.Size = new System.Drawing.Size(405, 30);
-            this.lblSummaryToolName.TabIndex = 0;
-            this.lblSummaryToolName.Text = "Tool Name";
-            this.lblSummaryToolName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
+            lblHitch.BackColor = System.Drawing.Color.Transparent;
+            lblHitch.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblHitch.ForeColor = System.Drawing.Color.Black;
+            lblHitch.Location = new System.Drawing.Point(170, 209);
+            lblHitch.Name = "lblHitch";
+            lblHitch.Size = new System.Drawing.Size(235, 28);
+            lblHitch.TabIndex = 10;
+            lblHitch.Text = "0.00m";
+            lblHitch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panelTool
+            // 
+            panelTool.Controls.Add(lblSummaryToolName);
+            panelTool.Controls.Add(labelWidth);
+            panelTool.Controls.Add(lblSummaryWidth);
+            panelTool.Controls.Add(labelSections);
+            panelTool.Controls.Add(lblSumNumSections);
+            panelTool.Controls.Add(labelOffset);
+            panelTool.Controls.Add(lblToolOffset);
+            panelTool.Controls.Add(labelOverlap);
+            panelTool.Controls.Add(lblOverlap);
+            panelTool.Controls.Add(labelLookAhead);
+            panelTool.Controls.Add(lblLookahead);
+            panelTool.Controls.Add(labelNudge);
+            panelTool.Controls.Add(lblNudgeDistance);
+            panelTool.Controls.Add(labelTramW);
+            panelTool.Controls.Add(lblTramWidth);
+            panelTool.Location = new System.Drawing.Point(432, 6);
+            panelTool.Name = "panelTool";
+            panelTool.Size = new System.Drawing.Size(421, 340);
+            panelTool.TabIndex = 601;
+            panelTool.TabStop = false;
+            panelTool.Text = "Tool";
+            // 
+            // lblSummaryToolName
+            // 
+            lblSummaryToolName.BackColor = System.Drawing.Color.Transparent;
+            lblSummaryToolName.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblSummaryToolName.ForeColor = System.Drawing.Color.Black;
+            lblSummaryToolName.Location = new System.Drawing.Point(8, 20);
+            lblSummaryToolName.Name = "lblSummaryToolName";
+            lblSummaryToolName.Size = new System.Drawing.Size(405, 30);
+            lblSummaryToolName.TabIndex = 0;
+            lblSummaryToolName.Text = "Tool Name";
+            lblSummaryToolName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // labelWidth
-            //
-            this.labelWidth.BackColor = System.Drawing.Color.Transparent;
-            this.labelWidth.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWidth.ForeColor = System.Drawing.Color.DimGray;
-            this.labelWidth.Location = new System.Drawing.Point(10, 65);
-            this.labelWidth.Name = "labelWidth";
-            this.labelWidth.Size = new System.Drawing.Size(155, 28);
-            this.labelWidth.TabIndex = 1;
-            this.labelWidth.Text = "Width:";
-            this.labelWidth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelWidth.BackColor = System.Drawing.Color.Transparent;
+            labelWidth.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelWidth.ForeColor = System.Drawing.Color.DimGray;
+            labelWidth.Location = new System.Drawing.Point(10, 65);
+            labelWidth.Name = "labelWidth";
+            labelWidth.Size = new System.Drawing.Size(155, 28);
+            labelWidth.TabIndex = 1;
+            labelWidth.Text = "Width:";
+            labelWidth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblSummaryWidth
-            //
-            this.lblSummaryWidth.BackColor = System.Drawing.Color.Transparent;
-            this.lblSummaryWidth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummaryWidth.ForeColor = System.Drawing.Color.Black;
-            this.lblSummaryWidth.Location = new System.Drawing.Point(170, 65);
-            this.lblSummaryWidth.Name = "lblSummaryWidth";
-            this.lblSummaryWidth.Size = new System.Drawing.Size(235, 28);
-            this.lblSummaryWidth.TabIndex = 2;
-            this.lblSummaryWidth.Text = "7.2m";
-            this.lblSummaryWidth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblSummaryWidth.BackColor = System.Drawing.Color.Transparent;
+            lblSummaryWidth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblSummaryWidth.ForeColor = System.Drawing.Color.Black;
+            lblSummaryWidth.Location = new System.Drawing.Point(170, 65);
+            lblSummaryWidth.Name = "lblSummaryWidth";
+            lblSummaryWidth.Size = new System.Drawing.Size(235, 28);
+            lblSummaryWidth.TabIndex = 2;
+            lblSummaryWidth.Text = "7.2m";
+            lblSummaryWidth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelSections
-            //
-            this.labelSections.BackColor = System.Drawing.Color.Transparent;
-            this.labelSections.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSections.ForeColor = System.Drawing.Color.DimGray;
-            this.labelSections.Location = new System.Drawing.Point(10, 101);
-            this.labelSections.Name = "labelSections";
-            this.labelSections.Size = new System.Drawing.Size(155, 28);
-            this.labelSections.TabIndex = 3;
-            this.labelSections.Text = "Sections:";
-            this.labelSections.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelSections.BackColor = System.Drawing.Color.Transparent;
+            labelSections.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelSections.ForeColor = System.Drawing.Color.DimGray;
+            labelSections.Location = new System.Drawing.Point(10, 101);
+            labelSections.Name = "labelSections";
+            labelSections.Size = new System.Drawing.Size(155, 28);
+            labelSections.TabIndex = 3;
+            labelSections.Text = "Sections:";
+            labelSections.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblSumNumSections
-            //
-            this.lblSumNumSections.BackColor = System.Drawing.Color.Transparent;
-            this.lblSumNumSections.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSumNumSections.ForeColor = System.Drawing.Color.Black;
-            this.lblSumNumSections.Location = new System.Drawing.Point(170, 101);
-            this.lblSumNumSections.Name = "lblSumNumSections";
-            this.lblSumNumSections.Size = new System.Drawing.Size(235, 28);
-            this.lblSumNumSections.TabIndex = 4;
-            this.lblSumNumSections.Text = "5";
-            this.lblSumNumSections.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblSumNumSections.BackColor = System.Drawing.Color.Transparent;
+            lblSumNumSections.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblSumNumSections.ForeColor = System.Drawing.Color.Black;
+            lblSumNumSections.Location = new System.Drawing.Point(170, 101);
+            lblSumNumSections.Name = "lblSumNumSections";
+            lblSumNumSections.Size = new System.Drawing.Size(235, 28);
+            lblSumNumSections.TabIndex = 4;
+            lblSumNumSections.Text = "5";
+            lblSumNumSections.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelOffset
-            //
-            this.labelOffset.BackColor = System.Drawing.Color.Transparent;
-            this.labelOffset.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOffset.ForeColor = System.Drawing.Color.DimGray;
-            this.labelOffset.Location = new System.Drawing.Point(10, 137);
-            this.labelOffset.Name = "labelOffset";
-            this.labelOffset.Size = new System.Drawing.Size(155, 28);
-            this.labelOffset.TabIndex = 5;
-            this.labelOffset.Text = "Offset:";
-            this.labelOffset.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelOffset.BackColor = System.Drawing.Color.Transparent;
+            labelOffset.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelOffset.ForeColor = System.Drawing.Color.DimGray;
+            labelOffset.Location = new System.Drawing.Point(10, 137);
+            labelOffset.Name = "labelOffset";
+            labelOffset.Size = new System.Drawing.Size(155, 28);
+            labelOffset.TabIndex = 5;
+            labelOffset.Text = "Offset:";
+            labelOffset.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblToolOffset
-            //
-            this.lblToolOffset.BackColor = System.Drawing.Color.Transparent;
-            this.lblToolOffset.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblToolOffset.ForeColor = System.Drawing.Color.Black;
-            this.lblToolOffset.Location = new System.Drawing.Point(170, 137);
-            this.lblToolOffset.Name = "lblToolOffset";
-            this.lblToolOffset.Size = new System.Drawing.Size(235, 28);
-            this.lblToolOffset.TabIndex = 6;
-            this.lblToolOffset.Text = "5";
-            this.lblToolOffset.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblToolOffset.BackColor = System.Drawing.Color.Transparent;
+            lblToolOffset.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblToolOffset.ForeColor = System.Drawing.Color.Black;
+            lblToolOffset.Location = new System.Drawing.Point(170, 137);
+            lblToolOffset.Name = "lblToolOffset";
+            lblToolOffset.Size = new System.Drawing.Size(235, 28);
+            lblToolOffset.TabIndex = 6;
+            lblToolOffset.Text = "5";
+            lblToolOffset.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelOverlap
-            //
-            this.labelOverlap.BackColor = System.Drawing.Color.Transparent;
-            this.labelOverlap.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOverlap.ForeColor = System.Drawing.Color.DimGray;
-            this.labelOverlap.Location = new System.Drawing.Point(10, 173);
-            this.labelOverlap.Name = "labelOverlap";
-            this.labelOverlap.Size = new System.Drawing.Size(155, 28);
-            this.labelOverlap.TabIndex = 7;
-            this.labelOverlap.Text = "Overlap:";
-            this.labelOverlap.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelOverlap.BackColor = System.Drawing.Color.Transparent;
+            labelOverlap.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelOverlap.ForeColor = System.Drawing.Color.DimGray;
+            labelOverlap.Location = new System.Drawing.Point(10, 173);
+            labelOverlap.Name = "labelOverlap";
+            labelOverlap.Size = new System.Drawing.Size(155, 28);
+            labelOverlap.TabIndex = 7;
+            labelOverlap.Text = "Overlap:";
+            labelOverlap.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblOverlap
-            //
-            this.lblOverlap.BackColor = System.Drawing.Color.Transparent;
-            this.lblOverlap.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOverlap.ForeColor = System.Drawing.Color.Black;
-            this.lblOverlap.Location = new System.Drawing.Point(170, 173);
-            this.lblOverlap.Name = "lblOverlap";
-            this.lblOverlap.Size = new System.Drawing.Size(235, 28);
-            this.lblOverlap.TabIndex = 8;
-            this.lblOverlap.Text = "3cm";
-            this.lblOverlap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblOverlap.BackColor = System.Drawing.Color.Transparent;
+            lblOverlap.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblOverlap.ForeColor = System.Drawing.Color.Black;
+            lblOverlap.Location = new System.Drawing.Point(170, 173);
+            lblOverlap.Name = "lblOverlap";
+            lblOverlap.Size = new System.Drawing.Size(235, 28);
+            lblOverlap.TabIndex = 8;
+            lblOverlap.Text = "3cm";
+            lblOverlap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelLookAhead
-            //
-            this.labelLookAhead.BackColor = System.Drawing.Color.Transparent;
-            this.labelLookAhead.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLookAhead.ForeColor = System.Drawing.Color.DimGray;
-            this.labelLookAhead.Location = new System.Drawing.Point(10, 209);
-            this.labelLookAhead.Name = "labelLookAhead";
-            this.labelLookAhead.Size = new System.Drawing.Size(155, 28);
-            this.labelLookAhead.TabIndex = 9;
-            this.labelLookAhead.Text = "Lookahead:";
-            this.labelLookAhead.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelLookAhead.BackColor = System.Drawing.Color.Transparent;
+            labelLookAhead.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelLookAhead.ForeColor = System.Drawing.Color.DimGray;
+            labelLookAhead.Location = new System.Drawing.Point(10, 209);
+            labelLookAhead.Name = "labelLookAhead";
+            labelLookAhead.Size = new System.Drawing.Size(155, 28);
+            labelLookAhead.TabIndex = 9;
+            labelLookAhead.Text = "Lookahead:";
+            labelLookAhead.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblLookahead
-            //
-            this.lblLookahead.BackColor = System.Drawing.Color.Transparent;
-            this.lblLookahead.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLookahead.ForeColor = System.Drawing.Color.Black;
-            this.lblLookahead.Location = new System.Drawing.Point(170, 209);
-            this.lblLookahead.Name = "lblLookahead";
-            this.lblLookahead.Size = new System.Drawing.Size(235, 28);
-            this.lblLookahead.TabIndex = 10;
-            this.lblLookahead.Text = "1 sec";
-            this.lblLookahead.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblLookahead.BackColor = System.Drawing.Color.Transparent;
+            lblLookahead.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblLookahead.ForeColor = System.Drawing.Color.Black;
+            lblLookahead.Location = new System.Drawing.Point(170, 209);
+            lblLookahead.Name = "lblLookahead";
+            lblLookahead.Size = new System.Drawing.Size(235, 28);
+            lblLookahead.TabIndex = 10;
+            lblLookahead.Text = "1 sec";
+            lblLookahead.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelNudge
-            //
-            this.labelNudge.BackColor = System.Drawing.Color.Transparent;
-            this.labelNudge.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNudge.ForeColor = System.Drawing.Color.DimGray;
-            this.labelNudge.Location = new System.Drawing.Point(10, 245);
-            this.labelNudge.Name = "labelNudge";
-            this.labelNudge.Size = new System.Drawing.Size(155, 28);
-            this.labelNudge.TabIndex = 11;
-            this.labelNudge.Text = "Line Shift:";
-            this.labelNudge.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelNudge.BackColor = System.Drawing.Color.Transparent;
+            labelNudge.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelNudge.ForeColor = System.Drawing.Color.DimGray;
+            labelNudge.Location = new System.Drawing.Point(10, 245);
+            labelNudge.Name = "labelNudge";
+            labelNudge.Size = new System.Drawing.Size(155, 28);
+            labelNudge.TabIndex = 11;
+            labelNudge.Text = "Line Shift:";
+            labelNudge.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblNudgeDistance
-            //
-            this.lblNudgeDistance.BackColor = System.Drawing.Color.Transparent;
-            this.lblNudgeDistance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNudgeDistance.ForeColor = System.Drawing.Color.Black;
-            this.lblNudgeDistance.Location = new System.Drawing.Point(170, 245);
-            this.lblNudgeDistance.Name = "lblNudgeDistance";
-            this.lblNudgeDistance.Size = new System.Drawing.Size(235, 28);
-            this.lblNudgeDistance.TabIndex = 12;
-            this.lblNudgeDistance.Text = "5";
-            this.lblNudgeDistance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblNudgeDistance.BackColor = System.Drawing.Color.Transparent;
+            lblNudgeDistance.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblNudgeDistance.ForeColor = System.Drawing.Color.Black;
+            lblNudgeDistance.Location = new System.Drawing.Point(170, 245);
+            lblNudgeDistance.Name = "lblNudgeDistance";
+            lblNudgeDistance.Size = new System.Drawing.Size(235, 28);
+            lblNudgeDistance.TabIndex = 12;
+            lblNudgeDistance.Text = "5";
+            lblNudgeDistance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelTramW
-            //
-            this.labelTramW.BackColor = System.Drawing.Color.Transparent;
-            this.labelTramW.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTramW.ForeColor = System.Drawing.Color.DimGray;
-            this.labelTramW.Location = new System.Drawing.Point(10, 281);
-            this.labelTramW.Name = "labelTramW";
-            this.labelTramW.Size = new System.Drawing.Size(155, 28);
-            this.labelTramW.TabIndex = 13;
-            this.labelTramW.Text = "Tram Width:";
-            this.labelTramW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            labelTramW.BackColor = System.Drawing.Color.Transparent;
+            labelTramW.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelTramW.ForeColor = System.Drawing.Color.DimGray;
+            labelTramW.Location = new System.Drawing.Point(10, 281);
+            labelTramW.Name = "labelTramW";
+            labelTramW.Size = new System.Drawing.Size(155, 28);
+            labelTramW.TabIndex = 13;
+            labelTramW.Text = "Tram Width:";
+            labelTramW.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblTramWidth
-            //
-            this.lblTramWidth.BackColor = System.Drawing.Color.Transparent;
-            this.lblTramWidth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTramWidth.ForeColor = System.Drawing.Color.Black;
-            this.lblTramWidth.Location = new System.Drawing.Point(170, 281);
-            this.lblTramWidth.Name = "lblTramWidth";
-            this.lblTramWidth.Size = new System.Drawing.Size(235, 28);
-            this.lblTramWidth.TabIndex = 14;
-            this.lblTramWidth.Text = "2400cm";
-            this.lblTramWidth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
-            // labelUnits  (buiten de panels, onderaan)
-            //
-            this.labelUnits.BackColor = System.Drawing.Color.Transparent;
-            this.labelUnits.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUnits.ForeColor = System.Drawing.Color.DimGray;
-            this.labelUnits.Location = new System.Drawing.Point(304, 358);
-            this.labelUnits.Name = "labelUnits";
-            this.labelUnits.Size = new System.Drawing.Size(120, 28);
-            this.labelUnits.TabIndex = 524;
-            this.labelUnits.Text = "Units:";
-            this.labelUnits.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            //
+            // 
+            lblTramWidth.BackColor = System.Drawing.Color.Transparent;
+            lblTramWidth.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblTramWidth.ForeColor = System.Drawing.Color.Black;
+            lblTramWidth.Location = new System.Drawing.Point(170, 281);
+            lblTramWidth.Name = "lblTramWidth";
+            lblTramWidth.Size = new System.Drawing.Size(235, 28);
+            lblTramWidth.TabIndex = 14;
+            lblTramWidth.Text = "2400cm";
+            lblTramWidth.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelUnits
+            // 
+            labelUnits.BackColor = System.Drawing.Color.Transparent;
+            labelUnits.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelUnits.ForeColor = System.Drawing.Color.DimGray;
+            labelUnits.Location = new System.Drawing.Point(304, 358);
+            labelUnits.Name = "labelUnits";
+            labelUnits.Size = new System.Drawing.Size(120, 28);
+            labelUnits.TabIndex = 524;
+            labelUnits.Text = "Units:";
+            labelUnits.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // lblUnits
-            //
-            this.lblUnits.BackColor = System.Drawing.Color.Transparent;
-            this.lblUnits.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUnits.ForeColor = System.Drawing.Color.Black;
-            this.lblUnits.Location = new System.Drawing.Point(430, 358);
-            this.lblUnits.Name = "lblUnits";
-            this.lblUnits.Size = new System.Drawing.Size(120, 28);
-            this.lblUnits.TabIndex = 529;
-            this.lblUnits.Text = "Metric";
-            this.lblUnits.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            //
+            // 
+            lblUnits.BackColor = System.Drawing.Color.Transparent;
+            lblUnits.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblUnits.ForeColor = System.Drawing.Color.Black;
+            lblUnits.Location = new System.Drawing.Point(430, 358);
+            lblUnits.Name = "lblUnits";
+            lblUnits.Size = new System.Drawing.Size(120, 28);
+            lblUnits.TabIndex = 529;
+            lblUnits.Text = "Metric";
+            lblUnits.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // labelProfileMenuHint
-            //
-            this.labelProfileMenuHint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProfileMenuHint.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.labelProfileMenuHint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelProfileMenuHint.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProfileMenuHint.Location = new System.Drawing.Point(184, 398);
-            this.labelProfileMenuHint.Name = "labelProfileMenuHint";
-            this.labelProfileMenuHint.Size = new System.Drawing.Size(497, 84);
-            this.labelProfileMenuHint.TabIndex = 540;
-            this.labelProfileMenuHint.Text = "The vehicle settings are now called \"profiles\" and\r\ncan be created/loaded in the " +
-    "main menu (top left).";
-            this.labelProfileMenuHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //
+            // 
+            labelProfileMenuHint.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            labelProfileMenuHint.BackColor = System.Drawing.Color.CornflowerBlue;
+            labelProfileMenuHint.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            labelProfileMenuHint.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            labelProfileMenuHint.Location = new System.Drawing.Point(184, 398);
+            labelProfileMenuHint.Name = "labelProfileMenuHint";
+            labelProfileMenuHint.Size = new System.Drawing.Size(497, 84);
+            labelProfileMenuHint.TabIndex = 540;
+            labelProfileMenuHint.Text = "The vehicle settings are now called \"profiles\" and\r\ncan be created/loaded in the main menu (top left).";
+            labelProfileMenuHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ConfigSummaryControl
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gainsboro;
-            this.Controls.Add(this.panelVehicle);
-            this.Controls.Add(this.panelTool);
-            this.Controls.Add(this.labelUnits);
-            this.Controls.Add(this.lblUnits);
-            this.Controls.Add(this.labelProfileMenuHint);
-            this.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.Name = "ConfigSummaryControl";
-            this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(859, 584);
-            this.panelVehicle.ResumeLayout(false);
-            this.panelTool.ResumeLayout(false);
-            this.ResumeLayout(false);
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.Gainsboro;
+            Controls.Add(panelVehicle);
+            Controls.Add(panelTool);
+            Controls.Add(labelUnits);
+            Controls.Add(lblUnits);
+            Controls.Add(labelProfileMenuHint);
+            Font = new System.Drawing.Font("Tahoma", 9.75F);
+            ForeColor = System.Drawing.Color.WhiteSmoke;
+            Name = "ConfigSummaryControl";
+            Padding = new System.Windows.Forms.Padding(3);
+            Size = new System.Drawing.Size(859, 584);
+            panelVehicle.ResumeLayout(false);
+            panelTool.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

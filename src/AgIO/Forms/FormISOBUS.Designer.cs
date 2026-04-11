@@ -28,229 +28,236 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnIsobusOK = new System.Windows.Forms.Button();
-            this.btnCloseIsobus = new System.Windows.Forms.Button();
-            this.btnOpenIsobus = new System.Windows.Forms.Button();
-            this.cboxRadioAdapter = new System.Windows.Forms.ComboBox();
-            this.lblCurrentAdapter = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutCANAdapter = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutChannel = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblChannel = new System.Windows.Forms.Label();
-            this.cboxRadioChannel = new System.Windows.Forms.ComboBox();
-            this.flowLayoutDownloadIsobus = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblDownloadIsobus = new System.Windows.Forms.Label();
-            this.linkDownloadIsobus = new System.Windows.Forms.LinkLabel();
-            this.textBoxRcv = new System.Windows.Forms.TextBox();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.flowLayoutCANAdapter.SuspendLayout();
-            this.flowLayoutChannel.SuspendLayout();
-            this.flowLayoutDownloadIsobus.SuspendLayout();
-            this.SuspendLayout();
+            btnIsobusOK = new System.Windows.Forms.Button();
+            btnCloseIsobus = new System.Windows.Forms.Button();
+            btnOpenIsobus = new System.Windows.Forms.Button();
+            cboxRadioAdapter = new System.Windows.Forms.ComboBox();
+            lblCurrentAdapter = new System.Windows.Forms.Label();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutCANAdapter = new System.Windows.Forms.FlowLayoutPanel();
+            flowLayoutChannel = new System.Windows.Forms.FlowLayoutPanel();
+            lblChannel = new System.Windows.Forms.Label();
+            cboxRadioChannel = new System.Windows.Forms.ComboBox();
+            flowLayoutDownloadIsobus = new System.Windows.Forms.FlowLayoutPanel();
+            lblDownloadIsobus = new System.Windows.Forms.Label();
+            linkDownloadIsobus = new System.Windows.Forms.LinkLabel();
+            textBoxRcv = new System.Windows.Forms.TextBox();
+            flowLayoutPanel1.SuspendLayout();
+            flowLayoutCANAdapter.SuspendLayout();
+            flowLayoutChannel.SuspendLayout();
+            flowLayoutDownloadIsobus.SuspendLayout();
+            SuspendLayout();
             // 
             // btnIsobusOK
             // 
-            this.btnIsobusOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnIsobusOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnIsobusOK.FlatAppearance.BorderSize = 0;
-            this.btnIsobusOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIsobusOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIsobusOK.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnIsobusOK.Image = global::AgIO.Properties.Resources.OK64;
-            this.btnIsobusOK.Location = new System.Drawing.Point(544, 450);
-            this.btnIsobusOK.Name = "btnIsobusOK";
-            this.btnIsobusOK.Size = new System.Drawing.Size(88, 64);
-            this.btnIsobusOK.TabIndex = 71;
-            this.btnIsobusOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.btnIsobusOK.UseVisualStyleBackColor = true;
-            this.btnIsobusOK.Click += new System.EventHandler(this.btnIsobusOK_Click);
+            btnIsobusOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btnIsobusOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnIsobusOK.FlatAppearance.BorderSize = 0;
+            btnIsobusOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnIsobusOK.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnIsobusOK.ForeColor = System.Drawing.SystemColors.ControlText;
+            btnIsobusOK.Image = Properties.Resources.OK64;
+            btnIsobusOK.Location = new System.Drawing.Point(635, 519);
+            btnIsobusOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnIsobusOK.Name = "btnIsobusOK";
+            btnIsobusOK.Size = new System.Drawing.Size(103, 74);
+            btnIsobusOK.TabIndex = 71;
+            btnIsobusOK.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            btnIsobusOK.UseVisualStyleBackColor = true;
+            btnIsobusOK.Click += btnIsobusOK_Click;
             // 
             // btnCloseIsobus
             // 
-            this.btnCloseIsobus.BackColor = System.Drawing.Color.Transparent;
-            this.btnCloseIsobus.FlatAppearance.BorderSize = 0;
-            this.btnCloseIsobus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseIsobus.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCloseIsobus.Image = global::AgIO.Properties.Resources.USB_Disconnect;
-            this.btnCloseIsobus.Location = new System.Drawing.Point(497, 3);
-            this.btnCloseIsobus.Name = "btnCloseIsobus";
-            this.btnCloseIsobus.Size = new System.Drawing.Size(109, 58);
-            this.btnCloseIsobus.TabIndex = 177;
-            this.btnCloseIsobus.UseVisualStyleBackColor = false;
-            this.btnCloseIsobus.Visible = false;
-            this.btnCloseIsobus.Click += new System.EventHandler(this.btnCloseIsobus_Click);
+            btnCloseIsobus.BackColor = System.Drawing.Color.Transparent;
+            btnCloseIsobus.FlatAppearance.BorderSize = 0;
+            btnCloseIsobus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCloseIsobus.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnCloseIsobus.Image = Properties.Resources.USB_Disconnect;
+            btnCloseIsobus.Location = new System.Drawing.Point(583, 3);
+            btnCloseIsobus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnCloseIsobus.Name = "btnCloseIsobus";
+            btnCloseIsobus.Size = new System.Drawing.Size(127, 67);
+            btnCloseIsobus.TabIndex = 177;
+            btnCloseIsobus.UseVisualStyleBackColor = false;
+            btnCloseIsobus.Visible = false;
+            btnCloseIsobus.Click += btnCloseIsobus_Click;
             // 
             // btnOpenIsobus
             // 
-            this.btnOpenIsobus.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenIsobus.FlatAppearance.BorderSize = 0;
-            this.btnOpenIsobus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOpenIsobus.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenIsobus.Image = global::AgIO.Properties.Resources.USB_Connect;
-            this.btnOpenIsobus.Location = new System.Drawing.Point(390, 3);
-            this.btnOpenIsobus.Name = "btnOpenIsobus";
-            this.btnOpenIsobus.Size = new System.Drawing.Size(101, 58);
-            this.btnOpenIsobus.TabIndex = 178;
-            this.btnOpenIsobus.UseVisualStyleBackColor = false;
-            this.btnOpenIsobus.Visible = false;
-            this.btnOpenIsobus.Click += new System.EventHandler(this.btnOpenIsobus_Click);
+            btnOpenIsobus.BackColor = System.Drawing.Color.Transparent;
+            btnOpenIsobus.FlatAppearance.BorderSize = 0;
+            btnOpenIsobus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnOpenIsobus.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            btnOpenIsobus.Image = Properties.Resources.USB_Connect;
+            btnOpenIsobus.Location = new System.Drawing.Point(457, 3);
+            btnOpenIsobus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnOpenIsobus.Name = "btnOpenIsobus";
+            btnOpenIsobus.Size = new System.Drawing.Size(118, 67);
+            btnOpenIsobus.TabIndex = 178;
+            btnOpenIsobus.UseVisualStyleBackColor = false;
+            btnOpenIsobus.Visible = false;
+            btnOpenIsobus.Click += btnOpenIsobus_Click;
             // 
             // cboxRadioAdapter
             // 
-            this.cboxRadioAdapter.CausesValidation = false;
-            this.cboxRadioAdapter.DisplayMember = "0";
-            this.cboxRadioAdapter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxRadioAdapter.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.cboxRadioAdapter.FormattingEnabled = true;
-            this.cboxRadioAdapter.Items.AddRange(new object[] {
-            "PEAK-PCAN",
-            "InnoMaker-USB2CAN",
-            "Rusoku-TouCAN",
-            "SYS-TEC-USB2CAN"});
-            this.cboxRadioAdapter.Location = new System.Drawing.Point(3, 21);
-            this.cboxRadioAdapter.Name = "cboxRadioAdapter";
-            this.cboxRadioAdapter.Size = new System.Drawing.Size(221, 37);
-            this.cboxRadioAdapter.TabIndex = 179;
-            this.cboxRadioAdapter.SelectedIndexChanged += new System.EventHandler(this.cboxRadioAdapter_SelectedIndexChanged);
+            cboxRadioAdapter.CausesValidation = false;
+            cboxRadioAdapter.DisplayMember = "0";
+            cboxRadioAdapter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboxRadioAdapter.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            cboxRadioAdapter.FormattingEnabled = true;
+            cboxRadioAdapter.Items.AddRange(new object[] { "PEAK-PCAN", "InnoMaker-USB2CAN", "Rusoku-TouCAN", "SYS-TEC-USB2CAN" });
+            cboxRadioAdapter.Location = new System.Drawing.Point(4, 24);
+            cboxRadioAdapter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboxRadioAdapter.Name = "cboxRadioAdapter";
+            cboxRadioAdapter.Size = new System.Drawing.Size(257, 37);
+            cboxRadioAdapter.TabIndex = 179;
+            cboxRadioAdapter.SelectedIndexChanged += cboxRadioAdapter_SelectedIndexChanged;
             // 
             // lblCurrentAdapter
             // 
-            this.lblCurrentAdapter.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentAdapter.Location = new System.Drawing.Point(3, 0);
-            this.lblCurrentAdapter.Name = "lblCurrentAdapter";
-            this.lblCurrentAdapter.Size = new System.Drawing.Size(138, 18);
-            this.lblCurrentAdapter.TabIndex = 180;
-            this.lblCurrentAdapter.Text = "CANbus Adapter";
-            this.lblCurrentAdapter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblCurrentAdapter.UseCompatibleTextRendering = true;
+            lblCurrentAdapter.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblCurrentAdapter.Location = new System.Drawing.Point(4, 0);
+            lblCurrentAdapter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCurrentAdapter.Name = "lblCurrentAdapter";
+            lblCurrentAdapter.Size = new System.Drawing.Size(161, 21);
+            lblCurrentAdapter.TabIndex = 180;
+            lblCurrentAdapter.Text = "CANbus Adapter";
+            lblCurrentAdapter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblCurrentAdapter.UseCompatibleTextRendering = true;
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.flowLayoutCANAdapter);
-            this.flowLayoutPanel1.Controls.Add(this.flowLayoutChannel);
-            this.flowLayoutPanel1.Controls.Add(this.btnOpenIsobus);
-            this.flowLayoutPanel1.Controls.Add(this.btnCloseIsobus);
-            this.flowLayoutPanel1.Controls.Add(this.flowLayoutDownloadIsobus);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 12);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(613, 77);
-            this.flowLayoutPanel1.TabIndex = 181;
+            flowLayoutPanel1.Controls.Add(flowLayoutCANAdapter);
+            flowLayoutPanel1.Controls.Add(flowLayoutChannel);
+            flowLayoutPanel1.Controls.Add(btnOpenIsobus);
+            flowLayoutPanel1.Controls.Add(btnCloseIsobus);
+            flowLayoutPanel1.Controls.Add(flowLayoutDownloadIsobus);
+            flowLayoutPanel1.Location = new System.Drawing.Point(14, 14);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(715, 89);
+            flowLayoutPanel1.TabIndex = 181;
             // 
             // flowLayoutCANAdapter
             // 
-            this.flowLayoutCANAdapter.Controls.Add(this.lblCurrentAdapter);
-            this.flowLayoutCANAdapter.Controls.Add(this.cboxRadioAdapter);
-            this.flowLayoutCANAdapter.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutCANAdapter.Name = "flowLayoutCANAdapter";
-            this.flowLayoutCANAdapter.Size = new System.Drawing.Size(242, 69);
-            this.flowLayoutCANAdapter.TabIndex = 181;
-            this.flowLayoutCANAdapter.Visible = false;
+            flowLayoutCANAdapter.Controls.Add(lblCurrentAdapter);
+            flowLayoutCANAdapter.Controls.Add(cboxRadioAdapter);
+            flowLayoutCANAdapter.Location = new System.Drawing.Point(4, 3);
+            flowLayoutCANAdapter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutCANAdapter.Name = "flowLayoutCANAdapter";
+            flowLayoutCANAdapter.Size = new System.Drawing.Size(282, 80);
+            flowLayoutCANAdapter.TabIndex = 181;
+            flowLayoutCANAdapter.Visible = false;
             // 
             // flowLayoutChannel
             // 
-            this.flowLayoutChannel.Controls.Add(this.lblChannel);
-            this.flowLayoutChannel.Controls.Add(this.cboxRadioChannel);
-            this.flowLayoutChannel.Location = new System.Drawing.Point(251, 3);
-            this.flowLayoutChannel.Name = "flowLayoutChannel";
-            this.flowLayoutChannel.Size = new System.Drawing.Size(133, 69);
-            this.flowLayoutChannel.TabIndex = 182;
-            this.flowLayoutChannel.Visible = false;
+            flowLayoutChannel.Controls.Add(lblChannel);
+            flowLayoutChannel.Controls.Add(cboxRadioChannel);
+            flowLayoutChannel.Location = new System.Drawing.Point(294, 3);
+            flowLayoutChannel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutChannel.Name = "flowLayoutChannel";
+            flowLayoutChannel.Size = new System.Drawing.Size(155, 80);
+            flowLayoutChannel.TabIndex = 182;
+            flowLayoutChannel.Visible = false;
             // 
             // lblChannel
             // 
-            this.lblChannel.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChannel.Location = new System.Drawing.Point(3, 0);
-            this.lblChannel.Name = "lblChannel";
-            this.lblChannel.Size = new System.Drawing.Size(76, 18);
-            this.lblChannel.TabIndex = 180;
-            this.lblChannel.Text = "Channel";
-            this.lblChannel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblChannel.UseCompatibleTextRendering = true;
+            lblChannel.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblChannel.Location = new System.Drawing.Point(4, 0);
+            lblChannel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblChannel.Name = "lblChannel";
+            lblChannel.Size = new System.Drawing.Size(89, 21);
+            lblChannel.TabIndex = 180;
+            lblChannel.Text = "Channel";
+            lblChannel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblChannel.UseCompatibleTextRendering = true;
             // 
             // cboxRadioChannel
             // 
-            this.cboxRadioChannel.CausesValidation = false;
-            this.cboxRadioChannel.DisplayMember = "0";
-            this.cboxRadioChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxRadioChannel.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
-            this.cboxRadioChannel.FormattingEnabled = true;
-            this.cboxRadioChannel.Items.AddRange(new object[] {
-            "PCAN-USB"});
-            this.cboxRadioChannel.Location = new System.Drawing.Point(3, 21);
-            this.cboxRadioChannel.Name = "cboxRadioChannel";
-            this.cboxRadioChannel.Size = new System.Drawing.Size(116, 37);
-            this.cboxRadioChannel.TabIndex = 179;
-            this.cboxRadioChannel.SelectedIndexChanged += new System.EventHandler(this.cboxRadioChannel_SelectedIndexChanged);
+            cboxRadioChannel.CausesValidation = false;
+            cboxRadioChannel.DisplayMember = "0";
+            cboxRadioChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboxRadioChannel.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Bold);
+            cboxRadioChannel.FormattingEnabled = true;
+            cboxRadioChannel.Items.AddRange(new object[] { "PCAN-USB" });
+            cboxRadioChannel.Location = new System.Drawing.Point(4, 24);
+            cboxRadioChannel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cboxRadioChannel.Name = "cboxRadioChannel";
+            cboxRadioChannel.Size = new System.Drawing.Size(135, 37);
+            cboxRadioChannel.TabIndex = 179;
+            cboxRadioChannel.SelectedIndexChanged += cboxRadioChannel_SelectedIndexChanged;
             // 
             // flowLayoutDownloadIsobus
             // 
-            this.flowLayoutDownloadIsobus.Controls.Add(this.lblDownloadIsobus);
-            this.flowLayoutDownloadIsobus.Controls.Add(this.linkDownloadIsobus);
-            this.flowLayoutDownloadIsobus.Location = new System.Drawing.Point(3, 78);
-            this.flowLayoutDownloadIsobus.Name = "flowLayoutDownloadIsobus";
-            this.flowLayoutDownloadIsobus.Size = new System.Drawing.Size(551, 44);
-            this.flowLayoutDownloadIsobus.TabIndex = 183;
+            flowLayoutDownloadIsobus.Controls.Add(lblDownloadIsobus);
+            flowLayoutDownloadIsobus.Controls.Add(linkDownloadIsobus);
+            flowLayoutDownloadIsobus.Location = new System.Drawing.Point(4, 89);
+            flowLayoutDownloadIsobus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutDownloadIsobus.Name = "flowLayoutDownloadIsobus";
+            flowLayoutDownloadIsobus.Size = new System.Drawing.Size(643, 51);
+            flowLayoutDownloadIsobus.TabIndex = 183;
             // 
             // lblDownloadIsobus
             // 
-            this.lblDownloadIsobus.AutoSize = true;
-            this.lblDownloadIsobus.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold);
-            this.lblDownloadIsobus.Location = new System.Drawing.Point(3, 0);
-            this.lblDownloadIsobus.Name = "lblDownloadIsobus";
-            this.lblDownloadIsobus.Size = new System.Drawing.Size(433, 18);
-            this.lblDownloadIsobus.TabIndex = 183;
-            this.lblDownloadIsobus.Text = "AOG-TaskController not installed, please download from:";
+            lblDownloadIsobus.AutoSize = true;
+            lblDownloadIsobus.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold);
+            lblDownloadIsobus.Location = new System.Drawing.Point(4, 0);
+            lblDownloadIsobus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblDownloadIsobus.Name = "lblDownloadIsobus";
+            lblDownloadIsobus.Size = new System.Drawing.Size(433, 18);
+            lblDownloadIsobus.TabIndex = 183;
+            lblDownloadIsobus.Text = "AOG-TaskController not installed, please download from:";
             // 
             // linkDownloadIsobus
             // 
-            this.linkDownloadIsobus.AutoSize = true;
-            this.linkDownloadIsobus.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold);
-            this.linkDownloadIsobus.Location = new System.Drawing.Point(3, 18);
-            this.linkDownloadIsobus.Name = "linkDownloadIsobus";
-            this.linkDownloadIsobus.Size = new System.Drawing.Size(390, 18);
-            this.linkDownloadIsobus.TabIndex = 182;
-            this.linkDownloadIsobus.TabStop = true;
-            this.linkDownloadIsobus.Text = "https://github.com/GwnDaan/AOG-TaskController";
-            this.linkDownloadIsobus.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkDownloadIsobus_LinkClicked);
+            linkDownloadIsobus.AutoSize = true;
+            linkDownloadIsobus.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold);
+            linkDownloadIsobus.Location = new System.Drawing.Point(4, 18);
+            linkDownloadIsobus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            linkDownloadIsobus.Name = "linkDownloadIsobus";
+            linkDownloadIsobus.Size = new System.Drawing.Size(390, 18);
+            linkDownloadIsobus.TabIndex = 182;
+            linkDownloadIsobus.TabStop = true;
+            linkDownloadIsobus.Text = "https://github.com/GwnDaan/AOG-TaskController";
+            linkDownloadIsobus.LinkClicked += linkDownloadIsobus_LinkClicked;
             // 
             // textBoxRcv
             // 
-            this.textBoxRcv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxRcv.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxRcv.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxRcv.Location = new System.Drawing.Point(12, 97);
-            this.textBoxRcv.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBoxRcv.MinimumSize = new System.Drawing.Size(100, 200);
-            this.textBoxRcv.Multiline = true;
-            this.textBoxRcv.Name = "textBoxRcv";
-            this.textBoxRcv.ReadOnly = true;
-            this.textBoxRcv.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxRcv.Size = new System.Drawing.Size(619, 345);
-            this.textBoxRcv.TabIndex = 540;
-            this.textBoxRcv.Visible = false;
-            this.textBoxRcv.WordWrap = false;
+            textBoxRcv.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            textBoxRcv.BackColor = System.Drawing.SystemColors.Window;
+            textBoxRcv.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            textBoxRcv.Location = new System.Drawing.Point(14, 112);
+            textBoxRcv.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            textBoxRcv.MinimumSize = new System.Drawing.Size(116, 230);
+            textBoxRcv.Multiline = true;
+            textBoxRcv.Name = "textBoxRcv";
+            textBoxRcv.ReadOnly = true;
+            textBoxRcv.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            textBoxRcv.Size = new System.Drawing.Size(722, 397);
+            textBoxRcv.TabIndex = 540;
+            textBoxRcv.Visible = false;
+            textBoxRcv.WordWrap = false;
             // 
             // FormISOBUS
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gainsboro;
-            this.ClientSize = new System.Drawing.Size(644, 526);
-            this.ControlBox = false;
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.btnIsobusOK);
-            this.Controls.Add(this.textBoxRcv);
-            this.Name = "FormISOBUS";
-            this.Text = "ISOBUS Settings";
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutCANAdapter.ResumeLayout(false);
-            this.flowLayoutChannel.ResumeLayout(false);
-            this.flowLayoutDownloadIsobus.ResumeLayout(false);
-            this.flowLayoutDownloadIsobus.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.Gainsboro;
+            ClientSize = new System.Drawing.Size(751, 607);
+            ControlBox = false;
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(btnIsobusOK);
+            Controls.Add(textBoxRcv);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "FormISOBUS";
+            Text = "ISOBUS Settings";
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutCANAdapter.ResumeLayout(false);
+            flowLayoutChannel.ResumeLayout(false);
+            flowLayoutDownloadIsobus.ResumeLayout(false);
+            flowLayoutDownloadIsobus.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

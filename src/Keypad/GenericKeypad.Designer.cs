@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // GenericKeypad
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "GenericKeypad";
-            this.Size = new System.Drawing.Size(325, 303);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "GenericKeypad";
+            Size = new System.Drawing.Size(379, 350);
+            ResumeLayout(false);
 
         }
 

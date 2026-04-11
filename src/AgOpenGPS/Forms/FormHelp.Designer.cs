@@ -28,144 +28,152 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonClose = new System.Windows.Forms.Button();
-            this.buttonGitHub = new System.Windows.Forms.Button();
-            this.buttonDiscourse = new System.Windows.Forms.Button();
-            this.buttonYouTube = new System.Windows.Forms.Button();
-            this.pictureBoxQRGitHub = new System.Windows.Forms.PictureBox();
-            this.pictureBoxQRDiscourse = new System.Windows.Forms.PictureBox();
-            this.pictureBoxQRYouTube = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRGitHub)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRDiscourse)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRYouTube)).BeginInit();
-            this.SuspendLayout();
+            buttonClose = new System.Windows.Forms.Button();
+            buttonGitHub = new System.Windows.Forms.Button();
+            buttonDiscourse = new System.Windows.Forms.Button();
+            buttonYouTube = new System.Windows.Forms.Button();
+            pictureBoxQRGitHub = new System.Windows.Forms.PictureBox();
+            pictureBoxQRDiscourse = new System.Windows.Forms.PictureBox();
+            pictureBoxQRYouTube = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxQRGitHub).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxQRDiscourse).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxQRYouTube).BeginInit();
+            SuspendLayout();
             // 
             // buttonClose
             // 
-            this.buttonClose.BackColor = System.Drawing.Color.Transparent;
-            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.FlatAppearance.BorderSize = 0;
-            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClose.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.buttonClose.Image = global::AgOpenGPS.Properties.Resources.OK64;
-            this.buttonClose.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonClose.Location = new System.Drawing.Point(630, 380);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(90, 90);
-            this.buttonClose.TabIndex = 10;
-            this.buttonClose.Text = "Close";
-            this.buttonClose.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonClose.UseVisualStyleBackColor = false;
+            buttonClose.BackColor = System.Drawing.Color.Transparent;
+            buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
+            buttonClose.FlatAppearance.BorderSize = 0;
+            buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonClose.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            buttonClose.Image = Properties.Resources.OK64;
+            buttonClose.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            buttonClose.Location = new System.Drawing.Point(735, 438);
+            buttonClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonClose.Name = "buttonClose";
+            buttonClose.Size = new System.Drawing.Size(105, 104);
+            buttonClose.TabIndex = 10;
+            buttonClose.Text = "Close";
+            buttonClose.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            buttonClose.UseVisualStyleBackColor = false;
             // 
             // buttonGitHub
             // 
-            this.buttonGitHub.BackColor = System.Drawing.Color.Transparent;
-            this.buttonGitHub.FlatAppearance.BorderSize = 0;
-            this.buttonGitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonGitHub.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.buttonGitHub.Image = global::AgOpenGPS.Properties.Resources.GitHub;
-            this.buttonGitHub.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonGitHub.Location = new System.Drawing.Point(20, 260);
-            this.buttonGitHub.Name = "buttonGitHub";
-            this.buttonGitHub.Size = new System.Drawing.Size(220, 110);
-            this.buttonGitHub.TabIndex = 560;
-            this.buttonGitHub.Text = "Check for Updates";
-            this.buttonGitHub.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonGitHub.UseVisualStyleBackColor = false;
-            this.buttonGitHub.Click += new System.EventHandler(this.buttonGitHub_Click);
+            buttonGitHub.BackColor = System.Drawing.Color.Transparent;
+            buttonGitHub.FlatAppearance.BorderSize = 0;
+            buttonGitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonGitHub.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            buttonGitHub.Image = Properties.Resources.GitHub;
+            buttonGitHub.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            buttonGitHub.Location = new System.Drawing.Point(23, 300);
+            buttonGitHub.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonGitHub.Name = "buttonGitHub";
+            buttonGitHub.Size = new System.Drawing.Size(257, 127);
+            buttonGitHub.TabIndex = 560;
+            buttonGitHub.Text = "Check for Updates";
+            buttonGitHub.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            buttonGitHub.UseVisualStyleBackColor = false;
+            buttonGitHub.Click += buttonGitHub_Click;
             // 
             // buttonDiscourse
             // 
-            this.buttonDiscourse.BackColor = System.Drawing.Color.Transparent;
-            this.buttonDiscourse.FlatAppearance.BorderSize = 0;
-            this.buttonDiscourse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDiscourse.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.buttonDiscourse.Image = global::AgOpenGPS.Properties.Resources.Discourse;
-            this.buttonDiscourse.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonDiscourse.Location = new System.Drawing.Point(260, 260);
-            this.buttonDiscourse.Name = "buttonDiscourse";
-            this.buttonDiscourse.Size = new System.Drawing.Size(220, 110);
-            this.buttonDiscourse.TabIndex = 561;
-            this.buttonDiscourse.Text = "Discourse Forum";
-            this.buttonDiscourse.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonDiscourse.UseVisualStyleBackColor = false;
-            this.buttonDiscourse.Click += new System.EventHandler(this.buttonDiscourse_Click);
+            buttonDiscourse.BackColor = System.Drawing.Color.Transparent;
+            buttonDiscourse.FlatAppearance.BorderSize = 0;
+            buttonDiscourse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonDiscourse.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            buttonDiscourse.Image = Properties.Resources.Discourse;
+            buttonDiscourse.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            buttonDiscourse.Location = new System.Drawing.Point(303, 300);
+            buttonDiscourse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonDiscourse.Name = "buttonDiscourse";
+            buttonDiscourse.Size = new System.Drawing.Size(257, 127);
+            buttonDiscourse.TabIndex = 561;
+            buttonDiscourse.Text = "Discourse Forum";
+            buttonDiscourse.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            buttonDiscourse.UseVisualStyleBackColor = false;
+            buttonDiscourse.Click += buttonDiscourse_Click;
             // 
             // buttonYouTube
             // 
-            this.buttonYouTube.BackColor = System.Drawing.Color.Transparent;
-            this.buttonYouTube.FlatAppearance.BorderSize = 0;
-            this.buttonYouTube.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonYouTube.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.buttonYouTube.Image = global::AgOpenGPS.Properties.Resources.YouTube;
-            this.buttonYouTube.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonYouTube.Location = new System.Drawing.Point(500, 260);
-            this.buttonYouTube.Name = "buttonYouTube";
-            this.buttonYouTube.Size = new System.Drawing.Size(220, 110);
-            this.buttonYouTube.TabIndex = 562;
-            this.buttonYouTube.Text = "YouTube Tutorials";
-            this.buttonYouTube.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonYouTube.UseVisualStyleBackColor = false;
-            this.buttonYouTube.Click += new System.EventHandler(this.buttonYouTube_Click);
+            buttonYouTube.BackColor = System.Drawing.Color.Transparent;
+            buttonYouTube.FlatAppearance.BorderSize = 0;
+            buttonYouTube.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonYouTube.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
+            buttonYouTube.Image = Properties.Resources.YouTube;
+            buttonYouTube.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            buttonYouTube.Location = new System.Drawing.Point(583, 300);
+            buttonYouTube.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonYouTube.Name = "buttonYouTube";
+            buttonYouTube.Size = new System.Drawing.Size(257, 127);
+            buttonYouTube.TabIndex = 562;
+            buttonYouTube.Text = "YouTube Tutorials";
+            buttonYouTube.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            buttonYouTube.UseVisualStyleBackColor = false;
+            buttonYouTube.Click += buttonYouTube_Click;
             // 
             // pictureBoxQRGitHub
             // 
-            this.pictureBoxQRGitHub.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxQRGitHub.Image = global::AgOpenGPS.Properties.Resources.QRGitHub;
-            this.pictureBoxQRGitHub.Location = new System.Drawing.Point(20, 20);
-            this.pictureBoxQRGitHub.Name = "pictureBoxQRGitHub";
-            this.pictureBoxQRGitHub.Size = new System.Drawing.Size(220, 220);
-            this.pictureBoxQRGitHub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxQRGitHub.TabIndex = 563;
-            this.pictureBoxQRGitHub.TabStop = false;
+            pictureBoxQRGitHub.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pictureBoxQRGitHub.Image = Properties.Resources.QRGitHub;
+            pictureBoxQRGitHub.Location = new System.Drawing.Point(23, 23);
+            pictureBoxQRGitHub.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBoxQRGitHub.Name = "pictureBoxQRGitHub";
+            pictureBoxQRGitHub.Size = new System.Drawing.Size(256, 254);
+            pictureBoxQRGitHub.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBoxQRGitHub.TabIndex = 563;
+            pictureBoxQRGitHub.TabStop = false;
             // 
             // pictureBoxQRDiscourse
             // 
-            this.pictureBoxQRDiscourse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxQRDiscourse.Image = global::AgOpenGPS.Properties.Resources.QRDiscourse;
-            this.pictureBoxQRDiscourse.Location = new System.Drawing.Point(260, 20);
-            this.pictureBoxQRDiscourse.Name = "pictureBoxQRDiscourse";
-            this.pictureBoxQRDiscourse.Size = new System.Drawing.Size(220, 220);
-            this.pictureBoxQRDiscourse.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxQRDiscourse.TabIndex = 564;
-            this.pictureBoxQRDiscourse.TabStop = false;
+            pictureBoxQRDiscourse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pictureBoxQRDiscourse.Image = Properties.Resources.QRDiscourse;
+            pictureBoxQRDiscourse.Location = new System.Drawing.Point(303, 23);
+            pictureBoxQRDiscourse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBoxQRDiscourse.Name = "pictureBoxQRDiscourse";
+            pictureBoxQRDiscourse.Size = new System.Drawing.Size(256, 254);
+            pictureBoxQRDiscourse.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBoxQRDiscourse.TabIndex = 564;
+            pictureBoxQRDiscourse.TabStop = false;
             // 
             // pictureBoxQRYouTube
             // 
-            this.pictureBoxQRYouTube.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxQRYouTube.Image = global::AgOpenGPS.Properties.Resources.QRYouTube;
-            this.pictureBoxQRYouTube.Location = new System.Drawing.Point(500, 20);
-            this.pictureBoxQRYouTube.Name = "pictureBoxQRYouTube";
-            this.pictureBoxQRYouTube.Size = new System.Drawing.Size(220, 220);
-            this.pictureBoxQRYouTube.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxQRYouTube.TabIndex = 565;
-            this.pictureBoxQRYouTube.TabStop = false;
+            pictureBoxQRYouTube.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            pictureBoxQRYouTube.Image = Properties.Resources.QRYouTube;
+            pictureBoxQRYouTube.Location = new System.Drawing.Point(583, 23);
+            pictureBoxQRYouTube.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBoxQRYouTube.Name = "pictureBoxQRYouTube";
+            pictureBoxQRYouTube.Size = new System.Drawing.Size(256, 254);
+            pictureBoxQRYouTube.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBoxQRYouTube.TabIndex = 565;
+            pictureBoxQRYouTube.TabStop = false;
             // 
             // FormHelp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(739, 480);
-            this.ControlBox = false;
-            this.Controls.Add(this.pictureBoxQRGitHub);
-            this.Controls.Add(this.pictureBoxQRDiscourse);
-            this.Controls.Add(this.pictureBoxQRYouTube);
-            this.Controls.Add(this.buttonGitHub);
-            this.Controls.Add(this.buttonDiscourse);
-            this.Controls.Add(this.buttonYouTube);
-            this.Controls.Add(this.buttonClose);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MinimizeBox = false;
-            this.Name = "FormHelp";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Help";
-            this.Load += new System.EventHandler(this.FormHelp_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRGitHub)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRDiscourse)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQRYouTube)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.Control;
+            ClientSize = new System.Drawing.Size(862, 554);
+            ControlBox = false;
+            Controls.Add(pictureBoxQRGitHub);
+            Controls.Add(pictureBoxQRDiscourse);
+            Controls.Add(pictureBoxQRYouTube);
+            Controls.Add(buttonGitHub);
+            Controls.Add(buttonDiscourse);
+            Controls.Add(buttonYouTube);
+            Controls.Add(buttonClose);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MinimizeBox = false;
+            Name = "FormHelp";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Help";
+            Load += FormHelp_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBoxQRGitHub).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxQRDiscourse).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxQRYouTube).EndInit();
+            ResumeLayout(false);
 
         }
 

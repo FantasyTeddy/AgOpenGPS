@@ -28,353 +28,378 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnDay = new System.Windows.Forms.Button();
-            this.btnNight = new System.Windows.Forms.Button();
-            this.btn01 = new System.Windows.Forms.Button();
-            this.btn09 = new System.Windows.Forms.Button();
-            this.btn10 = new System.Windows.Forms.Button();
-            this.btn02 = new System.Windows.Forms.Button();
-            this.btn12 = new System.Windows.Forms.Button();
-            this.btn04 = new System.Windows.Forms.Button();
-            this.btn11 = new System.Windows.Forms.Button();
-            this.btn03 = new System.Windows.Forms.Button();
-            this.btn14 = new System.Windows.Forms.Button();
-            this.btn06 = new System.Windows.Forms.Button();
-            this.btn13 = new System.Windows.Forms.Button();
-            this.btn05 = new System.Windows.Forms.Button();
-            this.btn15 = new System.Windows.Forms.Button();
-            this.btn07 = new System.Windows.Forms.Button();
-            this.btn00 = new System.Windows.Forms.Button();
-            this.btn08 = new System.Windows.Forms.Button();
-            this.groupBoxSelectPresetColor = new System.Windows.Forms.GroupBox();
-            this.chkUse = new System.Windows.Forms.CheckBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.colorBox2D = new MechanikaDesign.WinForms.UI.ColorPicker.ColorBox2D();
-            this.colorSlider = new MechanikaDesign.WinForms.UI.ColorPicker.ColorSliderVertical();
-            this.groupBoxSelectPresetColor.SuspendLayout();
-            this.SuspendLayout();
+            btnDay = new System.Windows.Forms.Button();
+            btnNight = new System.Windows.Forms.Button();
+            btn01 = new System.Windows.Forms.Button();
+            btn09 = new System.Windows.Forms.Button();
+            btn10 = new System.Windows.Forms.Button();
+            btn02 = new System.Windows.Forms.Button();
+            btn12 = new System.Windows.Forms.Button();
+            btn04 = new System.Windows.Forms.Button();
+            btn11 = new System.Windows.Forms.Button();
+            btn03 = new System.Windows.Forms.Button();
+            btn14 = new System.Windows.Forms.Button();
+            btn06 = new System.Windows.Forms.Button();
+            btn13 = new System.Windows.Forms.Button();
+            btn05 = new System.Windows.Forms.Button();
+            btn15 = new System.Windows.Forms.Button();
+            btn07 = new System.Windows.Forms.Button();
+            btn00 = new System.Windows.Forms.Button();
+            btn08 = new System.Windows.Forms.Button();
+            groupBoxSelectPresetColor = new System.Windows.Forms.GroupBox();
+            chkUse = new System.Windows.Forms.CheckBox();
+            btnSave = new System.Windows.Forms.Button();
+            colorBox2D = new MechanikaDesign.WinForms.UI.ColorPicker.ColorBox2D();
+            colorSlider = new MechanikaDesign.WinForms.UI.ColorPicker.ColorSliderVertical();
+            groupBoxSelectPresetColor.SuspendLayout();
+            SuspendLayout();
             // 
             // btnDay
             // 
-            this.btnDay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDay.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDay.Location = new System.Drawing.Point(454, 12);
-            this.btnDay.Name = "btnDay";
-            this.btnDay.Size = new System.Drawing.Size(120, 162);
-            this.btnDay.TabIndex = 217;
-            this.btnDay.Text = "Day";
-            this.btnDay.UseVisualStyleBackColor = true;
+            btnDay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnDay.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnDay.Location = new System.Drawing.Point(530, 14);
+            btnDay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnDay.Name = "btnDay";
+            btnDay.Size = new System.Drawing.Size(140, 187);
+            btnDay.TabIndex = 217;
+            btnDay.Text = "Day";
+            btnDay.UseVisualStyleBackColor = true;
             // 
             // btnNight
             // 
-            this.btnNight.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnNight.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnNight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNight.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNight.ForeColor = System.Drawing.SystemColors.Window;
-            this.btnNight.Location = new System.Drawing.Point(454, 204);
-            this.btnNight.Name = "btnNight";
-            this.btnNight.Size = new System.Drawing.Size(120, 162);
-            this.btnNight.TabIndex = 218;
-            this.btnNight.Text = "Night";
-            this.btnNight.UseVisualStyleBackColor = false;
+            btnNight.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            btnNight.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            btnNight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnNight.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btnNight.ForeColor = System.Drawing.SystemColors.Window;
+            btnNight.Location = new System.Drawing.Point(530, 235);
+            btnNight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnNight.Name = "btnNight";
+            btnNight.Size = new System.Drawing.Size(140, 187);
+            btnNight.TabIndex = 218;
+            btnNight.Text = "Night";
+            btnNight.UseVisualStyleBackColor = false;
             // 
             // btn01
             // 
-            this.btn01.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn01.BackColor = System.Drawing.Color.Coral;
-            this.btn01.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn01.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn01.Location = new System.Drawing.Point(87, 30);
-            this.btn01.Name = "btn01";
-            this.btn01.Size = new System.Drawing.Size(64, 47);
-            this.btn01.TabIndex = 219;
-            this.btn01.UseVisualStyleBackColor = false;
-            this.btn01.Click += new System.EventHandler(this.btn00_Click);
+            btn01.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn01.BackColor = System.Drawing.Color.Coral;
+            btn01.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn01.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn01.Location = new System.Drawing.Point(102, 35);
+            btn01.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn01.Name = "btn01";
+            btn01.Size = new System.Drawing.Size(75, 54);
+            btn01.TabIndex = 219;
+            btn01.UseVisualStyleBackColor = false;
+            btn01.Click += btn00_Click;
             // 
             // btn09
             // 
-            this.btn09.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn09.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn09.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn09.Location = new System.Drawing.Point(241, 92);
-            this.btn09.Name = "btn09";
-            this.btn09.Size = new System.Drawing.Size(64, 47);
-            this.btn09.TabIndex = 220;
-            this.btn09.UseVisualStyleBackColor = true;
-            this.btn09.Click += new System.EventHandler(this.btn00_Click);
+            btn09.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn09.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn09.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn09.Location = new System.Drawing.Point(281, 106);
+            btn09.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn09.Name = "btn09";
+            btn09.Size = new System.Drawing.Size(75, 54);
+            btn09.TabIndex = 220;
+            btn09.UseVisualStyleBackColor = true;
+            btn09.Click += btn00_Click;
             // 
             // btn10
             // 
-            this.btn10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn10.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn10.Location = new System.Drawing.Point(318, 92);
-            this.btn10.Name = "btn10";
-            this.btn10.Size = new System.Drawing.Size(64, 47);
-            this.btn10.TabIndex = 222;
-            this.btn10.UseVisualStyleBackColor = true;
-            this.btn10.Click += new System.EventHandler(this.btn00_Click);
+            btn10.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn10.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn10.Location = new System.Drawing.Point(371, 106);
+            btn10.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn10.Name = "btn10";
+            btn10.Size = new System.Drawing.Size(75, 54);
+            btn10.TabIndex = 222;
+            btn10.UseVisualStyleBackColor = true;
+            btn10.Click += btn00_Click;
             // 
             // btn02
             // 
-            this.btn02.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn02.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn02.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn02.Location = new System.Drawing.Point(164, 30);
-            this.btn02.Name = "btn02";
-            this.btn02.Size = new System.Drawing.Size(64, 47);
-            this.btn02.TabIndex = 221;
-            this.btn02.UseVisualStyleBackColor = true;
-            this.btn02.Click += new System.EventHandler(this.btn00_Click);
+            btn02.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn02.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn02.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn02.Location = new System.Drawing.Point(191, 35);
+            btn02.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn02.Name = "btn02";
+            btn02.Size = new System.Drawing.Size(75, 54);
+            btn02.TabIndex = 221;
+            btn02.UseVisualStyleBackColor = true;
+            btn02.Click += btn00_Click;
             // 
             // btn12
             // 
-            this.btn12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn12.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn12.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn12.Location = new System.Drawing.Point(10, 155);
-            this.btn12.Name = "btn12";
-            this.btn12.Size = new System.Drawing.Size(64, 47);
-            this.btn12.TabIndex = 226;
-            this.btn12.UseVisualStyleBackColor = true;
-            this.btn12.Click += new System.EventHandler(this.btn00_Click);
+            btn12.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn12.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn12.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn12.Location = new System.Drawing.Point(12, 179);
+            btn12.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn12.Name = "btn12";
+            btn12.Size = new System.Drawing.Size(75, 54);
+            btn12.TabIndex = 226;
+            btn12.UseVisualStyleBackColor = true;
+            btn12.Click += btn00_Click;
             // 
             // btn04
             // 
-            this.btn04.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn04.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn04.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn04.Location = new System.Drawing.Point(318, 30);
-            this.btn04.Name = "btn04";
-            this.btn04.Size = new System.Drawing.Size(64, 47);
-            this.btn04.TabIndex = 225;
-            this.btn04.UseVisualStyleBackColor = true;
-            this.btn04.Click += new System.EventHandler(this.btn00_Click);
+            btn04.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn04.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn04.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn04.Location = new System.Drawing.Point(371, 35);
+            btn04.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn04.Name = "btn04";
+            btn04.Size = new System.Drawing.Size(75, 54);
+            btn04.TabIndex = 225;
+            btn04.UseVisualStyleBackColor = true;
+            btn04.Click += btn00_Click;
             // 
             // btn11
             // 
-            this.btn11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn11.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn11.Location = new System.Drawing.Point(395, 92);
-            this.btn11.Name = "btn11";
-            this.btn11.Size = new System.Drawing.Size(64, 47);
-            this.btn11.TabIndex = 224;
-            this.btn11.UseVisualStyleBackColor = true;
-            this.btn11.Click += new System.EventHandler(this.btn00_Click);
+            btn11.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn11.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn11.Location = new System.Drawing.Point(461, 106);
+            btn11.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn11.Name = "btn11";
+            btn11.Size = new System.Drawing.Size(75, 54);
+            btn11.TabIndex = 224;
+            btn11.UseVisualStyleBackColor = true;
+            btn11.Click += btn00_Click;
             // 
             // btn03
             // 
-            this.btn03.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn03.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn03.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn03.Location = new System.Drawing.Point(241, 30);
-            this.btn03.Name = "btn03";
-            this.btn03.Size = new System.Drawing.Size(64, 47);
-            this.btn03.TabIndex = 223;
-            this.btn03.UseVisualStyleBackColor = true;
-            this.btn03.Click += new System.EventHandler(this.btn00_Click);
+            btn03.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn03.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn03.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn03.Location = new System.Drawing.Point(281, 35);
+            btn03.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn03.Name = "btn03";
+            btn03.Size = new System.Drawing.Size(75, 54);
+            btn03.TabIndex = 223;
+            btn03.UseVisualStyleBackColor = true;
+            btn03.Click += btn00_Click;
             // 
             // btn14
             // 
-            this.btn14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn14.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn14.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn14.Location = new System.Drawing.Point(164, 155);
-            this.btn14.Name = "btn14";
-            this.btn14.Size = new System.Drawing.Size(64, 47);
-            this.btn14.TabIndex = 230;
-            this.btn14.UseVisualStyleBackColor = true;
-            this.btn14.Click += new System.EventHandler(this.btn00_Click);
+            btn14.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn14.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn14.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn14.Location = new System.Drawing.Point(191, 179);
+            btn14.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn14.Name = "btn14";
+            btn14.Size = new System.Drawing.Size(75, 54);
+            btn14.TabIndex = 230;
+            btn14.UseVisualStyleBackColor = true;
+            btn14.Click += btn00_Click;
             // 
             // btn06
             // 
-            this.btn06.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn06.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn06.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn06.Location = new System.Drawing.Point(10, 92);
-            this.btn06.Name = "btn06";
-            this.btn06.Size = new System.Drawing.Size(64, 47);
-            this.btn06.TabIndex = 229;
-            this.btn06.UseVisualStyleBackColor = true;
-            this.btn06.Click += new System.EventHandler(this.btn00_Click);
+            btn06.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn06.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn06.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn06.Location = new System.Drawing.Point(12, 106);
+            btn06.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn06.Name = "btn06";
+            btn06.Size = new System.Drawing.Size(75, 54);
+            btn06.TabIndex = 229;
+            btn06.UseVisualStyleBackColor = true;
+            btn06.Click += btn00_Click;
             // 
             // btn13
             // 
-            this.btn13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn13.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn13.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn13.Location = new System.Drawing.Point(87, 155);
-            this.btn13.Name = "btn13";
-            this.btn13.Size = new System.Drawing.Size(64, 47);
-            this.btn13.TabIndex = 228;
-            this.btn13.UseVisualStyleBackColor = true;
-            this.btn13.Click += new System.EventHandler(this.btn00_Click);
+            btn13.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn13.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn13.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn13.Location = new System.Drawing.Point(102, 179);
+            btn13.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn13.Name = "btn13";
+            btn13.Size = new System.Drawing.Size(75, 54);
+            btn13.TabIndex = 228;
+            btn13.UseVisualStyleBackColor = true;
+            btn13.Click += btn00_Click;
             // 
             // btn05
             // 
-            this.btn05.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn05.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn05.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn05.Location = new System.Drawing.Point(395, 30);
-            this.btn05.Name = "btn05";
-            this.btn05.Size = new System.Drawing.Size(64, 47);
-            this.btn05.TabIndex = 227;
-            this.btn05.UseVisualStyleBackColor = true;
-            this.btn05.Click += new System.EventHandler(this.btn00_Click);
+            btn05.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn05.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn05.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn05.Location = new System.Drawing.Point(461, 35);
+            btn05.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn05.Name = "btn05";
+            btn05.Size = new System.Drawing.Size(75, 54);
+            btn05.TabIndex = 227;
+            btn05.UseVisualStyleBackColor = true;
+            btn05.Click += btn00_Click;
             // 
             // btn15
             // 
-            this.btn15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn15.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn15.Location = new System.Drawing.Point(241, 155);
-            this.btn15.Name = "btn15";
-            this.btn15.Size = new System.Drawing.Size(64, 47);
-            this.btn15.TabIndex = 232;
-            this.btn15.UseVisualStyleBackColor = true;
-            this.btn15.Click += new System.EventHandler(this.btn00_Click);
+            btn15.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn15.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn15.Location = new System.Drawing.Point(281, 179);
+            btn15.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn15.Name = "btn15";
+            btn15.Size = new System.Drawing.Size(75, 54);
+            btn15.TabIndex = 232;
+            btn15.UseVisualStyleBackColor = true;
+            btn15.Click += btn00_Click;
             // 
             // btn07
             // 
-            this.btn07.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn07.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn07.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn07.Location = new System.Drawing.Point(87, 92);
-            this.btn07.Name = "btn07";
-            this.btn07.Size = new System.Drawing.Size(64, 47);
-            this.btn07.TabIndex = 231;
-            this.btn07.UseVisualStyleBackColor = true;
-            this.btn07.Click += new System.EventHandler(this.btn00_Click);
+            btn07.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn07.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btn07.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn07.Location = new System.Drawing.Point(102, 106);
+            btn07.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn07.Name = "btn07";
+            btn07.Size = new System.Drawing.Size(75, 54);
+            btn07.TabIndex = 231;
+            btn07.UseVisualStyleBackColor = true;
+            btn07.Click += btn00_Click;
             // 
             // btn00
             // 
-            this.btn00.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn00.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn00.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn00.Location = new System.Drawing.Point(10, 30);
-            this.btn00.Name = "btn00";
-            this.btn00.Size = new System.Drawing.Size(64, 47);
-            this.btn00.TabIndex = 234;
-            this.btn00.UseVisualStyleBackColor = true;
-            this.btn00.Click += new System.EventHandler(this.btn00_Click);
+            btn00.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn00.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn00.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn00.Location = new System.Drawing.Point(12, 35);
+            btn00.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn00.Name = "btn00";
+            btn00.Size = new System.Drawing.Size(75, 54);
+            btn00.TabIndex = 234;
+            btn00.UseVisualStyleBackColor = true;
+            btn00.Click += btn00_Click;
             // 
             // btn08
             // 
-            this.btn08.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn08.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btn08.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn08.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn08.Location = new System.Drawing.Point(164, 92);
-            this.btn08.Name = "btn08";
-            this.btn08.Size = new System.Drawing.Size(64, 47);
-            this.btn08.TabIndex = 233;
-            this.btn08.UseVisualStyleBackColor = false;
-            this.btn08.Click += new System.EventHandler(this.btn00_Click);
+            btn08.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            btn08.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            btn08.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            btn08.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            btn08.Location = new System.Drawing.Point(191, 106);
+            btn08.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btn08.Name = "btn08";
+            btn08.Size = new System.Drawing.Size(75, 54);
+            btn08.TabIndex = 233;
+            btn08.UseVisualStyleBackColor = false;
+            btn08.Click += btn00_Click;
             // 
             // groupBoxSelectPresetColor
             // 
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn01);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn09);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn00);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn02);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn08);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn10);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn15);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn03);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn07);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn11);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn14);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn04);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn06);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn12);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn13);
-            this.groupBoxSelectPresetColor.Controls.Add(this.btn05);
-            this.groupBoxSelectPresetColor.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxSelectPresetColor.Location = new System.Drawing.Point(12, 387);
-            this.groupBoxSelectPresetColor.Name = "groupBoxSelectPresetColor";
-            this.groupBoxSelectPresetColor.Size = new System.Drawing.Size(468, 216);
-            this.groupBoxSelectPresetColor.TabIndex = 258;
-            this.groupBoxSelectPresetColor.TabStop = false;
-            this.groupBoxSelectPresetColor.Text = "Select Preset Color";
+            groupBoxSelectPresetColor.Controls.Add(btn01);
+            groupBoxSelectPresetColor.Controls.Add(btn09);
+            groupBoxSelectPresetColor.Controls.Add(btn00);
+            groupBoxSelectPresetColor.Controls.Add(btn02);
+            groupBoxSelectPresetColor.Controls.Add(btn08);
+            groupBoxSelectPresetColor.Controls.Add(btn10);
+            groupBoxSelectPresetColor.Controls.Add(btn15);
+            groupBoxSelectPresetColor.Controls.Add(btn03);
+            groupBoxSelectPresetColor.Controls.Add(btn07);
+            groupBoxSelectPresetColor.Controls.Add(btn11);
+            groupBoxSelectPresetColor.Controls.Add(btn14);
+            groupBoxSelectPresetColor.Controls.Add(btn04);
+            groupBoxSelectPresetColor.Controls.Add(btn06);
+            groupBoxSelectPresetColor.Controls.Add(btn12);
+            groupBoxSelectPresetColor.Controls.Add(btn13);
+            groupBoxSelectPresetColor.Controls.Add(btn05);
+            groupBoxSelectPresetColor.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            groupBoxSelectPresetColor.Location = new System.Drawing.Point(14, 447);
+            groupBoxSelectPresetColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBoxSelectPresetColor.Name = "groupBoxSelectPresetColor";
+            groupBoxSelectPresetColor.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBoxSelectPresetColor.Size = new System.Drawing.Size(546, 249);
+            groupBoxSelectPresetColor.TabIndex = 258;
+            groupBoxSelectPresetColor.TabStop = false;
+            groupBoxSelectPresetColor.Text = "Select Preset Color";
             // 
             // chkUse
             // 
-            this.chkUse.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkUse.FlatAppearance.BorderSize = 0;
-            this.chkUse.FlatAppearance.CheckedBackColor = System.Drawing.Color.PaleGreen;
-            this.chkUse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkUse.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkUse.Image = global::AgOpenGPS.Properties.Resources.ColorLocked;
-            this.chkUse.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkUse.Location = new System.Drawing.Point(495, 428);
-            this.chkUse.Name = "chkUse";
-            this.chkUse.Size = new System.Drawing.Size(79, 73);
-            this.chkUse.TabIndex = 257;
-            this.chkUse.UseVisualStyleBackColor = true;
-            this.chkUse.CheckedChanged += new System.EventHandler(this.chkUse_CheckedChanged);
+            chkUse.Appearance = System.Windows.Forms.Appearance.Button;
+            chkUse.FlatAppearance.BorderSize = 0;
+            chkUse.FlatAppearance.CheckedBackColor = System.Drawing.Color.PaleGreen;
+            chkUse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            chkUse.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            chkUse.Image = Properties.Resources.ColorLocked;
+            chkUse.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            chkUse.Location = new System.Drawing.Point(578, 494);
+            chkUse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            chkUse.Name = "chkUse";
+            chkUse.Size = new System.Drawing.Size(92, 84);
+            chkUse.TabIndex = 257;
+            chkUse.UseVisualStyleBackColor = true;
+            chkUse.CheckedChanged += chkUse_CheckedChanged;
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.Transparent;
-            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
-            this.btnSave.Image = global::AgOpenGPS.Properties.Resources.OK64;
-            this.btnSave.Location = new System.Drawing.Point(503, 532);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(71, 62);
-            this.btnSave.TabIndex = 215;
-            this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            btnSave.BackColor = System.Drawing.Color.Transparent;
+            btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSave.Font = new System.Drawing.Font("Tahoma", 15.75F);
+            btnSave.Image = Properties.Resources.OK64;
+            btnSave.Location = new System.Drawing.Point(587, 614);
+            btnSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new System.Drawing.Size(83, 72);
+            btnSave.TabIndex = 215;
+            btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
             // 
             // colorBox2D
             // 
-            this.colorBox2D.ColorMode = MechanikaDesign.WinForms.UI.ColorPicker.ColorModes.Hue;
-            this.colorBox2D.ColorRGB = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.colorBox2D.Location = new System.Drawing.Point(5, 6);
-            this.colorBox2D.Name = "colorBox2D";
-            this.colorBox2D.Size = new System.Drawing.Size(360, 360);
-            this.colorBox2D.TabIndex = 260;
-            this.colorBox2D.ColorChanged += new MechanikaDesign.WinForms.UI.ColorPicker.ColorBox2D.ColorChangedEventHandler(this.colorBox2D_ColorChanged);
+            colorBox2D.ColorMode = MechanikaDesign.WinForms.UI.ColorPicker.ColorModes.Hue;
+            colorBox2D.ColorRGB = System.Drawing.Color.FromArgb(255, 0, 0);
+            colorBox2D.Location = new System.Drawing.Point(6, 7);
+            colorBox2D.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            colorBox2D.Name = "colorBox2D";
+            colorBox2D.Size = new System.Drawing.Size(420, 415);
+            colorBox2D.TabIndex = 260;
+            colorBox2D.ColorChanged += colorBox2D_ColorChanged;
             // 
             // colorSlider
             // 
-            this.colorSlider.ColorMode = MechanikaDesign.WinForms.UI.ColorPicker.ColorModes.Hue;
-            this.colorSlider.ColorRGB = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.colorSlider.Location = new System.Drawing.Point(371, 6);
-            this.colorSlider.Name = "colorSlider";
-            this.colorSlider.NubColor = System.Drawing.Color.Empty;
-            this.colorSlider.Position = 0;
-            this.colorSlider.Size = new System.Drawing.Size(75, 360);
-            this.colorSlider.TabIndex = 261;
-            this.colorSlider.ColorChanged += new MechanikaDesign.WinForms.UI.ColorPicker.ColorSliderVertical.ColorChangedEventHandler(this.colorSlider_ColorChanged);
+            colorSlider.ColorMode = MechanikaDesign.WinForms.UI.ColorPicker.ColorModes.Hue;
+            colorSlider.ColorRGB = System.Drawing.Color.FromArgb(255, 0, 0);
+            colorSlider.Location = new System.Drawing.Point(433, 7);
+            colorSlider.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            colorSlider.Name = "colorSlider";
+            colorSlider.NubColor = System.Drawing.Color.Empty;
+            colorSlider.Position = 0;
+            colorSlider.Size = new System.Drawing.Size(88, 415);
+            colorSlider.TabIndex = 261;
+            colorSlider.ColorChanged += colorSlider_ColorChanged;
             // 
             // FormColorPicker
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
-            this.ClientSize = new System.Drawing.Size(591, 615);
-            this.ControlBox = false;
-            this.Controls.Add(this.colorSlider);
-            this.Controls.Add(this.colorBox2D);
-            this.Controls.Add(this.groupBoxSelectPresetColor);
-            this.Controls.Add(this.chkUse);
-            this.Controls.Add(this.btnNight);
-            this.Controls.Add(this.btnDay);
-            this.Controls.Add(this.btnSave);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MinimizeBox = false;
-            this.Name = "FormColorPicker";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Color Picker";
-            this.Load += new System.EventHandler(this.FormColorPicker_Load);
-            this.groupBoxSelectPresetColor.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(127, 127, 127);
+            ClientSize = new System.Drawing.Size(690, 710);
+            ControlBox = false;
+            Controls.Add(colorSlider);
+            Controls.Add(colorBox2D);
+            Controls.Add(groupBoxSelectPresetColor);
+            Controls.Add(chkUse);
+            Controls.Add(btnNight);
+            Controls.Add(btnDay);
+            Controls.Add(btnSave);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MinimizeBox = false;
+            Name = "FormColorPicker";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            Text = "Color Picker";
+            Load += FormColorPicker_Load;
+            groupBoxSelectPresetColor.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
