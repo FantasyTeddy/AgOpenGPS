@@ -29,7 +29,6 @@ namespace AgOpenGPS.Forms.Field
         private CTrk _activeTrack;
         private double _viewLeft, _viewRight, _viewTop, _viewBottom;
         private bool _showTrimmedOnly;
-        private Form _parentForm;
         private bool _redrawPending;
 
         // Touch drag scrolling
@@ -45,11 +44,10 @@ namespace AgOpenGPS.Forms.Field
         #endregion
 
         #region Constructor
-        public FormBuildBoundaryFromTracks(FormGPS mf, Form parentForm)
+        public FormBuildBoundaryFromTracks(FormGPS mf)
         {
             InitializeComponent();
             _mf = mf;
-            _parentForm = parentForm;
             _trackList = new List<CTrk>();
             _selectedTracks = new List<CTrk>();
             _showTrimmedOnly = false;
@@ -76,8 +74,8 @@ namespace AgOpenGPS.Forms.Field
         private void LoadTracks()
         {
             _trackList.Clear();
-            var tempTrackList = new List<CTrk>();
-            var originalTrackList = _mf.trk.gArr;
+            List<CTrk> tempTrackList = new();
+            List<CTrk> originalTrackList = _mf.trk.gArr;
 
             try
             {
@@ -131,9 +129,9 @@ namespace AgOpenGPS.Forms.Field
             flpTrackList.Controls.Clear();
             _selectedTracks.Clear();
 
-            foreach (var trk in _trackList)
+            foreach (CTrk trk in _trackList)
             {
-                var chk = CreateTrackCheckbox(trk);
+                CheckBox chk = CreateTrackCheckbox(trk);
                 _selectedTracks.Add(trk);
                 flpTrackList.Controls.Add(chk);
             }
@@ -141,7 +139,7 @@ namespace AgOpenGPS.Forms.Field
 
         private CheckBox CreateTrackCheckbox(CTrk track)
         {
-            var chk = new CheckBox
+            CheckBox chk = new()
             {
                 Text = $"{track.name} ({track.mode})",
                 Checked = true,
@@ -169,8 +167,7 @@ namespace AgOpenGPS.Forms.Field
             if ((DateTime.Now - _lastDragEndTime).TotalMilliseconds < 200)
             {
                 // Revert the checkbox state to what it was before
-                var trk = checkbox?.Tag as CTrk;
-                if (trk != null)
+                if (checkbox?.Tag is CTrk trk)
                 {
                     checkbox.Checked = _selectedTracks.Contains(trk);
                 }
@@ -247,7 +244,7 @@ namespace AgOpenGPS.Forms.Field
         #region Track Manipulation
         private void ShiftSelectedTrackPoint(bool isPointA, double deltaMeters)
         {
-            var trk = _activeTrack;
+            CTrk trk = _activeTrack;
             if (trk == null) return;
 
             _showTrimmedOnly = false;
@@ -276,7 +273,7 @@ namespace AgOpenGPS.Forms.Field
 
         private void AdjustABTrackPoints(CTrk track, bool isPointA, double deltaMeters)
         {
-            vec2 direction = (track.ptB - track.ptA).Normalize();
+            Vec2 direction = (track.ptB - track.ptA).Normalize();
 
             if (isPointA)
             {
@@ -308,13 +305,13 @@ namespace AgOpenGPS.Forms.Field
         {
             for (int s = 0; s < steps && (isExtend || track.curvePts.Count > 2); s++)
             {
-                var pt0 = track.curvePts[0];
-                var pt1 = track.curvePts[1];
-                vec2 dir = (new vec2(pt0.easting, pt0.northing) - new vec2(pt1.easting, pt1.northing)).Normalize();
+                Vec3 pt0 = track.curvePts[0];
+                Vec3 pt1 = track.curvePts[1];
+                Vec2 dir = (new Vec2(pt0.easting, pt0.northing) - new Vec2(pt1.easting, pt1.northing)).Normalize();
 
                 if (isExtend)
                 {
-                    track.curvePts.Insert(0, new vec3(
+                    track.curvePts.Insert(0, new Vec3(
                         pt0.easting + dir.easting,
                         pt0.northing + dir.northing,
                         pt0.heading));
@@ -331,13 +328,13 @@ namespace AgOpenGPS.Forms.Field
             for (int s = 0; s < steps && (isExtend || track.curvePts.Count > 2); s++)
             {
                 int last = track.curvePts.Count - 1;
-                var ptN = track.curvePts[last];
-                var ptN1 = track.curvePts[last - 1];
-                vec2 dir = (new vec2(ptN.easting, ptN.northing) - new vec2(ptN1.easting, ptN1.northing)).Normalize();
+                Vec3 ptN = track.curvePts[last];
+                Vec3 ptN1 = track.curvePts[last - 1];
+                Vec2 dir = (new Vec2(ptN.easting, ptN.northing) - new Vec2(ptN1.easting, ptN1.northing)).Normalize();
 
                 if (isExtend)
                 {
-                    track.curvePts.Add(new vec3(
+                    track.curvePts.Add(new Vec3(
                         ptN.easting + dir.easting,
                         ptN.northing + dir.northing,
                         ptN.heading));
@@ -364,7 +361,7 @@ namespace AgOpenGPS.Forms.Field
             _viewTop = double.NegativeInfinity;
             _viewBottom = double.PositiveInfinity;
 
-            foreach (var trk in _selectedTracks)
+            foreach (CTrk trk in _selectedTracks)
             {
                 if (trk.mode == TrackMode.AB)
                 {
@@ -373,8 +370,8 @@ namespace AgOpenGPS.Forms.Field
                 }
                 else if (trk.mode == TrackMode.Curve)
                 {
-                    foreach (var pt in trk.curvePts)
-                        UpdateMinMax(new vec2(pt.easting, pt.northing));
+                    foreach (Vec3 pt in trk.curvePts)
+                        UpdateMinMax(new Vec2(pt.easting, pt.northing));
                 }
             }
 
@@ -385,7 +382,7 @@ namespace AgOpenGPS.Forms.Field
             }
         }
 
-        private void UpdateMinMax(vec2 pt)
+        private void UpdateMinMax(Vec2 pt)
         {
             _viewLeft = Math.Min(_viewLeft, pt.easting);
             _viewRight = Math.Max(_viewRight, pt.easting);
@@ -415,11 +412,11 @@ namespace AgOpenGPS.Forms.Field
             if (!_redrawPending)
             {
                 _redrawPending = true;
-                BeginInvoke((Action)(() =>
+                BeginInvoke(() =>
                 {
                     glControlPreview.Invalidate();
                     _redrawPending = false;
-                }));
+                });
             }
         }
         #endregion
@@ -486,8 +483,8 @@ namespace AgOpenGPS.Forms.Field
         {
             for (int i = 0; i < _selectedTracks.Count; i++)
             {
-                var trk = _selectedTracks[i];
-                bool isSelected = (trk == _activeTrack);
+                CTrk trk = _selectedTracks[i];
+                bool isSelected = trk == _activeTrack;
                 Color color = isSelected ? Color.Yellow : Color.Gray;
                 float width = isSelected ? SELECTED_TRACK_WIDTH : NORMAL_TRACK_WIDTH;
 
@@ -497,7 +494,7 @@ namespace AgOpenGPS.Forms.Field
                 }
                 else if (trk.mode == TrackMode.Curve)
                 {
-                    DrawPolyline(trk.curvePts.Select(p => new vec2(p.easting, p.northing)).ToList(), color, width);
+                    DrawPolyline(trk.curvePts.Select(p => new Vec2(p.easting, p.northing)).ToList(), color, width);
                 }
             }
         }
@@ -516,7 +513,7 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(Color.Green);
             GL.Begin(PrimitiveType.Lines);
 
-            foreach (var seg in _builder.TrimmedSegments)
+            foreach (BoundaryBuilder.Segment seg in _builder.TrimmedSegments)
             {
                 GL.Vertex2(seg.Start.easting, seg.Start.northing);
                 GL.Vertex2(seg.End.easting, seg.End.northing);
@@ -527,7 +524,7 @@ namespace AgOpenGPS.Forms.Field
 
         private void DrawIntersectionPoints()
         {
-            foreach (var pt in _builder.IntersectionPoints)
+            foreach (Vec2 pt in _builder.IntersectionPoints)
             {
                 DrawCircle(pt, Color.Red, INTERSECTION_POINT_SIZE);
             }
@@ -542,7 +539,7 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(Color.Red);
             GL.Begin(PrimitiveType.LineLoop);
 
-            foreach (var pt in _builder.FinalBoundary)
+            foreach (Vec3 pt in _builder.FinalBoundary)
             {
                 GL.Vertex2(pt.easting, pt.northing);
             }
@@ -550,7 +547,7 @@ namespace AgOpenGPS.Forms.Field
             GL.End();
         }
 
-        private void DrawLine(vec2 ptA, vec2 ptB, Color color, float width = 1.0f)
+        private void DrawLine(Vec2 ptA, Vec2 ptB, Color color, float width = 1.0f)
         {
             GL.LineWidth(width);
             GL.Color3(color);
@@ -560,7 +557,7 @@ namespace AgOpenGPS.Forms.Field
             GL.End();
         }
 
-        private void DrawPolyline(List<vec2> points, Color color, float width = 1.0f)
+        private void DrawPolyline(List<Vec2> points, Color color, float width = 1.0f)
         {
             if (points.Count < 2) return;
 
@@ -568,13 +565,13 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(color);
             GL.Begin(PrimitiveType.LineStrip);
 
-            foreach (var pt in points)
+            foreach (Vec2 pt in points)
                 GL.Vertex2(pt.easting, pt.northing);
 
             GL.End();
         }
 
-        private void DrawCircle(vec2 center, Color color, float radius)
+        private void DrawCircle(Vec2 center, Color color, float radius)
         {
             GL.Color3(color);
             GL.Begin(PrimitiveType.LineLoop);
@@ -583,8 +580,8 @@ namespace AgOpenGPS.Forms.Field
             {
                 double angle = i * Math.PI * 2.0 / CIRCLE_SEGMENTS;
                 GL.Vertex2(
-                    center.easting + Math.Cos(angle) * radius,
-                    center.northing + Math.Sin(angle) * radius);
+                    center.easting + (Math.Cos(angle) * radius),
+                    center.northing + (Math.Sin(angle) * radius));
             }
 
             GL.End();
@@ -598,7 +595,7 @@ namespace AgOpenGPS.Forms.Field
             GL.Color3(Color.Gray);
             GL.Begin(PrimitiveType.Lines);
 
-            foreach (var seg in _builder.Segments)
+            foreach (BoundaryBuilder.Segment seg in _builder.Segments)
             {
                 GL.Vertex2(seg.Start.easting, seg.Start.northing);
                 GL.Vertex2(seg.End.easting, seg.End.northing);
@@ -664,10 +661,25 @@ namespace AgOpenGPS.Forms.Field
 
 
 
-        private void btnExtendForward_Click(object sender, EventArgs e) => ShiftSelectedTrackPoint(false, -10);
-        private void btnExtendBackward_Click(object sender, EventArgs e) => ShiftSelectedTrackPoint(true, -10);
-        private void btnShrinkA_Click(object sender, EventArgs e) => ShiftSelectedTrackPoint(true, +10);
-        private void btnShrinkB_Click(object sender, EventArgs e) => ShiftSelectedTrackPoint(false, +10);
+        private void btnExtendForward_Click(object sender, EventArgs e)
+        {
+            ShiftSelectedTrackPoint(false, -10);
+        }
+
+        private void btnExtendBackward_Click(object sender, EventArgs e)
+        {
+            ShiftSelectedTrackPoint(true, -10);
+        }
+
+        private void btnShrinkA_Click(object sender, EventArgs e)
+        {
+            ShiftSelectedTrackPoint(true, +10);
+        }
+
+        private void btnShrinkB_Click(object sender, EventArgs e)
+        {
+            ShiftSelectedTrackPoint(false, +10);
+        }
 
         private void btnBuildBoundary_Click(object sender, EventArgs e)
         {
@@ -681,8 +693,8 @@ namespace AgOpenGPS.Forms.Field
 
             try
             {
-                var result = _builder.BuildTrimmedBoundary();
-                var finalized = _builder.FinalizedBoundary;
+                List<Vec3> result = _builder.BuildTrimmedBoundary();
+                CBoundaryList finalized = _builder.FinalizedBoundary;
 
                 if (result.Count < 3 || finalized == null)
                 {
@@ -733,7 +745,7 @@ namespace AgOpenGPS.Forms.Field
             try
             {
                 ValidateSaveConditions();
-                _builder.SaveToBoundaryFile(_mf.currentFieldDirectory);
+                _builder.SaveToBoundaryFile(_mf.CurrentFieldDirectory);
             }
             catch (Exception ex)
             {
@@ -744,7 +756,7 @@ namespace AgOpenGPS.Forms.Field
 
         private bool ValidateSaveConditions()
         {
-            if (string.IsNullOrEmpty(_mf.currentFieldDirectory))
+            if (string.IsNullOrEmpty(_mf.CurrentFieldDirectory))
             {
                 FormDialog.Show("Save Error", "Please select a field before saving.", DialogSeverity.Error);
                 return false;

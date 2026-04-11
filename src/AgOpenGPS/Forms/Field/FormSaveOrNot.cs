@@ -9,8 +9,8 @@ namespace AgOpenGPS
         //class variables
         private readonly FormGPS mf;
 
-        int countExit = 4;
-        int countShutdown = 5;
+        private int countExit = 4;
+        private int countShutdown = 5;
 
         public FormSaveOrNot(FormGPS gps)
         {
@@ -25,7 +25,7 @@ namespace AgOpenGPS
             labelShutdownIn.Text = gStr.gsShutdownIn + ":";
 
             //Trigger a snapshot to create a temp data file for the AgShare Upload
-            if (mf.isJobStarted && Properties.Settings.Default.AgShareEnabled) mf.AgShareSnapshot();
+            if (mf.IsJobStarted && Properties.Settings.Default.AgShareEnabled) mf.AgShareSnapshot();
         }
 
         private void FormSaveOrNot_Load(object sender, EventArgs e)

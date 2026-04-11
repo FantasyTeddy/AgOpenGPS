@@ -4,7 +4,6 @@ using AgOpenGPS.Core.Streamers;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;
 using AgOpenGPS.Forms.Field;
-using AgOpenGPS.Helpers;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -38,32 +37,32 @@ namespace AgOpenGPS
         private void FormJob_Load(object sender, EventArgs e)
         {
             //check if directory and file exists, maybe was deleted etc
-            if (String.IsNullOrEmpty(mf.currentFieldDirectory)) btnJobResume.Enabled = false;
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+            if (String.IsNullOrEmpty(mf.CurrentFieldDirectory)) btnJobResume.Enabled = false;
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory);
 
             string fileAndDirectory = Path.Combine(directoryName, "Field.txt");
 
             //Trigger a snapshot to create a temp data file for the AgShare Upload
-            if (mf.isJobStarted && Properties.Settings.Default.AgShareEnabled) mf.AgShareSnapshot();
+            if (mf.IsJobStarted && Properties.Settings.Default.AgShareEnabled) mf.AgShareSnapshot();
 
 
             if (!File.Exists(fileAndDirectory))
             {
                 lblResumeField.Text = "";
                 btnJobResume.Enabled = false;
-                mf.currentFieldDirectory = "";
+                mf.CurrentFieldDirectory = "";
 
                 Log.EventWriter("Field Directory is Empty or Missing");
             }
             else
             {
-                lblResumeField.Text = gStr.gsResume + ": " + mf.currentFieldDirectory;
+                lblResumeField.Text = gStr.gsResume + ": " + mf.CurrentFieldDirectory;
 
-                if (mf.isJobStarted)
+                if (mf.IsJobStarted)
                 {
 
                     btnJobResume.Enabled = false;
-                    lblResumeField.Text = gStr.gsOpen + ": " + mf.currentFieldDirectory;
+                    lblResumeField.Text = gStr.gsOpen + ": " + mf.CurrentFieldDirectory;
                 }
                 else
                 {
@@ -86,7 +85,7 @@ namespace AgOpenGPS
 
         private void btnJobNew_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 _ = mf.FileSaveEverythingBeforeClosingField();
             }
@@ -109,20 +108,18 @@ namespace AgOpenGPS
 
         private async void btnJobOpen_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
 
             mf.filePickerFileAndDirectory = "";
 
-            using (FormFilePicker form = new FormFilePicker(mf))
+            using FormFilePicker form = new(mf);
+            if (form.ShowDialog(this) == DialogResult.Yes)
             {
-                if (form.ShowDialog(this) == DialogResult.Yes)
-                {
-                    mf.FileOpenField(mf.filePickerFileAndDirectory);
-                    Close();
-                }
+                mf.FileOpenField(mf.filePickerFileAndDirectory);
+                Close();
             }
         }
 
@@ -130,7 +127,7 @@ namespace AgOpenGPS
 
         private async void btnInField_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
@@ -149,42 +146,40 @@ namespace AgOpenGPS
                 //make sure directory has a field.txt in it
                 if (File.Exists(filename))
                 {
-                    using (GeoStreamReader reader = new GeoStreamReader(filename))
+                    using GeoStreamReader reader = new(filename);
+                    try
                     {
-                        try
+                        // Skip 8 lines
+                        for (int i = 0; i < 8; i++)
                         {
-                            // Skip 8 lines
-                            for (int i = 0; i < 8; i++)
-                            {
-                                reader.ReadLine();
-                            }
-                            //start positions
-                            if (!reader.EndOfStream)
-                            {
-                                Wgs84 startLatLon = reader.ReadWgs84();
-                                double distance = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
+                            reader.ReadLine();
+                        }
+                        //start positions
+                        if (!reader.EndOfStream)
+                        {
+                            Wgs84 startLatLon = reader.ReadWgs84();
+                            double distance = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
 
-                                if (distance < 0.5)
+                            if (distance < 0.5)
+                            {
+                                numFields++;
+                                if (!string.IsNullOrEmpty(infieldList))
                                 {
-                                    numFields++;
-                                    if (!string.IsNullOrEmpty(infieldList))
-                                    {
-                                        infieldList += ",";
-                                        distanceList += ",";
-                                    }
-                                    infieldList += Path.GetFileName(dir);
-
-                                    // Convert to miles if not metric
-                                    Distance distanceObj = new Distance(distance * 1000); // Distance expects meters
-                                    double displayDistance = mf.isMetric ? distanceObj.InKilometers : distanceObj.InMiles;
-                                    distanceList += displayDistance.ToString("F3");
+                                    infieldList += ",";
+                                    distanceList += ",";
                                 }
+                                infieldList += Path.GetFileName(dir);
+
+                                // Convert to miles if not metric
+                                Distance distanceObj = new(distance * 1000); // Distance expects meters
+                                double displayDistance = mf.IsMetric ? distanceObj.InKilometers : distanceObj.InMiles;
+                                distanceList += displayDistance.ToString("F3");
                             }
                         }
-                        catch (Exception)
-                        {
-                            FormDialog.Show(gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField, DialogSeverity.Error);
-                        }
+                    }
+                    catch (Exception)
+                    {
+                        FormDialog.Show(gStr.gsFieldFileIsCorrupt, gStr.gsChooseADifferentField, DialogSeverity.Error);
                     }
                 }
             }
@@ -195,18 +190,16 @@ namespace AgOpenGPS
 
                 if (numFields > 1)
                 {
-                    using (FormDrivePicker form = new FormDrivePicker(mf, infieldList, distanceList))
+                    using FormDrivePicker form = new(mf, infieldList, distanceList);
+                    //returns full field.txt file dir name
+                    if (form.ShowDialog(this) == DialogResult.Yes)
                     {
-                        //returns full field.txt file dir name
-                        if (form.ShowDialog(this) == DialogResult.Yes)
-                        {
-                            mf.FileOpenField(mf.filePickerFileAndDirectory);
-                            Close();
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        mf.FileOpenField(mf.filePickerFileAndDirectory);
+                        Close();
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
                 else // 1 field found
@@ -225,7 +218,7 @@ namespace AgOpenGPS
         private async void btnFromKML_Click(object sender, EventArgs e)
         {
             //back to FormGPS
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
@@ -242,7 +235,7 @@ namespace AgOpenGPS
 
         private void btnJobClose_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 _ = Task.Run(() => mf.FileSaveEverythingBeforeClosingField());
             }
@@ -260,7 +253,7 @@ namespace AgOpenGPS
 
         private async void btnFromISOXML_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
@@ -276,11 +269,11 @@ namespace AgOpenGPS
 
         private async void btnJobAgShare_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 await mf.FileSaveEverythingBeforeClosingField();
             }
-            using (var form = new FormAgShareDownloader(mf))
+            using (FormAgShareDownloader form = new(mf))
             {
                 form.ShowDialog(this);
             }
@@ -291,13 +284,13 @@ namespace AgOpenGPS
 
         private void btnAgShareBulkUpload_Click(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 FormDialog.Show(gStr.gsError, gStr.gsCloseFieldFirst, DialogSeverity.Error);
                 return;
             }
 
-            using (var form = new FormAgShareUploader(mf.agShareClient))
+            using (FormAgShareUploader form = new(mf.agShareClient))
             {
                 form.ShowDialog(this);
             }

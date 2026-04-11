@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -52,7 +51,7 @@ namespace AgIO
             {
                 if (keyboardString.Text.Length > 0)
                 {
-                    keyboardString.Text = keyboardString.Text.Remove(keyboardString.Text.Length - 1);
+                    keyboardString.Text = keyboardString.Text[..^1];
                 }
             }
 

@@ -2,7 +2,6 @@
 
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Helpers;
-using AgOpenGPS.Properties;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -238,16 +237,16 @@ namespace AgOpenGPS
             }
             else if (isChange)
             {
-                using (FormColorPicker form = new FormColorPicker(mf, butt.BackColor))
+                using (FormColorPicker form = new(mf, butt.BackColor))
                 {
-                    int.TryParse((butt.Name.Substring(4, 2)), out int buttNumber);
+                    int.TryParse(butt.Name.Substring(4, 2), out int buttNumber);
 
                     if (form.ShowDialog(this) == DialogResult.OK)
                     {
-                        int iCol = (form.useThisColor.A << 24) | (form.useThisColor.R << 16)
-                            | (form.useThisColor.G << 8) | form.useThisColor.B;
-                        (customSectionColorsList[buttNumber - 1]) = iCol;
-                        butt.BackColor = form.useThisColor;
+                        int iCol = (form.UseThisColor.A << 24) | (form.UseThisColor.R << 16)
+                            | (form.UseThisColor.G << 8) | form.UseThisColor.B;
+                        customSectionColorsList[buttNumber - 1] = iCol;
+                        butt.BackColor = form.UseThisColor;
                     }
                 }
 

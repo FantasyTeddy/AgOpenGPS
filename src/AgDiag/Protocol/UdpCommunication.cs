@@ -10,7 +10,7 @@ namespace AgDiag.Protocol
     {
         private readonly Pgns _pgns;
 
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         private int cntr;
 
@@ -23,7 +23,7 @@ namespace AgDiag.Protocol
 
         public void LoadLoopback()
         {
-            var cancellationToken = _cancellationTokenSource.Token;
+            CancellationToken cancellationToken = _cancellationTokenSource.Token;
             Task.Factory.StartNew(() => ReceiveLoopAsync(cancellationToken), cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
@@ -36,14 +36,12 @@ namespace AgDiag.Protocol
         {
             try
             {
-                using (UdpClient udpClient = new UdpClient(17777))
+                using UdpClient udpClient = new(17777);
+                while (!cancellationToken.IsCancellationRequested)
                 {
-                    while (!cancellationToken.IsCancellationRequested)
-                    {
-                        var result = await udpClient.ReceiveAsync().ConfigureAwait(false);
+                    UdpReceiveResult result = await udpClient.ReceiveAsync().ConfigureAwait(false);
 
-                        HandleMessage(result.Buffer);
-                    }
+                    HandleMessage(result.Buffer);
                 }
             }
             catch (Exception ex)

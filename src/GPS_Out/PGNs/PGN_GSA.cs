@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace GPS_Out.PGNs
 {
@@ -34,9 +29,9 @@ namespace GPS_Out.PGNs
         #endregion GSA message
 
         private string cSentence;
-        private frmStart mf;
+        private readonly FrmStart mf;
 
-        public PGN_GSA(frmStart CalledFrom)
+        public PGN_GSA(FrmStart CalledFrom)
         {
             mf = CalledFrom;
         }

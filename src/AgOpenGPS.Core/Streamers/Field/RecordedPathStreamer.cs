@@ -37,8 +37,8 @@ namespace AgOpenGPS.Core.Streamers
             {
                 return null;
             }
-            RecordedPath recordedPath = new RecordedPath();
-            using (GeoStreamReader reader = new GeoStreamReader(fileInfo))
+            RecordedPath recordedPath = new();
+            using (GeoStreamReader reader = new(fileInfo))
             {
                 reader.ReadLine(); // skip header
                 int numPoints = reader.ReadInt();
@@ -49,7 +49,7 @@ namespace AgOpenGPS.Core.Streamers
                     {
                         string line = reader.ReadLine();
                         string[] words = line.Split(',');
-                        RecordedPoint point = new RecordedPoint(
+                        RecordedPoint point = new(
                             reader.ParseGeoCoordDir(words[0], words[1], words[2]),
                             reader.ParseDouble(words[3]),
                             reader.ParseBool(words[4]));
@@ -63,29 +63,25 @@ namespace AgOpenGPS.Core.Streamers
         public void Write(RecordedPath path, DirectoryInfo fieldDirectory, string fileName)
         {
             fieldDirectory.Create();
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory, fileName)))
+            using GeoStreamWriter writer = new(GetFileInfo(fieldDirectory, fileName));
+            writer.WriteLine("$RecPath");
+            writer.WriteInt(path.Count);
+            foreach (RecordedPoint point in path.PointList)
             {
-                writer.WriteLine("$RecPath");
-                writer.WriteInt(path.Count);
-                foreach (var point in path.PointList)
-                {
-                    writer.WriteLine(
-                        writer.GeoCoordDirStringENH(point.GeoCoordDir.Coord, point.GeoCoordDir.Direction)
-                        + "," + writer.DoubleString(point.Speed, "N1")
-                        + "," + writer.BoolString(point.AutoButtonState));
-                }
+                writer.WriteLine(
+                    writer.GeoCoordDirStringENH(point.GeoCoordDir.Coord, point.GeoCoordDir.Direction)
+                    + "," + writer.DoubleString(point.Speed, "N1")
+                    + "," + writer.BoolString(point.AutoButtonState));
             }
         }
 
         public void CreateFile(DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (StreamWriter writer = new StreamWriter(GetFileInfo(fieldDirectory).FullName))
-            {
-                //write paths # of sections
-                writer.WriteLine("$RecPath");
-                writer.WriteLine("0");
-            }
+            using StreamWriter writer = new(GetFileInfo(fieldDirectory).FullName);
+            //write paths # of sections
+            writer.WriteLine("$RecPath");
+            writer.WriteLine("0");
         }
     }
 }

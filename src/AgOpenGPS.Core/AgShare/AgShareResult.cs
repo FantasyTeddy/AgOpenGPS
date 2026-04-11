@@ -4,7 +4,7 @@ namespace AgOpenGPS.Core.AgShare
 {
     public class AgShareResult
     {
-        private static readonly AgShareResult _success = new AgShareResult();
+        private static readonly AgShareResult _success = new();
 
         private AgShareResult()
         {
@@ -18,9 +18,15 @@ namespace AgOpenGPS.Core.AgShare
         public bool IsSuccessful => Error == null;
         public AgShareError Error { get; }
 
-        public static AgShareResult Success() => _success;
+        public static AgShareResult Success()
+        {
+            return _success;
+        }
 
-        public static AgShareResult Failure(AgShareError error) => new AgShareResult(error);
+        public static AgShareResult Failure(AgShareError error)
+        {
+            return new AgShareResult(error);
+        }
     }
 
     public class AgShareResult<T>
@@ -40,8 +46,14 @@ namespace AgOpenGPS.Core.AgShare
         public T Data { get; }
         public AgShareError Error { get; }
 
-        public static AgShareResult<T> Success(T data) => new AgShareResult<T>(data);
+        public static AgShareResult<T> Success(T data)
+        {
+            return new AgShareResult<T>(data);
+        }
 
-        public static AgShareResult<T> Failure(AgShareError error) => new AgShareResult<T>(error);
+        public static AgShareResult<T> Failure(AgShareError error)
+        {
+            return new AgShareResult<T>(error);
+        }
     }
 }

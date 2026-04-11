@@ -12,7 +12,7 @@ namespace AgOpenGPS.Forms.Pickers
     {
         private readonly FormGPS mf = null;
 
-        private readonly List<string> fileList = new List<string>();
+        private readonly List<string> fileList = new();
 
         public FormRecordPicker(Form callingForm)
         {
@@ -37,7 +37,7 @@ namespace AgOpenGPS.Forms.Pickers
         {
             ListViewItem itm;
 
-            string fieldDir = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+            string fieldDir = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory);
 
             string[] files = Directory.GetFiles(fieldDir);
 
@@ -74,48 +74,46 @@ namespace AgOpenGPS.Forms.Pickers
             if (count > 0)
             {
                 string selectedRecord = lvLines.SelectedItems[0].SubItems[0].Text;
-                string selectedRecordPath = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, selectedRecord + ".rec");
+                string selectedRecordPath = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory, selectedRecord + ".rec");
 
                 // Copy the selected record file to the original record name inside the field dir:
                 // ( this will load the last selected path automatically when this field is opened again)
-                File.Copy(selectedRecordPath, Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "RecPath.txt"), true);
+                File.Copy(selectedRecordPath, Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory, "RecPath.txt"), true);
                 // and load the selected path into the recPath object:
                 string line;
                 if (File.Exists(selectedRecordPath))
                 {
-                    using (StreamReader reader = new StreamReader(selectedRecordPath))
+                    using StreamReader reader = new(selectedRecordPath);
+                    try
                     {
-                        try
+                        //read header
+                        line = reader.ReadLine();
+                        line = reader.ReadLine();
+                        int numPoints = int.Parse(line);
+                        mf.recPath.recList.Clear();
+
+                        while (!reader.EndOfStream)
                         {
-                            //read header
-                            line = reader.ReadLine();
-                            line = reader.ReadLine();
-                            int numPoints = int.Parse(line);
-                            mf.recPath.recList.Clear();
-
-                            while (!reader.EndOfStream)
+                            for (int v = 0; v < numPoints; v++)
                             {
-                                for (int v = 0; v < numPoints; v++)
-                                {
-                                    line = reader.ReadLine();
-                                    string[] words = line.Split(',');
-                                    CRecPathPt point = new CRecPathPt(
-                                        double.Parse(words[0], CultureInfo.InvariantCulture),
-                                        double.Parse(words[1], CultureInfo.InvariantCulture),
-                                        double.Parse(words[2], CultureInfo.InvariantCulture),
-                                        double.Parse(words[3], CultureInfo.InvariantCulture),
-                                        bool.Parse(words[4]));
+                                line = reader.ReadLine();
+                                string[] words = line.Split(',');
+                                CRecPathPt point = new(
+                                    double.Parse(words[0], CultureInfo.InvariantCulture),
+                                    double.Parse(words[1], CultureInfo.InvariantCulture),
+                                    double.Parse(words[2], CultureInfo.InvariantCulture),
+                                    double.Parse(words[3], CultureInfo.InvariantCulture),
+                                    bool.Parse(words[4]));
 
-                                    //add the point
-                                    mf.recPath.recList.Add(point);
-                                }
+                                //add the point
+                                mf.recPath.recList.Add(point);
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            FormDialog.Show(gStr.gsRecordedPathFileIsCorrupt, gStr.gsButFieldIsLoaded, DialogSeverity.Error);
-                            Log.EventWriter("Load Recorded Path" + ex.ToString());
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        FormDialog.Show(gStr.gsRecordedPathFileIsCorrupt, gStr.gsButFieldIsLoaded, DialogSeverity.Error);
+                        Log.EventWriter("Load Recorded Path" + ex.ToString());
                     }
                 }
             }
@@ -128,7 +126,7 @@ namespace AgOpenGPS.Forms.Pickers
             if (count > 0)
             {
                 string selectedRecord = lvLines.SelectedItems[0].SubItems[0].Text;
-                dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, selectedRecord + ".rec");
+                dir2Delete = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory, selectedRecord + ".rec");
 
                 // Ask confirmation before deleting the file
                 DialogResult result = FormDialog.ShowQuestion(
@@ -139,10 +137,15 @@ namespace AgOpenGPS.Forms.Pickers
                 {
                     System.IO.File.Delete(dir2Delete);
                 }
-                else return;
-
+                else
+                {
+                    return;
+                }
             }
-            else return;
+            else
+            {
+                return;
+            }
 
             LoadList();
         }

@@ -9,7 +9,6 @@ namespace AgOpenGPS.Core.ViewModels
     public class CreateFromExistingFieldViewModel : FieldTableViewModel
     {
         private readonly ISelectFieldPanelPresenter _selectFieldPanelPresenter;
-        private string _newFieldName = "";
 
         public CreateFromExistingFieldViewModel(
             ApplicationModel appModel,
@@ -28,7 +27,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public new FieldDescriptionViewModel LocalSelectedField
         {
-            get { return _localSelectedField; }
+            get => _localSelectedField;
             set
             {
                 if (value != _localSelectedField)
@@ -42,16 +41,16 @@ namespace AgOpenGPS.Core.ViewModels
 
         public string NewFieldName
         {
-            get { return _newFieldName; }
+            get;
             set
             {
-                if (value != _newFieldName)
+                if (value != field)
                 {
-                    _newFieldName = value;
+                    field = value;
                     NotifyPropertyChanged();
                 }
             }
-        }
+        } = "";
 
         public ICommand AddVehicleCommand { get; }
         public ICommand AddDateCommand { get; }
@@ -81,7 +80,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         private void BackSpace()
         {
-            if (NewFieldName.Length > 0) NewFieldName = NewFieldName.Remove(NewFieldName.Length - 1);
+            if (NewFieldName.Length > 0) NewFieldName = NewFieldName[..^1];
         }
 
         protected override void SelectField()

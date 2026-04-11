@@ -1,6 +1,4 @@
-﻿using AgOpenGPS.Core.ViewModels;
-
-namespace AgOpenGPS.Core.Interfaces
+﻿namespace AgOpenGPS.Core.Interfaces
 {
     public interface IPanelPresenter
     {

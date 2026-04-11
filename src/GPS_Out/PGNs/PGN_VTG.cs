@@ -13,36 +13,34 @@ namespace GPS_Out
         //   010.2,K Ground speed, Kilometers per hour
         //   *48          Checksum
 
-        private string cSentence;
-        private frmStart mf;
+        private readonly FrmStart mf;
 
-        public PGN_VTG(frmStart CalledFrom)
+        public PGN_VTG(FrmStart CalledFrom)
         {
             mf = CalledFrom;
         }
 
-        public string Sentence
-        { get { return cSentence; } }
+        public string Sentence { get; private set; }
 
         public string Build()
         {
-            cSentence = Properties.Settings.Default.SentenceStart + "VTG";
+            Sentence = Properties.Settings.Default.SentenceStart + "VTG";
 
-            cSentence += "," + mf.Heading().ToString("000.0", CultureInfo.InvariantCulture) + ",T";
+            Sentence += "," + mf.Heading().ToString("000.0", CultureInfo.InvariantCulture) + ",T";
 
-            cSentence += "," + mf.Heading().ToString("000.0", CultureInfo.InvariantCulture) + ",M";
+            Sentence += "," + mf.Heading().ToString("000.0", CultureInfo.InvariantCulture) + ",M";
 
             double knots = mf.AGIOdata.Speed * 0.5399568;
-            cSentence += "," + knots.ToString("000.0", CultureInfo.InvariantCulture) + ",N";
+            Sentence += "," + knots.ToString("000.0", CultureInfo.InvariantCulture) + ",N";
 
-            cSentence += "," + mf.AGIOdata.Speed.ToString("000.0", CultureInfo.InvariantCulture) + ",K";
+            Sentence += "," + mf.AGIOdata.Speed.ToString("000.0", CultureInfo.InvariantCulture) + ",K";
 
-            cSentence += ",*";
+            Sentence += ",*";
             //cSentence += "*";
-            string Hex = mf.CheckSum(cSentence).ToString("X2");
-            cSentence += Hex;
+            string Hex = mf.CheckSum(Sentence).ToString("X2");
+            Sentence += Hex;
 
-            return cSentence;
+            return Sentence;
         }
     }
 }

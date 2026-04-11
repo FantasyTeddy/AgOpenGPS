@@ -9,7 +9,7 @@ namespace AgOpenGPS.Updater.Models
     /// </summary>
     public class SemanticVersion : IComparable<SemanticVersion>, IEquatable<SemanticVersion>
     {
-        private static readonly Regex VersionRegex = new Regex(
+        private static readonly Regex VersionRegex = new(
             @"^(?<major>\d+)(?:\.(?<minor>\d+))?(?:\.(?<patch>\d+))?(?:-(?<prerelease>[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+(?<build>[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture);
 
@@ -42,7 +42,7 @@ namespace AgOpenGPS.Updater.Models
             if (string.IsNullOrWhiteSpace(version))
                 throw new ArgumentException("Version string cannot be null or empty", nameof(version));
 
-            var match = VersionRegex.Match(version.Trim());
+            Match match = VersionRegex.Match(version.Trim());
             if (!match.Success)
                 throw new FormatException($"Invalid semantic version format: {version}");
 
@@ -112,8 +112,8 @@ namespace AgOpenGPS.Updater.Models
 
         private static int ComparePrereleaseIdentifiers(string prerelease1, string prerelease2)
         {
-            var identifiers1 = prerelease1.Split('.');
-            var identifiers2 = prerelease2.Split('.');
+            string[] identifiers1 = prerelease1.Split('.');
+            string[] identifiers2 = prerelease2.Split('.');
 
             int maxLength = Math.Max(identifiers1.Length, identifiers2.Length);
 
@@ -178,10 +178,10 @@ namespace AgOpenGPS.Updater.Models
             unchecked
             {
                 int hash = 17;
-                hash = hash * 31 + Major.GetHashCode();
-                hash = hash * 31 + Minor.GetHashCode();
-                hash = hash * 31 + Patch.GetHashCode();
-                hash = hash * 31 + (Prerelease?.GetHashCode() ?? 0);
+                hash = (hash * 31) + Major.GetHashCode();
+                hash = (hash * 31) + Minor.GetHashCode();
+                hash = (hash * 31) + Patch.GetHashCode();
+                hash = (hash * 31) + (Prerelease?.GetHashCode() ?? 0);
                 return hash;
             }
         }
@@ -189,7 +189,7 @@ namespace AgOpenGPS.Updater.Models
         // Comparison operators
         public static bool operator ==(SemanticVersion left, SemanticVersion right)
         {
-            if (ReferenceEquals(left, null)) return ReferenceEquals(right, null);
+            if (left is null) return right is null;
             return left.Equals(right);
         }
 
@@ -200,24 +200,27 @@ namespace AgOpenGPS.Updater.Models
 
         public static bool operator <(SemanticVersion left, SemanticVersion right)
         {
-            return ReferenceEquals(left, null) ? !ReferenceEquals(right, null) : left.CompareTo(right) < 0;
+            return left is null ? right is not null : left.CompareTo(right) < 0;
         }
 
         public static bool operator <=(SemanticVersion left, SemanticVersion right)
         {
-            return ReferenceEquals(left, null) || left.CompareTo(right) <= 0;
+            return left is null || left.CompareTo(right) <= 0;
         }
 
         public static bool operator >(SemanticVersion left, SemanticVersion right)
         {
-            return !ReferenceEquals(left, null) && left.CompareTo(right) > 0;
+            return left is not null && left.CompareTo(right) > 0;
         }
 
         public static bool operator >=(SemanticVersion left, SemanticVersion right)
         {
-            return ReferenceEquals(left, null) ? ReferenceEquals(right, null) : left.CompareTo(right) >= 0;
+            return left is null ? right is null : left.CompareTo(right) >= 0;
         }
 
-        public static implicit operator string(SemanticVersion version) => version?.ToString();
+        public static implicit operator string(SemanticVersion version)
+        {
+            return version?.ToString();
+        }
     }
 }

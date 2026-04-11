@@ -5,20 +5,22 @@ namespace GPS_Out
 {
     public class SerialSend
     {
-        private readonly frmStart mf;
+        private readonly FrmStart mf;
         private bool cWriteTimeOut = false;
-        private SerialPort Sport;
-        private System.Windows.Forms.Timer Timer1 = new System.Windows.Forms.Timer();
+        private readonly SerialPort Sport;
+        private readonly System.Windows.Forms.Timer Timer1 = new();
         private int WriteErrorCount;
 
-        public SerialSend(frmStart CalledFrom)
+        public SerialSend(FrmStart CalledFrom)
         {
             this.mf = CalledFrom;
-            Sport = new SerialPort(Properties.Settings.Default.Port, Properties.Settings.Default.Baud);
-            Sport.WriteTimeout = 500;
-            Sport.Parity = Parity.None;
-            Sport.DataBits = 8;
-            Sport.StopBits = StopBits.One;
+            Sport = new SerialPort(Properties.Settings.Default.Port, Properties.Settings.Default.Baud)
+            {
+                WriteTimeout = 500,
+                Parity = Parity.None,
+                DataBits = 8,
+                StopBits = StopBits.One
+            };
             Timer1.Interval = 1000;
             Timer1.Tick += new EventHandler(CheckConnection);
 
@@ -27,7 +29,7 @@ namespace GPS_Out
 
         public int Baud
         {
-            get { return Sport.BaudRate; }
+            get => Sport.BaudRate;
             set
             {
                 if (!Sport.IsOpen && value > 0 && value < 115201)
@@ -40,7 +42,7 @@ namespace GPS_Out
 
         public string PortNm
         {
-            get { return Sport.PortName; }
+            get => Sport.PortName;
             set
             {
                 if (!Sport.IsOpen && value != "")

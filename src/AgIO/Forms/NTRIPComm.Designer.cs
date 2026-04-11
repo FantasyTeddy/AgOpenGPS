@@ -6,11 +6,10 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.IO.Ports;
 using System.Collections.Generic;
-using System.Linq;
 using AgLibrary.Logging;
 
 // Declare the delegate prototype to send data back to the form
-delegate void UpdateRTCM_Data(byte[] data);
+internal delegate void UpdateRTCM_Data(byte[] data);
 
 namespace AgIO
 {
@@ -20,10 +19,10 @@ namespace AgIO
         private int ntripCounter = 10;
 
         private Socket clientSocket;                      // Server connection
-        private byte[] casterRecBuffer = new byte[2800];    // Recieved data buffer
+        private readonly byte[] casterRecBuffer = new byte[2800];    // Recieved data buffer
 
         //Send GGA back timer
-        Timer tmr;
+        private Timer tmr;
 
         private string mount;
         private string username;
@@ -33,7 +32,6 @@ namespace AgIO
         private int broadCasterPort;
 
         private int sendGGAInterval = 0;
-        private string GGASentence;
 
         public uint tripBytes = 0;
         private int toUDP_Port = 0;
@@ -48,13 +46,13 @@ namespace AgIO
 
         public bool isRadio_RequiredOn = false;
         public bool isSerialPass_RequiredOn = false;
-        internal SerialPort spRadio = new SerialPort("Radio", 9600, Parity.None, 8, StopBits.One);
+        internal SerialPort spRadio = new("Radio", 9600, Parity.None, 8, StopBits.One);
 
-        List<int> rList = new List<int>();
-        List<int> aList = new List<int>();
+        private readonly List<int> rList = new();
+        private readonly List<int> aList = new();
 
         //NTRIP metering
-        Queue<byte> rawTrip = new Queue<byte>();
+        private readonly Queue<byte> rawTrip = new();
 
         //set up connection to Caster
         private void DoNTRIPSecondRoutine()
@@ -98,15 +96,15 @@ namespace AgIO
             if (isNTRIP_RequiredOn || isRadio_RequiredOn)
             {
                 //pbarNtripMenu.Value = unchecked((byte)(tripBytes * 0.02));
-                lblNTRIPBytes.Text = ((tripBytes >> 10)).ToString("###,###,### kb");
+                lblNTRIPBytes.Text = (tripBytes >> 10).ToString("###,###,### kb");
 
                 //Bypass if sleeping
                 if (focusSkipCounter != 0)
                 {
                     //update byte counter and up counter
                     if (ntripCounter > 59) btnStartStopNtrip.Text = (ntripCounter >> 6) + " Min";
-                    else if (ntripCounter < 60 && ntripCounter > 25) btnStartStopNtrip.Text = ntripCounter + " Secs";
-                    else btnStartStopNtrip.Text = "In " + (Math.Abs(ntripCounter - 25)) + " secs";
+                    else if (ntripCounter is < 60 and > 25) btnStartStopNtrip.Text = ntripCounter + " Secs";
+                    else btnStartStopNtrip.Text = "In " + Math.Abs(ntripCounter - 25) + " secs";
 
                     //watchdog for Ntrip
                     if (isNTRIP_Connecting)
@@ -144,12 +142,12 @@ namespace AgIO
             else if (isSerialPass_RequiredOn)
             {
                 //pbarNtripMenu.Value = unchecked((byte)(tripBytes * 0.02));
-                lblNTRIPBytes.Text = ((tripBytes >> 10)).ToString("###,###,### kb");
+                lblNTRIPBytes.Text = (tripBytes >> 10).ToString("###,###,### kb");
 
                 //update byte counter and up counter
                 if (ntripCounter > 59) btnStartStopNtrip.Text = (ntripCounter >> 6) + " Min";
-                else if (ntripCounter < 60 && ntripCounter > 22) btnStartStopNtrip.Text = ntripCounter + " Secs";
-                else btnStartStopNtrip.Text = "In " + (Math.Abs(ntripCounter - 22)) + " secs";
+                else if (ntripCounter is < 60 and > 22) btnStartStopNtrip.Text = ntripCounter + " Secs";
+                else btnStartStopNtrip.Text = "In " + Math.Abs(ntripCounter - 22) + " secs";
             }
         }
 
@@ -211,16 +209,15 @@ namespace AgIO
                 sendGGAInterval = Properties.Settings.Default.setNTRIP_sendGGAInterval; //how often to send fixes
 
                 //if we had a timer already, kill it
-                if (tmr != null)
-                {
-                    tmr.Dispose();
-                }
+                tmr?.Dispose();
 
                 //create new timer at fast rate to start
                 if (sendGGAInterval > 0)
                 {
-                    this.tmr = new System.Windows.Forms.Timer();
-                    this.tmr.Interval = 5000;
+                    this.tmr = new System.Windows.Forms.Timer
+                    {
+                        Interval = 5000
+                    };
                     this.tmr.Tick += new EventHandler(NTRIPtick);
                 }
 
@@ -241,10 +238,12 @@ namespace AgIO
                         Properties.Settings.Default.etIP_SubnetThree.ToString() + ".255"), toUDP_Port);
 
                     // Create the socket object
-                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    clientSocket.NoDelay = true;
-                    // Connect to server non-Blocking method
-                    clientSocket.Blocking = false;
+                    clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                    {
+                        NoDelay = true,
+                        // Connect to server non-Blocking method
+                        Blocking = false
+                    };
                     clientSocket.BeginConnect(new IPEndPoint(IPAddress.Parse(broadCasterIP), broadCasterPort), new AsyncCallback(OnConnect), null);
 
                     Log.EventWriter("NTRIP - IP: " + broadCasterIP.ToString() + ":" + broadCasterPort.ToString()
@@ -274,8 +273,10 @@ namespace AgIO
                     }
 
                     // Setup and open serial port
-                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio);
-                    spRadio.BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio);
+                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio)
+                    {
+                        BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio)
+                    };
                     spRadio.DataReceived += NtripPort_DataReceived;
                     isNTRIP_Connecting = false;
                     isNTRIP_Connected = true;
@@ -313,8 +314,10 @@ namespace AgIO
                     }
 
                     // Setup and open serial port
-                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio);
-                    spRadio.BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio);
+                    spRadio = new SerialPort(Properties.Settings.Default.setPort_portNameRadio)
+                    {
+                        BaudRate = int.Parse(Properties.Settings.Default.setPort_baudRateRadio)
+                    };
                     spRadio.DataReceived += NtripPort_DataReceived;
                     isNTRIP_Connecting = false;
                     isNTRIP_Connected = true;
@@ -347,10 +350,7 @@ namespace AgIO
             isNTRIP_Connecting = false;
 
             //if we had a timer already, kill it
-            if (tmr != null)
-            {
-                tmr.Dispose();
-            }
+            tmr?.Dispose();
         }
 
         private void IncrementNTRIPWatchDog()
@@ -386,7 +386,6 @@ namespace AgIO
 
                     //grab location sentence
                     BuildGGA();
-                    GGASentence = sbGGA.ToString();
 
                     string htt;
                     if (Properties.Settings.Default.setNTRIP_isHTTP10) htt = "1.0";
@@ -426,23 +425,22 @@ namespace AgIO
 
             if (isViewAdvanced && isNTRIP_RequiredOn)
             {
-                int mess = 0;
                 //lblPacketSize.Text = data.Length.ToString();
 
                 try
                 {
-                    lblStationID.Text = (((data[4] & 15) << 8) + (data[5])).ToString();
+                    lblStationID.Text = (((data[4] & 15) << 8) + data[5]).ToString();
 
                     for (int i = 0; i < data.Length - 5; i++)
                     {
 
                         if (data[i] == 211 && (data[i + 1] >> 2) == 0)
                         {
-                            mess = ((data[i + 3] << 4) + (data[i + 4] >> 4));
-                            if (mess > 1000 && mess < 1231)
+                            int mess = (data[i + 3] << 4) + (data[i + 4] >> 4);
+                            if (mess is > 1000 and < 1231)
                             {
                                 rList.Add(mess);
-                                i += (data[i + 1] << 6) + (data[i + 2]) + 5;
+                                i += (data[i + 1] << 6) + data[i + 2] + 5;
                                 if (data[i + 1] != 211)
                                 {
                                     //rList.Clear();
@@ -518,7 +516,7 @@ namespace AgIO
 
                 if (focusSkipCounter != 0)
                 {
-                    lblToGPS.Text = traffic.cntrGPSInBytes == 0 ? "---" : (traffic.cntrGPSInBytes).ToString();
+                    lblToGPS.Text = traffic.cntrGPSInBytes == 0 ? "---" : traffic.cntrGPSInBytes.ToString();
                     traffic.cntrGPSInBytes = 0;
                 }
             }
@@ -655,8 +653,7 @@ namespace AgIO
         private string ToBase64(string str)
         {
             Encoding asciiEncoding = Encoding.ASCII;
-            byte[] byteArray = new byte[asciiEncoding.GetByteCount(str)];
-            byteArray = asciiEncoding.GetBytes(str);
+            byte[] byteArray = asciiEncoding.GetBytes(str);
             return Convert.ToBase64String(byteArray, 0, byteArray.Length);
         }
 
@@ -730,13 +727,12 @@ namespace AgIO
             return String.Format("{0:X2}", sum);
         }
 
-        private readonly StringBuilder sbGGA = new StringBuilder();
+        private readonly StringBuilder sbGGA = new();
 
         private void BuildGGA()
         {
-            double latitude = 0;
-            double longitude = 0;
-
+            double latitude;
+            double longitude;
             if (Properties.Settings.Default.setNTRIP_isGGAManual)
             {
                 latitude = Properties.Settings.Default.setNTRIP_manualLat;
@@ -766,11 +762,10 @@ namespace AgIO
 
             double latNMEA = latMinu + latDeg;
             double longNMEA = longMinu + longDeg;
-
-            char NS = 'W';
-            char EW = 'N';
+            char NS;
             if (latitude >= 0) NS = 'N';
             else NS = 'S';
+            char EW;
             if (longitude >= 0) EW = 'E';
             else EW = 'W';
 

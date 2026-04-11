@@ -17,9 +17,9 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
 
         // Defaults: fresh instances met velddefaults voor vergelijking
-        private static readonly VehicleSettings vsDefault = new VehicleSettings();
-        private static readonly ToolSettings tsDefault = new ToolSettings();
-        private static readonly Settings esDefault = new Settings();
+        private static readonly VehicleSettings vsDefault = new();
+        private static readonly ToolSettings tsDefault = new();
+        private static readonly Settings esDefault = new();
 
         private static readonly Color ColorChanged = Color.LightYellow;
         private static readonly Color ColorNormal = Color.WhiteSmoke;
@@ -85,7 +85,7 @@ namespace AgOpenGPS
         private static void AddHeader(DataGridView dgv, string title)
         {
             int i = dgv.Rows.Add(title, "", "");
-            var style = dgv.Rows[i].DefaultCellStyle;
+            DataGridViewCellStyle style = dgv.Rows[i].DefaultCellStyle;
             style.BackColor = ColorHeader;
             style.Font = new Font("Tahoma", 10F, FontStyle.Bold);
             style.ForeColor = Color.DarkBlue;
@@ -341,7 +341,7 @@ namespace AgOpenGPS
             AddSysRow(dgv, "Fix Quality", mf.FixQuality);
             AddSysRow(dgv, "Sats Tracked", mf.SatsTracked);
             AddSysRow(dgv, "HDOP", mf.HDOP);
-            AddSysRow(dgv, "Altitude", mf.isMetric ? mf.Altitude : mf.AltitudeFeet);
+            AddSysRow(dgv, "Altitude", mf.IsMetric ? mf.Altitude : mf.AltitudeFeet);
             AddSysRow(dgv, "Easting", Math.Round(mf.pn.fix.easting, 2).ToString());
             AddSysRow(dgv, "Northing", Math.Round(mf.pn.fix.northing, 2).ToString());
             AddSysRow(dgv, "Missed UDP Sentences", mf.missedSentenceCount.ToString());
@@ -349,7 +349,7 @@ namespace AgOpenGPS
             AddHeader(dgv, "── Heading");
             AddSysRow(dgv, "IMU Heading", mf.GyroInDegrees);
             AddSysRow(dgv, "Fix-to-Fix Heading", mf.GPSHeading);
-            AddSysRow(dgv, "Fused Heading (deg)", (mf.fixHeading * 57.2957795).ToString("N1"));
+            AddSysRow(dgv, "Fused Heading (deg)", (mf.FixHeading * 57.2957795).ToString("N1"));
             AddSysRow(dgv, "Angular Velocity", mf.ahrs.imuYawRate.ToString("N2"));
 
             AddHeader(dgv, "── Application");
@@ -363,13 +363,11 @@ namespace AgOpenGPS
         private void ExportToCSV(string path)
         {
             // Tab-gescheiden zodat het in alle Excel-taalinstellingen correct opent
-            using (var sw = new StreamWriter(path, false, Encoding.UTF8))
-            {
-                WriteSettingsTabToCSV(sw, "VEHICLE", dgvVehicleL, dgvVehicleM, dgvVehicleR);
-                WriteSettingsTabToCSV(sw, "TOOL", dgvToolL, dgvToolM, dgvToolR);
-                WriteSettingsTabToCSV(sw, "ENVIRONMENT", dgvEnvironmentL, dgvEnvironmentM, dgvEnvironmentR);
-                WriteSettingsTabToCSV(sw, "SYSTEM / GPS", dgvSystem);
-            }
+            using StreamWriter sw = new(path, false, Encoding.UTF8);
+            WriteSettingsTabToCSV(sw, "VEHICLE", dgvVehicleL, dgvVehicleM, dgvVehicleR);
+            WriteSettingsTabToCSV(sw, "TOOL", dgvToolL, dgvToolM, dgvToolR);
+            WriteSettingsTabToCSV(sw, "ENVIRONMENT", dgvEnvironmentL, dgvEnvironmentM, dgvEnvironmentR);
+            WriteSettingsTabToCSV(sw, "SYSTEM / GPS", dgvSystem);
         }
 
         private static void WriteSettingsTabToCSV(StreamWriter sw, string tabName, params DataGridView[] grids)
@@ -378,7 +376,7 @@ namespace AgOpenGPS
             sw.WriteLine();
 
             bool firstSection = true;
-            foreach (var dgv in grids)
+            foreach (DataGridView dgv in grids)
             {
                 foreach (DataGridViewRow row in dgv.Rows)
                 {
@@ -416,13 +414,6 @@ namespace AgOpenGPS
             sw.WriteLine();
         }
 
-        private static string CsvEscape(string s)
-        {
-            if (s.Contains(",") || s.Contains("\"") || s.Contains("\n"))
-                return "\"" + s.Replace("\"", "\"\"") + "\"";
-            return s;
-        }
-
         // ── Screenshot: capture alle 3 settings tabs en samenvoegen ──────────
 
         private Bitmap CaptureTabsBitmap()
@@ -435,8 +426,8 @@ namespace AgOpenGPS
                 tabControl.SelectedIndex = t;
                 tabControl.Update();
                 Application.DoEvents();
-                var page = tabControl.SelectedTab;
-                var bm = new Bitmap(page.Width, page.Height);
+                TabPage page = tabControl.SelectedTab;
+                Bitmap bm = new(page.Width, page.Height);
                 page.DrawToBitmap(bm, new Rectangle(0, 0, page.Width, page.Height));
                 pages[t] = bm;
             }
@@ -445,32 +436,30 @@ namespace AgOpenGPS
 
             int headerH = panelHeader.Height;
             int tabStripH = tabControl.ItemSize.Height + 4;
-            int totalH = headerH + (tabStripH + pages[0].Height) * 3;
+            int totalH = headerH + ((tabStripH + pages[0].Height) * 3);
             int totalW = pages[0].Width;
 
-            var combined = new Bitmap(totalW, totalH);
-            using (var g = Graphics.FromImage(combined))
+            Bitmap combined = new(totalW, totalH);
+            using (Graphics g = Graphics.FromImage(combined))
             {
-                var headerBm = new Bitmap(panelHeader.Width, panelHeader.Height);
+                Bitmap headerBm = new(panelHeader.Width, panelHeader.Height);
                 panelHeader.DrawToBitmap(headerBm, new Rectangle(0, 0, panelHeader.Width, panelHeader.Height));
                 g.DrawImage(headerBm, 0, 0);
                 headerBm.Dispose();
 
                 int y = headerH;
                 string[] labels = { "Vehicle", "Tool", "Environment" };
-                using (var headerFont = new Font("Tahoma", 12F, FontStyle.Bold))
-                using (var headerBrush = new SolidBrush(Color.SteelBlue))
-                using (var textBrush = new SolidBrush(Color.White))
+                using Font headerFont = new("Tahoma", 12F, FontStyle.Bold);
+                using SolidBrush headerBrush = new(Color.SteelBlue);
+                using SolidBrush textBrush = new(Color.White);
+                for (int t = 0; t < 3; t++)
                 {
-                    for (int t = 0; t < 3; t++)
-                    {
-                        g.FillRectangle(headerBrush, 0, y, totalW, tabStripH);
-                        g.DrawString(labels[t], headerFont, textBrush, 10, y + 8);
-                        y += tabStripH;
-                        g.DrawImage(pages[t], 0, y);
-                        y += pages[t].Height;
-                        pages[t].Dispose();
-                    }
+                    g.FillRectangle(headerBrush, 0, y, totalW, tabStripH);
+                    g.DrawString(labels[t], headerFont, textBrush, 10, y + 8);
+                    y += tabStripH;
+                    g.DrawImage(pages[t], 0, y);
+                    y += pages[t].Height;
+                    pages[t].Dispose();
                 }
             }
             return combined;
@@ -493,7 +482,7 @@ namespace AgOpenGPS
 
         private void btnScreenShot_Click(object sender, EventArgs e)
         {
-            using (var bm = CaptureTabsBitmap())
+            using (Bitmap bm = CaptureTabsBitmap())
             {
                 Clipboard.SetImage(bm);
             }
@@ -504,7 +493,7 @@ namespace AgOpenGPS
         private void btnCreatePNG_Click(object sender, EventArgs e)
         {
             string path = Path.Combine(RegistrySettings.baseDirectory, "AllSet.PNG");
-            using (var bm = CaptureTabsBitmap())
+            using (Bitmap bm = CaptureTabsBitmap())
             {
                 bm.Save(path, ImageFormat.Png);
             }

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,7 +15,7 @@ namespace AgOpenGPS.Updater.Forms
     {
         private readonly UpdateService _updateService;
         private string _currentVersion;
-        private _updateSource currentSource;
+        private UpdateSource currentSource;
         private string _installPath;
         private readonly string _gitHubToken;
         private ReleaseInfo _availableUpdate;
@@ -27,7 +26,7 @@ namespace AgOpenGPS.Updater.Forms
         private CancellationTokenSource _cancellationTokenSource;
         private bool _isInstalling;
 
-        private enum _updateSource { Web, Local }
+        private enum UpdateSource { Web, Local }
 
         public FormUpdate(string currentVersion = null, string installPath = null, string gitHubToken = null)
         {
@@ -37,7 +36,7 @@ namespace AgOpenGPS.Updater.Forms
             _currentVersion = currentVersion ?? UpdateService.GetCurrentVersion();
             _installPath = installPath ?? UpdateService.GetCurrentApplicationPath();
             _gitHubToken = gitHubToken;
-            currentSource = _updateSource.Web;
+            currentSource = UpdateSource.Web;
 
             // Handle command line arguments
             ParseCommandLineArgs();
@@ -45,7 +44,7 @@ namespace AgOpenGPS.Updater.Forms
 
         private void ParseCommandLineArgs()
         {
-            var args = Environment.GetCommandLineArgs();
+            string[] args = Environment.GetCommandLineArgs();
 
             for (int i = 1; i < args.Length; i++)
             {
@@ -100,7 +99,7 @@ namespace AgOpenGPS.Updater.Forms
             // If local update found, switch to local and enable install
             if (foundLocal && _localUpdatePath != null)
             {
-                currentSource = _updateSource.Local;
+                currentSource = UpdateSource.Local;
                 string displayVersion = !string.IsNullOrEmpty(_localUpdateVersion) ? $"v{_localUpdateVersion}" : "Local";
                 _availableUpdate = new ReleaseInfo
                 {
@@ -122,7 +121,7 @@ namespace AgOpenGPS.Updater.Forms
 
         private bool CheckForLocalUpdate()
         {
-            var (found, filePath, version, location, message) = UsbUpdateService.CheckForLocalUpdate();
+            (bool found, string filePath, string version, _, string message) = UsbUpdateService.CheckForLocalUpdate();
             _localUpdatePath = filePath;
             _localUpdateVersion = version;
 
@@ -157,12 +156,10 @@ namespace AgOpenGPS.Updater.Forms
             try
             {
                 // Check if GithubReleaseService has a hardcoded token
-                using (var service = new GithubReleaseService())
-                {
-                    // The service uses hardcoded token if no token is passed and one exists
-                    // We can check this by seeing if it adds an Authorization header
-                    return service.HasAuthToken();
-                }
+                using GithubReleaseService service = new();
+                // The service uses hardcoded token if no token is passed and one exists
+                // We can check this by seeing if it adds an Authorization header
+                return service.HasAuthToken();
             }
             catch
             {
@@ -172,7 +169,7 @@ namespace AgOpenGPS.Updater.Forms
 
         private void UpdateSourceUI()
         {
-            if (currentSource == _updateSource.Web)
+            if (currentSource == UpdateSource.Web)
             {
                 btnToggleSource.Text = "Use USB";
                 btnToggleSource.BackColor = System.Drawing.Color.FromArgb(100, 100, 100);
@@ -226,17 +223,17 @@ namespace AgOpenGPS.Updater.Forms
         private void BtnToggleSource_Click(object sender, EventArgs e)
         {
             // Toggle between Web and Local source
-            if (currentSource == _updateSource.Web)
+            if (currentSource == UpdateSource.Web)
             {
-                currentSource = _updateSource.Local;
+                currentSource = UpdateSource.Local;
             }
             else
             {
-                currentSource = _updateSource.Web;
+                currentSource = UpdateSource.Web;
             }
 
             // Re-check for update from new source
-            if (currentSource == _updateSource.Local)
+            if (currentSource == UpdateSource.Local)
             {
                 CheckForLocalUpdate();
 
@@ -365,11 +362,11 @@ namespace AgOpenGPS.Updater.Forms
             {
                 SetBusy(true);
 
-                if (currentSource == _updateSource.Web)
+                if (currentSource == UpdateSource.Web)
                 {
                     SetStatus("Checking GitHub releases...");
                     bool includePrerelease = chkIncludePrerelease.Checked;
-                    var (hasUpdate, releaseInfo, message) = await _updateService.CheckForUpdate(
+                    (bool hasUpdate, ReleaseInfo releaseInfo, string message) = await _updateService.CheckForUpdate(
                         _currentVersion, includePrerelease, _gitHubToken);
 
                     _availableUpdate = releaseInfo;
@@ -391,7 +388,7 @@ namespace AgOpenGPS.Updater.Forms
                     SetStatus("Checking USB drive...");
                     await Task.Delay(500); // Brief pause for UI update
 
-                    var (found, filePath, version, location, message) = UsbUpdateService.CheckForLocalUpdate();
+                    (bool found, string filePath, string version, string location, string message) = UsbUpdateService.CheckForLocalUpdate();
                     _localUpdatePath = filePath;
                     _localUpdateVersion = version;
 
@@ -436,12 +433,12 @@ namespace AgOpenGPS.Updater.Forms
                 return;
 
             // Show confirmation dialog FIRST on UI thread
-            string updateSource = currentSource == _updateSource.Web ? "GitHub" : "USB";
-            string updateInfo = currentSource == _updateSource.Web
+            string updateSource = currentSource == UpdateSource.Web ? "GitHub" : "USB";
+            string updateInfo = currentSource == UpdateSource.Web
                 ? $"{_availableUpdate.Version} ({_availableUpdate.ReleaseType})"
                 : UsbUpdateService.GetUpdateLocation(_localUpdatePath);
 
-            var result = FormDialog.ShowConfirm(
+            DialogResult result = FormDialog.ShowConfirm(
                 this,
                 "Install Update",
                 $"Install update from {updateSource}?\n\nSource: {updateInfo}\n\nThis will:\n" +
@@ -481,7 +478,7 @@ namespace AgOpenGPS.Updater.Forms
                 SetStatus("Closing AgOpenGPS and AgIO...", true);
                 progressBar1.Value = 10;
 
-                var (closed, closeMsg) = await _updateService.CloseApplicationsAsync();
+                (bool closed, string closeMsg) = await _updateService.CloseApplicationsAsync();
                 if (!closed)
                 {
                     // Non-fatal warning, continue
@@ -497,19 +494,19 @@ namespace AgOpenGPS.Updater.Forms
 
                 string downloadPath;
 
-                if (currentSource == _updateSource.Web)
+                if (currentSource == UpdateSource.Web)
                 {
                     // Step 2: Download from GitHub
                     string tempDir = Path.Combine(Path.GetTempPath(), "AgOpenGPS_Update");
                     SetStatus("Downloading from GitHub...", true, 30);
 
-                    var progress = new Progress<double>(percent =>
+                    Progress<double> progress = new(percent =>
                     {
                         int overallProgress = 30 + (int)(percent * 0.5); // 30-80% range
                         SetStatus($"Downloading... {(int)percent}%", true, overallProgress);
                     });
 
-                    var (downloaded, dlPath, downloadMsg) = await _updateService.DownloadUpdate(
+                    (bool downloaded, string dlPath, string downloadMsg) = await _updateService.DownloadUpdate(
                         _availableUpdate, tempDir, progress, _gitHubToken);
 
                     token.ThrowIfCancellationRequested();
@@ -542,7 +539,7 @@ namespace AgOpenGPS.Updater.Forms
 
                     try
                     {
-                        var fileProgress = new Progress<double>(percent =>
+                        Progress<double> fileProgress = new(percent =>
                         {
                             int overallProgress = 30 + (int)(percent * 0.5); // 30-80% range
                             SetStatus($"Copying... {(int)percent}%", true, overallProgress);
@@ -563,12 +560,12 @@ namespace AgOpenGPS.Updater.Forms
                 }
 
                 // Install update with progress
-                var installProgress = new Progress<UpdateService.InstallProgress>(progressInfo =>
+                Progress<UpdateService.InstallProgress> installProgress = new(progressInfo =>
                 {
                     SetStatus(progressInfo.Phase, true, progressInfo.OverallPercent);
                 });
 
-                var (installed, installMsg) = await _updateService.InstallUpdateAsync(
+                (bool installed, string installMsg) = await _updateService.InstallUpdateAsync(
                     downloadPath, _installPath, _currentVersion, installProgress);
 
                 token.ThrowIfCancellationRequested();
@@ -596,7 +593,7 @@ namespace AgOpenGPS.Updater.Forms
                 SetStatus("Restarting...", true, 100);
                 await System.Threading.Tasks.Task.Delay(1000);
 
-                var (restarted, restartMsg) = _updateService.RestartApplication(_installPath);
+                (bool restarted, string restartMsg) = _updateService.RestartApplication(_installPath);
 
                 // Show success message briefly
                 SetStatus("Complete! Restarting...");
@@ -655,22 +652,20 @@ namespace AgOpenGPS.Updater.Forms
         {
             const int bufferSize = 1024 * 1024; // 1MB buffer
 
-            using (var sourceStream = new FileStream(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan))
-            using (var destStream = new FileStream(destPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, FileOptions.WriteThrough))
+            using FileStream sourceStream = new(sourcePath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize, FileOptions.SequentialScan);
+            using FileStream destStream = new(destPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize, FileOptions.WriteThrough);
+            long totalBytes = sourceStream.Length;
+            long copiedBytes = 0;
+            byte[] buffer = new byte[bufferSize];
+
+            int bytesRead;
+            while ((bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length, token)) > 0)
             {
-                long totalBytes = sourceStream.Length;
-                long copiedBytes = 0;
-                byte[] buffer = new byte[bufferSize];
+                await destStream.WriteAsync(buffer, 0, bytesRead, token);
+                copiedBytes += bytesRead;
 
-                int bytesRead;
-                while ((bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length, token)) > 0)
-                {
-                    await destStream.WriteAsync(buffer, 0, bytesRead, token);
-                    copiedBytes += bytesRead;
-
-                    double percent = (double)copiedBytes / totalBytes * 100.0;
-                    progress.Report(percent);
-                }
+                double percent = (double)copiedBytes / totalBytes * 100.0;
+                progress.Report(percent);
             }
         }
 

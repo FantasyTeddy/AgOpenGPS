@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -20,15 +19,15 @@ namespace AgOpenGPS
     public partial class FormGPS
     {
         // Holds pending section patches to persist.
-        public List<List<vec3>> patchSaveList = new List<List<vec3>>();
+        public List<List<Vec3>> patchSaveList = new();
 
         // Holds pending contour patches to persist.
-        public List<List<vec3>> contourSaveList = new List<List<vec3>>();
+        public List<List<Vec3>> contourSaveList = new();
 
         // Returns field directory; creates it when ensureExists is true.
         private string GetFieldDir(bool ensureExists = false)
         {
-            var dir = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string dir = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if (ensureExists && !string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
@@ -39,7 +38,7 @@ namespace AgOpenGPS
         // Open a field with required precheck and per-file loaders.
         public void FileOpenField(string openType)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 _ = FileSaveEverythingBeforeClosingField();
             }
@@ -52,29 +51,25 @@ namespace AgOpenGPS
                 openType = "Load";
             }
 
-            switch (openType)
+            if (openType == "Resume")
             {
-                case "Resume":
-                    fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Field.txt");
-                    if (!File.Exists(fileAndDirectory)) fileAndDirectory = "Cancel";
-                    break;
-
-                case "Open":
-                    using (var ofd = new OpenFileDialog())
-                    {
-                        ofd.InitialDirectory = RegistrySettings.fieldsDirectory;
-                        ofd.RestoreDirectory = true;
-                        ofd.Filter = "Field files (Field.txt)|Field.txt";
-                        fileAndDirectory = (ofd.ShowDialog(this) == DialogResult.Cancel) ? "Cancel" : ofd.FileName;
-                    }
-                    break;
+                fileAndDirectory = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory, "Field.txt");
+                if (!File.Exists(fileAndDirectory)) fileAndDirectory = "Cancel";
+            }
+            else if (openType == "Open")
+            {
+                using OpenFileDialog ofd = new();
+                ofd.InitialDirectory = RegistrySettings.fieldsDirectory;
+                ofd.RestoreDirectory = true;
+                ofd.Filter = "Field files (Field.txt)|Field.txt";
+                fileAndDirectory = (ofd.ShowDialog(this) == DialogResult.Cancel) ? "Cancel" : ofd.FileName;
             }
 
             if (fileAndDirectory == "Cancel") return;
 
             // Set current field directory
-            currentFieldDirectory = new DirectoryInfo(Path.GetDirectoryName(fileAndDirectory)).Name;
-            var dir = GetFieldDir(false);
+            CurrentFieldDirectory = new DirectoryInfo(Path.GetDirectoryName(fileAndDirectory)).Name;
+            string dir = GetFieldDir(false);
 
             // --- Load all field data ---
             if (!TryLoad("Field.txt", LoadCriticality.Required, () => FieldPlaneFiles.LoadOrigin(dir), out Wgs84 origin))
@@ -89,16 +84,16 @@ namespace AgOpenGPS
             FileLoadTracks();
 
             // --- Sections into triStrip + area ---
-            if (TryLoad("Sections.txt", LoadCriticality.Optional, () => SectionsFiles.Load(dir), out var sections))
+            if (TryLoad("Sections.txt", LoadCriticality.Optional, () => SectionsFiles.Load(dir), out List<List<Vec3>> sections))
             {
                 fd.workedAreaTotal = 0;
                 fd.distanceUser = 0;
                 if (triStrip != null && triStrip.Count > 0 && triStrip[0] != null)
                 {
-                    triStrip[0].patchList = new List<List<vec3>>();
-                    foreach (var patch in sections)
+                    triStrip[0].patchList = new List<List<Vec3>>();
+                    foreach (List<Vec3> patch in sections)
                     {
-                        triStrip[0].triangleList = new List<vec3>(patch);
+                        triStrip[0].triangleList = new List<Vec3>(patch);
                         triStrip[0].patchList.Add(triStrip[0].triangleList);
 
                         int verts = patch.Count - 2;
@@ -106,9 +101,9 @@ namespace AgOpenGPS
                         {
                             for (int j = 1; j < verts; j++)
                             {
-                                double temp = patch[j].easting * (patch[j + 1].northing - patch[j + 2].northing)
-                                            + patch[j + 1].easting * (patch[j + 2].northing - patch[j].northing)
-                                            + patch[j + 2].easting * (patch[j].northing - patch[j + 1].northing);
+                                double temp = (patch[j].easting * (patch[j + 1].northing - patch[j + 2].northing))
+                                            + (patch[j + 1].easting * (patch[j + 2].northing - patch[j].northing))
+                                            + (patch[j + 2].easting * (patch[j].northing - patch[j + 1].northing));
                                 fd.workedAreaTotal += Math.Abs(temp * 0.5);
                             }
                         }
@@ -117,25 +112,25 @@ namespace AgOpenGPS
             }
 
             // --- Contour ---
-            if (TryLoad("Contour.txt", LoadCriticality.Optional, () => ContourFiles.Load(dir), out var contours))
+            if (TryLoad("Contour.txt", LoadCriticality.Optional, () => ContourFiles.Load(dir), out List<List<Vec3>> contours))
             {
                 ct.stripList.Clear();
-                foreach (var patch in contours)
+                foreach (List<Vec3> patch in contours)
                 {
-                    ct.ptList = new List<vec3>(patch);
+                    ct.ptList = new List<Vec3>(patch);
                     ct.stripList.Add(ct.ptList);
                 }
             }
 
             // --- Flags ---
-            if (TryLoad("Flags.txt", LoadCriticality.Optional, () => FlagsFiles.Load(dir), out var flags))
+            if (TryLoad("Flags.txt", LoadCriticality.Optional, () => FlagsFiles.Load(dir), out List<CFlag> flags))
             {
                 flagPts.Clear();
                 flagPts.AddRange(flags);
             }
 
             // --- Boundaries ---
-            if (TryLoad("Boundary.txt", LoadCriticality.Optional, () => BoundaryFiles.Load(dir), out var boundaries))
+            if (TryLoad("Boundary.txt", LoadCriticality.Optional, () => BoundaryFiles.Load(dir), out List<CBoundaryList> boundaries))
             {
                 bnd.bndList.Clear();
                 bnd.bndList.AddRange(boundaries);
@@ -147,7 +142,7 @@ namespace AgOpenGPS
             TryRun("Headland.txt", LoadCriticality.Optional, () => HeadlandFiles.AttachLoad(dir, boundaries));
 
             // --- Tram ---
-            if (TryLoad("Tram.txt", LoadCriticality.Optional, () => TramFiles.Load(dir), out var tramData))
+            if (TryLoad("Tram.txt", LoadCriticality.Optional, () => TramFiles.Load(dir), out TramFiles.TramData tramData))
             {
                 tram.tramBndOuterArr.Clear();
                 tram.tramBndOuterArr.AddRange(tramData.Outer);
@@ -159,19 +154,19 @@ namespace AgOpenGPS
             }
 
             // --- RecPath ---
-            if (TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out var recPathList))
+            if (TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out List<CRecPathPt> recPathList))
             {
                 recPath.recList.Clear();
                 recPath.recList.AddRange(recPathList);
             }
 
             // ---BingMap ---
-            DirectoryInfo fieldDirectoryInfo = new DirectoryInfo(dir);
-            BingMapStreamer bingMapStreamer = new BingMapStreamer();
+            DirectoryInfo fieldDirectoryInfo = new(dir);
+            BingMapStreamer bingMapStreamer = new();
             worldGrid.BingMap = bingMapStreamer.TryRead(fieldDirectoryInfo);
 
             // optional
-            TryLoad("Elevation.txt", LoadCriticality.Optional, () => ElevationFiles.Load(dir), out var elevation);
+            TryLoad("Elevation.txt", LoadCriticality.Optional, () => ElevationFiles.Load(dir), out ElevationFiles.ElevationData elevation);
 
             // --- Final UI refresh ---
             PanelsAndOGLSize();
@@ -189,9 +184,8 @@ namespace AgOpenGPS
         // Load HeadLines (no message if missing).
         public void FileLoadHeadLines()
         {
-            var dir = GetFieldDir();
-            List<CHeadPath> headlines;
-            if (!TryLoad("Headlines.txt", LoadCriticality.Optional, () => HeadlinesFiles.Load(dir), out headlines))
+            string dir = GetFieldDir();
+            if (!TryLoad("Headlines.txt", LoadCriticality.Optional, () => HeadlinesFiles.Load(dir), out List<CHeadPath> headlines))
             {
                 headlines = new List<CHeadPath>();
             }
@@ -210,10 +204,9 @@ namespace AgOpenGPS
         // Load tracks
         public void FileLoadTracks()
         {
-            var dir = GetFieldDir();
+            string dir = GetFieldDir();
 
-            List<CTrk> tracks;
-            if (!TryLoad("TrackLines.txt", LoadCriticality.Optional, () => TrackFiles.Load(dir), out tracks))
+            if (!TryLoad("TrackLines.txt", LoadCriticality.Optional, () => TrackFiles.Load(dir), out List<CTrk> tracks))
             {
                 tracks = new List<CTrk>();
             }
@@ -226,27 +219,27 @@ namespace AgOpenGPS
         // Create Field.txt for a new field session.
         public void FileCreateField()
         {
-            if (!isJobStarted)
+            if (!IsJobStarted)
             {
                 FormDialog.Show(gStr.gsFieldNotOpen, gStr.gsCreateNewField, DialogSeverity.Error);
                 return;
             }
 
-            var dir = GetFieldDir(true);
-            var startFix = new Wgs84(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
+            string dir = GetFieldDir(true);
+            Wgs84 startFix = new(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
             FieldPlaneFiles.Save(dir, DateTime.Now, startFix);
         }
 
         public void FileCreateElevation()
         {
-            var dir = GetFieldDir(true);
-            var startFix = new Wgs84(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
+            string dir = GetFieldDir(true);
+            Wgs84 startFix = new(AppModel.CurrentLatLon.Latitude, AppModel.CurrentLatLon.Longitude);
             ElevationFiles.CreateHeader(dir, DateTime.Now, startFix);
         }
 
         public void FileSaveElevation()
         {
-            var dir = GetFieldDir(true);
+            string dir = GetFieldDir(true);
             ElevationFiles.Append(dir, sbGrid.ToString());
             sbGrid.Clear();
         }
@@ -270,7 +263,7 @@ namespace AgOpenGPS
         // Create Boundary.txt header.
         public void FileCreateBoundary()
         {
-            var dir = GetFieldDir(true);
+            string dir = GetFieldDir(true);
             BoundaryFiles.CreateEmpty(dir);
         }
 
@@ -318,7 +311,7 @@ namespace AgOpenGPS
         // Create RecPath header + zero count.
         public void FileCreateRecPath()
         {
-            var dir = GetFieldDir(true);
+            string dir = GetFieldDir(true);
             RecPathFiles.CreateEmpty(dir);
         }
 
@@ -332,10 +325,9 @@ namespace AgOpenGPS
         // Load RecPath.txt (message if missing).
         public void FileLoadRecPath()
         {
-            var dir = GetFieldDir();
+            string dir = GetFieldDir();
 
-            List<CRecPathPt> rec;
-            if (!TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out rec))
+            if (!TryLoad("RecPath.txt", LoadCriticality.Optional, () => RecPathFiles.Load(dir), out List<CRecPathPt> rec))
             {
                 rec = new List<CRecPathPt>();
             }
@@ -368,7 +360,7 @@ namespace AgOpenGPS
                 : Properties.Resources.HeadlandOff;
 
             int sett = Properties.ToolSettings.Default.setArdMac_setting0;
-            btnHydLift.Visible = (((sett & 2) == 2) && hasHeadland);
+            btnHydLift.Visible = ((sett & 2) == 2) && hasHeadland;
             if (hasHeadland) btnHydLift.Image = Properties.Resources.HydraulicLiftOff;
 
             // RecPath
@@ -385,124 +377,118 @@ namespace AgOpenGPS
         {
             Wgs84 latLon = AppModel.LocalPlane.ConvertGeoCoordToWgs84(flagPts[flagNumber - 1].GeoCoord);
 
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
             }
 
             string myFileName = "Flag.kml";
-            using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
+            using StreamWriter writer = new(Path.Combine(directoryName, myFileName));
+            writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+            writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
+            writer.WriteLine(@"<Document>");
+            writer.WriteLine(@"  <Placemark>");
+            writer.WriteLine(@"<Style> <IconStyle>");
+            if (flagPts[flagNumber - 1].color == 0)
             {
-                writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
-                writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
-                writer.WriteLine(@"<Document>");
-                writer.WriteLine(@"  <Placemark>");
-                writer.WriteLine(@"<Style> <IconStyle>");
-                if (flagPts[flagNumber - 1].color == 0)
-                {
-                    writer.WriteLine(@"<color>ff4400ff</color>");
-                }
-                if (flagPts[flagNumber - 1].color == 1)
-                {
-                    writer.WriteLine(@"<color>ff44ff00</color>");
-                }
-                if (flagPts[flagNumber - 1].color == 2)
-                {
-                    writer.WriteLine(@"<color>ff44ffff</color>");
-                }
-                writer.WriteLine(@"</IconStyle> </Style>");
-                writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
-                writer.WriteLine(@"<Point><coordinates> "
-                    + latLon.Longitude.ToString(CultureInfo.InvariantCulture) + ","
-                    + latLon.Latitude.ToString(CultureInfo.InvariantCulture) + ",0"
-                    + @"</coordinates> </Point> ");
-                writer.WriteLine(@"  </Placemark>");
-                writer.WriteLine(@"</Document>");
-                writer.WriteLine(@"</kml>");
+                writer.WriteLine(@"<color>ff4400ff</color>");
             }
+            if (flagPts[flagNumber - 1].color == 1)
+            {
+                writer.WriteLine(@"<color>ff44ff00</color>");
+            }
+            if (flagPts[flagNumber - 1].color == 2)
+            {
+                writer.WriteLine(@"<color>ff44ffff</color>");
+            }
+            writer.WriteLine(@"</IconStyle> </Style>");
+            writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
+            writer.WriteLine(@"<Point><coordinates> "
+                + latLon.Longitude.ToString(CultureInfo.InvariantCulture) + ","
+                + latLon.Latitude.ToString(CultureInfo.InvariantCulture) + ",0"
+                + @"</coordinates> </Point> ");
+            writer.WriteLine(@"  </Placemark>");
+            writer.WriteLine(@"</Document>");
+            writer.WriteLine(@"</kml>");
         }
 
         // Export one flag to KML using stored WGS84.
         public void FileSaveSingleFlagKML(int flagNumber)
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
             }
 
             string myFileName = "Flag.kml";
-            using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
+            using StreamWriter writer = new(Path.Combine(directoryName, myFileName));
+            writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+            writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
+            writer.WriteLine(@"<Document>");
+            writer.WriteLine(@"  <Placemark>");
+            writer.WriteLine(@"<Style> <IconStyle>");
+            if (flagPts[flagNumber - 1].color == 0)
             {
-                writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
-                writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
-                writer.WriteLine(@"<Document>");
-                writer.WriteLine(@"  <Placemark>");
-                writer.WriteLine(@"<Style> <IconStyle>");
-                if (flagPts[flagNumber - 1].color == 0)
-                {
-                    writer.WriteLine(@"<color>ff4400ff</color>");
-                }
-                if (flagPts[flagNumber - 1].color == 1)
-                {
-                    writer.WriteLine(@"<color>ff44ff00</color>");
-                }
-                if (flagPts[flagNumber - 1].color == 2)
-                {
-                    writer.WriteLine(@"<color>ff44ffff</color>");
-                }
-                writer.WriteLine(@"</IconStyle> </Style>");
-                writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
-                writer.WriteLine(@"<Point><coordinates> " +
-                                flagPts[flagNumber - 1].longitude.ToString(CultureInfo.InvariantCulture) + "," + flagPts[flagNumber - 1].latitude.ToString(CultureInfo.InvariantCulture) + ",0" +
-                                @"</coordinates> </Point> ");
-                writer.WriteLine(@"  </Placemark>");
-                writer.WriteLine(@"</Document>");
-                writer.WriteLine(@"</kml>");
+                writer.WriteLine(@"<color>ff4400ff</color>");
             }
+            if (flagPts[flagNumber - 1].color == 1)
+            {
+                writer.WriteLine(@"<color>ff44ff00</color>");
+            }
+            if (flagPts[flagNumber - 1].color == 2)
+            {
+                writer.WriteLine(@"<color>ff44ffff</color>");
+            }
+            writer.WriteLine(@"</IconStyle> </Style>");
+            writer.WriteLine(@" <name> " + flagNumber.ToString(CultureInfo.InvariantCulture) + @"</name>");
+            writer.WriteLine(@"<Point><coordinates> " +
+                            flagPts[flagNumber - 1].longitude.ToString(CultureInfo.InvariantCulture) + "," + flagPts[flagNumber - 1].latitude.ToString(CultureInfo.InvariantCulture) + ",0" +
+                            @"</coordinates> </Point> ");
+            writer.WriteLine(@"  </Placemark>");
+            writer.WriteLine(@"</Document>");
+            writer.WriteLine(@"</kml>");
         }
 
         // Export current position to KML.
         public void FileMakeKMLFromCurrentPosition(Wgs84 currentLatLon)
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
             }
 
-            using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "CurrentPosition.kml")))
-            {
-                writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
-                writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
-                writer.WriteLine(@"<Document>");
-                writer.WriteLine(@"  <Placemark>");
-                writer.WriteLine(@"<Style> <IconStyle>");
-                writer.WriteLine(@"<color>ff4400ff</color>");
-                writer.WriteLine(@"</IconStyle> </Style>");
-                writer.WriteLine(@" <name> Your Current Position </name>");
-                writer.WriteLine(@"<Point><coordinates> "
-                    + currentLatLon.Longitude.ToString(CultureInfo.InvariantCulture) + ","
-                    + currentLatLon.Latitude.ToString(CultureInfo.InvariantCulture) + ",0"
-                    + @"</coordinates> </Point> ");
-                writer.WriteLine(@"  </Placemark>");
-                writer.WriteLine(@"</Document>");
-                writer.WriteLine(@"</kml>");
-            }
+            using StreamWriter writer = new(Path.Combine(directoryName, "CurrentPosition.kml"));
+            writer.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+            writer.WriteLine(@"<kml xmlns=""http://www.opengis.net/kml/2.2"">");
+            writer.WriteLine(@"<Document>");
+            writer.WriteLine(@"  <Placemark>");
+            writer.WriteLine(@"<Style> <IconStyle>");
+            writer.WriteLine(@"<color>ff4400ff</color>");
+            writer.WriteLine(@"</IconStyle> </Style>");
+            writer.WriteLine(@" <name> Your Current Position </name>");
+            writer.WriteLine(@"<Point><coordinates> "
+                + currentLatLon.Longitude.ToString(CultureInfo.InvariantCulture) + ","
+                + currentLatLon.Latitude.ToString(CultureInfo.InvariantCulture) + ",0"
+                + @"</coordinates> </Point> ");
+            writer.WriteLine(@"  </Placemark>");
+            writer.WriteLine(@"</Document>");
+            writer.WriteLine(@"</kml>");
         }
 
         // Export full field to KML.
         public void ExportFieldAs_KML()
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory);
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory);
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
             }
 
             string myFileName = "Field.kml";
-            XmlTextWriter kml = new XmlTextWriter(Path.Combine(directoryName, myFileName), Encoding.UTF8)
+            XmlTextWriter kml = new(Path.Combine(directoryName, myFileName), Encoding.UTF8)
             {
                 Formatting = Formatting.Indented,
                 Indentation = 3
@@ -527,7 +513,7 @@ namespace AgOpenGPS
                 kml.WriteStartElement("Placemark");
                 if (i == 0)
                 {
-                    kml.WriteElementString("name", currentFieldDirectory);
+                    kml.WriteElementString("name", CurrentFieldDirectory);
                 }
 
                 kml.WriteStartElement("Style");
@@ -582,8 +568,7 @@ namespace AgOpenGPS
             kml.WriteElementString("name", "AB_Lines");
             kml.WriteElementString("visibility", "0");
 
-            string linePts = "";
-
+            string linePts;
             foreach (CTrk track in trk.gArr)
             {
                 kml.WriteStartElement("Placemark");
@@ -601,9 +586,9 @@ namespace AgOpenGPS
                 kml.WriteStartElement("coordinates");
 
                 GeoCoord pointA = track.ptA.ToGeoCoord();
-                GeoDir heading = new GeoDir(track.heading);
-                linePts = GetGeoCoordToWgs84_KML(pointA - ABLine.abLength * heading);
-                linePts += GetGeoCoordToWgs84_KML(pointA + ABLine.abLength * heading);
+                GeoDir heading = new(track.heading);
+                linePts = GetGeoCoordToWgs84_KML(pointA - (ABLine.abLength * heading));
+                linePts += GetGeoCoordToWgs84_KML(pointA + (ABLine.abLength * heading));
                 kml.WriteRaw(linePts);
 
                 kml.WriteEndElement();
@@ -635,7 +620,7 @@ namespace AgOpenGPS
                 kml.WriteElementString("tessellate", "1");
                 kml.WriteStartElement("coordinates");
 
-                foreach (vec3 v3 in trk.gArr[i].curvePts)
+                foreach (Vec3 v3 in trk.gArr[i].curvePts)
                 {
                     linePts += GetGeoCoordToWgs84_KML(v3.ToGeoCoord());
                 }
@@ -707,7 +692,7 @@ namespace AgOpenGPS
                 kml.WriteEndElement();
                 kml.WriteEndElement();
 
-                kml.WriteElementString("name", ((i + 1).ToString() + " " + flagPts[i].notes));
+                kml.WriteElementString("name", (i + 1).ToString() + " " + flagPts[i].notes);
                 kml.WriteStartElement("Point");
                 kml.WriteElementString("coordinates", flagPts[i].longitude.ToString(CultureInfo.InvariantCulture) +
                     "," + flagPts[i].latitude.ToString(CultureInfo.InvariantCulture) + ",0");
@@ -719,8 +704,6 @@ namespace AgOpenGPS
             // Sections
             kml.WriteStartElement("Folder");
             kml.WriteElementString("name", "Sections");
-
-            string secPts = "";
             int cntr = 0;
 
             for (int j = 0; j < triStrip.Count; j++)
@@ -729,7 +712,7 @@ namespace AgOpenGPS
 
                 if (patches > 0)
                 {
-                    foreach (var triList in triStrip[j].patchList)
+                    foreach (List<Vec3> triList in triStrip[j].patchList)
                     {
                         if (triList.Count > 0)
                         {
@@ -737,8 +720,8 @@ namespace AgOpenGPS
                             kml.WriteElementString("name", "Sections_" + cntr.ToString());
                             cntr++;
 
-                            string collor = "F0" + ((byte)(triList[0].heading)).ToString("X2") +
-                                ((byte)(triList[0].northing)).ToString("X2") + ((byte)(triList[0].easting)).ToString("X2");
+                            string collor = "F0" + ((byte)triList[0].heading).ToString("X2") +
+                                ((byte)triList[0].northing).ToString("X2") + ((byte)triList[0].easting).ToString("X2");
 
                             kml.WriteStartElement("Style");
                             kml.WriteStartElement("LineStyle");
@@ -756,7 +739,7 @@ namespace AgOpenGPS
                             kml.WriteStartElement("LinearRing");
 
                             kml.WriteStartElement("coordinates");
-                            secPts = "";
+                            string secPts = "";
                             for (int i = 1; i < triList.Count; i += 2)
                             {
                                 secPts += GetGeoCoordToWgs84_KML(triList[i].ToGeoCoord());
@@ -793,77 +776,13 @@ namespace AgOpenGPS
         // Helper to build lat/lon list for one boundary.
         public string GetBoundaryPointsLatLon(int bndNum)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            foreach (vec3 v3 in bnd.bndList[bndNum].fenceLine)
+            foreach (Vec3 v3 in bnd.bndList[bndNum].fenceLine)
             {
                 sb.Append(GetGeoCoordToWgs84_KML(v3.ToGeoCoord()));
             }
             return sb.ToString();
-        }
-
-        // Regenerates an overview KML for all fields that already produced Field.kml.
-        private void FileUpdateAllFieldsKML()
-        {
-            string directoryName = RegistrySettings.fieldsDirectory;
-            if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
-            {
-                return;
-            }
-
-            string myFileName = "AllFields.kml";
-            XmlTextWriter kml = new XmlTextWriter(Path.Combine(directoryName, myFileName), Encoding.UTF8)
-            {
-                Formatting = Formatting.Indented,
-                Indentation = 3
-            };
-
-            kml.WriteStartDocument();
-            kml.WriteStartElement("kml", "http://www.opengis.net/kml/2.2");
-            kml.WriteStartElement("Document");
-
-            foreach (string dir in Directory.EnumerateDirectories(directoryName).OrderBy(d => new DirectoryInfo(d).Name).ToArray())
-            {
-                if (!File.Exists(Path.Combine(dir, "Field.kml")))
-                {
-                    continue;
-                }
-
-                string name = Path.GetFileName(dir);
-                kml.WriteStartElement("Folder");
-                kml.WriteElementString("name", name);
-
-                var lines = File.ReadAllLines(Path.Combine(dir, "Field.kml"));
-                LinkedList<string> linebuffer = new LinkedList<string>();
-                for (int i = 3; i < lines.Length - 2; i++)
-                {
-                    linebuffer.AddLast(lines[i]);
-                    if (linebuffer.Count > 2)
-                    {
-                        kml.WriteRaw("   ");
-                        kml.WriteRaw(Environment.NewLine);
-                        kml.WriteRaw(linebuffer.First.Value);
-                        linebuffer.RemoveFirst();
-                    }
-                }
-                kml.WriteRaw("   ");
-                kml.WriteRaw(Environment.NewLine);
-                kml.WriteRaw(linebuffer.First.Value);
-                linebuffer.RemoveFirst();
-                kml.WriteRaw("   ");
-                kml.WriteRaw(Environment.NewLine);
-                kml.WriteRaw(linebuffer.First.Value);
-                kml.WriteRaw(Environment.NewLine);
-
-                kml.WriteEndElement(); // Folder
-                kml.WriteComment("End of " + name);
-            }
-
-            kml.WriteEndElement(); // Document
-            kml.WriteEndElement(); // kml
-            kml.WriteEndDocument();
-            kml.Flush();
-            kml.Close();
         }
 
         // Formats a GeoCoord as "lon,lat,0 ".
@@ -877,7 +796,7 @@ namespace AgOpenGPS
         // Export ISOXML v3.
         public void ExportFieldAs_ISOXMLv3()
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "zISOXML", "v3");
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory, "zISOXML", "v3");
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
@@ -887,8 +806,8 @@ namespace AgOpenGPS
             {
                 ISO11783_TaskFile.Export(
                     directoryName,
-                    currentFieldDirectory,
-                    (int)(fd.areaOuterBoundary),
+                    CurrentFieldDirectory,
+                    (int)fd.areaOuterBoundary,
                     bnd.bndList,
                     AppModel.LocalPlane,
                     trk,
@@ -904,7 +823,7 @@ namespace AgOpenGPS
         // Export ISOXML v4.
         public void ExportFieldAs_ISOXMLv4()
         {
-            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "zISOXML", "v4");
+            string directoryName = Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory, "zISOXML", "v4");
             if ((directoryName.Length > 0) && (!Directory.Exists(directoryName)))
             {
                 Directory.CreateDirectory(directoryName);
@@ -914,8 +833,8 @@ namespace AgOpenGPS
             {
                 ISO11783_TaskFile.Export(
                     directoryName,
-                    currentFieldDirectory,
-                    (int)(fd.areaOuterBoundary),
+                    CurrentFieldDirectory,
+                    (int)fd.areaOuterBoundary,
                     bnd.bndList,
                     AppModel.LocalPlane,
                     trk,
@@ -953,7 +872,7 @@ namespace AgOpenGPS
                 {
                     FormDialog.Show("Optional file problem", $"{fileLabel} is missing or corrupt but Field is Loaded", DialogSeverity.Warning);
                 }
-                result = default(T);
+                result = default;
                 return false;
             }
         }

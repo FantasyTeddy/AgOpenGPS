@@ -1,7 +1,4 @@
-﻿using AgOpenGPS.Core.Streamers;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
+﻿using System.IO;
 
 namespace AgOpenGPS.Core.Models
 {

@@ -1,6 +1,4 @@
-﻿using AgOpenGPS.Core.Models;
-
-namespace AgOpenGPS.Core.Models
+﻿namespace AgOpenGPS.Core.Models
 {
     public class DubinsPathConstraints
     {

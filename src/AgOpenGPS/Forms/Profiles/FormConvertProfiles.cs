@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using AgLibrary.Logging;
 using AgLibrary.Settings;
-using AgOpenGPS;
 using AgOpenGPS.Controls;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Properties;
@@ -75,7 +74,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             foreach (string name in files.OrderBy(n => n))
             {
-                var item = new ListViewItem(name) { Name = name };
+                ListViewItem item = new(name) { Name = name };
                 // Color converted files green
                 if (CSettingsMigration.IsConverted(name))
                 {
@@ -202,9 +201,9 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
-            var tb = (TextBox)sender;
-            var pos = tb.SelectionStart;
-            tb.Text = Regex.Replace(tb.Text, glm.fileRegex, "");
+            TextBox tb = (TextBox)sender;
+            int pos = tb.SelectionStart;
+            tb.Text = Regex.Replace(tb.Text, Glm.fileRegex, "");
             tb.SelectionStart = pos;
 
             UpdateConvertButton();
@@ -251,16 +250,16 @@ namespace AgOpenGPS.Forms.Profiles
             if (exportTool)
                 confirmMsg += "  " + gStr.gsConvertToolLine + ": " + toolName + "\n";
 
-            var confirm = FormDialog.ShowQuestion(gStr.gsConvertConfirm, confirmMsg);
+            DialogResult confirm = FormDialog.ShowQuestion(gStr.gsConvertConfirm, confirmMsg);
             if (confirm != DialogResult.OK) return;
 
-            var errors = new List<string>();
+            List<string> errors = new();
 
             // Convert Vehicle (optional)
             if (exportVehicle)
             {
-                var vSettings = new VehicleSettings();
-                var vResult = CSettingsMigration.MigrateVehicle(sourceFile, vehicleName, vSettings);
+                VehicleSettings vSettings = new();
+                LoadResult vResult = CSettingsMigration.MigrateVehicle(sourceFile, vehicleName, vSettings);
                 if (vResult != LoadResult.Ok)
                 {
                     errors.Add($"Vehicle: {vResult}");
@@ -271,8 +270,8 @@ namespace AgOpenGPS.Forms.Profiles
             // Convert Tool (optional)
             if (exportTool)
             {
-                var tSettings = new ToolSettings();
-                var tResult = CSettingsMigration.MigrateTool(sourceFile, toolName, tSettings);
+                ToolSettings tSettings = new();
+                LoadResult tResult = CSettingsMigration.MigrateTool(sourceFile, toolName, tSettings);
                 if (tResult != LoadResult.Ok)
                 {
                     errors.Add($"Tool: {tResult}");
@@ -285,7 +284,7 @@ namespace AgOpenGPS.Forms.Profiles
             string envPath = Path.Combine(RegistrySettings.environmentDirectory, "environment.xml");
             if (!File.Exists(envPath))
             {
-                var eResult = CSettingsMigration.MigrateEnvironment(sourceFile, "environment");
+                LoadResult eResult = CSettingsMigration.MigrateEnvironment(sourceFile, "environment");
                 if (eResult == LoadResult.Ok)
                 {
                     migratedEnvironment = true;
@@ -313,7 +312,7 @@ namespace AgOpenGPS.Forms.Profiles
                 // If Environment was migrated, load it immediately
                 if (migratedEnvironment)
                 {
-                    var loadResult = Properties.Settings.Default.Load();
+                    LoadResult loadResult = Properties.Settings.Default.Load();
                     if (loadResult == LoadResult.Ok)
                     {
                         _formGPS.LoadSettings();

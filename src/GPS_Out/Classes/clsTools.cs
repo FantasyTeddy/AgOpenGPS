@@ -1,21 +1,16 @@
 ﻿using RateController;
 using System;
 using System.Collections;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GPS_Out
 {
-    public class clsTools
+    public class ClsTools
     {
         #region Form Dragging API Support
 
@@ -38,15 +33,15 @@ namespace GPS_Out
 
         private static Hashtable HTapp;
         private static Hashtable HTfiles;
-        private string cAppName = "GPS_Out";
-        private string cAppVersion = "1.2.2";
+        private readonly string cAppName = "GPS_Out";
+        private readonly string cAppVersion = "1.2.2";
         private string cPropertiesApp;
         private string cPropertiesFile;
         private string cSettingsDir;
-        private frmStart mf;
+        private readonly FrmStart mf;
         private int SentenceCount = 0;
 
-        public clsTools(frmStart CallingForm)
+        public ClsTools(FrmStart CallingForm)
         {
             mf = CallingForm;
             CheckFolders();
@@ -93,9 +88,9 @@ namespace GPS_Out
             {
                 Brush textBrush = new SolidBrush(textColor);
                 Brush borderBrush = new SolidBrush(borderColor);
-                Pen borderPen = new Pen(borderBrush);
+                Pen borderPen = new(borderBrush);
                 SizeF strSize = g.MeasureString(box.Text, box.Font);
-                Rectangle rect = new Rectangle(box.ClientRectangle.X,
+                Rectangle rect = new(box.ClientRectangle.X,
                                                box.ClientRectangle.Y + (int)(strSize.Height / 2),
                                                box.ClientRectangle.Width - 1,
                                                box.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
@@ -122,17 +117,16 @@ namespace GPS_Out
 
         public bool GoodCRC(byte[] Data, byte Start = 0)
         {
-            bool Result = false;
             int Length = Data.Length;
             byte cr = CRC(Data, Length - 1, Start);
-            Result = cr == Data[Length - 1];
+            bool Result = cr == Data[Length - 1];
             return Result;
         }
 
         public bool IsOnScreen(Form form, bool PutOnScreen = false)
         {
             // Create rectangle
-            Rectangle formRectangle = new Rectangle(form.Left, form.Top, form.Width, form.Height);
+            Rectangle formRectangle = new(form.Left, form.Top, form.Width, form.Height);
 
             // Test
             bool IsOn = Screen.AllScreens.Any(s => s.WorkingArea.IntersectsWith(formRectangle));
@@ -155,12 +149,10 @@ namespace GPS_Out
 
         public void LoadFormData(Form Frm)
         {
-            int Leftloc = 0;
-            int.TryParse(LoadAppProperty(Frm.Name + ".Left"), out Leftloc);
+            int.TryParse(LoadAppProperty(Frm.Name + ".Left"), out int Leftloc);
             Frm.Left = Leftloc;
 
-            int Toploc = 0;
-            int.TryParse(LoadAppProperty(Frm.Name + ".Top"), out Toploc);
+            int.TryParse(LoadAppProperty(Frm.Name + ".Top"), out int Toploc);
             Frm.Top = Toploc;
 
             IsOnScreen(Frm, true);
@@ -237,7 +229,7 @@ namespace GPS_Out
         public void ShowHelp(string Message, string Title = "Help",
             int timeInMsec = 30000, bool LogError = false, bool Modal = false, bool PlayErrorSound = false)
         {
-            var Hlp = new frmHelp(mf, Message, Title, timeInMsec);
+            FrmHelp Hlp = new(mf, Message, Title, timeInMsec);
             if (Modal)
             {
                 Hlp.ShowDialog();
@@ -257,10 +249,8 @@ namespace GPS_Out
             if (SentenceCount < 20)
             {
                 SentenceCount++;
-                using (var stream = new FileStream(FileName, FileMode.Append))
-                {
-                    stream.Write(Data, 0, Data.Length);
-                }
+                using FileStream stream = new(FileName, FileMode.Append);
+                stream.Write(Data, 0, Data.Length);
             }
         }
 
@@ -355,24 +345,6 @@ namespace GPS_Out
                     NewLines[i] = Pair.Key.ToString() + "=" + Pair.Value.ToString();
                 }
                 if (i > -1) File.WriteAllLines(cPropertiesApp, NewLines);
-            }
-            catch (Exception)
-            {
-            }
-        }
-
-        private void SaveProperties()
-        {
-            try
-            {
-                string[] NewLines = new string[HTfiles.Count];
-                int i = -1;
-                foreach (DictionaryEntry Pair in HTfiles)
-                {
-                    i++;
-                    NewLines[i] = Pair.Key.ToString() + "=" + Pair.Value.ToString();
-                }
-                if (i > -1) File.WriteAllLines(cPropertiesFile, NewLines);
             }
             catch (Exception)
             {

@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS.Core.Models
 {
-    public struct GeoLineSegment
+    public readonly struct GeoLineSegment
     {
         public GeoLineSegment(GeoCoord coordA, GeoCoord coordB)
         {
@@ -11,9 +11,9 @@
         public GeoCoord CoordA { get; }
         public GeoCoord CoordB { get; }
         public double Length => CoordA.Distance(CoordB);
-        public GeoDelta Delta => new GeoDelta(CoordA, CoordB);
+        public GeoDelta Delta => new(CoordA, CoordB);
 
-        public GeoDir Direction => new GeoDir(Delta);
+        public GeoDir Direction => new(Delta);
 
         // Returns a new GeoLineSegment shifted over 'offset' w.r.t the original
         public GeoLineSegment Shifted(GeoDelta offset)
@@ -31,15 +31,15 @@
             double denominator = delta.CrossProductZ(otherDelta);
             if (denominator != 0.0)
             {
-                GeoDelta aToOtherADelta = new GeoDelta(CoordA, otherSegment.CoordA);
+                GeoDelta aToOtherADelta = new(CoordA, otherSegment.CoordA);
 
                 double s = aToOtherADelta.CrossProductZ(delta) / denominator;
-                if (-epsilon <= s && s <= 1.0 + epsilon)
+                if (s is >= -epsilon and <= (1.0 + epsilon))
                 {
                     double t = aToOtherADelta.CrossProductZ(otherDelta) / denominator;
-                    if (-epsilon <= t && t <= 1.0 + epsilon)
+                    if (t is >= -epsilon and <= (1.0 + epsilon))
                     {
-                        intersectionPoint = CoordA + t * delta;
+                        intersectionPoint = CoordA + (t * delta);
                     }
                 }
             }

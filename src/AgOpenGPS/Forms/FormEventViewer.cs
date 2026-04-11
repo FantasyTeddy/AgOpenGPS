@@ -8,7 +8,7 @@ namespace AgOpenGPS
     public partial class FormEventViewer : Form
     {
         //class variables
-        string filename;
+        private readonly string filename;
 
         public FormEventViewer(string _filename)
         {
@@ -21,14 +21,11 @@ namespace AgOpenGPS
         {
             try
             {
-                using (StreamReader sr = File.OpenText(filename))
+                using StreamReader sr = File.OpenText(filename);
+                //rtbLogViewer.Text = String.Empty;
+                while (!sr.EndOfStream)
                 {
-                    //rtbLogViewer.Text = String.Empty;
-                    while (!sr.EndOfStream)
-                    {
-                        rtbLogViewer.AppendText(sr.ReadLine() + "\r");
-                    }
-
+                    rtbLogViewer.AppendText(sr.ReadLine() + "\r");
                 }
             }
             catch (Exception ex)
@@ -52,14 +49,11 @@ namespace AgOpenGPS
             rtbLogViewer.HideSelection = false;
             try
             {
-                using (StreamReader sr = File.OpenText(filename))
+                using StreamReader sr = File.OpenText(filename);
+                //rtbLogViewer.Text = String.Empty;
+                while (!sr.EndOfStream)
                 {
-                    //rtbLogViewer.Text = String.Empty;
-                    while (!sr.EndOfStream)
-                    {
-                        rtbLogViewer.AppendText(sr.ReadLine() + "\r");
-                    }
-
+                    rtbLogViewer.AppendText(sr.ReadLine() + "\r");
                 }
             }
             catch (Exception ex)

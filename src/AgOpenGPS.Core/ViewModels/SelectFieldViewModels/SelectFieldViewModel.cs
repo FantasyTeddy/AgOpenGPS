@@ -23,7 +23,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         private void DeleteField()
         {
-            var selectedField = LocalSelectedField;
+            FieldDescriptionViewModel selectedField = LocalSelectedField;
             if (null != selectedField)
             {
                 if (_selectFieldPanelPresenter.ShowConfirmDeleteMessageBox(selectedField.FieldName))

@@ -1,5 +1,4 @@
 using AgLibrary.Logging;
-using AgOpenGPS.Classes;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms.Field;
@@ -10,7 +9,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
-using System.Runtime.CompilerServices;
 
 namespace AgOpenGPS
 {
@@ -78,12 +76,12 @@ namespace AgOpenGPS
 
             flp1.Controls.Clear();
 
-            System.Drawing.Font backupfont = new System.Drawing.Font(base.Font.FontFamily, 18F, FontStyle.Bold);
+            System.Drawing.Font backupfont = new(base.Font.FontFamily, 18F, FontStyle.Bold);
 
             for (int i = 0; i < mf.bnd.bndList.Count; i++)
             {
                 //outer inner
-                Button a = new Button
+                Button a = new()
                 {
                     Margin = new Padding(10),
                     Size = new Size(180, 35),
@@ -95,7 +93,7 @@ namespace AgOpenGPS
                 a.BackColor = System.Drawing.SystemColors.ButtonFace;
 
                 //area
-                Button b = new Button
+                Button b = new()
                 {
                     Margin = new Padding(10),
                     Size = new System.Drawing.Size(180, 35),
@@ -107,7 +105,7 @@ namespace AgOpenGPS
                 b.BackColor = System.Drawing.SystemColors.ButtonFace;
 
                 //drive thru
-                Button d = new Button
+                Button d = new()
                 {
                     Margin = new Padding(10),
                     Size = new System.Drawing.Size(110, 35),
@@ -148,19 +146,19 @@ namespace AgOpenGPS
                     b.Anchor = System.Windows.Forms.AnchorStyles.None;
                 }
 
-                if (mf.isMetric)
+                if (mf.IsMetric)
                 {
                     int length = (mf.bnd.bndList[i].area * 0.0001).ToString("0").Length;
                     if (length > 10) length = 10;
                     if (length < 3) length = 3;
-                    b.Text = (mf.bnd.bndList[i].area * 0.0001).ToString("0.########".Substring(0, 11 - length)) + " Ha";
+                    b.Text = (mf.bnd.bndList[i].area * 0.0001).ToString("0.########"[..(11 - length)]) + " Ha";
                 }
                 else
                 {
                     int length = (mf.bnd.bndList[i].area * 0.000247105).ToString("0").Length;
                     if (length > 10) length = 10;
                     if (length < 3) length = 3;
-                    b.Text = (mf.bnd.bndList[i].area * 0.000247105).ToString("0.########".Substring(0, 11 - length)) + " Ac";
+                    b.Text = (mf.bnd.bndList[i].area * 0.000247105).ToString("0.########"[..(11 - length)]) + " Ac";
                 }
 
                 if (i == fenceSelected)
@@ -251,7 +249,7 @@ namespace AgOpenGPS
             //save new copy of kml with selected flag and view in GoogleEarth
 
             mf.FileMakeKMLFromCurrentPosition(mf.AppModel.CurrentLatLon);
-            System.Diagnostics.Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory, "CurrentPosition.KML"));
+            System.Diagnostics.Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory, "CurrentPosition.KML"));
             isClosing = true;
             Close();
         }
@@ -294,13 +292,13 @@ namespace AgOpenGPS
                 string fileAndDirectory;
                 {
                     //create the dialog instance
-                    OpenFileDialog ofd = new OpenFileDialog
+                    OpenFileDialog ofd = new()
                     {
                         //set the filter to text KML only
                         Filter = "KML files (*.KML)|*.KML",
 
                         //the initial directory, fields, for the open dialog
-                        InitialDirectory = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory)
+                        InitialDirectory = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory)
                     };
 
                     //was a file selected
@@ -311,92 +309,90 @@ namespace AgOpenGPS
                 string coordinates = null;
                 int startIndex;
 
-                using (StreamReader reader = new StreamReader(fileAndDirectory))
+                using StreamReader reader = new(fileAndDirectory);
+                if (button.Name == "btnLoadMultiBoundaryFromGE") ResetAllBoundary();
+
+                try
                 {
-                    if (button.Name == "btnLoadMultiBoundaryFromGE") ResetAllBoundary();
-
-                    try
+                    while (!reader.EndOfStream)
                     {
-                        while (!reader.EndOfStream)
+                        //start to read the file
+                        string line = reader.ReadLine();
+
+                        startIndex = line.IndexOf("<coordinates>");
+
+                        if (startIndex != -1)
                         {
-                            //start to read the file
-                            string line = reader.ReadLine();
-
-                            startIndex = line.IndexOf("<coordinates>");
-
-                            if (startIndex != -1)
+                            while (true)
                             {
-                                while (true)
+                                int endIndex = line.IndexOf("</coordinates>");
+
+                                if (endIndex == -1)
                                 {
-                                    int endIndex = line.IndexOf("</coordinates>");
-
-                                    if (endIndex == -1)
-                                    {
-                                        //just add the line
-                                        if (startIndex == -1) coordinates += line.Substring(0);
-                                        else coordinates += line.Substring(startIndex + 13);
-                                    }
-                                    else
-                                    {
-                                        if (startIndex == -1) coordinates += line.Substring(0, endIndex);
-                                        else coordinates += line.Substring(startIndex + 13, endIndex - (startIndex + 13));
-                                        break;
-                                    }
-                                    line = reader.ReadLine();
-                                    line = line.Trim();
-                                    startIndex = -1;
-                                }
-
-                                line = coordinates;
-                                char[] delimiterChars = { ' ', '\t', '\r', '\n' };
-                                string[] numberSets = line.Split(delimiterChars);
-
-                                //at least 3 points
-                                if (numberSets.Length > 2)
-                                {
-                                    CBoundaryList New = new CBoundaryList();
-
-                                    foreach (string item in numberSets)
-                                    {
-                                        string[] fix = item.Split(',');
-                                        double.TryParse(fix[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
-                                        double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
-
-                                        GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latK, lonK));
-                                        New.fenceLine.Add(new vec3(geoCoord));
-                                    }
-
-                                    New.CalculateFenceArea(mf.bnd.bndList.Count);
-                                    New.FixFenceLine(mf.bnd.bndList.Count);
-
-                                    mf.bnd.bndList.Add(New);
-
-                                    mf.btnABDraw.Visible = true;
-
-                                    coordinates = "";
+                                    //just add the line
+                                    if (startIndex == -1) coordinates += line[..];
+                                    else coordinates += line[(startIndex + 13)..];
                                 }
                                 else
                                 {
-                                    FormDialog.Show(gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone, DialogSeverity.Error);
-                                    Log.EventWriter("KML Read Error to make new field");
-                                }
-
-                                if (button.Name == "btnLoadBoundaryFromGE")
-                                {
+                                    if (startIndex == -1) coordinates += line[..endIndex];
+                                    else coordinates += line[(startIndex + 13)..endIndex];
                                     break;
                                 }
+                                line = reader.ReadLine();
+                                line = line.Trim();
+                                startIndex = -1;
+                            }
+
+                            line = coordinates;
+                            char[] delimiterChars = { ' ', '\t', '\r', '\n' };
+                            string[] numberSets = line.Split(delimiterChars);
+
+                            //at least 3 points
+                            if (numberSets.Length > 2)
+                            {
+                                CBoundaryList New = new();
+
+                                foreach (string item in numberSets)
+                                {
+                                    string[] fix = item.Split(',');
+                                    double.TryParse(fix[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lonK);
+                                    double.TryParse(fix[1], NumberStyles.Float, CultureInfo.InvariantCulture, out latK);
+
+                                    GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latK, lonK));
+                                    New.fenceLine.Add(new Vec3(geoCoord));
+                                }
+
+                                New.CalculateFenceArea(mf.bnd.bndList.Count);
+                                New.FixFenceLine(mf.bnd.bndList.Count);
+
+                                mf.bnd.bndList.Add(New);
+
+                                mf.btnABDraw.Visible = true;
+
+                                coordinates = "";
+                            }
+                            else
+                            {
+                                FormDialog.Show(gStr.gsErrorreadingKML, gStr.gsChooseBuildDifferentone, DialogSeverity.Error);
+                                Log.EventWriter("KML Read Error to make new field");
+                            }
+
+                            if (button.Name == "btnLoadBoundaryFromGE")
+                            {
+                                break;
                             }
                         }
-                        mf.FileSaveBoundary();
-                        mf.bnd.BuildTurnLines();
-                        mf.btnABDraw.Visible = true;
-                        UpdateChart();
                     }
-                    catch (Exception ed)
-                    {
-                        Log.EventWriter("Load Boundary from GE " + ed.ToString());
-                        return;
-                    }
+                    mf.FileSaveBoundary();
+                    mf.bnd.BuildTurnLines();
+                    mf.btnABDraw.Visible = true;
+                    UpdateChart();
+                }
+                catch (Exception ed)
+                {
+                    Log.EventWriter("Load Boundary from GE " + ed.ToString());
+                    return;
                 }
             }
             mf.bnd.isOkToAddPoints = false;
@@ -437,13 +433,13 @@ namespace AgOpenGPS
         {
             if (mf.bnd.bndList.Count > 0)
             {
-                var result = FormDialog.ShowQuestion("Boundary Exists", "A boundary already exists. Do you want to remove it?");
+                DialogResult result = FormDialog.ShowQuestion("Boundary Exists", "A boundary already exists. Do you want to remove it?");
                 if (result != DialogResult.OK) return;
 
                 mf.bnd.bndList.Clear();
             }
 
-            var form = new FormBuildBoundaryFromTracks(mf, this);
+            FormBuildBoundaryFromTracks form = new(mf);
             form.ShowDialog();
             isClosing = true;
             Close();

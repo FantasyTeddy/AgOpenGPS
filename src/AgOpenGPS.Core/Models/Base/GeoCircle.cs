@@ -5,7 +5,7 @@ namespace AgOpenGPS.Core.Models
 {
     public enum TurnType { Straight, Left, Right }
 
-    public struct GeoCircle
+    public readonly struct GeoCircle
     {
 
         public GeoCircle(GeoCoord center, double radius)
@@ -19,7 +19,7 @@ namespace AgOpenGPS.Core.Models
 
         public GeoCoord PointOnCircle(GeoDir dir)
         {
-            return Center + Radius * dir;
+            return Center + (Radius * dir);
         }
 
         public double GetArcLength(
@@ -28,8 +28,8 @@ namespace AgOpenGPS.Core.Models
             TurnType turnType)
         {
             Debug.Assert(turnType != TurnType.Straight);
-            GeoDir startDir = new GeoDir(startPos - Center);
-            GeoDir goalDir = new GeoDir(goalPos - Center);
+            GeoDir startDir = new(startPos - Center);
+            GeoDir goalDir = new(goalPos - Center);
 
             double theta = goalDir.AngleInRadians - startDir.AngleInRadians;
 

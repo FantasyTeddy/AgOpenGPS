@@ -6,12 +6,7 @@ namespace AgOpenGPS.Properties
 {
     public sealed class VehicleSettings
     {
-        private static VehicleSettings settings_ = new VehicleSettings();
-
-        public static VehicleSettings Default
-        {
-            get { return settings_; }
-        }
+        public static VehicleSettings Default { get; private set; } = new VehicleSettings();
 
         // Vehicle dimensions
         public double setVehicle_wheelbase = 3.3;
@@ -71,7 +66,7 @@ namespace AgOpenGPS.Properties
         public LoadResult Load(string vehicleFileName)
         {
             string path = Path.Combine(RegistrySettings.vehiclesDirectory, vehicleFileName + ".xml");
-            var result = XmlSettingsHandler.LoadXMLFile(path, this);
+            LoadResult result = XmlSettingsHandler.LoadXMLFile(path, this);
             if (result == LoadResult.MissingFile)
             {
                 // Try loading from old format and migrate
@@ -115,7 +110,7 @@ namespace AgOpenGPS.Properties
 
         public void Reset()
         {
-            settings_ = new VehicleSettings();
+            Default = new VehicleSettings();
         }
     }
 }

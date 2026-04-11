@@ -9,7 +9,7 @@ namespace AgOpenGPS
         public bool isToolInHeadland,
             isToolOuterPointsInHeadland, isSectionControlledByHeadland;
 
-        public vec2? HeadlandNearestPoint { get; private set; } = null;
+        public Vec2? HeadlandNearestPoint { get; private set; } = null;
         public double? HeadlandDistance { get; private set; } = null;
 
         public void SetHydPosition()
@@ -70,7 +70,7 @@ namespace AgOpenGPS
             {
                 bool isLookRightIn = false;
 
-                vec3 toolFix = mf.toolPivotPos;
+                Vec3 toolFix = mf.toolPivotPos;
                 double sinAB = Math.Sin(toolFix.heading);
                 double cosAB = Math.Cos(toolFix.heading);
 
@@ -80,14 +80,14 @@ namespace AgOpenGPS
 
                 for (int j = 0; j < mf.tool.numOfSections; j++)
                 {
-                    bool isLookLeftIn = j == 0 ? IsPointInsideHeadArea(new vec2(
+                    bool isLookLeftIn = j == 0 ? IsPointInsideHeadArea(new Vec2(
                         mf.section[j].leftPoint.easting + (sinAB * mf.tool.lookAheadDistanceOnPixelsLeft * 0.1),
                         mf.section[j].leftPoint.northing + (cosAB * mf.tool.lookAheadDistanceOnPixelsLeft * 0.1))) : isLookRightIn;
 
                     pos += mf.section[j].rpSectionWidth;
                     double endHeight = (mf.tool.lookAheadDistanceOnPixelsLeft + (mOn * pos)) * 0.1;
 
-                    isLookRightIn = IsPointInsideHeadArea(new vec2(
+                    isLookRightIn = IsPointInsideHeadArea(new Vec2(
                         mf.section[j].rightPoint.easting + (sinAB * endHeight),
                         mf.section[j].rightPoint.northing + (cosAB * endHeight)));
 
@@ -96,7 +96,7 @@ namespace AgOpenGPS
             }
         }
 
-        public bool IsPointInsideHeadArea(vec2 pt)
+        public bool IsPointInsideHeadArea(Vec2 pt)
         {
             //if inside outer boundary, then potentially add
             if (bndList[0].hdLine.IsPointInPolygon(pt))
@@ -121,9 +121,9 @@ namespace AgOpenGPS
                 return;
             }
 
-            vec3 vehiclePos = mf.toolPivotPos;
+            Vec3 vehiclePos = mf.toolPivotPos;
 
-            vec2? nearest = glm.RaycastToPolygon(vehiclePos, bndList[0].hdLine);
+            Vec2? nearest = Glm.RaycastToPolygon(vehiclePos, bndList[0].hdLine);
             if (!nearest.HasValue)
             {
                 HeadlandNearestPoint = null;
@@ -131,8 +131,8 @@ namespace AgOpenGPS
                 return;
             }
 
-            vec2 nearestVal = nearest.Value;
-            double distance = glm.Distance(vehiclePos.ToVec2(), nearestVal);
+            Vec2 nearestVal = nearest.Value;
+            double distance = Glm.Distance(vehiclePos.ToVec2(), nearestVal);
 
             HeadlandNearestPoint = nearestVal;
             HeadlandDistance = distance;
@@ -142,8 +142,8 @@ namespace AgOpenGPS
             double dx = nearestVal.easting - vehiclePos.easting;
             double dy = nearestVal.northing - vehiclePos.northing;
             double angleToPolygon = Math.Atan2(dx, dy);
-            double headingDiff = glm.AngleDiff(vehiclePos.heading, angleToPolygon);
-            bool headingOk = headingDiff < glm.toRadians(60); // eventueel verwijderen: zit al in GetClosestPointInFront
+            double headingDiff = Glm.AngleDiff(vehiclePos.heading, angleToPolygon);
+            bool headingOk = headingDiff < Glm.ToRadians(60); // eventueel verwijderen: zit al in GetClosestPointInFront
 
             // Warning Logic
             bool shouldPlay =

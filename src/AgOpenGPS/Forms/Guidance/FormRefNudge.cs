@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using AgOpenGPS.Controls;
 using AgOpenGPS.Core.Translations;
@@ -11,7 +10,7 @@ namespace AgOpenGPS
     public partial class FormRefNudge : Form
     {
         private readonly FormGPS mf = null;
-        public List<CTrk> gTemp = new List<CTrk>();
+        public List<CTrk> gTemp = new();
 
 
         private double snapAdj = 0, distanceMoved = 0;
@@ -27,20 +26,20 @@ namespace AgOpenGPS
 
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistanceRef);
+                nudSnapDistance.Value = (int)Properties.Settings.Default.setAS_snapDistanceRef;
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistanceRef * mf.cm2CmOrIn), 1);
+                nudSnapDistance.Value = (decimal)Math.Round(Properties.Settings.Default.setAS_snapDistanceRef * mf.cm2CmOrIn, 1);
             }
 
             snapAdj = Properties.Settings.Default.setAS_snapDistanceRef * 0.01;
 
-            foreach (var item in mf.trk.gArr)
+            foreach (CTrk item in mf.trk.gArr)
             {
                 gTemp.Add(new CTrk(item));
             }
@@ -123,7 +122,7 @@ namespace AgOpenGPS
         {
             mf.trk.gArr.Clear();
 
-            foreach (var item in gTemp)
+            foreach (CTrk item in gTemp)
             {
                 mf.trk.gArr.Add(new CTrk(item));
             }

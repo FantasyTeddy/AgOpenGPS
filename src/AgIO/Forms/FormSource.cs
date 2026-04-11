@@ -9,7 +9,7 @@ namespace AgIO
     public partial class FormSource : Form
     {
         private readonly FormNtrip nt;
-        private readonly List<string> dataList = new List<string>();
+        private readonly List<string> dataList = new();
         private readonly double lat, lon;
         private readonly string site;
 
@@ -80,9 +80,9 @@ namespace AgIO
             if (count > 0)
             {
                 if (order == 0)
-                    nt.tboxMount.Text = (lvLines.SelectedItems[0].SubItems[1].Text);
+                    nt.tboxMount.Text = lvLines.SelectedItems[0].SubItems[1].Text;
                 else
-                    nt.tboxMount.Text = (lvLines.SelectedItems[0].SubItems[0].Text);
+                    nt.tboxMount.Text = lvLines.SelectedItems[0].SubItems[0].Text;
 
                 Close();
             }
@@ -95,13 +95,13 @@ namespace AgIO
             {
                 if (order == 0)
                 {
-                    nt.tboxMount.Text = (lvLines.SelectedItems[0].SubItems[1].Text);
-                    tboxMount.Text = (lvLines.SelectedItems[0].SubItems[1].Text);
+                    nt.tboxMount.Text = lvLines.SelectedItems[0].SubItems[1].Text;
+                    tboxMount.Text = lvLines.SelectedItems[0].SubItems[1].Text;
                 }
                 else
                 {
-                    nt.tboxMount.Text = (lvLines.SelectedItems[0].SubItems[0].Text);
-                    tboxMount.Text = (lvLines.SelectedItems[0].SubItems[0].Text);
+                    nt.tboxMount.Text = lvLines.SelectedItems[0].SubItems[0].Text;
+                    tboxMount.Text = lvLines.SelectedItems[0].SubItems[0].Text;
                 }
             }
         }
@@ -181,9 +181,9 @@ namespace AgIO
             double d1 = latitude * (Math.PI / 180.0);
             double num1 = longitude * (Math.PI / 180.0);
             double d2 = otherLatitude * (Math.PI / 180.0);
-            double num2 = otherLongitude * (Math.PI / 180.0) - num1;
-            double d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) + Math.Cos(d1)
-                * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
+            double num2 = (otherLongitude * (Math.PI / 180.0)) - num1;
+            double d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) + (Math.Cos(d1)
+                * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0));
 
             return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
         }

@@ -14,8 +14,6 @@ namespace AgOpenGPS.Core.ViewModels
         protected readonly FieldDescriptionStreamer _fieldDescriptionStreamer;
         protected readonly FieldStreamer _fieldStreamer;
         protected FieldDescriptionViewModel _localSelectedField;
-        private Collection<FieldDescriptionViewModel> _fieldDescriptions;
-        private FieldSortMode _fieldSortMode;
 
         public FieldTableViewModel(
             ApplicationModel appModel,
@@ -39,12 +37,12 @@ namespace AgOpenGPS.Core.ViewModels
 
         public FieldSortMode SortMode
         {
-            get { return _fieldSortMode; }
+            get;
             set
             {
-                if (value != _fieldSortMode)
+                if (value != field)
                 {
-                    _fieldSortMode = value;
+                    field = value;
                     NotifyAllPropertiesChanged();
                 }
             }
@@ -52,10 +50,10 @@ namespace AgOpenGPS.Core.ViewModels
 
         public Collection<FieldDescriptionViewModel> FieldDescriptionViewModels
         {
-            get { return _fieldDescriptions; }
+            get;
             set
             {
-                _fieldDescriptions = value;
+                field = value;
                 NotifyPropertyChanged();
             }
         }
@@ -65,7 +63,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public FieldDescriptionViewModel LocalSelectedField
         {
-            get { return _localSelectedField; }
+            get => _localSelectedField;
             set
             {
                 if (value != _localSelectedField)
@@ -78,11 +76,11 @@ namespace AgOpenGPS.Core.ViewModels
 
         public virtual void UpdateFields()
         {
-            Collection<FieldDescriptionViewModel> viewModels = new Collection<FieldDescriptionViewModel>();
-            var descriptions = _fieldDescriptionStreamer.GetFieldDescriptions();
+            Collection<FieldDescriptionViewModel> viewModels = new();
+            ReadOnlyCollection<FieldDescription> descriptions = _fieldDescriptionStreamer.GetFieldDescriptions();
             foreach (FieldDescription description in descriptions)
             {
-                FieldDescriptionViewModel viewModel = new FieldDescriptionViewModel(
+                FieldDescriptionViewModel viewModel = new(
                     description,
                     _appModel.CurrentLatLon);
                 viewModels.Add(viewModel);
@@ -94,11 +92,11 @@ namespace AgOpenGPS.Core.ViewModels
 
         protected virtual void SelectField()
         {
-            var selectedField = LocalSelectedField;
+            FieldDescriptionViewModel selectedField = LocalSelectedField;
             if (null != selectedField)
             {
                 LocalSelectedField = null;
-                Field field = new Field(selectedField.DirectoryInfo);
+                Field field = new(selectedField.DirectoryInfo);
                 _fieldStreamer.ReadFlagList(field);
                 _appModel.Fields.ActiveField = field;
                 //_appModel.Fields.OpenField(selectedField.DirectoryInfo);
@@ -117,6 +115,8 @@ namespace AgOpenGPS.Core.ViewModels
                     break;
                 case FieldSortMode.ByArea:
                     SortMode = FieldSortMode.ByName;
+                    break;
+                default:
                     break;
             }
         }

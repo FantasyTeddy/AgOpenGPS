@@ -47,7 +47,7 @@ namespace AgOpenGPS
             {
                 if (keyboardString.Text.Length > 0)
                 {
-                    var selectionIndex = keyboardString.SelectionStart;
+                    int selectionIndex = keyboardString.SelectionStart;
 
                     if (selectionIndex > 0)
                     {
@@ -90,8 +90,8 @@ namespace AgOpenGPS
             //if its a character just add it
             else
             {
-                var insertText = e.KeyChar.ToString();
-                var selectionIndex = keyboardString.SelectionStart;
+                string insertText = e.KeyChar.ToString();
+                int selectionIndex = keyboardString.SelectionStart;
                 keyboardString.Text = keyboardString.Text.Insert(selectionIndex, insertText);
                 keyboardString.SelectionStart = selectionIndex + insertText.Length;
             }

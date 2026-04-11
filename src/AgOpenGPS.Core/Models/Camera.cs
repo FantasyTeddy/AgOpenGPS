@@ -1,12 +1,10 @@
 ﻿using AgOpenGPS.Core.DrawLib;
 using System;
-using System.Windows.Media.Media3D;
 
 namespace AgOpenGPS.Core
 {
     public class Camera
     {
-        private double _zoomValue;
         public Camera(double pitchInDegrees, double zoomValue)
         {
             PitchInDegrees = pitchInDegrees;
@@ -20,11 +18,11 @@ namespace AgOpenGPS.Core
         // Beware: bigger values mean more zoomed out!
         public double ZoomValue
         {
-            get { return _zoomValue; }
+            get;
             private set
             {
-                _zoomValue = value;
-                DistanceToLookAt = 0.5 * _zoomValue * _zoomValue;
+                field = value;
+                DistanceToLookAt = 0.5 * field * field;
             }
         }
 
@@ -36,7 +34,7 @@ namespace AgOpenGPS.Core
         // Deprecated: Only here to avoid numerous changes to existing code.
         // Beware: the name suggests that this always has a positive value, but it is always negative!
         // Please use DistanceToLookAt instead
-        public double camSetDistance => -2.0 * DistanceToLookAt;
+        public double CamSetDistance => -2.0 * DistanceToLookAt;
 
         public void SetLookAt(double lookAtX, double lookAtY, double directionHintInDegrees)
         {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -19,10 +18,7 @@ namespace AgOpenGPS
 
         public new decimal Value
         {
-            get
-            {
-                return base.Value;
-            }
+            get => base.Value;
             set
             {
                 if (value != base.Value)
@@ -69,9 +65,9 @@ namespace AgOpenGPS
 
         public static Color CheckColorFor255(this Color color)
         {
-            var currentR = color.R;
-            var currentG = color.G;
-            var currentB = color.B;
+            byte currentR = color.R;
+            byte currentG = color.G;
+            byte currentB = color.B;
 
             if (currentR == 255) currentR = 254;
             if (currentG == 255) currentG = 254;

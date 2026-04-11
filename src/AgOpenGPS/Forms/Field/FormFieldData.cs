@@ -41,7 +41,7 @@ namespace AgOpenGPS
 
             lblOverlapPercent.Text = mf.fd.ActualOverlapPercent;
 
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 lblWorkRate.Text = mf.fd.WorkRateHectares;
                 lblApplied.Text = mf.fd.WorkedHectares;
@@ -71,7 +71,7 @@ namespace AgOpenGPS
                 lblActualRemain.Visible = true;
                 labelRemain2.Visible = true;
 
-                if (mf.isMetric)
+                if (mf.IsMetric)
                 {
                     lblTotalArea.Text = mf.fd.AreaBoundaryLessInnersHectares;
                     lblAreaRemain.Text = mf.fd.WorkedAreaRemainHectares;

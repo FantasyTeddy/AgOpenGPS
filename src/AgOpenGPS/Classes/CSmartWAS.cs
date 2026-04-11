@@ -4,6 +4,7 @@ using AgLibrary.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace AgOpenGPS
 {
@@ -23,27 +24,21 @@ namespace AgOpenGPS
         private const double MAX_DIST_OFF_MM = 500.0;
 
         // Collected data
-        private readonly List<double> steerAngleHistory = new List<double>();
-        private readonly object dataLock = new object();
+        private readonly List<double> steerAngleHistory = new();
+        private readonly Lock dataLock = new();
 
         // Analysis results
-        private double meanAngle;
-        private double medianAngle;
-        private double stdDeviation;
-        private double recommendedOffset;
-        private double confidenceLevel;
-        private bool hasValidCalibration;
 
         #region Properties
 
         public bool IsCollecting { get; private set; }
         public int SampleCount => steerAngleHistory.Count;
-        public double RecommendedOffset => recommendedOffset;
-        public double Confidence => confidenceLevel;
-        public bool HasValidCalibration => hasValidCalibration;
-        public double Mean => meanAngle;
-        public double Median => medianAngle;
-        public double StdDev => stdDeviation;
+        public double RecommendedOffset { get; private set; }
+        public double Confidence { get; private set; }
+        public bool HasValidCalibration { get; private set; }
+        public double Mean { get; private set; }
+        public double Median { get; private set; }
+        public double StdDev { get; private set; }
 
         #endregion
 
@@ -85,12 +80,12 @@ namespace AgOpenGPS
             lock (dataLock)
             {
                 steerAngleHistory.Clear();
-                meanAngle = 0;
-                medianAngle = 0;
-                stdDeviation = 0;
-                recommendedOffset = 0;
-                confidenceLevel = 0;
-                hasValidCalibration = false;
+                Mean = 0;
+                Median = 0;
+                StdDev = 0;
+                RecommendedOffset = 0;
+                Confidence = 0;
+                HasValidCalibration = false;
             }
         }
 
@@ -149,8 +144,8 @@ namespace AgOpenGPS
         /// </summary>
         public int GetOffsetCounts(int countsPerDegree)
         {
-            if (!hasValidCalibration) return 0;
-            return (int)Math.Round(recommendedOffset * countsPerDegree);
+            if (!HasValidCalibration) return 0;
+            return (int)Math.Round(RecommendedOffset * countsPerDegree);
         }
 
         /// <summary>
@@ -160,7 +155,7 @@ namespace AgOpenGPS
         {
             if (steerAngleHistory.Count < MIN_SAMPLES)
             {
-                hasValidCalibration = false;
+                HasValidCalibration = false;
                 return;
             }
 
@@ -171,19 +166,19 @@ namespace AgOpenGPS
 
                 // Recommended offset is negative of median
                 // (if median is -2.3°, we need +2.3° correction)
-                recommendedOffset = -medianAngle;
+                RecommendedOffset = -Median;
 
                 // Calculate confidence score
-                confidenceLevel = CalculateConfidence();
+                Confidence = CalculateConfidence();
 
                 // Valid if confidence is reasonable and offset is within safe range
-                hasValidCalibration = confidenceLevel > 40 &&
-                                    Math.Abs(recommendedOffset) < 10.0;
+                HasValidCalibration = Confidence > 40 &&
+                                    Math.Abs(RecommendedOffset) < 10.0;
             }
             catch (Exception ex)
             {
                 Log.EventWriter($"Smart WAS Analysis Error: {ex.Message}");
-                hasValidCalibration = false;
+                HasValidCalibration = false;
             }
         }
 
@@ -195,28 +190,28 @@ namespace AgOpenGPS
             int count = steerAngleHistory.Count;
 
             // Mean
-            meanAngle = steerAngleHistory.Average();
+            Mean = steerAngleHistory.Average();
 
             // Median
-            var sorted = steerAngleHistory.OrderBy(x => x).ToList();
+            List<double> sorted = steerAngleHistory.OrderBy(x => x).ToList();
             if (count % 2 == 0)
             {
-                medianAngle = (sorted[count / 2 - 1] + sorted[count / 2]) * 0.5;
+                Median = (sorted[(count / 2) - 1] + sorted[count / 2]) * 0.5;
             }
             else
             {
-                medianAngle = sorted[count / 2];
+                Median = sorted[count / 2];
             }
 
             // Standard Deviation (sample)
             if (count > 1)
             {
-                double sumSquares = steerAngleHistory.Sum(x => (x - meanAngle) * (x - meanAngle));
-                stdDeviation = Math.Sqrt(sumSquares / (count - 1));
+                double sumSquares = steerAngleHistory.Sum(x => (x - Mean) * (x - Mean));
+                StdDev = Math.Sqrt(sumSquares / (count - 1));
             }
             else
             {
-                stdDeviation = 0;
+                StdDev = 0;
             }
         }
 
@@ -233,9 +228,9 @@ namespace AgOpenGPS
 
             foreach (double angle in steerAngleHistory)
             {
-                double deviation = Math.Abs(angle - medianAngle);
-                if (deviation <= stdDeviation) within1Std++;
-                if (deviation <= 2 * stdDeviation) within2Std++;
+                double deviation = Math.Abs(angle - Median);
+                if (deviation <= StdDev) within1Std++;
+                if (deviation <= 2 * StdDev) within2Std++;
             }
 
             double pct1Std = (double)within1Std / steerAngleHistory.Count;
@@ -246,17 +241,17 @@ namespace AgOpenGPS
             double expected2Std = 0.95;
 
             // Score based on normal distribution fit
-            double score1 = 1 - Math.Abs(pct1Std - expected1Std) / expected1Std;
-            double score2 = 1 - Math.Abs(pct2Std - expected2Std) / expected2Std;
+            double score1 = 1 - (Math.Abs(pct1Std - expected1Std) / expected1Std);
+            double score2 = 1 - (Math.Abs(pct2Std - expected2Std) / expected2Std);
 
             // Penalize large recommended offsets
-            double magnitudeScore = Math.Max(0, 1 - Math.Abs(recommendedOffset) / 10.0);
+            double magnitudeScore = Math.Max(0, 1 - (Math.Abs(RecommendedOffset) / 10.0));
 
             // Sample size factor
             double sizeFactor = Math.Min(1.0, (double)steerAngleHistory.Count / (MIN_SAMPLES * 3));
 
             // Combine scores
-            double confidence = ((score1 * 0.3 + score2 * 0.3 + magnitudeScore * 0.2 + sizeFactor * 0.2) * 100);
+            double confidence = ((score1 * 0.3) + (score2 * 0.3) + (magnitudeScore * 0.2) + (sizeFactor * 0.2)) * 100;
             return Math.Max(0, Math.Min(100, confidence));
         }
 
@@ -268,11 +263,11 @@ namespace AgOpenGPS
             if (SampleCount == 0) return "No data";
 
             return $"Samples: {SampleCount}\n" +
-                   $"Mean: {meanAngle:F2}°\n" +
-                   $"Median: {medianAngle:F2}°\n" +
-                   $"StdDev: {stdDeviation:F2}°\n" +
-                   $"Offset: {recommendedOffset:F2}°\n" +
-                   $"Confidence: {confidenceLevel:F0}%";
+                   $"Mean: {Mean:F2}°\n" +
+                   $"Median: {Median:F2}°\n" +
+                   $"StdDev: {StdDev:F2}°\n" +
+                   $"Offset: {RecommendedOffset:F2}°\n" +
+                   $"Confidence: {Confidence:F0}%";
         }
     }
 }

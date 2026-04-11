@@ -32,8 +32,10 @@ namespace AgOpenGPS
             UpdateAgShareUploadButton();
 
             btnPaste.Enabled = Clipboard.ContainsText();
-            clipboardCheckTimer = new Timer();
-            clipboardCheckTimer.Interval = 500;
+            clipboardCheckTimer = new Timer
+            {
+                Interval = 500
+            };
             clipboardCheckTimer.Tick += ClipboardCheckTimer_Tick;
             clipboardCheckTimer.Start();
 
@@ -71,10 +73,10 @@ namespace AgOpenGPS
             labelStatus.Text = "Connecting...";
             labelStatus.ForeColor = Color.Gray;
 
-            var baseUrl = textBoxServer.Text;
-            var apiKey = textBoxApiKey.Text;
+            string baseUrl = textBoxServer.Text;
+            string apiKey = textBoxApiKey.Text;
 
-            var result = await AgShareClient.CheckApiAsync(baseUrl, apiKey);
+            AgShareResult result = await AgShareClient.CheckApiAsync(baseUrl, apiKey);
 
             if (result.IsSuccessful)
             {
@@ -92,17 +94,13 @@ namespace AgOpenGPS
 
         private string ConvertError(AgShareError error)
         {
-            switch (error)
+            return error switch
             {
-                case InvalidApiKeyError _:
-                    return "Invalid API key";
-                case StatusCodeError statusCodeError:
-                    return $"Status {statusCodeError.StatusCode}: {statusCodeError.Body}";
-                case HttpRequestError httpRequestError:
-                    return $"Error: {httpRequestError.Exception.Message}";
-                default:
-                    throw new InvalidOperationException($"Unknown {nameof(AgShareError)}: {error.GetType()}");
-            }
+                InvalidApiKeyError => "Invalid API key",
+                StatusCodeError statusCodeError => $"Status {statusCodeError.StatusCode}: {statusCodeError.Body}",
+                HttpRequestError httpRequestError => $"Error: {httpRequestError.Exception.Message}",
+                _ => throw new InvalidOperationException($"Unknown {nameof(AgShareError)}: {error.GetType()}"),
+            };
         }
 
         // Save current values to settings
@@ -164,8 +162,7 @@ namespace AgOpenGPS
         {
             if (Settings.Default.setDisplay_isKeyboardOn)
             {
-                FormGPS mf = this.Owner as FormGPS;
-                if (mf != null)
+                if (this.Owner is FormGPS)
                 {
                     ((TextBox)sender).ShowKeyboard(this);
                     btnPaste.Focus();

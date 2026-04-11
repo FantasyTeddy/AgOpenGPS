@@ -1,11 +1,9 @@
 ﻿using AgIO.Properties;
 using AgLibrary.Logging;
-using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -38,13 +36,13 @@ namespace AgIO
         private const int KEYUP = 0x2;
 
         //Stringbuilder
-        public StringBuilder logNMEASentence = new StringBuilder();
+        public StringBuilder logNMEASentence = new();
 
-        public StringBuilder logMonitorSentence = new StringBuilder();
-        public StringBuilder logUDPSentence = new StringBuilder();
+        public StringBuilder logMonitorSentence = new();
+        public StringBuilder logUDPSentence = new();
         public bool isLogNMEA, isLogMonitorOn, isUDPMonitorOn, isGPSLogOn, isNTRIPLogOn;
 
-        private StringBuilder sbRTCM = new StringBuilder();
+        private readonly StringBuilder sbRTCM = new();
 
         public bool isKeyboardOn = true;
 
@@ -275,7 +273,7 @@ namespace AgIO
 
                 YesMessageBox("AgIO - No Profile Open \r\n\r\n Create or Open a Profile");
 
-                using (var form = new FormProfiles(this))
+                using (FormProfiles form = new(this))
                 {
                     form.ShowDialog(this);
                     if (form.DialogResult == DialogResult.Yes)
@@ -497,7 +495,7 @@ namespace AgIO
                     try
                     {
                         //add the uniques messages to all the new ones
-                        foreach (var item in aList)
+                        foreach (int item in aList)
                         {
                             rList.Add(item);
                         }
@@ -505,13 +503,13 @@ namespace AgIO
                         //sort and group using Linq
                         sbRTCM.Clear();
 
-                        var g = rList.GroupBy(i => i)
+                        IOrderedEnumerable<IGrouping<int, int>> g = rList.GroupBy(i => i)
                             .OrderBy(grp => grp.Key);
                         int count = 0;
                         aList.Clear();
 
                         //Create the text box of unique message numbers
-                        foreach (var grp in g)
+                        foreach (IGrouping<int, int> grp in g)
                         {
                             aList.Add(grp.Key);
                             sbRTCM.AppendLine(grp.Key + " - " + (grp.Count() - 1));
@@ -669,10 +667,10 @@ namespace AgIO
                 ShowWindow(processName[0].MainWindowHandle, 9);
 
                 // Simulate an "ALT" key press.
-                keybd_event((byte)ALT, 0x45, EXTENDEDKEY | 0, 0);
+                keybd_event(ALT, 0x45, EXTENDEDKEY | 0, 0);
 
                 // Simulate an "ALT" key release.
-                keybd_event((byte)ALT, 0x45, EXTENDEDKEY | KEYUP, 0);
+                keybd_event(ALT, 0x45, EXTENDEDKEY | KEYUP, 0);
 
                 // Show window in forground.
                 SetForegroundWindow(processName[0].MainWindowHandle);
@@ -750,7 +748,7 @@ namespace AgIO
 
             if (focusSkipCounter != 0)
             {
-                lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : ((traffic.cntrGPSOut >> 1)).ToString();
+                lblFromGPS.Text = traffic.cntrGPSOut == 0 ? "---" : (traffic.cntrGPSOut >> 1).ToString();
 
                 //reset all counters
                 traffic.cntrGPSOut = 0;

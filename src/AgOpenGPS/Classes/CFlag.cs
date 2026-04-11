@@ -33,8 +33,8 @@ namespace AgOpenGPS
         }
 
         public GeoCoord GeoCoord { get; }
-        public double northing => GeoCoord.Northing;
-        public double easting => GeoCoord.Easting;
+        public double Northing => GeoCoord.Northing;
+        public double Easting => GeoCoord.Easting;
 
     }
 }

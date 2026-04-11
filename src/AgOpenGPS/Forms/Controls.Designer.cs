@@ -1,7 +1,6 @@
 //Please, if you use this, share the improvements
 
 using AgLibrary.Logging;
-using AgOpenGPS.Core.AgShare;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;
@@ -180,7 +179,7 @@ namespace AgOpenGPS
 
                     Log.EventWriter("Steer Off, Above Max Safe Speed for Autosteer");
 
-                    if (isMetric)
+                    if (IsMetric)
                         TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + vehicle.maxSteerSpeed.ToString("N0") + " Kmh");
                     else
                         TimedMessageBox(3000, "AutoSteer Disabled", "Above Maximum Safe Steering Speed: " + Speed.KmhToMph(vehicle.maxSteerSpeed).ToString("N1") + " MPH");
@@ -212,7 +211,7 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    TimedMessageBox(2000, (gStr.gsNoGuidanceLines), (gStr.gsTurnOnContourOrMakeABLine));
+                    TimedMessageBox(2000, gStr.gsNoGuidanceLines, gStr.gsTurnOnContourOrMakeABLine);
                 }
             }
         }
@@ -472,7 +471,7 @@ namespace AgOpenGPS
                 flp1.Visible = false;
             }
 
-            using (var form = new FormABDraw(this))
+            using (FormABDraw form = new(this))
             {
                 form.ShowDialog(this);
             }
@@ -495,10 +494,10 @@ namespace AgOpenGPS
         #region Field Menu
         private void toolStripBtnFieldTools_Click(object sender, EventArgs e)
         {
-            headlandToolStripMenuItem.Enabled = (bnd.bndList.Count > 0);
-            headlandBuildToolStripMenuItem.Enabled = (bnd.bndList.Count > 0);
+            headlandToolStripMenuItem.Enabled = bnd.bndList.Count > 0;
+            headlandBuildToolStripMenuItem.Enabled = bnd.bndList.Count > 0;
 
-            tramLinesMenuField.Enabled = tramsMultiMenuField.Enabled = (trk.gArr.Count > 0 && trk.idx > -1);
+            tramLinesMenuField.Enabled = tramsMultiMenuField.Enabled = trk.gArr.Count > 0 && trk.idx > -1;
         }
 
         public bool isCancelJobMenu;
@@ -506,8 +505,8 @@ namespace AgOpenGPS
         private void btnJobMenu_Click(object sender, EventArgs e)
         {
             // Remember current state before opening the Job dialog
-            var wasJobStarted = isJobStarted;
-            var prevFieldDir = currentFieldDirectory;
+            bool wasJobStarted = IsJobStarted;
+            string prevFieldDir = CurrentFieldDirectory;
 
             Form f = Application.OpenForms["FormGPSData"];
             if (f != null)
@@ -546,9 +545,9 @@ namespace AgOpenGPS
                 return;
             }
 
-            using (var form = new FormJob(this))
+            using (FormJob form = new(this))
             {
-                var result = form.ShowDialog(this);
+                DialogResult result = form.ShowDialog(this);
 
                 if (isCancelJobMenu)
                 {
@@ -556,34 +555,38 @@ namespace AgOpenGPS
                     return;
                 }
 
-                if (isJobStarted)
+                if (IsJobStarted)
                 {
-                    if (autoBtnState == btnStates.Auto) btnSectionMasterAuto.PerformClick();
-                    if (manualBtnState == btnStates.On) btnSectionMasterManual.PerformClick();
+                    if (autoBtnState == BtnStates.Auto) btnSectionMasterAuto.PerformClick();
+                    if (manualBtnState == BtnStates.On) btnSectionMasterManual.PerformClick();
                 }
 
                 if (result == DialogResult.Yes)
                 {
-                    using (var form2 = new FormFieldDir(this)) { form2.ShowDialog(this); }
+                    using FormFieldDir form2 = new(this);
+                    form2.ShowDialog(this);
                 }
                 else if (result == DialogResult.No)
                 {
-                    using (var form2 = new FormFieldKML(this)) { form2.ShowDialog(this); }
+                    using FormFieldKML form2 = new(this);
+                    form2.ShowDialog(this);
                 }
                 else if (result == DialogResult.Retry)
                 {
-                    using (var form2 = new FormFieldExisting(this)) { form2.ShowDialog(this); }
+                    using FormFieldExisting form2 = new(this);
+                    form2.ShowDialog(this);
                 }
                 else if (result == DialogResult.Abort)
                 {
-                    using (var form2 = new FormFieldIsoXml(this)) { form2.ShowDialog(this); }
+                    using FormFieldIsoXml form2 = new(this);
+                    form2.ShowDialog(this);
                 }
 
                 // ---- Only log "Opened" if a field was newly opened or changed ----
                 bool openedNewOrChanged =
-                    isJobStarted &&
+                    IsJobStarted &&
                     (!wasJobStarted ||
-                     !string.Equals(currentFieldDirectory, prevFieldDir, StringComparison.OrdinalIgnoreCase));
+                     !string.Equals(CurrentFieldDirectory, prevFieldDir, StringComparison.OrdinalIgnoreCase));
 
                 if (openedNewOrChanged)
                 {
@@ -595,19 +598,19 @@ namespace AgOpenGPS
                         Log.EventWriter("High Field Start Distance Warning");
                     }
 
-                    Log.EventWriter("** Opened **  " + currentFieldDirectory + "   " +
+                    Log.EventWriter("** Opened **  " + CurrentFieldDirectory + "   " +
                         DateTime.Now.ToString("f", CultureInfo.InvariantCulture));
 
-                    Settings.Default.setF_CurrentDir = currentFieldDirectory;
+                    Settings.Default.setF_CurrentDir = CurrentFieldDirectory;
                     Settings.Default.Save();
 
-                    isobus.SendFieldName(currentFieldDirectory);
+                    isobus.SendFieldName(CurrentFieldDirectory);
                 }
             }
 
-            FieldMenuButtonEnableDisable(isJobStarted);
-            toolStripBtnFieldTools.Enabled = isJobStarted;
-            bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
+            FieldMenuButtonEnableDisable(IsJobStarted);
+            toolStripBtnFieldTools.Enabled = IsJobStarted;
+            bnd.isHeadlandOn = bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0;
             trk.idx = -1;
             PanelUpdateRightAndBottom();
         }
@@ -617,10 +620,10 @@ namespace AgOpenGPS
             // Save the current field data before closing
             if (ct.isContourOn) ct.StopContourLine();
 
-            if (autoBtnState == btnStates.Auto)
+            if (autoBtnState == BtnStates.Auto)
                 btnSectionMasterAuto.PerformClick();
 
-            if (manualBtnState == btnStates.On)
+            if (manualBtnState == BtnStates.On)
                 btnSectionMasterManual.PerformClick();
 
             for (int j = 0; j < tool.numOfSections; j++)
@@ -643,8 +646,8 @@ namespace AgOpenGPS
                 try
                 {
                     isAgShareUploadStarted = true;
-                    var uploader = new AgShareUploader(agShareClient);
-                    agShareUploadTask = uploader.UploadAsync(snapshot, this);
+                    AgShareUploader uploader = new(agShareClient);
+                    agShareUploadTask = uploader.UploadAsync(snapshot);
                 }
                 catch (Exception ex)
                 {
@@ -690,7 +693,7 @@ namespace AgOpenGPS
                 }
             }
 
-            Log.EventWriter("** Field closed **   " + currentFieldDirectory + "   " +
+            Log.EventWriter("** Field closed **   " + CurrentFieldDirectory + "   " +
                 DateTime.Now.ToString("f", CultureInfo.InvariantCulture));
 
             isobus.SendFieldName(string.Empty);
@@ -712,7 +715,7 @@ namespace AgOpenGPS
         //this method is called to create a snapshot of the field for AgShare so we can close the field to speed up close and re-open
         public void AgShareSnapshot()
         {
-            if (!isJobStarted) return;
+            if (!IsJobStarted) return;
 
             snapshot = AgShareUploader.CreateSnapshot(this);
         }
@@ -722,13 +725,13 @@ namespace AgOpenGPS
         public void AgShareUpload()
         {
             //check if we're already uploading by closing a field or are we shutting down
-            if (!isJobStarted || snapshot == null || isAgShareUploadStarted || isShuttingDown)
+            if (!IsJobStarted || snapshot == null || isAgShareUploadStarted || isShuttingDown)
                 return;
 
             //set bool to true so we don't start another upload by double clicking or something.
             isAgShareUploadStarted = true;
-            var uploader = new AgShareUploader(agShareClient);
-            agShareUploadTask = uploader.UploadAsync(snapshot, this);
+            AgShareUploader uploader = new(agShareClient);
+            agShareUploadTask = uploader.UploadAsync(snapshot);
         }
         #endregion
         private void tramLinesMenuField_Click(object sender, EventArgs e)
@@ -770,12 +773,12 @@ namespace AgOpenGPS
 
         public void GetHeadland()
         {
-            using (var form = new FormHeadLine(this))
+            using (FormHeadLine form = new(this))
             {
                 form.ShowDialog(this);
             }
 
-            bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
+            bnd.isHeadlandOn = bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0;
 
             PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
@@ -799,12 +802,12 @@ namespace AgOpenGPS
                 return;
             }
 
-            using (var form = new FormHeadAche(this))
+            using (FormHeadAche form = new(this))
             {
                 form.ShowDialog(this);
             }
 
-            bnd.isHeadlandOn = (bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0);
+            bnd.isHeadlandOn = bnd.bndList.Count > 0 && bnd.bndList[0].hdLine.Count > 0;
 
             PanelsAndOGLSize();
             PanelUpdateRightAndBottom();
@@ -812,15 +815,15 @@ namespace AgOpenGPS
         }
         private void boundariesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!isJobStarted) return;
+            if (!IsJobStarted) return;
 
-            using (var boundaryForm = new FormBoundary(this))
+            using (FormBoundary boundaryForm = new(this))
             {
-                var result = boundaryForm.ShowDialog(this);
+                DialogResult result = boundaryForm.ShowDialog(this);
 
                 if (result == DialogResult.OK)
                 {
-                    var boundaryPlayer = new FormBoundaryPlayer(this);
+                    FormBoundaryPlayer boundaryPlayer = new(this);
                     boundaryPlayer.FormClosed += (s, args) => toolStripBtnFieldTools.Enabled = true;
                     toolStripBtnFieldTools.Enabled = false;
                     boundaryPlayer.Show(this);
@@ -904,22 +907,20 @@ namespace AgOpenGPS
                 btnPickPath.Enabled = true;
                 btnResumePath.Enabled = true;
 
-                using (var form = new FormRecordName(this))
+                using FormRecordName form = new(this);
+                form.ShowDialog(this);
+                if (form.DialogResult == DialogResult.OK)
                 {
-                    form.ShowDialog(this);
-                    if (form.DialogResult == DialogResult.OK)
-                    {
-                        String filename = form.filename + ".rec";
-                        FileSaveRecPath();
-                        FileSaveRecPath(filename);
-                    }
-                    else
-                    {
-                        recPath.recList.Clear();
-                    }
+                    String filename = form.filename + ".rec";
+                    FileSaveRecPath();
+                    FileSaveRecPath(filename);
+                }
+                else
+                {
+                    recPath.recList.Clear();
                 }
             }
-            else if (isJobStarted)
+            else if (IsJobStarted)
             {
                 recPath.recList.Clear();
                 recPath.isRecordOn = true;
@@ -954,12 +955,12 @@ namespace AgOpenGPS
         private void btnSwapABRecordedPath_Click(object sender, EventArgs e)
         {
             int cnt = recPath.recList.Count;
-            List<CRecPathPt> _recList = new List<CRecPathPt>();
+            List<CRecPathPt> _recList = new();
 
             for (int i = cnt - 1; i > -1; i--)
             {
-                recPath.recList[i].heading += (glm.PIBy2) + (glm.PIBy2);
-                if (recPath.recList[i].heading < -glm.twoPI) recPath.recList[i].heading += glm.twoPI;
+                recPath.recList[i].Heading += Glm.PIBy2 + Glm.PIBy2;
+                if (recPath.recList[i].Heading < -Glm.twoPI) recPath.recList[i].Heading += Glm.twoPI;
 
                 _recList.Add(recPath.recList[i]);
             }
@@ -975,12 +976,10 @@ namespace AgOpenGPS
             btnResumePath.Image = Properties.Resources.pathResumeStart;
             recPath.currentPositonIndex = 0;
 
-            using (FormRecordPicker form = new FormRecordPicker(this))
+            using FormRecordPicker form = new(this);
+            //returns full field.txt file dir name
+            if (form.ShowDialog(this) == DialogResult.Yes)
             {
-                //returns full field.txt file dir name
-                if (form.ShowDialog(this) == DialogResult.Yes)
-                {
-                }
             }
         }
         private void recordedPathStripMenu_Click(object sender, EventArgs e)
@@ -989,7 +988,7 @@ namespace AgOpenGPS
             btnResumePath.Image = Properties.Resources.pathResumeStart;
             recPath.currentPositonIndex = 0;
 
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 if (panelDrag.Visible)
                 {
@@ -1011,12 +1010,10 @@ namespace AgOpenGPS
 
         private void copyTracksToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
-                using (Forms.Field.FormCopyTracks form = new Forms.Field.FormCopyTracks(this))
-                {
-                    form.ShowDialog(this);
-                }
+                using Forms.Field.FormCopyTracks form = new(this);
+                form.ShowDialog(this);
             }
             else
             {
@@ -1085,11 +1082,11 @@ namespace AgOpenGPS
             {
                 panelNavigation.Visible = true;
                 navPanelCounter = 2;
-                if (displayBrightness.isWmiMonitor) btnBrightnessDn.Text = (displayBrightness.GetBrightness().ToString()) + "%";
+                if (displayBrightness.isWmiMonitor) btnBrightnessDn.Text = displayBrightness.GetBrightness().ToString() + "%";
                 else btnBrightnessDn.Text = "??";
             }
 
-            if (isJobStarted) btnGrid.Enabled = true;
+            if (IsJobStarted) btnGrid.Enabled = true;
             else btnGrid.Enabled = false;
 
         }
@@ -1106,11 +1103,13 @@ namespace AgOpenGPS
                 try
                 {
                     //TimedMessageBox(2000, "Please Wait", "Starting AgIO");
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    //processInfo.ErrorDialog = true;
-                    //processInfo.UseShellExecute = false;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new()
+                    {
+                        FileName = strPath,
+                        //processInfo.ErrorDialog = true;
+                        //processInfo.UseShellExecute = false;
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -1150,10 +1149,8 @@ namespace AgOpenGPS
         }
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            using (FormConfig form = new FormConfig(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormConfig form = new(this);
+            form.ShowDialog(this);
         }
 
         #endregion
@@ -1194,11 +1191,11 @@ namespace AgOpenGPS
         private void btnFlag_Click(object sender, EventArgs e)
         {
             int nextflag = flagPts.Count + 1;
-            CFlag flagPt = new CFlag(
+            CFlag flagPt = new(
                 AppModel.CurrentLatLon.Latitude,
                 AppModel.CurrentLatLon.Longitude,
                 pn.fix.easting, pn.fix.northing,
-                fixHeading, flagColor, nextflag, nextflag.ToString());
+                FixHeading, flagColor, nextflag, nextflag.ToString());
             flagPts.Add(flagPt);
             flagPts = FlagsFiles.DeduplicateFlags(flagPts);
             FileSaveFlags();
@@ -1247,7 +1244,6 @@ namespace AgOpenGPS
                 f.Close();
             }
 
-            f = null;
             f = Application.OpenForms["FormFieldData"];
 
             if (f != null)
@@ -1257,12 +1253,12 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (!isJobStarted) return;
+            if (!IsJobStarted) return;
 
             Form form = new FormFieldData(this);
             form.Show(this);
 
-            form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+            form.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
             if (isPanelBottomHidden)
                 form.Left = this.Left + 5;
             else
@@ -1286,7 +1282,6 @@ namespace AgOpenGPS
                 return;
             }
 
-            f = null;
             f = Application.OpenForms["FormFieldData"];
 
             if (f != null)
@@ -1298,7 +1293,7 @@ namespace AgOpenGPS
             Form form = new FormGPSData(this);
             form.Show(this);
 
-            form.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+            form.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
             if (isPanelBottomHidden)
                 form.Left = this.Left + 5;
             else
@@ -1317,7 +1312,6 @@ namespace AgOpenGPS
                 f.Close();
             }
 
-            f = null;
             f = Application.OpenForms["FormFieldData"];
 
             if (f != null)
@@ -1326,7 +1320,6 @@ namespace AgOpenGPS
                 f.Close();
             }
 
-            f = null;
             f = Application.OpenForms["FormEventViewer"];
 
             if (f != null)
@@ -1335,7 +1328,6 @@ namespace AgOpenGPS
                 f.Close();
             }
 
-            f = null;
             f = Application.OpenForms["FormPan"];
 
             if (f != null)
@@ -1381,22 +1373,20 @@ namespace AgOpenGPS
 
         private void flagByLatLonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new FormEnterFlag(this))
-            {
-                form.ShowDialog(this);
-                this.Activate();
-            }
+            using FormEnterFlag form = new(this);
+            form.ShowDialog(this);
+            this.Activate();
         }
         private void setWorkingDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 // Show timed message if a job is still open
                 TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 return;
             }
 
-            FolderBrowserDialog fbd = new FolderBrowserDialog
+            FolderBrowserDialog fbd = new()
             {
                 ShowNewFolderButton = true,
                 Description = "Currently: " + RegistrySettings.workingDirectory
@@ -1424,22 +1414,20 @@ namespace AgOpenGPS
 
         private void enterSimCoordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new FormSimCoords(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormSimCoords form = new(this);
+            form.ShowDialog(this);
         }
 
         private void AgShareApiMenuItem_Click(object sender, EventArgs e)
         {
-            var form = new FormAgShareSettings(agShareClient);
+            FormAgShareSettings form = new(agShareClient);
             form.ShowDialog(this);
         }
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Prevent updater when field is open
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 FormDialog.Show("Updater", "Close Field first to run Updater", AgOpenGPS.Forms.DialogSeverity.Info);
                 return;
@@ -1460,7 +1448,7 @@ namespace AgOpenGPS
                     return;
                 }
 
-                var processInfo = new System.Diagnostics.ProcessStartInfo
+                ProcessStartInfo processInfo = new()
                 {
                     FileName = updaterPath,
                     Arguments = $"--current-version \"{Program.SemVer}\"",
@@ -1481,10 +1469,8 @@ namespace AgOpenGPS
 
         private void hotKeysToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new Form_Keys(this))
-            {
-                form.ShowDialog(this);
-            }
+            using Form_Keys form = new(this);
+            form.ShowDialog(this);
         }
 
         private void kioskModeToolStrip_Click(object sender, EventArgs e)
@@ -1512,7 +1498,7 @@ namespace AgOpenGPS
         }
         private void resetALLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 // Show message if field is still open
                 FormDialog.Show("Warning", gStr.gsCloseFieldFirst, DialogSeverity.Warning);
@@ -1536,14 +1522,12 @@ namespace AgOpenGPS
 
         private void helpMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new FormHelp())
-            {
-                form.ShowDialog(this);
-            }
+            using FormHelp form = new();
+            form.ShowDialog(this);
         }
         private void simulatorOnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 TimedMessageBox(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 return;
@@ -1569,7 +1553,7 @@ namespace AgOpenGPS
         }
         private void colorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new FormColor(this))
+            using (FormColor form = new(this))
             {
                 form.ShowDialog(this);
             }
@@ -1579,7 +1563,7 @@ namespace AgOpenGPS
         {
             if (tool.isSectionsNotZones)
             {
-                using (var form = new FormColorSection(this))
+                using (FormColorSection form = new(this))
                 {
                     form.ShowDialog(this);
                 }
@@ -1594,10 +1578,8 @@ namespace AgOpenGPS
         //Profiles
         private void loadVehicleToolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var form = new FormLoadVehicleTool(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormLoadVehicleTool form = new(this);
+            form.ShowDialog(this);
         }
 
 
@@ -1640,7 +1622,7 @@ namespace AgOpenGPS
 
         private ToolStripMenuItem CreateLanguageMenuItem(string text, string lang)
         {
-            var menuItem = new ToolStripMenuItem()
+            ToolStripMenuItem menuItem = new()
             {
                 CheckOnClick = true,
                 Text = text,
@@ -1652,13 +1634,13 @@ namespace AgOpenGPS
 
         private void languageMenuItem_Click(object sender, EventArgs e)
         {
-            var menuItem = (ToolStripMenuItem)sender;
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
             SetLanguage((string)menuItem.Tag);
         }
 
         private void SetLanguage(string lang)
         {
-            foreach (var menuItem in menustripLanguage.DropDownItems.OfType<ToolStripMenuItem>())
+            foreach (ToolStripMenuItem menuItem in menustripLanguage.DropDownItems.OfType<ToolStripMenuItem>())
             {
                 menuItem.Checked = (string)menuItem.Tag == lang;
             }
@@ -1708,13 +1690,13 @@ namespace AgOpenGPS
         }
         private void btnResetToolHeading_Click(object sender, EventArgs e)
         {
-            tankPos.heading = fixHeading;
-            tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * (tool.tankTrailingHitchLength));
-            tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * (tool.tankTrailingHitchLength));
+            tankPos.heading = FixHeading;
+            tankPos.easting = hitchPos.easting + (Math.Sin(tankPos.heading) * tool.tankTrailingHitchLength);
+            tankPos.northing = hitchPos.northing + (Math.Cos(tankPos.heading) * tool.tankTrailingHitchLength);
 
             toolPivotPos.heading = tankPos.heading;
-            toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * (tool.trailingHitchLength));
-            toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * (tool.trailingHitchLength));
+            toolPivotPos.easting = tankPos.easting + (Math.Sin(toolPivotPos.heading) * tool.trailingHitchLength);
+            toolPivotPos.northing = tankPos.northing + (Math.Cos(toolPivotPos.heading) * tool.trailingHitchLength);
         }
         private void btnTramDisplayMode_Click(object sender, EventArgs e)
         {
@@ -1755,11 +1737,11 @@ namespace AgOpenGPS
         public bool isPatchesChangingColor = false;
         private void btnChangeMappingColor_Click(object sender, EventArgs e)
         {
-            using (var form = new FormColorPicker(this, sectionColorDay))
+            using (FormColorPicker form = new(this, sectionColorDay))
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    sectionColorDay = form.useThisColor;
+                    sectionColorDay = form.UseThisColor;
                 }
             }
 
@@ -1798,6 +1780,8 @@ namespace AgOpenGPS
                     btnYouSkipEnable.Image = Resources.YouSkipOff;
                     yt.skipMode = SkipMode.Normal;
                     break;
+                default:
+                    throw new InvalidOperationException($"Invalid skip mode {yt.skipMode}");
             }
 
             yt.ResetCreatedYouTurn();
@@ -1877,26 +1861,22 @@ namespace AgOpenGPS
         }
         private void boundaryToolToolStripMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
-                using (var form = new FormBndTool(this))
-                {
-                    form.ShowDialog(this);
-                }
+                using FormBndTool form = new(this);
+                form.ShowDialog(this);
             }
         }
         private void SmoothABtoolStripMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted && trk.idx > -1)
+            if (IsJobStarted && trk.idx > -1)
             {
-                using (var form = new FormSmoothAB(this))
-                {
-                    form.ShowDialog(this);
-                }
+                using FormSmoothAB form = new(this);
+                form.ShowDialog(this);
             }
             else
             {
-                if (!isJobStarted) TimedMessageBox(2000, gStr.gsFieldNotOpen, gStr.gsStartNewField);
+                if (!IsJobStarted) TimedMessageBox(2000, gStr.gsFieldNotOpen, gStr.gsStartNewField);
                 else TimedMessageBox(2000, gStr.gsCurveNotOn, gStr.gsTurnABCurveOn);
             }
         }
@@ -1910,9 +1890,9 @@ namespace AgOpenGPS
         }
         private void toolStripAreYouSure_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
-                if (autoBtnState == btnStates.Off && manualBtnState == btnStates.Off)
+                if (autoBtnState == BtnStates.Off && manualBtnState == BtnStates.Off)
                 {
                     DialogResult result = FormDialog.ShowQuestion(
                         gStr.gsDeleteAllContoursAndSections,
@@ -1925,23 +1905,23 @@ namespace AgOpenGPS
                         if (tool.isSectionsNotZones)
                         {
                             //Update the button colors and text
-                            AllSectionsAndButtonsToState(btnStates.Off);
+                            AllSectionsAndButtonsToState(BtnStates.Off);
 
                             //enable disable manual buttons
                             LineUpIndividualSectionBtns();
                         }
                         else
                         {
-                            AllZonesAndButtonsToState(btnStates.Off);
+                            AllZonesAndButtonsToState(BtnStates.Off);
                             LineUpAllZoneButtons();
                         }
 
                         //turn manual button off
-                        manualBtnState = btnStates.Off;
+                        manualBtnState = BtnStates.Off;
                         btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
                         //turn auto button off
-                        autoBtnState = btnStates.Off;
+                        autoBtnState = BtnStates.Off;
                         btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
 
@@ -2036,10 +2016,8 @@ namespace AgOpenGPS
         }
         private void offsetFixToolStrip_Click(object sender, EventArgs e)
         {
-            using (var form = new FormShiftPos(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormShiftPos form = new(this);
+            form.ShowDialog(this);
         }
         private void correctionToolStrip_Click(object sender, EventArgs e)
         {
@@ -2063,7 +2041,7 @@ namespace AgOpenGPS
 
         private void btnTiltUp_Click(object sender, EventArgs e)
         {
-            camera.PitchInDegrees -= ((camera.PitchInDegrees * 0.012) - 1);
+            camera.PitchInDegrees -= (camera.PitchInDegrees * 0.012) - 1;
             if (camera.PitchInDegrees > -58) camera.PitchInDegrees = 0;
             navPanelCounter = 2;
         }
@@ -2071,7 +2049,7 @@ namespace AgOpenGPS
         private void btnTiltDn_Click(object sender, EventArgs e)
         {
             if (camera.PitchInDegrees > -59) camera.PitchInDegrees = -60;
-            camera.PitchInDegrees += ((camera.PitchInDegrees * 0.012) - 1);
+            camera.PitchInDegrees += (camera.PitchInDegrees * 0.012) - 1;
             if (camera.PitchInDegrees < -70) camera.PitchInDegrees = -70;
             navPanelCounter = 2;
         }
@@ -2098,7 +2076,7 @@ namespace AgOpenGPS
 
         private void btnGrid_Click(object sender, EventArgs e)
         {
-            var form = new FormGrid(this);
+            FormGrid form = new(this);
             form.Show(this);
             navPanelCounter = 0;
         }
@@ -2140,13 +2118,13 @@ namespace AgOpenGPS
         }
         private void googleEarthOpenGLContextMenu_Click(object sender, EventArgs e)
         {
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 //save new copy of kml with selected flag and view in GoogleEarth
                 FileSaveSingleFlagKML(flagNumberPicked);
 
                 //Process.Start(@"C:\Program Files (x86)\Google\Google Earth\client\googleearth", workingDirectory + currentFieldDirectory + "\\Flags.KML");
-                Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, currentFieldDirectory, "Flag.KML"));
+                Process.Start(Path.Combine(RegistrySettings.fieldsDirectory, CurrentFieldDirectory, "Flag.KML"));
             }
         }
 
@@ -2173,27 +2151,30 @@ namespace AgOpenGPS
         }
         private void btnSpeedDn_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (sim.stepDistance < 0.2 && sim.stepDistance > -0.51) sim.stepDistance -= 0.02;
+            if (sim.stepDistance is < 0.2 and > -0.51) sim.stepDistance -= 0.02;
             else sim.stepDistance *= 0.8;
             if (sim.stepDistance < -0.5) sim.stepDistance = -0.5;
         }
 
-        double lastSimGuidanceAngle = 0;
+        private double lastSimGuidanceAngle = 0;
         private void timerSim_Tick(object sender, EventArgs e)
         {
-            if (recPath.isDrivingRecordedPath || isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000))
+            if (recPath.isDrivingRecordedPath || (isBtnAutoSteerOn && (guidanceLineDistanceOff != 32000)))
             {
                 if (vehicle.isInDeadZone)
                 {
-                    sim.DoSimTick((double)lastSimGuidanceAngle);
+                    sim.DoSimTick(lastSimGuidanceAngle);
                 }
                 else
                 {
-                    lastSimGuidanceAngle = (double)guidanceLineSteerAngle * 0.01 * 0.9;
+                    lastSimGuidanceAngle = guidanceLineSteerAngle * 0.01 * 0.9;
                     sim.DoSimTick(lastSimGuidanceAngle);
                 }
             }
-            else sim.DoSimTick(sim.steerAngleScrollBar);
+            else
+            {
+                sim.DoSimTick(sim.steerAngleScrollBar);
+            }
         }
         private void btnSimReverseDirection_Click(object sender, EventArgs e)
         {

@@ -1,6 +1,4 @@
-﻿using AgOpenGPS.Core.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 
 namespace AgOpenGPS.Core.Models
@@ -102,7 +100,7 @@ namespace AgOpenGPS.Core.Models
         {
             Debug.Assert(turnType != TurnType.Straight);
             GeoDir dir = turnType == TurnType.Right ? cdOnCircle.Direction.PerpendicularRight : cdOnCircle.Direction.PerpendicularLeft;
-            return new GeoCircle(cdOnCircle.Coord + radius * dir, radius);
+            return new GeoCircle(cdOnCircle.Coord + (radius * dir), radius);
         }
     }
 
@@ -117,7 +115,7 @@ namespace AgOpenGPS.Core.Models
             Debug.Assert(goalTurnType != TurnType.Straight);
         }
 
-        static public bool PathIsPossible(GeoCircle startCircle, GeoCircle goalCircle)
+        public static bool PathIsPossible(GeoCircle startCircle, GeoCircle goalCircle)
         {
             bool isPossible =
                 startCircle.Center.Easting != goalCircle.Center.Easting ||
@@ -133,8 +131,8 @@ namespace AgOpenGPS.Core.Models
             out GeoCoord goalTangent)
         {
             Debug.Assert(TurnType.Straight != startTurnType);
-            GeoDelta delta = (goalCircle.Center - startCircle.Center);
-            GeoDir direction = new GeoDir(delta);
+            GeoDelta delta = goalCircle.Center - startCircle.Center;
+            GeoDir direction = new(delta);
             GeoDir tangentDir = (TurnType.Right == startTurnType) ? direction.PerpendicularLeft : direction.PerpendicularRight;
 
             startTangent = startCircle.PointOnCircle(tangentDir);
@@ -154,7 +152,7 @@ namespace AgOpenGPS.Core.Models
             Debug.Assert(goalTurnType != TurnType.Straight);
         }
 
-        static public bool PathIsPossible(GeoCircle startCircle, GeoCircle goalCircle)
+        public static bool PathIsPossible(GeoCircle startCircle, GeoCircle goalCircle)
         {
             //RSL and LSR is only working of the circles don't intersect
             return startCircle.Center.Distance(goalCircle.Center) > startCircle.Radius + goalCircle.Radius;
@@ -169,11 +167,11 @@ namespace AgOpenGPS.Core.Models
         {
             Debug.Assert(TurnType.Straight != startTurnType);
             GeoDelta delta = goalCircle.Center - startCircle.Center;
-            GeoDir direction = new GeoDir(delta);
+            GeoDir direction = new(delta);
 
             //If the circles have the same radius we can use cosine and not the law of cosines
             //to calculate the angle to the first tangent coordinate
-            double theta = Math.Acos((2 * startCircle.Radius) / delta.Length);
+            double theta = Math.Acos(2 * startCircle.Radius / delta.Length);
 
             GeoDir startTangentDir = (TurnType.Right == startTurnType) ? direction - theta : direction + theta;
             startTangent = startCircle.PointOnCircle(startTangentDir);
@@ -193,7 +191,7 @@ namespace AgOpenGPS.Core.Models
             Debug.Assert(middleTurnType != TurnType.Straight);
         }
 
-        static public bool PathIsPossible(GeoCircle startCircle, GeoCircle goalCircle)
+        public static bool PathIsPossible(GeoCircle startCircle, GeoCircle goalCircle)
         {
             // With the LRL and RLR paths, the distance between the circles has to be less than 4 * r
             return
@@ -209,14 +207,14 @@ namespace AgOpenGPS.Core.Models
         {
             Debug.Assert(TurnType.Straight != startTurnType);
             GeoDelta delta = goalCircle.Center - startCircle.Center;
-            GeoDir direction = new GeoDir(delta);
+            GeoDir direction = new(delta);
             double D = delta.Length;
 
             //The angle between the goal and the new 3rd circle we create with the law of cosines
             double theta = Math.Acos(D / (4f * _constraints.RadiusConstraint));
 
             GeoDir startTangentDir = (TurnType.Left == startTurnType) ? direction + theta : direction - theta;
-            _middleCircle = new GeoCircle(startCircle.Center + 2 * startCircle.Radius * startTangentDir, startCircle.Radius);
+            _middleCircle = new GeoCircle(startCircle.Center + (2 * startCircle.Radius * startTangentDir), startCircle.Radius);
 
             startTangent = _middleCircle.PointOnCircle(new GeoDir(startCircle.Center - _middleCircle.Center));
             goalTangent = _middleCircle.PointOnCircle(new GeoDir(goalCircle.Center - _middleCircle.Center));

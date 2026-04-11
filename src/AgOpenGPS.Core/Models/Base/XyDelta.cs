@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS.Core.Models
 {
-    public struct XyDelta
+    public readonly struct XyDelta
     {
         public XyDelta(XyCoord fromCoord, XyCoord toCoord)
         {

@@ -1,6 +1,5 @@
 ﻿//Please, if you use this, share the improvements
 
-using AgOpenGPS.Core.Drawing;
 using AgOpenGPS.Core.DrawLib;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Visuals;
@@ -13,10 +12,8 @@ namespace AgOpenGPS.Core
 {
     public class WorldGrid
     {
-        private BingMap _bingMap;
         private BingMapVisual _bingMapVisual;
-        private Bitmap _floorBitmap;
-        private GeoTexture2D _floorTexture;
+        private readonly Bitmap _floorBitmap;
 
         //Y
         public double northingMax;
@@ -41,14 +38,11 @@ namespace AgOpenGPS.Core
         public double GridStep { private get; set; }
         public BingMap BingMap
         {
-            private get
-            {
-                return _bingMap;
-            }
+            private get;
             set
             {
-                _bingMap = value;
-                _bingMapVisual = (_bingMap != null) ? new BingMapVisual(_bingMap) : null;
+                field = value;
+                _bingMapVisual = (field != null) ? new BingMapVisual(field) : null;
             }
         }
 
@@ -58,8 +52,8 @@ namespace AgOpenGPS.Core
         {
             get
             {
-                if (null == _floorTexture) _floorTexture = new GeoTexture2D(_floorBitmap);
-                return _floorTexture;
+                if (null == field) field = new GeoTexture2D(_floorBitmap);
+                return field;
             }
         }
 
@@ -87,8 +81,8 @@ namespace AgOpenGPS.Core
 
             if (mustDrawFieldTexture)
             {
-                GeoCoord u0v0 = new GeoCoord(eastingMin, northingMax);
-                GeoCoord uCountvCount = new GeoCoord(eastingMax, northingMin);
+                GeoCoord u0v0 = new(eastingMin, northingMax);
+                GeoCoord uCountvCount = new(eastingMax, northingMin);
                 FloorTexture.DrawRepeatedZ(u0v0, uCountvCount, -0.10, Count);
             }
             _bingMapVisual?.Draw();
@@ -100,7 +94,7 @@ namespace AgOpenGPS.Core
 
             GLW.SetLineWidth(1.0f);
             GLW.SetColor(worldGridColor);
-            List<XyCoord> vertices = new List<XyCoord>();
+            List<XyCoord> vertices = new();
             for (double num = Math.Round(eastingMin / GridStep, MidpointRounding.AwayFromZero) * GridStep; num < eastingMax; num += GridStep)
             {
                 if (num < eastingMin) continue;
@@ -117,7 +111,7 @@ namespace AgOpenGPS.Core
             GLW.RotateZ(gridRotation);
         }
 
-        public void checkZoomWorldGrid(GeoCoord geoCoord)
+        public void CheckZoomWorldGrid(GeoCoord geoCoord)
         {
             double n = Math.Round(geoCoord.Northing / (GridSize / Count * 2), MidpointRounding.AwayFromZero) * (GridSize / Count * 2);
             double e = Math.Round(geoCoord.Easting / (GridSize / Count * 2), MidpointRounding.AwayFromZero) * (GridSize / Count * 2);

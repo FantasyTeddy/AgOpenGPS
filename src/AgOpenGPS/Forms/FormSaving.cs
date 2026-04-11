@@ -40,17 +40,13 @@ namespace AgOpenGPS
 
         private static string GetStepText(string message, SavingStepState state)
         {
-            switch (state)
+            return state switch
             {
-                case SavingStepState.Pending:
-                    return "• " + message;
-                case SavingStepState.Done:
-                    return "✓ " + message;
-                case SavingStepState.Failed:
-                    return "✗ " + message;
-                default:
-                    throw new InvalidEnumArgumentException(nameof(state), (int)state, typeof(SavingStepState));
-            }
+                SavingStepState.Pending => "• " + message,
+                SavingStepState.Done => "✓ " + message,
+                SavingStepState.Failed => "✗ " + message,
+                _ => throw new InvalidEnumArgumentException(nameof(state), (int)state, typeof(SavingStepState)),
+            };
         }
 
         private static Color GetStepColor(SavingStepState state)

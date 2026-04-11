@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ModSim
 {
@@ -12,7 +11,7 @@ namespace ModSim
             lblMessage2.Text = messageStr;
 
             int messWidth = messageStr.Length;
-            Width = messWidth * 15 + 180;
+            Width = (messWidth * 15) + 180;
         }
     }
 }

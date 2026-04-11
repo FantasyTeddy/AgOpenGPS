@@ -2,56 +2,55 @@
 
 using AgOpenGPS.Core.Models;
 using System;
-using System.Globalization;
 
 namespace AgOpenGPS
 {
-    public struct vec3
+    public struct Vec3
     {
         public double easting;
         public double northing;
         public double heading;
 
-        public vec3(double easting, double northing, double heading)
+        public Vec3(double easting, double northing, double heading)
         {
             this.easting = easting;
             this.northing = northing;
             this.heading = heading;
         }
 
-        public vec3(vec3 v)
+        public Vec3(Vec3 v)
         {
             easting = v.easting;
             northing = v.northing;
             heading = v.heading;
         }
 
-        public vec3(GeoCoord geoCoord)
+        public Vec3(GeoCoord geoCoord)
         {
             easting = geoCoord.Easting;
             northing = geoCoord.Northing;
             heading = 0.0;
         }
 
-        public GeoCoord ToGeoCoord()
+        public readonly GeoCoord ToGeoCoord()
         {
             return new GeoCoord(northing, easting);
         }
-        public vec2 ToVec2()
+        public readonly Vec2 ToVec2()
         {
-            return new vec2(easting, northing);
+            return new Vec2(easting, northing);
         }
 
     }
 
-    public struct vecFix2Fix
+    public struct VecFix2Fix
     {
         public double easting; //easting
         public double distance; //distance since last point
         public double northing; //norting
         public int isSet;    //altitude
 
-        public vecFix2Fix(double _easting, double _northing, double _distance, int _isSet)
+        public VecFix2Fix(double _easting, double _northing, double _distance, int _isSet)
         {
             this.easting = _easting;
             this.distance = _distance;
@@ -60,45 +59,45 @@ namespace AgOpenGPS
         }
     }
 
-    public struct vec2
+    public struct Vec2
     {
         public double easting;
         public double northing;
 
-        public vec2(double easting, double northing)
+        public Vec2(double easting, double northing)
         {
             this.easting = easting;
             this.northing = northing;
         }
 
-        public vec2(vec2 v)
+        public Vec2(Vec2 v)
         {
             easting = v.easting;
             northing = v.northing;
         }
 
-        public vec2(GeoCoord geoCoord)
+        public Vec2(GeoCoord geoCoord)
         {
             northing = geoCoord.Northing;
             easting = geoCoord.Easting;
         }
 
-        public GeoCoord ToGeoCoord()
+        public readonly GeoCoord ToGeoCoord()
         {
             return new GeoCoord(northing, easting);
         }
 
-        public static vec2 operator -(vec2 lhs, vec2 rhs)
+        public static Vec2 operator -(Vec2 lhs, Vec2 rhs)
         {
-            return new vec2(lhs.easting - rhs.easting, lhs.northing - rhs.northing);
+            return new Vec2(lhs.easting - rhs.easting, lhs.northing - rhs.northing);
         }
 
-        public double HeadingXZ()
+        public readonly double HeadingXZ()
         {
             return Math.Atan2(easting, northing);
         }
 
-        public vec2 Normalize()
+        public readonly Vec2 Normalize()
         {
             double length = GetLength();
             if (Math.Abs(length) < 0.000000000001)
@@ -106,57 +105,57 @@ namespace AgOpenGPS
                 throw new DivideByZeroException("Trying to normalize a vector with length of zero.");
             }
 
-            return new vec2(easting / length, northing / length);
+            return new Vec2(easting / length, northing / length);
         }
 
-        public double GetLength()
+        public readonly double GetLength()
         {
             return Math.Sqrt((easting * easting) + (northing * northing));
         }
 
-        public double GetLengthSquared()
+        public readonly double GetLengthSquared()
         {
             return (easting * easting) + (northing * northing);
         }
 
-        public static vec2 operator *(vec2 self, double s)
+        public static Vec2 operator *(Vec2 self, double s)
         {
-            return new vec2(self.easting * s, self.northing * s);
+            return new Vec2(self.easting * s, self.northing * s);
         }
 
-        public static vec2 operator +(vec2 lhs, vec2 rhs)
+        public static Vec2 operator +(Vec2 lhs, Vec2 rhs)
         {
-            return new vec2(lhs.easting + rhs.easting, lhs.northing + rhs.northing);
+            return new Vec2(lhs.easting + rhs.easting, lhs.northing + rhs.northing);
         }
 
-        public static vec2 Lerp(vec2 a, vec2 b, double t)
+        public static Vec2 Lerp(Vec2 a, Vec2 b, double t)
         {
-            return new vec2(
-                a.easting + (b.easting - a.easting) * t,
-                a.northing + (b.northing - a.northing) * t
+            return new Vec2(
+                a.easting + ((b.easting - a.easting) * t),
+                a.northing + ((b.northing - a.northing) * t)
             );
         }
 
-        public static float Cross(vec2 a, vec2 b)
+        public static float Cross(Vec2 a, Vec2 b)
         {
-            return (float)(a.easting * b.northing - a.northing * b.easting);
+            return (float)((a.easting * b.northing) - (a.northing * b.easting));
         }
 
-        public static double Dot(vec2 a, vec2 b)
+        public static double Dot(Vec2 a, Vec2 b)
         {
-            return a.easting * b.easting + a.northing * b.northing;
+            return (a.easting * b.easting) + (a.northing * b.northing);
         }
 
-        public static bool IsPointOnSegment(vec2 a, vec2 b, vec2 p)
+        public static bool IsPointOnSegment(Vec2 a, Vec2 b, Vec2 p)
         {
             double lenSq = (b - a).GetLengthSquared();
             double proj = Dot(p - a, b - a) / lenSq;
-            return proj >= 0 && proj <= 1;
+            return proj is >= 0 and <= 1;
         }
 
-        public static vec2 ProjectOnSegment(vec2 a, vec2 b, vec2 p, out double t)
+        public static Vec2 ProjectOnSegment(Vec2 a, Vec2 b, Vec2 p, out double t)
         {
-            vec2 ab = b - a;
+            Vec2 ab = b - a;
             double abLenSq = ab.GetLengthSquared();
             if (abLenSq < 1e-6)
             {
@@ -164,9 +163,9 @@ namespace AgOpenGPS
                 return a;
             }
 
-            vec2 ap = p - a;
+            Vec2 ap = p - a;
             t = Math.Max(0, Math.Min(1, Dot(ap, ab) / abLenSq));
-            return a + ab * t;
+            return a + (ab * t);
         }
     }
 }

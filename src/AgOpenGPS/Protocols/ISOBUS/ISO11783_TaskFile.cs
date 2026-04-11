@@ -22,7 +22,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             if (!Enum.IsDefined(typeof(Version), version))
                 throw new ArgumentOutOfRangeException(nameof(version), version, "Invalid version");
 
-            var isoxml = ISOXML.Create(directoryName);
+            ISOXML isoxml = ISOXML.Create(directoryName);
 
             SetFileInformation(isoxml, version);
             AddPartfield(isoxml, designator, area, bndList, localPlane, trk, version);
@@ -47,6 +47,9 @@ namespace AgOpenGPS.Protocols.ISOBUS
                     isoxml.VersionMajor = ISO11783TaskDataFileVersionMajor.Version4;
                     isoxml.VersionMinor = ISO11783TaskDataFileVersionMinor.Item2;
                     break;
+
+                default:
+                    break;
             }
         }
 
@@ -59,7 +62,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             CTrack trk,
             Version version)
         {
-            var partfield = new ISOPartfield();
+            ISOPartfield partfield = new();
             isoxml.IdTable.AddObjectAndAssignIdIfNone(partfield);
             partfield.PartfieldDesignator = designator;
             partfield.PartfieldArea = (ulong)area;
@@ -75,17 +78,17 @@ namespace AgOpenGPS.Protocols.ISOBUS
         {
             for (int i = 0; i < bndList.Count; i++)
             {
-                var polygon = new ISOPolygon
+                ISOPolygon polygon = new()
                 {
                     PolygonType = i == 0 ? ISOPolygonType.PartfieldBoundary : ISOPolygonType.Obstacle
                 };
 
-                var lineString = new ISOLineString
+                ISOLineString lineString = new()
                 {
                     LineStringType = ISOLineStringType.PolygonExterior
                 };
 
-                foreach (vec2 v2 in bndList[i].fenceLineEar)
+                foreach (Vec2 v2 in bndList[i].fenceLineEar)
                 {
                     Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(v2.ToGeoCoord());
                     lineString.Point.Add(new ISOPoint
@@ -108,17 +111,17 @@ namespace AgOpenGPS.Protocols.ISOBUS
             {
                 if (boundaryList.hdLine.Count < 1) continue;
 
-                var polygon = new ISOPolygon
+                ISOPolygon polygon = new()
                 {
                     PolygonType = ISOPolygonType.Headland
                 };
 
-                var lineString = new ISOLineString
+                ISOLineString lineString = new()
                 {
                     LineStringType = ISOLineStringType.PolygonExterior
                 };
 
-                foreach (vec3 v3 in boundaryList.hdLine)
+                foreach (Vec3 v3 in boundaryList.hdLine)
                 {
                     Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(v3.ToGeoCoord());
                     lineString.Point.Add(new ISOPoint
@@ -141,7 +144,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
             foreach (CTrk track in trk.gArr)
             {
-                if (track.mode != TrackMode.AB && track.mode != TrackMode.Curve) continue;
+                if (track.mode is not TrackMode.AB and not TrackMode.Curve) continue;
 
                 switch (version)
                 {
@@ -155,13 +158,13 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
                     case Version.V4:
                         {
-                            var guidanceGroup = new ISOGuidanceGroup
+                            ISOGuidanceGroup guidanceGroup = new()
                             {
                                 GuidanceGroupDesignator = track.name
                             };
                             isoxml.IdTable.AddObjectAndAssignIdIfNone(guidanceGroup);
 
-                            var guidancePattern = new ISOGuidancePattern
+                            ISOGuidancePattern guidancePattern = new()
                             {
                                 GuidancePatternId = guidanceGroup.GuidanceGroupId,
                                 GuidancePatternPropagationDirection = ISOGuidancePatternPropagationDirection.Bothdirections,
@@ -171,18 +174,17 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
                             ISOLineString lineString = CreateLineString(track, localPlane, version);
 
-                            switch (track.mode)
+                            if (track.mode == TrackMode.AB)
                             {
-                                case TrackMode.AB:
-                                    guidancePattern.GuidancePatternType = ISOGuidancePatternType.AB;
-                                    break;
-
-                                case TrackMode.Curve:
-                                    guidancePattern.GuidancePatternType = ISOGuidancePatternType.Curve;
-                                    break;
-
-                                default:
-                                    throw new InvalidOperationException("Track mode is invalid");
+                                guidancePattern.GuidancePatternType = ISOGuidancePatternType.AB;
+                            }
+                            else if (track.mode == TrackMode.Curve)
+                            {
+                                guidancePattern.GuidancePatternType = ISOGuidancePatternType.Curve;
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException("Track mode is invalid");
                             }
 
                             guidancePattern.LineString.Add(lineString);
@@ -192,36 +194,40 @@ namespace AgOpenGPS.Protocols.ISOBUS
                             partfield.GuidanceGroup.Add(guidanceGroup);
                         }
                         break;
+
+                    default:
+                        break;
                 }
             }
         }
 
         private static ISOLineString CreateLineString(CTrk track, LocalPlane localPlane, Version version)
         {
-            switch (track.mode)
+            if (track.mode == TrackMode.AB)
             {
-                case TrackMode.AB:
-                    return CreateABLineString(track, localPlane, version);
-
-                case TrackMode.Curve:
-                    return CreateCurveLineString(track, localPlane, version);
-
-                default:
-                    throw new InvalidOperationException("Track mode is invalid");
+                return CreateABLineString(track, localPlane, version);
+            }
+            else if (track.mode == TrackMode.Curve)
+            {
+                return CreateCurveLineString(track, localPlane, version);
+            }
+            else
+            {
+                throw new InvalidOperationException("Track mode is invalid");
             }
         }
 
 
         private static ISOLineString CreateABLineString(CTrk track, LocalPlane localPlane, Version version)
         {
-            var lineString = new ISOLineString
+            ISOLineString lineString = new()
             {
                 LineStringType = ISOLineStringType.GuidancePattern
             };
 
             GeoCoord pointA = track.ptA.ToGeoCoord();
-            GeoDir heading = new GeoDir(track.heading);
-            Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(pointA - 1000.0 * heading);
+            GeoDir heading = new(track.heading);
+            Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(pointA - (1000.0 * heading));
 
             lineString.Point.Add(new ISOPoint
             {
@@ -230,7 +236,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
                 PointEast = (decimal)latLon.Longitude
             });
 
-            latLon = localPlane.ConvertGeoCoordToWgs84(pointA + 1000.0 * heading);
+            latLon = localPlane.ConvertGeoCoordToWgs84(pointA + (1000.0 * heading));
 
             lineString.Point.Add(new ISOPoint
             {
@@ -244,7 +250,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
 
         private static ISOLineString CreateCurveLineString(CTrk track, LocalPlane localPlane, Version version)
         {
-            var lineString = new ISOLineString
+            ISOLineString lineString = new()
             {
                 LineStringType = ISOLineStringType.GuidancePattern
             };
@@ -253,7 +259,7 @@ namespace AgOpenGPS.Protocols.ISOBUS
             {
                 Wgs84 latLon = localPlane.ConvertGeoCoordToWgs84(track.curvePts[j].ToGeoCoord());
 
-                var point = new ISOPoint
+                ISOPoint point = new()
                 {
                     PointNorth = (decimal)latLon.Latitude,
                     PointEast = (decimal)latLon.Longitude

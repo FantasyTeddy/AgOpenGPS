@@ -42,7 +42,7 @@ namespace AgOpenGPS
         {
             TextBox textboxSender = (TextBox)sender;
             int cursorPosition = textboxSender.SelectionStart;
-            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.Text = Regex.Replace(textboxSender.Text, Glm.fileRegex, "");
             textboxSender.SelectionStart = cursorPosition;
 
             if (String.IsNullOrEmpty(tboxFieldName.Text.Trim()))
@@ -80,10 +80,10 @@ namespace AgOpenGPS
 
             //append date time to name
 
-            mf.currentFieldDirectory = tboxFieldName.Text.Trim();
+            mf.CurrentFieldDirectory = tboxFieldName.Text.Trim();
 
             //get the directory and make sure it exists, create if not
-            DirectoryInfo dirNewField = new DirectoryInfo(Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory));
+            DirectoryInfo dirNewField = new(Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory));
 
             mf.menustripLanguage.Enabled = false;
             //if no template set just make a new file.
@@ -122,7 +122,7 @@ namespace AgOpenGPS
                 Log.EventWriter("Creating new field " + ex);
 
                 FormDialog.Show(gStr.gsError, ex.ToString(), DialogSeverity.Error);
-                mf.currentFieldDirectory = "";
+                mf.CurrentFieldDirectory = "";
             }
 
             DialogResult = DialogResult.OK;

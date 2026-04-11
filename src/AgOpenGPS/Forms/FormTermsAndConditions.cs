@@ -22,7 +22,7 @@ namespace AgOpenGPS
         {
             base.OnPaintBackground(e);
 
-            var borderPen = new Pen(Brushes.CornflowerBlue, 10);
+            Pen borderPen = new(Brushes.CornflowerBlue, 10);
             e.Graphics.DrawRectangle(borderPen, 0, 0, Width, Height);
         }
 

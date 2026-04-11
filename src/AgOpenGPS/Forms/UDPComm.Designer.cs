@@ -18,23 +18,23 @@ namespace AgOpenGPS
         private Socket loopBackSocket;
 
         //endpoints of modules
-        private EndPoint epAgIO = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
+        private readonly EndPoint epAgIO = new IPEndPoint(IPAddress.Parse("127.255.255.255"), 17777);
         private EndPoint endPointLoopBack = new IPEndPoint(IPAddress.Loopback, 0);
 
         // Data stream
-        private byte[] loopBuffer = new byte[1024];
+        private readonly byte[] loopBuffer = new byte[1024];
 
         // Status delegate
         public int missedSentenceCount = 0;
         public int udpWatchLimit = 70;
 
-        private readonly Stopwatch udpWatch = new Stopwatch();
+        private readonly Stopwatch udpWatch = new();
 
         private void ReceiveFromAgIO(byte[] data)
         {
             if (data.Length > 4 && data[0] == 0x80 && data[1] == 0x81)
             {
-                int Length = Math.Max((data[4]) + 5, 5);
+                int Length = Math.Max(data[4] + 5, 5);
                 if (data.Length > Length)
                 {
                     byte CK_A = 0;
@@ -43,7 +43,7 @@ namespace AgOpenGPS
                         CK_A += data[j];
                     }
 
-                    if (data[Length] != (byte)CK_A)
+                    if (data[Length] != CK_A)
                     {
                         return;
                     }
@@ -144,7 +144,7 @@ namespace AgOpenGPS
                                     if (ahrs.isRollInvert) rollK *= -0.1;
                                     else rollK *= 0.1;
                                     rollK -= ahrs.rollZero;
-                                    ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                    ahrs.imuRoll = (ahrs.imuRoll * ahrs.rollFilter) + (rollK * (1 - ahrs.rollFilter));
                                 }
 
                                 short imuPich = BitConverter.ToInt16(data, 52);
@@ -170,7 +170,7 @@ namespace AgOpenGPS
                         {
                             if (data.Length != 14)
                                 break;
-                            if (ahrs.imuRoll > 25 || ahrs.imuRoll < -25) ahrs.imuRoll = 0;
+                            if (ahrs.imuRoll is > 25 or < -25) ahrs.imuRoll = 0;
                             //Heading
                             ahrs.imuHeading = (Int16)((data[6] << 8) + data[5]);
                             ahrs.imuHeading *= 0.1;
@@ -181,7 +181,7 @@ namespace AgOpenGPS
                             if (ahrs.isRollInvert) rollK *= -0.1;
                             else rollK *= 0.1;
                             rollK -= ahrs.rollZero;
-                            ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                            ahrs.imuRoll = (ahrs.imuRoll * ahrs.rollFilter) + (rollK * (1 - ahrs.rollFilter));
 
                             //Angular velocity
                             ahrs.angVel = (Int16)((data[10] << 8) + data[9]);
@@ -207,7 +207,7 @@ namespace AgOpenGPS
                             if (data.Length != 14)
                                 break;
                             mc.actualSteerAngleChart = (Int16)((data[6] << 8) + data[5]);
-                            mc.actualSteerAngleDegrees = (double)mc.actualSteerAngleChart * 0.01;
+                            mc.actualSteerAngleDegrees = mc.actualSteerAngleChart * 0.01;
 
                             //Heading
                             double head253 = (Int16)((data[8] << 8) + data[7]);
@@ -223,7 +223,7 @@ namespace AgOpenGPS
                                 if (ahrs.isRollInvert) rollK *= -0.1;
                                 else rollK *= 0.1;
                                 rollK -= ahrs.rollZero;
-                                ahrs.imuRoll = ahrs.imuRoll * ahrs.rollFilter + rollK * (1 - ahrs.rollFilter);
+                                ahrs.imuRoll = (ahrs.imuRoll * ahrs.rollFilter) + (rollK * (1 - ahrs.rollFilter));
                             }
                             //else ahrs.imuRoll = 88888;
 
@@ -285,13 +285,13 @@ namespace AgOpenGPS
                         {
                             //{ 0x80, 0x81, 0x7f, 222, number bytes, mask, command CRC };
                             if (data.Length < 6) break;
-                            if (((data[5] & 1) == 1)) //mask bit #0 set and command bit #0 nudge line to the 0 = left 1 = right
+                            if ((data[5] & 1) == 1) //mask bit #0 set and command bit #0 nudge line to the 0 = left 1 = right
                             {
                                 double dist = Properties.Settings.Default.setAS_snapDistance * 0.01;
                                 if ((data[6] & 1) != 1) { trk.NudgeTrack(-dist); }
                                 if ((data[6] & 1) == 1) { trk.NudgeTrack(dist); }
                             }
-                            if (((data[5] & 2) == 2)) //mask bit #1 set and command bit #0 cycle line to the 0 = left 1 = right
+                            if ((data[5] & 2) == 2) //mask bit #1 set and command bit #0 cycle line to the 0 = left 1 = right
                             {
                                 if ((data[6] & 1) != 1) { btnCycleLines.PerformClick(); }
                                 if ((data[6] & 1) == 1) { btnCycleLinesBk.PerformClick(); }
@@ -314,7 +314,10 @@ namespace AgOpenGPS
 
                             break;
                         }
-                        #endregion
+                    #endregion
+
+                    default:
+                        break;
                 }
             }
         }
@@ -389,7 +392,7 @@ namespace AgOpenGPS
                     {
                         crc += byteData[i];
                     }
-                    byteData[byteData.Length - 1] = (byte)crc;
+                    byteData[^1] = (byte)crc;
 
                     loopBackSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None,
                         epAgIO, new AsyncCallback(SendAsyncLoopData), null);
@@ -419,46 +422,45 @@ namespace AgOpenGPS
         {
             const int RESIZE_HANDLE_SIZE = 7;
 
-            switch (m.Msg)
+            if (m.Msg == 0x0084/*NCHITTEST*/)
             {
-                case 0x0084/*NCHITTEST*/ :
-                    base.WndProc(ref m);
-                    if (!isKioskMode)
+                base.WndProc(ref m);
+                if (!isKioskMode)
+                {
+                    if ((int)m.Result == 0x01/*HTCLIENT*/)
                     {
-                        if ((int)m.Result == 0x01/*HTCLIENT*/)
+                        Point screenPoint = new(m.LParam.ToInt32());
+                        Point clientPoint = this.PointToClient(screenPoint);
+                        if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
                         {
-                            Point screenPoint = new Point(m.LParam.ToInt32());
-                            Point clientPoint = this.PointToClient(screenPoint);
-                            if (clientPoint.Y <= RESIZE_HANDLE_SIZE)
-                            {
-                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = (IntPtr)13/*HTTOPLEFT*/ ;
-                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = (IntPtr)12/*HTTOP*/ ;
-                                else
-                                    m.Result = (IntPtr)14/*HTTOPRIGHT*/ ;
-                            }
-                            else if (clientPoint.Y <= (Size.Height - RESIZE_HANDLE_SIZE))
-                            {
-                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = (IntPtr)10/*HTLEFT*/ ;
-                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = (IntPtr)2/*HTCAPTION*/ ;
-                                else
-                                    m.Result = (IntPtr)11/*HTRIGHT*/ ;
-                            }
+                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                m.Result = 13/*HTTOPLEFT*/ ;
+                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                m.Result = 12/*HTTOP*/ ;
                             else
-                            {
-                                if (clientPoint.X <= RESIZE_HANDLE_SIZE)
-                                    m.Result = (IntPtr)16/*HTBOTTOMLEFT*/ ;
-                                else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
-                                    m.Result = (IntPtr)15/*HTBOTTOM*/ ;
-                                else
-                                    m.Result = (IntPtr)17/*HTBOTTOMRIGHT*/ ;
-                            }
+                                m.Result = 14/*HTTOPRIGHT*/ ;
+                        }
+                        else if (clientPoint.Y <= (Size.Height - RESIZE_HANDLE_SIZE))
+                        {
+                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                m.Result = 10/*HTLEFT*/ ;
+                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                m.Result = 2/*HTCAPTION*/ ;
+                            else
+                                m.Result = 11/*HTRIGHT*/ ;
+                        }
+                        else
+                        {
+                            if (clientPoint.X <= RESIZE_HANDLE_SIZE)
+                                m.Result = 16/*HTBOTTOMLEFT*/ ;
+                            else if (clientPoint.X < (Size.Width - RESIZE_HANDLE_SIZE))
+                                m.Result = 15/*HTBOTTOM*/ ;
+                            else
+                                m.Result = 17/*HTBOTTOMRIGHT*/ ;
                         }
                     }
-                    return;
+                }
+                return;
             }
             base.WndProc(ref m);
         }
@@ -482,15 +484,15 @@ namespace AgOpenGPS
         /// Called by the app-wide message filter to forward keystrokes to the existing mapping logic.
         /// We strip modifiers to keep your (char)keyData comparisons working, and ignore keys until UI is ready.
         /// </summary>
-        public bool HandleAppWideKey(Keys key, Keys mods)
+        public bool HandleAppWideKey(Keys key)
         {
             if (!_uiReady) return false; // ignore while Terms&Conditions or before FormGPS is ready
 
             // Use only the key code (drop modifiers) so your mappings still match
-            var keyData = (key & Keys.KeyCode);
+            Keys keyData = key & Keys.KeyCode;
 
             // ProcessCmdKey reads only keyData; the Message payload is irrelevant here
-            var msg = Message.Create(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero);
+            Message msg = Message.Create(IntPtr.Zero, 0, IntPtr.Zero, IntPtr.Zero);
             return ProcessCmdKey(ref msg, keyData);
         }
 
@@ -520,7 +522,7 @@ namespace AgOpenGPS
         {
             base.OnShown(e);
             _uiReady = true;
-            if (_hotkeyFilter != null) _hotkeyFilter.Enabled = true;
+            _hotkeyFilter?.Enabled = true;
         }
 
         /// <summary>
@@ -592,14 +594,14 @@ namespace AgOpenGPS
             if ((char)keyData == hotkeys[7]) // nudge track left
             {
                 if (trk.idx > -1)
-                    trk.NudgeTrack((double)Properties.Settings.Default.setAS_snapDistance * -0.01);
+                    trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance * -0.01);
                 return true;
             }
 
             if ((char)keyData == hotkeys[8]) // nudge track right
             {
                 if (trk.idx > -1)
-                    trk.NudgeTrack((double)Properties.Settings.Default.setAS_snapDistance * 0.01);
+                    trk.NudgeTrack(Properties.Settings.Default.setAS_snapDistance * 0.01);
                 return true;
             }
 
@@ -716,7 +718,7 @@ namespace AgOpenGPS
             // speed up
             if (keyData == Keys.Up)
             {
-                if (sim.stepDistance < 0.4 && sim.stepDistance > -0.36) sim.stepDistance += 0.01;
+                if (sim.stepDistance is < 0.4 and > -0.36) sim.stepDistance += 0.01;
                 else sim.stepDistance += 0.04;
                 if (sim.stepDistance > 4) sim.stepDistance = 4;
                 return true;
@@ -725,7 +727,7 @@ namespace AgOpenGPS
             // slow down
             if (keyData == Keys.Down)
             {
-                if (sim.stepDistance < 0.2 && sim.stepDistance > -0.04) sim.stepDistance -= 0.01;
+                if (sim.stepDistance is < 0.2 and > -0.04) sim.stepDistance -= 0.01;
                 else sim.stepDistance -= 0.04;
                 if (sim.stepDistance < -0.35) sim.stepDistance = -0.35;
                 return true;

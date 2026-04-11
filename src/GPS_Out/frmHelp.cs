@@ -1,21 +1,15 @@
 ﻿using GPS_Out;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RateController
 {
-    public partial class frmHelp : Form
+    public partial class FrmHelp : Form
     {
-        private frmStart mf;
+        private readonly FrmStart mf;
 
-        public frmHelp(frmStart CallingForm, string Message, string Title = "Help", int timeInMsec = 30000)
+        public FrmHelp(FrmStart CallingForm, string Message, string Title = "Help", int timeInMsec = 30000)
         {
             mf = CallingForm;
             InitializeComponent();
@@ -26,7 +20,7 @@ namespace RateController
             int len = Message.Length;
             this.Width = 450;
 
-            int ht = 20 + (len / 34) * 40;
+            int ht = 20 + (len / 34 * 40);
             if (ht < 150)
             {
                 ht = 150;

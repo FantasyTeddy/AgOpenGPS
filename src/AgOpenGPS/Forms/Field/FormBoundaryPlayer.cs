@@ -30,7 +30,7 @@ namespace AgOpenGPS
 
         private void FormBoundaryPlayer_Load(object sender, EventArgs e)
         {
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 nudOffset.Maximum = 4999;
                 nudOffset.Value = (decimal)(mf.tool.width * 0.5 * 100);
@@ -51,7 +51,7 @@ namespace AgOpenGPS
             btnLeftRight.Image = mf.bnd.isDrawRightSide ? Properties.Resources.BoundaryRight : Properties.Resources.BoundaryLeft;
             btnAntennaTool.Image = mf.bnd.isDrawAtPivot ? Properties.Resources.BoundaryRecordPivot : Properties.Resources.BoundaryRecordTool;
 
-            mf.bnd.createBndOffset = (mf.tool.width * 0.5);
+            mf.bnd.createBndOffset = mf.tool.width * 0.5;
             mf.bnd.isBndBeingMade = true;
             mf.Focus();
 
@@ -77,7 +77,7 @@ namespace AgOpenGPS
         {
             ((NudlessNumericUpDown)sender).ShowKeypad(this);
             btnPausePlay.Focus();
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 mf.bnd.createBndOffset = (double)nudOffset.Value * 0.01;
             }
@@ -104,7 +104,7 @@ namespace AgOpenGPS
                 }
                 area = Math.Abs(area / 2);
             }
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 lblArea.Text = Math.Round(area * 0.0001, 2).ToString();
             }
@@ -128,7 +128,7 @@ namespace AgOpenGPS
                 if (mf.bnd.bndBeingMadePts.Count > 2)
                 {
                     // Create new boundary from drawn points
-                    CBoundaryList New = new CBoundaryList();
+                    CBoundaryList New = new();
 
                     for (int i = 0; i < mf.bnd.bndBeingMadePts.Count; i++)
                     {

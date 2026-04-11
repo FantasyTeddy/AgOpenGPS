@@ -1,8 +1,5 @@
-﻿using AgOpenGPS.Core.Translations;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace AgOpenGPS
@@ -25,7 +22,7 @@ namespace AgOpenGPS
             ClearDataSubBackgrounds();
             ClearNoSubBackgrounds();
 
-            if (subMenu.Visible == false)
+            if (!subMenu.Visible)
             {
                 HideSubMenu();
                 subMenu.Visible = true;
@@ -45,9 +42,18 @@ namespace AgOpenGPS
                 {
                     tab1.SelectedTab = tabAMachine;
                 }
-                else if (btn.Name == "btnUTurn") tab1.SelectedTab = tabUTurn;
-                else if (btn.Name == "btnFeatureHides") tab1.SelectedTab = tabBtns;
-                else if (btn.Name == "btnDisplay") tab1.SelectedTab = tabDisplay;
+                else if (btn.Name == "btnUTurn")
+                {
+                    tab1.SelectedTab = tabUTurn;
+                }
+                else if (btn.Name == "btnFeatureHides")
+                {
+                    tab1.SelectedTab = tabBtns;
+                }
+                else if (btn.Name == "btnDisplay")
+                {
+                    tab1.SelectedTab = tabDisplay;
+                }
             }
             else
             {

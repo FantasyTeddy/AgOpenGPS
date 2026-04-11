@@ -4,7 +4,6 @@ using System.IO.Ports;
 using System;
 using System.Windows.Forms;
 using System.Linq;
-using System.Globalization;
 using AgLibrary.Logging;
 
 namespace AgIO
@@ -12,7 +11,7 @@ namespace AgIO
     public partial class FormLoop
     {
         //B5,62,7F,PGN_ID,Length
-        private int totalHeaderByteCount = 5;
+        private readonly int totalHeaderByteCount = 5;
 
         public static string portNameGPS = "***";
         public static int baudRateGPS = 4800;
@@ -52,27 +51,27 @@ namespace AgIO
         public bool wasRtcmConnectedLastRun = false;
 
         //serial port gps is connected to
-        public SerialPort spGPS = new SerialPort(portNameGPS, baudRateGPS, Parity.None, 8, StopBits.One);
+        public SerialPort spGPS = new(portNameGPS, baudRateGPS, Parity.None, 8, StopBits.One);
 
         //serial port gps2 is connected to
-        public SerialPort spGPS2 = new SerialPort(portNameGPS2, baudRateGPS2, Parity.None, 8, StopBits.One);
+        public SerialPort spGPS2 = new(portNameGPS2, baudRateGPS2, Parity.None, 8, StopBits.One);
 
         //serial port gps is connected to
-        public SerialPort spRtcm = new SerialPort(portNameRtcm, baudRateRtcm, Parity.None, 8, StopBits.One);
+        public SerialPort spRtcm = new(portNameRtcm, baudRateRtcm, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spIMU = new SerialPort(portNameIMU, baudRateIMU, Parity.None, 8, StopBits.One);
+        public SerialPort spIMU = new(portNameIMU, baudRateIMU, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spSteerModule = new SerialPort(portNameSteerModule, baudRateSteerModule, Parity.None, 8, StopBits.One);
+        public SerialPort spSteerModule = new(portNameSteerModule, baudRateSteerModule, Parity.None, 8, StopBits.One);
 
         //serial port Arduino is connected to
-        public SerialPort spMachineModule = new SerialPort(portNameMachineModule, baudRateMachineModule, Parity.None, 8, StopBits.One);
+        public SerialPort spMachineModule = new(portNameMachineModule, baudRateMachineModule, Parity.None, 8, StopBits.One);
 
         //lists for parsing incoming bytes
-        private byte[] pgnSteerModule = new byte[22];
-        private byte[] pgnMachineModule = new byte[22];
-        private byte[] pgnIMU = new byte[22];
+        private readonly byte[] pgnSteerModule = new byte[22];
+        private readonly byte[] pgnMachineModule = new byte[22];
+        private readonly byte[] pgnIMU = new byte[22];
 
         #region IMUSerialPort //--------------------------------------------------------------------
         private void ReceiveIMUPort(byte[] Data)
@@ -214,7 +213,10 @@ namespace AgIO
 
                             case 1:  //find 0x81   
                                 {
-                                    if (a == 129) ByteList[ByteList[21]++] = a;
+                                    if (a == 129)
+                                    {
+                                        ByteList[ByteList[21]++] = a;
+                                    }
                                     else
                                     {
                                         if (a == 181)
@@ -222,14 +224,17 @@ namespace AgIO
                                             ByteList[21] = 0;
                                             ByteList[ByteList[21]++] = a;
                                         }
-                                        else ByteList[21] = 0;
+                                        else
+                                        {
+                                            ByteList[21] = 0;
+                                        }
                                     }
                                     break;
                                 }
 
                             case 2: //Source Address (7F)
                                 {
-                                    if (a < 128 && a > 120)
+                                    if (a is < 128 and > 120)
                                         ByteList[ByteList[21]++] = a;
                                     else ByteList[21] = 0;
                                     break;
@@ -252,7 +257,7 @@ namespace AgIO
                                     if (ByteList[21] > 4)
                                     {
                                         int length = ByteList[4] + totalHeaderByteCount;
-                                        if ((ByteList[21]) < length)
+                                        if (ByteList[21] < length)
                                         {
                                             ByteList[ByteList[21]++] = a;
                                             break;
@@ -263,11 +268,11 @@ namespace AgIO
                                             int CK_A = 0;
                                             for (int j = 2; j < length; j++)
                                             {
-                                                CK_A = CK_A + ByteList[j];
+                                                CK_A += ByteList[j];
                                             }
 
                                             //if checksum matches finish and update main thread
-                                            if (a == (byte)(CK_A))
+                                            if (a == (byte)CK_A)
                                             {
                                                 length++;
                                                 ByteList[ByteList[21]++] = (byte)CK_A;
@@ -419,7 +424,10 @@ namespace AgIO
 
                             case 1:  //find 0x81   
                                 {
-                                    if (a == 129) ByteList[ByteList[21]++] = a;
+                                    if (a == 129)
+                                    {
+                                        ByteList[ByteList[21]++] = a;
+                                    }
                                     else
                                     {
                                         if (a == 181)
@@ -427,14 +435,17 @@ namespace AgIO
                                             ByteList[21] = 0;
                                             ByteList[ByteList[21]++] = a;
                                         }
-                                        else ByteList[21] = 0;
+                                        else
+                                        {
+                                            ByteList[21] = 0;
+                                        }
                                     }
                                     break;
                                 }
 
                             case 2: //Source Address (7F)
                                 {
-                                    if (a < 128 && a > 120)
+                                    if (a is < 128 and > 120)
                                         ByteList[ByteList[21]++] = a;
                                     else ByteList[21] = 0;
                                     break;
@@ -457,7 +468,7 @@ namespace AgIO
                                     if (ByteList[21] > 4)
                                     {
                                         int length = ByteList[4] + totalHeaderByteCount;
-                                        if ((ByteList[21]) < length)
+                                        if (ByteList[21] < length)
                                         {
                                             ByteList[ByteList[21]++] = a;
                                             break;
@@ -468,11 +479,11 @@ namespace AgIO
                                             int CK_A = 0;
                                             for (int j = 2; j < length; j++)
                                             {
-                                                CK_A = CK_A + ByteList[j];
+                                                CK_A += ByteList[j];
                                             }
 
                                             //if checksum matches finish and update main thread
-                                            if (a == (byte)(CK_A))
+                                            if (a == (byte)CK_A)
                                             {
                                                 length++;
                                                 ByteList[ByteList[21]++] = (byte)CK_A;
@@ -631,7 +642,10 @@ namespace AgIO
 
                             case 1:  //find 0x81   
                                 {
-                                    if (a == 129) ByteList[ByteList[21]++] = a;
+                                    if (a == 129)
+                                    {
+                                        ByteList[ByteList[21]++] = a;
+                                    }
                                     else
                                     {
                                         if (a == 181)
@@ -639,14 +653,17 @@ namespace AgIO
                                             ByteList[21] = 0;
                                             ByteList[ByteList[21]++] = a;
                                         }
-                                        else ByteList[21] = 0;
+                                        else
+                                        {
+                                            ByteList[21] = 0;
+                                        }
                                     }
                                     break;
                                 }
 
                             case 2: //Source Address (7F)
                                 {
-                                    if (a < 128 && a > 120)
+                                    if (a is < 128 and > 120)
                                         ByteList[ByteList[21]++] = a;
                                     else ByteList[21] = 0;
                                     break;
@@ -669,7 +686,7 @@ namespace AgIO
                                     if (ByteList[21] > 4)
                                     {
                                         int length = ByteList[4] + totalHeaderByteCount;
-                                        if ((ByteList[21]) < length)
+                                        if (ByteList[21] < length)
                                         {
                                             ByteList[ByteList[21]++] = a;
                                             break;
@@ -680,11 +697,11 @@ namespace AgIO
                                             int CK_A = 0;
                                             for (int j = 2; j < length; j++)
                                             {
-                                                CK_A = CK_A + ByteList[j];
+                                                CK_A += ByteList[j];
                                             }
 
                                             //if checksum matches finish and update main thread
-                                            if (a == (byte)(CK_A))
+                                            if (a == (byte)CK_A)
                                             {
                                                 ByteList[ByteList[21]++] = (byte)CK_A;
                                                 length++;

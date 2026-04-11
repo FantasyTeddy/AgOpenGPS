@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GPS_Out.PGNs
 {
@@ -24,33 +20,31 @@ namespace GPS_Out.PGNs
 
         #endregion ZDA Message
 
-        private string cSentence;
-        private frmStart mf;
+        private readonly FrmStart mf;
 
-        public PGN_ZDA(frmStart CalledFrom)
+        public PGN_ZDA(FrmStart CalledFrom)
         {
             mf = CalledFrom;
         }
-        public string Sentence
-        { get { return cSentence; } }
+        public string Sentence { get; private set; }
 
         public string Build()
         {
-            cSentence = Properties.Settings.Default.SentenceStart + "ZDA";
-            cSentence += "," + DateTime.UtcNow.ToString("HHmmss.fff", CultureInfo.InvariantCulture);
-            cSentence += "," + DateTime.UtcNow.Day.ToString("00");
-            cSentence += "," + DateTime.UtcNow.Month.ToString("00");
-            cSentence += "," + DateTime.UtcNow.Year.ToString("0000");
+            Sentence = Properties.Settings.Default.SentenceStart + "ZDA";
+            Sentence += "," + DateTime.UtcNow.ToString("HHmmss.fff", CultureInfo.InvariantCulture);
+            Sentence += "," + DateTime.UtcNow.Day.ToString("00");
+            Sentence += "," + DateTime.UtcNow.Month.ToString("00");
+            Sentence += "," + DateTime.UtcNow.Year.ToString("0000");
 
-            var offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
-            cSentence += "," + offset.Hours.ToString("00");
-            cSentence += "," + offset.Minutes.ToString("00");
+            TimeSpan offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+            Sentence += "," + offset.Hours.ToString("00");
+            Sentence += "," + offset.Minutes.ToString("00");
 
-            cSentence += "*";
-            string Hex = mf.CheckSum(cSentence).ToString("X2");
-            cSentence += Hex;
+            Sentence += "*";
+            string Hex = mf.CheckSum(Sentence).ToString("X2");
+            Sentence += Hex;
 
-            return cSentence;
+            return Sentence;
         }
     }
 }

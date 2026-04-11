@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AgOpenGPS
 {
@@ -10,7 +9,7 @@ namespace AgOpenGPS
 
 
 
-        public List<CBoundaryList> bndList = new List<CBoundaryList>();
+        public List<CBoundaryList> bndList = new();
 
         //constructor
         public CBoundary(FormGPS _f)

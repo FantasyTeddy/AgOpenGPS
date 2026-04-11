@@ -12,7 +12,7 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
 
         private readonly Color inColor;
-        public Color useThisColor { get; set; }
+        public Color UseThisColor { get; set; }
 
         private bool isUse = true;
 
@@ -34,7 +34,7 @@ namespace AgOpenGPS
             btnDay.Text = gStr.gsDay;
             groupBoxSelectPresetColor.Text = gStr.gsPresetColor;
 
-            useThisColor = inColor;
+            UseThisColor = inColor;
 
             UpdateColor(inColor);
 
@@ -55,7 +55,7 @@ namespace AgOpenGPS
             this.colorHsl = colorHSL;
             this.colorSlider.ColorHSL = this.colorHsl;
 
-            useThisColor = colorRgb;
+            UseThisColor = colorRgb;
             btnNight.BackColor = colorRgb;
             btnDay.BackColor = colorRgb;
         }
@@ -67,7 +67,7 @@ namespace AgOpenGPS
             this.colorRgb = this.colorHsl.RgbValue.CheckColorFor255();
             this.colorBox2D.ColorHSL = this.colorHsl;
 
-            useThisColor = colorRgb;
+            UseThisColor = colorRgb;
             btnNight.BackColor = colorRgb;
             btnDay.BackColor = colorRgb;
         }
@@ -80,29 +80,29 @@ namespace AgOpenGPS
             this.colorSlider.ColorHSL = this.colorHsl;
             this.colorBox2D.ColorHSL = this.colorHsl;
 
-            useThisColor = col;
+            UseThisColor = col;
             btnNight.BackColor = col;
             btnDay.BackColor = col;
         }
 
         private void FormColorPicker_Load(object sender, EventArgs e)
         {
-            btn00.BackColor = (Color.FromArgb(mf.customColorsList[0])).CheckColorFor255();
-            btn01.BackColor = (Color.FromArgb(mf.customColorsList[1])).CheckColorFor255();
-            btn02.BackColor = (Color.FromArgb(mf.customColorsList[2])).CheckColorFor255();
-            btn03.BackColor = (Color.FromArgb(mf.customColorsList[3])).CheckColorFor255();
-            btn04.BackColor = (Color.FromArgb(mf.customColorsList[4])).CheckColorFor255();
-            btn05.BackColor = (Color.FromArgb(mf.customColorsList[5])).CheckColorFor255();
-            btn06.BackColor = (Color.FromArgb(mf.customColorsList[6])).CheckColorFor255();
-            btn07.BackColor = (Color.FromArgb(mf.customColorsList[7])).CheckColorFor255();
-            btn08.BackColor = (Color.FromArgb(mf.customColorsList[8])).CheckColorFor255();
-            btn09.BackColor = (Color.FromArgb(mf.customColorsList[9])).CheckColorFor255();
-            btn10.BackColor = (Color.FromArgb(mf.customColorsList[10])).CheckColorFor255();
-            btn11.BackColor = (Color.FromArgb(mf.customColorsList[11])).CheckColorFor255();
-            btn12.BackColor = (Color.FromArgb(mf.customColorsList[12])).CheckColorFor255();
-            btn13.BackColor = (Color.FromArgb(mf.customColorsList[13])).CheckColorFor255();
-            btn14.BackColor = (Color.FromArgb(mf.customColorsList[14])).CheckColorFor255();
-            btn15.BackColor = (Color.FromArgb(mf.customColorsList[15])).CheckColorFor255();
+            btn00.BackColor = Color.FromArgb(mf.customColorsList[0]).CheckColorFor255();
+            btn01.BackColor = Color.FromArgb(mf.customColorsList[1]).CheckColorFor255();
+            btn02.BackColor = Color.FromArgb(mf.customColorsList[2]).CheckColorFor255();
+            btn03.BackColor = Color.FromArgb(mf.customColorsList[3]).CheckColorFor255();
+            btn04.BackColor = Color.FromArgb(mf.customColorsList[4]).CheckColorFor255();
+            btn05.BackColor = Color.FromArgb(mf.customColorsList[5]).CheckColorFor255();
+            btn06.BackColor = Color.FromArgb(mf.customColorsList[6]).CheckColorFor255();
+            btn07.BackColor = Color.FromArgb(mf.customColorsList[7]).CheckColorFor255();
+            btn08.BackColor = Color.FromArgb(mf.customColorsList[8]).CheckColorFor255();
+            btn09.BackColor = Color.FromArgb(mf.customColorsList[9]).CheckColorFor255();
+            btn10.BackColor = Color.FromArgb(mf.customColorsList[10]).CheckColorFor255();
+            btn11.BackColor = Color.FromArgb(mf.customColorsList[11]).CheckColorFor255();
+            btn12.BackColor = Color.FromArgb(mf.customColorsList[12]).CheckColorFor255();
+            btn13.BackColor = Color.FromArgb(mf.customColorsList[13]).CheckColorFor255();
+            btn14.BackColor = Color.FromArgb(mf.customColorsList[14]).CheckColorFor255();
+            btn15.BackColor = Color.FromArgb(mf.customColorsList[15]).CheckColorFor255();
 
             //make sure no colors stored have 255
             for (int i = 0; i < 16; i++)
@@ -131,18 +131,18 @@ namespace AgOpenGPS
             Button butt = (Button)sender;
             if (isUse)
             {
-                useThisColor = butt.BackColor.CheckColorFor255();
-                UpdateColor(useThisColor);
+                UseThisColor = butt.BackColor.CheckColorFor255();
+                UpdateColor(UseThisColor);
             }
             else
             {
                 int.TryParse(butt.Name.Substring(3, 2), out int buttNumber);
 
-                useThisColor = useThisColor.CheckColorFor255();
+                UseThisColor = UseThisColor.CheckColorFor255();
 
-                int iCol = (useThisColor.A << 24) | (useThisColor.R << 16) | (useThisColor.G << 8) | useThisColor.B;
+                int iCol = (UseThisColor.A << 24) | (UseThisColor.R << 16) | (UseThisColor.G << 8) | UseThisColor.B;
                 mf.customColorsList[buttNumber] = iCol;
-                butt.BackColor = useThisColor;
+                butt.BackColor = UseThisColor;
 
                 SaveCustomColor();
             }

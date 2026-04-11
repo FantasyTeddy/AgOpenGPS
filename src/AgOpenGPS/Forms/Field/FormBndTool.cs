@@ -18,26 +18,26 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
         private GeoViewport _viewport;
 
-        private static readonly ColorRgba boundaryColor = new ColorRgba(0.725f, 0.95f, 0.950f);
+        private static readonly ColorRgba boundaryColor = new(0.725f, 0.95f, 0.950f);
 
-        private static readonly ColorRgba newBoundaryStripColor = new ColorRgba(0.90f, 0.25f, 0.10f);
-        private static readonly ColorRgba newBoundaryPointsColor = new ColorRgba(0.90f, 0.25f, 0.910f);
-        private static readonly ColorRgba newBoundaryLoopColor = new ColorRgba(0.82f, 0.835f, 0.5f);
+        private static readonly ColorRgba newBoundaryStripColor = new(0.90f, 0.25f, 0.10f);
+        private static readonly ColorRgba newBoundaryPointsColor = new(0.90f, 0.25f, 0.910f);
+        private static readonly ColorRgba newBoundaryLoopColor = new(0.82f, 0.835f, 0.5f);
 
-        private static readonly ColorRgba stepSectionColor = new ColorRgba(0.64f, 0.64f, 0.6f);
+        private static readonly ColorRgba stepSectionColor = new(0.64f, 0.64f, 0.6f);
 
-        private vec3 ptA = new vec3();
-        private vec3 ptB = new vec3();
-        public vec3 pint = new vec3(0.0, 1.0, 0.0);
+        private Vec3 ptA = new();
+        private Vec3 ptB = new();
+        public Vec3 pint = new(0.0, 1.0, 0.0);
 
         private bool isA = true;
         private bool isC = false;
         private int start = 99999, end = 99999;
         private int bndSelect = 0, smPtsChoose = 1, smPts = 4;
 
-        public List<vec3> secList = new List<vec3>();
-        public List<vec3> bndList = new List<vec3>();
-        public List<vec3> smooList = new List<vec3>();
+        public List<Vec3> secList = new();
+        public List<Vec3> bndList = new();
+        public List<Vec3> smooList = new();
 
         private double minDistSq = 1, minDistDisp = 1;
 
@@ -55,10 +55,10 @@ namespace AgOpenGPS
         private int firstPoint, currentPoint;
 
         //find 3 closest points
-        private vec3[] arr;
+        private Vec3[] arr;
 
         //baseline to calc the most right vector - starts at 270 deg.
-        private double prevHeading = Math.PI + glm.PIBy2;
+        private double prevHeading = Math.PI + Glm.PIBy2;
 
         public FormBndTool(Form callingForm)
         {
@@ -121,7 +121,7 @@ namespace AgOpenGPS
 
         private void FormBndTool_ResizeEnd(object sender, EventArgs e)
         {
-            Width = (Height * 4 / 3);
+            Width = Height * 4 / 3;
 
             oglSelf.Height = oglSelf.Width = Height - 50;
 
@@ -152,7 +152,7 @@ namespace AgOpenGPS
                 if (arr[j].heading == 1)
                     continue;
 
-                double dist = glm.DistanceSquared(secList[currentPoint], secList[j]);
+                double dist = Glm.DistanceSquared(secList[currentPoint], secList[j]);
 
                 if (dist < mdA)
                 {
@@ -192,14 +192,14 @@ namespace AgOpenGPS
             double pA = aA;
 
             aA -= prevHeading;
-            if (aA < 0) aA += glm.twoPI; if (aA < 0) aA += glm.twoPI;
+            if (aA < 0) aA += Glm.twoPI; if (aA < 0) aA += Glm.twoPI;
             if (aA > aMax || aA < aMin) aA = 0;
 
             double aB = Math.Atan2(secList[rB].easting - secList[currentPoint].easting,
                 secList[rB].northing - secList[currentPoint].northing);
             double pB = aB;
             aB -= prevHeading;
-            if (aB < 0) aB += glm.twoPI; if (aB < 0) aB += glm.twoPI;
+            if (aB < 0) aB += Glm.twoPI; if (aB < 0) aB += Glm.twoPI;
 
             if (aB > aMax || aB < aMin) aB = 0;
 
@@ -208,7 +208,7 @@ namespace AgOpenGPS
             double pC = aC;
 
             aC -= prevHeading;
-            if (aC < 0) aC += glm.twoPI; if (aC < 0) aC += glm.twoPI;
+            if (aC < 0) aC += Glm.twoPI; if (aC < 0) aC += Glm.twoPI;
             if (aC > aMax || aC < aMin) aC = 0;
 
             double aD = Math.Atan2(secList[rD].easting - secList[currentPoint].easting,
@@ -216,7 +216,7 @@ namespace AgOpenGPS
             double pD = aD;
 
             aD -= prevHeading;
-            if (aD < 0) aD += glm.twoPI; if (aD < 0) aD += glm.twoPI;
+            if (aD < 0) aD += Glm.twoPI; if (aD < 0) aD += Glm.twoPI;
             if (aD > aMax || aD < aMin) aD = 0;
 
             double aE = Math.Atan2(secList[rE].easting - secList[currentPoint].easting,
@@ -224,7 +224,7 @@ namespace AgOpenGPS
             double pE = aE;
 
             aE -= prevHeading;
-            if (aE < 0) aE += glm.twoPI; if (aE < 0) aE += glm.twoPI;
+            if (aE < 0) aE += Glm.twoPI; if (aE < 0) aE += Glm.twoPI;
             if (aE > aMax || aE < aMin) aE = 0;
 
             double aF = Math.Atan2(secList[rF].easting - secList[currentPoint].easting,
@@ -232,7 +232,7 @@ namespace AgOpenGPS
             double pF = aF;
 
             aF -= prevHeading;
-            if (aF < 0) aF += glm.twoPI; if (aF < 0) aF += glm.twoPI;
+            if (aF < 0) aF += Glm.twoPI; if (aF < 0) aF += Glm.twoPI;
             if (aF > aMax || aF < aMin) aF = 0;
 
             double aG = Math.Atan2(secList[rG].easting - secList[currentPoint].easting,
@@ -240,7 +240,7 @@ namespace AgOpenGPS
             double pG = aG;
 
             aG -= prevHeading;
-            if (aG < 0) aG += glm.twoPI; if (aG < 0) aG += glm.twoPI;
+            if (aG < 0) aG += Glm.twoPI; if (aG < 0) aG += Glm.twoPI;
             if (aG > aMax || aG < aMin) aG = 0;
 
             //double maxAngle = 999;
@@ -276,8 +276,8 @@ namespace AgOpenGPS
             else if (maxAngle == aF) { currentPoint = rF; prevHeading = pF + Math.PI; }
             else if (maxAngle == aG) { currentPoint = rG; prevHeading = pG + Math.PI; }
 
-            if (prevHeading >= glm.twoPI) prevHeading -= glm.twoPI;
-            if (prevHeading < 0) prevHeading += glm.twoPI;
+            if (prevHeading >= Glm.twoPI) prevHeading -= Glm.twoPI;
+            if (prevHeading < 0) prevHeading += Glm.twoPI;
 
             mdA = double.MaxValue;
             mdB = double.MaxValue;
@@ -308,10 +308,10 @@ namespace AgOpenGPS
                         int j = i + 1;
 
                         if (j == bndCount) j = 0;
-                        double distance = glm.Distance(bndList[i], bndList[j]);
+                        double distance = Glm.Distance(bndList[i], bndList[j]);
                         if (distance > 1.1)
                         {
-                            vec3 pointB = new vec3((bndList[i].easting + bndList[j].easting) / 2.0,
+                            Vec3 pointB = new((bndList[i].easting + bndList[j].easting) / 2.0,
                                 (bndList[i].northing + bndList[j].northing) / 2.0, bndList[i].heading);
 
                             bndList.Insert(j, pointB);
@@ -323,7 +323,7 @@ namespace AgOpenGPS
                 }
             }
 
-            bndList.Add(new vec3(secList[currentPoint]));
+            bndList.Add(new Vec3(secList[currentPoint]));
             timer1.Enabled = true;
         }
 
@@ -339,15 +339,15 @@ namespace AgOpenGPS
             secList.Add(ptA);
             secList.Add(ptB);
 
-            int dist = (int)(glm.Distance(ptA, ptB));
+            int dist = (int)Glm.Distance(ptA, ptB);
 
             if (dist > 2)
             {
                 for (int i = 1; i < dist; i++)
                 {
-                    vec3 pt = new vec3(ptA);
-                    pt.easting += (Math.Sin(abHead) * i);
-                    pt.northing += (Math.Cos(abHead) * i);
+                    Vec3 pt = new(ptA);
+                    pt.easting += Math.Sin(abHead) * i;
+                    pt.northing += Math.Cos(abHead) * i;
                     secList.Add(pt);
                 }
             }
@@ -380,7 +380,7 @@ namespace AgOpenGPS
 
             EndStep();
             timer1.Interval = 500;
-            prevHeading = Math.PI + glm.PIBy2;
+            prevHeading = Math.PI + Glm.PIBy2;
 
             secList?.Clear();
             bndList?.Clear();
@@ -397,11 +397,11 @@ namespace AgOpenGPS
                 if (patchCount > 0)
                 {
                     //for every new chunk of patch
-                    foreach (var triList in mf.triStrip[j].patchList)
+                    foreach (List<Vec3> triList in mf.triStrip[j].patchList)
                     {
                         for (int i = 1; i < triList.Count; i++)
                         {
-                            vec3 bob = new vec3(triList[i].easting, triList[i].northing, 0);
+                            Vec3 bob = new(triList[i].easting, triList[i].northing, 0);
 
                             secList.Add(bob);
                         }
@@ -429,12 +429,12 @@ namespace AgOpenGPS
             timer1.Interval = 500;
             EndStep();
 
-            minDistDisp = (double)(cboxPointDistance.SelectedIndex + 1);
+            minDistDisp = cboxPointDistance.SelectedIndex + 1;
             minDistSq = minDistDisp * minDistDisp;
 
             rA = rB = rC = rD = rE = rF = rG = firstPoint = currentPoint = 0;
 
-            vec3[] arr = new vec3[secList.Count];
+            Vec3[] arr = new Vec3[secList.Count];
             secList.CopyTo(arr);
 
             int cntr = 0;
@@ -456,7 +456,7 @@ namespace AgOpenGPS
 
                     if (arr[j].heading == 0)
                     {
-                        double dist = glm.DistanceSquared(secList[i], secList[j]);
+                        double dist = Glm.DistanceSquared(secList[i], secList[j]);
                         if (dist < minDistSq)
                         {
                             //means delete this point
@@ -481,10 +481,10 @@ namespace AgOpenGPS
             panel1.Visible = false;
 
             secList?.Clear();
-            foreach (var item in arr)
+            foreach (Vec3 item in arr)
             {
                 //0 will mean visible
-                if (item.heading == 2) secList.Add(new vec3(item.easting, item.northing, 0));
+                if (item.heading == 2) secList.Add(new Vec3(item.easting, item.northing, 0));
             }
 
             //Find most South point
@@ -512,8 +512,8 @@ namespace AgOpenGPS
                 return;
             }
 
-            arr = new vec3[secList.Count];
-            prevHeading = Math.PI + glm.PIBy2;
+            arr = new Vec3[secList.Count];
+            prevHeading = Math.PI + Glm.PIBy2;
 
             //find most southerly - lowest Y point
             double minny = double.MaxValue;
@@ -531,7 +531,7 @@ namespace AgOpenGPS
 
             //first point of bnd
             bndList?.Clear();
-            bndList.Add(new vec3(secList[currentPoint]));
+            bndList.Add(new Vec3(secList[currentPoint]));
 
             secList.CopyTo(arr);
 
@@ -584,11 +584,11 @@ namespace AgOpenGPS
                 //just in case
                 DeleteBoundary();
 
-                CBoundaryList New = new CBoundaryList();
+                CBoundaryList New = new();
 
                 for (int i = 0; i < smooList.Count; i++)
                 {
-                    New.fenceLine.Add(new vec3(smooList[i]));
+                    New.fenceLine.Add(new Vec3(smooList[i]));
                 }
 
                 New.CalculateFenceArea(0);
@@ -623,7 +623,7 @@ namespace AgOpenGPS
             int cnt = bndList.Count;
 
             //the temp array
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
 
             if (smPts != 0)
             {
@@ -677,11 +677,11 @@ namespace AgOpenGPS
 
             CABCurve.CalculateHeadings(ref smooList);
 
-            List<vec3> smList = new List<vec3>();
+            List<Vec3> smList = new();
 
             for (int i = 0; i < smooList.Count; i++)
             {
-                smList.Add(new vec3(smooList[i]));
+                smList.Add(new Vec3(smooList[i]));
             }
             double delta = 0;
             smooList?.Clear();
@@ -690,13 +690,13 @@ namespace AgOpenGPS
             {
                 if (i == 0)
                 {
-                    smooList.Add(new vec3(smList[i]));
+                    smooList.Add(new Vec3(smList[i]));
                     continue;
                 }
-                delta += (smList[i - 1].heading - smList[i].heading);
+                delta += smList[i - 1].heading - smList[i].heading;
                 if (Math.Abs(delta) > 0.02)
                 {
-                    smooList.Add(new vec3(smList[i]));
+                    smooList.Add(new Vec3(smList[i]));
                     delta = 0;
                 }
             }
@@ -708,10 +708,10 @@ namespace AgOpenGPS
                 int j = i + 1;
 
                 if (j == bndCount) j = 0;
-                double distance = glm.Distance(smooList[i], smooList[j]);
+                double distance = Glm.Distance(smooList[i], smooList[j]);
                 if (distance > 1.6)
                 {
-                    vec3 pointB = new vec3((smooList[i].easting + smooList[j].easting) / 2.0,
+                    Vec3 pointB = new((smooList[i].easting + smooList[j].easting) / 2.0,
                         (smooList[i].northing + smooList[j].northing) / 2.0, smooList[i].heading);
 
                     smooList.Insert(j, pointB);
@@ -802,7 +802,7 @@ namespace AgOpenGPS
 
             if (bndSelect >= 0 && bndSelect < mf.bnd.bndList.Count && mf.bnd.bndList[bndSelect].fenceLine.Count > 0)
             {
-                if ((Math.Abs(start - end)) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
+                if (Math.Abs(start - end) > (mf.bnd.bndList[bndSelect].fenceLine.Count * 0.5))
                 {
                     isLoop = true;
                     if (start < end)
@@ -821,7 +821,7 @@ namespace AgOpenGPS
                     }
                 }
 
-                vec3[] arr = new vec3[mf.bnd.bndList[bndSelect].fenceLine.Count];
+                Vec3[] arr = new Vec3[mf.bnd.bndList[bndSelect].fenceLine.Count];
                 mf.bnd.bndList[bndSelect].fenceLine.CopyTo(arr);
 
                 if (start++ == arr.Length) start--;
@@ -842,7 +842,7 @@ namespace AgOpenGPS
                 }
 
                 if (isC)
-                    arr[start] = new vec3(pint);
+                    arr[start] = new Vec3(pint);
 
                 mf.bnd.bndList[bndSelect].fenceLine.Clear();
 
@@ -850,7 +850,7 @@ namespace AgOpenGPS
                 {
                     //calculate the point inside the boundary
                     if (arr[i].heading != 999)
-                        mf.bnd.bndList[bndSelect].fenceLine.Add(new vec3(arr[i]));
+                        mf.bnd.bndList[bndSelect].fenceLine.Add(new Vec3(arr[i]));
 
                     if (isLoop && i == arr.Length - 1)
                     {
@@ -897,7 +897,7 @@ namespace AgOpenGPS
         private void oglSelf_MouseDown(object sender, MouseEventArgs e)
         {
             Point ptt = oglSelf.PointToClient(Cursor.Position);
-            XyCoord xyClient = new XyCoord(ptt.X, ptt.Y);
+            XyCoord xyClient = new(ptt.X, ptt.Y);
             GeoCoord mouseDownCoord = _viewport.GetGeoCoord(xyClient);
 
             if (cboxIsZoom.Checked)
@@ -907,7 +907,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            pint = new vec3(mouseDownCoord);
+            pint = new Vec3(mouseDownCoord);
 
             if (mf.bnd.bndList.Count != 0)
             {

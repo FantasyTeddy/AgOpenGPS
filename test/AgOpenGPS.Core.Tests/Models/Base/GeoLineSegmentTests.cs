@@ -10,18 +10,18 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_IntersectionPoint_Intersects()
         {
             // Arrange
-            GeoCoord coordA = new GeoCoord(13.0, -10.0);
-            GeoCoord coordB = new GeoCoord(12.0, -19.0);
-            GeoCoord otherCoordA = new GeoCoord(14.0, -18.0);
-            GeoCoord otherCoordB = new GeoCoord(-8, -5);
-            GeoLineSegment lineSegment = new GeoLineSegment(coordA, coordB);
-            GeoLineSegment otherLineSegment = new GeoLineSegment(otherCoordA, otherCoordB);
+            GeoCoord coordA = new(13.0, -10.0);
+            GeoCoord coordB = new(12.0, -19.0);
+            GeoCoord otherCoordA = new(14.0, -18.0);
+            GeoCoord otherCoordB = new(-8, -5);
+            GeoLineSegment lineSegment = new(coordA, coordB);
+            GeoLineSegment otherLineSegment = new(otherCoordA, otherCoordB);
 
             // Act
             GeoCoord? interSectionPoint = lineSegment.IntersectionPoint(otherLineSegment);
 
             // Assert
-            Assert.That(interSectionPoint.HasValue, Is.EqualTo(true));
+            Assert.That(interSectionPoint.HasValue, Is.True);
             // Intersection point must lie on first segment
             Assert.That(
                 coordA.Distance(interSectionPoint.Value) + interSectionPoint.Value.Distance(coordB),
@@ -38,18 +38,18 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_IntersectionPoint_NoIntersection()
         {
             // Arrange
-            GeoCoord coordA = new GeoCoord(13.0, -1);
-            GeoCoord coordB = new GeoCoord(18.0, -1);
-            GeoCoord otherCoordA = new GeoCoord(-2.0, -18.0);
-            GeoCoord otherCoordB = new GeoCoord(-2.0, 100);
-            GeoLineSegment northHeadingSegment = new GeoLineSegment(coordA, coordB);
-            GeoLineSegment eastHeadingSegment = new GeoLineSegment(otherCoordA, otherCoordB);
+            GeoCoord coordA = new(13.0, -1);
+            GeoCoord coordB = new(18.0, -1);
+            GeoCoord otherCoordA = new(-2.0, -18.0);
+            GeoCoord otherCoordB = new(-2.0, 100);
+            GeoLineSegment northHeadingSegment = new(coordA, coordB);
+            GeoLineSegment eastHeadingSegment = new(otherCoordA, otherCoordB);
 
             // Act
             GeoCoord? interSectionPoint = northHeadingSegment.IntersectionPoint(eastHeadingSegment);
 
             // Assert
-            Assert.That(interSectionPoint.HasValue, Is.EqualTo(false));
+            Assert.That(interSectionPoint.HasValue, Is.False);
         }
 
         [Test]
@@ -60,18 +60,18 @@ namespace AgOpenGPS.Core.Tests.Models
             const double maxNorthing = 3.0;
             const double minEasting = 2.0;
             const double maxEasting = 4.0;
-            GeoCoord neCoord = new GeoCoord(maxNorthing, maxEasting);
-            GeoCoord seCoord = new GeoCoord(minNorthing, maxEasting);
-            GeoCoord swCoord = new GeoCoord(minNorthing, minEasting);
-            GeoCoord nwCoord = new GeoCoord(maxNorthing, minEasting);
-            GeoLineSegment nwseLineSegment = new GeoLineSegment(nwCoord, seCoord);
-            GeoLineSegment swneLineSegment = new GeoLineSegment(swCoord, neCoord);
+            GeoCoord neCoord = new(maxNorthing, maxEasting);
+            GeoCoord seCoord = new(minNorthing, maxEasting);
+            GeoCoord swCoord = new(minNorthing, minEasting);
+            GeoCoord nwCoord = new(maxNorthing, minEasting);
+            GeoLineSegment nwseLineSegment = new(nwCoord, seCoord);
+            GeoLineSegment swneLineSegment = new(swCoord, neCoord);
 
             // Act
             GeoCoord? interSectionPoint = nwseLineSegment.IntersectionPoint(swneLineSegment);
 
             // Assert
-            Assert.That(interSectionPoint.HasValue, Is.EqualTo(true));
+            Assert.That(interSectionPoint.HasValue, Is.True);
             Assert.That(interSectionPoint.Value.Distance(nwCoord), Is.EqualTo(interSectionPoint.Value.Distance(seCoord)));
         }
 
@@ -83,17 +83,17 @@ namespace AgOpenGPS.Core.Tests.Models
             const double maxNorthing = 3.0;
             const double minEasting = 2.0;
             const double maxEasting = 4.0;
-            GeoCoord seCoord = new GeoCoord(minNorthing, maxEasting);
-            GeoCoord nwCoord = new GeoCoord(maxNorthing, minEasting);
-            GeoDelta shift = new GeoDelta(1.0, 0.0);
-            GeoLineSegment nwseLineSegment = new GeoLineSegment(nwCoord, seCoord);
-            GeoLineSegment shiftedSegment = new GeoLineSegment(nwCoord + shift, seCoord + shift);
+            GeoCoord seCoord = new(minNorthing, maxEasting);
+            GeoCoord nwCoord = new(maxNorthing, minEasting);
+            GeoDelta shift = new(1.0, 0.0);
+            GeoLineSegment nwseLineSegment = new(nwCoord, seCoord);
+            GeoLineSegment shiftedSegment = new(nwCoord + shift, seCoord + shift);
 
             // Act
             GeoCoord? intersectionPoint = nwseLineSegment.IntersectionPoint(shiftedSegment);
 
             // Assert
-            Assert.That(intersectionPoint, Is.EqualTo(null));
+            Assert.That(intersectionPoint, Is.Null);
         }
 
         [Test]
@@ -104,21 +104,21 @@ namespace AgOpenGPS.Core.Tests.Models
             const double maxNorthing = 3.0;
             const double minEasting = 2.0;
             const double maxEasting = 4.0;
-            GeoCoord seCoord = new GeoCoord(minNorthing, maxEasting);
-            GeoCoord nwCoord = new GeoCoord(maxNorthing, minEasting);
+            GeoCoord seCoord = new(minNorthing, maxEasting);
+            GeoCoord nwCoord = new(maxNorthing, minEasting);
 
-            GeoDelta delta = new GeoDelta(nwCoord, seCoord);
-            GeoLineSegment nwseLineSegment = new GeoLineSegment(nwCoord, nwCoord + 1000.0 * delta);
-            GeoCoord almostEnd = nwCoord + 999.0 * delta;
-            GeoLineSegment otherSegment = new GeoLineSegment(
-                almostEnd - 1.0 * new GeoDir(delta).PerpendicularLeft,
-                almostEnd + 1.0 * new GeoDir(delta).PerpendicularLeft);
+            GeoDelta delta = new(nwCoord, seCoord);
+            GeoLineSegment nwseLineSegment = new(nwCoord, nwCoord + (1000.0 * delta));
+            GeoCoord almostEnd = nwCoord + (999.0 * delta);
+            GeoLineSegment otherSegment = new(
+                almostEnd - (1.0 * new GeoDir(delta).PerpendicularLeft),
+                almostEnd + (1.0 * new GeoDir(delta).PerpendicularLeft));
 
             // Act
             GeoCoord? intersectionPoint = nwseLineSegment.IntersectionPoint(otherSegment);
 
             // Assert
-            Assert.That(intersectionPoint.HasValue, Is.EqualTo(true));
+            Assert.That(intersectionPoint.HasValue, Is.True);
             Assert.That(intersectionPoint.Value.Northing, Is.EqualTo(almostEnd.Northing));
             Assert.That(intersectionPoint.Value.Easting, Is.EqualTo(almostEnd.Easting));
         }
@@ -127,13 +127,13 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_IntersectionPoint_SharedEndPoints()
         {
             // Arrange
-            GeoCoord coordA = new GeoCoord(16.88, -15.488);
-            GeoCoord otherCoordA = new GeoCoord(-13.355, 16.09);
-            GeoCoord sharedEndPoint = new GeoCoord(16.99, -13.55);
-            GeoLineSegment segment = new GeoLineSegment(coordA, sharedEndPoint);
-            GeoLineSegment otherSegment = new GeoLineSegment(otherCoordA, sharedEndPoint);
-            GeoLineSegment reversedSegment = new GeoLineSegment(sharedEndPoint, coordA);
-            GeoLineSegment reversedOtherSegment = new GeoLineSegment(sharedEndPoint, otherCoordA);
+            GeoCoord coordA = new(16.88, -15.488);
+            GeoCoord otherCoordA = new(-13.355, 16.09);
+            GeoCoord sharedEndPoint = new(16.99, -13.55);
+            GeoLineSegment segment = new(coordA, sharedEndPoint);
+            GeoLineSegment otherSegment = new(otherCoordA, sharedEndPoint);
+            GeoLineSegment reversedSegment = new(sharedEndPoint, coordA);
+            GeoLineSegment reversedOtherSegment = new(sharedEndPoint, otherCoordA);
 
             // Act
             GeoCoord? intersectionPoint = segment.IntersectionPoint(otherSegment);
@@ -142,16 +142,16 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord? ipReversedReversed = reversedSegment.IntersectionPoint(reversedOtherSegment);
 
             // Assert
-            Assert.That(intersectionPoint.HasValue, Is.EqualTo(true));
+            Assert.That(intersectionPoint.HasValue, Is.True);
             Assert.That(intersectionPoint.Value, Is.EqualTo(sharedEndPoint));
 
-            Assert.That(ipNormalReversed.HasValue, Is.EqualTo(true));
+            Assert.That(ipNormalReversed.HasValue, Is.True);
             Assert.That(ipNormalReversed.Value, Is.EqualTo(sharedEndPoint));
 
-            Assert.That(ipReversedNormal.HasValue, Is.EqualTo(true));
+            Assert.That(ipReversedNormal.HasValue, Is.True);
             Assert.That(ipReversedNormal.Value, Is.EqualTo(sharedEndPoint));
 
-            Assert.That(ipReversedReversed.HasValue, Is.EqualTo(true));
+            Assert.That(ipReversedReversed.HasValue, Is.True);
             Assert.That(ipReversedReversed.Value, Is.EqualTo(sharedEndPoint));
         }
     }

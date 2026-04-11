@@ -20,7 +20,7 @@ namespace AgOpenGPS
         private int order;
 
         // Triplets: [name, distance, area]
-        private readonly List<string> fileList = new List<string>();
+        private readonly List<string> fileList = new();
 
         public FormFilePicker(Form callingForm)
         {
@@ -97,27 +97,25 @@ namespace AgOpenGPS
         {
             try
             {
-                using (var reader = new GeoStreamReader(filename))
+                using GeoStreamReader reader = new(filename);
+                // Legacy format: skip 8 lines, then expect a WGS84 position.
+                for (int i = 0; i < 8; i++) reader.ReadLine();
+
+                string distanceStr;
+                if (!reader.EndOfStream)
                 {
-                    // Legacy format: skip 8 lines, then expect a WGS84 position.
-                    for (int i = 0; i < 8; i++) reader.ReadLine();
-
-                    string distanceStr;
-                    if (!reader.EndOfStream)
-                    {
-                        var startLatLon = reader.ReadWgs84();
-                        double km = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
-                        distanceStr = Math.Round(km, 2).ToString("N2").PadLeft(10);
-                    }
-                    else
-                    {
-                        // Incomplete file → neutral placeholder
-                        distanceStr = "---".PadLeft(10);
-                    }
-
-                    fileList.Add(fieldDirectory);
-                    fileList.Add(distanceStr);
+                    Wgs84 startLatLon = reader.ReadWgs84();
+                    double km = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
+                    distanceStr = Math.Round(km, 2).ToString("N2").PadLeft(10);
                 }
+                else
+                {
+                    // Incomplete file → neutral placeholder
+                    distanceStr = "---".PadLeft(10);
+                }
+
+                fileList.Add(fieldDirectory);
+                fileList.Add(distanceStr);
             }
             catch (Exception ex)
             {
@@ -160,8 +158,8 @@ namespace AgOpenGPS
         /// </summary>
         private double CalculateBoundaryArea(string filename)
         {
-            var pointList = new List<vec3>();
-            using (var reader = new StreamReader(filename))
+            List<Vec3> pointList = new();
+            using (StreamReader reader = new(filename))
             {
                 string line;
 
@@ -173,19 +171,18 @@ namespace AgOpenGPS
                 line = reader.ReadLine();
                 if (line == null) return 0;
 
-                if (line == "True" || line == "False")
+                if (line is "True" or "False")
                 {
                     line = reader.ReadLine();
                     if (line == null) return 0;
                 }
-                if (line == "True" || line == "False")
+                if (line is "True" or "False")
                 {
                     line = reader.ReadLine();
                     if (line == null) return 0;
                 }
 
-                int numPoints;
-                if (!int.TryParse(line, NumberStyles.Integer, CultureInfo.InvariantCulture, out numPoints))
+                if (!int.TryParse(line, NumberStyles.Integer, CultureInfo.InvariantCulture, out int numPoints))
                     return 0;
 
                 if (numPoints <= 0) return 0;
@@ -195,15 +192,14 @@ namespace AgOpenGPS
                     line = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(line)) return 0;
 
-                    var words = line.Split(',');
+                    string[] words = line.Split(',');
                     if (words.Length < 3) return 0;
 
-                    double e, n, h;
-                    if (!double.TryParse(words[0], NumberStyles.Float, CultureInfo.InvariantCulture, out e)) return 0;
-                    if (!double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out n)) return 0;
-                    if (!double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out h)) return 0;
+                    if (!double.TryParse(words[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double e)) return 0;
+                    if (!double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double n)) return 0;
+                    if (!double.TryParse(words[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double h)) return 0;
 
-                    pointList.Add(new vec3(e, n, h));
+                    pointList.Add(new Vec3(e, n, h));
                 }
             }
 
@@ -220,7 +216,7 @@ namespace AgOpenGPS
             }
 
             double areaM2 = Math.Abs(acc / 2.0);
-            return mf.isMetric ? (areaM2 * 0.0001) : (areaM2 * 0.00024711);
+            return mf.IsMetric ? (areaM2 * 0.0001) : (areaM2 * 0.00024711);
         }
 
         private void UpdateListView()
@@ -298,7 +294,7 @@ namespace AgOpenGPS
         {
             if (lvLines.SelectedItems.Count == 0) return;
 
-            var selectedItem = lvLines.SelectedItems[0];
+            ListViewItem selectedItem = lvLines.SelectedItems[0];
 
             // Determine the field name depending on the current ordering
             string fieldName = order == 0

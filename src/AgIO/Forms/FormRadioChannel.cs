@@ -27,7 +27,7 @@ namespace AgIO
 
             if (!string.IsNullOrEmpty(Channel.Location))
             {
-                var locationArray = Channel.Location.Split(' ');
+                string[] locationArray = Channel.Location.Split(' ');
 
                 if (locationArray.Length >= 2)
                 {

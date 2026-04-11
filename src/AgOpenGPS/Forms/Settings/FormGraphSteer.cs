@@ -51,8 +51,8 @@ namespace AgOpenGPS
             double nextX = 1;
             double nextX5 = 1;
 
-            if (s.Points.Count > 0) nextX = s.Points[s.Points.Count - 1].XValue + 1;
-            if (w.Points.Count > 0) nextX5 = w.Points[w.Points.Count - 1].XValue + 1;
+            if (s.Points.Count > 0) nextX = s.Points[^1].XValue + 1;
+            if (w.Points.Count > 0) nextX5 = w.Points[^1].XValue + 1;
 
             unoChart.Series["S"].Points.AddXY(nextX, dataSteerAngle);
             unoChart.Series["PWM"].Points.AddXY(nextX5, dataPWM);
@@ -73,7 +73,7 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
-            timer1.Interval = (int)((1 / mf.gpsHz) * 1000);
+            timer1.Interval = (int)(1 / mf.gpsHz * 1000);
 
             unoChart.ChartAreas[0].AxisY.Maximum = Double.NaN;
             unoChart.ChartAreas[0].AxisY.Minimum = Double.NaN;

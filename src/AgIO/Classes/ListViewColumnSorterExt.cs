@@ -9,9 +9,9 @@ namespace AgIO
         /// <summary>
         /// Case insensitive comparer object
         /// </summary>
-        private CaseInsensitiveComparer ObjectCompare;
+        private readonly CaseInsensitiveComparer ObjectCompare;
 
-        private ListView listView;
+        private readonly ListView listView;
 
         /// <summary>
         /// Class constructor.  Initializes various elements
@@ -73,12 +73,12 @@ namespace AgIO
                 compareResult = DateTime.Compare(dtx, dty);
             }
             // When one is a number and the other not, return -1 to have the numbers on top (or bottom)
-            else if (decimal.TryParse(listviewX.SubItems[SortColumn].Text, out dx))
+            else if (decimal.TryParse(listviewX.SubItems[SortColumn].Text, out _))
             {
                 compareResult = -1;
             }
             // When one is a number and the other not, return 1 to have the numbers on top (or bottom)
-            else if (decimal.TryParse(listviewY.SubItems[SortColumn].Text, out dy))
+            else if (decimal.TryParse(listviewY.SubItems[SortColumn].Text, out _))
             {
                 compareResult = 1;
             }
@@ -97,7 +97,7 @@ namespace AgIO
             else if (Order == SortOrder.Descending)
             {
                 // Descending sort is selected, return negative result of compare operation
-                return (-compareResult);
+                return -compareResult;
             }
             else
             {

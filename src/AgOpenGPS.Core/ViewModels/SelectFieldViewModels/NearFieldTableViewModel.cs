@@ -18,13 +18,13 @@ namespace AgOpenGPS.Core.ViewModels
 
         public override void UpdateFields()
         {
-            Collection<FieldDescriptionViewModel> viewModels = new Collection<FieldDescriptionViewModel>();
-            var descriptions = _fieldDescriptionStreamer.GetFieldDescriptions();
+            Collection<FieldDescriptionViewModel> viewModels = new();
+            ReadOnlyCollection<FieldDescription> descriptions = _fieldDescriptionStreamer.GetFieldDescriptions();
             foreach (FieldDescription description in descriptions)
             {
                 if (description.Wgs84Start.HasValue)
                 {
-                    FieldDescriptionViewModel viewModel = new FieldDescriptionViewModel(
+                    FieldDescriptionViewModel viewModel = new(
                         description,
                         _appModel.CurrentLatLon);
                     viewModels.Add(viewModel);

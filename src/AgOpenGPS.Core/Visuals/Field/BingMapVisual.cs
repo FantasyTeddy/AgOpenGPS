@@ -6,8 +6,8 @@ namespace AgOpenGPS.Core.Visuals
 {
     public class BingMapVisual
     {
-        private BingMap _bingMap;
-        private GeoTexture2D _bingMapTexture;
+        private readonly BingMap _bingMap;
+        private readonly GeoTexture2D _bingMapTexture;
 
         public BingMapVisual(BingMap bingMap)
         {
@@ -20,8 +20,8 @@ namespace AgOpenGPS.Core.Visuals
             if (_bingMap != null)
             {
                 GLW.SetColor(Colors.BingMapBackgroundColor);
-                GeoCoord u0v0Map = new GeoCoord(_bingMap.GeoBoundingBox.MinEasting, _bingMap.GeoBoundingBox.MaxNorthing);
-                GeoCoord u1v1Map = new GeoCoord(_bingMap.GeoBoundingBox.MaxEasting, _bingMap.GeoBoundingBox.MinNorthing);
+                GeoCoord u0v0Map = new(_bingMap.GeoBoundingBox.MinEasting, _bingMap.GeoBoundingBox.MaxNorthing);
+                GeoCoord u1v1Map = new(_bingMap.GeoBoundingBox.MaxEasting, _bingMap.GeoBoundingBox.MinNorthing);
                 _bingMapTexture.DrawZ(u0v0Map, u1v1Map, -0.05);
             }
         }

@@ -37,8 +37,6 @@ namespace AgIO
         private float rollK, Pc, G, Xp, Zp, XeRoll, P = 1.0f;
         private readonly float varRoll = 0.1f, varProcess = 0.0003f;
 
-        double LastUpdateUTC = 0;
-
         //Convert Fix value to Text
         public string FixQuality
         {
@@ -66,24 +64,24 @@ namespace AgIO
                 // Find start of next sentence
                 int start = buffer.IndexOf("$", StringComparison.Ordinal);
                 if (start == -1) return null;
-                buffer = buffer.Substring(start);
+                buffer = buffer[start..];
 
                 // Find end of sentence
                 int end = buffer.IndexOf("\r", StringComparison.Ordinal);
                 if (end == -1) return null;
 
                 //the NMEA sentence to be parsed
-                sentence = buffer.Substring(0, end + 1);
+                sentence = buffer[..(end + 1)];
 
                 //remove the processed sentence from the rawBuffer
-                buffer = buffer.Substring(end + 1);
+                buffer = buffer[(end + 1)..];
             }
 
             //if sentence has valid checksum, its all good
             while (!ValidateChecksum(sentence));
 
             // Remove trailing checksum and \r\n and return
-            sentence = sentence.Substring(0, sentence.IndexOf("*", StringComparison.Ordinal));
+            sentence = sentence[..sentence.IndexOf("*", StringComparison.Ordinal)];
 
             return sentence;
         }
@@ -101,7 +99,7 @@ namespace AgIO
             if (dollar == -1) return;
 
             //if the $ isn't first, get rid of the tail of corrupt sentence
-            if (dollar >= cr) rawBuffer = rawBuffer.Substring(dollar);
+            if (dollar >= cr) rawBuffer = rawBuffer[dollar..];
 
             cr = rawBuffer.IndexOf("\r", StringComparison.Ordinal);
             if (cr == -1) return; // No end found, wait for more data
@@ -109,7 +107,7 @@ namespace AgIO
             if (dollar == -1) return;
 
             //if the $ isn't first, get rid of the tail of corrupt sentence
-            if (dollar >= cr) rawBuffer = rawBuffer.Substring(dollar);
+            if (dollar >= cr) rawBuffer = rawBuffer[dollar..];
 
             cr = rawBuffer.IndexOf("\r", StringComparison.Ordinal);
             dollar = rawBuffer.IndexOf("$", StringComparison.Ordinal);
@@ -195,7 +193,7 @@ namespace AgIO
                     if (isGPSSentencesOn) pandaSentence = nextNMEASentence;
                 }
 
-                else if (words[0] == "$GPHDT" || words[0] == "$GNHDT")
+                else if (words[0] is "$GPHDT" or "$GNHDT")
                 {
                     ParseHDT();
                     if (isGPSSentencesOn) hdtSentence = nextNMEASentence;
@@ -207,7 +205,7 @@ namespace AgIO
                     if (isGPSSentencesOn) avrSentence = nextNMEASentence;
                 }
 
-                else if (words[0] == "$GNTRA" || words[0] == "$GPTRA")
+                else if (words[0] is "$GNTRA" or "$GPTRA")
                 {
                     ParseTRA();
                 }
@@ -273,7 +271,7 @@ namespace AgIO
                 Buffer.BlockCopy(BitConverter.GetBytes(satellitesTracked), 0, nmeaPGN, 41, 2);
                 satellitesTracked = ushort.MaxValue;
 
-                nmeaPGN[43] = (byte)fixQuality;
+                nmeaPGN[43] = fixQuality;
                 fixQuality = byte.MaxValue;
 
                 Buffer.BlockCopy(BitConverter.GetBytes(hdopX100), 0, nmeaPGN, 44, 2);
@@ -342,13 +340,12 @@ namespace AgIO
 
                 fixQuality = fixQualityData;
 
-                int headingQuality;
 
-                int.TryParse(words[11], NumberStyles.Float, CultureInfo.InvariantCulture, out headingQuality);
+                int.TryParse(words[11], NumberStyles.Float, CultureInfo.InvariantCulture, out int headingQuality);
 
                 if (headingQuality == 3)   // roll only when rtk 
                 {
-                    roll = (float)(rollK);
+                    roll = rollK;
                     rollData = rollK;
                 }
                 else
@@ -433,8 +430,8 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[2].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
+                double.TryParse(words[2][..decim], NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
+                double.TryParse(words[2][decim..], NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
                 temp *= 0.01666666666667;
                 latitude += temp;
                 if (words[3] == "S")
@@ -450,8 +447,8 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[4].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                double.TryParse(words[4].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
+                double.TryParse(words[4][..decim], NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
+                double.TryParse(words[4][decim..], NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.0166666666667;
 
                 { if (words[5] == "W") longitude *= -1; }
@@ -543,7 +540,7 @@ namespace AgIO
 
                 if (baseline > 0)   // roll only when rtk and baseline
                 {
-                    roll = (float)(rollK);
+                    roll = rollK;
                     rollData = rollK;
                 }
                 else
@@ -641,8 +638,8 @@ namespace AgIO
                 ageX100 = (ushort)(ageData * 100.0);
 
                 decim -= 2;
-                double.TryParse(words[2].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
+                double.TryParse(words[2][..decim], NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
+                double.TryParse(words[2][decim..], NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
                 temp *= 0.01666666666666666666666666666667;
                 latitude += temp;
                 if (words[3] == "S")
@@ -659,8 +656,8 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[4].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                double.TryParse(words[4].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
+                double.TryParse(words[4][..decim], NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
+                double.TryParse(words[4][decim..], NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.01666666666666666666666666666667;
 
                 { if (words[5] == "W") longitude *= -1; }
@@ -722,9 +719,9 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[2].Substring(0, decim),
+                double.TryParse(words[2][..decim],
                     NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                double.TryParse(words[2].Substring(decim),
+                double.TryParse(words[2][decim..],
                     NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
                 temp *= 0.01666666666666666666666666666667;
                 latitude += temp;
@@ -742,9 +739,9 @@ namespace AgIO
                 }
 
                 decim -= 2;
-                double.TryParse(words[4].Substring(0, decim),
+                double.TryParse(words[4][..decim],
                     NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                double.TryParse(words[4].Substring(decim),
+                double.TryParse(words[4][decim..],
                     NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
                 longitude += temp * 0.01666666666666666666666666666667;
 
@@ -844,14 +841,14 @@ namespace AgIO
             {
                 //baselineCourse: angle between baseline vector (from kinematic base to rover) and north direction, degrees
                 float.TryParse(words[10], NumberStyles.Float, CultureInfo.InvariantCulture, out float baselineCourse);
-                headingTrueDual = ((baselineCourse < 270.0f) ? (baselineCourse + 90.0f) : (baselineCourse - 270.0f)); //Rover Antenna on the left, kinematic base on the right!!!
+                headingTrueDual = (baselineCourse < 270.0f) ? (baselineCourse + 90.0f) : (baselineCourse - 270.0f); //Rover Antenna on the left, kinematic base on the right!!!
             }
 
             if (!string.IsNullOrEmpty(words[8]) && !string.IsNullOrEmpty(words[9]))
             {
                 double.TryParse(words[8], NumberStyles.Float, CultureInfo.InvariantCulture, out double upProjection); //difference in hight of both antennas (rover - kinematic base)
                 double.TryParse(words[9], NumberStyles.Float, CultureInfo.InvariantCulture, out double baselineLength); //distance between kinematic base and rover
-                rollK = (float)glm.toDegrees(Math.Atan(upProjection / baselineLength)); //roll to the right is positiv (rover left, kinematic base right!)
+                rollK = (float)Glm.ToDegrees(Math.Atan(upProjection / baselineLength)); //roll to the right is positiv (rover left, kinematic base right!)
 
                 //Kalman filter
                 Pc = P + varProcess;
@@ -862,7 +859,7 @@ namespace AgIO
                 XeRoll = (G * (rollK - Zp)) + Xp;
                 rollData = XeRoll;
 
-                roll = (float)(XeRoll);
+                roll = XeRoll;
             }
         }
 
@@ -921,7 +918,7 @@ namespace AgIO
 
                 if (words[7] == "R") //MovingBase Mode Indicator
                 {
-                    roll = (float)(rollK);
+                    roll = rollK;
                     rollData = roll;
                 }
                 else
@@ -947,79 +944,7 @@ namespace AgIO
                 int.TryParse(words[5], NumberStyles.Float, CultureInfo.InvariantCulture, out int trasolution);
                 if (trasolution != 4) rollK = 0;
                 rollData = rollK;
-                roll = (float)(rollK);
-            }
-        }
-
-        private void ParseRMC()
-        {
-            #region RMC Message
-            //$GPRMC,123519,A,4807.038,N,01131.000,E,022.4,084.4,230394,003.1,W*6A
-
-            //RMC          Recommended Minimum sentence C
-            //123519       Fix taken at 12:35:19 UTC
-            //A            Status A=active or V=Void.
-            //4807.038,N   Latitude 48 deg 07.038' N
-            //01131.000,E  Longitude 11 deg 31.000' E
-            //022.4        Speed over the ground in knots
-            //084.4        Track angle in degrees True
-            //230394       Date - 23rd of March 1994
-            //003.1,W      Magnetic Variation
-            //*6A          * Checksum
-            #endregion RMC Message
-
-            if (!string.IsNullOrEmpty(words[1]) && !string.IsNullOrEmpty(words[3]) && !string.IsNullOrEmpty(words[4])
-                && !string.IsNullOrEmpty(words[5]) && !string.IsNullOrEmpty(words[6]))
-            {
-                //Convert from knots to kph for speed
-                float.TryParse(words[7], NumberStyles.Float, CultureInfo.InvariantCulture, out speed);
-                speed *= 1.852f;
-                speedData = speed;
-
-                //True heading
-                float.TryParse(words[8], NumberStyles.Float, CultureInfo.InvariantCulture, out headingTrueDual);
-                headingTrueDualData = headingTrueDual;
-
-                double.TryParse(words[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double UTC);
-                if ((UTC < LastUpdateUTC ? 240000 + UTC : UTC) - LastUpdateUTC > 0.045)
-                {
-                    LastUpdateUTC = UTC;
-
-                    //get latitude and convert to decimal degrees
-                    int decim = words[3].IndexOf(".", StringComparison.Ordinal);
-                    if (decim == -1)
-                    {
-                        words[3] += ".00";
-                        decim = words[3].IndexOf(".", StringComparison.Ordinal);
-                    }
-
-                    decim -= 2;
-                    double.TryParse(words[3].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out latitude);
-                    double.TryParse(words[3].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out double temp);
-                    latitude += temp * 0.01666666666666666666666666666667;
-
-                    if (words[4] == "S")
-                        latitude *= -1;
-                    latitudeSend = latitude;
-
-                    //get longitude and convert to decimal degrees
-                    decim = words[5].IndexOf(".", StringComparison.Ordinal);
-                    if (decim == -1)
-                    {
-                        words[5] += ".00";
-                        decim = words[5].IndexOf(".", StringComparison.Ordinal);
-                    }
-
-                    decim -= 2;
-                    double.TryParse(words[5].Substring(0, decim), NumberStyles.Float, CultureInfo.InvariantCulture, out longitude);
-                    double.TryParse(words[5].Substring(decim), NumberStyles.Float, CultureInfo.InvariantCulture, out temp);
-                    longitude += temp * 0.01666666666666666666666666666667;
-
-                    if (words[6] == "W") longitude *= -1;
-                    longitudeSend = longitude;
-
-                    isNMEAToSend = true;
-                }
+                roll = rollK;
             }
         }
 
@@ -1040,7 +965,7 @@ namespace AgIO
                     {
                         if (inx >= sentenceChars.Length) // No checksum found
                             return false;
-                        var tmp = sentenceChars[inx];
+                        char tmp = sentenceChars[inx];
                         // Indicates end of data and start of checksum
                         if (tmp == '*') break;
                         sum ^= tmp;    // Build checksum

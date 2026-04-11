@@ -1,5 +1,4 @@
 ﻿using AgLibrary.Logging;
-using AgOpenGPS.Core;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Streamers;
 using AgOpenGPS.Core.Translations;
@@ -12,9 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -26,10 +22,10 @@ namespace AgOpenGPS
         private readonly FormGPS mf = null;
 
         private bool isClosing;
-        private GMapPolygon polygon;
-        private GMapOverlay overlay = new GMapOverlay();
+        private readonly GMapPolygon polygon;
+        private readonly GMapOverlay overlay = new();
         private Point lastMouseLocation;
-        private bool isColorMap = true;
+        private readonly bool isColorMap = true;
 
         public FormMap(Form callingForm)
         {
@@ -125,12 +121,12 @@ namespace AgOpenGPS
                 overlay.Markers.Clear();
 
                 // Create marker's location point
-                var point = new PointLatLng(
+                PointLatLng point = new(
                     mf.AppModel.CurrentLatLon.Latitude,
                     mf.AppModel.CurrentLatLon.Longitude);
 
                 // Create marker instance: specify location on the map and radius
-                var marker = new GMapMarkerCircle(point, 5f);
+                GMapMarkerCircle marker = new(point, 5f);
 
                 // Add marker to the map
                 overlay.Markers.Add(marker);
@@ -150,7 +146,7 @@ namespace AgOpenGPS
             gMapControl.UpdatePolygonLocalPosition(polygon);
 
             // Create marker instance: specify location on the map, radius and label
-            var marker = new GMapMarkerCircle(pointClick, 4f, polygon.Points.Count.ToString());
+            GMapMarkerCircle marker = new(pointClick, 4f, polygon.Points.Count.ToString());
 
             // Add marker to the map
             overlay.Markers.Add(marker);
@@ -166,7 +162,7 @@ namespace AgOpenGPS
             polygon.Points.RemoveAt(polygon.Points.Count - 1);
             gMapControl.UpdatePolygonLocalPosition(polygon);
 
-            foreach (var marker in overlay.Markers.OfType<GMapMarkerCircle>())
+            foreach (GMapMarkerCircle marker in overlay.Markers.OfType<GMapMarkerCircle>())
             {
                 if (marker.Label == sNum)
                 {
@@ -180,11 +176,11 @@ namespace AgOpenGPS
         {
             if (polygon.Points.Count > 2)
             {
-                CBoundaryList New = new CBoundaryList();
-                foreach (var point in polygon.Points)
+                CBoundaryList New = new();
+                foreach (PointLatLng point in polygon.Points)
                 {
                     GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(point.Lat, point.Lng));
-                    New.fenceLine.Add(new vec3(geoCoord));
+                    New.fenceLine.Add(new Vec3(geoCoord));
                 }
 
                 New.CalculateFenceArea(mf.bnd.bndList.Count);
@@ -290,12 +286,12 @@ namespace AgOpenGPS
                 4000 < Math.Abs(geoBoundingBox.MaxEasting);
             if (!tooBig)
             {
-                Bitmap bitmap = new Bitmap(gMapControl.Width, gMapControl.Height);
+                Bitmap bitmap = new(gMapControl.Width, gMapControl.Height);
                 gMapControl.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
 
                 if (!isColorMap)
                 {
-                    bitmap = glm.MakeGrayscale3(bitmap);
+                    bitmap = Glm.MakeGrayscale3(bitmap);
                 }
                 bingMap = new BingMap(geoBoundingBox, bitmap);
             }
@@ -306,7 +302,7 @@ namespace AgOpenGPS
         {
             mf.worldGrid.BingMap = bingMap;
 
-            BingMapStreamer streamer = new BingMapStreamer();
+            BingMapStreamer streamer = new();
             streamer.TryWrite(bingMap, mf.AppCore.ActiveField.FieldDirectory);
         }
 
@@ -415,7 +411,7 @@ namespace AgOpenGPS
 
                 if (Label != null)
                 {
-                    g.DrawString(Label, _font, _labelBrush, LocalPosition.X + _radius * 0.7f, LocalPosition.Y + _radius * 0.7f);
+                    g.DrawString(Label, _font, _labelBrush, LocalPosition.X + (_radius * 0.7f), LocalPosition.Y + (_radius * 0.7f));
                 }
             }
         }

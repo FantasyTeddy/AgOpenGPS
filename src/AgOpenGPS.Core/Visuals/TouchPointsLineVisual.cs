@@ -8,15 +8,15 @@ namespace AgOpenGPS.Core.Visuals
     public static class TouchPointsLineVisual
     {
         private static readonly ColorRgba backgroundColor = Colors.Black;
-        private static readonly ColorRgba pointAColor = new ColorRgba(0.950f, 0.75f, 0.50f);
-        private static readonly ColorRgba pointBColor = new ColorRgba(0.5f, 0.5f, 0.935f);
-        private static readonly ColorRgba pointCColor = new ColorRgba(0.95f, 0.95f, 0.35f);
-        private static readonly ColorRgba lineOrange = new ColorRgba(0.90f, 0.5f, 0.25f);
+        private static readonly ColorRgba pointAColor = new(0.950f, 0.75f, 0.50f);
+        private static readonly ColorRgba pointBColor = new(0.5f, 0.5f, 0.935f);
+        private static readonly ColorRgba pointCColor = new(0.95f, 0.95f, 0.35f);
+        private static readonly ColorRgba lineOrange = new(0.90f, 0.5f, 0.25f);
 
         public static void DrawTouchPoints(GeoCoord? coordA, GeoCoord? coordB, GeoCoord? coordC = null)
         {
             // Draw backgrounds first. Looks better when points overlap.
-            List<GeoCoord> backGrounds = new List<GeoCoord>();
+            List<GeoCoord> backGrounds = new();
             if (coordA.HasValue) { backGrounds.Add(coordA.Value); }
             if (coordB.HasValue) { backGrounds.Add(coordB.Value); }
             if (coordC.HasValue) { backGrounds.Add(coordC.Value); }
@@ -52,7 +52,7 @@ namespace AgOpenGPS.Core.Visuals
             {
                 GLW.SetLineWidth(4.0f);
                 GLW.SetColor(lineOrange);
-                List<GeoCoord> orangeLineStrip = new List<GeoCoord> { coordA.Value, coordB.Value };
+                List<GeoCoord> orangeLineStrip = new() { coordA.Value, coordB.Value };
 
                 if (coordC.HasValue) orangeLineStrip.Insert(1, coordC.Value);
                 GLW.DrawLineStripPrimitive(orangeLineStrip.ToArray());

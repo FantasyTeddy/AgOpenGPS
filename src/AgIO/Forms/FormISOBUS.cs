@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace AgIO
@@ -51,7 +50,7 @@ namespace AgIO
 
                 path += @"\bin\AOG-TaskController.exe";
 
-                var arguments = $"--can_adapter={cboxRadioAdapter.SelectedItem} --can_channel={cboxRadioChannel.SelectedItem} --log_level=debug  --log2file";
+                string arguments = $"--can_adapter={cboxRadioAdapter.SelectedItem} --can_channel={cboxRadioChannel.SelectedItem} --log_level=debug  --log2file";
 
                 aogTaskControllerProcess = new Process
                 {
@@ -94,7 +93,7 @@ namespace AgIO
                     return;
 
                 aogTaskControllerProcess.CloseMainWindow();
-                var startTime = DateTime.UtcNow;
+                DateTime startTime = DateTime.UtcNow;
                 while (!aogTaskControllerProcess.HasExited)
                 {
                     if ((DateTime.UtcNow - startTime).TotalSeconds > 5)
@@ -179,13 +178,11 @@ namespace AgIO
 
             foreach (RegistryView view in new[] { RegistryView.Registry64, RegistryView.Registry32 })
             {
-                using (RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, view))
-                using (RegistryKey key = baseKey.OpenSubKey(path))
+                using RegistryKey baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, view);
+                using RegistryKey key = baseKey.OpenSubKey(path);
+                if (key != null)
                 {
-                    if (key != null)
-                    {
-                        return key.GetValue("").ToString();
-                    }
+                    return key.GetValue("").ToString();
                 }
             }
 
@@ -257,7 +254,7 @@ namespace AgIO
                     // Check if current adapter allows channel selection
                     string adapter = cboxRadioAdapter.SelectedItem.ToString();
 
-                    Dictionary<string, int> adapterChannels = new Dictionary<string, int>
+                    Dictionary<string, int> adapterChannels = new()
                     {
                         { "PEAK-PCAN", 16 },
                         { "InnoMaker-USB2CAN", 2 },

@@ -15,7 +15,7 @@ namespace AgOpenGPS.Forms.Profiles
     public partial class FormNewProfile : Form
     {
         private static readonly string EmptyProfile = $"<{gStr.gsEmptyProfile}>";
-        private static readonly Regex InvalidFileRegex = new Regex(string.Format("[{0}]", Regex.Escape(@"<>:""/\|?*")));
+        private static readonly Regex InvalidFileRegex = new(string.Format("[{0}]", Regex.Escape(@"<>:""/\|?*")));
         private readonly FormGPS _formGPS;
 
         public FormNewProfile(FormGPS formGPS)
@@ -56,14 +56,14 @@ namespace AgOpenGPS.Forms.Profiles
             if (!Directory.Exists(RegistrySettings.environmentDirectory))
                 return Enumerable.Empty<string>();
 
-            DirectoryInfo directory = new DirectoryInfo(RegistrySettings.environmentDirectory);
+            DirectoryInfo directory = new(RegistrySettings.environmentDirectory);
             FileInfo[] files = directory.GetFiles("*.xml");
             return files.Select(file => Path.GetFileNameWithoutExtension(file.Name));
         }
 
         private void textBoxName_Click(object sender, EventArgs e)
         {
-            if (!_formGPS.isJobStarted)
+            if (!_formGPS.IsJobStarted)
             {
                 if (_formGPS.isKeyboardOn)
                 {
@@ -72,7 +72,7 @@ namespace AgOpenGPS.Forms.Profiles
             }
             else
             {
-                var form = new FormTimedMessage(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
+                FormTimedMessage form = new(2000, gStr.gsFieldIsOpen, gStr.gsCloseFieldFirst);
                 form.Show(this);
                 textBoxName.Enabled = false;
             }
@@ -80,8 +80,8 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void textBoxName_TextChanged(object sender, EventArgs e)
         {
-            var cursorPosition = textBoxName.SelectionStart;
-            textBoxName.Text = Regex.Replace(textBoxName.Text, glm.fileRegex, "");
+            int cursorPosition = textBoxName.SelectionStart;
+            textBoxName.Text = Regex.Replace(textBoxName.Text, Glm.fileRegex, "");
             textBoxName.SelectionStart = cursorPosition;
 
             buttonCreate.Enabled = !string.IsNullOrEmpty(textBoxName.Text);
@@ -97,7 +97,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             if (File.Exists(newProfilePath))
             {
-                var overwrite = FormDialog.ShowQuestion(
+                DialogResult overwrite = FormDialog.ShowQuestion(
                     gStr.gsSaveAndReturn,
                     $"Profile '{newProfileName}' already exists.\r\n\r\nOverwrite?");
 
@@ -112,7 +112,7 @@ namespace AgOpenGPS.Forms.Profiles
 
             if (existingProfileName.Equals(EmptyProfile))
             {
-                var confirmReset = FormDialog.ShowQuestion(
+                DialogResult confirmReset = FormDialog.ShowQuestion(
                     "!! WARNING !!",
                     "This will reset all Environment settings (display, sounds, window positions). Are you Sure?",
                     DialogSeverity.Warning);
@@ -166,7 +166,7 @@ namespace AgOpenGPS.Forms.Profiles
             string previousEnv = RegistrySettings.environmentFileName;
             RegistrySettings.Save(RegKeys.environmentFileName, existingProfileName);
 
-            var result = Settings.Default.Load();
+            LoadResult result = Settings.Default.Load();
             if (result != LoadResult.Ok)
             {
                 Log.EventWriter($"Error loading environment profile {existingProfileName}.xml ({result})");

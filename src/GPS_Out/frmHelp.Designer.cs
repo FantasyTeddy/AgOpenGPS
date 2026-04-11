@@ -1,7 +1,7 @@
 ﻿
 namespace RateController
 {
-    partial class frmHelp
+    partial class FrmHelp
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace RateController
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHelp));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmHelp));
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AgOpenGPS
 {
@@ -13,7 +11,6 @@ namespace AgOpenGPS
         private DateTimeOffset timestamp;
 
         private bool sectionControlEnabled;
-        private int numClients;
         private bool[] actualSectionStates;
 
         private int lastGuidanceLineDeviation;
@@ -160,7 +157,7 @@ namespace AgOpenGPS
         /// <summary>
         /// Number of clients connected to the Task Controller (0-7)
         /// </summary>
-        public int NumClients => numClients;
+        public int NumClients { get; private set; }
 
         /// <summary>
         /// Number of sections reported by TC (0 = no section control capability)
@@ -191,8 +188,8 @@ namespace AgOpenGPS
         {
             // Button visible = TC is running (heartbeat received within 1 second)
             // Button image indicates implement status (idle/on/off)
-            bool isAlive = (timestamp != default &&
-                           DateTimeOffset.Now - timestamp < TimeSpan.FromSeconds(1));
+            bool isAlive = timestamp != default &&
+                           DateTimeOffset.Now - timestamp < TimeSpan.FromSeconds(1);
 
             mf.btnIsobusSectionControl.Visible = isAlive;
 
@@ -221,7 +218,7 @@ namespace AgOpenGPS
             // Detect reconnect: TC was dead (no heartbeat for >1s) and is now alive again
             bool wasAlive = timestamp != default && DateTimeOffset.Now - timestamp < TimeSpan.FromSeconds(1);
             if (!wasAlive)
-                SendFieldName(mf.isJobStarted ? mf.currentFieldDirectory : string.Empty);
+                SendFieldName(mf.IsJobStarted ? mf.CurrentFieldDirectory : string.Empty);
 
             // Extract fields from byte 0 (backward compatible):
             // Bit 0: Section control enabled (existing)
@@ -232,7 +229,7 @@ namespace AgOpenGPS
             int newNumberOfSections = data[1];
 
             // Store client count for informational purposes (backward compatible: old TCs send 0)
-            numClients = newNumClients;
+            NumClients = newNumClients;
 
             // If no sections, don't expect section states - show idle state
             // This handles: no clients, clients without sections, or old TCs that don't support section control
@@ -247,7 +244,7 @@ namespace AgOpenGPS
             }
 
             // Validate we have enough data for section states
-            if (data.Length != 2 + (newNumberOfSections + 7) / 8)
+            if (data.Length != 2 + ((newNumberOfSections + 7) / 8))
             {
                 // Make sure we have enough data to read all the section states
                 return false;

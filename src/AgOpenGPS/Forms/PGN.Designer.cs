@@ -1,36 +1,7 @@
-﻿using System;
-
-namespace AgOpenGPS
+﻿namespace AgOpenGPS
 {
     public partial class FormGPS
     {
-        //Latitude
-        public class CPGN_D0
-        {
-            /// <summary>
-            ///  Latitude Longitude 8 bytes as modified float
-            ///  double lat = (encodedAngle / (0x7FFFFFFF / 90.0));
-            ///  double lon = (encodedAngle / (0x7FFFFFFF / 180.0));
-            /// </summary>
-            public byte[] latLong = new byte[] { 0x80, 0x81, 0x7F, 0xD0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0xCC };
-
-
-            public void LoadLatitudeLongitude(double lat, double lon)
-            {
-                int encodedAngle = (int)(lat * (0x7FFFFFFF / 90.0));
-                //double angle = (encodedAngle / (0x7FFFFFFF / 90.0));
-
-                byte[] lat6 = BitConverter.GetBytes(encodedAngle);
-                Array.Copy(lat6, 0, latLong, 5, 4);
-
-                encodedAngle = (int)(lon * (0x7FFFFFFF / 180.0));
-                //double angle = (encodedAngle / (0x7FFFFFFF / 180.0));
-
-                lat6 = BitConverter.GetBytes(encodedAngle);
-                Array.Copy(lat6, 0, latLong, 9, 4);
-            }
-        }
-
         //AutoSteerData
         public class CPGN_FE
         {
@@ -98,7 +69,7 @@ namespace AgOpenGPS
                 pgn[minPWM] = Properties.VehicleSettings.Default.setAS_minSteerPWM;
                 pgn[countsPerDegree] = Properties.VehicleSettings.Default.setAS_countsPerDegree;
                 pgn[wasOffsetHi] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset >> 8));
-                pgn[wasOffsetLo] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset));
+                pgn[wasOffsetLo] = unchecked((byte)Properties.VehicleSettings.Default.setAS_wasOffset);
                 pgn[ackerman] = Properties.VehicleSettings.Default.setAS_ackerman;
             }
 
@@ -208,7 +179,7 @@ namespace AgOpenGPS
             public int user4 = 12;
 
             // PGN  - 127.239 0x7FEF
-            int crc = 0;
+            private int crc = 0;
 
             public CPGN_EE()
             {
@@ -230,7 +201,7 @@ namespace AgOpenGPS
                 {
                     crc += pgn[i];
                 }
-                pgn[pgn.Length - 1] = (byte)crc;
+                pgn[^1] = (byte)crc;
             }
 
             public void Reset()
@@ -279,7 +250,7 @@ namespace AgOpenGPS
             public int pin23 = 28;
 
             // PGN  - 127.237 0x7FED
-            int crc = 0;
+            private int crc = 0;
 
             public CPGN_EC()
             {
@@ -323,7 +294,7 @@ namespace AgOpenGPS
                 {
                     crc += pgn[i];
                 }
-                pgn[pgn.Length - 1] = (byte)crc;
+                pgn[^1] = (byte)crc;
             }
 
             public void Reset()
@@ -448,52 +419,46 @@ namespace AgOpenGPS
         /// <summary>
         /// autoSteerData - FE - 254 - 
         /// </summary>
-        public CPGN_FE p_254 = new CPGN_FE();
+        public CPGN_FE p_254 = new();
 
         /// <summary>
         /// autoSteerSettings PGN - 252 - FC
         /// </summary>
-        public CPGN_FC p_252 = new CPGN_FC();
+        public CPGN_FC p_252 = new();
 
         /// <summary>
         /// autoSteerConfig PGN - 251 - FB
         /// </summary>
-        public CPGN_FB p_251 = new CPGN_FB();
+        public CPGN_FB p_251 = new();
 
         /// <summary>
         /// machineData PGN - 239 - EF
         /// </summary>
-        public CPGN_EF p_239 = new CPGN_EF();
+        public CPGN_EF p_239 = new();
 
         /// <summary>
         /// machineConfig PGN - 238 - EE
         /// </summary>
-        public CPGN_EE p_238 = new CPGN_EE();
+        public CPGN_EE p_238 = new();
 
         /// <summary>
         /// relayConfig PGN - 236 - EC
         /// </summary>
-        public CPGN_EC p_236 = new CPGN_EC();
+        public CPGN_EC p_236 = new();
 
         /// <summary>
         /// Section dimensions PGN - 235 - EB
         /// </summary>
-        public CPGN_EB p_235 = new CPGN_EB();
+        public CPGN_EB p_235 = new();
 
         /// <summary>
         /// Section dimensions PGN - 228 - E4
         /// </summary>
-        public CPGN_E4 p_228 = new CPGN_E4();
+        public CPGN_E4 p_228 = new();
 
         /// <summary>
         /// Section Symmetric PGN - 229 - EB
         /// </summary>
-        public CPGN_E5 p_229 = new CPGN_E5();
-
-        /// <summary>
-        /// LatitudeLongitude - D0 - 
-        /// </summary>
-        //public CPGN_D0 p_208 = new CPGN_D0();
-
+        public CPGN_E5 p_229 = new();
     }
 }

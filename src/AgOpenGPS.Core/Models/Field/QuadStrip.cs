@@ -2,8 +2,8 @@
 {
     public class QuadStrip
     {
-        private readonly GeoPath _leftCoords = new GeoPath();
-        private readonly GeoPath _rightCoords = new GeoPath();
+        private readonly GeoPath _leftCoords = new();
+        private readonly GeoPath _rightCoords = new();
 
         private QuadStrip() { }
 
@@ -16,7 +16,7 @@
 
         public GeoArea AddQuad(GeoCoord left, GeoCoord right)
         {
-            GeoArea quadArea = new GeoArea();
+            GeoArea quadArea = new();
             BoundingBox.Include(left);
             BoundingBox.Include(right);
             if (0 < _leftCoords.Count)

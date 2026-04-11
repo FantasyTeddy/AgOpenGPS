@@ -6,12 +6,7 @@ namespace AgOpenGPS.Properties
 {
     public sealed class ToolSettings
     {
-        private static ToolSettings settings_ = new ToolSettings();
-
-        public static ToolSettings Default
-        {
-            get { return settings_; }
-        }
+        public static ToolSettings Default { get; private set; } = new ToolSettings();
 
         // Tool dimensions
         public double setVehicle_toolWidth = 4.0;
@@ -121,7 +116,7 @@ namespace AgOpenGPS.Properties
         public LoadResult Load(string toolFileName)
         {
             string path = Path.Combine(RegistrySettings.toolsDirectory, toolFileName + ".xml");
-            var result = XmlSettingsHandler.LoadXMLFile(path, this);
+            LoadResult result = XmlSettingsHandler.LoadXMLFile(path, this);
             if (result == LoadResult.MissingFile)
             {
                 // Try loading from old format and migrate
@@ -165,7 +160,7 @@ namespace AgOpenGPS.Properties
 
         public void Reset()
         {
-            settings_ = new ToolSettings();
+            Default = new ToolSettings();
         }
     }
 }

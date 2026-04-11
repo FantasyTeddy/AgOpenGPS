@@ -8,7 +8,7 @@ namespace AgOpenGPS.Controls
     public static class DraggableControlExtension
     {
         // TKey is control to drag, TValue is a flag used while dragging
-        private static readonly Dictionary<Control, bool> _draggables = new Dictionary<Control, bool>();
+        private static readonly Dictionary<Control, bool> _draggables = new();
         private static Size _mouseOffset;
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace AgOpenGPS.Controls
         private static void control_MouseMove(object sender, MouseEventArgs e)
         {
             // only if dragging is turned on
-            if (_draggables[(Control)sender] == true)
+            if (_draggables[(Control)sender])
             {
                 // calculations of control's new position
                 Point newLocationOffset = e.Location - _mouseOffset;

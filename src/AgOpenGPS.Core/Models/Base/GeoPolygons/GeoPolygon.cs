@@ -25,10 +25,7 @@ namespace AgOpenGPS.Core.Models
 
         public override int Count => _coords.Count;
 
-        public override GeoCoord this[int index]
-        {
-            get { return _coords[index]; }
-        }
+        public override GeoCoord this[int index] => _coords[index];
 
         public GeoCoord Last => this[Count - 1];
 
@@ -89,13 +86,13 @@ namespace AgOpenGPS.Core.Models
             bool result = false;
             for (int i = 0; i < Count; i++)
             {
-                var iCoord = this[i];
-                var jCoord = i == 0 ? Last : this[i - 1];
+                GeoCoord iCoord = this[i];
+                GeoCoord jCoord = i == 0 ? Last : this[i - 1];
                 if ((iCoord.Easting < testPoint.Easting && jCoord.Easting >= testPoint.Easting)
                     || (jCoord.Easting < testPoint.Easting && iCoord.Easting >= testPoint.Easting))
                 {
-                    if (iCoord.Northing + (testPoint.Easting - iCoord.Easting)
-                        / (jCoord.Easting - iCoord.Easting) * (jCoord.Northing - iCoord.Northing)
+                    if (iCoord.Northing + ((testPoint.Easting - iCoord.Easting)
+                        / (jCoord.Easting - iCoord.Easting) * (jCoord.Northing - iCoord.Northing))
                         < testPoint.Northing)
                     {
                         result = !result;

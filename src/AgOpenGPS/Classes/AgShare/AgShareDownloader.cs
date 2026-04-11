@@ -27,7 +27,7 @@ namespace AgOpenGPS
         {
             try
             {
-                var result = await _client.DownloadFieldAsync(fieldId);
+                AgShareResult<GetFieldDto> result = await _client.DownloadFieldAsync(fieldId);
 
                 if (!result.IsSuccessful)
                 {
@@ -36,7 +36,7 @@ namespace AgOpenGPS
                 }
 
                 // Parse DTO - validation is now done inside Parse method
-                var model = AgShareFieldParser.Parse(result.Data);
+                ParsedField model = AgShareFieldParser.Parse(result.Data);
 
                 string fieldDir = Path.Combine(RegistrySettings.fieldsDirectory, model.Name);
                 FieldFileWriter.WriteAllFiles(model, fieldDir);
@@ -53,7 +53,7 @@ namespace AgOpenGPS
         // Retrieves a list of user-owned fields
         public async Task<List<GetOwnFieldDto>> GetOwnFieldsAsync()
         {
-            var result = await _client.GetOwnFieldsAsync();
+            AgShareResult<List<GetOwnFieldDto>> result = await _client.GetOwnFieldsAsync();
 
             if (!result.IsSuccessful)
             {
@@ -69,7 +69,7 @@ namespace AgOpenGPS
         {
             try
             {
-                var result = await _client.DownloadFieldAsync(fieldId);
+                AgShareResult<GetFieldDto> result = await _client.DownloadFieldAsync(fieldId);
 
                 if (!result.IsSuccessful)
                 {
@@ -93,7 +93,7 @@ namespace AgOpenGPS
             bool forceOverwrite = false,
             IProgress<int> progress = null)
         {
-            var fields = await GetOwnFieldsAsync();
+            List<GetOwnFieldDto> fields = await GetOwnFieldsAsync();
 
             if (fields == null || fields.Count == 0)
             {
@@ -103,7 +103,7 @@ namespace AgOpenGPS
 
             int skipped = 0, downloaded = 0, failed = 0;
 
-            foreach (var field in fields)
+            foreach (GetOwnFieldDto field in fields)
             {
                 try
                 {
@@ -123,7 +123,7 @@ namespace AgOpenGPS
                     {
                         try
                         {
-                            var id = File.ReadAllText(agsharePath).Trim();
+                            string id = File.ReadAllText(agsharePath).Trim();
                             alreadyExists = Guid.TryParse(id, out Guid guid) && guid == field.Id;
                         }
                         catch { }
@@ -136,10 +136,10 @@ namespace AgOpenGPS
                     }
                     else
                     {
-                        var preview = await DownloadFieldPreviewAsync(field.Id);
+                        GetFieldDto preview = await DownloadFieldPreviewAsync(field.Id);
                         if (preview != null)
                         {
-                            var model = AgShareFieldParser.Parse(preview);
+                            ParsedField model = AgShareFieldParser.Parse(preview);
 
                             // Extra validation before writing
                             if (model != null && !string.IsNullOrWhiteSpace(model.Name))

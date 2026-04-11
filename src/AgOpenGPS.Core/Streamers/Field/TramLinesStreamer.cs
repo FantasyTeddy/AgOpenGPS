@@ -37,8 +37,8 @@ namespace AgOpenGPS.Core.Streamers
             {
                 return null;
             }
-            TramLines tramLines = new TramLines();
-            using (GeoStreamReader reader = new GeoStreamReader(fileInfo))
+            TramLines tramLines = new();
+            using (GeoStreamReader reader = new(fileInfo))
             {
                 reader.ReadLine(); // skip header: $Tram
                 if (reader.Peek() != -1)
@@ -63,21 +63,19 @@ namespace AgOpenGPS.Core.Streamers
         public void Write(TramLines tramLines, DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory)))
+            using GeoStreamWriter writer = new(GetFileInfo(fieldDirectory));
+            writer.WriteLine("$Tram");
+            if (null != tramLines)
             {
-                writer.WriteLine("$Tram");
-                if (null != tramLines)
-                {
-                    writer.WriteGeoPolygon(tramLines.OuterTrack);
-                    writer.WriteGeoPolygon(tramLines.InnerTrack);
+                writer.WriteGeoPolygon(tramLines.OuterTrack);
+                writer.WriteGeoPolygon(tramLines.InnerTrack);
 
-                    if (0 < tramLines.TramList.Count)
+                if (0 < tramLines.TramList.Count)
+                {
+                    writer.WriteInt(tramLines.TramList.Count);
+                    foreach (GeoPath tramLine in tramLines.TramList)
                     {
-                        writer.WriteInt(tramLines.TramList.Count);
-                        foreach (var tramLine in tramLines.TramList)
-                        {
-                            writer.WriteGeoPath(tramLine);
-                        }
+                        writer.WriteGeoPath(tramLine);
                     }
                 }
             }

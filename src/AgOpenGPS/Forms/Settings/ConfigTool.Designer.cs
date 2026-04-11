@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using AgLibrary.Logging;
 using AgOpenGPS.Controls;
 using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;
-using AgOpenGPS.Properties;
 
 namespace AgOpenGPS
 {
     public partial class FormConfig
     {
-        private decimal[] sectionWidthArr = new decimal[16];
-        private decimal[] sectionPositionArr = new decimal[17];
+        private readonly decimal[] sectionWidthArr = new decimal[16];
+        private readonly decimal[] sectionPositionArr = new decimal[17];
 
         private double defaultSectionWidth;
 
@@ -523,23 +514,23 @@ namespace AgOpenGPS
 
         private void tabTSections_Enter(object sender, EventArgs e)
         {
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
-                if (mf.autoBtnState == btnStates.Auto)
+                if (mf.autoBtnState == BtnStates.Auto)
                     mf.btnSectionMasterAuto.PerformClick();
 
-                if (mf.manualBtnState == btnStates.On)
+                if (mf.manualBtnState == BtnStates.On)
                     mf.btnSectionMasterManual.PerformClick();
             }
 
             if (mf.tool.isSectionsNotZones)
             {
                 //fix ManualOffOnAuto buttons
-                mf.manualBtnState = btnStates.Off;
+                mf.manualBtnState = BtnStates.Off;
                 mf.btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
                 //fix auto button
-                mf.autoBtnState = btnStates.Off;
+                mf.autoBtnState = BtnStates.Off;
                 mf.btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
                 //Update the button colors and text
@@ -553,7 +544,7 @@ namespace AgOpenGPS
             else
             {
                 //turn section buttons all OFF
-                mf.AllZonesAndButtonsToState(btnStates.Off);
+                mf.AllZonesAndButtonsToState(BtnStates.Off);
 
                 mf.LineUpAllZoneButtons();
 
@@ -572,7 +563,7 @@ namespace AgOpenGPS
                 cboxSectionBoundaryControl.BackgroundImage = Properties.Resources.SectionOnBoundary;
             }
 
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 nudCutoffSpeed.Minimum = 0;
                 nudCutoffSpeed.Maximum = 30;
@@ -601,11 +592,11 @@ namespace AgOpenGPS
             nudNumberOfSections.Maximum = FormGPS.MAXSECTIONS;
 
             //fix ManualOffOnAuto buttons
-            mf.manualBtnState = btnStates.Off;
+            mf.manualBtnState = BtnStates.Off;
             mf.btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
             //fix auto button
-            mf.autoBtnState = btnStates.Off;
+            mf.autoBtnState = BtnStates.Off;
             mf.btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
             nudMinCoverage.Value = (decimal)Properties.ToolSettings.Default.setVehicle_minCoverage;
@@ -613,7 +604,7 @@ namespace AgOpenGPS
             if (mf.tool.isSectionsNotZones)
             {
                 //Update the button colors and text
-                mf.AllSectionsAndButtonsToState(btnStates.Off);
+                mf.AllSectionsAndButtonsToState(BtnStates.Off);
 
                 //enable disable manual buttons
                 mf.LineUpIndividualSectionBtns();
@@ -652,7 +643,7 @@ namespace AgOpenGPS
             else
             {
                 //turn section buttons all OFF
-                mf.AllZonesAndButtonsToState(btnStates.Off);
+                mf.AllZonesAndButtonsToState(BtnStates.Off);
 
                 cboxNumSections.Visible = false;
 
@@ -663,7 +654,7 @@ namespace AgOpenGPS
                 nudNumberOfSections.Value = numberOfSections;
 
                 defaultSectionWidth = Properties.ToolSettings.Default.setTool_sectionWidthMulti;
-                nudDefaultSectionWidth.Value = (decimal)(Math.Round((defaultSectionWidth * mf.m2InchOrCm), 1));
+                nudDefaultSectionWidth.Value = (decimal)Math.Round(defaultSectionWidth * mf.m2InchOrCm, 1);
 
                 SetNudZoneMinMax();
 
@@ -815,9 +806,7 @@ namespace AgOpenGPS
                     mf.tool.zoneRanges[7] = (int)nudZone7To.Value;
                     mf.tool.zoneRanges[8] = (int)nudZone8To.Value;
                 }
-
-                String str = "";
-                str = String.Join(",", mf.tool.zoneRanges);
+                string str = String.Join(",", mf.tool.zoneRanges);
                 Properties.ToolSettings.Default.setTool_zones = str;
 
                 mf.LineUpAllZoneButtons();
@@ -1135,7 +1124,7 @@ namespace AgOpenGPS
                 Properties.ToolSettings.Default.Save();
 
                 lblVehicleToolWidth.Text = Convert.ToString((int)(numberOfSections * defaultSectionWidth * 100 * mf.cm2CmOrIn));
-                SectionFeetInchesTotalWidthLabelUpdate(mf.isMetric, mf.tool.width);
+                SectionFeetInchesTotalWidthLabelUpdate(mf.IsMetric, mf.tool.width);
                 FillZoneNudsWithDefaultValues();
                 SetNudZoneVisibility();
             }
@@ -1167,7 +1156,7 @@ namespace AgOpenGPS
 
                 decimal wide = nudDefaultSectionWidth.Value;
 
-                if (mf.isMetric)
+                if (mf.IsMetric)
                 {
                     if (numberOfSections * wide > 5000)
                     {
@@ -1230,7 +1219,7 @@ namespace AgOpenGPS
             if (((NudlessNumericUpDown)sender).ShowKeypad(this))
             {
                 // Convert from MPH to km/h if imperial units are selected
-                double speedKmh = mf.isMetric ? (double)nudCutoffSpeed.Value : Speed.MphToKmh((double)nudCutoffSpeed.Value);
+                double speedKmh = mf.IsMetric ? (double)nudCutoffSpeed.Value : Speed.MphToKmh((double)nudCutoffSpeed.Value);
                 mf.vehicle.slowSpeedCutoff = speedKmh;
                 Properties.ToolSettings.Default.setVehicle_slowSpeedCutoff = speedKmh;
             }
@@ -1247,16 +1236,15 @@ namespace AgOpenGPS
 
         public void UpdateSpinners()
         {
-            int i = (int)numberOfSections;
+            int i = numberOfSections;
 
             decimal toolWidth = 0;
 
-            foreach (var item in tab1.TabPages[9].Controls)
+            foreach (object item in tab1.TabPages[9].Controls)
             {
-                if (item is NudlessNumericUpDown)
+                if (item is NudlessNumericUpDown item2)
                 {
-                    var item2 = (NudlessNumericUpDown)item;
-                    if (item2.Name.Substring(0, 6) == "nudSec")
+                    if (item2.Name[..6] == "nudSec")
                     {
                         //grab the number from nudSection01
                         string bob = item2.Name.Substring(10, 2);
@@ -1267,7 +1255,7 @@ namespace AgOpenGPS
                             item2.Visible = true;
                             toolWidth += item2.Value;
 
-                            if (mf.isMetric)
+                            if (mf.IsMetric)
                             {
                                 if (toolWidth > 5000)
                                 {
@@ -1330,7 +1318,7 @@ namespace AgOpenGPS
 
             lblVehicleToolWidth.Text = Convert.ToString((int)toolWidth);
 
-            SectionFeetInchesTotalWidthLabelUpdate(mf.isMetric, mf.tool.width);
+            SectionFeetInchesTotalWidthLabelUpdate(mf.IsMetric, mf.tool.width);
         }
 
         //update tool width label at bottom of window

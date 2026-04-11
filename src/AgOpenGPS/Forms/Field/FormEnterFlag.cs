@@ -78,10 +78,10 @@ namespace AgOpenGPS
 
             GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84((double)nudLatitude.Value, (double)nudLongitude.Value));
             int nextflag = mf.flagPts.Count + 1;
-            CFlag flagPt = new CFlag(
+            CFlag flagPt = new(
                 (double)nudLatitude.Value, (double)nudLongitude.Value,
                 geoCoord.Easting, geoCoord.Northing,
-                0, flagColor, nextflag, (nextflag).ToString());
+                0, flagColor, nextflag, nextflag.ToString());
             mf.flagPts.Add(flagPt);
             mf.flagPts = FlagsFiles.DeduplicateFlags(mf.flagPts);
             mf.FileSaveFlags();
@@ -106,7 +106,7 @@ namespace AgOpenGPS
         // load flags from a text file with latitude,longitude,color, notes
         private void btnImportFlags_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog
+            OpenFileDialog fileDialog = new()
             {
                 Filter = "Text Document | *.txt| CSV Document | *.csv",
                 Title = "Please select points file",
@@ -132,7 +132,7 @@ namespace AgOpenGPS
                             string flagName = (!string.IsNullOrWhiteSpace(parts[3])) ? parts[3].Trim() : $"{mf.flagPts.Count + 1}";
                             GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(latitude, longitude));
                             int nextflag = mf.flagPts.Count + 1;
-                            CFlag flagPt = new CFlag(
+                            CFlag flagPt = new(
                                 latitude, longitude,
                                 geoCoord.Easting, geoCoord.Northing,
                                 0, flagColor, nextflag, flagName);
@@ -161,38 +161,37 @@ namespace AgOpenGPS
         // Export flags to a CSV file, with latitude, longitude, color, notes
         private void btnExportFlags_Click(object sender, EventArgs e)
         {
-            SaveFileDialog fileDialog = new SaveFileDialog();
-
-            fileDialog.DefaultExt = "txt";
-            fileDialog.Filter = "Text Document | *.txt| CSV Document | *.csv| All files| *.*";
-            fileDialog.Title = "Export flags information";
-            fileDialog.CheckFileExists = false;
-            fileDialog.RestoreDirectory = true;
+            SaveFileDialog fileDialog = new()
+            {
+                DefaultExt = "txt",
+                Filter = "Text Document | *.txt| CSV Document | *.csv| All files| *.*",
+                Title = "Export flags information",
+                CheckFileExists = false,
+                RestoreDirectory = true
+            };
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                using (StreamWriter writer = new StreamWriter(fileDialog.FileName))
+                using StreamWriter writer = new(fileDialog.FileName);
+                try
                 {
-                    try
-                    {
-                        writer.WriteLine("Latitude,Longitude,Color,Notes");
+                    writer.WriteLine("Latitude,Longitude,Color,Notes");
 
-                        foreach (CFlag flag in mf.flagPts)
-                        {
-                            writer.WriteLine(
-                                flag.latitude.ToString(CultureInfo.InvariantCulture) + "," +
-                                flag.longitude.ToString(CultureInfo.InvariantCulture) + "," +
-                                flag.color.ToString(CultureInfo.InvariantCulture) + "," +
-                                flag.notes);
-                        }
-                        FormDialog.Show("Success", "Flags successfully saved!", DialogSeverity.Info);
-                    }
-                    catch (Exception ex)
+                    foreach (CFlag flag in mf.flagPts)
                     {
-                        FormDialog.Show("Error", ex.Message + "\nCannot write to file.", DialogSeverity.Error);
-                        Log.EventWriter("Saving Flags by lat lon" + ex.ToString());
-                        return;
+                        writer.WriteLine(
+                            flag.latitude.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.longitude.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.color.ToString(CultureInfo.InvariantCulture) + "," +
+                            flag.notes);
                     }
+                    FormDialog.Show("Success", "Flags successfully saved!", DialogSeverity.Info);
+                }
+                catch (Exception ex)
+                {
+                    FormDialog.Show("Error", ex.Message + "\nCannot write to file.", DialogSeverity.Error);
+                    Log.EventWriter("Saving Flags by lat lon" + ex.ToString());
+                    return;
                 }
             }
         }

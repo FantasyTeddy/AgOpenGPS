@@ -12,9 +12,6 @@ namespace AgOpenGPS.Forms.Config
     public partial class ConfigVehicleControl : UserControl
     {
         private VehicleConfig _vehicleConfig;
-        private TractorBrand _tractorBrand;
-        private HarvesterBrand _harvesterBrand;
-        private ArticulatedBrand _articulatedBrand;
         private Image _original = null;
 
         public ConfigVehicleControl()
@@ -28,34 +25,34 @@ namespace AgOpenGPS.Forms.Config
 
         public TractorBrand TractorBrand
         {
-            get => _tractorBrand;
+            get;
             private set
             {
-                _tractorBrand = value;
+                field = value;
 
-                pboxAlpha.BackgroundImage = TractorBitmaps.GetBitmap(_tractorBrand);
+                pboxAlpha.BackgroundImage = TractorBitmaps.GetBitmap(field);
             }
         }
 
         public HarvesterBrand HarvesterBrand
         {
-            get => _harvesterBrand;
+            get;
             private set
             {
-                _harvesterBrand = value;
+                field = value;
 
-                pboxAlpha.BackgroundImage = HarvesterBitmaps.GetBitmap(_harvesterBrand);
+                pboxAlpha.BackgroundImage = HarvesterBitmaps.GetBitmap(field);
             }
         }
 
         public ArticulatedBrand ArticulatedBrand
         {
-            get => _articulatedBrand;
+            get;
             private set
             {
-                _articulatedBrand = value;
+                field = value;
 
-                pboxAlpha.BackgroundImage = ArticulatedBitmaps.GetFrontBitmap(_articulatedBrand);
+                pboxAlpha.BackgroundImage = ArticulatedBitmaps.GetFrontBitmap(field);
             }
         }
 
@@ -74,6 +71,8 @@ namespace AgOpenGPS.Forms.Config
                 case VehicleType.Articulated:
                     rbtnArticulated.Checked = true;
                     break;
+                default:
+                    throw new InvalidOperationException($"Invalid vehicle type {_vehicleConfig.Type}");
             }
 
             UpdateImage();
@@ -95,6 +94,8 @@ namespace AgOpenGPS.Forms.Config
                     Properties.VehicleSettings.Default.setVehicle_vehicleType = 2;
                     Properties.VehicleSettings.Default.setBrand_WDBrand = ArticulatedBrand;
                     break;
+                default:
+                    throw new InvalidOperationException($"Invalid vehicle type {_vehicleConfig.Type}");
             }
 
             Settings.Default.setDisplay_isVehicleImage = _vehicleConfig.IsImage;
@@ -215,8 +216,7 @@ namespace AgOpenGPS.Forms.Config
 
         private void UpdateOpacity()
         {
-            if (_original == null)
-                _original = (Bitmap)pboxAlpha.BackgroundImage.Clone();
+            _original ??= (Bitmap)pboxAlpha.BackgroundImage.Clone();
 
             pboxAlpha.BackColor = Color.Transparent;
             pboxAlpha.BackgroundImage = SetAlpha((Bitmap)_original, (byte)(255 * _vehicleConfig.Opacity));
@@ -311,9 +311,9 @@ namespace AgOpenGPS.Forms.Config
 
         private static Bitmap SetAlpha(Bitmap bmpIn, int alpha)
         {
-            Bitmap bmpOut = new Bitmap(bmpIn.Width, bmpIn.Height);
+            Bitmap bmpOut = new(bmpIn.Width, bmpIn.Height);
             float a = alpha / 255f;
-            Rectangle r = new Rectangle(0, 0, bmpIn.Width, bmpIn.Height);
+            Rectangle r = new(0, 0, bmpIn.Width, bmpIn.Height);
 
             float[][] matrixItems = {
                             new float[] {1, 0, 0, 0, 0},
@@ -322,9 +322,9 @@ namespace AgOpenGPS.Forms.Config
                             new float[] {0, 0, 0, a, 0},
                             new float[] {0, 0, 0, 0, 1}};
 
-            ColorMatrix colorMatrix = new ColorMatrix(matrixItems);
+            ColorMatrix colorMatrix = new(matrixItems);
 
-            ImageAttributes imageAtt = new ImageAttributes();
+            ImageAttributes imageAtt = new();
             imageAtt.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
             using (Graphics g = Graphics.FromImage(bmpOut))

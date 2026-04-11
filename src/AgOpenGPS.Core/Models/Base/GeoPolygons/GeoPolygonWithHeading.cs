@@ -1,6 +1,4 @@
-﻿using AgOpenGPS.Core.Models;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AgOpenGPS.Core.Models
 {
@@ -18,10 +16,7 @@ namespace AgOpenGPS.Core.Models
         public int Count => _polygon.Count;
         public double Area => _polygon.Area;
 
-        public GeoCoord this[int index]
-        {
-            get { return _polygon[index]; }
-        }
+        public GeoCoord this[int index] => _polygon[index];
 
         public void Add(GeoCoord geoCoord, GeoDir heading)
         {

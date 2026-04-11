@@ -5,7 +5,6 @@ using AgOpenGPS.Core.Models;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;
 using AgOpenGPS.Helpers;
-using AgOpenGPS.Protocols.ISOBUS;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -44,7 +43,7 @@ namespace AgOpenGPS
             labelField.Text = gStr.gsBasedOnField + ":";
             tree.Nodes?.Clear();
 
-            OpenFileDialog ofd = new OpenFileDialog
+            OpenFileDialog ofd = new()
             {
                 Filter = "XML files (*.XML)|*.XML",
                 InitialDirectory = RegistrySettings.fieldsDirectory
@@ -88,7 +87,7 @@ namespace AgOpenGPS
                     string fieldLabel = $"{fieldName} Area: {areaHa:0.00} Ha";
 
                     // 4) Add to tree
-                    TreeNode fieldNode = new TreeNode(fieldLabel) { Tag = index++ };
+                    TreeNode fieldNode = new(fieldLabel) { Tag = index++ };
                     tree.Nodes.Add(fieldNode);
 
                     XmlNodeList fieldParts = nodePFD.ChildNodes;
@@ -231,7 +230,7 @@ namespace AgOpenGPS
                 idxFieldSelected = (int)tree.SelectedNode.Parent.Tag;
             }
 
-            bool enabled = (idxFieldSelected >= 0);
+            bool enabled = idxFieldSelected >= 0;
 
             if (enabled)
             {
@@ -249,18 +248,18 @@ namespace AgOpenGPS
 
         private void btnBuildFields_Click(object sender, EventArgs e)
         {
-            mf.currentFieldDirectory = tboxFieldName.Text.Trim();
-            string directoryPath = Path.Combine(RegistrySettings.fieldsDirectory, mf.currentFieldDirectory);
+            mf.CurrentFieldDirectory = tboxFieldName.Text.Trim();
+            string directoryPath = Path.Combine(RegistrySettings.fieldsDirectory, mf.CurrentFieldDirectory);
 
             if (Directory.Exists(directoryPath))
             {
                 FormDialog.Show(gStr.gsDirectoryExists, gStr.gsChooseADifferentName, DialogSeverity.Error);
-                mf.currentFieldDirectory = "";
+                mf.CurrentFieldDirectory = "";
                 return;
             }
 
-            var fieldParts = pfd[idxFieldSelected].ChildNodes;
-            var importer = new IsoXmlFieldImporter(fieldParts, mf.AppModel);
+            XmlNodeList fieldParts = pfd[idxFieldSelected].ChildNodes;
+            IsoXmlFieldImporter importer = new(fieldParts, mf.AppModel);
 
             if (!importer.TryGetOrigin(out _origin))
             {
@@ -272,7 +271,7 @@ namespace AgOpenGPS
             mf.pn.DefineLocalPlane(_origin, true);
 
             List<CBoundaryList> boundaries = importer.GetBoundaries();
-            foreach (var bnd in boundaries)
+            foreach (CBoundaryList bnd in boundaries)
             {
                 mf.bnd.bndList.Add(bnd);
                 int idx = mf.bnd.bndList.Count - 1;
@@ -280,7 +279,7 @@ namespace AgOpenGPS
                 bnd.FixFenceLine(idx);
             }
 
-            List<vec3> headland = importer.GetHeadland();
+            List<Vec3> headland = importer.GetHeadland();
             if (headland.Count > 0 && mf.bnd.bndList.Count > 0 && mf.bnd.bndList[0].hdLine.Count == 0)
             {
                 mf.bnd.bndList[0].hdLine.AddRange(headland);
@@ -309,7 +308,7 @@ namespace AgOpenGPS
         {
             TextBox textBoxSender = (TextBox)sender;
             int cursorPosition = textBoxSender.SelectionStart;
-            textBoxSender.Text = Regex.Replace(textBoxSender.Text, glm.fileRegex, "");
+            textBoxSender.Text = Regex.Replace(textBoxSender.Text, Glm.fileRegex, "");
             textBoxSender.SelectionStart = cursorPosition;
         }
 
@@ -344,7 +343,7 @@ namespace AgOpenGPS
 
             if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
-            using (StreamWriter writer = new StreamWriter(fieldFile))
+            using (StreamWriter writer = new(fieldFile))
             {
                 writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
                 writer.WriteLine("$FieldDir");
@@ -385,18 +384,17 @@ namespace AgOpenGPS
                 XmlNode lsg = nodePln.SelectSingleNode("LSG[@A='1']");
                 if (lsg == null) continue;
 
-                var pts = lsg.SelectNodes("PNT");
+                XmlNodeList pts = lsg.SelectNodes("PNT");
                 if (pts.Count < 3) continue;
 
-                var vecs = new vec2[pts.Count];
+                Vec2[] vecs = new Vec2[pts.Count];
                 for (int i = 0; i < pts.Count; i++)
                 {
-                    double lat, lon;
-                    if (!double.TryParse(pts[i].Attributes["C"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lat)) continue;
-                    if (!double.TryParse(pts[i].Attributes["D"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out lon)) continue;
+                    if (!double.TryParse(pts[i].Attributes["C"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double lat)) continue;
+                    if (!double.TryParse(pts[i].Attributes["D"]?.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out double lon)) continue;
 
                     GeoCoord geo = appModel.LocalPlane.ConvertWgs84ToGeoCoord(new Wgs84(lat, lon));
-                    vecs[i] = new vec2(geo.Easting, geo.Northing);
+                    vecs[i] = new Vec2(geo.Easting, geo.Northing);
                 }
 
                 // Shoelace formula to compute area (in m²)

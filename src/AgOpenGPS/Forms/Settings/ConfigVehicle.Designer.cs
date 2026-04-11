@@ -1,17 +1,7 @@
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using AgLibrary.Settings;
-using AgLibrary.Logging;
 using AgOpenGPS.Controls;
 using AgOpenGPS.Core.Models;
-using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Properties;
-using AgOpenGPS.ResourcesBrands;
-using OpenTK.Graphics.OpenGL;
 
 namespace AgOpenGPS
 {
@@ -56,7 +46,7 @@ namespace AgOpenGPS
             Properties.Settings.Default.setDisplay_isLogElevation = mf.isLogElevation;
 
             Properties.Settings.Default.setMenu_isMetric = rbtnDisplayMetric.Checked;
-            mf.isMetric = rbtnDisplayMetric.Checked;
+            mf.IsMetric = rbtnDisplayMetric.Checked;
 
             Properties.ToolSettings.Default.setTool_isDirectionMarkers = mf.isDirectionMarkers;
 
@@ -77,7 +67,7 @@ namespace AgOpenGPS
         {
             nudAntennaHeight.Value = (int)(Properties.VehicleSettings.Default.setVehicle_antennaHeight * mf.m2InchOrCm);
 
-            nudAntennaPivot.Value = (int)((Properties.VehicleSettings.Default.setVehicle_antennaPivot) * mf.m2InchOrCm);
+            nudAntennaPivot.Value = (int)(Properties.VehicleSettings.Default.setVehicle_antennaPivot * mf.m2InchOrCm);
 
             //negative is to the right
             nudAntennaOffset.Value = (int)(Math.Abs(Properties.VehicleSettings.Default.setVehicle_antennaOffset) * mf.m2InchOrCm);
@@ -111,9 +101,13 @@ namespace AgOpenGPS
         private void rbtnAntennaLeft_Click(object sender, EventArgs e)
         {
             if (rbtnAntennaRight.Checked)
+            {
                 mf.vehicle.VehicleConfig.AntennaOffset = (double)nudAntennaOffset.Value * -mf.inchOrCm2m;
+            }
             else if (rbtnAntennaLeft.Checked)
+            {
                 mf.vehicle.VehicleConfig.AntennaOffset = (double)nudAntennaOffset.Value * mf.inchOrCm2m;
+            }
             else
             {
                 mf.vehicle.VehicleConfig.AntennaOffset = 0;
@@ -286,6 +280,8 @@ namespace AgOpenGPS
                 case VehicleType.Articulated:
                     mf.VehicleTextures.ArticulatedFront.SetBitmap(ArticulatedBitmaps.GetFrontBitmap(configVehicleControl.ArticulatedBrand));
                     mf.VehicleTextures.ArticulatedRear.SetBitmap(ArticulatedBitmaps.GetRearBitmap(configVehicleControl.ArticulatedBrand));
+                    break;
+                default:
                     break;
             }
 

@@ -1,7 +1,6 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using AgOpenGPS.Classes;
 using AgOpenGPS.Controls;
 
 namespace AgOpenGPS.Forms
@@ -29,7 +28,7 @@ namespace AgOpenGPS.Forms
             textBoxInput.TextChanged += (s, e) =>
             {
                 int pos = textBoxInput.SelectionStart;
-                textBoxInput.Text = Regex.Replace(textBoxInput.Text, glm.fileRegex, "");
+                textBoxInput.Text = Regex.Replace(textBoxInput.Text, Glm.fileRegex, "");
                 textBoxInput.SelectionStart = pos;
             };
         }
@@ -37,38 +36,34 @@ namespace AgOpenGPS.Forms
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            using (var pen = new Pen(BorderColor, 20))
-                e.Graphics.DrawRectangle(pen, 0, 0, Width, Height);
+            using Pen pen = new(BorderColor, 20);
+            e.Graphics.DrawRectangle(pen, 0, 0, Width, Height);
         }
 
         // Geeft de ingevoerde naam terug, of null bij Cancel / lege invoer
         public static string ShowInput(string title, string prompt, FormGPS formGPS)
         {
-            using (var form = new FormInputDialog(title, prompt, formGPS))
+            using FormInputDialog form = new(title, prompt, formGPS);
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    string name = form.textBoxInput.Text.Trim();
-                    if (!string.IsNullOrEmpty(name))
-                        return name;
-                }
-                return null;
+                string name = form.textBoxInput.Text.Trim();
+                if (!string.IsNullOrEmpty(name))
+                    return name;
             }
+            return null;
         }
 
         public static string ShowInput(string title, string prompt, FormGPS formGPS, string defaultValue)
         {
-            using (var form = new FormInputDialog(title, prompt, formGPS))
+            using FormInputDialog form = new(title, prompt, formGPS);
+            form.textBoxInput.Text = defaultValue ?? "";
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                form.textBoxInput.Text = defaultValue ?? "";
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    string name = form.textBoxInput.Text.Trim();
-                    if (!string.IsNullOrEmpty(name))
-                        return name;
-                }
-                return null;
+                string name = form.textBoxInput.Text.Trim();
+                if (!string.IsNullOrEmpty(name))
+                    return name;
             }
+            return null;
         }
     }
 }

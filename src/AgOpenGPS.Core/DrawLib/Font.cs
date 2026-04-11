@@ -1,5 +1,4 @@
-﻿using AgOpenGPS.Core;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 using System;
 
 namespace AgOpenGPS.Core.DrawLib
@@ -25,8 +24,9 @@ namespace AgOpenGPS.Core.DrawLib
         }
 
         public void DrawText3D(
-            double x1, double y1, string text, double camHeadingHint, double size = 1.0)
+            double x1, double y1, string text, double camHeadingHint)
         {
+            double size;
             double x = 0, y = 0;
 
             GL.PushMatrix();
@@ -37,18 +37,18 @@ namespace AgOpenGPS.Core.DrawLib
             {
                 GL.Rotate(90, 1, 0, 0);
                 if (_camera.FollowDirectionHint) GL.Rotate(-camHeadingHint, 0, 1, 0);
-                size = -_camera.camSetDistance;
+                size = -_camera.CamSetDistance;
                 size = Math.Pow(size, 0.8);
                 size /= 800;
             }
             else
             {
                 if (_camera.FollowDirectionHint) GL.Rotate(-camHeadingHint, 0, 0, 1);
-                size = -_camera.camSetDistance;
+                size = -_camera.CamSetDistance;
                 size = Math.Pow(size, 0.85);
                 size /= 1000;
             }
-            double yTop = y + GlyphHeight * size;
+            double yTop = y + (GlyphHeight * size);
             double yBottom = y;
             DrawText(x, yBottom, yTop, text, size);
 
@@ -57,7 +57,7 @@ namespace AgOpenGPS.Core.DrawLib
 
         public void DrawText(double x, double y, string text, double size = 1.0)
         {
-            double yBottom = y + GlyphHeight * size;
+            double yBottom = y + (GlyphHeight * size);
             double yTop = y;
             DrawText(x, yBottom, yTop, text, size);
         }
@@ -80,9 +80,9 @@ namespace AgOpenGPS.Core.DrawLib
                 GL.TexCoord2(u, v);
                 GL.Vertex2(x, yTop);
                 GL.TexCoord2(u + u_step, v);
-                GL.Vertex2(x + GlyphWidth * size, yTop);
+                GL.Vertex2(x + (GlyphWidth * size), yTop);
                 GL.TexCoord2(u + u_step, v + v_step);
-                GL.Vertex2(x + GlyphWidth * size, yBottom);
+                GL.Vertex2(x + (GlyphWidth * size), yBottom);
                 GL.TexCoord2(u, v + v_step);
                 GL.Vertex2(x, yBottom);
 

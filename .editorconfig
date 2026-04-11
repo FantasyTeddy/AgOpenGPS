@@ -1,5 +1,17 @@
 ﻿[*.cs]
 
+#### Code style rules ####
+
+# Language rules
+
+csharp_prefer_braces = when_multiline
+
+dotnet_style_prefer_collection_expression = false
+dotnet_style_prefer_conditional_expression_over_assignment = false
+dotnet_style_prefer_conditional_expression_over_return = false
+dotnet_style_namespace_match_folder = false
+csharp_style_prefer_primary_constructors = false
+
 #### Naming styles ####
 
 # Symbol specifications
@@ -49,8 +61,11 @@ dotnet_diagnostic.CS8981.severity = none
 # CA2024: Do not use 'StreamReader.EndOfStream' in async methods
 dotnet_diagnostic.CA2024.severity = silent
 
-# IDE0055: Fix formatting
-dotnet_diagnostic.IDE0055.severity = warning
+# Enable all Style analyzer rules
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+# IDE0058: Remove unnecessary expression value
+dotnet_diagnostic.IDE0058.severity = none
 
 # WFO1000: Property does not configure the code serialization for its property content
 dotnet_diagnostic.WFO1000.severity = none

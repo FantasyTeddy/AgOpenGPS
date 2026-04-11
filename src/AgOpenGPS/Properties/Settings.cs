@@ -2,39 +2,34 @@ using AgLibrary.Settings;
 using AgLibrary.Logging;
 using System.Drawing;
 using System.IO;
-using AgOpenGPS.Core.Models;
 
 namespace AgOpenGPS.Properties
 {
     public sealed class Settings
     {
-        private static Settings settings_ = new Settings();
-        public static Settings Default
-        {
-            get { return settings_; }
-        }
+        public static Settings Default { get; private set; } = new Settings();
 
         // ===== WINDOW POSITIONS =====
-        public Point setWindow_Location = new Point(30, 30);
-        public Size setWindow_Size = new Size(1005, 730);
+        public Point setWindow_Location = new(30, 30);
+        public Size setWindow_Size = new(1005, 730);
         public bool setWindow_Maximized = false;
         public bool setWindow_Minimized = false;
-        public Point setJobMenu_location = new Point(200, 200);
-        public Size setJobMenu_size = new Size(640, 530);
-        public Point setWindow_steerSettingsLocation = new Point(40, 40);
-        public Point setWindow_buildTracksLocation = new Point(40, 40);
-        public Point setWindow_formNudgeLocation = new Point(200, 200);
-        public Size setWindow_formNudgeSize = new Size(200, 400);
-        public Size setWindow_abDrawSize = new Size(1022, 742);
-        public Size setWindow_HeadlineSize = new Size(1022, 742);
-        public Size setWindow_HeadAcheSize = new Size(1022, 742);
-        public Size setWindow_MapBndSize = new Size(1022, 742);
-        public Size setWindow_BingMapSize = new Size(965, 700);
+        public Point setJobMenu_location = new(200, 200);
+        public Size setJobMenu_size = new(640, 530);
+        public Point setWindow_steerSettingsLocation = new(40, 40);
+        public Point setWindow_buildTracksLocation = new(40, 40);
+        public Point setWindow_formNudgeLocation = new(200, 200);
+        public Size setWindow_formNudgeSize = new(200, 400);
+        public Size setWindow_abDrawSize = new(1022, 742);
+        public Size setWindow_HeadlineSize = new(1022, 742);
+        public Size setWindow_HeadAcheSize = new(1022, 742);
+        public Size setWindow_MapBndSize = new(1022, 742);
+        public Size setWindow_BingMapSize = new(965, 700);
         public int setWindow_BingZoom = 15;
-        public Point setWindow_QuickABLocation = new Point(100, 100);
-        public Size setWindow_gridSize = new Size(400, 400);
-        public Point setWindow_gridLocation = new Point(20, 20);
-        public Size setWindow_tramLineSize = new Size(921, 676);
+        public Point setWindow_QuickABLocation = new(100, 100);
+        public Size setWindow_gridSize = new(400, 400);
+        public Point setWindow_gridLocation = new(20, 20);
+        public Size setWindow_tramLineSize = new(921, 676);
 
         // ===== DISPLAY SETTINGS =====
         public bool setMenu_isMetric = true;
@@ -105,7 +100,7 @@ namespace AgOpenGPS.Properties
         public bool setF_isRemoteWorkSystemOn = false;
 
         // ===== GLOBAL SETTINGS =====
-        public CFeatureSettings setFeatures = new CFeatureSettings();
+        public CFeatureSettings setFeatures = new();
         public bool setIMU_isReverseOn = true;
         public bool setAutoSwitchDualFixOn = false;
         public double setAutoSwitchDualFixSpeed = 2.0;
@@ -185,29 +180,6 @@ namespace AgOpenGPS.Properties
 
             string path = File.Exists(envPath) ? envPath : defaultPath;
             XmlSettingsHandler.SaveXMLFile(path, this);
-        }
-
-        private LoadResult MigrateFromOld()
-        {
-            // Check if old vehicle file exists
-            // Note: old combined profiles are in baseDirectory\Vehicles, not VehicleProfiles
-            if (!string.IsNullOrEmpty(RegistrySettings.vehicleProfileName))
-            {
-                string oldPath = Path.Combine(RegistrySettings.baseDirectory, "Vehicles", RegistrySettings.vehicleProfileName + ".xml");
-                if (File.Exists(oldPath))
-                {
-                    SettingsLegacy oldSettings = new SettingsLegacy();
-                    var result = XmlSettingsHandler.LoadXMLFile(oldPath, oldSettings);
-                    if (result == LoadResult.Ok)
-                    {
-                        // Copy environment settings
-                        MigrateFromOldToTarget(oldSettings, this);
-                        Save();
-                        return LoadResult.Ok;
-                    }
-                }
-            }
-            return LoadResult.MissingFile;
         }
 
         public static void MigrateFromOldToTarget(SettingsLegacy source, Settings dest)
@@ -354,8 +326,8 @@ namespace AgOpenGPS.Properties
 
         public void Reset()
         {
-            settings_ = new Settings();
-            settings_.Save();
+            Default = new Settings();
+            Default.Save();
         }
     }
 }

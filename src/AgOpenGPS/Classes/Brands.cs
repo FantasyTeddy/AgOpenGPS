@@ -1,5 +1,6 @@
 ﻿using AgOpenGPS.Core.Models;
 using AgOpenGPS.ResourcesBrands;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace AgOpenGPS
@@ -8,37 +9,24 @@ namespace AgOpenGPS
     {
         public static Bitmap GetBitmap(TractorBrand brand)
         {
-            switch (brand)
+            return brand switch
             {
-                case TractorBrand.Case:
-                    return BrandImages.TractorCase;
-                case TractorBrand.Claas:
-                    return BrandImages.TractorClaas;
-                case TractorBrand.Deutz:
-                    return BrandImages.TractorDeutz;
-                case TractorBrand.Fendt:
-                    return BrandImages.TractorFendt;
-                case TractorBrand.JohnDeere:
-                    return BrandImages.TractorJohnDeere;
-                case TractorBrand.Kubota:
-                    return BrandImages.TractorKubota;
-                case TractorBrand.Massey:
-                    return BrandImages.TractorMassey;
-                case TractorBrand.NewHolland:
-                    return BrandImages.TractorNewHolland;
-                case TractorBrand.Same:
-                    return BrandImages.TractorSame;
-                case TractorBrand.Steyr:
-                    return BrandImages.TractorSteyr;
-                case TractorBrand.Ursus:
-                    return BrandImages.TractorUrsus;
-                case TractorBrand.Valtra:
-                    return BrandImages.TractorValtra;
-                case TractorBrand.JCB:
-                    return BrandImages.TractorJCB;
-                default:
-                    return BrandImages.TractorAoG;
-            }
+                TractorBrand.Case => BrandImages.TractorCase,
+                TractorBrand.Claas => BrandImages.TractorClaas,
+                TractorBrand.Deutz => BrandImages.TractorDeutz,
+                TractorBrand.Fendt => BrandImages.TractorFendt,
+                TractorBrand.JohnDeere => BrandImages.TractorJohnDeere,
+                TractorBrand.Kubota => BrandImages.TractorKubota,
+                TractorBrand.Massey => BrandImages.TractorMassey,
+                TractorBrand.NewHolland => BrandImages.TractorNewHolland,
+                TractorBrand.Same => BrandImages.TractorSame,
+                TractorBrand.Steyr => BrandImages.TractorSteyr,
+                TractorBrand.Ursus => BrandImages.TractorUrsus,
+                TractorBrand.Valtra => BrandImages.TractorValtra,
+                TractorBrand.JCB => BrandImages.TractorJCB,
+                TractorBrand.AGOpenGPS => BrandImages.TractorAoG,
+                _ => throw new InvalidEnumArgumentException(nameof(brand), (int)brand, typeof(TractorBrand)),
+            };
         }
     }
 
@@ -46,19 +34,15 @@ namespace AgOpenGPS
     {
         public static Bitmap GetBitmap(HarvesterBrand brand)
         {
-            switch (brand)
+            return brand switch
             {
-                case HarvesterBrand.Case:
-                    return BrandImages.HarvesterCase;
-                case HarvesterBrand.Claas:
-                    return BrandImages.HarvesterClaas;
-                case HarvesterBrand.JohnDeere:
-                    return BrandImages.HarvesterJohnDeere;
-                case HarvesterBrand.NewHolland:
-                    return BrandImages.HarvesterNewHolland;
-                default:
-                    return BrandImages.HarvesterAoG;
-            }
+                HarvesterBrand.Case => BrandImages.HarvesterCase,
+                HarvesterBrand.Claas => BrandImages.HarvesterClaas,
+                HarvesterBrand.JohnDeere => BrandImages.HarvesterJohnDeere,
+                HarvesterBrand.NewHolland => BrandImages.HarvesterNewHolland,
+                HarvesterBrand.AgOpenGPS => BrandImages.HarvesterAoG,
+                _ => throw new InvalidEnumArgumentException(nameof(brand), (int)brand, typeof(HarvesterBrand)),
+            };
         }
     }
 
@@ -66,40 +50,30 @@ namespace AgOpenGPS
     {
         public static Bitmap GetFrontBitmap(ArticulatedBrand brand)
         {
-            switch (brand)
+            return brand switch
             {
-                case ArticulatedBrand.Case:
-                    return BrandImages.ArticulatedFrontCase;
-                case ArticulatedBrand.Challenger:
-                    return BrandImages.ArticulatedFrontChallenger;
-                case ArticulatedBrand.JohnDeere:
-                    return BrandImages.ArticulatedFrontJohnDeere;
-                case ArticulatedBrand.NewHolland:
-                    return BrandImages.ArticulatedFrontNewHolland;
-                case ArticulatedBrand.Holder:
-                    return BrandImages.ArticulatedFrontHolder;
-                default:
-                    return BrandImages.ArticulatedFrontAoG;
-            }
+                ArticulatedBrand.Case => BrandImages.ArticulatedFrontCase,
+                ArticulatedBrand.Challenger => BrandImages.ArticulatedFrontChallenger,
+                ArticulatedBrand.JohnDeere => BrandImages.ArticulatedFrontJohnDeere,
+                ArticulatedBrand.NewHolland => BrandImages.ArticulatedFrontNewHolland,
+                ArticulatedBrand.Holder => BrandImages.ArticulatedFrontHolder,
+                ArticulatedBrand.AgOpenGPS => BrandImages.ArticulatedFrontAoG,
+                _ => throw new InvalidEnumArgumentException(nameof(brand), (int)brand, typeof(ArticulatedBrand)),
+            };
         }
 
         public static Bitmap GetRearBitmap(ArticulatedBrand brand)
         {
-            switch (brand)
+            return brand switch
             {
-                case ArticulatedBrand.Case:
-                    return BrandImages.ArticulatedRearCase;
-                case ArticulatedBrand.Challenger:
-                    return BrandImages.ArticulatedRearChallenger;
-                case ArticulatedBrand.JohnDeere:
-                    return BrandImages.ArticulatedRearJohnDeere;
-                case ArticulatedBrand.NewHolland:
-                    return BrandImages.ArticulatedRearNewHolland;
-                case ArticulatedBrand.Holder:
-                    return BrandImages.ArticulatedRearHolder;
-                default:
-                    return BrandImages.ArticulatedRearAoG;
-            }
+                ArticulatedBrand.Case => BrandImages.ArticulatedRearCase,
+                ArticulatedBrand.Challenger => BrandImages.ArticulatedRearChallenger,
+                ArticulatedBrand.JohnDeere => BrandImages.ArticulatedRearJohnDeere,
+                ArticulatedBrand.NewHolland => BrandImages.ArticulatedRearNewHolland,
+                ArticulatedBrand.Holder => BrandImages.ArticulatedRearHolder,
+                ArticulatedBrand.AgOpenGPS => BrandImages.ArticulatedRearAoG,
+                _ => throw new InvalidEnumArgumentException(nameof(brand), (int)brand, typeof(ArticulatedBrand)),
+            };
         }
     }
 }

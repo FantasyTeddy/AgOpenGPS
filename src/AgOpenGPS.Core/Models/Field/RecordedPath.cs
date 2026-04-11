@@ -5,17 +5,11 @@ namespace AgOpenGPS.Core.Models
 
     public class RecordedPath : GeoPathBase
     {
-        public List<RecordedPoint> PointList = new List<RecordedPoint>();
+        public List<RecordedPoint> PointList = new();
 
-        public override int Count
-        {
-            get { return PointList.Count; }
-        }
+        public override int Count => PointList.Count;
 
-        public override GeoCoord this[int index]
-        {
-            get { return PointList[index].AsGeoCoord; }
-        }
+        public override GeoCoord this[int index] => PointList[index].AsGeoCoord;
 
         public void Clear()
         {

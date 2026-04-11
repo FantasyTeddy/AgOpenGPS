@@ -7,7 +7,7 @@ using System.Drawing.Imaging;
 namespace AgOpenGPS
 {
 
-    public static class glm
+    public static class Glm
     {
         private const double DefaultZeroTolerance = 1e-6;
 
@@ -21,11 +21,11 @@ namespace AgOpenGPS
         {
             double dx = end_x - start_x;
             double dy = end_y - start_y;
-            double innerProduct = (point_x - start_x) * dx + (point_y - start_y) * dy;
-            return 0 <= innerProduct && innerProduct <= dx * dx + dy * dy;
+            double innerProduct = ((point_x - start_x) * dx) + ((point_y - start_y) * dy);
+            return 0 <= innerProduct && innerProduct <= (dx * dx) + (dy * dy);
         }
 
-        public static bool IsPointInPolygon(this List<vec3> polygon, vec3 testPoint)
+        public static bool IsPointInPolygon(this List<Vec3> polygon, Vec3 testPoint)
         {
             bool result = false;
             int j = polygon.Count - 1;
@@ -34,8 +34,8 @@ namespace AgOpenGPS
                 if ((polygon[i].easting < testPoint.easting && polygon[j].easting >= testPoint.easting)
                     || (polygon[j].easting < testPoint.easting && polygon[i].easting >= testPoint.easting))
                 {
-                    if (polygon[i].northing + (testPoint.easting - polygon[i].easting)
-                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing)
+                    if (polygon[i].northing + ((testPoint.easting - polygon[i].easting)
+                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing))
                         < testPoint.northing)
                     {
                         result = !result;
@@ -46,7 +46,7 @@ namespace AgOpenGPS
             return result;
         }
 
-        public static bool IsPointInPolygon(this List<vec3> polygon, vec2 testPoint)
+        public static bool IsPointInPolygon(this List<Vec3> polygon, Vec2 testPoint)
         {
             bool result = false;
             int j = polygon.Count - 1;
@@ -55,8 +55,8 @@ namespace AgOpenGPS
                 if ((polygon[i].easting < testPoint.easting && polygon[j].easting >= testPoint.easting)
                     || (polygon[j].easting < testPoint.easting && polygon[i].easting >= testPoint.easting))
                 {
-                    if (polygon[i].northing + (testPoint.easting - polygon[i].easting)
-                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing)
+                    if (polygon[i].northing + ((testPoint.easting - polygon[i].easting)
+                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing))
                         < testPoint.northing)
                     {
                         result = !result;
@@ -67,7 +67,7 @@ namespace AgOpenGPS
             return result;
         }
 
-        public static bool IsPointInPolygon(this List<vec2> polygon, vec2 testPoint)
+        public static bool IsPointInPolygon(this List<Vec2> polygon, Vec2 testPoint)
         {
             bool result = false;
             int j = polygon.Count - 1;
@@ -76,8 +76,8 @@ namespace AgOpenGPS
                 if ((polygon[i].easting < testPoint.easting && polygon[j].easting >= testPoint.easting)
                     || (polygon[j].easting < testPoint.easting && polygon[i].easting >= testPoint.easting))
                 {
-                    if (polygon[i].northing + (testPoint.easting - polygon[i].easting)
-                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing)
+                    if (polygon[i].northing + ((testPoint.easting - polygon[i].easting)
+                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing))
                         < testPoint.northing)
                     {
                         result = !result;
@@ -88,7 +88,7 @@ namespace AgOpenGPS
             return result;
         }
 
-        public static bool IsPointInPolygon(this List<vec2> polygon, vec3 testPoint)
+        public static bool IsPointInPolygon(this List<Vec2> polygon, Vec3 testPoint)
         {
             bool result = false;
             int j = polygon.Count - 1;
@@ -97,8 +97,8 @@ namespace AgOpenGPS
                 if ((polygon[i].easting < testPoint.easting && polygon[j].easting >= testPoint.easting)
                     || (polygon[j].easting < testPoint.easting && polygon[i].easting >= testPoint.easting))
                 {
-                    if (polygon[i].northing + (testPoint.easting - polygon[i].easting)
-                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing)
+                    if (polygon[i].northing + ((testPoint.easting - polygon[i].easting)
+                        / (polygon[j].easting - polygon[i].easting) * (polygon[j].northing - polygon[i].northing))
                         < testPoint.northing)
                     {
                         result = !result;
@@ -109,7 +109,7 @@ namespace AgOpenGPS
             return result;
         }
 
-        public static void DrawPolygon(this List<vec3> polygon)
+        public static void DrawPolygon(this List<Vec3> polygon)
         {
             if (polygon.Count > 2)
             {
@@ -122,7 +122,7 @@ namespace AgOpenGPS
             }
         }
 
-        public static void DrawPolygon(this List<vec2> polygon)
+        public static void DrawPolygon(this List<Vec2> polygon)
         {
             if (polygon.Count > 2)
             {
@@ -136,20 +136,20 @@ namespace AgOpenGPS
         }
 
         // Catmull Rom interpoint spline calculation
-        public static vec3 Catmull(double t, vec3 p0, vec3 p1, vec3 p2, vec3 p3)
+        public static Vec3 Catmull(double t, Vec3 p0, Vec3 p1, Vec3 p2, Vec3 p3)
         {
             double tt = t * t;
             double ttt = tt * t;
 
-            double q1 = -ttt + 2.0f * tt - t;
-            double q2 = 3.0f * ttt - 5.0f * tt + 2.0f;
-            double q3 = -3.0f * ttt + 4.0f * tt + t;
+            double q1 = -ttt + (2.0f * tt) - t;
+            double q2 = (3.0f * ttt) - (5.0f * tt) + 2.0f;
+            double q3 = (-3.0f * ttt) + (4.0f * tt) + t;
             double q4 = ttt - tt;
 
-            double tx = 0.5f * (p0.easting * q1 + p1.easting * q2 + p2.easting * q3 + p3.easting * q4);
-            double ty = 0.5f * (p0.northing * q1 + p1.northing * q2 + p2.northing * q3 + p3.northing * q4);
+            double tx = 0.5f * ((p0.easting * q1) + (p1.easting * q2) + (p2.easting * q3) + (p3.easting * q4));
+            double ty = 0.5f * ((p0.northing * q1) + (p1.northing * q2) + (p2.northing * q3) + (p3.northing * q4));
 
-            vec3 ret = new vec3(tx, ty, 0);
+            Vec3 ret = new(tx, ty, 0);
             return ret;
 
             //f(t) = a_3 * t^3 + a_2 * t^2 + a_1 * t + a_0  cubic polynomial
@@ -221,12 +221,12 @@ namespace AgOpenGPS
         public const double PIBy2 = 1.57079632679489661923;
 
         //Degrees Radians Conversions
-        public static double toDegrees(double radians)
+        public static double ToDegrees(double radians)
         {
             return radians * 57.295779513082325225835265587528;
         }
 
-        public static double toRadians(double degrees)
+        public static double ToRadians(double degrees)
         {
             return degrees * 0.01745329251994329576923690768489;
         }
@@ -239,56 +239,56 @@ namespace AgOpenGPS
                 + Math.Pow(north1 - north2, 2));
         }
 
-        public static double Distance(vec2 first, vec2 second)
+        public static double Distance(Vec2 first, Vec2 second)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - second.easting, 2)
                 + Math.Pow(first.northing - second.northing, 2));
         }
 
-        public static double Distance(vec2 first, vec3 second)
+        public static double Distance(Vec2 first, Vec3 second)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - second.easting, 2)
                 + Math.Pow(first.northing - second.northing, 2));
         }
 
-        public static double Distance(vec3 first, vec2 second)
+        public static double Distance(Vec3 first, Vec2 second)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - second.easting, 2)
                 + Math.Pow(first.northing - second.northing, 2));
         }
 
-        public static double Distance(vec3 first, vec3 second)
+        public static double Distance(Vec3 first, Vec3 second)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - second.easting, 2)
                 + Math.Pow(first.northing - second.northing, 2));
         }
 
-        public static double Distance(vec2 first, double east, double north)
+        public static double Distance(Vec2 first, double east, double north)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - east, 2)
                 + Math.Pow(first.northing - north, 2));
         }
 
-        public static double Distance(vec3 first, double east, double north)
+        public static double Distance(Vec3 first, double east, double north)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - east, 2)
                 + Math.Pow(first.northing - north, 2));
         }
 
-        public static double Distance(vecFix2Fix first, vec2 second)
+        public static double Distance(VecFix2Fix first, Vec2 second)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - second.easting, 2)
                 + Math.Pow(first.northing - second.northing, 2));
         }
 
-        public static double Distance(vecFix2Fix first, vecFix2Fix second)
+        public static double Distance(VecFix2Fix first, VecFix2Fix second)
         {
             return Math.Sqrt(
                 Math.Pow(first.easting - second.easting, 2)
@@ -301,49 +301,39 @@ namespace AgOpenGPS
             return Math.Pow(easting1 - easting2, 2) + Math.Pow(northing1 - northing2, 2);
         }
 
-        public static double DistanceSquared(vec3 first, vec2 second)
+        public static double DistanceSquared(Vec3 first, Vec2 second)
         {
-            return (
-            Math.Pow(first.easting - second.easting, 2)
-            + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
-        public static double DistanceSquared(vec2 first, vec3 second)
+        public static double DistanceSquared(Vec2 first, Vec3 second)
         {
-            return (
-            Math.Pow(first.easting - second.easting, 2)
-            + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
-        public static double DistanceSquared(vec3 first, vec3 second)
+        public static double DistanceSquared(Vec3 first, Vec3 second)
         {
-            return (
-            Math.Pow(first.easting - second.easting, 2)
-            + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
-        public static double DistanceSquared(vec2 first, vec2 second)
+        public static double DistanceSquared(Vec2 first, Vec2 second)
         {
-            return (
-            Math.Pow(first.easting - second.easting, 2)
-            + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
-        public static double DistanceSquared(vecFix2Fix first, vec2 second)
+        public static double DistanceSquared(VecFix2Fix first, Vec2 second)
         {
-            return (
-                Math.Pow(first.easting - second.easting, 2)
-                + Math.Pow(first.northing - second.northing, 2));
+            return Math.Pow(first.easting - second.easting, 2) + Math.Pow(first.northing - second.northing, 2);
         }
 
         public static Bitmap MakeGrayscale3(Bitmap original)
         {
             //create a blank bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            Bitmap newBitmap = new(original.Width, original.Height);
             //get a graphics object from the new image
             Graphics g = Graphics.FromImage(newBitmap);
             //create the grayscale ColorMatrix
-            ColorMatrix colorMatrix = new ColorMatrix(
+            ColorMatrix colorMatrix = new(
                new float[][]
               {
                  new float[] {.3f, .3f, .3f, 0, 0},
@@ -353,7 +343,7 @@ namespace AgOpenGPS
                  new float[] {0, 0, 0, 0, 1}
               });
             //create some image attributes
-            ImageAttributes attributes = new ImageAttributes();
+            ImageAttributes attributes = new();
             //set the color matrix attribute
             attributes.SetColorMatrix(colorMatrix);
             //draw the original image on the new image
@@ -377,20 +367,20 @@ namespace AgOpenGPS
         /// This is used for HeadlandProximity and the distance to the headland
         /// </summary>
 
-        public static vec2? RaycastToPolygon(vec3 origin, List<vec3> polygon)
+        public static Vec2? RaycastToPolygon(Vec3 origin, List<Vec3> polygon)
         {
-            vec2 from = origin.ToVec2();
-            vec2 dir = new vec2(Math.Sin(origin.heading), Math.Cos(origin.heading));
+            Vec2 from = origin.ToVec2();
+            Vec2 dir = new(Math.Sin(origin.heading), Math.Cos(origin.heading));
 
             double minDist = double.MaxValue;
-            vec2? closest = null;
+            Vec2? closest = null;
 
             for (int i = 0; i < polygon.Count; i++)
             {
-                vec2 p1 = polygon[i].ToVec2();
-                vec2 p2 = polygon[(i + 1) % polygon.Count].ToVec2();
+                Vec2 p1 = polygon[i].ToVec2();
+                Vec2 p2 = polygon[(i + 1) % polygon.Count].ToVec2();
 
-                if (TryRaySegmentIntersection(from, dir, p1, p2, out vec2 intersection))
+                if (TryRaySegmentIntersection(from, dir, p1, p2, out Vec2 intersection))
                 {
                     double dist = Distance(from, intersection);
                     if (dist < minDist)
@@ -403,22 +393,22 @@ namespace AgOpenGPS
 
             return closest;
         }
-        public static bool TryRaySegmentIntersection(vec2 rayOrigin, vec2 rayDir, vec2 segA, vec2 segB, out vec2 intersection)
+        public static bool TryRaySegmentIntersection(Vec2 rayOrigin, Vec2 rayDir, Vec2 segA, Vec2 segB, out Vec2 intersection)
         {
-            intersection = new vec2();
+            intersection = new Vec2();
 
             double dx = segB.easting - segA.easting;
             double dy = segB.northing - segA.northing;
 
-            double det = (-rayDir.easting * dy + dx * rayDir.northing);
+            double det = (-rayDir.easting * dy) + (dx * rayDir.northing);
             if (Math.Abs(det) < 1e-8) return false; // parallel
 
-            double s = (-dy * (segA.easting - rayOrigin.easting) + dx * (segA.northing - rayOrigin.northing)) / det;
-            double t = (rayDir.easting * (segA.northing - rayOrigin.northing) - rayDir.northing * (segA.easting - rayOrigin.easting)) / det;
+            double s = ((-dy * (segA.easting - rayOrigin.easting)) + (dx * (segA.northing - rayOrigin.northing))) / det;
+            double t = ((rayDir.easting * (segA.northing - rayOrigin.northing)) - (rayDir.northing * (segA.easting - rayOrigin.easting))) / det;
 
             if (s >= 0 && t >= 0 && t <= 1)
             {
-                intersection = new vec2(rayOrigin.easting + s * rayDir.easting, rayOrigin.northing + s * rayDir.northing);
+                intersection = new Vec2(rayOrigin.easting + (s * rayDir.easting), rayOrigin.northing + (s * rayDir.northing));
                 return true;
             }
 

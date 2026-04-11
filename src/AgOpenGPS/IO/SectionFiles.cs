@@ -8,28 +8,27 @@ namespace AgOpenGPS.IO
     {
         public sealed class SectionsData
         {
-            public List<List<vec3>> Patches { get; } = new List<List<vec3>>();
+            public List<List<Vec3>> Patches { get; } = new List<List<Vec3>>();
             public double TotalArea { get; set; }
         }
 
-        public static List<List<vec3>> Load(string fieldDirectory)
+        public static List<List<Vec3>> Load(string fieldDirectory)
         {
-            var result = new List<List<vec3>>();
-            var path = Path.Combine(fieldDirectory, "Sections.txt");
+            List<List<Vec3>> result = new();
+            string path = Path.Combine(fieldDirectory, "Sections.txt");
             if (!File.Exists(path)) return result;
 
-            using (var reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 while (!reader.EndOfStream)
                 {
-                    var line = reader.ReadLine();
+                    string line = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(line)) continue;
 
-                    int verts;
-                    if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out verts))
+                    if (!int.TryParse(line.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int verts))
                         continue;
 
-                    var patch = FileIoUtils.ReadVec3Block(reader, verts);
+                    List<Vec3> patch = FileIoUtils.ReadVec3Block(reader, verts);
                     if (patch.Count > 0)
                     {
                         result.Add(patch);
@@ -40,32 +39,28 @@ namespace AgOpenGPS.IO
             return result;
         }
 
-        public static void Append(string fieldDirectory, IEnumerable<IReadOnlyList<vec3>> patches)
+        public static void Append(string fieldDirectory, IEnumerable<IReadOnlyList<Vec3>> patches)
         {
-            var filename = Path.Combine(fieldDirectory, "Sections.txt");
+            string filename = Path.Combine(fieldDirectory, "Sections.txt");
             if (patches == null) return;
 
-            using (var writer = new StreamWriter(filename, true))
+            using StreamWriter writer = new(filename, true);
+            foreach (IReadOnlyList<Vec3> triList in patches)
             {
-                foreach (var triList in patches)
+                if (triList == null) continue;
+                writer.WriteLine(triList.Count.ToString(CultureInfo.InvariantCulture));
+                for (int i = 0; i < triList.Count; i++)
                 {
-                    if (triList == null) continue;
-                    writer.WriteLine(triList.Count.ToString(CultureInfo.InvariantCulture));
-                    for (int i = 0; i < triList.Count; i++)
-                    {
-                        var p = triList[i];
-                        writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
-                    }
+                    Vec3 p = triList[i];
+                    writer.WriteLine($"{FileIoUtils.FormatDouble(p.easting, 3)},{FileIoUtils.FormatDouble(p.northing, 3)},{FileIoUtils.FormatDouble(p.heading, 5)}");
                 }
             }
         }
 
         public static void CreateEmpty(string fieldDirectory)
         {
-            using (var writer = new StreamWriter(Path.Combine(fieldDirectory, "Sections.txt"), false))
-            {
-                // Intentionally empty
-            }
+            using StreamWriter writer = new(Path.Combine(fieldDirectory, "Sections.txt"), false);
+            // Intentionally empty
         }
     }
 }

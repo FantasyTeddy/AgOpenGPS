@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using AgOpenGPS.Controls;
 using AgOpenGPS.Core.Translations;
 using AgOpenGPS.Forms;
@@ -34,9 +32,9 @@ namespace AgOpenGPS
 
             int sett = Properties.ToolSettings.Default.setArdMac_setting0;
 
-            cboxMachInvertRelays.Checked = ((sett & 1) == 1);
+            cboxMachInvertRelays.Checked = (sett & 1) == 1;
 
-            cboxIsHydOn.Checked = ((sett & 2) == 2);
+            cboxIsHydOn.Checked = (sett & 2) == 2;
 
             if (cboxIsHydOn.Checked)
             {
@@ -53,8 +51,8 @@ namespace AgOpenGPS
                 nudRaiseTime.Enabled = false;
             }
 
-            nudRaiseTime.Value = (decimal)Properties.ToolSettings.Default.setArdMac_hydRaiseTime;
-            nudLowerTime.Value = (decimal)Properties.ToolSettings.Default.setArdMac_hydLowerTime;
+            nudRaiseTime.Value = Properties.ToolSettings.Default.setArdMac_hydRaiseTime;
+            nudLowerTime.Value = Properties.ToolSettings.Default.setArdMac_hydLowerTime;
 
             nudUser1.Value = Properties.ToolSettings.Default.setArdMac_user1;
             nudUser2.Value = Properties.ToolSettings.Default.setArdMac_user2;
@@ -283,7 +281,7 @@ namespace AgOpenGPS
 
         private void SaveSettingsRelay()
         {
-            StringBuilder bob = new StringBuilder();
+            StringBuilder bob = new();
 
             bob.Append(cboxPin0.SelectedIndex.ToString() + ",")
                .Append(cboxPin1.SelectedIndex.ToString() + ",")
@@ -396,11 +394,11 @@ namespace AgOpenGPS
 
             double bob = Properties.Settings.Default.set_youTurnDistanceFromBoundary * mf.m2FtOrM;
             if (bob < 0.2) bob = 0.2;
-            nudTurnDistanceFromBoundary.Value = (decimal)(Math.Round(bob, 2));
+            nudTurnDistanceFromBoundary.Value = (decimal)Math.Round(bob, 2);
 
             bob = Properties.Settings.Default.set_youTurnRadius * mf.m2FtOrM;
             if (bob < 2) bob = 2;
-            nudYouTurnRadius.Value = (decimal)(Math.Round(bob, 2));
+            nudYouTurnRadius.Value = (decimal)Math.Round(bob, 2);
 
             lblFtMUTurn.Text = lblFtMTurnRadius.Text = mf.unitsFtM;
         }
@@ -425,13 +423,13 @@ namespace AgOpenGPS
 
         private void UpdateUturnText()
         {
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 lblDistance.Text = Math.Abs(mf.yt.youTurnStartOffset).ToString() + " m";
             }
             else
             {
-                lblDistance.Text = Math.Abs((int)(mf.yt.youTurnStartOffset * glm.m2ft)).ToString() + " ft";
+                lblDistance.Text = Math.Abs((int)(mf.yt.youTurnStartOffset * Glm.m2ft)).ToString() + " ft";
             }
         }
 

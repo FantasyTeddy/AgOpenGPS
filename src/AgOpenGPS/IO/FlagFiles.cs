@@ -1,6 +1,4 @@
-﻿using AgLibrary.Logging;
-using AgOpenGPS.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -12,8 +10,8 @@ namespace AgOpenGPS.IO
     {
         public static List<CFlag> DeduplicateFlags(IEnumerable<CFlag> flags)
         {
-            var distinctFlags = new List<CFlag>();
-            foreach (var f in flags)
+            List<CFlag> distinctFlags = new();
+            foreach (CFlag f in flags)
             {
                 bool duplicate = distinctFlags.Any(d =>
                     Math.Abs(d.latitude - f.latitude) < 1e-8 &&
@@ -29,20 +27,19 @@ namespace AgOpenGPS.IO
 
         public static List<CFlag> Load(string fieldDirectory)
         {
-            var result = new List<CFlag>();
-            var path = Path.Combine(fieldDirectory, "Flags.txt");
+            List<CFlag> result = new();
+            string path = Path.Combine(fieldDirectory, "Flags.txt");
             if (!File.Exists(path)) return result;
 
-            using (var reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 reader.ReadLine(); // header
-                var line = reader.ReadLine();
-                int count;
-                if (!int.TryParse(line, out count)) return result;
+                string line = reader.ReadLine();
+                if (!int.TryParse(line, out int count)) return result;
 
                 for (int i = 0; i < count; i++)
                 {
-                    var words = (reader.ReadLine() ?? string.Empty).Split(',');
+                    string[] words = (reader.ReadLine() ?? string.Empty).Split(',');
                     if (words.Length < 6) continue;
 
                     double lat = double.Parse(words[0], CultureInfo.InvariantCulture);
@@ -74,13 +71,13 @@ namespace AgOpenGPS.IO
         public static void Save(string fieldDirectory, IReadOnlyList<CFlag> flags)
         {
 
-            var filename = Path.Combine(fieldDirectory, "Flags.txt");
+            string filename = Path.Combine(fieldDirectory, "Flags.txt");
 
             // Prevent saving duplicates based on latitude and longitude
-            var distinctFlags = new List<CFlag>();
+            List<CFlag> distinctFlags = new();
             if (flags != null)
             {
-                foreach (var f in flags ?? new List<CFlag>())
+                foreach (CFlag f in flags ?? new List<CFlag>())
                 {
                     bool duplicate = distinctFlags.Any(d =>
                         Math.Abs(d.latitude - f.latitude) < 1e-8 &&
@@ -92,24 +89,22 @@ namespace AgOpenGPS.IO
                     }
                 }
             }
-            using (var writer = new StreamWriter(filename, false))
-            {
-                writer.WriteLine("$Flags");
-                writer.WriteLine(distinctFlags.Count.ToString(CultureInfo.InvariantCulture));
+            using StreamWriter writer = new(filename, false);
+            writer.WriteLine("$Flags");
+            writer.WriteLine(distinctFlags.Count.ToString(CultureInfo.InvariantCulture));
 
-                for (int i = 0; i < distinctFlags.Count; i++)
-                {
-                    var f = distinctFlags[i];
-                    writer.WriteLine(
-                        f.latitude.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.longitude.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.easting.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.northing.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.heading.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.color.ToString(CultureInfo.InvariantCulture) + "," +
-                        f.ID.ToString(CultureInfo.InvariantCulture) + "," +
-                        (f.notes ?? string.Empty));
-                }
+            for (int i = 0; i < distinctFlags.Count; i++)
+            {
+                CFlag f = distinctFlags[i];
+                writer.WriteLine(
+                    f.latitude.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.longitude.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.Easting.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.Northing.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.heading.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.color.ToString(CultureInfo.InvariantCulture) + "," +
+                    f.ID.ToString(CultureInfo.InvariantCulture) + "," +
+                    (f.notes ?? string.Empty));
             }
         }
     }

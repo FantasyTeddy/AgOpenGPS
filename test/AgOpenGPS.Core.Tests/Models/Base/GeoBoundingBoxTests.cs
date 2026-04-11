@@ -9,8 +9,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_CenterCoord()
         {
             // Arrange
-            GeoCoord coord1 = new GeoCoord(-10.0, 3.0);
-            GeoCoord coord2 = new GeoCoord(-20.0, 30.0);
+            GeoCoord coord1 = new(-10.0, 3.0);
+            GeoCoord coord2 = new(-20.0, 30.0);
             GeoBoundingBox bb = GeoBoundingBox.CreateEmpty();
             bb.Include(coord1);
             bb.Include(coord2);
@@ -19,7 +19,7 @@ namespace AgOpenGPS.Core.Tests.Models
             GeoCoord centerCoord = bb.CenterCoord;
 
             // Assert
-            GeoCoord correctCenterCoord = new GeoCoord(-15.0, 16.5);
+            GeoCoord correctCenterCoord = new(-15.0, 16.5);
             Assert.That(centerCoord, Is.EqualTo(correctCenterCoord));
         }
 
@@ -27,14 +27,14 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_IncludeBoundingBox_NotEmpty_NotEmpty()
         {
             // Arrange
-            GeoCoord coordA1 = new GeoCoord(-10.0, 20.0);
-            GeoCoord coordA2 = new GeoCoord(-30.0, 40.0);
+            GeoCoord coordA1 = new(-10.0, 20.0);
+            GeoCoord coordA2 = new(-30.0, 40.0);
             GeoBoundingBox bbA = GeoBoundingBox.CreateEmpty();
             bbA.Include(coordA1);
             bbA.Include(coordA2);
 
-            GeoCoord coordB1 = new GeoCoord(-20.0, 30.0);
-            GeoCoord coordB2 = new GeoCoord(-40.0, 50.0);
+            GeoCoord coordB1 = new(-20.0, 30.0);
+            GeoCoord coordB2 = new(-40.0, 50.0);
             GeoBoundingBox bbB = GeoBoundingBox.CreateEmpty();
             bbA.Include(coordB1);
             bbA.Include(coordB2);
@@ -54,8 +54,8 @@ namespace AgOpenGPS.Core.Tests.Models
         public void Test_IncludeBoundingBox_NotEmpty_Empty()
         {
             // Arrange
-            GeoCoord coordA1 = new GeoCoord(-10.0, 20.0);
-            GeoCoord coordA2 = new GeoCoord(-30.0, 40.0);
+            GeoCoord coordA1 = new(-10.0, 20.0);
+            GeoCoord coordA2 = new(-30.0, 40.0);
             GeoBoundingBox bbA = GeoBoundingBox.CreateEmpty();
             bbA.Include(coordA1);
             bbA.Include(coordA2);
@@ -77,8 +77,8 @@ namespace AgOpenGPS.Core.Tests.Models
         {
             // Arrange
             GeoBoundingBox bbA = GeoBoundingBox.CreateEmpty();
-            GeoCoord coordB1 = new GeoCoord(-20.0, 30.0);
-            GeoCoord coordB2 = new GeoCoord(-40.0, 50.0);
+            GeoCoord coordB1 = new(-20.0, 30.0);
+            GeoCoord coordB2 = new(-40.0, 50.0);
             GeoBoundingBox bbB = GeoBoundingBox.CreateEmpty();
             bbA.Include(coordB1);
             bbA.Include(coordB2);

@@ -2,50 +2,47 @@
 {
     public struct GeoBoundingBox
     {
-        private GeoCoord _minCoord;
-        private GeoCoord _maxCoord;
-
-        static public GeoBoundingBox CreateEmpty()
+        public static GeoBoundingBox CreateEmpty()
         {
-            GeoCoord minCoord = new GeoCoord(double.MaxValue, double.MaxValue);
-            GeoCoord maxCoord = new GeoCoord(double.MinValue, double.MinValue);
+            GeoCoord minCoord = new(double.MaxValue, double.MaxValue);
+            GeoCoord maxCoord = new(double.MinValue, double.MinValue);
             return new GeoBoundingBox(minCoord, maxCoord);
         }
 
         public GeoBoundingBox(GeoCoord minCoord, GeoCoord maxCoord)
         {
-            _minCoord = minCoord;
-            _maxCoord = maxCoord;
+            MinCoord = minCoord;
+            MaxCoord = maxCoord;
         }
 
-        public bool IsEmpty =>
-            _maxCoord.Northing < _minCoord.Northing &&
-            _maxCoord.Easting < _minCoord.Easting;
-        public double MinNorthing => _minCoord.Northing;
-        public double MaxNorthing => _maxCoord.Northing;
-        public double MinEasting => _minCoord.Easting;
-        public double MaxEasting => _maxCoord.Easting;
-        public GeoCoord MinCoord => _minCoord;
-        public GeoCoord MaxCoord => _maxCoord;
-        public GeoCoord CenterCoord => _minCoord.Average(_maxCoord);
+        public readonly bool IsEmpty =>
+            MaxCoord.Northing < MinCoord.Northing &&
+            MaxCoord.Easting < MinCoord.Easting;
+        public readonly double MinNorthing => MinCoord.Northing;
+        public readonly double MaxNorthing => MaxCoord.Northing;
+        public readonly double MinEasting => MinCoord.Easting;
+        public readonly double MaxEasting => MaxCoord.Easting;
+        public GeoCoord MinCoord { get; private set; }
+        public GeoCoord MaxCoord { get; private set; }
+        public readonly GeoCoord CenterCoord => MinCoord.Average(MaxCoord);
 
         public void Include(GeoCoord geoCoord)
         {
-            _minCoord = _minCoord.Min(geoCoord);
-            _maxCoord = _maxCoord.Max(geoCoord);
+            MinCoord = MinCoord.Min(geoCoord);
+            MaxCoord = MaxCoord.Max(geoCoord);
         }
 
         public void Include(GeoBoundingBox bb)
         {
-            _minCoord = _minCoord.Min(bb.MinCoord);
-            _maxCoord = _maxCoord.Max(bb.MaxCoord);
+            MinCoord = MinCoord.Min(bb.MinCoord);
+            MaxCoord = MaxCoord.Max(bb.MaxCoord);
         }
 
-        public bool IsInside(GeoCoord testCoord)
+        public readonly bool IsInside(GeoCoord testCoord)
         {
             return
-                _minCoord.Northing <= testCoord.Northing && testCoord.Northing <= _maxCoord.Northing &&
-                _minCoord.Easting <= testCoord.Easting && testCoord.Easting <= _maxCoord.Easting;
+                MinCoord.Northing <= testCoord.Northing && testCoord.Northing <= MaxCoord.Northing &&
+                MinCoord.Easting <= testCoord.Easting && testCoord.Easting <= MaxCoord.Easting;
         }
 
     }

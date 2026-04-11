@@ -35,7 +35,7 @@ namespace AgOpenGPS.Core.AgShare
 
         private static HttpClient CreateHttpClient(string serverUrl, string apiKey)
         {
-            var client = new HttpClient();
+            HttpClient client = new();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
@@ -51,27 +51,25 @@ namespace AgOpenGPS.Core.AgShare
         {
             try
             {
-                using (var tempClient = new HttpClient())
+                using HttpClient tempClient = new();
+                tempClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                tempClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
+                tempClient.BaseAddress = new Uri(baseUrl);
+
+                HttpResponseMessage response = await tempClient.GetAsync("/api/fields");
+
+                if (response.IsSuccessStatusCode)
                 {
-                    tempClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    tempClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("ApiKey", apiKey);
-                    tempClient.BaseAddress = new Uri(baseUrl);
-
-                    var response = await tempClient.GetAsync("/api/fields");
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return AgShareResult.Success();
-                    }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                    {
-                        return AgShareResult.Failure(AgShareError.InvalidApiKey());
-                    }
-                    else
-                    {
-                        string responseBody = await response.Content.ReadAsStringAsync();
-                        return AgShareResult.Failure(AgShareError.WrongStatusCode(response.StatusCode, responseBody));
-                    }
+                    return AgShareResult.Success();
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return AgShareResult.Failure(AgShareError.InvalidApiKey());
+                }
+                else
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return AgShareResult.Failure(AgShareError.WrongStatusCode(response.StatusCode, responseBody));
                 }
             }
             catch (HttpRequestException ex)
@@ -87,9 +85,9 @@ namespace AgOpenGPS.Core.AgShare
         {
             try
             {
-                var json = JsonConvert.SerializeObject(fieldPayload);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _client.PutAsync($"/api/fields/{fieldId}", content);
+                string json = JsonConvert.SerializeObject(fieldPayload);
+                StringContent content = new(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await _client.PutAsync($"/api/fields/{fieldId}", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -114,12 +112,12 @@ namespace AgOpenGPS.Core.AgShare
         {
             try
             {
-                var response = await _client.GetAsync("/api/fields");
+                HttpResponseMessage response = await _client.GetAsync("/api/fields");
                 string json = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var data = JsonConvert.DeserializeObject<List<GetOwnFieldDto>>(json);
+                    List<GetOwnFieldDto> data = JsonConvert.DeserializeObject<List<GetOwnFieldDto>>(json);
                     return AgShareResult<List<GetOwnFieldDto>>.Success(data);
                 }
                 else
@@ -144,12 +142,12 @@ namespace AgOpenGPS.Core.AgShare
         {
             try
             {
-                var response = await _client.GetAsync($"/api/fields/{fieldId}");
+                HttpResponseMessage response = await _client.GetAsync($"/api/fields/{fieldId}");
                 string json = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var data = JsonConvert.DeserializeObject<GetFieldDto>(json);
+                    GetFieldDto data = JsonConvert.DeserializeObject<GetFieldDto>(json);
                     return AgShareResult<GetFieldDto>.Success(data);
                 }
                 else
@@ -173,7 +171,7 @@ namespace AgOpenGPS.Core.AgShare
         /// </summary>
         public async Task<string> GetPublicFieldsAsync(double lat, double lon, double radius = 50)
         {
-            var response = await _client.GetAsync($"/api/fields/public?lat={lat}&lon={lon}&radius={radius}");
+            HttpResponseMessage response = await _client.GetAsync($"/api/fields/public?lat={lat}&lon={lon}&radius={radius}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
         }

@@ -77,7 +77,7 @@ namespace Keypad
 
         private void SendChar(Button senderb)
         {
-            Button btn = (Button)senderb;
+            Button btn = senderb;
             RaiseButtonPressed(btn.Text[0]);
             //if (chk_shift.Checked) chk_shift.Checked = false;
         }
@@ -93,7 +93,7 @@ namespace Keypad
             switch (CultureInfo.CurrentCulture.Name)
             {
                 case "fr": // ------------------------------------------French
-                    if (chk_shift.Checked == true)
+                    if (chk_shift.Checked)
                     {
                         a1.Text = "!";
                         a2.Text = "@";
@@ -238,7 +238,7 @@ namespace Keypad
                     break;
 
                 case "de": // -------------------------------------------Deutsch
-                    if (chk_shift.Checked == true)
+                    if (chk_shift.Checked)
                     {
                         a1.Text = "!";
                         a2.Text = "@";
@@ -354,7 +354,7 @@ namespace Keypad
 
                 default:
 
-                    if (chk_shift.Checked == true)
+                    if (chk_shift.Checked)
                     {
                         a1.Text = "!";
                         a2.Text = "@";

@@ -78,7 +78,7 @@ namespace AgOpenGPS
         private void oglSelf_MouseDown(object sender, MouseEventArgs e)
         {
             Point pt = oglSelf.PointToClient(Cursor.Position);
-            XyCoord xyClient = new XyCoord(pt.X, pt.Y);
+            XyCoord xyClient = new(pt.X, pt.Y);
             GeoCoord mouseDownCoord = _viewport.GetGeoCoord(xyClient);
 
             if (!_coordA.HasValue)
@@ -88,7 +88,7 @@ namespace AgOpenGPS
             else
             {
                 _coordB = mouseDownCoord;
-                GeoDir abDir = new GeoDir(_coordA.Value, _coordB.Value);
+                GeoDir abDir = new(_coordA.Value, _coordB.Value);
                 mf.worldGrid.gridRotation = abDir.AngleInDegrees;
             }
             oglSelf.Refresh();
@@ -124,8 +124,8 @@ namespace AgOpenGPS
                 mf.worldGrid.gridRotation = Math.Atan2(
                     mf.trk.gArr[mf.trk.idx].ptB.easting - mf.trk.gArr[mf.trk.idx].ptA.easting,
                     mf.trk.gArr[mf.trk.idx].ptB.northing - mf.trk.gArr[mf.trk.idx].ptA.northing);
-                if (mf.worldGrid.gridRotation < 0) mf.worldGrid.gridRotation += glm.twoPI;
-                mf.worldGrid.gridRotation = glm.toDegrees(mf.worldGrid.gridRotation);
+                if (mf.worldGrid.gridRotation < 0) mf.worldGrid.gridRotation += Glm.twoPI;
+                mf.worldGrid.gridRotation = Glm.ToDegrees(mf.worldGrid.gridRotation);
             }
             Close();
         }
@@ -157,10 +157,7 @@ namespace AgOpenGPS
 
         private void CreateViewport()
         {
-            if (_viewport == null)
-            {
-                _viewport = new GeoViewport(mf.FieldBoundingBox, oglSelf);
-            }
+            _viewport ??= new GeoViewport(mf.FieldBoundingBox, oglSelf);
         }
 
     }

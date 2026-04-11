@@ -16,7 +16,7 @@ namespace AgIO
         public static string portName = "***";
         public static int baudRate = 115200;
 
-        public SerialPort sp = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
+        public SerialPort sp = new(portName, baudRate, Parity.None, 8, StopBits.One);
         private readonly Dispatcher _dispatcher;
 
         private bool logOn = false;
@@ -210,7 +210,7 @@ namespace AgIO
 
         private void btnFileSave_Click(object sender, EventArgs e)
         {
-            using (StreamWriter writer = new StreamWriter("zAgIO_SerialMon_log.txt", false))
+            using (StreamWriter writer = new("zAgIO_SerialMon_log.txt", false))
             {
                 writer.Write(textBoxRcv.Text);
             }

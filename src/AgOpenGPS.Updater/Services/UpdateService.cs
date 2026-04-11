@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AgOpenGPS.Updater.Models;
 
@@ -26,21 +27,19 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                using (var githubService = new GithubReleaseService(authToken: gitHubToken))
+                using GithubReleaseService githubService = new(authToken: gitHubToken);
+                ReleaseInfo updateInfo = await githubService.CheckForUpdate(currentVersion, includePrerelease);
+
+                if (updateInfo != null)
                 {
-                    var updateInfo = await githubService.CheckForUpdate(currentVersion, includePrerelease);
-
-                    if (updateInfo != null)
-                    {
-                        return (
-                            true,
-                            updateInfo,
-                            $"Update available: {updateInfo.Version} ({updateInfo.ReleaseType})"
-                        );
-                    }
-
-                    return (false, null, "You're using the latest version. No update needed.");
+                    return (
+                        true,
+                        updateInfo,
+                        $"Update available: {updateInfo.Version} ({updateInfo.ReleaseType})"
+                    );
                 }
+
+                return (false, null, "You're using the latest version. No update needed.");
             }
             catch (Exception ex)
             {
@@ -57,12 +56,9 @@ namespace AgOpenGPS.Updater.Services
             try
             {
                 // Find the appropriate asset (zip file)
-                var asset = release.Assets.FirstOrDefault(a => a.IsZipFile && a.IsMainRelease);
-                if (asset == null)
-                {
-                    // Fallback to any zip file
-                    asset = release.Assets.FirstOrDefault(a => a.IsZipFile);
-                }
+                ReleaseAsset asset = release.Assets.FirstOrDefault(a => a.IsZipFile && a.IsMainRelease);
+                // Fallback to any zip file
+                asset ??= release.Assets.FirstOrDefault(a => a.IsZipFile);
 
                 if (asset == null)
                 {
@@ -77,7 +73,7 @@ namespace AgOpenGPS.Updater.Services
 
                 string downloadPath = Path.Combine(targetDirectory, Path.GetFileName(asset.Name));
 
-                using (var githubService = new GithubReleaseService(authToken: gitHubToken))
+                using (GithubReleaseService githubService = new(authToken: gitHubToken))
                 {
                     await githubService.DownloadAsset(asset.BrowserDownloadUrl, downloadPath, progress);
                 }
@@ -144,14 +140,14 @@ namespace AgOpenGPS.Updater.Services
         /// </summary>
         private async Task<bool> CloseProcessAsync(string processName)
         {
-            var processes = Process.GetProcessesByName(processName);
+            Process[] processes = Process.GetProcessesByName(processName);
 
             if (processes.Length == 0)
                 return true; // Process not running is considered successful
 
             bool allClosed = true;
 
-            foreach (var process in processes)
+            foreach (Process process in processes)
             {
                 try
                 {
@@ -234,7 +230,7 @@ namespace AgOpenGPS.Updater.Services
                 progress?.Report(new InstallProgress { Phase = "Installing files...", Percent = 30, OverallPercent = 50 });
 
                 // Step 3: Copy files with progress reporting
-                var (success, errorMessage) = await CopyFilesWithProgressAsync(tempExtractPath, installPath, progress);
+                (bool success, string errorMessage) = await CopyFilesWithProgressAsync(tempExtractPath, installPath, progress);
 
                 // Clean up temp extraction
                 try
@@ -328,7 +324,7 @@ namespace AgOpenGPS.Updater.Services
                 try
                 {
                     // Check if the zip contains a single root folder (common with GitHub releases)
-                    var rootDirs = Directory.GetDirectories(tempExtractPath);
+                    string[] rootDirs = Directory.GetDirectories(tempExtractPath);
                     string sourcePath = tempExtractPath;
 
                     if (rootDirs.Length == 1)
@@ -338,7 +334,7 @@ namespace AgOpenGPS.Updater.Services
                     }
 
                     // Get all files to copy first (for progress calculation)
-                    var allFiles = Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories).ToList();
+                    List<string> allFiles = Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories).ToList();
                     int totalFiles = allFiles.Count;
                     int processedFiles = 0;
 
@@ -356,19 +352,19 @@ namespace AgOpenGPS.Updater.Services
                     int copiedFiles = 0;
                     int skippedFiles = 0;
                     int lockedFiles = 0;
-                    var skippedLockedFiles = new List<string>();
+                    List<string> skippedLockedFiles = new();
 
                     // Copy files from the zip to the installation directory
-                    foreach (var file in allFiles)
+                    foreach (string file in allFiles)
                     {
                         // Get relative path from source
-                        Uri sourceUri = new Uri(sourcePath + Path.DirectorySeparatorChar);
-                        Uri fileUri = new Uri(file);
+                        Uri sourceUri = new(sourcePath + Path.DirectorySeparatorChar);
+                        Uri fileUri = new(file);
                         string relativePath = Uri.UnescapeDataString(sourceUri.MakeRelativeUri(fileUri).ToString().Replace('/', Path.DirectorySeparatorChar));
 
                         // Check if we should skip this file entirely (updater's own files)
                         bool shouldSkipFile = false;
-                        foreach (var skipFile in skipFiles)
+                        foreach (string skipFile in skipFiles)
                         {
                             if (relativePath.Equals(skipFile, StringComparison.OrdinalIgnoreCase))
                             {
@@ -387,7 +383,7 @@ namespace AgOpenGPS.Updater.Services
 
                         // Check if we should preserve this file (in protected directories)
                         bool shouldPreserve = false;
-                        foreach (var preserveDir in preserveDirs)
+                        foreach (string preserveDir in preserveDirs)
                         {
                             // Check if the file is in a preserved directory (at root level)
                             string[] pathParts = relativePath.Split(Path.DirectorySeparatorChar);
@@ -455,7 +451,7 @@ namespace AgOpenGPS.Updater.Services
                         processedFiles++;
 
                         // Report progress
-                        int currentPercent = (processedFiles * 100) / totalFiles;
+                        int currentPercent = processedFiles * 100 / totalFiles;
                         int overallPercent = 50 + (currentPercent / 2); // 50-100% range
                         progress?.Report(new InstallProgress
                         {
@@ -495,7 +491,7 @@ namespace AgOpenGPS.Updater.Services
             Directory.CreateDirectory(backupPath);
 
             // Copy all files and directories (except backup folders)
-            foreach (var file in Directory.GetFiles(installPath, "*", SearchOption.TopDirectoryOnly))
+            foreach (string file in Directory.GetFiles(installPath, "*", SearchOption.TopDirectoryOnly))
             {
                 string fileName = Path.GetFileName(file);
                 // Skip backup folders
@@ -506,7 +502,7 @@ namespace AgOpenGPS.Updater.Services
                 }
             }
 
-            foreach (var dir in Directory.GetDirectories(installPath, "*", SearchOption.TopDirectoryOnly))
+            foreach (string dir in Directory.GetDirectories(installPath, "*", SearchOption.TopDirectoryOnly))
             {
                 string dirName = new DirectoryInfo(dir).Name;
                 // Skip backup folders
@@ -530,13 +526,13 @@ namespace AgOpenGPS.Updater.Services
         {
             Directory.CreateDirectory(destDir);
 
-            foreach (var file in Directory.GetFiles(sourceDir))
+            foreach (string file in Directory.GetFiles(sourceDir))
             {
                 string destFile = Path.Combine(destDir, Path.GetFileName(file));
                 File.Copy(file, destFile, true);
             }
 
-            foreach (var dir in Directory.GetDirectories(sourceDir))
+            foreach (string dir in Directory.GetDirectories(sourceDir))
             {
                 string destSubDir = Path.Combine(destDir, new DirectoryInfo(dir).Name);
                 CopyDirectory(dir, destSubDir);
@@ -550,7 +546,7 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                var backupDirs = Directory.GetDirectories(installPath, ".backup_*", SearchOption.TopDirectoryOnly)
+                List<string> backupDirs = Directory.GetDirectories(installPath, ".backup_*", SearchOption.TopDirectoryOnly)
                     .OrderByDescending(d => new DirectoryInfo(d).CreationTime)
                     .ToList();
 
@@ -583,14 +579,14 @@ namespace AgOpenGPS.Updater.Services
             };
 
             // Delete current files (skip locked files and backup directories)
-            foreach (var file in Directory.GetFiles(installPath, "*", SearchOption.TopDirectoryOnly))
+            foreach (string file in Directory.GetFiles(installPath, "*", SearchOption.TopDirectoryOnly))
             {
                 string fileName = Path.GetFileName(file);
                 // Skip files in backup directories
                 if (!fileName.StartsWith(".backup", StringComparison.OrdinalIgnoreCase))
                 {
                     bool isLockedFile = false;
-                    foreach (var locked in lockedFiles)
+                    foreach (string locked in lockedFiles)
                     {
                         if (fileName.Equals(locked, StringComparison.OrdinalIgnoreCase))
                         {
@@ -611,7 +607,7 @@ namespace AgOpenGPS.Updater.Services
             }
 
             // Also try to delete subdirectories (except backup directories)
-            foreach (var dir in Directory.GetDirectories(installPath, "*", SearchOption.TopDirectoryOnly))
+            foreach (string dir in Directory.GetDirectories(installPath, "*", SearchOption.TopDirectoryOnly))
             {
                 string dirName = new DirectoryInfo(dir).Name;
                 // Skip all backup directories (they start with .backup)
@@ -626,14 +622,14 @@ namespace AgOpenGPS.Updater.Services
             }
 
             // Restore files from backup
-            foreach (var file in Directory.GetFiles(backupPath))
+            foreach (string file in Directory.GetFiles(backupPath))
             {
                 string fileName = Path.GetFileName(file);
                 string destFile = Path.Combine(installPath, fileName);
 
                 // Skip updater's own files
                 bool isLockedFile = false;
-                foreach (var locked in lockedFiles)
+                foreach (string locked in lockedFiles)
                 {
                     if (fileName.Equals(locked, StringComparison.OrdinalIgnoreCase))
                     {
@@ -653,7 +649,7 @@ namespace AgOpenGPS.Updater.Services
             }
 
             // Restore directories from backup (skip internal .backup folders)
-            foreach (var dir in Directory.GetDirectories(backupPath))
+            foreach (string dir in Directory.GetDirectories(backupPath))
             {
                 string dirName = new DirectoryInfo(dir).Name;
                 string destDir = Path.Combine(installPath, dirName);
@@ -693,7 +689,7 @@ namespace AgOpenGPS.Updater.Services
                     return (false, "AgOpenGPS.exe not found in installation directory.");
                 }
 
-                var startInfo = new ProcessStartInfo
+                ProcessStartInfo startInfo = new()
                 {
                     FileName = exePath,
                     Arguments = arguments ?? string.Empty,
@@ -726,10 +722,10 @@ namespace AgOpenGPS.Updater.Services
         {
             try
             {
-                var assembly = System.Reflection.Assembly.GetEntryAssembly();
+                Assembly assembly = System.Reflection.Assembly.GetEntryAssembly();
                 if (assembly != null)
                 {
-                    var version = assembly.GetName().Version;
+                    Version version = assembly.GetName().Version;
                     return version?.ToString() ?? "Unknown";
                 }
             }
@@ -746,9 +742,9 @@ namespace AgOpenGPS.Updater.Services
             try
             {
                 string tempPath = Path.GetTempPath();
-                var tempDirs = Directory.GetDirectories(tempPath, "AgOpenGPS_Update_*");
+                string[] tempDirs = Directory.GetDirectories(tempPath, "AgOpenGPS_Update_*");
 
-                foreach (var dir in tempDirs)
+                foreach (string dir in tempDirs)
                 {
                     try
                     {

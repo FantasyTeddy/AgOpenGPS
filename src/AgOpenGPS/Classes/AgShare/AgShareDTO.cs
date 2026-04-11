@@ -13,7 +13,7 @@ namespace AgOpenGPS
         public double OriginLat { get; set; }
         public double OriginLon { get; set; }
         public double Convergence { get; set; }
-        public List<List<vec3>> Boundaries { get; set; }
+        public List<List<Vec3>> Boundaries { get; set; }
         public List<CTrk> Tracks { get; set; }
         public LocalPlane Converter { get; set; }
     }

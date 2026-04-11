@@ -1,15 +1,11 @@
-﻿using AgOpenGPS.Core;
-using AgOpenGPS.Core.Models;
-using System;
-using System.Globalization;
-using System.Text;
+﻿using AgOpenGPS.Core.Models;
 
 namespace AgOpenGPS
 {
     public class CNMEA
     {
         //our current fix
-        public vec2 fix = new vec2(0, 0);
+        public Vec2 fix = new(0, 0);
 
         //other GIS Info
         public double altitude, speed, vtgSpeed = float.MaxValue;
@@ -49,7 +45,7 @@ namespace AgOpenGPS
                 Properties.Settings.Default.Save();
             }
             GeoCoord geoCoord = mf.AppModel.LocalPlane.ConvertWgs84ToGeoCoord(mf.AppModel.CurrentLatLon);
-            mf.worldGrid.checkZoomWorldGrid(geoCoord);
+            mf.worldGrid.CheckZoomWorldGrid(geoCoord);
         }
 
     }

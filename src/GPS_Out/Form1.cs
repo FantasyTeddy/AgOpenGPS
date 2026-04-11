@@ -60,7 +60,7 @@ namespace GPS_Out
         *48          Checksum
     */
 
-    public partial class frmStart : Form
+    public partial class FrmStart : Form
     {
         public UDPComm AGIOcomm;
         public PGN54908 AGIOdata;
@@ -73,21 +73,21 @@ namespace GPS_Out
         public PGN_RMC RMC;
         public string RMCsentence = "";
         public SerialSend SER;
-        public clsTools Tls;
+        public ClsTools Tls;
         public PGN_VTG VTG;
         public string VTGsentence = "";
         public PGN_ZDA ZDA;
         public string ZDAsentence = "";
         private string HeadingType;
-        private Color SimColor = Color.Orange;
+        private readonly Color SimColor = Color.Orange;
         private int Watchdog;
 
-        public frmStart()
+        public FrmStart()
         {
             InitializeComponent();
-            Tls = new clsTools(this);
-            AGIOcomm = new UDPComm(this, 15555, 8000, 7120, "AGIO", "127.103.104.105", "127.255.255.255");
-            AOGcomm = new UDPComm(this, 17777, 8500, 9010, "AOG", "127.100.101.102", "127.255.255.255");
+            Tls = new ClsTools(this);
+            AGIOcomm = new UDPComm(this, 15555, 7120, "AGIO", "127.103.104.105", "127.255.255.255");
+            AOGcomm = new UDPComm(this, 17777, 9010, "AOG", "127.100.101.102", "127.255.255.255");
             AGIOdata = new PGN54908(this);
             GGA = new PGN_GGA(this);
             VTG = new PGN_VTG(this);
@@ -150,6 +150,9 @@ namespace GPS_Out
                 case 8:
                     Result = "Sim";
                     break;
+
+                default:
+                    break;
             }
             return Result;
         }
@@ -207,7 +210,7 @@ namespace GPS_Out
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            if (worker.CancellationPending == true)
+            if (worker.CancellationPending)
             {
                 e.Cancel = true;
             }
@@ -443,7 +446,7 @@ namespace GPS_Out
             ckAutoHide.Checked = Properties.Settings.Default.AutoHide;
             ckAutoConnect.Checked = Properties.Settings.Default.AutoConnect;
             ckRoll.Checked = Properties.Settings.Default.UseRollCorrected;
-            rbGN.Checked = (Properties.Settings.Default.SentenceStart == "$GN");
+            rbGN.Checked = Properties.Settings.Default.SentenceStart == "$GN";
             ckGSA.Checked = Properties.Settings.Default.SendGSA;
 
             cboGGA.SelectedIndex = Properties.Settings.Default.GGA;
@@ -499,7 +502,7 @@ namespace GPS_Out
 
         private void Send()
         {
-            if (backgroundWorker1.IsBusy != true)
+            if (!backgroundWorker1.IsBusy)
             {
                 // Start the asynchronous operation.
                 backgroundWorker1.RunWorkerAsync();
@@ -525,7 +528,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();
@@ -543,7 +546,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();
@@ -566,7 +569,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();
@@ -584,7 +587,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();
@@ -602,7 +605,7 @@ namespace GPS_Out
             else
             {
                 Watchdog++;
-                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation == true && !backgroundWorker1.CancellationPending)
+                if (Watchdog > 10 && backgroundWorker1.WorkerSupportsCancellation && !backgroundWorker1.CancellationPending)
                 {
                     // Cancel the asynchronous operation.
                     backgroundWorker1.CancelAsync();

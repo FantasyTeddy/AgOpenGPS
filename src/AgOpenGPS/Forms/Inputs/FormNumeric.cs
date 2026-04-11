@@ -64,7 +64,7 @@ namespace AgOpenGPS
             {
                 if (tboxNumber.Text.Length > 0)
                 {
-                    tboxNumber.Text = tboxNumber.Text.Remove(tboxNumber.Text.Length - 1);
+                    tboxNumber.Text = tboxNumber.Text[..^1];
                 }
             }
 
@@ -104,7 +104,7 @@ namespace AgOpenGPS
                     //if already has one, take it away = +/- does that
                     if (tboxNumber.Text.StartsWith("-"))
                     {
-                        tboxNumber.Text = tboxNumber.Text.Substring(1);
+                        tboxNumber.Text = tboxNumber.Text[1..];
                     }
                 }
             }

@@ -21,7 +21,7 @@ namespace AgOpenGPS
 
         private int order;
 
-        private readonly List<string> fileList = new List<string>();
+        private readonly List<string> fileList = new();
 
         public FormFieldExisting(Form _callingForm)
         {
@@ -63,53 +63,54 @@ namespace AgOpenGPS
                 // Make sure directory has a field.txt in it
                 if (File.Exists(filename))
                 {
-                    using (GeoStreamReader reader = new GeoStreamReader(filename))
+                    using GeoStreamReader reader = new(filename);
+                    try
                     {
-                        try
+                        // Skip first 8 lines of the file
+                        for (int i = 0; i < 8; i++)
                         {
-                            // Skip first 8 lines of the file
-                            for (int i = 0; i < 8; i++)
-                            {
-                                reader.ReadLine();
-                            }
-
-                            // Try reading a WGS84 start position
-                            if (!reader.EndOfStream)
-                            {
-                                Wgs84 startLatLon = reader.ReadWgs84();
-                                double distance = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
-
-                                // Add field path and calculated distance to the list
-                                fileList.Add(fieldDirectory);
-                                fileList.Add(Math.Round(distance, 2).ToString("N2").PadLeft(10));
-                            }
-                            else
-                            {
-                                // Show error for incomplete file
-                                FormDialog.Show(gStr.gsFileError,
-                                    fieldDirectory + " is Damaged, Please Delete This Field",
-                                    DialogSeverity.Error);
-
-                                fileList.Add(fieldDirectory);
-                                fileList.Add("Error");
-                            }
+                            reader.ReadLine();
                         }
-                        catch (Exception ex)
-                        {
-                            // Show error for invalid file content
-                            FormDialog.Show(gStr.gsFileError,
-                                fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken",
-                                DialogSeverity.Error);
 
-                            // Log the exception for diagnostics
-                            Log.EventWriter(fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken\n" + ex.ToString());
+                        // Try reading a WGS84 start position
+                        if (!reader.EndOfStream)
+                        {
+                            Wgs84 startLatLon = reader.ReadWgs84();
+                            double distance = startLatLon.DistanceInKiloMeters(mf.AppModel.CurrentLatLon);
+
+                            // Add field path and calculated distance to the list
+                            fileList.Add(fieldDirectory);
+                            fileList.Add(Math.Round(distance, 2).ToString("N2").PadLeft(10));
+                        }
+                        else
+                        {
+                            // Show error for incomplete file
+                            FormDialog.Show(gStr.gsFileError,
+                                fieldDirectory + " is Damaged, Please Delete This Field",
+                                DialogSeverity.Error);
 
                             fileList.Add(fieldDirectory);
                             fileList.Add("Error");
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        // Show error for invalid file content
+                        FormDialog.Show(gStr.gsFileError,
+                            fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken",
+                            DialogSeverity.Error);
+
+                        // Log the exception for diagnostics
+                        Log.EventWriter(fieldDirectory + " is Damaged, Please Delete, Field.txt is Broken\n" + ex.ToString());
+
+                        fileList.Add(fieldDirectory);
+                        fileList.Add("Error");
+                    }
                 }
-                else continue;
+                else
+                {
+                    continue;
+                }
 
 
                 //grab the boundary area
@@ -117,10 +118,10 @@ namespace AgOpenGPS
                 if (File.Exists(filename))
                 {
                     string line;
-                    List<vec3> pointList = new List<vec3>();
+                    List<Vec3> pointList = new();
                     double area = 0;
 
-                    using (StreamReader reader = new StreamReader(filename))
+                    using (StreamReader reader = new(filename))
                     {
                         try
                         {
@@ -133,13 +134,13 @@ namespace AgOpenGPS
                                 line = reader.ReadLine();
 
                                 //Check for older boundary files, then above line string is num of points
-                                if (line == "True" || line == "False")
+                                if (line is "True" or "False")
                                 {
                                     line = reader.ReadLine(); //number of points
                                 }
 
                                 //Check for latest boundary files, then above line string is num of points
-                                if (line == "True" || line == "False")
+                                if (line is "True" or "False")
                                 {
                                     line = reader.ReadLine(); //number of points
                                 }
@@ -153,7 +154,7 @@ namespace AgOpenGPS
                                     {
                                         line = reader.ReadLine();
                                         string[] words = line.Split(',');
-                                        vec3 vecPt = new vec3(
+                                        Vec3 vecPt = new(
                                         double.Parse(words[0], CultureInfo.InvariantCulture),
                                         double.Parse(words[1], CultureInfo.InvariantCulture),
                                         double.Parse(words[2], CultureInfo.InvariantCulture));
@@ -171,13 +172,13 @@ namespace AgOpenGPS
                                         {
                                             area += (pointList[j].easting + pointList[i].easting) * (pointList[j].northing - pointList[i].northing);
                                         }
-                                        if (mf.isMetric)
+                                        if (mf.IsMetric)
                                         {
-                                            area = (Math.Abs(area / 2)) * 0.0001;
+                                            area = Math.Abs(area / 2) * 0.0001;
                                         }
                                         else
                                         {
-                                            area = (Math.Abs(area / 2)) * 0.00024711;
+                                            area = Math.Abs(area / 2) * 0.00024711;
                                         }
                                     }
                                 }
@@ -194,7 +195,10 @@ namespace AgOpenGPS
                         fileList.Add("No Bndry");
                         Log.EventWriter("Boundary is Broken, no Area");
                     }
-                    else fileList.Add(Math.Round(area, 1).ToString("N1").PadLeft(10));
+                    else
+                    {
+                        fileList.Add(Math.Round(area, 1).ToString("N1").PadLeft(10));
+                    }
                 }
                 else
                 {
@@ -262,7 +266,7 @@ namespace AgOpenGPS
         {
             TextBox textboxSender = (TextBox)sender;
             int cursorPosition = textboxSender.SelectionStart;
-            textboxSender.Text = Regex.Replace(textboxSender.Text, glm.fileRegex, "");
+            textboxSender.Text = Regex.Replace(textboxSender.Text, Glm.fileRegex, "");
             textboxSender.SelectionStart = cursorPosition;
 
             if (String.IsNullOrEmpty(tboxFieldName.Text.Trim()))
@@ -296,7 +300,7 @@ namespace AgOpenGPS
                 return;
             }
 
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
                 await mf.FileSaveEverythingBeforeClosingField();
 
             //get the directory and make sure it exists, create if not
@@ -323,7 +327,7 @@ namespace AgOpenGPS
             string line;
             string offsets, convergence, startFix;
 
-            using (StreamReader reader = new StreamReader(fileStr))
+            using (StreamReader reader = new(fileStr))
             {
                 try
                 {
@@ -352,7 +356,7 @@ namespace AgOpenGPS
 
                 const string myFileName = "Field.txt";
 
-                using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, myFileName)))
+                using (StreamWriter writer = new(Path.Combine(directoryName, myFileName)))
                 {
                     //Write out the date
                     writer.WriteLine(DateTime.Now.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
@@ -391,12 +395,12 @@ namespace AgOpenGPS
                 else
                 {
                     //create blank Contour and Section files
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Sections.txt")))
+                    using (StreamWriter writer = new(Path.Combine(directoryName, "Sections.txt")))
                     {
                         //blank
                     }
 
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Contour.txt")))
+                    using (StreamWriter writer = new(Path.Combine(directoryName, "Contour.txt")))
                     {
                         writer.WriteLine("$Contour");
                     }
@@ -426,12 +430,14 @@ namespace AgOpenGPS
                 fileToCopy = Path.Combine(templateDirectoryName, "Headlines.txt");
                 destinationDirectory = Path.Combine(directoryName, "Headlines.txt");
                 if (File.Exists(fileToCopy))
+                {
                     File.Copy(fileToCopy, destinationDirectory);
+                }
                 else
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Headlines.txt")))
-                    {
-                        writer.WriteLine("$Headlines");
-                    }
+                {
+                    using StreamWriter writer = new(Path.Combine(directoryName, "Headlines.txt"));
+                    writer.WriteLine("$Headlines");
+                }
 
                 if (chkFlags.Checked)
                 {
@@ -442,11 +448,9 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "Flags.txt")))
-                    {
-                        writer.WriteLine("$Flags");
-                        writer.WriteLine("0");
-                    }
+                    using StreamWriter writer = new(Path.Combine(directoryName, "Flags.txt"));
+                    writer.WriteLine("$Flags");
+                    writer.WriteLine("0");
                 }
 
                 if (chkGuidanceLines.Checked)
@@ -478,11 +482,9 @@ namespace AgOpenGPS
                 }
                 else
                 {
-                    using (StreamWriter writer = new StreamWriter(Path.Combine(directoryName, "RecPath.txt")))
-                    {
-                        writer.WriteLine("$RecPath");
-                        writer.WriteLine("0");
-                    }
+                    using StreamWriter writer = new(Path.Combine(directoryName, "RecPath.txt"));
+                    writer.WriteLine("$RecPath");
+                    writer.WriteLine("0");
                 }
 
                 if (chkHeadland.Checked)
@@ -632,7 +634,7 @@ namespace AgOpenGPS
         private void btnBackSpace_MouseDown(object sender, MouseEventArgs e)
         {
             if (tboxFieldName.Text.Length > 0)
-                tboxFieldName.Text = tboxFieldName.Text.Remove(tboxFieldName.Text.Length - 1, 1);
+                tboxFieldName.Text = tboxFieldName.Text[..^1];
         }
     }
 }

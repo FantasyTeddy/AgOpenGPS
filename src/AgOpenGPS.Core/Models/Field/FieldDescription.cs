@@ -1,7 +1,4 @@
-﻿using AgLibrary.Logging;
-using System;
-using System.Diagnostics.Tracing;
-using System.IO;
+﻿using System.IO;
 
 namespace AgOpenGPS.Core.Models
 {

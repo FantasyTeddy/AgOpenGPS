@@ -12,7 +12,7 @@ namespace AgOpenGPS
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        private static readonly Mutex Mutex = new Mutex(true, "{516-0AC5-B9A1-55fd-A8CE-72F04E6BDE8F}");
+        private static readonly Mutex Mutex = new(true, "{516-0AC5-B9A1-55fd-A8CE-72F04E6BDE8F}");
 
         public static readonly string Version = Assembly.GetEntryAssembly().GetName().Version.ToString(3); // Major.Minor.Patch
         public static readonly string SemVer = Application.ProductVersion.Split('+').First();

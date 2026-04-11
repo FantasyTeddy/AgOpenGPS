@@ -6,7 +6,7 @@ namespace AgOpenGPS.Core.ViewModels
     public class RelayCommand : ICommand
     {
         private readonly Action _execute;
-        readonly Func<bool> _canExecute;
+        private readonly Func<bool> _canExecute;
 
         public RelayCommand(Action execute)
         {
@@ -15,9 +15,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public RelayCommand(Action execute, Func<bool> canExecute)
         {
-            if (execute == null) throw new ArgumentNullException(nameof(execute));
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
@@ -40,8 +38,8 @@ namespace AgOpenGPS.Core.ViewModels
 
     public class RelayCommand<T> : ICommand
     {
-        readonly Action<T> _execute;
-        readonly Predicate<T> _canExecute;
+        private readonly Action<T> _execute;
+        private readonly Predicate<T> _canExecute;
 
 
         public RelayCommand(Action<T> execute)
@@ -51,9 +49,7 @@ namespace AgOpenGPS.Core.ViewModels
 
         public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
-            if (execute == null) throw new ArgumentNullException(nameof(execute));
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
@@ -64,8 +60,8 @@ namespace AgOpenGPS.Core.ViewModels
 
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         public void Execute(object parameter)

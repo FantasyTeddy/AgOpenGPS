@@ -32,7 +32,7 @@ namespace ModSim
         private void tbarSteerAngleWAS_Scroll(object sender, EventArgs e)
         {
             steerAngleActual = tbarSteerAngleWAS.Value * 0.01;
-            lblWAS.Text = "Steer: " + (steerAngleActual).ToString("N2") + "°";
+            lblWAS.Text = "Steer: " + steerAngleActual.ToString("N2") + "°";
         }
 
         private void tbarSpeed_Scroll(object sender, EventArgs e)
@@ -46,9 +46,9 @@ namespace ModSim
 
         private void tbarRoll_Scroll(object sender, EventArgs e)
         {
-            roll = (double)tbarRoll.Value * 0.1;
+            roll = tbarRoll.Value * 0.1;
             rollIMU = (int)(roll * 10);
-            lblRoll.Text = "Roll: " + (roll).ToString("N2") + "°";
+            lblRoll.Text = "Roll: " + roll.ToString("N2") + "°";
         }
 
         private void lblRoll_Click(object sender, EventArgs e)
@@ -80,13 +80,13 @@ namespace ModSim
 
         public void TimedMessageBox(int timeout, string title, string message)
         {
-            var form = new FormTimedMessage(timeout, title, message);
+            FormTimedMessage form = new(timeout, title, message);
             form.Show();
         }
 
         public void YesMessageBox(string s1)
         {
-            var form = new FormYes(s1);
+            FormYes form = new(s1);
             form.ShowDialog(this);
         }
 
@@ -95,19 +95,19 @@ namespace ModSim
         private string TimeNow = "";
 
         //Our two new nmea strings
-        private readonly StringBuilder sbOGI = new StringBuilder();
-        private readonly StringBuilder sbNDA = new StringBuilder();
+        private readonly StringBuilder sbOGI = new();
+        private readonly StringBuilder sbNDA = new();
 
-        private readonly StringBuilder sbHDT = new StringBuilder();
-        private readonly StringBuilder sbRMC = new StringBuilder();
+        private readonly StringBuilder sbHDT = new();
+        private readonly StringBuilder sbRMC = new();
 
-        private readonly StringBuilder sbGGA = new StringBuilder();
-        private readonly StringBuilder sbVTG = new StringBuilder();
-        private readonly StringBuilder sbAVR = new StringBuilder();
-        private readonly StringBuilder sbKSXT = new StringBuilder();
+        private readonly StringBuilder sbGGA = new();
+        private readonly StringBuilder sbVTG = new();
+        private readonly StringBuilder sbAVR = new();
+        private readonly StringBuilder sbKSXT = new();
 
         //The entire string to send out
-        private readonly StringBuilder sbSendText = new StringBuilder();
+        private readonly StringBuilder sbSendText = new();
 
         //GPS related properties
         private readonly int fixQuality = 8, sats = 12;
@@ -132,23 +132,25 @@ namespace ModSim
 
         private void simTimer_Tick(object sender, EventArgs e)
         {
-            stepDistance = tbarSpeed.Value * 0.027777777777 * (0.1);
+            stepDistance = tbarSpeed.Value * 0.027777777777 * 0.1;
 
             if (guidanceStatus == 0)
+            {
                 steerAngle = tbarSteerAngleWAS.Value * 0.01;
+            }
             else
             {
                 steerAngle = steerAngleSetPoint;
-                tbarSteerAngleWAS.Value = (int)(steerAngleSetPoint);
+                tbarSteerAngleWAS.Value = (int)steerAngleSetPoint;
                 steerAngleActual = steerAngle;
-                lblWAS.Text = "Steer: " + (steerAngleActual).ToString("N2") + "°";
+                lblWAS.Text = "Steer: " + steerAngleActual.ToString("N2") + "°";
             }
 
-            double temp = (stepDistance * Math.Tan(steerAngle * 0.02) / 2.5);
+            double temp = stepDistance * Math.Tan(steerAngle * 0.02) / 2.5;
             headingTrue += temp;
 
-            if (headingTrue > (2.0 * Math.PI)) headingTrue -= (2.0 * Math.PI);
-            if (headingTrue < 0) headingTrue += (2.0 * Math.PI);
+            if (headingTrue > (2.0 * Math.PI)) headingTrue -= 2.0 * Math.PI;
+            if (headingTrue < 0) headingTrue += 2.0 * Math.PI;
 
             degrees = ToDegrees * headingTrue;
 
@@ -162,7 +164,7 @@ namespace ModSim
             lblCurrentLat.Text = latitude.ToString("N7");
 
             //calc the speed
-            speed = Math.Round(1.944 * stepDistance * 1.0 / (0.1), 1);
+            speed = Math.Round(1.944 * stepDistance * 1.0 / 0.1, 1);
 
             TimeNow = DateTime.UtcNow.ToString("HHmmss.fff,", CultureInfo.InvariantCulture);
 
@@ -374,8 +376,8 @@ namespace ModSim
                 .Append(HDOP.ToString(CultureInfo.InvariantCulture)).Append(',')
                 .Append("1000,3.2,")                                                                    //10
                 .Append(speed.ToString(CultureInfo.InvariantCulture)).Append(',')
-                .Append((headingIMU).ToString(CultureInfo.InvariantCulture)).Append(',')
-                .Append((rollIMU).ToString(CultureInfo.InvariantCulture)).Append(",32,298").Append("*");
+                .Append(headingIMU.ToString(CultureInfo.InvariantCulture)).Append(',')
+                .Append(rollIMU.ToString(CultureInfo.InvariantCulture)).Append(",32,298").Append("*");
 
             CalculateChecksum(sbNDA.ToString());
             sbNDA.Append(sumStr);

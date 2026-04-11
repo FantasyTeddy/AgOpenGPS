@@ -3,6 +3,7 @@ using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 
 namespace AgOpenGPS.Core.Streamers
@@ -54,20 +55,18 @@ namespace AgOpenGPS.Core.Streamers
 
         private FlagColor FlagColorFromInt(int intColor)
         {
-            switch (intColor)
+            return intColor switch
             {
-                case 1:
-                    return FlagColor.Green;
-                case 2:
-                    return FlagColor.Yellow;
-            }
-            return FlagColor.Red;
+                1 => FlagColor.Green,
+                2 => FlagColor.Yellow,
+                _ => FlagColor.Red,
+            };
         }
 
         private List<Flag> Read(DirectoryInfo fieldDirectory)
         {
-            List<Flag> flagList = new List<Flag>();
-            using (GeoStreamReader reader = new GeoStreamReader(GetFileInfo(fieldDirectory)))
+            List<Flag> flagList = new();
+            using (GeoStreamReader reader = new(GetFileInfo(fieldDirectory)))
             {
                 string line = reader.ReadLine(); // skip header
 
@@ -86,7 +85,7 @@ namespace AgOpenGPS.Core.Streamers
                     int number = int.Parse(words[isComplete ? 6 : 5]);
                     string notes = isComplete ? words[7].Trim() : "";
 
-                    Flag flag = new Flag(wgs84, geoCoord, new GeoDir(head), FlagColorFromInt(intColor), number, notes);
+                    Flag flag = new(wgs84, geoCoord, new GeoDir(head), FlagColorFromInt(intColor), number, notes);
                     flagList.Add(flag);
                 }
             }
@@ -95,35 +94,32 @@ namespace AgOpenGPS.Core.Streamers
 
         private int FlagColorToInt(FlagColor flagColor)
         {
-            switch (flagColor)
+            return flagColor switch
             {
-                case FlagColor.Green:
-                    return 1;
-                case FlagColor.Yellow:
-                    return 2;
-            }
-            return 0;
+                FlagColor.Red => 0,
+                FlagColor.Green => 1,
+                FlagColor.Yellow => 2,
+                _ => throw new InvalidEnumArgumentException(nameof(flagColor), (int)flagColor, typeof(FlagColor)),
+            };
         }
 
         private void Write(List<Flag> flags, DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory)))
+            using GeoStreamWriter writer = new(GetFileInfo(fieldDirectory));
+            writer.WriteLine("$Flags");
+
+            int nFlags = flags.Count;
+            writer.WriteLine(nFlags);
+
+            foreach (Flag flag in flags)
             {
-                writer.WriteLine("$Flags");
-
-                int nFlags = flags.Count;
-                writer.WriteLine(nFlags);
-
-                foreach (Flag flag in flags)
-                {
-                    writer.WriteLine(
-                        writer.Wgs84String(flag.Wgs84)
-                        + "," + writer.GeoCoordDirStringENH(flag.GeoCoord, flag.Heading)
-                        + "," + writer.IntString(FlagColorToInt(flag.FlagColor))
-                        + "," + writer.IntString(flag.UniqueNumber)
-                        + "," + flag.Notes);
-                }
+                writer.WriteLine(
+                    writer.Wgs84String(flag.Wgs84)
+                    + "," + writer.GeoCoordDirStringENH(flag.GeoCoord, flag.Heading)
+                    + "," + writer.IntString(FlagColorToInt(flag.FlagColor))
+                    + "," + writer.IntString(flag.UniqueNumber)
+                    + "," + flag.Notes);
             }
         }
 

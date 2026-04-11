@@ -7,7 +7,7 @@ namespace AgLibrary.Logging
 {
     public static class Log
     {
-        public static StringBuilder sbEvents = new StringBuilder();
+        public static StringBuilder sbEvents = new();
         private static string logsDirectory = "";
 
         public static void EventWriter(string message)
@@ -38,11 +38,9 @@ namespace AgLibrary.Logging
         {
             if (logsDirectory != "")
             {
-                using (StreamWriter writer = new StreamWriter(logsDirectory, true))
-                {
-                    writer.Write(sbEvents);
-                    sbEvents.Clear();
-                }
+                using StreamWriter writer = new(logsDirectory, true);
+                writer.Write(sbEvents);
+                sbEvents.Clear();
             }
         }
 
@@ -51,20 +49,20 @@ namespace AgLibrary.Logging
             logsDirectory = logFile;
 
             //system event log file
-            FileInfo txtfile = new FileInfo(logFile);
+            FileInfo txtfile = new(logFile);
             if (txtfile.Exists)
             {
-                if (txtfile.Length > (sizeLimit))       // ## NOTE: 0.5MB max file size
+                if (txtfile.Length > sizeLimit)       // ## NOTE: 0.5MB max file size
                 {
-                    StringBuilder sbF = new StringBuilder();
+                    StringBuilder sbF = new();
                     long bytes = txtfile.Length - sizeLimit;
-                    bytes = (sizeLimit * 2) / 10 + bytes;
+                    bytes = (sizeLimit * 2 / 10) + bytes;
                     sbEvents.Append("Log File Reduced by: " + bytes.ToString());
 
                     //create some extra space
                     int bytesSoFar = 0;
 
-                    using (StreamReader reader = new StreamReader(logFile))
+                    using (StreamReader reader = new(logFile))
                     {
                         try
                         {
@@ -84,10 +82,8 @@ namespace AgLibrary.Logging
                         catch { }
                     }
 
-                    using (StreamWriter writer = new StreamWriter(logFile))
-                    {
-                        writer.WriteLine(sbF);
-                    }
+                    using StreamWriter writer = new(logFile);
+                    writer.WriteLine(sbF);
                 }
             }
         }

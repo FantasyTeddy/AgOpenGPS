@@ -2,7 +2,7 @@
 
 namespace AgOpenGPS.Core.Models
 {
-    public struct GeoDir
+    public readonly struct GeoDir
     {
         public GeoDir(double angleInRadians)
         {
@@ -26,17 +26,17 @@ namespace AgOpenGPS.Core.Models
         // The returned angle will be in the range [0.0 ... 360 >
         public double AngleInDegrees => Units.RadiansToDegrees(AngleInRadians);
 
-        public GeoDir PerpendicularLeft => new GeoDir(
+        public GeoDir PerpendicularLeft => new(
             0.5 * Math.PI < AngleInRadians
-            ? AngleInRadians - 0.5 * Math.PI
-            : AngleInRadians + 1.5 * Math.PI);
+            ? AngleInRadians - (0.5 * Math.PI)
+            : AngleInRadians + (1.5 * Math.PI));
 
-        public GeoDir PerpendicularRight => new GeoDir(
+        public GeoDir PerpendicularRight => new(
             1.5 * Math.PI < AngleInRadians
-            ? AngleInRadians - 1.5 * Math.PI
-            : AngleInRadians + 0.5 * Math.PI);
+            ? AngleInRadians - (1.5 * Math.PI)
+            : AngleInRadians + (0.5 * Math.PI));
 
-        public GeoDir Inverted => new GeoDir(
+        public GeoDir Inverted => new(
             Math.PI < AngleInRadians
             ? AngleInRadians - Math.PI
             : AngleInRadians + Math.PI);

@@ -16,15 +16,15 @@ namespace AgOpenGPS
         {
             //to calc heading based on next and previous points to give an average heading.
             int cnt = fenceLine.Count;
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
             cnt--;
             fenceLine.CopyTo(arr);
             fenceLine.Clear();
 
             //first point needs last, first, second points
-            vec3 pt3 = arr[0];
+            Vec3 pt3 = arr[0];
             pt3.heading = Math.Atan2(arr[1].easting - arr[cnt].easting, arr[1].northing - arr[cnt].northing);
-            if (pt3.heading < 0) pt3.heading += glm.twoPI;
+            if (pt3.heading < 0) pt3.heading += Glm.twoPI;
             fenceLine.Add(pt3);
 
             //middle points
@@ -32,14 +32,14 @@ namespace AgOpenGPS
             {
                 pt3 = arr[i];
                 pt3.heading = Math.Atan2(arr[i + 1].easting - arr[i - 1].easting, arr[i + 1].northing - arr[i - 1].northing);
-                if (pt3.heading < 0) pt3.heading += glm.twoPI;
+                if (pt3.heading < 0) pt3.heading += Glm.twoPI;
                 fenceLine.Add(pt3);
             }
 
             //last and first point
             pt3 = arr[cnt];
             pt3.heading = Math.Atan2(arr[0].easting - arr[cnt - 1].easting, arr[0].northing - arr[cnt - 1].northing);
-            if (pt3.heading < 0) pt3.heading += glm.twoPI;
+            if (pt3.heading < 0) pt3.heading += Glm.twoPI;
             fenceLine.Add(pt3);
         }
 
@@ -62,10 +62,10 @@ namespace AgOpenGPS
                 int j = i + 1;
 
                 if (j == bndCount) j = 0;
-                distance = glm.Distance(fenceLine[i], fenceLine[j]);
+                distance = Glm.Distance(fenceLine[i], fenceLine[j]);
                 if (distance > spacing * 1.5)
                 {
-                    vec3 pointB = new vec3((fenceLine[i].easting + fenceLine[j].easting) / 2.0,
+                    Vec3 pointB = new((fenceLine[i].easting + fenceLine[j].easting) / 2.0,
                         (fenceLine[i].northing + fenceLine[j].northing) / 2.0, fenceLine[i].heading);
 
                     fenceLine.Insert(j, pointB);
@@ -82,10 +82,10 @@ namespace AgOpenGPS
                 int j = i + 1;
 
                 if (j == bndCount) j = 0;
-                distance = glm.Distance(fenceLine[i], fenceLine[j]);
+                distance = Glm.Distance(fenceLine[i], fenceLine[j]);
                 if (distance > spacing * 1.6)
                 {
-                    vec3 pointB = new vec3((fenceLine[i].easting + fenceLine[j].easting) / 2.0,
+                    Vec3 pointB = new((fenceLine[i].easting + fenceLine[j].easting) / 2.0,
                         (fenceLine[i].northing + fenceLine[j].northing) / 2.0, fenceLine[i].heading);
 
                     fenceLine.Insert(j, pointB);
@@ -99,7 +99,7 @@ namespace AgOpenGPS
             bndCount = fenceLine.Count;
             for (int i = 0; i < bndCount - 1; i++)
             {
-                distance = glm.Distance(fenceLine[i], fenceLine[i + 1]);
+                distance = Glm.Distance(fenceLine[i], fenceLine[i + 1]);
                 if (distance < spacing)
                 {
                     fenceLine.RemoveAt(i + 1);
@@ -118,13 +118,13 @@ namespace AgOpenGPS
             {
                 if (i == 0)
                 {
-                    fenceLineEar.Add(new vec2(fenceLine[i].easting, fenceLine[i].northing));
+                    fenceLineEar.Add(new Vec2(fenceLine[i].easting, fenceLine[i].northing));
                     continue;
                 }
-                delta += (fenceLine[i - 1].heading - fenceLine[i].heading);
+                delta += fenceLine[i - 1].heading - fenceLine[i].heading;
                 if (Math.Abs(delta) > 0.005)
                 {
-                    fenceLineEar.Add(new vec2(fenceLine[i].easting, fenceLine[i].northing));
+                    fenceLineEar.Add(new Vec2(fenceLine[i].easting, fenceLine[i].northing));
                     delta = 0;
                 }
             }
@@ -134,14 +134,14 @@ namespace AgOpenGPS
         {
             //reverse the boundary
             int cnt = fenceLine.Count;
-            vec3[] arr = new vec3[cnt];
+            Vec3[] arr = new Vec3[cnt];
             cnt--;
             fenceLine.CopyTo(arr);
             fenceLine.Clear();
             for (int i = cnt; i >= 0; i--)
             {
                 arr[i].heading -= Math.PI;
-                if (arr[i].heading < 0) arr[i].heading += glm.twoPI;
+                if (arr[i].heading < 0) arr[i].heading += Glm.twoPI;
                 fenceLine.Add(arr[i]);
             }
         }
@@ -176,12 +176,12 @@ namespace AgOpenGPS
         }
         public bool RemoveSelfIntersections()
         {
-            var original = new List<vec3>(fenceLine);
+            List<Vec3> original = new(fenceLine);
             int originalCount = fenceLine.Count;
             if (originalCount < 4) return false;
 
             // Work on a closed copy (last point == first point) to simplify segment math.
-            var working = new List<vec3>(originalCount + 1);
+            List<Vec3> working = new(originalCount + 1);
             working.AddRange(fenceLine);
             working.Add(fenceLine[0]);
 
@@ -196,8 +196,8 @@ namespace AgOpenGPS
 
                 for (int i = 0; i < working.Count - 1 && !changed; i++)
                 {
-                    vec2 a0 = working[i].ToVec2();
-                    vec2 a1 = working[i + 1].ToVec2();
+                    Vec2 a0 = working[i].ToVec2();
+                    Vec2 a1 = working[i + 1].ToVec2();
 
                     for (int j = i + 2; j < working.Count - 1; j++)
                     {
@@ -205,15 +205,15 @@ namespace AgOpenGPS
                         if (j == i + 1) continue;
                         if (i == 0 && j + 1 == working.Count - 1) continue;
 
-                        vec2 b0 = working[j].ToVec2();
-                        vec2 b1 = working[j + 1].ToVec2();
+                        Vec2 b0 = working[j].ToVec2();
+                        Vec2 b1 = working[j + 1].ToVec2();
 
-                        if (!TrySegmentIntersection(a0, a1, b0, b1, out vec2 intersection)) continue;
+                        if (!TrySegmentIntersection(a0, a1, b0, b1, out Vec2 intersection)) continue;
 
                         // Remove the loop between the two segments and insert the intersection point once.
                         working.RemoveRange(i + 1, j - i);
-                        working.Insert(i + 1, new vec3(intersection.easting, intersection.northing, 0));
-                        working[working.Count - 1] = new vec3(working[0]);
+                        working.Insert(i + 1, new Vec3(intersection.easting, intersection.northing, 0));
+                        working[^1] = new Vec3(working[0]);
 
                         removedAny = true;
                         changed = true;
@@ -228,11 +228,11 @@ namespace AgOpenGPS
 
             for (int i = 0; i < working.Count - 1; i++)
             {
-                vec3 candidate = working[i];
+                Vec3 candidate = working[i];
 
                 if (fenceLine.Count > 0)
                 {
-                    vec3 previous = fenceLine[fenceLine.Count - 1];
+                    Vec3 previous = fenceLine[^1];
                     if (Math.Abs(previous.easting - candidate.easting) < 0.001 &&
                         Math.Abs(previous.northing - candidate.northing) < 0.001)
                     {
@@ -245,8 +245,8 @@ namespace AgOpenGPS
 
             if (fenceLine.Count > 1)
             {
-                vec3 first = fenceLine[0];
-                vec3 last = fenceLine[fenceLine.Count - 1];
+                Vec3 first = fenceLine[0];
+                Vec3 last = fenceLine[^1];
                 if (Math.Abs(first.easting - last.easting) < 0.001 &&
                     Math.Abs(first.northing - last.northing) < 0.001)
                 {
@@ -266,23 +266,23 @@ namespace AgOpenGPS
             return true;
         }
 
-        private static bool TrySegmentIntersection(vec2 a0, vec2 a1, vec2 b0, vec2 b1, out vec2 intersection)
+        private static bool TrySegmentIntersection(Vec2 a0, Vec2 a1, Vec2 b0, Vec2 b1, out Vec2 intersection)
         {
             intersection = default;
 
-            double denominator = (a0.easting - a1.easting) * (b0.northing - b1.northing)
-                - (a0.northing - a1.northing) * (b0.easting - b1.easting);
+            double denominator = ((a0.easting - a1.easting) * (b0.northing - b1.northing))
+                - ((a0.northing - a1.northing) * (b0.easting - b1.easting));
 
             if (Math.Abs(denominator) < 1e-6)
             {
                 return false;
             }
 
-            double t = ((a0.easting - b0.easting) * (b0.northing - b1.northing)
-                - (a0.northing - b0.northing) * (b0.easting - b1.easting)) / denominator;
+            double t = (((a0.easting - b0.easting) * (b0.northing - b1.northing))
+                - ((a0.northing - b0.northing) * (b0.easting - b1.easting))) / denominator;
 
-            double u = ((a0.easting - b0.easting) * (a0.northing - a1.northing)
-                - (a0.northing - b0.northing) * (a0.easting - a1.easting)) / denominator;
+            double u = (((a0.easting - b0.easting) * (a0.northing - a1.northing))
+                - ((a0.northing - b0.northing) * (a0.easting - a1.easting))) / denominator;
 
             const double epsilon = 1e-6;
 
@@ -291,9 +291,9 @@ namespace AgOpenGPS
                 return false;
             }
 
-            intersection = new vec2(
-                a0.easting + t * (a1.easting - a0.easting),
-                a0.northing + t * (a1.northing - a0.northing));
+            intersection = new Vec2(
+                a0.easting + (t * (a1.easting - a0.easting)),
+                a0.northing + (t * (a1.northing - a0.northing)));
 
             return true;
         }

@@ -180,9 +180,9 @@ namespace AgIO
             {
                 Brush textBrush = new SolidBrush(textColor);
                 Brush borderBrush = new SolidBrush(borderColor);
-                Pen borderPen = new Pen(borderBrush);
+                Pen borderPen = new(borderBrush);
                 SizeF strSize = g.MeasureString(box.Text, box.Font);
-                Rectangle rect = new Rectangle(box.ClientRectangle.X,
+                Rectangle rect = new(box.ClientRectangle.X,
                                                box.ClientRectangle.Y + (int)(strSize.Height / 2),
                                                box.ClientRectangle.Width - 1,
                                                box.ClientRectangle.Height - (int)(strSize.Height / 2) - 1);
@@ -203,7 +203,7 @@ namespace AgIO
                 //Top1
                 g.DrawLine(borderPen, new Point(rect.X, rect.Y), new Point(rect.X + box.Padding.Left, rect.Y));
                 //Top2
-                g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)(strSize.Width), rect.Y), new Point(rect.X + rect.Width, rect.Y));
+                g.DrawLine(borderPen, new Point(rect.X + box.Padding.Left + (int)strSize.Width, rect.Y), new Point(rect.X + rect.Width, rect.Y));
             }
         }
 
@@ -370,7 +370,7 @@ namespace AgIO
             lblIMU.Text = mf.spIMU.PortName;
             lblMachine.Text = mf.spMachineModule.PortName;
 
-            lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : (mf.traffic.cntrGPSIn).ToString();
+            lblFromGPS.Text = mf.traffic.cntrGPSIn == 0 ? "--" : mf.traffic.cntrGPSIn.ToString();
         }
 
         private void btnSerialOK_Click(object sender, EventArgs e)

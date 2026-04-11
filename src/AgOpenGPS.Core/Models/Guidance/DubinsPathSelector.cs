@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace AgOpenGPS.Core.Models
@@ -7,7 +6,7 @@ namespace AgOpenGPS.Core.Models
     public class DubinsPathSelector
     {
         private readonly DubinsPathConstraints _constraints;
-        private List<DubinsPath> _paths = new List<DubinsPath>();
+        private readonly List<DubinsPath> _paths = new();
 
         public DubinsPathSelector(DubinsPathConstraints constraints)
         {

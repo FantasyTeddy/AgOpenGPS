@@ -63,7 +63,7 @@ namespace AgIO
             {
                 if (tboxNumber.Text.Length > 0)
                 {
-                    tboxNumber.Text = tboxNumber.Text.Remove(tboxNumber.Text.Length - 1);
+                    tboxNumber.Text = tboxNumber.Text[..^1];
                 }
             }
 
@@ -103,7 +103,7 @@ namespace AgIO
                     //if already has one, take it away = +/- does that
                     if (tboxNumber.Text.StartsWith("-"))
                     {
-                        tboxNumber.Text = tboxNumber.Text.Substring(1);
+                        tboxNumber.Text = tboxNumber.Text[1..];
                     }
                 }
             }
@@ -158,7 +158,7 @@ namespace AgIO
 
         private void BtnDistanceUp_MouseDown(object sender, MouseEventArgs e)
         {
-            if (tboxNumber.Text == "" || tboxNumber.Text == "-" || tboxNumber.Text == "Error") tboxNumber.Text = "0";
+            if (tboxNumber.Text is "" or "-" or "Error") tboxNumber.Text = "0";
             double tryNumber = double.Parse(tboxNumber.Text, CultureInfo.CurrentCulture);
 
             tryNumber++;
@@ -169,7 +169,7 @@ namespace AgIO
 
         private void BtnDistanceDn_MouseDown(object sender, MouseEventArgs e)
         {
-            if (tboxNumber.Text == "" || tboxNumber.Text == "-" || tboxNumber.Text == "Error") tboxNumber.Text = "0";
+            if (tboxNumber.Text is "" or "-" or "Error") tboxNumber.Text = "0";
             double tryNumber = double.Parse(tboxNumber.Text, CultureInfo.CurrentCulture);
 
             tryNumber--;

@@ -6,27 +6,23 @@ namespace GPS_Out
 {
     public class UDPComm
     {
-        private readonly frmStart mf;
-        private byte[] buffer = new byte[1024];
-        private string cConnectionName;
-        private bool cIsUDPSendConnected;
+        private readonly FrmStart mf;
+        private readonly byte[] buffer = new byte[1024];
+        private readonly string cConnectionName;
         private string cLog;
         private IPAddress cNetworkEP;
-        private int cReceivePort;   // local ports must be unique for each app on same pc and each class instance
-        private int cSendFromPort;
-        private int cSendToPort;
+        private readonly int cReceivePort;   // local ports must be unique for each app on same pc and each class instance
+        private readonly int cSendFromPort;
         private IPAddress cSourceIP;
-        private string cSubNet;
         private HandleDataDelegateObj HandleDataDelegate = null;
         private Socket recvSocket;
         private Socket sendSocket;
 
-        public UDPComm(frmStart CallingForm, int ReceivePort, int SendToPort, int SendFromPort,
+        public UDPComm(FrmStart CallingForm, int ReceivePort, int SendFromPort,
             string ConnectionName, string SourceIPaddress, string DestinationEndPoint = "")
         {
             mf = CallingForm;
             cReceivePort = ReceivePort;
-            cSendToPort = SendToPort;
             cSendFromPort = SendFromPort;
             cConnectionName = ConnectionName;
             SetEP(DestinationEndPoint);
@@ -36,20 +32,19 @@ namespace GPS_Out
         // Status delegate
         private delegate void HandleDataDelegateObj(int port, byte[] msg);
 
-        public bool IsUDPSendConnected { get => cIsUDPSendConnected; set => cIsUDPSendConnected = value; }
+        public bool IsUDPSendConnected { get; set; }
 
         public string NetworkEP
         {
-            get { return cNetworkEP.ToString(); }
+            get => cNetworkEP.ToString();
             set
             {
                 string[] data;
-                if (IPAddress.TryParse(value, out IPAddress IP))
+                if (IPAddress.TryParse(value, out IPAddress _))
                 {
                     data = value.Split('.');
                     cNetworkEP = IPAddress.Parse(data[0] + "." + data[1] + "." + data[2] + ".255");
                     Properties.Settings.Default["EndPoint" + cConnectionName] = cNetworkEP.ToString();
-                    cSubNet = data[0].ToString() + "." + data[1].ToString() + "." + data[2].ToString();
                 }
             }
         }
@@ -69,7 +64,7 @@ namespace GPS_Out
                 sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
                 // Initialise the IPEndPoint for the server to send on port
-                IPEndPoint server = new IPEndPoint(IPAddress.Any, cSendFromPort);
+                IPEndPoint server = new(IPAddress.Any, cSendFromPort);
                 sendSocket.Bind(server);
 
                 // Initialise the IPEndPoint for the client - async listner client only!
@@ -101,24 +96,20 @@ namespace GPS_Out
             {
                 if (Data.Length > 1)
                 {
-                    int PGN = Data[1] << 8 | Data[0];
+                    int PGN = (Data[1] << 8) | Data[0];
                     AddToLog("< " + PGN.ToString());
 
-                    switch (PGN)
+                    if (PGN == 33152) // AOG, 0x8180
                     {
-                        case 33152: // AOG, 0x8180
-                            int SubPGN = Data[3] << 8 | Data[2];
-                            switch (SubPGN)
-                            {
-                                case 54908: // 0xD67C, AGIO NEMA translation
-                                    mf.AGIOdata.ParseByteData(Data);
-                                    break;
-
-                                case 25727: // 0x647F, AOG roll corrected lat,lon
-                                    mf.AOGdata.ParseByteData(Data);
-                                    break;
-                            }
-                            break;
+                        int SubPGN = (Data[3] << 8) | Data[2];
+                        if (SubPGN == 54908) // 0xD67C, AGIO NEMA translation
+                        {
+                            mf.AGIOdata.ParseByteData(Data);
+                        }
+                        else if (SubPGN == 25727) // 0x647F, AOG roll corrected lat,lon
+                        {
+                            mf.AOGdata.ParseByteData(Data);
+                        }
                     }
                 }
             }
@@ -156,18 +147,6 @@ namespace GPS_Out
             {
                 //mf.Tls.ShowHelp("ReceiveData Error \n" + e.Message, "Comm", 3000, true);
                 mf.Tls.WriteErrorLog("UDPcomm/ReceiveData " + ex.Message);
-            }
-        }
-
-        private void SendData(IAsyncResult asyncResult)
-        {
-            try
-            {
-                sendSocket.EndSend(asyncResult);
-            }
-            catch (Exception ex)
-            {
-                mf.Tls.WriteErrorLog(" UDP Send Data" + ex.ToString());
             }
         }
 

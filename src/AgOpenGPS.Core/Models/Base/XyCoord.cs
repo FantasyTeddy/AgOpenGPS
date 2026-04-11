@@ -1,6 +1,6 @@
 ﻿namespace AgOpenGPS.Core.Models
 {
-    public struct XyCoord
+    public readonly struct XyCoord
     {
         public XyCoord(double x, double y)
         {

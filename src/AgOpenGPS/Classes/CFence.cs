@@ -6,7 +6,7 @@ namespace AgOpenGPS
 {
     public partial class CBoundary
     {
-        public List<vec3> bndBeingMadePts = new List<vec3>(128);
+        public List<Vec3> bndBeingMadePts = new(128);
 
         public double createBndOffset;
         public bool isBndBeingMade;
@@ -14,7 +14,7 @@ namespace AgOpenGPS
         public bool isDrawRightSide = true, isDrawAtPivot = true, isOkToAddPoints = false;
         public bool isRecBoundaryWhenSectionOn = false;
 
-        public bool IsPointInsideFenceArea(vec3 testPoint)
+        public bool IsPointInsideFenceArea(Vec3 testPoint)
         {
             //first where are we, must be inside outer and outside of inner geofence non drive thru turn borders
             if (bndList[0].fenceLineEar.IsPointInPolygon(testPoint))
@@ -34,7 +34,7 @@ namespace AgOpenGPS
             return false;
         }
 
-        public bool IsPointInsideFenceArea(vec2 testPoint)
+        public bool IsPointInsideFenceArea(Vec2 testPoint)
         {
             //first where are we, must be inside outer and outside of inner geofence non drive thru turn borders
             if (bndList[0].fenceLineEar.IsPointInPolygon(testPoint))
@@ -95,7 +95,7 @@ namespace AgOpenGPS
             if (bndBeingMadePts.Count > 0)
             {
                 //the boundary so far
-                vec3 pivot = mf.pivotAxlePos;
+                Vec3 pivot = mf.pivotAxlePos;
                 GL.LineWidth(mf.ABLine.lineWidth);
                 GL.Color3(0.825f, 0.22f, 0.90f);
                 GL.Begin(PrimitiveType.LineStrip);
@@ -116,17 +116,17 @@ namespace AgOpenGPS
                     {
                         GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
 
-                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * -createBndOffset),
-                                pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * -createBndOffset), 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - Glm.PIBy2) * -createBndOffset),
+                                pivot.northing + (Math.Cos(pivot.heading - Glm.PIBy2) * -createBndOffset), 0);
+                        GL.Vertex3(bndBeingMadePts[^1].easting, bndBeingMadePts[^1].northing, 0);
                     }
                     else
                     {
                         GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
 
-                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - glm.PIBy2) * createBndOffset),
-                                pivot.northing + (Math.Cos(pivot.heading - glm.PIBy2) * createBndOffset), 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(pivot.easting + (Math.Sin(pivot.heading - Glm.PIBy2) * createBndOffset),
+                                pivot.northing + (Math.Cos(pivot.heading - Glm.PIBy2) * createBndOffset), 0);
+                        GL.Vertex3(bndBeingMadePts[^1].easting, bndBeingMadePts[^1].northing, 0);
                     }
                 }
                 else //draw from tool
@@ -135,13 +135,13 @@ namespace AgOpenGPS
                     {
                         GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
                         GL.Vertex3(mf.section[mf.tool.numOfSections - 1].rightPoint.easting, mf.section[mf.tool.numOfSections - 1].rightPoint.northing, 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(bndBeingMadePts[^1].easting, bndBeingMadePts[^1].northing, 0);
                     }
                     else
                     {
                         GL.Vertex3(bndBeingMadePts[0].easting, bndBeingMadePts[0].northing, 0);
                         GL.Vertex3(mf.section[0].leftPoint.easting, mf.section[0].leftPoint.northing, 0);
-                        GL.Vertex3(bndBeingMadePts[bndBeingMadePts.Count - 1].easting, bndBeingMadePts[bndBeingMadePts.Count - 1].northing, 0);
+                        GL.Vertex3(bndBeingMadePts[^1].easting, bndBeingMadePts[^1].northing, 0);
                     }
                 }
                 GL.End();

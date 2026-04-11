@@ -17,7 +17,7 @@ namespace AgOpenGPS.Core.Streamers
 
         public Boundary TryRead(DirectoryInfo fieldDirectory)
         {
-            Boundary boundary = new Boundary();
+            Boundary boundary = new();
             FileInfo fileInfo = GetFileInfo(fieldDirectory);
             if (!fileInfo.Exists)
             {
@@ -41,8 +41,8 @@ namespace AgOpenGPS.Core.Streamers
 
         public Boundary Read(DirectoryInfo fieldDirectory)
         {
-            Boundary boundary = new Boundary();
-            using (GeoStreamReader reader = new GeoStreamReader(GetFileInfo(fieldDirectory)))
+            Boundary boundary = new();
+            using (GeoStreamReader reader = new(GetFileInfo(fieldDirectory)))
             {
                 reader.ReadLine(); // skip header Boundary
                 boundary.OuterBoundary = ReadBoundaryPolygon(reader);
@@ -60,7 +60,7 @@ namespace AgOpenGPS.Core.Streamers
         {
             if (reader.EndOfStream) return null;
 
-            BoundaryPolygon polygon = new BoundaryPolygon();
+            BoundaryPolygon polygon = new();
             if (reader.PeekReadBool(out bool peekedBool))
             {
                 polygon.IsDriveThru = peekedBool;
@@ -79,17 +79,15 @@ namespace AgOpenGPS.Core.Streamers
         public void Write(Boundary boundary, DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory)))
+            using GeoStreamWriter writer = new(GetFileInfo(fieldDirectory));
+            writer.WriteLine("$Boundary");
+            if (boundary.OuterBoundary != null)
             {
-                writer.WriteLine("$Boundary");
-                if (boundary.OuterBoundary != null)
-                {
-                    WriteBoundaryPolygon(writer, boundary.OuterBoundary);
-                }
-                foreach (var polygon in boundary.InnerBoundaries)
-                {
-                    WriteBoundaryPolygon(writer, polygon);
-                }
+                WriteBoundaryPolygon(writer, boundary.OuterBoundary);
+            }
+            foreach (BoundaryPolygon polygon in boundary.InnerBoundaries)
+            {
+                WriteBoundaryPolygon(writer, polygon);
             }
         }
 

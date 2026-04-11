@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AgLibrary.Logging;
@@ -35,45 +36,39 @@ namespace AgOpenGPS
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppViewModel.IsMetric directly
-        public bool isMetric
+        public bool IsMetric
         {
-            get { return AppViewModel.IsMetric; }
-            set
-            {
-                AppViewModel.IsMetric = value;
-            }
+            get => AppViewModel.IsMetric;
+            set => AppViewModel.IsMetric = value;
         }
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppViewModel.IsDay directly
-        public bool isDay
+        public bool IsDay
         {
-            get { return AppViewModel.IsDay; }
-            set
-            {
-                AppViewModel.IsDay = value;
-            }
+            get => AppViewModel.IsDay;
+            set => AppViewModel.IsDay = value;
         }
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppViewModel.Fields directly
-        public string currentFieldDirectory
+        public string CurrentFieldDirectory
         {
-            get { return AppModel.Fields.CurrentFieldName; }
-            set { AppModel.Fields.SetCurrentFieldByName(value); }
+            get => AppModel.Fields.CurrentFieldName;
+            set => AppModel.Fields.SetCurrentFieldByName(value);
         }
 
         // Deprecated. Only here to avoid numerous changes to existing code that not has been refactored.
         // Please use AppModel.FixHeading directly
-        public double fixHeading
+        public double FixHeading
         {
-            get { return AppModel.FixHeading.AngleInRadians; }
-            set { AppModel.FixHeading = new GeoDir(value); }
+            get => AppModel.FixHeading.AngleInRadians;
+            set => AppModel.FixHeading = new GeoDir(value);
         }
 
-        public bool isJobStarted => AppModel.Fields.ActiveField != null;
+        public bool IsJobStarted => AppModel.Fields.ActiveField != null;
 
-        public string displayFieldName => AppModel.Fields.ActiveField != null ? AppModel.Fields.ActiveField.Name : gStr.gsNone;
+        public string DisplayFieldName => AppModel.Fields.ActiveField != null ? AppModel.Fields.ActiveField.Name : gStr.gsNone;
 
 
         //To bring forward AgIO if running
@@ -100,11 +95,11 @@ namespace AgOpenGPS
         public bool isSavingFile = false;
 
         //texture holders
-        public ScreenTextures ScreenTextures = new ScreenTextures();
-        public VehicleTextures VehicleTextures = new VehicleTextures();
+        public ScreenTextures ScreenTextures = new();
+        public VehicleTextures VehicleTextures = new();
 
         //create instance of a stopwatch for timing of frames and NMEA hz determination
-        private readonly Stopwatch swFrame = new Stopwatch();
+        private readonly Stopwatch swFrame = new();
 
         public double secondsSinceStart;
         public double gridToolSpacing;
@@ -343,7 +338,7 @@ namespace AgOpenGPS
 
             triStrip = new List<CPatches>
             {
-                new CPatches(this)
+                new(this)
             };
 
             //our NMEA parser
@@ -414,21 +409,22 @@ namespace AgOpenGPS
 
             if (!Properties.Settings.Default.setDisplay_isTermsAccepted)
             {
-                using (var form = new FormTermsAndConditions())
+                using FormTermsAndConditions form = new();
+                if (form.ShowDialog(this) != DialogResult.OK)
                 {
-                    if (form.ShowDialog(this) != DialogResult.OK)
-                    {
-                        Log.EventWriter("Terms Not Accepted");
-                        Log.FileSaveSystemEvents();
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        Log.EventWriter("Terms Accepted");
-                    }
+                    Log.EventWriter("Terms Not Accepted");
+                    Log.FileSaveSystemEvents();
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Log.EventWriter("Terms Accepted");
                 }
             }
-            else Log.EventWriter("Terms Already Accepted");
+            else
+            {
+                Log.EventWriter("Terms Already Accepted");
+            }
 
             this.MouseWheel += ZoomByMouseWheel;
 
@@ -446,7 +442,7 @@ namespace AgOpenGPS
             oglMain.Left = 75;
             oglMain.Width = this.Width - statusStripLeft.Width - 84;
 
-            panelSim.Left = Width / 2 - 330;
+            panelSim.Left = (Width / 2) - 330;
             panelSim.Width = 700;
             panelSim.Top = Height - 60;
 
@@ -454,10 +450,10 @@ namespace AgOpenGPS
             SetLanguage(RegistrySettings.culture);
 
             //make sure current field directory exists, null if not
-            currentFieldDirectory = Settings.Default.setF_CurrentDir;
+            CurrentFieldDirectory = Settings.Default.setF_CurrentDir;
 
             Log.EventWriter("Program Directory: " + Application.StartupPath);
-            Log.EventWriter("Fields Directory: " + (RegistrySettings.fieldsDirectory));
+            Log.EventWriter("Fields Directory: " + RegistrySettings.fieldsDirectory);
 
             if (isBrightnessOn)
             {
@@ -509,7 +505,7 @@ namespace AgOpenGPS
                     string strPath = Path.Combine(Application.StartupPath, "AgIO.exe");
                     try
                     {
-                        ProcessStartInfo processInfo = new ProcessStartInfo
+                        ProcessStartInfo processInfo = new()
                         {
                             FileName = strPath,
                             WorkingDirectory = Path.GetDirectoryName(strPath)
@@ -582,7 +578,7 @@ namespace AgOpenGPS
                 }
                 // Scenario: New profiles exist - no message needed, go directly to form
 
-                using (var form = new AgOpenGPS.Forms.Profiles.FormLoadVehicleTool(this))
+                using (FormLoadVehicleTool form = new(this))
                 {
                     form.ShowDialog(this);
                 }
@@ -662,7 +658,7 @@ namespace AgOpenGPS
             }
 
             // Turn off auto sections if active
-            if (isJobStarted && autoBtnState == btnStates.Auto)
+            if (IsJobStarted && autoBtnState == BtnStates.Auto)
             {
                 btnSectionMasterAuto.PerformClick();
             }
@@ -695,7 +691,7 @@ namespace AgOpenGPS
             {
                 savingForm = new FormSaving();
 
-                if (isJobStarted)
+                if (IsJobStarted)
                 {
                     // Check if AgShare is enabled (step will be added regardless of whether upload already started)
                     bool isAgShareEnabled = Settings.Default.AgShareEnabled &&
@@ -886,11 +882,11 @@ namespace AgOpenGPS
         {
             SaveFormGPSWindowSettings();
 
-            double minutesSinceStart = ((DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds) / 60;
+            double minutesSinceStart = (DateTime.Now - Process.GetCurrentProcess().StartTime).TotalSeconds / 60;
             if (minutesSinceStart < 1) minutesSinceStart = 1;
 
             Log.EventWriter("Missed Sentence Counter Total: " + missedSentenceCount.ToString()
-                + "   Missed Per Minute: " + ((double)missedSentenceCount / minutesSinceStart).ToString("N4"));
+                + "   Missed Per Minute: " + (missedSentenceCount / minutesSinceStart).ToString("N4"));
 
             Log.EventWriter("Program Exit: " + DateTime.Now.ToString("f", CultureInfo.CreateSpecificCulture(RegistrySettings.culture)) + "\r");
 
@@ -908,11 +904,9 @@ namespace AgOpenGPS
                 bool updaterIsActive = false;
                 try
                 {
-                    using (var updaterMutex = System.Threading.Mutex.OpenExisting("Global\\AgOpenGPS_Updater_Active"))
-                    {
-                        updaterIsActive = true;
-                        Log.EventWriter("Updater is active - skipping Windows shutdown");
-                    }
+                    using Mutex updaterMutex = System.Threading.Mutex.OpenExisting("Global\\AgOpenGPS_Updater_Active");
+                    updaterIsActive = true;
+                    Log.EventWriter("Updater is active - skipping Windows shutdown");
                 }
                 catch (System.Threading.WaitHandleCannotBeOpenedException)
                 {
@@ -934,9 +928,11 @@ namespace AgOpenGPS
 
                     try
                     {
-                        var psi = new ProcessStartInfo("shutdown", "/s /t 0");
-                        psi.CreateNoWindow = true; // Prevents a command prompt window from appearing
-                        psi.UseShellExecute = false; // Required for CreateNoWindow to work in some contexts
+                        ProcessStartInfo psi = new("shutdown", "/s /t 0")
+                        {
+                            CreateNoWindow = true, // Prevents a command prompt window from appearing
+                            UseShellExecute = false // Required for CreateNoWindow to work in some contexts
+                        };
 
                         Process.Start(psi);
                     }
@@ -976,16 +972,14 @@ namespace AgOpenGPS
         {
             CloseTopMosts();
 
-            using (FormSaveOrNot form = new FormSaveOrNot(this))
-            {
-                DialogResult result = form.ShowDialog(this);
+            using FormSaveOrNot form = new(this);
+            DialogResult result = form.ShowDialog(this);
 
-                if (result == DialogResult.OK) return 0;      //Exit to windows
-                if (result == DialogResult.Ignore) return 1;   //Ignore & return
-                if (result == DialogResult.Yes) return 2;   //Shutdown computer
+            if (result == DialogResult.OK) return 0;      //Exit to windows
+            if (result == DialogResult.Ignore) return 1;   //Ignore & return
+            if (result == DialogResult.Yes) return 2;   //Shutdown computer
 
-                return 1;  // oops something is really busted
-            }
+            return 1;  // oops something is really busted
         }
 
         private void FormGPS_ResizeEnd(object sender, EventArgs e)
@@ -996,21 +990,21 @@ namespace AgOpenGPS
             Form f = Application.OpenForms["FormGPSData"];
             if (f != null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
                 f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormFieldData"];
             if (f != null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
                 f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormPan"];
             if (f != null)
             {
-                f.Top = this.Height / 3 + this.Top;
+                f.Top = (this.Height / 3) + this.Top;
                 f.Left = this.Width - 400 + this.Left;
             }
         }
@@ -1030,14 +1024,14 @@ namespace AgOpenGPS
             Form f = Application.OpenForms["FormGPSData"];
             if (f != null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
                 f.Left = this.Left + GPSDataWindowLeft;
             }
 
             f = Application.OpenForms["FormFieldData"];
             if (f != null)
             {
-                f.Top = this.Top + this.Height / 2 - GPSDataWindowTopOffset;
+                f.Top = this.Top + (this.Height / 2) - GPSDataWindowTopOffset;
                 f.Left = this.Left + GPSDataWindowLeft;
             }
 
@@ -1060,11 +1054,11 @@ namespace AgOpenGPS
             btnFieldStats.Visible = true;
 
             btnSectionMasterManual.Enabled = true;
-            manualBtnState = btnStates.Off;
+            manualBtnState = BtnStates.Off;
             btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
             btnSectionMasterAuto.Enabled = true;
-            autoBtnState = btnStates.Off;
+            autoBtnState = BtnStates.Off;
             btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
             btnSection1Man.BackColor = Color.Red;
@@ -1207,17 +1201,17 @@ namespace AgOpenGPS
 
 
             //fix ManualOffOnAuto buttons
-            manualBtnState = btnStates.Off;
+            manualBtnState = BtnStates.Off;
             btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
             //fix auto button
-            autoBtnState = btnStates.Off;
+            autoBtnState = BtnStates.Off;
             btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
             if (tool.isSectionsNotZones)
             {
                 //Update the button colors and text
-                AllSectionsAndButtonsToState(btnStates.Off);
+                AllSectionsAndButtonsToState(BtnStates.Off);
 
                 //enable disable manual buttons
                 LineUpIndividualSectionBtns();
@@ -1391,16 +1385,16 @@ namespace AgOpenGPS
         public void SetZoom()
         {
             //match grid to cam distance and redo perspective
-            double gridStep = camera.camSetDistance / -15;
+            double gridStep = camera.CamSetDistance / -15;
 
-            gridToolSpacing = (int)(gridStep / tool.width + 0.5);
+            gridToolSpacing = (int)((gridStep / tool.width) + 0.5);
             if (gridToolSpacing < 1) gridToolSpacing = 1;
             worldGrid.GridStep = gridToolSpacing * tool.width;
 
             oglMain.MakeCurrent();
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.AspectRatio, 1f, (float)(camDistanceFactor * camera.camSetDistance));
+            Matrix4 mat = Matrix4.CreatePerspectiveFieldOfView((float)fovy, oglMain.AspectRatio, 1f, (float)(camDistanceFactor * camera.CamSetDistance));
             GL.LoadMatrix(ref mat);
             GL.MatrixMode(MatrixMode.Modelview);
         }
@@ -1408,16 +1402,16 @@ namespace AgOpenGPS
         public void SendSettings()
         {
             //Form Steer Settings
-            p_252.pgn[p_252.countsPerDegree] = unchecked((byte)Properties.VehicleSettings.Default.setAS_countsPerDegree);
-            p_252.pgn[p_252.ackerman] = unchecked((byte)Properties.VehicleSettings.Default.setAS_ackerman);
+            p_252.pgn[p_252.countsPerDegree] = unchecked(VehicleSettings.Default.setAS_countsPerDegree);
+            p_252.pgn[p_252.ackerman] = unchecked(VehicleSettings.Default.setAS_ackerman);
 
             p_252.pgn[p_252.wasOffsetHi] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset >> 8));
-            p_252.pgn[p_252.wasOffsetLo] = unchecked((byte)(Properties.VehicleSettings.Default.setAS_wasOffset));
+            p_252.pgn[p_252.wasOffsetLo] = unchecked((byte)Properties.VehicleSettings.Default.setAS_wasOffset);
 
-            p_252.pgn[p_252.highPWM] = unchecked((byte)Properties.VehicleSettings.Default.setAS_highSteerPWM);
-            p_252.pgn[p_252.lowPWM] = unchecked((byte)Properties.VehicleSettings.Default.setAS_lowSteerPWM);
-            p_252.pgn[p_252.gainProportional] = unchecked((byte)Properties.VehicleSettings.Default.setAS_Kp);
-            p_252.pgn[p_252.minPWM] = unchecked((byte)Properties.VehicleSettings.Default.setAS_minSteerPWM);
+            p_252.pgn[p_252.highPWM] = unchecked(VehicleSettings.Default.setAS_highSteerPWM);
+            p_252.pgn[p_252.lowPWM] = unchecked(VehicleSettings.Default.setAS_lowSteerPWM);
+            p_252.pgn[p_252.gainProportional] = unchecked(VehicleSettings.Default.setAS_Kp);
+            p_252.pgn[p_252.minPWM] = unchecked(VehicleSettings.Default.setAS_minSteerPWM);
 
             SendPgnToLoop(p_252.pgn);
 
@@ -1481,37 +1475,37 @@ namespace AgOpenGPS
 
 
             p_235.pgn[p_235.sec0Lo] = unchecked((byte)(section[0].sectionWidth * 100));
-            p_235.pgn[p_235.sec0Hi] = unchecked((byte)((int)((section[0].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec0Hi] = unchecked((byte)((int)(section[0].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec1Lo] = unchecked((byte)(section[1].sectionWidth * 100));
-            p_235.pgn[p_235.sec1Hi] = unchecked((byte)((int)((section[1].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec1Hi] = unchecked((byte)((int)(section[1].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec2Lo] = unchecked((byte)(section[2].sectionWidth * 100));
-            p_235.pgn[p_235.sec2Hi] = unchecked((byte)((int)((section[2].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec2Hi] = unchecked((byte)((int)(section[2].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec3Lo] = unchecked((byte)(section[3].sectionWidth * 100));
-            p_235.pgn[p_235.sec3Hi] = unchecked((byte)((int)((section[3].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec3Hi] = unchecked((byte)((int)(section[3].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec4Lo] = unchecked((byte)(section[4].sectionWidth * 100));
-            p_235.pgn[p_235.sec4Hi] = unchecked((byte)((int)((section[4].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec4Hi] = unchecked((byte)((int)(section[4].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec5Lo] = unchecked((byte)(section[5].sectionWidth * 100));
-            p_235.pgn[p_235.sec5Hi] = unchecked((byte)((int)((section[5].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec5Hi] = unchecked((byte)((int)(section[5].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec6Lo] = unchecked((byte)(section[6].sectionWidth * 100));
-            p_235.pgn[p_235.sec6Hi] = unchecked((byte)((int)((section[6].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec6Hi] = unchecked((byte)((int)(section[6].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec7Lo] = unchecked((byte)(section[7].sectionWidth * 100));
-            p_235.pgn[p_235.sec7Hi] = unchecked((byte)((int)((section[7].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec7Hi] = unchecked((byte)((int)(section[7].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec8Lo] = unchecked((byte)(section[8].sectionWidth * 100));
-            p_235.pgn[p_235.sec8Hi] = unchecked((byte)((int)((section[8].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec8Hi] = unchecked((byte)((int)(section[8].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec9Lo] = unchecked((byte)(section[9].sectionWidth * 100));
-            p_235.pgn[p_235.sec9Hi] = unchecked((byte)((int)((section[9].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec9Hi] = unchecked((byte)((int)(section[9].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec10Lo] = unchecked((byte)(section[10].sectionWidth * 100));
-            p_235.pgn[p_235.sec10Hi] = unchecked((byte)((int)((section[10].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec10Hi] = unchecked((byte)((int)(section[10].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec11Lo] = unchecked((byte)(section[11].sectionWidth * 100));
-            p_235.pgn[p_235.sec11Hi] = unchecked((byte)((int)((section[11].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec11Hi] = unchecked((byte)((int)(section[11].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec12Lo] = unchecked((byte)(section[12].sectionWidth * 100));
-            p_235.pgn[p_235.sec12Hi] = unchecked((byte)((int)((section[12].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec12Hi] = unchecked((byte)((int)(section[12].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec13Lo] = unchecked((byte)(section[13].sectionWidth * 100));
-            p_235.pgn[p_235.sec13Hi] = unchecked((byte)((int)((section[13].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec13Hi] = unchecked((byte)((int)(section[13].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec14Lo] = unchecked((byte)(section[14].sectionWidth * 100));
-            p_235.pgn[p_235.sec14Hi] = unchecked((byte)((int)((section[14].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec14Hi] = unchecked((byte)((int)(section[14].sectionWidth * 100) >> 8));
             p_235.pgn[p_235.sec15Lo] = unchecked((byte)(section[15].sectionWidth * 100));
-            p_235.pgn[p_235.sec15Hi] = unchecked((byte)((int)((section[15].sectionWidth * 100)) >> 8));
+            p_235.pgn[p_235.sec15Hi] = unchecked((byte)((int)(section[15].sectionWidth * 100) >> 8));
 
             p_235.pgn[p_235.numSections] = (byte)tool.numOfSections;
 
@@ -1521,14 +1515,14 @@ namespace AgOpenGPS
         //message box pops up with info then goes away
         public void TimedMessageBox(int timeout, string s1, string s2)
         {
-            FormTimedMessage form = new FormTimedMessage(timeout, s1, s2);
+            FormTimedMessage form = new(timeout, s1, s2);
             form.Show(this);
             this.Activate();
         }
 
         public void YesMessageBox(string s1)
         {
-            var form = new FormYes(s1);
+            FormYes form = new(s1);
             form.ShowDialog(this);
         }
     }//class FormGPS

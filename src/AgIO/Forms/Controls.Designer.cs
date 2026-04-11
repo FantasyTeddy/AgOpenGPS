@@ -14,13 +14,13 @@ namespace AgIO
     {
         public void TimedMessageBox(int timeout, string title, string message)
         {
-            var form = new FormTimedMessage(timeout, title, message);
+            FormTimedMessage form = new(timeout, title, message);
             form.Show();
         }
 
         public void YesMessageBox(string s1)
         {
-            var form = new FormYes(s1);
+            FormYes form = new(s1);
             form.ShowDialog(this);
         }
 
@@ -146,14 +146,12 @@ namespace AgIO
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            using (var dlg = new FormYes("Warning: Closing AgIO will stop communication with hardware.\r\nAre you sure you want to close?", true))
-            {
-                var result = dlg.ShowDialog(this);
+            using FormYes dlg = new("Warning: Closing AgIO will stop communication with hardware.\r\nAre you sure you want to close?", true);
+            DialogResult result = dlg.ShowDialog(this);
 
-                if (result == DialogResult.OK)
-                {
-                    Close();
-                }
+            if (result == DialogResult.OK)
+            {
+                Close();
             }
         }
 
@@ -247,9 +245,11 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new()
+                    {
+                        FileName = strPath,
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -297,23 +297,19 @@ namespace AgIO
                 return;
             }
 
-            using (var form = new FormSerialPass(this))
+            using FormSerialPass form = new(this);
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    ////Clicked Save
-                    //Application.Restart();
-                    //Environment.Exit(0);
-                    Settings.Default.Save();
-                }
+                ////Clicked Save
+                //Application.Restart();
+                //Environment.Exit(0);
+                Settings.Default.Save();
             }
         }
         private void toolStripSettings_Click(object sender, EventArgs e)
         {
-            using (var form = new FormAdvancedSettings())
-            {
-                form.ShowDialog(this);
-            }
+            using FormAdvancedSettings form = new();
+            form.ShowDialog(this);
         }
         private void toolStripMenuProfiles_Click(object sender, EventArgs e)
         {
@@ -322,7 +318,7 @@ namespace AgIO
                 TimedMessageBox(3000, "AgIO Default Profile Used", "Create or Choose a Profile");
             }
 
-            using (var form = new FormProfiles(this))
+            using (FormProfiles form = new(this))
             {
                 form.ShowDialog(this);
                 if (form.DialogResult == DialogResult.Yes)
@@ -346,9 +342,11 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new()
+                    {
+                        FileName = strPath,
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -375,13 +373,13 @@ namespace AgIO
 
         public void ShowUDPMonitor()
         {
-            var form = new FormUDPMonitor(this);
+            FormUDPMonitor form = new(this);
             form.Show(this);
         }
 
         public void ShowSerialMonitor()
         {
-            var form = new FormSerialMonitor(this);
+            FormSerialMonitor form = new(this);
             form.Show(this);
         }
 
@@ -394,7 +392,7 @@ namespace AgIO
         {
             isGPSCommOpen = true;
 
-            using (FormCommSetGPS form = new FormCommSetGPS(this))
+            using (FormCommSetGPS form = new(this))
             {
                 form.ShowDialog(this);
             }
@@ -403,10 +401,8 @@ namespace AgIO
 
         private void SettingsEthernet()
         {
-            using (FormEthernet form = new FormEthernet(this))
-            {
-                form.ShowDialog(this);
-            }
+            using FormEthernet form = new(this);
+            form.ShowDialog(this);
         }
 
         private void SettingsNTRIP()
@@ -424,16 +420,14 @@ namespace AgIO
             }
 
 
-            using (var form = new FormNtrip(this))
+            using FormNtrip form = new(this);
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (form.ShowDialog(this) == DialogResult.OK)
+                if (isNTRIP_Connected)
                 {
-                    if (isNTRIP_Connected)
-                    {
-                        SettingsShutDownNTRIP();
-                    }
-                    Settings.Default.Save();
+                    SettingsShutDownNTRIP();
                 }
+                Settings.Default.Save();
             }
         }
 
@@ -459,18 +453,16 @@ namespace AgIO
                 isRadio_RequiredOn = false;
             }
 
-            using (var form = new FormRadio(this))
+            using FormRadio form = new(this);
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    Settings.Default.Save();
-                }
+                Settings.Default.Save();
             }
         }
 
         private void SettingsUDP()
         {
-            FormUDP formEth = new FormUDP(this);
+            FormUDP formEth = new(this);
             {
                 formEth.Show(this);
             }
@@ -486,9 +478,11 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new()
+                    {
+                        FileName = strPath,
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -515,9 +509,11 @@ namespace AgIO
 
                 try
                 {
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = strPath;
-                    processInfo.WorkingDirectory = Path.GetDirectoryName(strPath);
+                    ProcessStartInfo processInfo = new()
+                    {
+                        FileName = strPath,
+                        WorkingDirectory = Path.GetDirectoryName(strPath)
+                    };
                     Process proc = Process.Start(processInfo);
                 }
                 catch
@@ -536,7 +532,7 @@ namespace AgIO
 
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem toolStripMenuProfiles;
-        private readonly FormISOBUS isobusForm = new FormISOBUS();
+        private readonly FormISOBUS isobusForm = new();
         private ToolStripMenuItem isobusToolStripMenuItem;
     }
 }

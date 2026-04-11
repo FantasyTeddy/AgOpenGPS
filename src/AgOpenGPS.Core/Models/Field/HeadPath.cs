@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AgOpenGPS.Core.Models
+﻿namespace AgOpenGPS.Core.Models
 {
     public class HeadPath
     {

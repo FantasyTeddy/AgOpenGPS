@@ -5,13 +5,11 @@ namespace AgOpenGPS.Core.ViewModels
 {
     public class ConfigMenuViewModel : DayNightAndUnitsViewModel
     {
-        private readonly ApplicationModel _appModel;
         private readonly IConfigMenuPanelPresenter _configMenuPanelPresenter;
         private ConfigViewModel _configViewModel;
 
-        public ConfigMenuViewModel(ApplicationModel appModel, IConfigMenuPanelPresenter configMenuPanelPresenter)
+        public ConfigMenuViewModel(IConfigMenuPanelPresenter configMenuPanelPresenter)
         {
-            _appModel = appModel;
             _configMenuPanelPresenter = configMenuPanelPresenter;
             ShowConfigurationDialogCommand = new RelayCommand(ShowConfigurationDialog);
         }
@@ -22,11 +20,7 @@ namespace AgOpenGPS.Core.ViewModels
         {
             get
             {
-                if (_configViewModel == null)
-                {
-                    _configViewModel =
-                        new ConfigViewModel(_appModel);
-                }
+                _configViewModel ??= new ConfigViewModel();
                 return _configViewModel;
             }
         }

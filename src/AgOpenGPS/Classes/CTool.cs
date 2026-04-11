@@ -47,8 +47,6 @@ namespace AgOpenGPS
 
         public int rpWidth;
 
-        private double textRotate;
-
         public Color[] secColors = new Color[16];
 
         public int zones;
@@ -126,11 +124,11 @@ namespace AgOpenGPS
         {
             double pivotToHitch = hitchLength;
 
-            if (mf.vehicle.VehicleConfig.Type == VehicleType.Articulated && !glm.IsZero(pivotToHitch))
+            if (mf.vehicle.VehicleConfig.Type == VehicleType.Articulated && !Glm.IsZero(pivotToHitch))
             {
                 double halfWheelbase = 0.5 * mf.vehicle.VehicleConfig.Wheelbase;
 
-                if (!glm.IsZero(halfWheelbase))
+                if (!Glm.IsZero(halfWheelbase))
                 {
                     pivotToHitch += Math.Sign(pivotToHitch) * halfWheelbase;
                 }
@@ -141,12 +139,12 @@ namespace AgOpenGPS
 
         public double GetHitchHeadingFromVehiclePivot(double pivotToHitchLength)
         {
-            double hitchHeading = mf.fixHeading;
+            double hitchHeading = mf.FixHeading;
 
-            if (mf.vehicle.VehicleConfig.Type == VehicleType.Articulated && !glm.IsZero(pivotToHitchLength))
+            if (mf.vehicle.VehicleConfig.Type == VehicleType.Articulated && !Glm.IsZero(pivotToHitchLength))
             {
                 double steerAngleDegrees = mf.timerSim.Enabled ? mf.sim.steerAngle : mf.mc.actualSteerAngleDegrees;
-                double articulationRadians = glm.toRadians(steerAngleDegrees);
+                double articulationRadians = Glm.ToRadians(steerAngleDegrees);
 
                 // The hitch translation already starts from the averaged vehicle heading
                 // (fixHeading). Applying the full rear-frame deflection on top of that
@@ -173,11 +171,11 @@ namespace AgOpenGPS
         {
             if (angle < 0)
             {
-                angle = (angle % glm.twoPI) + glm.twoPI;
+                angle = (angle % Glm.twoPI) + Glm.twoPI;
             }
-            else if (angle >= glm.twoPI)
+            else if (angle >= Glm.twoPI)
             {
-                angle %= glm.twoPI;
+                angle %= Glm.twoPI;
             }
 
             return angle;
@@ -186,24 +184,24 @@ namespace AgOpenGPS
         private static void DrawHitch(double trailingTank)
         {
             XyCoord[] vertices = {
-                new XyCoord(-0.57, trailingTank),
-                new XyCoord(0.0, 0.0),
-                new XyCoord(0.57, trailingTank)
+                new(-0.57, trailingTank),
+                new(0.0, 0.0),
+                new(0.57, trailingTank)
             };
-            LineStyle backgroundLineStyle = new LineStyle(6.0f, Colors.Black);
-            LineStyle foregroundLineStyle = new LineStyle(1.0f, Colors.HitchColor);
+            LineStyle backgroundLineStyle = new(6.0f, Colors.Black);
+            LineStyle foregroundLineStyle = new(1.0f, Colors.HitchColor);
             GLW.DrawLineLoopPrimitiveLayered(vertices, backgroundLineStyle, foregroundLineStyle);
         }
 
         private void DrawTrailingHitch(double trailingTool)
         {
             XyCoord[] vertices = {
-                new XyCoord(-0.65 + mf.tool.offset, trailingTool),
-                new XyCoord(0.0, 0.0),
-                new XyCoord(0.65 + mf.tool.offset, trailingTool)
+                new(-0.65 + mf.tool.offset, trailingTool),
+                new(0.0, 0.0),
+                new(0.65 + mf.tool.offset, trailingTool)
             };
-            LineStyle backgroundLineStyle = new LineStyle(6.0f, Colors.Black);
-            LineStyle foregroundLineStyle = new LineStyle(1.0f, Colors.HitchTrailingColor);
+            LineStyle backgroundLineStyle = new(6.0f, Colors.Black);
+            LineStyle foregroundLineStyle = new(1.0f, Colors.HitchTrailingColor);
             GLW.DrawLineLoopPrimitiveLayered(vertices, backgroundLineStyle, foregroundLineStyle);
         }
 
@@ -234,41 +232,40 @@ namespace AgOpenGPS
             if (isToolTBT && isToolTrailing)
             {
                 //rotate to tank heading
-                GL.Rotate(glm.toDegrees(-mf.tankPos.heading), 0.0, 0.0, 1.0);
+                GL.Rotate(Glm.ToDegrees(-mf.tankPos.heading), 0.0, 0.0, 1.0);
 
                 DrawHitch(trailingTank);
 
                 GL.Color4(1, 1, 1, 0.75);
-                XyCoord toolAxleCenter = new XyCoord(0.0, trailingTank);
-                XyDelta deltaToU1V1 = new XyDelta(1.5, 1.0);
+                XyCoord toolAxleCenter = new(0.0, trailingTank);
+                XyDelta deltaToU1V1 = new(1.5, 1.0);
                 mf.VehicleTextures.ToolAxle.DrawCentered(toolAxleCenter, deltaToU1V1);
 
                 //move down the tank hitch, unwind, rotate to section heading
                 GL.Translate(0.0, trailingTank, 0.0);
-                GL.Rotate(glm.toDegrees(mf.tankPos.heading), 0.0, 0.0, 1.0);
+                GL.Rotate(Glm.ToDegrees(mf.tankPos.heading), 0.0, 0.0, 1.0);
             }
-            GL.Rotate(glm.toDegrees(-mf.toolPivotPos.heading), 0.0, 0.0, 1.0);
+            GL.Rotate(Glm.ToDegrees(-mf.toolPivotPos.heading), 0.0, 0.0, 1.0);
 
             //draw the hitch if trailing
             if (isToolTrailing)
             {
                 DrawTrailingHitch(trailingTool);
 
-                if (Math.Abs(trailingToolToPivotLength) > 1 && mf.camera.camSetDistance > -100)
+                if (Math.Abs(trailingToolToPivotLength) > 1 && mf.camera.CamSetDistance > -100)
                 {
-                    textRotate += (mf.sim.stepDistance);
                     GL.Color4(1, 1, 1, 0.75);
-                    XyCoord rightTire00 = new XyCoord(0.75 + offset, trailingTool + 0.51);
-                    XyCoord rightTire11 = new XyCoord(1.4 + offset, trailingTool - 0.51);
-                    XyCoord leftTire00 = new XyCoord(-0.75 + offset, trailingTool + 0.51);
-                    XyCoord lefttTire11 = new XyCoord(-1.4 + offset, trailingTool - 0.51);
+                    XyCoord rightTire00 = new(0.75 + offset, trailingTool + 0.51);
+                    XyCoord rightTire11 = new(1.4 + offset, trailingTool - 0.51);
+                    XyCoord leftTire00 = new(-0.75 + offset, trailingTool + 0.51);
+                    XyCoord lefttTire11 = new(-1.4 + offset, trailingTool - 0.51);
                     mf.VehicleTextures.Tire.Draw(rightTire00, rightTire11);
                     mf.VehicleTextures.Tire.Draw(leftTire00, lefttTire11);
                 }
                 trailingTool -= trailingToolToPivotLength;
             }
 
-            if (mf.isJobStarted)
+            if (mf.IsJobStarted)
             {
                 //look ahead lines
                 GL.LineWidth(3);
@@ -276,13 +273,13 @@ namespace AgOpenGPS
 
                 //lookahead section on
                 GL.Color3(0.20f, 0.7f, 0.2f);
-                GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOnPixelsLeft) * 0.1 + trailingTool, 0);
-                GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOnPixelsRight) * 0.1 + trailingTool, 0);
+                GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOnPixelsLeft * 0.1) + trailingTool, 0);
+                GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOnPixelsRight * 0.1) + trailingTool, 0);
 
                 //lookahead section off
                 GL.Color3(0.70f, 0.2f, 0.2f);
-                GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOffPixelsLeft) * 0.1 + trailingTool, 0);
-                GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOffPixelsRight) * 0.1 + trailingTool, 0);
+                GL.Vertex3(mf.tool.farLeftPosition, (mf.tool.lookAheadDistanceOffPixelsLeft * 0.1) + trailingTool, 0);
+                GL.Vertex3(mf.tool.farRightPosition, (mf.tool.lookAheadDistanceOffPixelsRight * 0.1) + trailingTool, 0);
 
                 if (mf.vehicle.isHydLiftOn)
                 {
@@ -297,7 +294,7 @@ namespace AgOpenGPS
             //draw the sections
             GL.LineWidth(2);
 
-            double hite = mf.camera.camSetDistance / -250;
+            double hite = mf.camera.CamSetDistance / -250;
             if (hite > 4) hite = 4;
             if (hite < 1) hite = 1;
 
@@ -309,13 +306,16 @@ namespace AgOpenGPS
                 //if section is on, green, if off, red color
                 if (mf.section[j].isSectionOn)
                 {
-                    if (mf.section[j].sectionBtnState == btnStates.Auto)
+                    if (mf.section[j].sectionBtnState == BtnStates.Auto)
                     {
                         //GL.Color3(0.0f, 0.9f, 0.0f);
                         if (mf.section[j].isMappingOn) GL.Color3(0.0f, 0.95f, 0.0f);
                         else GL.Color3(0.970f, 0.30f, 0.970f);
                     }
-                    else GL.Color3(0.97, 0.97, 0);
+                    else
+                    {
+                        GL.Color3(0.97, 0.97, 0);
+                    }
                 }
                 else
                 {
@@ -324,17 +324,17 @@ namespace AgOpenGPS
                     //GL.Color3(0.7f, 0.2f, 0.2f);
                 }
 
-                double mid = (mf.section[j].positionRight - mf.section[j].positionLeft) / 2 + mf.section[j].positionLeft;
+                double mid = ((mf.section[j].positionRight - mf.section[j].positionLeft) / 2) + mf.section[j].positionLeft;
                 XyCoord[] vertices = {
-                    new XyCoord(mf.section[j].positionLeft, trailingTool),
-                    new XyCoord(mf.section[j].positionLeft, trailingTool - hite),
-                    new XyCoord(mid, trailingTool - hite * 1.5),
-                    new XyCoord(mf.section[j].positionRight, trailingTool - hite),
-                    new XyCoord(mf.section[j].positionRight, trailingTool),
+                    new(mf.section[j].positionLeft, trailingTool),
+                    new(mf.section[j].positionLeft, trailingTool - hite),
+                    new(mid, trailingTool - (hite * 1.5)),
+                    new(mf.section[j].positionRight, trailingTool - hite),
+                    new(mf.section[j].positionRight, trailingTool),
                 };
                 GLW.DrawTriangleFanPrimitive(vertices);
 
-                if (mf.camera.camSetDistance > -width * 200)
+                if (mf.camera.CamSetDistance > -width * 200)
                 {
                     GLW.SetColor(Colors.Black);
                     GLW.DrawLineLoopPrimitive(vertices);
@@ -342,7 +342,7 @@ namespace AgOpenGPS
             }
 
             //zones
-            if (!isSectionsNotZones && zones > 0 && mf.camera.camSetDistance > -150)
+            if (!isSectionsNotZones && zones > 0 && mf.camera.CamSetDistance > -150)
             {
                 //GL.PointSize(8);
 
@@ -360,14 +360,14 @@ namespace AgOpenGPS
             //tram Dots
             if (isDisplayTramControl && mf.tram.displayMode != 0)
             {
-                if (mf.camera.camSetDistance > -300)
+                if (mf.camera.CamSetDistance > -300)
                 {
-                    if (mf.camera.camSetDistance > -100)
+                    if (mf.camera.CamSetDistance > -100)
                         GL.PointSize(12);
                     else GL.PointSize(8);
 
-                    ColorRgba rightMarkerColor = ((mf.tram.controlByte) & 1) != 0 ? Colors.TramMarkerOnColor : Colors.Black;
-                    ColorRgba leftMarkerColor = ((mf.tram.controlByte) & 2) != 0 ? Colors.TramMarkerOnColor : Colors.Black;
+                    ColorRgba rightMarkerColor = (mf.tram.controlByte & 1) != 0 ? Colors.TramMarkerOnColor : Colors.Black;
+                    ColorRgba leftMarkerColor = (mf.tram.controlByte & 2) != 0 ? Colors.TramMarkerOnColor : Colors.Black;
                     double rightX = mf.tram.isOuter ? farRightPosition - mf.tram.halfWheelTrack : mf.tram.halfWheelTrack;
                     double leftX = mf.tram.isOuter ? farLeftPosition + mf.tram.halfWheelTrack : -mf.tram.halfWheelTrack;
                     // section markers

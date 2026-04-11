@@ -25,15 +25,15 @@ namespace AgOpenGPS
 
         private void FormEditTrack_Load(object sender, EventArgs e)
         {
-            if (mf.isMetric)
+            if (mf.IsMetric)
             {
                 nudSnapDistance.DecimalPlaces = 0;
-                nudSnapDistance.Value = (int)((double)Properties.Settings.Default.setAS_snapDistance);
+                nudSnapDistance.Value = (int)Properties.Settings.Default.setAS_snapDistance;
             }
             else
             {
                 nudSnapDistance.DecimalPlaces = 1;
-                nudSnapDistance.Value = (decimal)Math.Round(((double)Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn), 1);
+                nudSnapDistance.Value = (decimal)Math.Round(Properties.Settings.Default.setAS_snapDistance * mf.cm2CmOrIn, 1);
             }
 
             snapAdj = Properties.Settings.Default.setAS_snapDistance * 0.01;
@@ -146,7 +146,7 @@ namespace AgOpenGPS
             {
                 // Enable drop shadow for a borderless form (CS_DROPSHADOW = 0x00020000)
                 const int CS_DROPSHADOW = 0x00020000;
-                var cp = base.CreateParams;
+                CreateParams cp = base.CreateParams;
                 cp.ClassStyle |= CS_DROPSHADOW;
                 return cp;
             }
@@ -184,11 +184,11 @@ namespace AgOpenGPS
                     if ((int)m.Result == HTCLIENT)
                     {
                         // Convert cursor position to client coordinates
-                        Point screen = new Point(m.LParam.ToInt32());
+                        Point screen = new(m.LParam.ToInt32());
                         Point client = PointToClient(screen);
 
                         // Check if there is a child control under the cursor
-                        var child = GetChildAtPoint(
+                        Control child = GetChildAtPoint(
                             client,
                             GetChildAtPointSkip.Invisible | GetChildAtPointSkip.Disabled
                         );
@@ -196,11 +196,14 @@ namespace AgOpenGPS
                         // If no control is under the cursor, treat the area as caption (draggable)
                         if (child == null)
                         {
-                            m.Result = (IntPtr)HTCAPTION;
+                            m.Result = HTCAPTION;
                             return;
                         }
                     }
                     return;
+
+                default:
+                    break;
             }
 
             base.WndProc(ref m);

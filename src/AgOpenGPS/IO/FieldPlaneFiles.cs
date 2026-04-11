@@ -15,30 +15,29 @@ namespace AgOpenGPS.IO
         /// </summary>
         public static Wgs84 LoadOrigin(string fieldDirectory)
         {
-            var path = Path.Combine(fieldDirectory, "Field.txt");
+            string path = Path.Combine(fieldDirectory, "Field.txt");
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException("Field.txt not found", path);
             }
 
-            using (var reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 while (!reader.EndOfStream)
                 {
-                    var line = reader.ReadLine();
+                    string line = reader.ReadLine();
                     if (line != null && line.StartsWith("StartFix", StringComparison.OrdinalIgnoreCase))
                     {
-                        var next = reader.ReadLine();
+                        string next = reader.ReadLine();
                         if (string.IsNullOrWhiteSpace(next))
                         {
                             throw new InvalidDataException("StartFix line missing or empty in Field.txt");
                         }
 
-                        var parts = next.Split(',');
-                        double lat, lon;
+                        string[] parts = next.Split(',');
                         if (parts.Length >= 2 &&
-                            double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lat) &&
-                            double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out lon))
+                            double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double lat) &&
+                            double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double lon))
                         {
                             return new Wgs84(lat, lon);
                         }
@@ -58,21 +57,19 @@ namespace AgOpenGPS.IO
         /// </summary>
         public static void Save(string fieldDirectory, DateTime timestamp, Wgs84 startFix)
         {
-            var path = Path.Combine(fieldDirectory, "Field.txt");
-            using (var writer = new StreamWriter(path, false))
-            {
-                writer.WriteLine(timestamp.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
-                writer.WriteLine("$FieldDir");
-                writer.WriteLine("FieldNew");
-                writer.WriteLine("$Offsets");
-                writer.WriteLine("0,0");
-                writer.WriteLine("Convergence");
-                writer.WriteLine("0");
-                writer.WriteLine("StartFix");
-                writer.WriteLine(
-                    startFix.Latitude.ToString(CultureInfo.InvariantCulture) + "," +
-                    startFix.Longitude.ToString(CultureInfo.InvariantCulture));
-            }
+            string path = Path.Combine(fieldDirectory, "Field.txt");
+            using StreamWriter writer = new(path, false);
+            writer.WriteLine(timestamp.ToString("yyyy-MMMM-dd hh:mm:ss tt", CultureInfo.InvariantCulture));
+            writer.WriteLine("$FieldDir");
+            writer.WriteLine("FieldNew");
+            writer.WriteLine("$Offsets");
+            writer.WriteLine("0,0");
+            writer.WriteLine("Convergence");
+            writer.WriteLine("0");
+            writer.WriteLine("StartFix");
+            writer.WriteLine(
+                startFix.Latitude.ToString(CultureInfo.InvariantCulture) + "," +
+                startFix.Longitude.ToString(CultureInfo.InvariantCulture));
         }
     }
 }

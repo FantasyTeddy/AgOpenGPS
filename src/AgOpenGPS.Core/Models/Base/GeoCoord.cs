@@ -2,7 +2,7 @@
 
 namespace AgOpenGPS.Core.Models
 {
-    public struct GeoCoord
+    public readonly struct GeoCoord
     {
         public GeoCoord(double northing, double easting)
         {
@@ -44,9 +44,9 @@ namespace AgOpenGPS.Core.Models
             // AbsoluteValue of (Ax(By-Cy) + Bx(Cy-Ay) + Cx(Ay-By)/2)
 
             double area2 =
-                Easting * (b.Northing - c.Northing) +
-                b.Easting * (c.Northing - Northing) +
-                c.Easting * (Northing - b.Northing);
+                (Easting * (b.Northing - c.Northing)) +
+                (b.Easting * (c.Northing - Northing)) +
+                (c.Easting * (Northing - b.Northing));
             return new GeoArea(Math.Abs(0.5 * area2));
         }
 

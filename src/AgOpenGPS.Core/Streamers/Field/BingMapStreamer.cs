@@ -1,5 +1,4 @@
 ﻿using AgLibrary.Logging;
-using AgOpenGPS.Core.Interfaces;
 using AgOpenGPS.Core.Models;
 using System;
 using System.Drawing;
@@ -50,7 +49,7 @@ namespace AgOpenGPS.Core.Streamers
         {
             BingMap bingMap = null;
             FileInfo fileInfo = GetFileInfo(fieldDirectory);
-            using (GeoStreamReader reader = new GeoStreamReader(fileInfo))
+            using (GeoStreamReader reader = new(fileInfo))
             {
                 string line = reader.ReadLine(); // skip header
                 bool hasBingMap = reader.ReadBool();
@@ -72,7 +71,7 @@ namespace AgOpenGPS.Core.Streamers
             if (bingMap != null)
             {
                 FileInfo boundingBoxFileInfo = GetFileInfo(fieldDirectory);
-                using (GeoStreamWriter writer = new GeoStreamWriter(boundingBoxFileInfo))
+                using (GeoStreamWriter writer = new(boundingBoxFileInfo))
                 {
                     writer.WriteLine("$BackPic");
                     writer.WriteBool(true);
@@ -90,9 +89,7 @@ namespace AgOpenGPS.Core.Streamers
         public void CreateFile(DirectoryInfo fieldDirectory)
         {
             fieldDirectory.Create();
-            using (StreamWriter writer = new StreamWriter(GetFileInfo(fieldDirectory).Name))
-            {
-            }
+            using StreamWriter writer = new(GetFileInfo(fieldDirectory).Name);
         }
 
         private class BingMapBitmapStreamer : FieldAspectStreamer

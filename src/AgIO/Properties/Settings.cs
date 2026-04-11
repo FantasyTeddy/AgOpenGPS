@@ -7,15 +7,7 @@ namespace AgIO.Properties
 {
     internal sealed class Settings
     {
-        private static Settings settings_ = new Settings();
-
-        public static Settings Default
-        {
-            get
-            {
-                return settings_;
-            }
-        }
+        public static Settings Default { get; private set; } = new Settings();
 
         public string setPort_portNameGPS = "GPS**";
         public int setPort_baudRateGPS = 9600;
@@ -52,7 +44,7 @@ namespace AgIO.Properties
         public string setPort_baudRateRadio = "9600";
         public string setPort_radioChannel = "439.000";
         public bool setRadio_isOn = false;
-        public List<CRadioChannel> setRadio_Channels = new List<CRadioChannel>();
+        public List<CRadioChannel> setRadio_Channels = new();
         public bool setUDP_isSendNMEAToUDP = false;
         public string setPort_portNameRtcm = "RTCM";
         public int setPort_baudRateRtcm = 9600;
@@ -81,7 +73,7 @@ namespace AgIO.Properties
         public LoadResult Load()
         {
             string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");
-            var result = XmlSettingsHandler.LoadXMLFile(path, this);
+            LoadResult result = XmlSettingsHandler.LoadXMLFile(path, this);
             if (result == LoadResult.MissingFile)
             {
                 if (RegistrySettings.profileName != "")
@@ -103,7 +95,9 @@ namespace AgIO.Properties
             string path = Path.Combine(RegistrySettings.profileDirectory, RegistrySettings.profileName + ".XML");
 
             if (RegistrySettings.profileName != "")
+            {
                 XmlSettingsHandler.SaveXMLFile(path, this);
+            }
             else
             {
                 Log.EventWriter("Default Profile Not saved to Profiles");
@@ -112,8 +106,8 @@ namespace AgIO.Properties
 
         public void Reset()
         {
-            settings_ = new Settings();
-            settings_.Save();
+            Default = new Settings();
+            Default.Save();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace AgOpenGPS
         private string roll = "1";
         private string zero = "0";
 
-        private bool isScroll = true;
+        private readonly bool isScroll = true;
 
         public FormGraphHeading(Form callingForm)
         {
@@ -34,13 +34,13 @@ namespace AgOpenGPS
         private void DrawChart()
         {
             {
-                dataSteerAngle = (glm.toDegrees(mf.gpsHeading)).ToString("N1", CultureInfo.InvariantCulture);
-                dataPWM = (glm.toDegrees(mf.imuCorrected)).ToString("N1", CultureInfo.InvariantCulture);
+                dataSteerAngle = Glm.ToDegrees(mf.gpsHeading).ToString("N1", CultureInfo.InvariantCulture);
+                dataPWM = Glm.ToDegrees(mf.imuCorrected).ToString("N1", CultureInfo.InvariantCulture);
 
                 lblSteerAng.Text = dataSteerAngle;
                 lblPWM.Text = dataPWM;
 
-                lblDiff.Text = (glm.toDegrees(mf.gpsHeading - mf.imuCorrected)).ToString("N2", CultureInfo.InvariantCulture);
+                lblDiff.Text = Glm.ToDegrees(mf.gpsHeading - mf.imuCorrected).ToString("N2", CultureInfo.InvariantCulture);
 
                 roll = lblDiff.Text;
                 zero = "0";
@@ -59,11 +59,11 @@ namespace AgOpenGPS
                 double nextx6 = 1;
                 double nextx7 = 1;
 
-                if (s.Points.Count > 0) nextX = s.Points[s.Points.Count - 1].XValue + 1;
-                if (w.Points.Count > 0) nextX5 = w.Points[w.Points.Count - 1].XValue + 1;
+                if (s.Points.Count > 0) nextX = s.Points[^1].XValue + 1;
+                if (w.Points.Count > 0) nextX5 = w.Points[^1].XValue + 1;
 
-                if (r.Points.Count > 0) nextx6 = r.Points[r.Points.Count - 1].XValue + 1;
-                if (t.Points.Count > 0) nextx7 = t.Points[t.Points.Count - 1].XValue + 1;
+                if (r.Points.Count > 0) nextx6 = r.Points[^1].XValue + 1;
+                if (t.Points.Count > 0) nextx7 = t.Points[^1].XValue + 1;
 
                 unoChart.Series["S"].Points.AddXY(nextX, dataSteerAngle);
                 unoChart.Series["PWM"].Points.AddXY(nextX5, dataPWM);
@@ -93,7 +93,7 @@ namespace AgOpenGPS
 
         private void FormSteerGraph_Load(object sender, EventArgs e)
         {
-            timer1.Interval = (int)((1 / (double)mf.gpsHz) * 1000);
+            timer1.Interval = (int)(1 / mf.gpsHz * 1000);
 
             if (!ScreenHelper.IsOnScreen(Bounds))
             {

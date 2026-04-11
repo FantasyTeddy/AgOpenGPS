@@ -1,29 +1,24 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using AgOpenGPS.Properties;
-using System.Globalization;
-using System.IO;
-using System.Media;
 using System.Linq;
 
 namespace AgOpenGPS
 {
-    public enum btnStates { Off, Auto, On }
+    public enum BtnStates { Off, Auto, On }
 
     public partial class FormGPS
     {
         //Off, Manual, and Auto, 3 states possible
-        public btnStates manualBtnState = btnStates.Off;
-        public btnStates autoBtnState = btnStates.Off;
+        public BtnStates manualBtnState = BtnStates.Off;
+        public BtnStates autoBtnState = BtnStates.Off;
 
         private void MarkAsWorkedTrack()
         {
             // return if there was a track selected
             if (this.trk.idx < 0) return;
 
-            var track = this.trk.gArr[this.trk.idx];
+            CTrk track = this.trk.gArr[this.trk.idx];
 
             if (track.mode == TrackMode.AB)
             {
@@ -44,13 +39,13 @@ namespace AgOpenGPS
                 sounds.sndSectionOff.Play();
 
             //if Auto is on, turn it off
-            autoBtnState = btnStates.Off;
+            autoBtnState = BtnStates.Off;
             btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
 
             switch (manualBtnState)
             {
-                case btnStates.Off:
-                    manualBtnState = btnStates.On;
+                case BtnStates.Off:
+                    manualBtnState = BtnStates.On;
                     btnSectionMasterManual.Image = Properties.Resources.ManualOn;
 
                     //add current track when it doesn't exist in the worked track list
@@ -58,9 +53,13 @@ namespace AgOpenGPS
 
                     break;
 
-                case btnStates.On:
-                    manualBtnState = btnStates.Off;
+                case BtnStates.On:
+                    manualBtnState = BtnStates.Off;
                     btnSectionMasterManual.Image = Properties.Resources.ManualOff;
+                    break;
+
+                case BtnStates.Auto:
+                default:
                     break;
             }
 
@@ -73,15 +72,15 @@ namespace AgOpenGPS
         private void btnSectionMasterAuto_Click(object sender, EventArgs e)
         {
             //turn off manual if on
-            manualBtnState = btnStates.Off;
+            manualBtnState = BtnStates.Off;
             btnSectionMasterManual.Image = Properties.Resources.ManualOff;
 
             switch (autoBtnState)
             {
 
-                case btnStates.Off:
+                case BtnStates.Off:
 
-                    autoBtnState = btnStates.Auto;
+                    autoBtnState = BtnStates.Auto;
                     btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOn;
                     if (sounds.isSectionsSoundOn && (!mc.isSteerWorkSwitchEnabled || !mc.isSteerWorkSwitchManualSections))
                         sounds.sndSectionOn.Play();
@@ -91,12 +90,16 @@ namespace AgOpenGPS
 
                     break;
 
-                case btnStates.Auto:
+                case BtnStates.Auto:
 
-                    autoBtnState = btnStates.Off;
+                    autoBtnState = BtnStates.Off;
                     btnSectionMasterAuto.Image = Properties.Resources.SectionMasterOff;
                     if (sounds.isSectionsSoundOn && (!mc.isSteerWorkSwitchEnabled || !mc.isSteerWorkSwitchManualSections))
                         sounds.sndSectionOn.Play();
+                    break;
+
+                case BtnStates.On:
+                default:
                     break;
             }
 
@@ -109,19 +112,19 @@ namespace AgOpenGPS
         }
 
         //cycle thru states - Off,Auto,On
-        private btnStates GetNextState(btnStates state)
+        private BtnStates GetNextState(BtnStates state)
         {
-            if (state == btnStates.Off) return btnStates.Auto;
-            else if (state == btnStates.Auto) return btnStates.On;
-            else if (state == btnStates.On) return btnStates.Off;
-            return btnStates.Off;
+            if (state == BtnStates.Off) return BtnStates.Auto;
+            else if (state == BtnStates.Auto) return BtnStates.On;
+            else if (state == BtnStates.On) return BtnStates.Off;
+            return BtnStates.Off;
         }
 
         //zone buttons
         private void btnZoneX_Click(object sender, EventArgs e)
         {
             int zoneIndex = int.Parse(((Button)sender).Text);
-            btnStates state = GetNextState(section[tool.zoneRanges[zoneIndex] - 1].sectionBtnState);
+            BtnStates state = GetNextState(section[tool.zoneRanges[zoneIndex] - 1].sectionBtnState);
             if (zoneIndex == 1)
             {
                 IndividualZoneAndButtonToState(state, 0, tool.zoneRanges[1], (Button)sender);
@@ -136,12 +139,12 @@ namespace AgOpenGPS
         private void btnSectionXMan_Click(object sender, EventArgs e)
         {
             int sectionX = int.Parse(((Button)sender).Text);
-            btnStates state = GetNextState(section[sectionX - 1].sectionBtnState);
+            BtnStates state = GetNextState(section[sectionX - 1].sectionBtnState);
             IndividualSectionAndButonToState(state, sectionX - 1, (Button)sender);
         }
 
         //Section buttons************************8
-        public void AllSectionsAndButtonsToState(btnStates state)
+        public void AllSectionsAndButtonsToState(BtnStates state)
         {
             for (int i = 1; i <= 16; i++)
             {
@@ -149,25 +152,29 @@ namespace AgOpenGPS
             }
         }
 
-        private void SetColors(Button button, btnStates state)
+        private void SetColors(Button button, BtnStates state)
         {
             switch (state)
             {
-                case btnStates.Off:
-                    button.BackColor = isDay ? Color.Red : Color.Crimson;
-                    break;
-                case btnStates.Auto:
-                    button.BackColor = isDay ? Color.Lime : Color.ForestGreen;
+                case BtnStates.Off:
+                    button.BackColor = IsDay ? Color.Red : Color.Crimson;
                     break;
 
-                case btnStates.On:
-                    button.BackColor = isDay ? Color.Yellow : Color.DarkGoldenrod;
+                case BtnStates.Auto:
+                    button.BackColor = IsDay ? Color.Lime : Color.ForestGreen;
+                    break;
+
+                case BtnStates.On:
+                    button.BackColor = IsDay ? Color.Yellow : Color.DarkGoldenrod;
+                    break;
+
+                default:
                     break;
             }
-            button.ForeColor = isDay ? Color.Black : Color.White;
+            button.ForeColor = IsDay ? Color.Black : Color.White;
         }
 
-        private void IndividualSectionAndButonToState(btnStates state, int sectNumber, Button btn)
+        private void IndividualSectionAndButonToState(BtnStates state, int sectNumber, Button btn)
         {
             section[sectNumber].sectionBtnState = state;
             SetColors(btn, state);
@@ -187,7 +194,7 @@ namespace AgOpenGPS
 
         public void LineUpIndividualSectionBtns()
         {
-            if (!isJobStarted)
+            if (!IsJobStarted)
             {
                 HideSections();
                 HideZones();
@@ -195,16 +202,15 @@ namespace AgOpenGPS
             }
             HideZones();
 
-            int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
-
-            int top = 140;
-
+            int oglCenter = isPanelBottomHidden ? (oglMain.Width / 2) + 30 : statusStripLeft.Width + (oglMain.Width / 2);
             int buttonMaxWidth = 360, buttonHeight = 35;
 
+
+            int top;
             if ((Height - oglMain.Height) < 80) //max size - buttons hid
             {
                 top = Height - 85;
-                if (panelSim.Visible == true)
+                if (panelSim.Visible)
                 {
                     top = Height - 120;
                     panelSim.Top = Height - 78;
@@ -213,7 +219,7 @@ namespace AgOpenGPS
             else //buttons exposed
             {
                 top = Height - 135;
-                if (panelSim.Visible == true)
+                if (panelSim.Visible)
                 {
                     top = Height - 185;
                     panelSim.Top = Height - 128;
@@ -228,7 +234,7 @@ namespace AgOpenGPS
 
                 int buttonWidth = Math.Min(oglButtonWidth / tool.numOfSections, buttonMaxWidth);
 
-                Size size = new System.Drawing.Size(buttonWidth, buttonHeight);
+                Size size = new(buttonWidth, buttonHeight);
                 for (int i = 1; i <= 16; i++)
                 {
                     Button btn = this.Controls.Find("btnSection" + i.ToString() + "Man", true).First() as Button;
@@ -236,7 +242,7 @@ namespace AgOpenGPS
                     btn.Top = top;
                     if (i == 1)
                     {
-                        btnSection1Man.Left = (oglCenter) - (tool.numOfSections * btnSection1Man.Size.Width) / 2;
+                        btnSection1Man.Left = oglCenter - (tool.numOfSections * btnSection1Man.Size.Width / 2);
                     }
                     else
                     {
@@ -250,7 +256,7 @@ namespace AgOpenGPS
         }
 
         //Zone buttons ************************************
-        public void AllZonesAndButtonsToState(btnStates state)
+        public void AllZonesAndButtonsToState(BtnStates state)
         {
             if (tool.zoneRanges[0] == 0) return;
             if (tool.zoneRanges[1] != 0) IndividualZoneAndButtonToState(state, 0, tool.zoneRanges[1], btnZone1);
@@ -268,7 +274,7 @@ namespace AgOpenGPS
             }
         }
 
-        private void IndividualZoneAndButtonToState(btnStates state, int sectionStartNumber, int sectionEndNumber, Button btn)
+        private void IndividualZoneAndButtonToState(BtnStates state, int sectionStartNumber, int sectionEndNumber, Button btn)
         {
             for (int i = sectionStartNumber; i < sectionEndNumber; i++)
             {
@@ -279,24 +285,23 @@ namespace AgOpenGPS
 
         public void LineUpAllZoneButtons()
         {
-            if (!isJobStarted)
+            if (!IsJobStarted)
             {
                 HideSections();
                 HideZones();
                 return;
             }
 
-            int oglCenter = isPanelBottomHidden ? oglCenter = oglMain.Width / 2 + 30 : statusStripLeft.Width + oglMain.Width / 2;
-
-            int top = 130;
-
+            int oglCenter = isPanelBottomHidden ? (oglMain.Width / 2) + 30 : statusStripLeft.Width + (oglMain.Width / 2);
             int buttonMaxWidth = 400, buttonHeight = 30;
 
 
+
+            int top;
             if ((Height - oglMain.Height) < 80) //max size - buttons hid
             {
                 top = Height - 70;
-                if (panelSim.Visible == true)
+                if (panelSim.Visible)
                 {
                     top = Height - 100;
                     panelSim.Top = Height - 60;
@@ -305,7 +310,7 @@ namespace AgOpenGPS
             else //buttons exposed
             {
                 top = Height - 130;
-                if (panelSim.Visible == true)
+                if (panelSim.Visible)
                 {
                     top = Height - 160;
                     panelSim.Top = Height - 120;
@@ -315,7 +320,7 @@ namespace AgOpenGPS
             //if (tool.zones == 0) return;
             int oglButtonWidth = oglMain.Width * 3 / 4;
             int buttonWidth = Math.Min(oglButtonWidth / tool.zones, buttonMaxWidth);
-            Size size = new System.Drawing.Size(buttonWidth, buttonHeight);
+            Size size = new(buttonWidth, buttonHeight);
 
             for (int i = 1; i <= 8; i++)
             {
@@ -323,7 +328,7 @@ namespace AgOpenGPS
                 btn.Visible = tool.zones > (i - 1);
                 btn.Top = top;
                 btn.Size = size;
-                if (isJobStarted)
+                if (IsJobStarted)
                 {
                     btn.BackColor = Color.Red;
                 }
@@ -333,7 +338,7 @@ namespace AgOpenGPS
                 }
                 if (i == 1)
                 {
-                    btn.Left = (oglCenter) - (tool.zones * btn.Size.Width) / 2;
+                    btn.Left = oglCenter - (tool.zones * btn.Size.Width / 2);
                 }
                 else
                 {
@@ -404,21 +409,21 @@ namespace AgOpenGPS
             {
                 for (int j = 0; j < MAXSECTIONS; j++)
                 {
-                    section[j].sectionWidth = (section[j].positionRight - section[j].positionLeft);
-                    section[j].rpSectionPosition = 250 + (int)(Math.Round(section[j].positionLeft * 10, 0, MidpointRounding.AwayFromZero));
-                    section[j].rpSectionWidth = (int)(Math.Round(section[j].sectionWidth * 10, 0, MidpointRounding.AwayFromZero));
+                    section[j].sectionWidth = section[j].positionRight - section[j].positionLeft;
+                    section[j].rpSectionPosition = 250 + (int)Math.Round(section[j].positionLeft * 10, 0, MidpointRounding.AwayFromZero);
+                    section[j].rpSectionWidth = (int)Math.Round(section[j].sectionWidth * 10, 0, MidpointRounding.AwayFromZero);
                 }
 
                 //calculate tool width based on extreme right and left values
-                tool.width = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
+                tool.width = section[tool.numOfSections - 1].positionRight - section[0].positionLeft;
 
                 //left and right tool position
                 tool.farLeftPosition = section[0].positionLeft;
                 tool.farRightPosition = section[tool.numOfSections - 1].positionRight;
 
                 //find the right side pixel position
-                tool.rpXPosition = 250 + (int)(Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero));
-                tool.rpWidth = (int)(Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero));
+                tool.rpXPosition = 250 + (int)Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero);
+                tool.rpWidth = (int)Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero);
             }
         }
 
@@ -436,26 +441,26 @@ namespace AgOpenGPS
                 section[i].positionRight = leftside + offset;
                 section[i + 1].positionLeft = leftside + offset;
                 section[i].sectionWidth = defaultSectionWidth;
-                section[i].rpSectionPosition = 250 + (int)(Math.Round(section[i].positionLeft * 10, 0, MidpointRounding.AwayFromZero));
-                section[i].rpSectionWidth = (int)(Math.Round(section[i].sectionWidth * 10, 0, MidpointRounding.AwayFromZero));
+                section[i].rpSectionPosition = 250 + (int)Math.Round(section[i].positionLeft * 10, 0, MidpointRounding.AwayFromZero);
+                section[i].rpSectionWidth = (int)Math.Round(section[i].sectionWidth * 10, 0, MidpointRounding.AwayFromZero);
             }
 
             leftside += defaultSectionWidth;
             section[tool.numOfSections - 1].positionRight = leftside + offset;
             section[tool.numOfSections - 1].sectionWidth = defaultSectionWidth;
-            section[tool.numOfSections - 1].rpSectionPosition = 250 + (int)(Math.Round(section[tool.numOfSections - 1].positionLeft * 10, 0, MidpointRounding.AwayFromZero));
-            section[tool.numOfSections - 1].rpSectionWidth = (int)(Math.Round(section[tool.numOfSections - 1].sectionWidth * 10, 0, MidpointRounding.AwayFromZero));
+            section[tool.numOfSections - 1].rpSectionPosition = 250 + (int)Math.Round(section[tool.numOfSections - 1].positionLeft * 10, 0, MidpointRounding.AwayFromZero);
+            section[tool.numOfSections - 1].rpSectionWidth = (int)Math.Round(section[tool.numOfSections - 1].sectionWidth * 10, 0, MidpointRounding.AwayFromZero);
 
             //calculate tool width based on extreme right and left values
-            tool.width = (section[tool.numOfSections - 1].positionRight) - (section[0].positionLeft);
+            tool.width = section[tool.numOfSections - 1].positionRight - section[0].positionLeft;
 
             //left and right tool position
             tool.farLeftPosition = section[0].positionLeft;
             tool.farRightPosition = section[tool.numOfSections - 1].positionRight;
 
             //find the right side pixel position
-            tool.rpXPosition = 250 + (int)(Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero));
-            tool.rpWidth = (int)(Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero));
+            tool.rpXPosition = 250 + (int)Math.Round(tool.farLeftPosition * 10, 0, MidpointRounding.AwayFromZero);
+            tool.rpWidth = (int)Math.Round(tool.width * 10, 0, MidpointRounding.AwayFromZero);
         }
 
         private void BuildMachineByte()
@@ -502,7 +507,7 @@ namespace AgOpenGPS
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if (section[j + k * 8].isSectionOn)
+                        if (section[j + (k * 8)].isSectionOn)
                             number |= 1 << j;
                     }
                     p_229.pgn[5 + k] = unchecked((byte)number);
@@ -529,7 +534,7 @@ namespace AgOpenGPS
         private void DoRemoteSwitches()
         {
             //MTZ8302 Feb 2020 and hagre 2024
-            if (isJobStarted)
+            if (IsJobStarted)
             {
                 //check if third bit in the pgn234 received Main-Byte is set to indicate the use of buttons (0) or switches (1) in the SC hardware
                 if ((mc.ss[mc.swMain] & (1 << 2)) == 0) // Button hardware by MTZ8302 Feb 2020 (3dr bit - check)
@@ -552,7 +557,7 @@ namespace AgOpenGPS
                 if ((mc.ss[mc.swMain] & 1) == 1)
                 {
                     //set butto off and then press it = ON
-                    autoBtnState = btnStates.Off;
+                    autoBtnState = BtnStates.Off;
                     btnSectionMasterAuto.PerformClick();
                 } // if Main SW ON
 
@@ -560,7 +565,7 @@ namespace AgOpenGPS
                 if ((mc.ss[mc.swMain] & 2) == 2)
                 {
                     //set button on and then press it = OFF
-                    autoBtnState = btnStates.Auto;
+                    autoBtnState = BtnStates.Auto;
                     btnSectionMasterAuto.PerformClick();
                 } // if Main SW OFF
 
@@ -576,9 +581,9 @@ namespace AgOpenGPS
                     {
                         if (((mc.ss[mc.swOnGr0] & (1 << i)) == (1 << i)) && (tool.numOfSections > i))
                         {
-                            if (section[i].sectionBtnState != btnStates.Auto)
+                            if (section[i].sectionBtnState != BtnStates.Auto)
                             {
-                                section[i].sectionBtnState = btnStates.Auto;
+                                section[i].sectionBtnState = BtnStates.Auto;
                             }
                             PerformSectionClick(i);
                         }
@@ -602,9 +607,9 @@ namespace AgOpenGPS
                     {
                         if (((mc.ss[mc.swOnGr1] & (1 << i)) == (1 << i)) && (tool.numOfSections > i + 8))
                         {
-                            if (section[i + 8].sectionBtnState != btnStates.Auto)
+                            if (section[i + 8].sectionBtnState != BtnStates.Auto)
                             {
-                                section[i + 8].sectionBtnState = btnStates.Auto;
+                                section[i + 8].sectionBtnState = BtnStates.Auto;
                             }
                             PerformSectionClick(i + 8);
                         }
@@ -624,11 +629,11 @@ namespace AgOpenGPS
                 if (mc.ss[mc.swOffGr0] != mc.ssP[mc.swOffGr0])
                 {
                     //if Main = Auto then change section to Auto if Off signal from Arduino stopped
-                    if (autoBtnState == btnStates.Auto)
+                    if (autoBtnState == BtnStates.Auto)
                     {
                         for (int i = 0; i < 8; i++)
                         {
-                            if (((mc.ssP[mc.swOffGr0] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOffGr0] & (1 << i)) != (1 << i)) && (section[i].sectionBtnState == btnStates.Off))
+                            if (((mc.ssP[mc.swOffGr0] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOffGr0] & (1 << i)) != (1 << i)) && (section[i].sectionBtnState == BtnStates.Off))
                             {
                                 PerformSectionClick(i);
                             }
@@ -640,11 +645,11 @@ namespace AgOpenGPS
                 if (mc.ss[mc.swOffGr1] != mc.ssP[mc.swOffGr1])
                 {
                     //if Main = Auto then change section to Auto if Off signal from Arduino stopped
-                    if (autoBtnState == btnStates.Auto)
+                    if (autoBtnState == BtnStates.Auto)
                     {
                         for (int i = 0; i < 8; i++)
                         {
-                            if (((mc.ssP[mc.swOffGr1] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOffGr1] & (1 << i)) != (1 << i)) && (section[i + 8].sectionBtnState == btnStates.Off))
+                            if (((mc.ssP[mc.swOffGr1] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOffGr1] & (1 << i)) != (1 << i)) && (section[i + 8].sectionBtnState == BtnStates.Off))
                             {
                                 PerformSectionClick(i + 8);
                             }
@@ -659,9 +664,9 @@ namespace AgOpenGPS
                     //if section SW in Arduino is switched to OFF; check always, if switch is locked to off GUI should not change
                     for (int i = 0; i < 8; i++)
                     {
-                        if (((mc.ss[mc.swOffGr0] & (1 << i)) == (1 << i)) && (section[i].sectionBtnState != btnStates.Off))
+                        if (((mc.ss[mc.swOffGr0] & (1 << i)) == (1 << i)) && (section[i].sectionBtnState != BtnStates.Off))
                         {
-                            section[i].sectionBtnState = btnStates.On;
+                            section[i].sectionBtnState = BtnStates.On;
                             PerformSectionClick(i);
                         }
                     }
@@ -673,9 +678,9 @@ namespace AgOpenGPS
                     //if section SW in Arduino is switched to OFF; check always, if switch is locked to off GUI should not change
                     for (int i = 0; i < 8; i++)
                     {
-                        if (((mc.ss[mc.swOffGr1] & (1 << i)) == (1 << i)) && (section[i + 8].sectionBtnState != btnStates.Off))
+                        if (((mc.ss[mc.swOffGr1] & (1 << i)) == (1 << i)) && (section[i + 8].sectionBtnState != BtnStates.Off))
                         {
-                            section[i + 8].sectionBtnState = btnStates.On;
+                            section[i + 8].sectionBtnState = BtnStates.On;
                             PerformSectionClick(i + 8);
                         }
                     }
@@ -689,9 +694,9 @@ namespace AgOpenGPS
                     {
                         if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOnGr0] & (1 << i)) == (1 << i)))
                         {
-                            if (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != btnStates.Auto)
+                            if (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != BtnStates.Auto)
                             {
-                                section[tool.zoneRanges[i + 1] - 1].sectionBtnState = btnStates.Auto;
+                                section[tool.zoneRanges[i + 1] - 1].sectionBtnState = BtnStates.Auto;
                                 PerformZoneClick(i);
                             }
                         }
@@ -709,11 +714,11 @@ namespace AgOpenGPS
                 // zones to auto
                 if (mc.ss[mc.swOffGr0] != mc.ssP[mc.swOffGr0])
                 {
-                    if (autoBtnState == btnStates.Auto)
+                    if (autoBtnState == BtnStates.Auto)
                     {
                         for (int i = 0; i < 8; i++)
                         {
-                            if ((tool.zoneRanges[i + 1] > 0) && ((mc.ssP[mc.swOffGr0] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOffGr0] & (1 << i)) != (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState == btnStates.Off))
+                            if ((tool.zoneRanges[i + 1] > 0) && ((mc.ssP[mc.swOffGr0] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOffGr0] & (1 << i)) != (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState == BtnStates.Off))
                             {
                                 PerformZoneClick(i);
                             }
@@ -727,9 +732,9 @@ namespace AgOpenGPS
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOffGr0] & (1 << i)) == (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != btnStates.Off))
+                        if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOffGr0] & (1 << i)) == (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != BtnStates.Off))
                         {
-                            section[tool.zoneRanges[i + 1] - 1].sectionBtnState = btnStates.On;
+                            section[tool.zoneRanges[i + 1] - 1].sectionBtnState = BtnStates.On;
                             PerformZoneClick(i);
                         }
                     }
@@ -740,17 +745,17 @@ namespace AgOpenGPS
         private void HandleSwitchHardware()
         {
             //MainSW Byte is AUTO
-            if ((autoBtnState != btnStates.Auto) && ((mc.ss[mc.swMain] & 1) == 1))
+            if ((autoBtnState != BtnStates.Auto) && ((mc.ss[mc.swMain] & 1) == 1))
             {
                 //set button off and then press it = ON
-                autoBtnState = btnStates.Off;
+                autoBtnState = BtnStates.Off;
                 btnSectionMasterAuto.PerformClick();
             }
             //MainSW Byte is OFF
-            else if ((autoBtnState != btnStates.Off) && ((mc.ss[mc.swMain] & 2) == 2))
+            else if ((autoBtnState != BtnStates.Off) && ((mc.ss[mc.swMain] & 2) == 2))
             {
                 //set button on and then press it = OFF
-                autoBtnState = btnStates.Auto;
+                autoBtnState = BtnStates.Auto;
                 btnSectionMasterAuto.PerformClick();
             }
 
@@ -761,9 +766,9 @@ namespace AgOpenGPS
                     // AUTO Signal from Arduino Gr0
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((section[i].sectionBtnState != btnStates.Auto) && ((mc.ss[mc.swAutoGr0] & (1 << i)) == (1 << i)) && (tool.numOfSections > i) && (mc.ss[mc.swNumSections] > i))
+                        if ((section[i].sectionBtnState != BtnStates.Auto) && ((mc.ss[mc.swAutoGr0] & (1 << i)) == (1 << i)) && (tool.numOfSections > i) && (mc.ss[mc.swNumSections] > i))
                         {
-                            section[i].sectionBtnState = btnStates.Off;
+                            section[i].sectionBtnState = BtnStates.Off;
                             PerformSectionClick(i);
                         }
                     }
@@ -773,7 +778,7 @@ namespace AgOpenGPS
                     // AUTO Signal from Arduino Gr1
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((section[i + 8].sectionBtnState != btnStates.Auto) && ((mc.ss[mc.swAutoGr1] & (1 << i)) == (1 << i)) && (tool.numOfSections > i + 8) && (mc.ss[mc.swNumSections] > i + 8))
+                        if ((section[i + 8].sectionBtnState != BtnStates.Auto) && ((mc.ss[mc.swAutoGr1] & (1 << i)) == (1 << i)) && (tool.numOfSections > i + 8) && (mc.ss[mc.swNumSections] > i + 8))
                         {
                             PerformSectionClick(i + 8);
                         }
@@ -785,9 +790,9 @@ namespace AgOpenGPS
                     // ON Signal from Arduino Gr0
                     for (int i = 0; i < 8; i++)
                     {
-                        if (((section[i].sectionBtnState != btnStates.On) && (mc.ss[mc.swOnGr0] & (1 << i)) == (1 << i)) && (tool.numOfSections > i) && (mc.ss[mc.swNumSections] > i))
+                        if ((section[i].sectionBtnState != BtnStates.On) && (mc.ss[mc.swOnGr0] & (1 << i)) == (1 << i) && (tool.numOfSections > i) && (mc.ss[mc.swNumSections] > i))
                         {
-                            section[i].sectionBtnState = btnStates.Auto;
+                            section[i].sectionBtnState = BtnStates.Auto;
                             PerformSectionClick(i);
                         }
                     }
@@ -797,9 +802,9 @@ namespace AgOpenGPS
                     // ON Signal from Arduino Gr1
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((section[i + 8].sectionBtnState != btnStates.On) && ((mc.ss[mc.swOnGr1] & (1 << i)) == (1 << i)) && (tool.numOfSections > i + 8) && (mc.ss[mc.swNumSections] > i + 8))
+                        if ((section[i + 8].sectionBtnState != BtnStates.On) && ((mc.ss[mc.swOnGr1] & (1 << i)) == (1 << i)) && (tool.numOfSections > i + 8) && (mc.ss[mc.swNumSections] > i + 8))
                         {
-                            section[i + 8].sectionBtnState = btnStates.Auto;
+                            section[i + 8].sectionBtnState = BtnStates.Auto;
                             PerformSectionClick(i + 8);
                         }
                     }
@@ -811,9 +816,9 @@ namespace AgOpenGPS
                     // OFF Signal from Arduino Gr0
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((section[i].sectionBtnState != btnStates.Off) && ((mc.ss[mc.swOffGr0] & (1 << i)) == (1 << i)) && (tool.numOfSections > i))  // !check mc.ss[tool.numOfSections] => to be on the save side by switching eveything off 
+                        if ((section[i].sectionBtnState != BtnStates.Off) && ((mc.ss[mc.swOffGr0] & (1 << i)) == (1 << i)) && (tool.numOfSections > i))  // !check mc.ss[tool.numOfSections] => to be on the save side by switching eveything off 
                         {
-                            section[i].sectionBtnState = btnStates.On;
+                            section[i].sectionBtnState = BtnStates.On;
                             PerformSectionClick(i);
                         }
                     }
@@ -823,7 +828,7 @@ namespace AgOpenGPS
                     // OFF Signal from Arduino Gr1
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((section[i + 8].sectionBtnState != btnStates.Off) && ((mc.ss[mc.swOffGr1] & (1 << i)) == (1 << i)) && (tool.numOfSections > i + 8)) // !check mc.ss[tool.numOfSections] => to be on the save side by switching eveything off
+                        if ((section[i + 8].sectionBtnState != BtnStates.Off) && ((mc.ss[mc.swOffGr1] & (1 << i)) == (1 << i)) && (tool.numOfSections > i + 8)) // !check mc.ss[tool.numOfSections] => to be on the save side by switching eveything off
                         {
                             PerformSectionClick(i + 8);
                         }
@@ -837,9 +842,9 @@ namespace AgOpenGPS
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swAutoGr0] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOnGr0] & (1 << i)) != (1 << i)) && ((mc.ss[mc.swOffGr0] & (1 << i)) != (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != btnStates.Auto))
+                        if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swAutoGr0] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOnGr0] & (1 << i)) != (1 << i)) && ((mc.ss[mc.swOffGr0] & (1 << i)) != (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != BtnStates.Auto))
                         {
-                            section[tool.zoneRanges[i + 1] - 1].sectionBtnState = btnStates.Off;
+                            section[tool.zoneRanges[i + 1] - 1].sectionBtnState = BtnStates.Off;
                             PerformZoneClick(i);
                         }
                     }
@@ -851,9 +856,9 @@ namespace AgOpenGPS
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOnGr0] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOffGr0] & (1 << i)) != (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != btnStates.On))
+                        if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOnGr0] & (1 << i)) == (1 << i)) && ((mc.ss[mc.swOffGr0] & (1 << i)) != (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != BtnStates.On))
                         {
-                            section[tool.zoneRanges[i + 1] - 1].sectionBtnState = btnStates.Auto;
+                            section[tool.zoneRanges[i + 1] - 1].sectionBtnState = BtnStates.Auto;
                             PerformZoneClick(i);
 
                         }
@@ -865,9 +870,9 @@ namespace AgOpenGPS
                 {
                     for (int i = 0; i < 8; i++)
                     {
-                        if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOffGr0] & (1 << i)) == (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != btnStates.Off))
+                        if ((tool.zoneRanges[i + 1] > 0) && ((mc.ss[mc.swOffGr0] & (1 << i)) == (1 << i)) && (section[tool.zoneRanges[i + 1] - 1].sectionBtnState != BtnStates.Off))
                         {
-                            section[tool.zoneRanges[i + 1] - 1].sectionBtnState = btnStates.On;
+                            section[tool.zoneRanges[i + 1] - 1].sectionBtnState = BtnStates.On;
                             PerformZoneClick(i);
                         }
                     }

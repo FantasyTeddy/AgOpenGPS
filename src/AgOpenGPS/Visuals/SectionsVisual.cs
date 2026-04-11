@@ -6,7 +6,7 @@ namespace AgOpenGPS.Visuals
 {
     public class SectionsVisual
     {
-        private static ColorRgba sectionsColor = new ColorRgba(0.9f, 0.9f, 0.8f);
+        private static ColorRgba sectionsColor = new(0.9f, 0.9f, 0.8f);
         public static void DrawSections(List<CPatches> triStrip)
         {
             const int mipmap = 8;
@@ -14,13 +14,13 @@ namespace AgOpenGPS.Visuals
 
             foreach (CPatches patches in triStrip)
             {
-                foreach (List<vec3> triList in patches.patchList)
+                foreach (List<Vec3> triList in patches.patchList)
                 {
                     GLW.BeginTriangleStripPrimitive();
                     int cnt = triList.Count;
 
                     //if large enough patch and camera zoomed out, fake mipmap the patches, skip triangles
-                    if (cnt >= (mipmap))
+                    if (cnt >= mipmap)
                     {
                         int step = mipmap;
                         for (int i = 1; i < cnt; i += step)

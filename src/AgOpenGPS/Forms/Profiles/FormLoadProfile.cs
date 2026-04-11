@@ -39,7 +39,7 @@ namespace AgOpenGPS.Forms.Profiles
             if (!Directory.Exists(RegistrySettings.environmentDirectory))
                 return Enumerable.Empty<string>();
 
-            DirectoryInfo directory = new DirectoryInfo(RegistrySettings.environmentDirectory);
+            DirectoryInfo directory = new(RegistrySettings.environmentDirectory);
             FileInfo[] files = directory.GetFiles("*.xml");
             return files.Select(file => Path.GetFileNameWithoutExtension(file.Name));
         }
@@ -53,7 +53,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonProfileDelete_Click(object sender, EventArgs e)
         {
-            if (_formGPS.isJobStarted) return;
+            if (_formGPS.IsJobStarted) return;
 
             if (listViewProfiles.SelectedItems.Count <= 0) return;
 
@@ -81,7 +81,7 @@ namespace AgOpenGPS.Forms.Profiles
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            if (!_formGPS.isJobStarted)
+            if (!_formGPS.IsJobStarted)
             {
                 if (listViewProfiles.SelectedItems.Count <= 0) return;
 
@@ -105,7 +105,7 @@ namespace AgOpenGPS.Forms.Profiles
         {
             RegistrySettings.Save(RegKeys.environmentFileName, profileName);
 
-            var result = Settings.Default.Load();
+            LoadResult result = Settings.Default.Load();
             if (result != LoadResult.Ok)
             {
                 Log.EventWriter($"Error loading environment profile {profileName}.xml ({result})");

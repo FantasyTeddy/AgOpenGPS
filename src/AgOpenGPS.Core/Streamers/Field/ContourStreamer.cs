@@ -35,8 +35,8 @@ namespace AgOpenGPS.Core.Streamers
 
         public Contour Read(DirectoryInfo fieldDirectory)
         {
-            Contour contour = new Contour();
-            using (GeoStreamReader reader = new GeoStreamReader(GetFileInfo(fieldDirectory)))
+            Contour contour = new();
+            using (GeoStreamReader reader = new(GetFileInfo(fieldDirectory)))
             {
                 //read header
                 while (!reader.EndOfStream)
@@ -50,9 +50,9 @@ namespace AgOpenGPS.Core.Streamers
 
         public void AppendUnsavedWork(Contour contour, DirectoryInfo fieldDirectory)
         {
-            using (GeoStreamWriter writer = new GeoStreamWriter(GetFileInfo(fieldDirectory), true))
+            using (GeoStreamWriter writer = new(GetFileInfo(fieldDirectory), true))
             {
-                foreach (var path in contour.UnsavedStrips)
+                foreach (GeoPathWithHeading path in contour.UnsavedStrips)
                 {
                     writer.WriteGeoPathWithHeading(path);
                 }

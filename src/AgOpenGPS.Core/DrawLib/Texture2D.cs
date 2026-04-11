@@ -45,7 +45,7 @@ namespace AgOpenGPS.Core.DrawLib
         public void DrawCenteredAroundOrigin(
             XyDelta centerToU1V1)
         {
-            XyCoord origin = new XyCoord(0.0, 0.0);
+            XyCoord origin = new(0.0, 0.0);
             Draw(origin - centerToU1V1, origin + centerToU1V1);
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -143,7 +142,7 @@ namespace AgIO
                 if (addresslist != null)
                 {
                     tboxCasterIP.Text = "";
-                    foreach (var addr in addresslist)
+                    foreach (IPAddress addr in addresslist)
                     {
                         if (addr.AddressFamily == AddressFamily.InterNetwork)
                         {
@@ -189,14 +188,14 @@ namespace AgIO
             foreach (String strOctet in arrOctets)
             {
                 //check if at least 3 digits but not more OR 0 length
-                if (strOctet.Length > 3 || strOctet.Length == 0) return false;
+                if (strOctet.Length is > 3 or 0) return false;
 
                 //make sure all digits
                 if (!int.TryParse(strOctet, out int temp2)) return false;
 
                 //make sure not more then 255
                 temp = int.Parse(strOctet);
-                if (temp > MAXVALUE || temp < 0) return false;
+                if (temp is > MAXVALUE or < 0) return false;
             }
             return true;
         }
@@ -280,7 +279,7 @@ namespace AgIO
             tboxCurrentLon.Text = mf.longitude.ToString();
         }
 
-        private readonly List<string> dataList = new List<string>();
+        private readonly List<string> dataList = new();
 
         private void btnGetSourceTable_Click(object sender, EventArgs e)
         {
@@ -352,10 +351,8 @@ namespace AgIO
             if (dataList.Count > 0)
             {
                 string syte = "http://monitor.use-snip.com/?hostUrl=" + tboxCasterIP.Text + "&port=" + nudCasterPort.Value.ToString();
-                using (FormSource form = new FormSource(this, dataList, mf.latitude, mf.longitude, syte))
-                {
-                    form.ShowDialog(this);
-                }
+                using FormSource form = new(this, dataList, mf.latitude, mf.longitude, syte);
+                form.ShowDialog(this);
             }
             else
             {

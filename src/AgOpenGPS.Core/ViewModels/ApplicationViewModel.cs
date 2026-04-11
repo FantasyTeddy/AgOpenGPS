@@ -11,8 +11,6 @@ namespace AgOpenGPS.Core.ViewModels
         private readonly FieldDescriptionStreamer _fieldDescriptionStreamer;
         private readonly FieldStreamer _fieldStreamer;
         private ApplicationPresenter _applicationPresenter;
-        private ConfigMenuViewModel _configMenuViewModel;
-        private SelectFieldMenuViewModel _selectFieldMenuViewModel;
 
         public ApplicationViewModel(
             ApplicationModel applicationModel,
@@ -40,15 +38,14 @@ namespace AgOpenGPS.Core.ViewModels
         {
             get
             {
-                if (_configMenuViewModel == null)
+                if (field == null)
                 {
-                    _configMenuViewModel =
+                    field =
                         new ConfigMenuViewModel(
-                            _applicationModel,
                             _applicationPresenter.PanelPresenter.ConfigMenuPanelPresenter);
-                    AddChild(_configMenuViewModel);
+                    AddChild(field);
                 }
-                return _configMenuViewModel;
+                return field;
             }
         }
 
@@ -56,17 +53,17 @@ namespace AgOpenGPS.Core.ViewModels
         {
             get
             {
-                if (_selectFieldMenuViewModel == null)
+                if (field == null)
                 {
-                    _selectFieldMenuViewModel =
+                    field =
                         new SelectFieldMenuViewModel(
                             _applicationModel,
                             _fieldDescriptionStreamer,
                             _fieldStreamer,
                             _applicationPresenter.PanelPresenter.SelectFieldPanelPresenter);
-                    AddChild(_selectFieldMenuViewModel);
+                    AddChild(field);
                 }
-                return _selectFieldMenuViewModel;
+                return field;
             }
         }
 
